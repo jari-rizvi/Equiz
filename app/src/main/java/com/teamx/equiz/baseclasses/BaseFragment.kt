@@ -6,18 +6,30 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.teamx.equiz.ui.activity.mainActivity.MainActivity
+import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
+import androidx.navigation.NavOptions
+import androidx.navigation.Navigation
+import com.teamx.equiz.R
 import com.teamx.equiz.SharedViewModel
+import com.teamx.equiz.baseclasses.BaseActivity
+import com.teamx.equiz.baseclasses.BaseViewModel
+import com.teamx.equiz.data.local.datastore.DataStoreProvider
+import com.teamx.equiz.ui.activity.mainActivity.MainActivity
 import com.teamx.equiz.utils.DialogHelperClass
+import kotlinx.coroutines.launch
 
-
-abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : Fragment() {
+abstract class
+BaseFragment<T : ViewDataBinding, V : BaseViewModel> : androidx.fragment.app.Fragment(){
 
     lateinit var sharedViewModel: SharedViewModel
+    lateinit var navController: NavController
+    private lateinit var options: NavOptions
+    lateinit var dataStoreProvider: DataStoreProvider
 
     private var mActivity: BaseActivity<*, *>? = null
     lateinit var mViewDataBinding: T
@@ -28,6 +40,7 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : Fragment()
     abstract val bindingVariable: Int
 
     protected lateinit var loadingDialog: Dialog
+    var lang = "en"
 
 
     override fun onCreateView(
@@ -36,12 +49,14 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : Fragment()
         savedInstanceState: Bundle?
     ): View? {
         mViewDataBinding = DataBindingUtil.inflate(inflater, layoutId, container, false)
+        mViewDataBinding.lifecycleOwner = viewLifecycleOwner
         return mViewDataBinding.root
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mViewDataBinding.lifecycleOwner = viewLifecycleOwner
         mViewDataBinding.setVariable(bindingVariable, mViewModel)
         mViewDataBinding.lifecycleOwner = this
         mViewDataBinding.executePendingBindings()
@@ -51,13 +66,6 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : Fragment()
         subscribeToNavigationLiveData()
         subscribeToNetworkLiveData()
         subscribeToViewLiveData()
-
-
-    }
-
-    open fun subscribeToViewLiveData() {
-
-        //observe view data
 
     }
 
@@ -75,11 +83,24 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : Fragment()
 
 
         sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
+        dataStoreProvider = DataStoreProvider(requireContext())
+        navController = NavController(requireContext())
+
+    }
+
+    open fun subscribeToViewLiveData() {
+
+        //observe view data
+
     }
 
 
     open fun subscribeToShareLiveData() {
 
+    }
+
+    open fun getMainActivity(): MainActivity? {
+        return activity as MainActivity?
     }
 
     open fun subscribeToNetworkLiveData() {
@@ -97,4 +118,26 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : Fragment()
     open fun hideProgressBar() {
         (activity as MainActivity).hideProgressBar()
     }
+
+    fun naviagteFragment(fragment : Int, isNavigate : Boolean){
+
+        if (isNavigate){
+            navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
+            navController.navigate(fragment, null)
+        }
+
+    }
+
+    open fun showToast(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
+
+    open fun popUpStack() {
+        navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
+        navController.popBackStack()
+
+    }
+
+
+
 }

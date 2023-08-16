@@ -6,5 +6,20 @@
 
     <string name="oops_something_went_wrong">Oops something went wrong!</string>
     <string name="something_wrong">Something went wrong</string>
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="referral_code">Referral Code</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="otp_verification">OTP Verification</string>
+    <string name="verify">Verify</string>
+    <string name="resend">Resend</string>
+    <string name="didn_t_received_code">Didn’t received code?</string>
+    <string name="enter_the_verification_code_we_just_sent_on_your_n_email_address">Enter the verification code we just sent on your\n email address.</string>
+    <string name="welcome_to_home_page">Welcome to Home Page</string>
+    <string name="congratulations">Congratulations</string>
+    <string name="done">Done</string>
 
 </resources>

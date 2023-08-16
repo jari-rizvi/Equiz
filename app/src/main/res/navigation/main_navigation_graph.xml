@@ -3,11 +3,80 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/tempFragment">
+
 
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.teamx.equiz.ui.fragments.HomeFragment.HomeFragment"
-        android:label="HomeFragment" />
+        android:id="@+id/tempFragment"
+        android:name="com.teamx.equiz.ui.fragments.Auth.temp.TempFragment"
+        android:label="TempFragment" >
+        <action
+            android:id="@+id/action_tempFragment_to_temp2Fragment"
+            app:destination="@id/temp2Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/logInEmailFragment"
+        android:name="com.teamx.equiz.ui.fragments.Auth.login.LogInEmailFragment"
+        android:label="LogInEmailFragment" >
+        <action
+            android:id="@+id/action_logInEmailFragment_to_signupEmailFragment"
+            app:destination="@id/signupEmailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/logInFragment"
+        android:name="com.teamx.equiz.ui.fragments.Auth.login.LogInPhoneFragment"
+        android:label="LogInFragment" >
+        <action
+            android:id="@+id/action_logInFragment_to_signupPhoneFragment"
+            app:destination="@id/signupPhoneFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/temp2Fragment"
+        android:name="com.teamx.equiz.ui.fragments.Auth.temp.Temp2Fragment"
+        android:label="Temp2Fragment" >
+        <action
+            android:id="@+id/action_temp2Fragment_to_logInEmailFragment"
+            app:destination="@id/logInEmailFragment" />
+        <action
+            android:id="@+id/action_temp2Fragment_to_logInFragment"
+            app:destination="@id/logInFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signupEmailFragment"
+        android:name="com.teamx.equiz.ui.fragments.Auth.signup.SignupEmailFragment"
+        android:label="SignupEmailFragment" >
+        <action
+            android:id="@+id/action_signupEmailFragment_to_otpEmailFragment"
+            app:destination="@id/otpEmailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signupPhoneFragment"
+        android:name="com.teamx.equiz.ui.fragments.Auth.signup.SignupPhoneFragment"
+        android:label="SignupPhoneFragment" >
+        <action
+            android:id="@+id/action_signupPhoneFragment_to_otpPhoneFragment"
+            app:destination="@id/otpPhoneFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/otpEmailFragment"
+        android:name="com.teamx.equiz.ui.fragments.Auth.otp.OtpEmailFragment"
+        android:label="OtpEmailFragment" >
+        <action
+            android:id="@+id/action_otpEmailFragment_to_successFragment"
+            app:destination="@id/successFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/otpPhoneFragment"
+        android:name="com.teamx.equiz.ui.fragments.Auth.otp.OtpPhoneFragment"
+        android:label="OtpPhoneFragment" >
+        <action
+            android:id="@+id/action_otpPhoneFragment_to_successFragment"
+            app:destination="@id/successFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/successFragment"
+        android:name="com.teamx.equiz.ui.fragments.Auth.success.SuccessFragment"
+        android:label="SuccessFragment" />
+
 
 </navigation>
