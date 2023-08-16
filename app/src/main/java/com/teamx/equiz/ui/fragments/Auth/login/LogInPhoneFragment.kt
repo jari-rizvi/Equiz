@@ -4,6 +4,7 @@ package com.teamx.equiz.ui.fragments.Auth.login
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
@@ -37,6 +38,9 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
             }
         }
 
+        mViewDataBinding.btnForgot.setOnClickListener {
+            findNavController().navigate(R.id.action_logInFragment_to_forgotPassFragment)
+        }
 
     }
 }

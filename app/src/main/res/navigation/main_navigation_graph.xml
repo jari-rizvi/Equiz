@@ -14,13 +14,16 @@
             android:id="@+id/action_tempFragment_to_temp2Fragment"
             app:destination="@id/temp2Fragment" />
     </fragment>
-    <fragment
+     <fragment
         android:id="@+id/logInEmailFragment"
         android:name="com.teamx.equiz.ui.fragments.Auth.login.LogInEmailFragment"
         android:label="LogInEmailFragment" >
         <action
             android:id="@+id/action_logInEmailFragment_to_signupEmailFragment"
             app:destination="@id/signupEmailFragment" />
+        <action
+            android:id="@+id/action_logInEmailFragment_to_forgotPassFragment"
+            app:destination="@id/forgotPassFragment" />
     </fragment>
     <fragment
         android:id="@+id/logInFragment"
@@ -29,6 +32,9 @@
         <action
             android:id="@+id/action_logInFragment_to_signupPhoneFragment"
             app:destination="@id/signupPhoneFragment" />
+        <action
+            android:id="@+id/action_logInFragment_to_forgotPassFragment"
+            app:destination="@id/forgotPassFragment" />
     </fragment>
     <fragment
         android:id="@+id/temp2Fragment"
@@ -77,6 +83,22 @@
         android:id="@+id/successFragment"
         android:name="com.teamx.equiz.ui.fragments.Auth.success.SuccessFragment"
         android:label="SuccessFragment" />
+    <fragment
+        android:id="@+id/forgotFragment"
+        android:name="com.teamx.equiz.ui.fragments.Auth.forgot.ForgotFragment"
+        android:label="ForgotFragment" />
+    <fragment
+        android:id="@+id/passwordChangeFragment"
+        android:name="com.teamx.equiz.ui.fragments.auth.createpassword.PasswordChangeFragment"
+        android:label="PasswordChangeFragment" />
+    <fragment
+        android:id="@+id/createPasswordFragment"
+        android:name="com.teamx.equiz.ui.fragments.auth.createpassword.CreatePasswordFragment"
+        android:label="CreatePasswordFragment" />
+    <fragment
+        android:id="@+id/forgotPassFragment"
+        android:name="com.teamx.equiz.ui.fragments.Auth.forgot.ForgotPassFragment"
+        android:label="ForgotPassFragment" />
 
 
 </navigation>

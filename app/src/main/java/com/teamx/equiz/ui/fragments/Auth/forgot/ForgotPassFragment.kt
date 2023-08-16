@@ -1,24 +1,25 @@
-package com.teamx.equiz.ui.fragments.Auth.login
+package com.teamx.equiz.ui.fragments.Auth.forgot
 
 
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.NavOptions
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
+import com.teamx.equiz.databinding.FragmentForgotPassBinding
 import com.teamx.equiz.databinding.FragmentLoginEmailBinding
+import com.teamx.equiz.ui.fragments.Auth.login.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LogInEmailFragment : BaseFragment<FragmentLoginEmailBinding, LoginViewModel>() {
+class ForgotPassFragment : BaseFragment<FragmentForgotPassBinding, ForgotPassViewModel>() {
 
     override val layoutId: Int
-        get() = R.layout.fragment_login_email
-    override val viewModel: Class<LoginViewModel>
-        get() = LoginViewModel::class.java
+        get() = R.layout.fragment_forgot_pass
+    override val viewModel: Class<ForgotPassViewModel>
+        get() = ForgotPassViewModel::class.java
     override val bindingVariable: Int
         get() = BR.viewModel
 
@@ -39,8 +40,6 @@ class LogInEmailFragment : BaseFragment<FragmentLoginEmailBinding, LoginViewMode
             }
         }
 
-        mViewDataBinding.btnForgot.setOnClickListener {
-            findNavController().navigate(R.id.action_logInEmailFragment_to_forgotPassFragment)
-        }
+
     }
 }

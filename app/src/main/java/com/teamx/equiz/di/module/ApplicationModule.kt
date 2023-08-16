@@ -75,7 +75,6 @@ class ApplicationModule {
     fun provideRepository(
         apiService: ApiService,
         localDataSource: AppDao
-    ) =
-        MainRepository(apiService, localDataSource)
+    ) = MainRepository(apiService, localDataSource)
 
 }

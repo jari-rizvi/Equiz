@@ -21,5 +21,12 @@
     <string name="welcome_to_home_page">Welcome to Home Page</string>
     <string name="congratulations">Congratulations</string>
     <string name="done">Done</string>
+    <string name="enter_your_email_or_number">Enter your Email or Number</string>
+    <string name="send_code">Send Code</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="your_password_has_been_changed_successfully">Your Password has been changed successfully.</string>
+    <string name="back_to_login">Back To Login</string>
 
 </resources>
