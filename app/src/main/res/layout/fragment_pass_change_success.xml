@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/bg"
-        tools:context=".ui.fragments.temp.TempFragment">
+        >
 
         <ImageView
             android:id="@+id/imageView"
@@ -19,7 +19,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.2"
-            app:srcCompat="@drawable/logo" />
+            app:srcCompat="@drawable/successmark" />
 
 
         <TextView
@@ -27,10 +27,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/congratulations"
+            android:text="Password Change"
             android:textColor="@color/white"
-            android:textSize="@dimen/_18ssp"
             android:textStyle="bold"
+            android:textSize="@dimen/_18ssp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -41,15 +41,17 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/welcome_to_home_page"
             android:textColor="@color/white"
             android:textSize="@dimen/_12ssp"
+            android:gravity="center"
+            android:text="@string/your_password_has_been_changed_successfully"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/textView"
             app:layout_constraintStart_toStartOf="@+id/textView"
             app:layout_constraintTop_toBottomOf="@+id/textView"
             app:layout_constraintVertical_bias="0.05" />
+
+
 
 
         <TextView
@@ -59,7 +61,7 @@
             android:background="@drawable/card_background"
             android:backgroundTint="@color/yellow"
             android:gravity="center"
-            android:text="@string/done"
+            android:text="@string/back_to_login"
             android:textColor="@color/white"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -68,6 +70,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2"
             app:layout_constraintVertical_bias="0.1" />
+
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

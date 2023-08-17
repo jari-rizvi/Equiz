@@ -1,4 +1,4 @@
-package com.teamx.equiz.ui.fragments.Auth.forgot
+package com.teamx.equiz.ui.fragments.Auth.createNewPass
 
 
 import android.os.Bundle
@@ -7,18 +7,22 @@ import androidx.navigation.NavOptions
 import androidx.navigation.navOptions
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
-import androidx.navigation.fragment.findNavController
 import com.teamx.equiz.baseclasses.BaseFragment
+import com.teamx.equiz.databinding.FragmentCreatePasswordBinding
 import com.teamx.equiz.databinding.FragmentForgotPassBinding
+import com.teamx.equiz.databinding.FragmentLoginEmailBinding
+import com.teamx.equiz.databinding.FragmentPassChangeSuccessBinding
+import com.teamx.equiz.ui.fragments.Auth.forgot.ForgotPassViewModel
+import com.teamx.equiz.ui.fragments.Auth.login.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ForgotPassFragment : BaseFragment<FragmentForgotPassBinding, ForgotPassViewModel>() {
+class PassChangeSuccessFragment : BaseFragment<FragmentPassChangeSuccessBinding, CreateNewPassViewModel>() {
 
     override val layoutId: Int
-        get() = R.layout.fragment_forgot_pass
-    override val viewModel: Class<ForgotPassViewModel>
-        get() = ForgotPassViewModel::class.java
+        get() = R.layout.fragment_pass_change_success
+    override val viewModel: Class<CreateNewPassViewModel>
+        get() = CreateNewPassViewModel::class.java
     override val bindingVariable: Int
         get() = BR.viewModel
 
@@ -37,10 +41,6 @@ class ForgotPassFragment : BaseFragment<FragmentForgotPassBinding, ForgotPassVie
                 popEnter = R.anim.nav_default_pop_enter_anim
                 popExit = R.anim.nav_default_pop_exit_anim
             }
-        }
-
-        mViewDataBinding.btnSendCode.setOnClickListener {
-            findNavController().navigate(R.id.action_forgotPassFragment2_to_createNewPassFragment2)
         }
 
 

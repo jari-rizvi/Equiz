@@ -5,7 +5,6 @@
     android:id="@+id/main_navigation_graph"
     app:startDestination="@id/tempFragment">
 
-
     <fragment
         android:id="@+id/tempFragment"
         android:name="com.teamx.equiz.ui.fragments.Auth.temp.TempFragment"
@@ -22,8 +21,8 @@
             android:id="@+id/action_logInEmailFragment_to_signupEmailFragment"
             app:destination="@id/signupEmailFragment" />
         <action
-            android:id="@+id/action_logInEmailFragment_to_forgotPassFragment"
-            app:destination="@id/forgotPassFragment" />
+            android:id="@+id/action_logInEmailFragment_to_forgotPassFragment2"
+            app:destination="@id/forgotPassFragment2" />
     </fragment>
     <fragment
         android:id="@+id/logInFragment"
@@ -33,8 +32,8 @@
             android:id="@+id/action_logInFragment_to_signupPhoneFragment"
             app:destination="@id/signupPhoneFragment" />
         <action
-            android:id="@+id/action_logInFragment_to_forgotPassFragment"
-            app:destination="@id/forgotPassFragment" />
+            android:id="@+id/action_logInFragment_to_forgotPassFragment2"
+            app:destination="@id/forgotPassFragment2" />
     </fragment>
     <fragment
         android:id="@+id/temp2Fragment"
@@ -84,21 +83,25 @@
         android:name="com.teamx.equiz.ui.fragments.Auth.success.SuccessFragment"
         android:label="SuccessFragment" />
     <fragment
-        android:id="@+id/forgotFragment"
-        android:name="com.teamx.equiz.ui.fragments.Auth.forgot.ForgotFragment"
-        android:label="ForgotFragment" />
-    <fragment
-        android:id="@+id/passwordChangeFragment"
-        android:name="com.teamx.equiz.ui.fragments.auth.createpassword.PasswordChangeFragment"
-        android:label="PasswordChangeFragment" />
-    <fragment
-        android:id="@+id/createPasswordFragment"
-        android:name="com.teamx.equiz.ui.fragments.auth.createpassword.CreatePasswordFragment"
-        android:label="CreatePasswordFragment" />
-    <fragment
-        android:id="@+id/forgotPassFragment"
+        android:id="@+id/forgotPassFragment2"
         android:name="com.teamx.equiz.ui.fragments.Auth.forgot.ForgotPassFragment"
-        android:label="ForgotPassFragment" />
+        android:label="ForgotPassFragment" >
+        <action
+            android:id="@+id/action_forgotPassFragment2_to_createNewPassFragment2"
+            app:destination="@id/createNewPassFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/createNewPassFragment2"
+        android:name="com.teamx.equiz.ui.fragments.Auth.createNewPass.CreateNewPassFragment"
+        android:label="CreateNewPassFragment" >
+        <action
+            android:id="@+id/action_createNewPassFragment2_to_passChangeSuccessFragment"
+            app:destination="@id/passChangeSuccessFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/passChangeSuccessFragment"
+        android:name="com.teamx.equiz.ui.fragments.Auth.createNewPass.PassChangeSuccessFragment"
+        android:label="PassChangeSuccessFragment" />
 
 
 </navigation>

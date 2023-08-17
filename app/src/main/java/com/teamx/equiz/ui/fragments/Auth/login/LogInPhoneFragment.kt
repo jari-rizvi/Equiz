@@ -39,7 +39,7 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
         }
 
         mViewDataBinding.btnForgot.setOnClickListener {
-            findNavController().navigate(R.id.action_logInFragment_to_forgotPassFragment)
+            findNavController().navigate(R.id.action_logInFragment_to_forgotPassFragment2)
         }
 
     }

@@ -7,6 +7,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/bg"
+
         tools:context=".ui.fragments.temp.TempFragment">
 
         <ImageView
@@ -26,6 +28,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_18ssp"
+            android:textStyle="bold"
             android:text="@string/otp_verification"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -38,6 +43,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12ssp"
             android:text="@string/enter_the_verification_code_we_just_sent_on_your_n_email_address"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/textView"
@@ -65,16 +72,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2"
-            app:layout_constraintVertical_bias="0.16"
+            app:layout_constraintVertical_bias="0.1"
             app:lineColor="@color/colorBlack"
             app:lineWidth="1dp" />
 
         <TextView
             android:id="@+id/btnVerify"
             android:layout_width="286dp"
-            android:layout_height="@dimen/_30sdp"
+            android:layout_height="@dimen/_40sdp"
             android:background="@drawable/card_background"
-            android:backgroundTint="@color/black"
+            android:backgroundTint="@color/yellow"
             android:gravity="center"
             android:text="@string/verify"
             android:textColor="@color/white"
@@ -92,6 +99,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
+            android:textColor="@color/white"
             android:text="@string/didn_t_received_code"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.406"
@@ -103,6 +111,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/_5sdp"
+            android:textColor="@color/white"
             android:text="@string/resend"
             app:layout_constraintBottom_toBottomOf="@+id/textView5"
             app:layout_constraintStart_toEndOf="@+id/textView5" />

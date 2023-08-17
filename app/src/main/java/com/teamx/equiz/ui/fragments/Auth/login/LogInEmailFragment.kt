@@ -40,7 +40,7 @@ class LogInEmailFragment : BaseFragment<FragmentLoginEmailBinding, LoginViewMode
         }
 
         mViewDataBinding.btnForgot.setOnClickListener {
-            findNavController().navigate(R.id.action_logInEmailFragment_to_forgotPassFragment)
+            findNavController().navigate(R.id.action_logInEmailFragment_to_forgotPassFragment2)
         }
     }
 }

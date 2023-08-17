@@ -6,6 +6,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:background="@drawable/bg"
         android:layout_height="match_parent">
 
 
@@ -24,6 +25,9 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_18ssp"
+            android:textStyle="bold"
             android:text="Forgot Password"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -36,6 +40,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12ssp"
             android:text="Don't worry! It occurs. Please enter the email address,\n linked with your account."
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/textView"
@@ -49,7 +55,7 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/_40sdp"
             android:layout_marginHorizontal="@dimen/_15sdp"
-            android:textColorHint="@color/gray"
+            android:textColorHint="@color/white"
             app:boxBackgroundMode="filled"
             app:boxStrokeWidth="0dp"
             app:hintEnabled="false"
@@ -64,7 +70,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:textColorHint="@color/white"
                 android:background="@drawable/contact_input_background"
+                android:textColor="@color/white"
                 android:gravity="center_vertical"
                 android:hint="@string/enter_your_email_or_number"
                 android:imeOptions="actionNext"
@@ -77,10 +85,10 @@
         <TextView
             android:id="@+id/btnSendCode"
             android:layout_width="286dp"
-            android:layout_height="@dimen/_30sdp"
+            android:layout_height="@dimen/_40sdp"
             android:layout_marginTop="20dp"
             android:background="@drawable/card_background"
-            android:backgroundTint="@color/black"
+            android:backgroundTint="@color/yellow"
             android:gravity="center"
             android:text="@string/send_code"
             android:textColor="@color/white"
