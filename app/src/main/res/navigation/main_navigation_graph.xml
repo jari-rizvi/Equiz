@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation_graph"
-    app:startDestination="@id/profileoneFragment">
+    app:startDestination="@id/referralFragment">
 
     <fragment
         android:id="@+id/tempFragment"
@@ -106,6 +105,10 @@
         android:id="@+id/profileoneFragment"
         android:name="com.teamx.equiz.ui.fragments.profile.ProfileoneFragment"
         android:label="ProfileoneFragment" />
+    <fragment
+        android:id="@+id/referralFragment"
+        android:name="com.teamx.equiz.ui.fragments.referral.ReferralFragment"
+        android:label="ReferralFragment" />
 
 
 </navigation>

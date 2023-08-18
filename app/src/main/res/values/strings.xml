@@ -28,5 +28,12 @@
     <string name="reset_password">Reset Password</string>
     <string name="your_password_has_been_changed_successfully">Your Password has been changed successfully.</string>
     <string name="back_to_login">Back To Login</string>
+    <string name="they_can_invite_their_friends_and_earn_more_n_chances_of_winning_the_quiz">they can invite their friends and earn more\n chances of winning the quiz</string>
+    <string name="invite_now">Invite Now</string>
+    <string name="referral">Referral</string>
+    <string name="wallet">Wallet</string>
+    <string name="top_up">Top Up</string>
+    <string name="recent_activities">Recent Activities</string>
+    <string name="refer_earn"><![CDATA[Refer & Earn]]></string>
 
 </resources>
