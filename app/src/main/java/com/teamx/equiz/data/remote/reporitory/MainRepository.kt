@@ -10,5 +10,6 @@ class MainRepository @Inject constructor(
 ) {
 
     suspend fun getProducts() = apiService.getProducts()
+    suspend fun loginEmail() = apiService.loginEmail()
 
 }

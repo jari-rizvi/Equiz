@@ -109,6 +109,14 @@
         android:id="@+id/referralFragment"
         android:name="com.teamx.equiz.ui.fragments.referral.ReferralFragment"
         android:label="ReferralFragment" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.teamx.equiz.ui.fragments.profile.ProfileFragment"
+        android:label="ProfileFragment" />
+    <fragment
+        android:id="@+id/walletFragment"
+        android:name="com.teamx.equiz.ui.fragments.wallet.WalletFragment"
+        android:label="WalletFragment" />
 
 
 </navigation>
