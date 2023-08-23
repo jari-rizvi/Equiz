@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_navigation_graph"
-    app:startDestination="@id/referralFragment">
+    app:startDestination="@id/editProfileFragment">
 
     <fragment
         android:id="@+id/tempFragment"
@@ -117,6 +117,18 @@
         android:id="@+id/walletFragment"
         android:name="com.teamx.equiz.ui.fragments.wallet.WalletFragment"
         android:label="WalletFragment" />
+    <fragment
+        android:id="@+id/chancesFragment"
+        android:name="com.teamx.equiz.ui.fragments.chances.ChancesFragment"
+        android:label="ChancesFragment" />
+    <fragment
+        android:id="@+id/wishlistFragment"
+        android:name="com.teamx.equiz.ui.fragments.wishlist.WishlistFragment"
+        android:label="WishlistFragment" />
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.teamx.equiz.ui.fragments.profile.EditProfileFragment"
+        android:label="EditProfileFragment" />
 
 
 </navigation>

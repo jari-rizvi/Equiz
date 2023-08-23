@@ -35,5 +35,6 @@
     <string name="top_up">Top Up</string>
     <string name="recent_activities">Recent Activities</string>
     <string name="refer_earn"><![CDATA[Refer & Earn]]></string>
+    <string name="hello_register_to_get_nstarted">Hello! Register to get \nstarted</string>
 
 </resources>

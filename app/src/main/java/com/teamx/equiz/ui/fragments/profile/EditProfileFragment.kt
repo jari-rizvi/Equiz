@@ -1,33 +1,38 @@
-package com.teamx.equiz.ui.fragments.Auth.otp
+package com.teamx.equiz.ui.fragments.profile
+
 
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
-import com.teamx.equiz.R
 import com.teamx.equiz.BR
+import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
-import com.teamx.equiz.databinding.FragmentOtpEmailBinding
+import com.teamx.equiz.databinding.FragmentEditProfileBinding
+import com.teamx.equiz.databinding.FragmentLoginEmailBinding
+import com.teamx.equiz.databinding.FragmentProfileBinding
+import com.teamx.equiz.databinding.FragmentProfileOneBinding
+import com.teamx.equiz.ui.fragments.Auth.login.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class OtpEmailFragment : BaseFragment<FragmentOtpEmailBinding, OtpViewModel>() {
+class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, LoginViewModel>() {
 
     override val layoutId: Int
-        get() = R.layout.fragment_otp_email
-    override val viewModel: Class<OtpViewModel>
-        get() = OtpViewModel::class.java
+        get() = R.layout.fragment_edit_profile
+    override val viewModel: Class<LoginViewModel>
+        get() = LoginViewModel::class.java
     override val bindingVariable: Int
         get() = BR.viewModel
 
-    private var pinView: String? = null
-    private var phone: String? = ""
-    private var fromSignup = false
 
     private lateinit var options: NavOptions
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {
             anim {
@@ -38,6 +43,6 @@ class OtpEmailFragment : BaseFragment<FragmentOtpEmailBinding, OtpViewModel>() {
             }
         }
 
-    }
 
+    }
 }

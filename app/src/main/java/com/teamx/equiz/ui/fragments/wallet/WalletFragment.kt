@@ -27,7 +27,6 @@ class WalletFragment : BaseFragment<FragmentProfileOneBinding, LoginViewModel>()
 
     private lateinit var options: NavOptions
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
@@ -40,7 +39,6 @@ class WalletFragment : BaseFragment<FragmentProfileOneBinding, LoginViewModel>()
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
-
 
     }
 }

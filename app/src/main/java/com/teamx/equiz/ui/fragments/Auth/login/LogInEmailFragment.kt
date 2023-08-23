@@ -25,7 +25,6 @@ class LogInEmailFragment : BaseFragment<FragmentLoginEmailBinding, LoginViewMode
 
     private lateinit var options: NavOptions
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
