@@ -8,7 +8,7 @@ object AppConstants {
     @StringDef(ApiConfiguration.BASE_URL)
     annotation class ApiConfiguration {
         companion object {
-            const val BASE_URL = "https://fakestoreapi.com"
+            const val BASE_URL = "http://52.220.240.6:3003"
         }
     }
 

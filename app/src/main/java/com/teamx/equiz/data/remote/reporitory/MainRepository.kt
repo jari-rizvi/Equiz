@@ -1,7 +1,9 @@
 package com.teamx.equiz.data.remote.reporitory
 
+import com.google.gson.JsonObject
 import com.teamx.equiz.data.local.db.AppDao
 import com.teamx.equiz.data.remote.ApiService
+import retrofit2.http.Body
 import javax.inject.Inject
 
 class MainRepository @Inject constructor(
@@ -11,7 +13,7 @@ class MainRepository @Inject constructor(
 
 
     suspend fun getProducts() = apiService.getProducts()
-    suspend fun loginEmail() = apiService.loginEmail()
+    suspend fun loginPhone(@Body param: JsonObject) = apiService.loginPhone(param)
 
 
 }

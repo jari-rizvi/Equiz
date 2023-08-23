@@ -36,5 +36,9 @@
     <string name="recent_activities">Recent Activities</string>
     <string name="refer_earn"><![CDATA[Refer & Earn]]></string>
     <string name="hello_register_to_get_nstarted">Hello! Register to get \nstarted</string>
+    <string name="enter_phone">Enter Phone Number</string>
+    <string name="password_8_character">Password must have atleast 8 character</string>
+    <string name="enter_your_password">**************</string>
+
 
 </resources>

@@ -1,16 +1,29 @@
 package com.teamx.equiz.ui.fragments.Auth.login
 
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import androidx.core.app.ActivityCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
+import com.google.gson.JsonObject
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
+import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentLoginPhoneBinding
+import com.teamx.equiz.utils.DialogHelperClass
+import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import org.json.JSONException
 
 @AndroidEntryPoint
 class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewModel>() {
@@ -23,6 +36,8 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
         get() = BR.viewModel
 
 
+    private var userPhone: String? = null
+    private var password: String? = null
     private lateinit var options: NavOptions
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -38,9 +53,85 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
             }
         }
 
+
+
+
         mViewDataBinding.btnForgot.setOnClickListener {
             findNavController().navigate(R.id.action_logInFragment_to_forgotPassFragment2)
         }
+        mViewDataBinding.btnLogin.setOnClickListener {
+            ApiCall()
+        }
 
+    }
+
+    private fun initialization() {
+        userPhone = mViewDataBinding.etEMail.text.toString().trim()
+        password = mViewDataBinding.etPass.text.toString().trim()
+    }
+
+     fun ApiCall() {
+
+        initialization()
+
+        if (!userPhone!!.isEmpty() || !password!!.isEmpty()) {
+
+            val params = JsonObject()
+            try {
+                params.addProperty("phone", userPhone)
+                params.addProperty("password", password)
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
+
+
+            mViewModel.loginPhone(params)
+
+            if (!mViewModel.loginResponse.hasActiveObservers()) {
+                mViewModel.loginResponse.observe(requireActivity()) {
+                    when (it.status) {
+                        Resource.Status.LOADING -> {
+                            loadingDialog.show()
+                        }
+
+                        Resource.Status.SUCCESS -> {
+                            loadingDialog.dismiss()
+
+                            it.data?.let { data ->
+                                findNavController().navigate(R.id.action_logInFragment_to_forgotPassFragment2)
+
+                            }
+                        }
+
+                        Resource.Status.ERROR -> {
+                            loadingDialog.dismiss()
+                            DialogHelperClass.errorDialog(requireContext(), it.message!!)
+                        }
+                    }
+                    if (isAdded) {
+                        mViewModel.loginResponse.removeObservers(viewLifecycleOwner)
+                    }
+                }
+            }
+
+        }
+    }
+
+    fun isValidate(): Boolean {
+        if (mViewDataBinding.etEMail.text.toString().trim().isEmpty()) {
+            mViewDataBinding.root.snackbar(getString(R.string.enter_phone))
+            return false
+        }
+
+        if (mViewDataBinding.etPass.text.toString().trim().isEmpty()) {
+            mViewDataBinding.root.snackbar(getString(R.string.enter_your_password))
+            return false
+        }
+        if (mViewDataBinding.etPass.text.toString().trim().length < 8) {
+            mViewDataBinding.root.snackbar(getString(R.string.password_8_character))
+            return false
+        }
+        subscribeToNetworkLiveData()
+        return true
     }
 }
