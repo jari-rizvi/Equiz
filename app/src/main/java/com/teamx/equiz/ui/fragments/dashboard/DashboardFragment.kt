@@ -1,26 +1,24 @@
-package com.teamx.equiz.ui.fragments.profile
+package com.teamx.equiz.ui.fragments.dashboard
 
 
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.NavOptions
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
-import com.teamx.equiz.databinding.FragmentLoginEmailBinding
-import com.teamx.equiz.databinding.FragmentProfileOneBinding
-import com.teamx.equiz.ui.fragments.Auth.login.LoginViewModel
+import com.teamx.equiz.databinding.FragmentDashboardBinding
+import com.teamx.equiz.ui.activity.mainActivity.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ProfileoneFragment : BaseFragment<FragmentProfileOneBinding, LoginViewModel>() {
+class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewModel>() {
 
     override val layoutId: Int
-        get() = R.layout.fragment_profile_one
-    override val viewModel: Class<LoginViewModel>
-        get() = LoginViewModel::class.java
+        get() = R.layout.fragment_dashboard
+    override val viewModel: Class<DashboardViewModel>
+        get() = DashboardViewModel::class.java
     override val bindingVariable: Int
         get() = BR.viewModel
 
@@ -39,6 +37,11 @@ class ProfileoneFragment : BaseFragment<FragmentProfileOneBinding, LoginViewMode
                 popEnter = R.anim.nav_default_pop_enter_anim
                 popExit = R.anim.nav_default_pop_exit_anim
             }
+        }
+
+        mViewDataBinding.btnback.setOnClickListener {
+            val activity = requireActivity() as MainActivity
+            activity.openDrawer()
         }
 
 

@@ -3,6 +3,10 @@ package com.teamx.equiz.ui.activity.mainActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseActivity
@@ -22,15 +26,28 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         get() = BR.viewModel
 
     lateinit var progress_bar: ProgressBar
+    private var navController: NavController? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initialising()
+
+
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment)
+
+        mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+
     }
 
-    private fun initialising() {
-        progress_bar = findViewById(R.id.progress_bar)
+    fun openDrawer() {
+        if (mViewDataBinding.drawerLayout.isOpen) {
+            mViewDataBinding.drawerLayout.openDrawer(GravityCompat.END)
+        } else {
+            mViewDataBinding.drawerLayout.openDrawer(GravityCompat.START)
+        }
     }
+
+
 
     open fun showProgressBar() {
         progress_bar.visibility = View.VISIBLE
@@ -42,6 +59,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-
     }
+
+
+
 }

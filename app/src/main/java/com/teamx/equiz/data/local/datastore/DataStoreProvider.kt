@@ -1,5 +1,6 @@
 package com.teamx.equiz.data.local.datastore
 
+
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -20,7 +21,8 @@ class DataStoreProvider(context: Context) {
     companion object {
         val IS_LOCALIZATION_KEY = booleanPreferencesKey(AppConstants.DataStore.LOCALIZATION_KEY_NAME)
         val USER_NAME_KEY = stringPreferencesKey(AppConstants.DataStore.USER_NAME_KEY)
-        val CONTINUE_KEY = booleanPreferencesKey(AppConstants.DataStore.CONTINUE_KEY)
+        val TOKEN = stringPreferencesKey(AppConstants.DataStore.TOKEN)
+
     }
 
     //Store data
@@ -28,6 +30,12 @@ class DataStoreProvider(context: Context) {
         dataStore.edit {
             it[IS_LOCALIZATION_KEY] = isLocalizationKey
             it[USER_NAME_KEY] = name
+        }
+    }
+
+    suspend fun saveUserToken(token: String){
+        dataStore.edit {
+            it[TOKEN] = token
         }
     }
 

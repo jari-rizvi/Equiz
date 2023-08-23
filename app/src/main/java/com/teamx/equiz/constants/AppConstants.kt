@@ -20,13 +20,19 @@ object AppConstants {
     }
 
 
-    @StringDef(DataStore.DATA_STORE_NAME,DataStore.LOCALIZATION_KEY_NAME,DataStore.USER_NAME_KEY)
+    @StringDef(
+        DataStore.DATA_STORE_NAME,
+        DataStore.LOCALIZATION_KEY_NAME,
+        DataStore.USER_NAME_KEY,
+        DataStore.TOKEN
+    )
     annotation class DataStore {
         companion object {
             const val DATA_STORE_NAME = "BaseProject"
             const val LOCALIZATION_KEY_NAME = "lang"
             const val USER_NAME_KEY = "user_name_key"
             const val CONTINUE_KEY = "continue_key"
+            const val TOKEN = "token"
         }
     }
 

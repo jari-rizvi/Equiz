@@ -70,7 +70,7 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
         password = mViewDataBinding.etPass.text.toString().trim()
     }
 
-     fun ApiCall() {
+    fun ApiCall() {
 
         initialization()
 
@@ -98,8 +98,13 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
                             loadingDialog.dismiss()
 
                             it.data?.let { data ->
-                                findNavController().navigate(R.id.action_logInFragment_to_forgotPassFragment2)
 
+                                lifecycleScope.launch(Dispatchers.IO) {
+                                    dataStoreProvider.saveUserToken(data.token)
+
+                                    findNavController().navigate(R.id.action_logInFragment_to_dashboardFragment)
+
+                                }
                             }
                         }
 

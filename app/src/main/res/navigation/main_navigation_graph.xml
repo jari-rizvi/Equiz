@@ -2,42 +2,48 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_navigation_graph"
-    app:startDestination="@id/tempFragment">
+    app:startDestination="@id/dashboardFragment">
 
     <fragment
         android:id="@+id/tempFragment"
         android:name="com.teamx.equiz.ui.fragments.Auth.temp.TempFragment"
-        android:label="TempFragment" >
+        android:label="TempFragment">
         <action
             android:id="@+id/action_tempFragment_to_temp2Fragment"
             app:destination="@id/temp2Fragment" />
     </fragment>
-     <fragment
+    <fragment
         android:id="@+id/logInEmailFragment"
         android:name="com.teamx.equiz.ui.fragments.Auth.login.LogInEmailFragment"
-        android:label="LogInEmailFragment" >
+        android:label="LogInEmailFragment">
         <action
             android:id="@+id/action_logInEmailFragment_to_signupEmailFragment"
             app:destination="@id/signupEmailFragment" />
         <action
             android:id="@+id/action_logInEmailFragment_to_forgotPassFragment2"
             app:destination="@id/forgotPassFragment2" />
+        <action
+            android:id="@+id/action_logInEmailFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
     </fragment>
     <fragment
         android:id="@+id/logInFragment"
         android:name="com.teamx.equiz.ui.fragments.Auth.login.LogInPhoneFragment"
-        android:label="LogInFragment" >
+        android:label="LogInFragment">
         <action
             android:id="@+id/action_logInFragment_to_signupPhoneFragment"
             app:destination="@id/signupPhoneFragment" />
         <action
             android:id="@+id/action_logInFragment_to_forgotPassFragment2"
             app:destination="@id/forgotPassFragment2" />
+        <action
+            android:id="@+id/action_logInFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
     </fragment>
     <fragment
         android:id="@+id/temp2Fragment"
         android:name="com.teamx.equiz.ui.fragments.Auth.temp.Temp2Fragment"
-        android:label="Temp2Fragment" >
+        android:label="Temp2Fragment">
         <action
             android:id="@+id/action_temp2Fragment_to_logInEmailFragment"
             app:destination="@id/logInEmailFragment" />
@@ -48,7 +54,7 @@
     <fragment
         android:id="@+id/signupEmailFragment"
         android:name="com.teamx.equiz.ui.fragments.Auth.signup.SignupEmailFragment"
-        android:label="SignupEmailFragment" >
+        android:label="SignupEmailFragment">
         <action
             android:id="@+id/action_signupEmailFragment_to_otpEmailFragment"
             app:destination="@id/otpEmailFragment" />
@@ -56,7 +62,7 @@
     <fragment
         android:id="@+id/signupPhoneFragment"
         android:name="com.teamx.equiz.ui.fragments.Auth.signup.SignupPhoneFragment"
-        android:label="SignupPhoneFragment" >
+        android:label="SignupPhoneFragment">
         <action
             android:id="@+id/action_signupPhoneFragment_to_otpPhoneFragment"
             app:destination="@id/otpPhoneFragment" />
@@ -64,7 +70,7 @@
     <fragment
         android:id="@+id/otpEmailFragment"
         android:name="com.teamx.equiz.ui.fragments.Auth.otp.OtpEmailFragment"
-        android:label="OtpEmailFragment" >
+        android:label="OtpEmailFragment">
         <action
             android:id="@+id/action_otpEmailFragment_to_successFragment"
             app:destination="@id/successFragment" />
@@ -72,7 +78,7 @@
     <fragment
         android:id="@+id/otpPhoneFragment"
         android:name="com.teamx.equiz.ui.fragments.Auth.otp.OtpPhoneFragment"
-        android:label="OtpPhoneFragment" >
+        android:label="OtpPhoneFragment">
         <action
             android:id="@+id/action_otpPhoneFragment_to_successFragment"
             app:destination="@id/successFragment" />
@@ -84,7 +90,7 @@
     <fragment
         android:id="@+id/forgotPassFragment2"
         android:name="com.teamx.equiz.ui.fragments.Auth.forgot.ForgotPassFragment"
-        android:label="ForgotPassFragment" >
+        android:label="ForgotPassFragment">
         <action
             android:id="@+id/action_forgotPassFragment2_to_createNewPassFragment2"
             app:destination="@id/createNewPassFragment2" />
@@ -92,7 +98,7 @@
     <fragment
         android:id="@+id/createNewPassFragment2"
         android:name="com.teamx.equiz.ui.fragments.Auth.createNewPass.CreateNewPassFragment"
-        android:label="CreateNewPassFragment" >
+        android:label="CreateNewPassFragment">
         <action
             android:id="@+id/action_createNewPassFragment2_to_passChangeSuccessFragment"
             app:destination="@id/passChangeSuccessFragment" />
@@ -101,10 +107,7 @@
         android:id="@+id/passChangeSuccessFragment"
         android:name="com.teamx.equiz.ui.fragments.Auth.createNewPass.PassChangeSuccessFragment"
         android:label="PassChangeSuccessFragment" />
-    <fragment
-        android:id="@+id/profileoneFragment"
-        android:name="com.teamx.equiz.ui.fragments.profile.ProfileoneFragment"
-        android:label="ProfileoneFragment" />
+
     <fragment
         android:id="@+id/referralFragment"
         android:name="com.teamx.equiz.ui.fragments.referral.ReferralFragment"
@@ -129,6 +132,10 @@
         android:id="@+id/editProfileFragment"
         android:name="com.teamx.equiz.ui.fragments.profile.EditProfileFragment"
         android:label="EditProfileFragment" />
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.teamx.equiz.ui.fragments.dashboard.DashboardFragment"
+        android:label="DashboardFragment" />
 
 
 </navigation>

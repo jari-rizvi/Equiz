@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 
 abstract class BaseActivity<T : ViewDataBinding, V : BaseViewModel> : AppCompatActivity() {
 
-    private lateinit var mViewDataBinding: T
+    lateinit var mViewDataBinding: T
     protected lateinit var mViewModel: V
 
     /**

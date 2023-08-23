@@ -1,18 +1,13 @@
 package com.teamx.equiz.ui.fragments.profile
 
-
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.NavOptions
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.databinding.FragmentEditProfileBinding
-import com.teamx.equiz.databinding.FragmentLoginEmailBinding
-import com.teamx.equiz.databinding.FragmentProfileBinding
-import com.teamx.equiz.databinding.FragmentProfileOneBinding
 import com.teamx.equiz.ui.fragments.Auth.login.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
