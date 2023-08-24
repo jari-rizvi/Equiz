@@ -3,6 +3,7 @@ package com.teamx.equiz.ui.fragments.Auth.createNewPass
 
 import android.os.Bundle
 import android.view.View
+import androidx.constraintlayout.motion.widget.TransitionBuilder.validate
 import androidx.lifecycle.Observer
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
@@ -53,7 +54,8 @@ class CreateNewPassFragment :
 
 
         mViewDataBinding.btnReset.setOnClickListener {
-            validate()
+            findNavController().navigate(R.id.action_createNewPassFragment2_to_passChangeSuccessFragment)
+
         }
 
     }
@@ -63,75 +65,75 @@ class CreateNewPassFragment :
         password = mViewDataBinding.etNewPass.text.toString().trim()
     }
 
-    private fun resetPassCall() {
-        super.subscribeToNetworkLiveData()
-        initialization()
-        val bundle = arguments
-        if (bundle != null) {
-            uniquId = bundle.getString("uniquId").toString()
-        }
-
-
-        val params = JsonObject()
-        try {
-            params.addProperty("uniquId", uniquId)
-            params.addProperty("password", password)
-            params.addProperty("confirmPassword", confirmPassword)
-
-        } catch (e: JSONException) {
-            e.printStackTrace()
-        }
-
-        mViewModel.resetPassword(params)
-
-
-
-        mViewModel.resetPasswordResponse.observe(requireActivity(), Observer {
-            when (it.status) {
-                Resource.Status.LOADING -> {
-                    loadingDialog.show()
-                }
-
-                Resource.Status.SUCCESS -> {
-                    loadingDialog.dismiss()
-                    it.data?.let { data ->
-                        findNavController().navigate(R.id.action_createNewPassFragment2_to_passChangeSuccessFragment)
-                    }
-                }
-
-                Resource.Status.ERROR -> {
-                    loadingDialog.dismiss()
-                    DialogHelperClass.errorDialog(requireContext(), it.message!!)
-                }
-            }
-        })
-    }
-
-    fun validate(): Boolean {
-        if (mViewDataBinding.etNewPass.text.toString().trim().isEmpty()) {
-            mViewDataBinding.root.snackbar(getString(R.string.enter_Password))
-            return false
-        }
-        if (mViewDataBinding.etNewPass.text.toString().trim().length < 8) {
-            mViewDataBinding.root.snackbar(getString(R.string.password_8_character))
-            return false
-        }
-        if (mViewDataBinding.etCnfrmPass.text.toString().trim().isEmpty()) {
-            mViewDataBinding.root.snackbar(getString(R.string.enter_Password))
-            return false
-        }
-        if (mViewDataBinding.etCnfrmPass.text.toString().trim().length < 7) {
-            mViewDataBinding.root.snackbar(getString(R.string.password_8_character))
-            return false
-        }
-        if (!mViewDataBinding.etNewPass.text.toString().trim()
-                .equals(mViewDataBinding.etCnfrmPass.text.toString().trim())
-        ) {
-            mViewDataBinding.root.snackbar(getString(R.string.password_does_not_match))
-            return false
-        }
-        resetPassCall()
-        return true
-    }
+//    private fun resetPassCall() {
+//        super.subscribeToNetworkLiveData()
+//        initialization()
+//        val bundle = arguments
+//        if (bundle != null) {
+//            uniquId = bundle.getString("uniquId").toString()
+//        }
+//
+//
+//        val params = JsonObject()
+//        try {
+//            params.addProperty("uniquId", uniquId)
+//            params.addProperty("password", password)
+//            params.addProperty("confirmPassword", confirmPassword)
+//
+//        } catch (e: JSONException) {
+//            e.printStackTrace()
+//        }
+//
+//        mViewModel.resetPassword(params)
+//
+//
+//
+//        mViewModel.resetPasswordResponse.observe(requireActivity(), Observer {
+//            when (it.status) {
+//                Resource.Status.LOADING -> {
+//                    loadingDialog.show()
+//                }
+//
+//                Resource.Status.SUCCESS -> {
+//                    loadingDialog.dismiss()
+//                    it.data?.let { data ->
+//                        findNavController().navigate(R.id.action_createNewPassFragment2_to_passChangeSuccessFragment)
+//                    }
+//                }
+//
+//                Resource.Status.ERROR -> {
+//                    loadingDialog.dismiss()
+//                    DialogHelperClass.errorDialog(requireContext(), it.message!!)
+//                }
+//            }
+//        })
+//    }
+//
+//    fun validate(): Boolean {
+//        if (mViewDataBinding.etNewPass.text.toString().trim().isEmpty()) {
+//            mViewDataBinding.root.snackbar(getString(R.string.enter_Password))
+//            return false
+//        }
+//        if (mViewDataBinding.etNewPass.text.toString().trim().length < 8) {
+//            mViewDataBinding.root.snackbar(getString(R.string.password_8_character))
+//            return false
+//        }
+//        if (mViewDataBinding.etCnfrmPass.text.toString().trim().isEmpty()) {
+//            mViewDataBinding.root.snackbar(getString(R.string.enter_Password))
+//            return false
+//        }
+//        if (mViewDataBinding.etCnfrmPass.text.toString().trim().length < 7) {
+//            mViewDataBinding.root.snackbar(getString(R.string.password_8_character))
+//            return false
+//        }
+//        if (!mViewDataBinding.etNewPass.text.toString().trim()
+//                .equals(mViewDataBinding.etCnfrmPass.text.toString().trim())
+//        ) {
+//            mViewDataBinding.root.snackbar(getString(R.string.password_does_not_match))
+//            return false
+//        }
+//        resetPassCall()
+//        return true
+//    }
 
 }

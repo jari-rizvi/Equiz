@@ -6,7 +6,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:background="@drawable/bg"
+               android:background="@color/white"
         android:layout_height="match_parent">
 
         <ImageView
@@ -18,7 +18,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/logo" />
+           app:srcCompat="@drawable/successmark" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutTextInput"
@@ -42,10 +42,9 @@
                 android:background="@drawable/contact_input_background"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:textColorHint="@color/white"
+                android:textColorHint="@color/gray"
                 android:gravity="center_vertical"
-                android:textColor="@color/white"
-                android:paddingStart="@dimen/_15sdp"
+                android:textColor="@color/black"                android:paddingStart="@dimen/_15sdp"
                 android:hint="Enter your Email or Number"
                 android:imeOptions="actionNext"
                 android:inputType="text"
@@ -67,7 +66,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:passwordToggleEnabled="true"
             app:passwordToggleDrawable="@drawable/show"
-            app:passwordToggleTint="@color/white"
+                        app:passwordToggleTint="@color/gray"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layoutTextInput"
             >
@@ -79,9 +78,8 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:gravity="center_vertical"
-                android:textColor="@color/white"
-                android:paddingStart="@dimen/_15sdp"
-                android:textColorHint="@color/white"
+                android:textColor="@color/black"                android:paddingStart="@dimen/_15sdp"
+                android:textColorHint="@color/gray"
                 android:hint="Enter your Password"
                 android:imeOptions="actionNext"
                 android:inputType="text"
@@ -97,8 +95,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.9"
             app:layout_constraintStart_toStartOf="parent"
-            android:textColor="@color/white"
-            app:layout_constraintTop_toBottomOf="@+id/layoutTextInput1"
+            android:textColor="@color/black"            app:layout_constraintTop_toBottomOf="@+id/layoutTextInput1"
             app:layout_constraintVertical_bias="0.06" />
 
         <TextView
@@ -108,8 +105,7 @@
             android:layout_marginTop="20dp"
             android:gravity="center"
             android:text="@string/login"
-            android:textColor="@color/white"
-            android:textStyle="bold"
+            android:textColor="@color/white"            android:textStyle="bold"
             android:background="@drawable/card_background"
             android:backgroundTint="@color/yellow"
             app:layout_constraintEnd_toEndOf="parent"
@@ -125,8 +121,7 @@
             android:text="Don’t have an account?"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.406"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@color/black"            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 
         <TextView
@@ -135,8 +130,7 @@
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/_5sdp"
             android:text="Register now"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/textView5"
+            android:textColor="@color/black"            app:layout_constraintBottom_toBottomOf="@+id/textView5"
             app:layout_constraintStart_toEndOf="@+id/textView5" />
 
 

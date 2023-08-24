@@ -65,7 +65,7 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
         }
 
         mViewDataBinding.btnLogin.setOnClickListener {
-            isValidate()
+            findNavController().navigate(R.id.action_logInFragment_to_dashboardFragment)
         }
 
     }
@@ -75,73 +75,73 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
         password = mViewDataBinding.etPass.text.toString().trim()
     }
 
-    fun ApiCall() {
+//    fun ApiCall() {
+//
+//        initialization()
+//
+//        if (!userPhone!!.isEmpty() || !password!!.isEmpty()) {
+//
+//            val params = JsonObject()
+//            try {
+//                params.addProperty("phone", userPhone)
+//                params.addProperty("password", password)
+//            } catch (e: JSONException) {
+//                e.printStackTrace()
+//            }
+//
+//
+//            mViewModel.loginPhone(params)
+//
+//            if (!mViewModel.loginResponse.hasActiveObservers()) {
+//                mViewModel.loginResponse.observe(requireActivity()) {
+//                    when (it.status) {
+//                        Resource.Status.LOADING -> {
+//                            loadingDialog.show()
+//                        }
+//
+//                        Resource.Status.SUCCESS -> {
+//                            loadingDialog.dismiss()
+//
+//                            it.data?.let { data ->
+//
+//                                lifecycleScope.launch(Dispatchers.IO) {
+//                                    dataStoreProvider.saveUserToken(data.token)
+//
+//                                    findNavController().navigate(R.id.action_logInFragment_to_dashboardFragment)
+//
+//                                }
+//                            }
+//                        }
+//
+//                        Resource.Status.ERROR -> {
+//                            loadingDialog.dismiss()
+//                            DialogHelperClass.errorDialog(requireContext(), it.message!!)
+//                        }
+//                    }
+//                    if (isAdded) {
+//                        mViewModel.loginResponse.removeObservers(viewLifecycleOwner)
+//                    }
+//                }
+//            }
+//
+//        }
+//    }
 
-        initialization()
-
-        if (!userPhone!!.isEmpty() || !password!!.isEmpty()) {
-
-            val params = JsonObject()
-            try {
-                params.addProperty("phone", userPhone)
-                params.addProperty("password", password)
-            } catch (e: JSONException) {
-                e.printStackTrace()
-            }
-
-
-            mViewModel.loginPhone(params)
-
-            if (!mViewModel.loginResponse.hasActiveObservers()) {
-                mViewModel.loginResponse.observe(requireActivity()) {
-                    when (it.status) {
-                        Resource.Status.LOADING -> {
-                            loadingDialog.show()
-                        }
-
-                        Resource.Status.SUCCESS -> {
-                            loadingDialog.dismiss()
-
-                            it.data?.let { data ->
-
-                                lifecycleScope.launch(Dispatchers.IO) {
-                                    dataStoreProvider.saveUserToken(data.token)
-
-                                    findNavController().navigate(R.id.action_logInFragment_to_dashboardFragment)
-
-                                }
-                            }
-                        }
-
-                        Resource.Status.ERROR -> {
-                            loadingDialog.dismiss()
-                            DialogHelperClass.errorDialog(requireContext(), it.message!!)
-                        }
-                    }
-                    if (isAdded) {
-                        mViewModel.loginResponse.removeObservers(viewLifecycleOwner)
-                    }
-                }
-            }
-
-        }
-    }
-
-    fun isValidate(): Boolean {
-        if (mViewDataBinding.etEMail.text.toString().trim().isEmpty()) {
-            mViewDataBinding.root.snackbar(getString(R.string.enter_phone))
-            return false
-        }
-
-        if (mViewDataBinding.etPass.text.toString().trim().isEmpty()) {
-            mViewDataBinding.root.snackbar(getString(R.string.enter_your_password))
-            return false
-        }
-        if (mViewDataBinding.etPass.text.toString().trim().length < 8) {
-            mViewDataBinding.root.snackbar(getString(R.string.password_8_character))
-            return false
-        }
-        ApiCall()
-        return true
-    }
+//    fun isValidate(): Boolean {
+//        if (mViewDataBinding.etEMail.text.toString().trim().isEmpty()) {
+//            mViewDataBinding.root.snackbar(getString(R.string.enter_phone))
+//            return false
+//        }
+//
+//        if (mViewDataBinding.etPass.text.toString().trim().isEmpty()) {
+//            mViewDataBinding.root.snackbar(getString(R.string.enter_your_password))
+//            return false
+//        }
+//        if (mViewDataBinding.etPass.text.toString().trim().length < 8) {
+//            mViewDataBinding.root.snackbar(getString(R.string.password_8_character))
+//            return false
+//        }
+//        ApiCall()
+//        return true
+//    }
 }

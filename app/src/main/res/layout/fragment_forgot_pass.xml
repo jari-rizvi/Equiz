@@ -6,7 +6,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:background="@drawable/bg"
+               android:background="@color/white"
         android:layout_height="match_parent">
 
 
@@ -19,14 +19,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.1"
-            app:srcCompat="@drawable/logo" />
+            app:srcCompat="@drawable/successmark" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_18ssp"
+            android:textColor="@color/black"            android:textSize="@dimen/_18ssp"
             android:textStyle="bold"
             android:text="Forgot Password"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -40,8 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_12ssp"
+            android:textColor="@color/black"            android:textSize="@dimen/_12ssp"
             android:text="Don't worry! It occurs. Please enter the email address,\n linked with your account."
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/textView"
@@ -70,10 +68,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:textColorHint="@color/white"
+                android:textColorHint="@color/gray"
                 android:background="@drawable/contact_input_background"
-                android:textColor="@color/white"
-                android:gravity="center_vertical"
+                android:textColor="@color/black"                android:gravity="center_vertical"
                 android:hint="@string/enter_your_email_or_number"
                 android:imeOptions="actionNext"
                 android:inputType="text"
@@ -91,8 +88,7 @@
             android:backgroundTint="@color/yellow"
             android:gravity="center"
             android:text="@string/send_code"
-            android:textColor="@color/white"
-            android:textStyle="bold"
+            android:textColor="@color/white"            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"

@@ -48,7 +48,8 @@ class ForgotPassFragment : BaseFragment<FragmentForgotPassBinding, ForgotPassVie
         }
 
         mViewDataBinding.btnSendCode.setOnClickListener {
-            isValidate()
+            findNavController().navigate(R.id.action_forgotPassFragment2_to_verifyOtpForgotFragment2)
+
         }
 
     }
@@ -62,104 +63,104 @@ class ForgotPassFragment : BaseFragment<FragmentForgotPassBinding, ForgotPassVie
         UserCredentials = mViewDataBinding.etCred.text.toString().trim()
     }
 
-    fun ApiCall() {
-        initialization()
-
-        if (!UserCredentials!!.isEmpty()) {
-
-            val params = JsonObject()
-            try {
-                params.addProperty("email", UserCredentials)
-            } catch (e: JSONException) {
-                e.printStackTrace()
-            }
-
-
-            val params1 = JsonObject()
-            try {
-                params1.addProperty("phone", UserCredentials)
-            } catch (e: JSONException) {
-                e.printStackTrace()
-            }
-
-            val bundle = Bundle()
-            bundle.putString("credentials", UserCredentials)
-
-
-            if (isValidEmail(UserCredentials.toString())) {
-                mViewModel.forgotPassEmail(params)
-                if (!mViewModel.forgotPassResponse.hasActiveObservers()) {
-                    mViewModel.forgotPassResponse.observe(requireActivity()) {
-                        when (it.status) {
-                            Resource.Status.LOADING -> {
-                                loadingDialog.show()
-                            }
-
-                            Resource.Status.SUCCESS -> {
-                                loadingDialog.dismiss()
-
-                                it.data?.let { data ->
-
-
-                                    findNavController().navigate(
-                                        R.id.action_forgotPassFragment2_to_verifyOtpForgotFragment2,
-                                        bundle
-                                    )
-                                }
-                            }
-
-                            Resource.Status.ERROR -> {
-                                loadingDialog.dismiss()
-                                DialogHelperClass.errorDialog(requireContext(), it.message!!)
-                            }
-                        }
-                        if (isAdded) {
-                            mViewModel.forgotPassResponse.removeObservers(viewLifecycleOwner)
-                        }
-                    }
-                }
-            } else {
-                mViewModel.forgotPassPhone(params)
-                if (!mViewModel.forgotPassResponse.hasActiveObservers()) {
-                    mViewModel.forgotPassResponse.observe(requireActivity()) {
-                        when (it.status) {
-                            Resource.Status.LOADING -> {
-                                loadingDialog.show()
-                            }
-
-                            Resource.Status.SUCCESS -> {
-                                loadingDialog.dismiss()
-
-                                it.data?.let { data ->
-                                    findNavController().navigate(R.id.action_forgotPassFragment2_to_verifyOtpForgotFragment2)
-                                }
-                            }
-
-                            Resource.Status.ERROR -> {
-                                loadingDialog.dismiss()
-                                DialogHelperClass.errorDialog(requireContext(), it.message!!)
-                            }
-                        }
-                        if (isAdded) {
-                            mViewModel.forgotPassResponse.removeObservers(viewLifecycleOwner)
-                        }
-                    }
-                }
-            }
-
-
-        }
-    }
-
-    private fun isValidate(): Boolean {
-        if (mViewDataBinding.etCred.text.toString().trim().isEmpty()) {
-            mViewDataBinding.root.snackbar(getString(R.string.enter_your_email_or_number))
-            return false
-        }
-
-        ApiCall()
-        return true
-    }
+//    fun ApiCall() {
+//        initialization()
+//
+//        if (!UserCredentials!!.isEmpty()) {
+//
+//            val params = JsonObject()
+//            try {
+//                params.addProperty("email", UserCredentials)
+//            } catch (e: JSONException) {
+//                e.printStackTrace()
+//            }
+//
+//
+//            val params1 = JsonObject()
+//            try {
+//                params1.addProperty("phone", UserCredentials)
+//            } catch (e: JSONException) {
+//                e.printStackTrace()
+//            }
+//
+//            val bundle = Bundle()
+//            bundle.putString("credentials", UserCredentials)
+//
+//
+//            if (isValidEmail(UserCredentials.toString())) {
+//                mViewModel.forgotPassEmail(params)
+//                if (!mViewModel.forgotPassResponse.hasActiveObservers()) {
+//                    mViewModel.forgotPassResponse.observe(requireActivity()) {
+//                        when (it.status) {
+//                            Resource.Status.LOADING -> {
+//                                loadingDialog.show()
+//                            }
+//
+//                            Resource.Status.SUCCESS -> {
+//                                loadingDialog.dismiss()
+//
+//                                it.data?.let { data ->
+//
+//
+//                                    findNavController().navigate(
+//                                        R.id.action_forgotPassFragment2_to_verifyOtpForgotFragment2,
+//                                        bundle
+//                                    )
+//                                }
+//                            }
+//
+//                            Resource.Status.ERROR -> {
+//                                loadingDialog.dismiss()
+//                                DialogHelperClass.errorDialog(requireContext(), it.message!!)
+//                            }
+//                        }
+//                        if (isAdded) {
+//                            mViewModel.forgotPassResponse.removeObservers(viewLifecycleOwner)
+//                        }
+//                    }
+//                }
+//            } else {
+//                mViewModel.forgotPassPhone(params)
+//                if (!mViewModel.forgotPassResponse.hasActiveObservers()) {
+//                    mViewModel.forgotPassResponse.observe(requireActivity()) {
+//                        when (it.status) {
+//                            Resource.Status.LOADING -> {
+//                                loadingDialog.show()
+//                            }
+//
+//                            Resource.Status.SUCCESS -> {
+//                                loadingDialog.dismiss()
+//
+//                                it.data?.let { data ->
+//                                    findNavController().navigate(R.id.action_forgotPassFragment2_to_verifyOtpForgotFragment2)
+//                                }
+//                            }
+//
+//                            Resource.Status.ERROR -> {
+//                                loadingDialog.dismiss()
+//                                DialogHelperClass.errorDialog(requireContext(), it.message!!)
+//                            }
+//                        }
+//                        if (isAdded) {
+//                            mViewModel.forgotPassResponse.removeObservers(viewLifecycleOwner)
+//                        }
+//                    }
+//                }
+//            }
+//
+//
+//        }
+//    }
+//
+//    private fun isValidate(): Boolean {
+//        if (mViewDataBinding.etCred.text.toString().trim().isEmpty()) {
+//            mViewDataBinding.root.snackbar(getString(R.string.enter_your_email_or_number))
+//            return false
+//        }
+//
+//        ApiCall()
+//        return true
+//    }
 
 
 }

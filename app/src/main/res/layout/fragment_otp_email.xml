@@ -7,7 +7,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg"
+               android:background="@color/white"
 
         tools:context=".ui.fragments.temp.TempFragment">
 
@@ -20,7 +20,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.2"
-            app:srcCompat="@drawable/logo" />
+           app:srcCompat="@drawable/successmark" />
 
 
         <TextView
@@ -28,8 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_18ssp"
+            android:textColor="@color/black"            android:textSize="@dimen/_18ssp"
             android:textStyle="bold"
             android:text="@string/otp_verification"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -43,8 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_12ssp"
+            android:textColor="@color/black"            android:textSize="@dimen/_12ssp"
             android:text="@string/enter_the_verification_code_we_just_sent_on_your_n_email_address"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/textView"
@@ -84,8 +82,7 @@
             android:backgroundTint="@color/yellow"
             android:gravity="center"
             android:text="@string/verify"
-            android:textColor="@color/white"
-            android:textStyle="bold"
+            android:textColor="@color/white"            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
@@ -99,8 +96,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:textColor="@color/white"
-            android:text="@string/didn_t_received_code"
+            android:textColor="@color/black"            android:text="@string/didn_t_received_code"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.406"
             app:layout_constraintStart_toStartOf="parent"
@@ -111,8 +107,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/_5sdp"
-            android:textColor="@color/white"
-            android:text="@string/resend"
+            android:textColor="@color/black"            android:text="@string/resend"
             app:layout_constraintBottom_toBottomOf="@+id/textView5"
             app:layout_constraintStart_toEndOf="@+id/textView5" />
 

@@ -7,7 +7,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg"
+               android:background="@color/white"
         >
 
         <ImageView
@@ -28,8 +28,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Password Change"
-            android:textColor="@color/white"
-            android:textStyle="bold"
+            android:textColor="@color/black"            android:textStyle="bold"
             android:textSize="@dimen/_18ssp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -41,8 +40,7 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_12ssp"
+            android:textColor="@color/black"            android:textSize="@dimen/_12ssp"
             android:gravity="center"
             android:text="@string/your_password_has_been_changed_successfully"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -62,8 +60,7 @@
             android:backgroundTint="@color/yellow"
             android:gravity="center"
             android:text="@string/back_to_login"
-            android:textColor="@color/white"
-            android:textStyle="bold"
+            android:textColor="@color/white"            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"

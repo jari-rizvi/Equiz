@@ -58,7 +58,8 @@ class SignupPhoneFragment : BaseFragment<FragmentSignupPhoneBinding, SignupViewM
         }
 
         mViewDataBinding.btnSignup.setOnClickListener {
-            isValidate()
+            findNavController().navigate(R.id.action_signupPhoneFragment_to_otpPhoneFragment)
+
         }
 
     }
@@ -69,76 +70,76 @@ class SignupPhoneFragment : BaseFragment<FragmentSignupPhoneBinding, SignupViewM
         password = mViewDataBinding.etPass.text.toString().trim()
     }
 
-    fun ApiCall() {
+//    fun ApiCall() {
+//
+//        initialization()
+//
+//        if (!userPhone!!.isEmpty() || !password!!.isEmpty() || !userName!!.isEmpty()) {
+//
+//            val params = JsonObject()
+//            try {
+//                params.addProperty("name", userName)
+//                params.addProperty("phone", userPhone)
+//                params.addProperty("password", password)
+//            } catch (e: JSONException) {
+//                e.printStackTrace()
+//            }
+//
+//
+//            mViewModel.signup(params)
+//
+//            if (!mViewModel.signupResponse.hasActiveObservers()) {
+//                mViewModel.signupResponse.observe(requireActivity()) {
+//                    when (it.status) {
+//                        Resource.Status.LOADING -> {
+//                            loadingDialog.show()
+//                        }
+//
+//                        Resource.Status.SUCCESS -> {
+//                            loadingDialog.dismiss()
+//
+//                            it.data?.let { data ->
+//
+//                                findNavController().navigate(R.id.action_signupPhoneFragment_to_otpPhoneFragment)
+//                                Log.d("TAG", "otpVale: ${it.data.otp}")
+//
+//
+//                            }
+//                        }
+//
+//                        Resource.Status.ERROR -> {
+//                            loadingDialog.dismiss()
+//                            DialogHelperClass.errorDialog(requireContext(), it.message!!)
+//                        }
+//                    }
+//                    if (isAdded) {
+//                        mViewModel.signupResponse.removeObservers(viewLifecycleOwner)
+//                    }
+//                }
+//            }
+//
+//        }
+//    }
 
-        initialization()
-
-        if (!userPhone!!.isEmpty() || !password!!.isEmpty() || !userName!!.isEmpty()) {
-
-            val params = JsonObject()
-            try {
-                params.addProperty("name", userName)
-                params.addProperty("phone", userPhone)
-                params.addProperty("password", password)
-            } catch (e: JSONException) {
-                e.printStackTrace()
-            }
-
-
-            mViewModel.signup(params)
-
-            if (!mViewModel.signupResponse.hasActiveObservers()) {
-                mViewModel.signupResponse.observe(requireActivity()) {
-                    when (it.status) {
-                        Resource.Status.LOADING -> {
-                            loadingDialog.show()
-                        }
-
-                        Resource.Status.SUCCESS -> {
-                            loadingDialog.dismiss()
-
-                            it.data?.let { data ->
-
-                                findNavController().navigate(R.id.action_signupPhoneFragment_to_otpPhoneFragment)
-                                Log.d("TAG", "otpVale: ${it.data.otp}")
-
-
-                            }
-                        }
-
-                        Resource.Status.ERROR -> {
-                            loadingDialog.dismiss()
-                            DialogHelperClass.errorDialog(requireContext(), it.message!!)
-                        }
-                    }
-                    if (isAdded) {
-                        mViewModel.signupResponse.removeObservers(viewLifecycleOwner)
-                    }
-                }
-            }
-
-        }
-    }
-
-    fun isValidate(): Boolean {
-        if (mViewDataBinding.etPhone.text.toString().trim().isEmpty()) {
-            mViewDataBinding.root.snackbar(getString(R.string.enter_phone))
-            return false
-        }
-        if (mViewDataBinding.etName.text.toString().trim().isEmpty()) {
-            mViewDataBinding.root.snackbar(getString(R.string.enter_name))
-            return false
-        }
-
-        if (mViewDataBinding.etPass.text.toString().trim().isEmpty()) {
-            mViewDataBinding.root.snackbar(getString(R.string.enter_your_password))
-            return false
-        }
-        if (mViewDataBinding.etPass.text.toString().trim().length < 8) {
-            mViewDataBinding.root.snackbar(getString(R.string.password_8_character))
-            return false
-        }
-        ApiCall()
-        return true
-    }
+//    fun isValidate(): Boolean {
+//        if (mViewDataBinding.etPhone.text.toString().trim().isEmpty()) {
+//            mViewDataBinding.root.snackbar(getString(R.string.enter_phone))
+//            return false
+//        }
+//        if (mViewDataBinding.etName.text.toString().trim().isEmpty()) {
+//            mViewDataBinding.root.snackbar(getString(R.string.enter_name))
+//            return false
+//        }
+//
+//        if (mViewDataBinding.etPass.text.toString().trim().isEmpty()) {
+//            mViewDataBinding.root.snackbar(getString(R.string.enter_your_password))
+//            return false
+//        }
+//        if (mViewDataBinding.etPass.text.toString().trim().length < 8) {
+//            mViewDataBinding.root.snackbar(getString(R.string.password_8_character))
+//            return false
+//        }
+////        ApiCall()
+//        return true
+//    }
 }
