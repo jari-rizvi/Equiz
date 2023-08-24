@@ -4,6 +4,7 @@ package com.teamx.equiz.ui.fragments.Auth.createNewPass
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
@@ -17,7 +18,8 @@ import com.teamx.equiz.ui.fragments.Auth.login.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PassChangeSuccessFragment : BaseFragment<FragmentPassChangeSuccessBinding, CreateNewPassViewModel>() {
+class PassChangeSuccessFragment :
+    BaseFragment<FragmentPassChangeSuccessBinding, CreateNewPassViewModel>() {
 
     override val layoutId: Int
         get() = R.layout.fragment_pass_change_success
@@ -41,6 +43,11 @@ class PassChangeSuccessFragment : BaseFragment<FragmentPassChangeSuccessBinding,
                 popEnter = R.anim.nav_default_pop_enter_anim
                 popExit = R.anim.nav_default_pop_exit_anim
             }
+        }
+
+        mViewDataBinding.btnVerify.setOnClickListener {
+            findNavController().navigate(R.id.action_passChangeSuccessFragment_to_logInFragment)
+
         }
 
 

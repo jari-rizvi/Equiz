@@ -40,6 +40,6 @@ fun View.snackbar(message: String){
         Snackbar.LENGTH_SHORT
     )
     val snackBarView = snackbar.getView()
-    snackBarView.setBackgroundColor(ContextCompat.getColor(context, R.color.blue))
+    snackBarView.setBackgroundColor(ContextCompat.getColor(context, R.color.black))
     snackbar.show()
 }

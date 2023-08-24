@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation_graph"
-    app:startDestination="@id/dashboardFragment">
+    app:startDestination="@id/tempFragment">
 
     <fragment
         android:id="@+id/tempFragment"
@@ -11,6 +12,9 @@
         <action
             android:id="@+id/action_tempFragment_to_temp2Fragment"
             app:destination="@id/temp2Fragment" />
+        <action
+            android:id="@+id/action_tempFragment_to_temp2RegisterFragment"
+            app:destination="@id/temp2RegisterFragment" />
     </fragment>
     <fragment
         android:id="@+id/logInEmailFragment"
@@ -58,6 +62,9 @@
         <action
             android:id="@+id/action_signupEmailFragment_to_otpEmailFragment"
             app:destination="@id/otpEmailFragment" />
+        <action
+            android:id="@+id/action_signupEmailFragment_to_logInEmailFragment"
+            app:destination="@id/logInEmailFragment" />
     </fragment>
     <fragment
         android:id="@+id/signupPhoneFragment"
@@ -66,6 +73,9 @@
         <action
             android:id="@+id/action_signupPhoneFragment_to_otpPhoneFragment"
             app:destination="@id/otpPhoneFragment" />
+        <action
+            android:id="@+id/action_signupPhoneFragment_to_logInFragment"
+            app:destination="@id/logInFragment" />
     </fragment>
     <fragment
         android:id="@+id/otpEmailFragment"
@@ -85,15 +95,17 @@
     </fragment>
     <fragment
         android:id="@+id/successFragment"
+        tools:layout="@layout/fragment_success"
         android:name="com.teamx.equiz.ui.fragments.Auth.success.SuccessFragment"
         android:label="SuccessFragment" />
     <fragment
         android:id="@+id/forgotPassFragment2"
         android:name="com.teamx.equiz.ui.fragments.Auth.forgot.ForgotPassFragment"
         android:label="ForgotPassFragment">
+
         <action
-            android:id="@+id/action_forgotPassFragment2_to_createNewPassFragment2"
-            app:destination="@id/createNewPassFragment2" />
+            android:id="@+id/action_forgotPassFragment2_to_verifyOtpForgotFragment2"
+            app:destination="@id/verifyOtpForgotFragment" />
     </fragment>
     <fragment
         android:id="@+id/createNewPassFragment2"
@@ -106,7 +118,11 @@
     <fragment
         android:id="@+id/passChangeSuccessFragment"
         android:name="com.teamx.equiz.ui.fragments.Auth.createNewPass.PassChangeSuccessFragment"
-        android:label="PassChangeSuccessFragment" />
+        android:label="PassChangeSuccessFragment" >
+        <action
+            android:id="@+id/action_passChangeSuccessFragment_to_logInFragment"
+            app:destination="@id/logInFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/referralFragment"
@@ -136,6 +152,25 @@
         android:id="@+id/dashboardFragment"
         android:name="com.teamx.equiz.ui.fragments.dashboard.DashboardFragment"
         android:label="DashboardFragment" />
+    <fragment
+        android:id="@+id/verifyOtpForgotFragment"
+        android:name="com.teamx.equiz.ui.fragments.Auth.otp.VerifyOtpForgotFragment"
+        android:label="VerifyOtpForgotFragment" >
+        <action
+            android:id="@+id/action_verifyOtpForgotFragment_to_createNewPassFragment2"
+            app:destination="@id/createNewPassFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/temp2RegisterFragment"
+        android:name="com.teamx.equiz.ui.fragments.Auth.temp.Temp2RegisterFragment"
+        android:label="Temp2RegisterFragment" >
+        <action
+            android:id="@+id/action_temp2RegisterFragment_to_signupEmailFragment"
+            app:destination="@id/signupEmailFragment" />
+        <action
+            android:id="@+id/action_temp2RegisterFragment_to_signupPhoneFragment"
+            app:destination="@id/signupPhoneFragment" />
+    </fragment>
 
 
 </navigation>

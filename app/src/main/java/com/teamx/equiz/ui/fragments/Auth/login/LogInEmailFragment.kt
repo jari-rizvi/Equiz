@@ -37,6 +37,9 @@ class LogInEmailFragment : BaseFragment<FragmentLoginEmailBinding, LoginViewMode
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+        mViewDataBinding.btnSignup.setOnClickListener {
+            findNavController().navigate(R.id.action_logInFragment_to_signupPhoneFragment)
+        }
 
         mViewDataBinding.btnForgot.setOnClickListener {
             findNavController().navigate(R.id.action_logInEmailFragment_to_forgotPassFragment2)

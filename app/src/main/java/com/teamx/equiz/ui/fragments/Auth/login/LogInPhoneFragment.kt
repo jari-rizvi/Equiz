@@ -59,8 +59,13 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
         mViewDataBinding.btnForgot.setOnClickListener {
             findNavController().navigate(R.id.action_logInFragment_to_forgotPassFragment2)
         }
+
+        mViewDataBinding.btnSignup.setOnClickListener {
+            findNavController().navigate(R.id.action_logInFragment_to_signupPhoneFragment)
+        }
+
         mViewDataBinding.btnLogin.setOnClickListener {
-            ApiCall()
+            isValidate()
         }
 
     }
@@ -136,7 +141,7 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
             mViewDataBinding.root.snackbar(getString(R.string.password_8_character))
             return false
         }
-        subscribeToNetworkLiveData()
+        ApiCall()
         return true
     }
 }

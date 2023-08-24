@@ -50,7 +50,7 @@ class TempFragment : BaseFragment<FragmentTempBinding, TempViewModel>() {
         }
 
         mViewDataBinding.btnRegister.setOnClickListener {
-            findNavController().navigate(R.id.action_tempFragment_to_temp2Fragment)
+            findNavController().navigate(R.id.action_tempFragment_to_temp2RegisterFragment)
 
         }
 
