@@ -2,9 +2,11 @@ package com.teamx.equiz.ui.fragments.orders
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.navigation.NavOptions
 import androidx.navigation.navOptions
+import com.google.android.material.tabs.TabLayoutMediator
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
@@ -40,7 +42,36 @@ class OrdersFragment : BaseFragment<FragmentOrdersBinding, LoginViewModel>() {
             }
         }
 
+        setupViewPager()
+        setupTabLayout()
+
+    }
+
+    private fun setupTabLayout() {
+        TabLayoutMediator(
+            mViewDataBinding.tabLayout, mViewDataBinding.viewPager
+        ) { tab, position ->
+
+            when (position) {
+                0 -> {
+                    tab.text = "Delivered"
+                }
+
+                1 -> {
+                    tab.text = "Processing"
+                }
+
+                2 -> {
+                    tab.text = "Cancelled"
+                }
+            }
 
 
+        }.attach()
+    }
+
+    private fun setupViewPager() {
+        val adapter = ViewPagerAdapter(requireActivity(), 3)
+        mViewDataBinding.viewPager.adapter = adapter
     }
 }
