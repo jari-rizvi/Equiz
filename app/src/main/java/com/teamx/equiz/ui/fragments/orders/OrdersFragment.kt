@@ -1,29 +1,25 @@
-package com.teamx.equiz.ui.fragments.Auth.success
+package com.teamx.equiz.ui.fragments.orders
 
 
 import android.os.Bundle
 import android.view.View
-import androidx.navigation.NavController
 import androidx.navigation.NavOptions
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
-import com.teamx.equiz.databinding.FragmentLoginEmailBinding
-import com.teamx.equiz.databinding.FragmentSignupEmailBinding
-import com.teamx.equiz.databinding.FragmentSuccessBinding
+import com.teamx.equiz.databinding.FragmentOrdersBinding
+import com.teamx.equiz.databinding.FragmentProfileBinding
 import com.teamx.equiz.ui.fragments.Auth.login.LoginViewModel
-import com.teamx.equiz.ui.fragments.Auth.signup.SignupViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SuccessFragment : BaseFragment<FragmentSuccessBinding, SignupViewModel>() {
+class OrdersFragment : BaseFragment<FragmentOrdersBinding, LoginViewModel>() {
 
     override val layoutId: Int
-        get() = R.layout.fragment_success
-    override val viewModel: Class<SignupViewModel>
-        get() = SignupViewModel::class.java
+        get() = R.layout.fragment_orders
+    override val viewModel: Class<LoginViewModel>
+        get() = LoginViewModel::class.java
     override val bindingVariable: Int
         get() = BR.viewModel
 
@@ -44,9 +40,6 @@ class SuccessFragment : BaseFragment<FragmentSuccessBinding, SignupViewModel>() 
             }
         }
 
-        mViewDataBinding.btnVerify.setOnClickListener {
-            findNavController().navigate(R.id.action_successFragment_to_dashboardFragment)
-        }
 
 
     }

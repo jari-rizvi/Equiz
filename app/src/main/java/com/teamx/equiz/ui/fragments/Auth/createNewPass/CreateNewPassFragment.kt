@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.navigation.NavOptions
-import androidx.navigation.Navigation
 import androidx.navigation.navOptions
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
@@ -18,7 +17,6 @@ import com.teamx.equiz.utils.DialogHelperClass
 import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONException
-import timber.log.Timber
 
 @AndroidEntryPoint
 class CreateNewPassFragment :
@@ -64,17 +62,16 @@ class CreateNewPassFragment :
     }
 
     private fun resetPassCall() {
-        super.subscribeToNetworkLiveData()
         initialization()
         val bundle = arguments
         if (bundle != null) {
-            uniquId = bundle.getString("uniquId").toString()
+            uniquId = bundle.getString("newuniquId").toString()
         }
 
 
         val params = JsonObject()
         try {
-            params.addProperty("uniquId", uniquId)
+            params.addProperty("uniqueID", uniquId)
             params.addProperty("password", password)
             params.addProperty("confirmPassword", confirmPassword)
 
@@ -83,8 +80,6 @@ class CreateNewPassFragment :
         }
 
         mViewModel.resetPassword(params)
-
-
 
         mViewModel.resetPasswordResponse.observe(requireActivity(), Observer {
             when (it.status) {

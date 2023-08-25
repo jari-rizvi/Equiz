@@ -86,6 +86,13 @@ class ForgotPassFragment : BaseFragment<FragmentForgotPassBinding, ForgotPassVie
             bundle.putString("credentials", UserCredentials)
 
 
+   /*         if (isValidEmail(userEmail.toString())) {
+                mViewModel.forgotPassEmail(params)
+            } else {
+                mViewModel.forgotPassPhone(params1)
+            }*/
+
+
             if (isValidEmail(UserCredentials.toString())) {
                 mViewModel.forgotPassEmail(params)
                 if (!mViewModel.forgotPassResponse.hasActiveObservers()) {
@@ -119,7 +126,7 @@ class ForgotPassFragment : BaseFragment<FragmentForgotPassBinding, ForgotPassVie
                     }
                 }
             } else {
-                mViewModel.forgotPassPhone(params)
+                mViewModel.forgotPassPhone(params1)
                 if (!mViewModel.forgotPassResponse.hasActiveObservers()) {
                     mViewModel.forgotPassResponse.observe(requireActivity()) {
                         when (it.status) {

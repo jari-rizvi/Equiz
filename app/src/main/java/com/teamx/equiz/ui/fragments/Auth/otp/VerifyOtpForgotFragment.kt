@@ -49,12 +49,8 @@ class VerifyOtpForgotFragment : BaseFragment<FragmentOtpEmailBinding, OtpViewMod
         if (bundle != null) {
             userCred = bundle.getString("credentials").toString()
 
-
-
         }
     }
-
-
 
     fun verifyotpForgot() {
 
@@ -74,7 +70,7 @@ class VerifyOtpForgotFragment : BaseFragment<FragmentOtpEmailBinding, OtpViewMod
                         it.data?.let { data ->
 
                             val bundle = Bundle()
-                            bundle.putString("uniquId",it.data.newUniqueID)
+                            bundle.putString("newuniquId",it.data.newUniqueID)
 
                             findNavController().navigate(R.id.action_verifyOtpForgotFragment_to_createNewPassFragment2,bundle)
 
