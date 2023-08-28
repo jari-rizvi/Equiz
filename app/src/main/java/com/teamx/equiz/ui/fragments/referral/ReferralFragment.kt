@@ -13,12 +13,12 @@ import com.teamx.equiz.ui.fragments.Auth.login.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ReferralFragment : BaseFragment<FragmentReferralBinding, LoginViewModel>() {
+class ReferralFragment : BaseFragment<FragmentReferralBinding, ReferralViewModel>() {
 
     override val layoutId: Int
         get() = R.layout.fragment_referral
-    override val viewModel: Class<LoginViewModel>
-        get() = LoginViewModel::class.java
+    override val viewModel: Class<ReferralViewModel>
+        get() = ReferralViewModel::class.java
     override val bindingVariable: Int
         get() = BR.viewModel
 

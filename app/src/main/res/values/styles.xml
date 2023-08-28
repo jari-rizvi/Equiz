@@ -14,6 +14,6 @@
     </style>
     <style name="tabTextColor" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">@dimen/_10ssp</item>
-        <item name="android:textColor">@color/gray</item>
+        <item name="android:textColor">@color/light_gray</item>
     </style>
 </resources>

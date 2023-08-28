@@ -13,12 +13,12 @@ import com.teamx.equiz.ui.fragments.Auth.login.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class WishlistFragment : BaseFragment<FragmentWishlistBinding, LoginViewModel>() {
+class WishlistFragment : BaseFragment<FragmentWishlistBinding, WishlistViewModel>() {
 
     override val layoutId: Int
         get() = R.layout.fragment_wishlist
-    override val viewModel: Class<LoginViewModel>
-        get() = LoginViewModel::class.java
+    override val viewModel: Class<WishlistViewModel>
+        get() = WishlistViewModel::class.java
     override val bindingVariable: Int
         get() = BR.viewModel
 

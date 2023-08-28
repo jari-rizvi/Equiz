@@ -13,12 +13,12 @@ import com.teamx.equiz.ui.fragments.Auth.login.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class WalletFragment : BaseFragment<FragmentWalletBinding, LoginViewModel>() {
+class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
 
     override val layoutId: Int
         get() = R.layout.fragment_wallet
-    override val viewModel: Class<LoginViewModel>
-        get() = LoginViewModel::class.java
+    override val viewModel: Class<WalletViewModel>
+        get() = WalletViewModel::class.java
     override val bindingVariable: Int
         get() = BR.viewModel
 

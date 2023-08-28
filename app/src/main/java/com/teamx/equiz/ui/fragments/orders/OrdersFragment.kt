@@ -47,6 +47,11 @@ class OrdersFragment : BaseFragment<FragmentOrdersBinding, LoginViewModel>() {
 
     }
 
+    private fun setupViewPager() {
+        val adapter = ViewPagerAdapter(requireActivity(), 3)
+        mViewDataBinding.viewPager.adapter = adapter
+    }
+
     private fun setupTabLayout() {
         TabLayoutMediator(
             mViewDataBinding.tabLayout, mViewDataBinding.viewPager
@@ -68,10 +73,5 @@ class OrdersFragment : BaseFragment<FragmentOrdersBinding, LoginViewModel>() {
 
 
         }.attach()
-    }
-
-    private fun setupViewPager() {
-        val adapter = ViewPagerAdapter(requireActivity(), 3)
-        mViewDataBinding.viewPager.adapter = adapter
     }
 }

@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.teamx.equiz.databinding.ItemCancelledOrderBinding
+import com.teamx.equiz.databinding.ItemOrderBinding
 
 
 class CancelledAdapter(
@@ -12,7 +13,7 @@ class CancelledAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopProductViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val itemTopProductBinding = ItemCancelledOrderBinding.inflate(inflater, parent, false)
+        val itemTopProductBinding = ItemOrderBinding.inflate(inflater, parent, false)
         return TopProductViewHolder(itemTopProductBinding)
 
     }
@@ -27,7 +28,7 @@ class CancelledAdapter(
         return arrayList.size
     }
 
-    class TopProductViewHolder(itemTopProductBinding: ItemCancelledOrderBinding) :
+    class TopProductViewHolder(itemTopProductBinding: ItemOrderBinding) :
         RecyclerView.ViewHolder(itemTopProductBinding.root) {
         val binding = itemTopProductBinding
 
