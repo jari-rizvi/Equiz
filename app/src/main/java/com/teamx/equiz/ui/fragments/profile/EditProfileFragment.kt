@@ -1,7 +1,10 @@
 package com.teamx.equiz.ui.fragments.profile
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.View
+import android.widget.DatePicker
+import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
@@ -18,6 +21,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.json.JSONException
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 @AndroidEntryPoint
 class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfileViewModel>() {
@@ -32,7 +38,9 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
 
     private lateinit var options: NavOptions
     private var fName: String? = null
-    private var lName: String? = null
+    private var dob: String? = null
+    var cal = Calendar.getInstance()
+    var textview_date: TextView? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -52,11 +60,34 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
         }
 
 
+        val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                cal.set(Calendar.YEAR, year)
+                cal.set(Calendar.MONTH, monthOfYear)
+                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                updateDateInView() }
+
+        mViewDataBinding.dob.setOnClickListener {
+            DatePickerDialog(requireContext(),
+                dateSetListener,
+                // set DatePickerDialog to point to today's date when it loads up
+                cal.get(Calendar.YEAR),
+                cal.get(Calendar.MONTH),
+                cal.get(Calendar.DAY_OF_MONTH)).show()
+        }
+
+    }
+
+    private fun updateDateInView() {
+        val myFormat = "MM/dd/yyyy" // mention the format you need
+        val sdf = SimpleDateFormat(myFormat, Locale.US)
+        dob = sdf.format(cal.getTime())
+
+        mViewDataBinding.dob.setText(dob)
     }
 
     private fun initialization() {
-        fName = mViewDataBinding.fName.text.toString().trim()
-        lName = mViewDataBinding.lName.text.toString().trim()
+        fName = mViewDataBinding.userName.text.toString().trim()
+//        dob = mViewDataBinding.dob.text.toString().trim()
     }
 
     fun ApiCall() {
@@ -65,7 +96,6 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
         val params = JsonObject()
         try {
             params.addProperty("fName", fName)
-            params.addProperty("lName", lName)
         } catch (e: JSONException) {
             e.printStackTrace()
         }

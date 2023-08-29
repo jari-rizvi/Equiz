@@ -200,6 +200,10 @@
         android:name="com.teamx.equiz.ui.fragments.orders.OrdersFragment"
         android:label="OrdersFragment"
         tools:layout="@layout/fragment_orders" />
+    <fragment
+        android:id="@+id/notificationsFragment"
+        android:name="com.teamx.equiz.ui.fragments.notifications.NotificationsFragment"
+        android:label="NotificationsFragment" />
 
 
 </navigation>

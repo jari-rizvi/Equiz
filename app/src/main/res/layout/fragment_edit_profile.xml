@@ -69,11 +69,8 @@
             app:layout_constraintVertical_bias="1" />
 
 
-        <!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-
         <EditText
-            android:id="@+id/lName"
+            android:id="@+id/userName"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_30sdp"
             android:layout_marginHorizontal="@dimen/_15sdp"
@@ -84,40 +81,7 @@
             android:minHeight="@dimen/_35sdp"
             android:paddingStart="@dimen/_10sdp"
             android:singleLine="true"
-            android:textColor="#6C757D"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView24"
-            app:layout_constraintVertical_bias="0.92" />
-
-
-        <TextView
-            android:id="@+id/textView24"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/_5sdp"
-            android:text="Last Name"
-            android:textColor="#6C757D"
-            android:textSize="@dimen/_10ssp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fName" />
-
-        <EditText
-            android:id="@+id/fName"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_30sdp"
-            android:layout_marginHorizontal="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginBottom="@dimen/_7sdp"
-            android:background="@drawable/contact_input_background"
-            android:maxLength="30"
-            android:minHeight="@dimen/_35sdp"
-            android:paddingStart="@dimen/_10sdp"
-            android:singleLine="true"
-            android:textColor="#6C757D"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView25" />
@@ -146,7 +110,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:layout_marginBottom="@dimen/_5sdp"
-            android:text="Full Name"
+            android:text="User Name"
             android:textColor="#6C757D"
             android:textSize="@dimen/_10ssp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -167,7 +131,7 @@
             android:minHeight="@dimen/_35sdp"
             android:paddingStart="@dimen/_10sdp"
             android:singleLine="true"
-            android:textColor="#6C757D"
+            android:textColor="@color/colorBlack"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etaTxt" />
@@ -184,7 +148,7 @@
             android:textSize="@dimen/_10ssp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lName" />
+            app:layout_constraintTop_toBottomOf="@+id/userName" />
 
         <EditText
             android:id="@+id/phone"
@@ -197,7 +161,7 @@
             android:minHeight="@dimen/_35sdp"
             android:paddingStart="@dimen/_10sdp"
             android:singleLine="true"
-            android:textColor="#6C757D"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Address" />
@@ -224,12 +188,13 @@
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_marginBottom="@dimen/_7sdp"
             android:background="@drawable/contact_input_background"
-            android:inputType="textPassword"
+            android:drawableEnd="@drawable/calendar"
+            android:inputType="text"
             android:minHeight="@dimen/_35sdp"
             android:padding="@dimen/_5sdp"
             android:paddingStart="@dimen/_10sdp"
             android:singleLine="true"
-            android:textColor="#6C757D"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2444"
@@ -257,12 +222,12 @@
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_marginBottom="@dimen/_7sdp"
             android:background="@drawable/contact_input_background"
-            android:inputType="textPassword"
+            android:inputType="text"
             android:minHeight="@dimen/_35sdp"
             android:padding="@dimen/_5sdp"
             android:paddingStart="@dimen/_10sdp"
             android:singleLine="true"
-            android:textColor="#6C757D"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView244"
