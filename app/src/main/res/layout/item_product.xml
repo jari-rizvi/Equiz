@@ -56,7 +56,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:singleLine="true"
-            android:text="Coffee"
+            android:text="Dubai"
             android:textColor="@color/blue"
             android:textSize="@dimen/_12ssp"
             app:layout_constraintEnd_toEndOf="parent"
