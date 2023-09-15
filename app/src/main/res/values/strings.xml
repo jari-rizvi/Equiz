@@ -42,6 +42,12 @@
     <string name="enter_your_password">**************</string>
     <string name="enter_Password">Enter Password</string>
     <string name="password_does_not_match">Password does not match</string>
+    <string name="quizzes">Quizzes</string>
+    <string name="top_winners">Top Winners</string>
+    <string name="search">Search</string>
+    <string name="categories">Categories</string>
+    <string name="find_your_dream">Find Your Dream!</string>
+    <string name="popoular">Popoular</string>
 
 
 </resources>

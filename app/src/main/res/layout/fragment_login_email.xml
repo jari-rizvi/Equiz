@@ -37,6 +37,7 @@
             >
 
             <com.google.android.material.textfield.TextInputEditText
+                            style="@style/popins_regular"
                 android:id="@+id/etEMail"
                 android:layout_width="match_parent"
                 android:background="@drawable/contact_input_background"
@@ -73,6 +74,7 @@
             >
 
             <com.google.android.material.textfield.TextInputEditText
+                            style="@style/popins_regular"
                 android:id="@+id/etPass"
                 android:layout_width="match_parent"
                 android:background="@drawable/contact_input_background"
@@ -89,6 +91,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
+                        style="@style/popins_regular"
             android:id="@+id/btnForgot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -102,6 +105,7 @@
             app:layout_constraintVertical_bias="0.06" />
 
         <TextView
+
             android:id="@+id/btnLogin"
             android:layout_width="286dp"
             android:layout_height="@dimen/_40sdp"
@@ -109,7 +113,7 @@
             android:gravity="center"
             android:text="@string/login"
             android:textColor="@color/white"
-            android:textStyle="bold"
+            style="@style/popins_bold"
             android:background="@drawable/card_background"
             android:backgroundTint="@color/yellow"
             app:layout_constraintEnd_toEndOf="parent"
@@ -118,6 +122,7 @@
             app:layout_constraintTop_toBottomOf="@+id/btnForgot" />
 
         <TextView
+                        style="@style/popins_regular"
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -130,6 +135,7 @@
             app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 
         <TextView
+                        style="@style/popins_regular"
             android:id="@+id/btnSignup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

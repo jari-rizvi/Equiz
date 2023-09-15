@@ -204,6 +204,11 @@
         android:id="@+id/notificationsFragment"
         android:name="com.teamx.equiz.ui.fragments.notifications.NotificationsFragment"
         android:label="NotificationsFragment" />
+    <fragment
+        android:id="@+id/ecommerceFragment"
+        android:name="com.teamx.equiz.ui.fragments.ecommerce.EcommerceFragment"
+        android:label="EcommerceFragment"
+        tools:layout="@layout/fragment_ecommerce"/>
 
 
 </navigation>

@@ -30,6 +30,7 @@
             android:layout_height="wrap_content"
             android:text="Wishlist items"
             android:textColor="@color/blue"
+            style="@style/popins_bold"
             android:textSize="@dimen/_14ssp"
             app:layout_constraintBottom_toBottomOf="@+id/btnback"
             app:layout_constraintEnd_toEndOf="parent"

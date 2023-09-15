@@ -46,7 +46,7 @@
             android:textColor="@color/blue"
             app:layout_constraintHorizontal_bias="0.05"
             android:textSize="@dimen/_12ssp"
-            android:textStyle="bold"
+            style="@style/popins_bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/textView56"
             app:layout_constraintStart_toEndOf="@+id/container"

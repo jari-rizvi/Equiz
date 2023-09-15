@@ -23,6 +23,7 @@
 
         <TextView
             android:id="@+id/textView"
+            style="@style/popins_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -54,6 +55,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etName"
+                style="@style/popins_regular"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -86,6 +88,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etPhone"
+                style="@style/popins_regular"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -121,6 +124,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etPass"
+                style="@style/popins_regular"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -137,6 +141,7 @@
 
         <TextView
             android:id="@+id/textField"
+            style="@style/popins_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Have a referral code?"
@@ -164,6 +169,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etCode"
+                style="@style/popins_regular"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -180,6 +186,7 @@
 
         <TextView
             android:id="@+id/btnSignup"
+            style="@style/popins_bold"
             android:layout_width="286dp"
             android:layout_height="@dimen/_30sdp"
             android:layout_marginTop="20dp"
@@ -188,7 +195,6 @@
             android:gravity="center"
             android:text="@string/register"
             android:textColor="@color/white"
-            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
@@ -196,6 +202,7 @@
 
         <TextView
             android:id="@+id/textView5"
+            style="@style/popins_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -208,6 +215,7 @@
 
         <TextView
             android:id="@+id/btnLogin"
+            style="@style/popins_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/_5sdp"

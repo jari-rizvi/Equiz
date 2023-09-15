@@ -29,7 +29,8 @@
             android:gravity="center"
             android:text="Password Change"
             android:textColor="@color/white"
-            android:textStyle="bold"
+            style="@style/popins_bold"
+
             android:textSize="@dimen/_18ssp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -44,6 +45,7 @@
             android:textColor="@color/white"
             android:textSize="@dimen/_12ssp"
             android:gravity="center"
+            style="@style/popins_regular"
             android:text="@string/your_password_has_been_changed_successfully"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/textView"
@@ -63,7 +65,8 @@
             android:gravity="center"
             android:text="@string/back_to_login"
             android:textColor="@color/white"
-            android:textStyle="bold"
+            style="@style/popins_bold"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"

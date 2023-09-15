@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textSize="@dimen/_18ssp"
-            android:textStyle="bold"
+            style="@style/popins_bold"
             android:gravity="center"
             android:text="Hello! Register to get \nstarted"
             app:layout_constraintVertical_bias="0.05"
@@ -61,6 +61,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:gravity="center_vertical"
+                style="@style/popins_regular"
                 android:paddingStart="@dimen/_15sdp"
                 android:hint="@string/username"
                 android:imeOptions="actionNext"
@@ -96,7 +97,7 @@
                 android:layout_gravity="center"
                 android:gravity="center_vertical"
                 android:textColorHint="@color/white"
-
+                style="@style/popins_regular"
                 android:paddingStart="@dimen/_15sdp"
                 android:hint="@string/email"
                 android:imeOptions="actionNext"
@@ -132,6 +133,7 @@
                 android:layout_gravity="center"
                 android:textColorHint="@color/white"
                 android:gravity="center_vertical"
+                style="@style/popins_regular"
                 android:paddingStart="@dimen/_15sdp"
                 android:hint="Enter your Password"
                 android:imeOptions="actionNext"
@@ -145,6 +147,7 @@
             android:layout_height="wrap_content"
             android:text="Have a referral code?"
             app:layout_constraintBottom_toBottomOf="parent"
+            style="@style/popins_regular"
             app:layout_constraintEnd_toEndOf="parent"
             android:textColor="@color/yellow"
             app:layout_constraintStart_toStartOf="parent"
@@ -178,6 +181,7 @@
                 android:paddingStart="@dimen/_15sdp"
                 android:hint="@string/referral_code"
                 android:imeOptions="actionNext"
+                style="@style/popins_regular"
                 android:inputType="text"
                 android:textSize="@dimen/_11ssp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -190,7 +194,7 @@
             android:gravity="center"
             android:text="@string/register"
             android:textColor="@color/white"
-            android:textStyle="bold"
+            style="@style/popins_bold"
             android:background="@drawable/card_background"
             android:backgroundTint="@color/yellow"
             app:layout_constraintEnd_toEndOf="parent"
@@ -208,6 +212,7 @@
             app:layout_constraintHorizontal_bias="0.406"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
+            style="@style/popins_regular"
             app:layout_constraintTop_toBottomOf="@+id/btnSignup" />
 
         <TextView

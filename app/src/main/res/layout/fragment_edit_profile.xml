@@ -10,7 +10,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/consRoot"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/bg">
 
         <ImageView
             android:id="@+id/btnback"
@@ -22,15 +23,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.05"
-            app:srcCompat="@drawable/arrow_left"
-            app:tint="@color/blue" />
+            app:srcCompat="@drawable/arrow_left" />
 
         <TextView
             android:id="@+id/textView"
+            style="@style/popins_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Edit Profile"
-            android:textColor="@color/blue"
+            android:textColor="@color/white"
             android:textSize="@dimen/_14ssp"
             app:layout_constraintBottom_toBottomOf="@+id/btnback"
             app:layout_constraintEnd_toEndOf="parent"
@@ -48,7 +49,6 @@
             android:background="@drawable/border_background"
             android:elevation="@dimen/_5sdp"
             android:padding="@dimen/_2sdp"
-            android:src="@drawable/successmark"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -81,7 +81,7 @@
             android:minHeight="@dimen/_35sdp"
             android:paddingStart="@dimen/_10sdp"
             android:singleLine="true"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView25" />
@@ -89,14 +89,14 @@
 
         <TextView
             android:id="@+id/textView255"
+            style="@style/popins_bold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:layout_marginBottom="@dimen/_5sdp"
             android:text="Personal Information"
-            android:textColor="@color/blue"
+            android:textColor="@color/white"
             android:textSize="@dimen/_12ssp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -106,12 +106,13 @@
 
         <TextView
             android:id="@+id/textView25"
+            style="@style/popins_regular"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:layout_marginBottom="@dimen/_5sdp"
             android:text="User Name"
-            android:textColor="#6C757D"
+            android:textColor="@color/white"
             android:textSize="@dimen/_10ssp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -138,13 +139,14 @@
 
         <TextView
             android:id="@+id/etaTxt"
+            style="@style/popins_regular"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginBottom="@dimen/_5sdp"
             android:text="Email"
-            android:textColor="#6C757D"
+            android:textColor="@color/white"
             android:textSize="@dimen/_10ssp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -161,19 +163,20 @@
             android:minHeight="@dimen/_35sdp"
             android:paddingStart="@dimen/_10sdp"
             android:singleLine="true"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Address" />
 
         <TextView
             android:id="@+id/Address"
+            style="@style/popins_regular"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:text="Mobile Number"
-            android:textColor="#6C757D"
+            android:textColor="@color/white"
             android:textSize="@dimen/_10ssp"
             app:layout_constraintEnd_toStartOf="@+id/btnChangePhone"
             app:layout_constraintStart_toStartOf="parent"
@@ -194,7 +197,7 @@
             android:padding="@dimen/_5sdp"
             android:paddingStart="@dimen/_10sdp"
             android:singleLine="true"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2444"
@@ -202,12 +205,13 @@
 
         <TextView
             android:id="@+id/textView2444"
+            style="@style/popins_regular"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:text="Date of birth"
-            android:textColor="#6C757D"
+            android:textColor="@color/white"
             android:textSize="@dimen/_10ssp"
             app:layout_constraintEnd_toStartOf="@+id/btnChangePass"
             app:layout_constraintStart_toStartOf="parent"
@@ -227,7 +231,7 @@
             android:padding="@dimen/_5sdp"
             android:paddingStart="@dimen/_10sdp"
             android:singleLine="true"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView244"
@@ -235,12 +239,13 @@
 
         <TextView
             android:id="@+id/textView244"
+            style="@style/popins_regular"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:text="Password"
-            android:textColor="@color/blue"
+            android:textColor="@color/white"
             android:textSize="@dimen/_10ssp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/btnChangePass"
@@ -257,8 +262,8 @@
             android:backgroundTint="@color/yellow"
             android:gravity="center"
             android:text="Save"
+            style="@style/popins_bold"
             android:textColor="@color/white"
-            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
@@ -272,7 +277,8 @@
             android:layout_height="0dp"
             android:layout_marginEnd="@dimen/_15sdp"
             android:text="Change Password"
-            android:textColor="#6C757D"
+            style="@style/popins_regular"
+            android:textColor="@color/white"
             android:textSize="@dimen/_10ssp"
             app:layout_constraintBottom_toBottomOf="@+id/textView244"
             app:layout_constraintEnd_toEndOf="parent"
@@ -284,7 +290,7 @@
             android:layout_height="0dp"
             android:layout_marginEnd="@dimen/_15sdp"
             android:text="Change Phone Number"
-            android:textColor="#6C757D"
+            android:textColor="@color/white"
             android:textSize="@dimen/_10ssp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/Address"
