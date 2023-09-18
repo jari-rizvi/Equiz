@@ -235,6 +235,16 @@
         android:name="com.teamx.equiz.ui.fragments.subscription.SubscriptionFragment"
         android:label="SubscriptionFragment"
         tools:layout="@layout/fragment_subscription"/>
+    <fragment
+        android:id="@+id/newsFragment"
+        android:name="com.teamx.equiz.ui.fragments.news.NewsFragment"
+        android:label="NewsFragment"
+        tools:layout="@layout/fragment_news"/>
+    <fragment
+        android:id="@+id/supportFragment"
+        android:name="com.teamx.equiz.ui.fragments.support.SupportFragment"
+        android:label="SupportFragment"
+        tools:layout="@layout/fragment_support"/>
 
 
 </navigation>

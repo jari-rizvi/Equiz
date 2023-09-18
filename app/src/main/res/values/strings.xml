@@ -56,6 +56,12 @@
     <string name="reorder">Reorder</string>
     <string name="invoice">Invoice</string>
     <string name="subscription">Subscription</string>
+    <string name="news">News</string>
+    <string name="todays_news">Todays News</string>
+    <string name="upcoming_news">Upcoming News</string>
+    <string name="recent_news">Recent News</string>
+    <string name="support_team">Support Team</string>
+    <string name="buy">Buy</string>
 
 
 </resources>
