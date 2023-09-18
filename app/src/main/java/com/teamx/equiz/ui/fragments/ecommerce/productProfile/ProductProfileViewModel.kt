@@ -1,4 +1,4 @@
-package com.teamx.equiz.ui.fragments.ecommerce
+package com.teamx.equiz.ui.fragments.ecommerce.productProfile
 
 
 import android.util.Log
@@ -16,7 +16,7 @@ import org.json.JSONObject
 import javax.inject.Inject
 
 @HiltViewModel
-class EcommerceViewModel @Inject constructor(
+class ProductProfileViewModel @Inject constructor(
     private val mainRepository: MainRepository,
     private val networkHelper: NetworkHelper
 ) : BaseViewModel() {

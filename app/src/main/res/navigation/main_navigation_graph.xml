@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation_graph"
-    app:startDestination="@id/editProfileFragment">
+    app:startDestination="@id/productProfileFragment">
 
     <fragment
         android:id="@+id/tempFragment"
@@ -203,12 +203,28 @@
     <fragment
         android:id="@+id/notificationsFragment"
         android:name="com.teamx.equiz.ui.fragments.notifications.NotificationsFragment"
-        android:label="NotificationsFragment" />
+        android:label="NotificationsFragment"
+        tools:layout="@layout/fragment_notifications"/>
     <fragment
         android:id="@+id/ecommerceFragment"
-        android:name="com.teamx.equiz.ui.fragments.ecommerce.EcommerceFragment"
+        android:name="com.teamx.equiz.ui.fragments.ecommerce.home.EcommerceFragment"
         android:label="EcommerceFragment"
         tools:layout="@layout/fragment_ecommerce"/>
+    <fragment
+        android:id="@+id/productProfileFragment"
+        android:name="com.teamx.equiz.ui.fragments.ecommerce.productProfile.ProductProfileFragment"
+        android:label="ProductProfileFragment"
+        tools:layout="@layout/fragment_product_profile"/>
+    <fragment
+        android:id="@+id/checkoutFragment"
+        android:name="com.teamx.equiz.ui.fragments.ecommerce.checkout.CheckoutFragment"
+        android:label="CheckoutFragment"
+        tools:layout="@layout/fragment_checkout"/>
+    <fragment
+        android:id="@+id/paymentMethodsFragment"
+        android:name="com.teamx.equiz.ui.fragments.ecommerce.paymentMethods.PaymentMethodsFragment"
+        android:label="PaymentMethodsFragment"
+        tools:layout="@layout/fragment_payment_methods"/>
 
 
 </navigation>

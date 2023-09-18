@@ -1,14 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
         <ImageView
             android:id="@+id/btnback"
@@ -25,12 +23,12 @@
 
         <TextView
             android:id="@+id/textView"
+            style="@style/popins_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="E-Quiz"
+            android:text="@string/payment_method"
             android:textColor="@color/blue"
             android:textSize="@dimen/_14ssp"
-            style="@style/popins_bold"
             app:layout_constraintBottom_toBottomOf="@+id/btnback"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.2"
@@ -38,36 +36,16 @@
             app:layout_constraintTop_toTopOf="@+id/btnback"
             app:layout_constraintVertical_bias="0.05" />
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:elevation="@dimen/_3sdp"
-            app:tabTextColor="@color/white"
-            android:layout_marginHorizontal="@dimen/_15sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/paymentMethodRecyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"
-            app:layout_constraintVertical_bias="0.02"
-            app:tabBackground="@drawable/tab_background"
-            app:tabRippleColor="@null"
-            app:tabTextAppearance="@style/tabTextColor" />
-
-
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/viewPagerNotification"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/_10sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tabLayout">
-
-        </androidx.viewpager2.widget.ViewPager2>
-
+            tools:listitem="@layout/item_payment" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </layout>

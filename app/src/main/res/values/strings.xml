@@ -48,6 +48,10 @@
     <string name="categories">Categories</string>
     <string name="find_your_dream">Find Your Dream!</string>
     <string name="popoular">Popoular</string>
+    <string name="apply">Apply</string>
+    <string name="insert_you_coupon_code">Insert you coupon code</string>
+    <string name="payment_method">Payment Method</string>
+    <string name="description">Description</string>
 
 
 </resources>

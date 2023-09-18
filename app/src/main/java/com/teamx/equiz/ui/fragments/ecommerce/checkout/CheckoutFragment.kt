@@ -1,4 +1,4 @@
-package com.teamx.equiz.ui.fragments.ecommerce
+package com.teamx.equiz.ui.fragments.ecommerce.checkout
 
 
 import android.os.Bundle
@@ -8,16 +8,18 @@ import androidx.navigation.navOptions
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
+import com.teamx.equiz.databinding.FragmentCheckoutBinding
 import com.teamx.equiz.databinding.FragmentEcommerceBinding
+import com.teamx.equiz.ui.fragments.ecommerce.home.EcommerceViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewModel>() {
+class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel>() {
 
     override val layoutId: Int
-        get() = R.layout.fragment_ecommerce
-    override val viewModel: Class<EcommerceViewModel>
-        get() = EcommerceViewModel::class.java
+        get() = R.layout.fragment_checkout
+    override val viewModel: Class<CheckoutViewModel>
+        get() = CheckoutViewModel::class.java
     override val bindingVariable: Int
         get() = BR.viewModel
 
@@ -37,7 +39,6 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
-
 
 
 
