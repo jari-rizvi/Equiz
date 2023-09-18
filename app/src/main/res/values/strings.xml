@@ -55,6 +55,7 @@
     <string name="order_detail">Order Detail</string>
     <string name="reorder">Reorder</string>
     <string name="invoice">Invoice</string>
+    <string name="subscription">Subscription</string>
 
 
 </resources>
