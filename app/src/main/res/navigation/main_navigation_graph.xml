@@ -173,7 +173,11 @@
         android:id="@+id/dashboardFragment"
         android:name="com.teamx.equiz.ui.fragments.dashboard.DashboardFragment"
         android:label="DashboardFragment"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_dashboard" >
+        <action
+            android:id="@+id/action_dashboardFragment_to_gamesFragment"
+            app:destination="@id/gamesFragment" />
+    </fragment>
     <fragment
         android:id="@+id/verifyOtpForgotFragment"
         android:name="com.teamx.equiz.ui.fragments.Auth.otp.VerifyOtpForgotFragment"

@@ -4,6 +4,7 @@ package com.teamx.equiz.ui.fragments.dashboard
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
@@ -43,6 +44,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             val activity = requireActivity() as MainActivity
             activity.openDrawer()
         }
+
+        mViewDataBinding.textView155.setOnClickListener { findNavController().navigate(R.id.action_dashboardFragment_to_gamesFragment, null) }
 
 
     }
