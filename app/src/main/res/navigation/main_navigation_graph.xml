@@ -245,6 +245,11 @@
         android:name="com.teamx.equiz.ui.fragments.support.SupportFragment"
         android:label="SupportFragment"
         tools:layout="@layout/fragment_support"/>
+    <fragment
+        android:id="@+id/gamesFragment"
+        android:name="com.teamx.equiz.ui.fragments.games.GamesFragment"
+        android:label="GamesFragment"
+        tools:layout="@layout/fragment_games"/>
 
 
 </navigation>

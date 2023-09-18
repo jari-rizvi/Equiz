@@ -1,4 +1,4 @@
-package com.teamx.equiz.ui.fragments.chances
+package com.teamx.equiz.ui.fragments.games
 
 
 import android.os.Bundle
@@ -8,17 +8,22 @@ import androidx.navigation.navOptions
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
-import com.teamx.equiz.databinding.FragmentChancesBinding
+import com.teamx.equiz.databinding.FragmentGamesBinding
+import com.teamx.equiz.databinding.FragmentReferralBinding
+import com.teamx.equiz.databinding.FragmentSubscriptionBinding
+import com.teamx.equiz.databinding.FragmentSupportBinding
 import com.teamx.equiz.ui.fragments.Auth.login.LoginViewModel
+import com.teamx.equiz.ui.fragments.referral.ReferralViewModel
+import com.teamx.equiz.ui.fragments.subscription.SubscriptionViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ChancesFragment : BaseFragment<FragmentChancesBinding, ChancesViewModel>() {
+class GamesFragment : BaseFragment<FragmentGamesBinding, GamesViewModel>() {
 
     override val layoutId: Int
-        get() = R.layout.fragment_chances
-    override val viewModel: Class<ChancesViewModel>
-        get() = ChancesViewModel::class.java
+        get() = R.layout.fragment_games
+    override val viewModel: Class<GamesViewModel>
+        get() = GamesViewModel::class.java
     override val bindingVariable: Int
         get() = BR.viewModel
 
