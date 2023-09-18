@@ -83,6 +83,8 @@
             android:gravity="center"
             android:text="@string/verify"
             android:textColor="@color/white"
+            style="@style/popins_regular"
+            android:textSize="@dimen/_14ssp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

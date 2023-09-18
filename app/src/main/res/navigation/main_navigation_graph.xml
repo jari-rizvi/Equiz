@@ -225,6 +225,11 @@
         android:name="com.teamx.equiz.ui.fragments.ecommerce.paymentMethods.PaymentMethodsFragment"
         android:label="PaymentMethodsFragment"
         tools:layout="@layout/fragment_payment_methods"/>
+    <fragment
+        android:id="@+id/orderDetailsFragment"
+        android:name="com.teamx.equiz.ui.fragments.orders.orderdetails.OrderDetailsFragment"
+        android:label="OrderDetailsFragment"
+        tools:layout="@layout/fragment_order_details"/>
 
 
 </navigation>

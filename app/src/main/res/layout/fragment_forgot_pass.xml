@@ -96,8 +96,9 @@
             android:gravity="center"
             android:text="@string/send_code"
             android:textColor="@color/white"
-            style="@style/popins_bold"
-
+            style="@style/popins_regular"
+            android:textStyle="bold"
+            android:textSize="@dimen/_14ssp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"

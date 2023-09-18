@@ -52,6 +52,9 @@
     <string name="insert_you_coupon_code">Insert you coupon code</string>
     <string name="payment_method">Payment Method</string>
     <string name="description">Description</string>
+    <string name="order_detail">Order Detail</string>
+    <string name="reorder">Reorder</string>
+    <string name="invoice">Invoice</string>
 
 
 </resources>

@@ -106,14 +106,15 @@
 
         <TextView
             android:id="@+id/btnLogin"
-            style="@style/popins_bold"
             android:layout_width="286dp"
             android:layout_height="@dimen/_40sdp"
             android:layout_marginTop="20dp"
             android:background="@drawable/card_background"
             android:backgroundTint="@color/yellow"
             android:gravity="center"
-
+            style="@style/popins_regular"
+            android:textStyle="bold"
+            android:textSize="@dimen/_14ssp"
             android:text="@string/login"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
