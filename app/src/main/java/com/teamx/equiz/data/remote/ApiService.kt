@@ -5,12 +5,14 @@ import com.google.gson.JsonObject
 import com.teamx.equiz.constants.NetworkCallPoints
 import com.teamx.equiz.constants.NetworkCallPoints.Companion.TOKENER
 import com.teamx.equiz.data.models.ProductModel
+import com.teamx.equiz.data.models.categoriesData.GetAllCategoriesData
 import com.teamx.equiz.data.models.editProfile.EditProfileData
 import com.teamx.equiz.data.models.forgotpassData.ForgotPassData
 import com.teamx.equiz.data.models.loginData.LoginData
 import com.teamx.equiz.data.models.otpForgotData.OtpforgotData
 import com.teamx.equiz.data.models.signupData.SignupData
 import com.teamx.equiz.data.models.sucessData.SuccessData
+import com.teamx.equiz.data.models.wishlistdata.WishlistData
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -23,6 +25,11 @@ interface ApiService {
 
     @GET(NetworkCallPoints.API_GET_ALL_PRODUCTS)
     suspend fun getProducts(): Response<List<ProductModel>>
+
+    @GET(NetworkCallPoints.WISHLIST_DATA)
+    suspend fun getWishlist(@Header("token") basicCredentials: String = "$TOKENER"): Response<WishlistData>
+  @GET(NetworkCallPoints.GET_ALL_CATEGORIES)
+    suspend fun getCategories(): Response<GetAllCategoriesData>
 
     @POST(NetworkCallPoints.LOGIN_PHONE)
     suspend fun loginPhone(@Body params: JsonObject?): Response<LoginData>

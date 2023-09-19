@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.teamx.equiz.baseclasses.BaseViewModel
 import com.teamx.equiz.data.models.loginData.LoginData
 import com.teamx.equiz.data.models.otpForgotData.OtpforgotData
-import com.teamx.equiz.data.models.sucessData.SuccessData
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.data.remote.reporitory.MainRepository
 import com.teamx.equiz.utils.NetworkHelper

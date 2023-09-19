@@ -2,6 +2,7 @@ package com.teamx.equiz.ui.fragments.Auth.login
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
@@ -102,9 +103,8 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
                                 lifecycleScope.launch(Dispatchers.IO) {
                                     dataStoreProvider.saveUserToken(data.token)
 
-                                    findNavController().navigate(R.id.action_logInFragment_to_dashboardFragment)
-
                                 }
+                                findNavController().navigate(R.id.action_logInFragment_to_dashboardFragment)
                             }
                         }
 

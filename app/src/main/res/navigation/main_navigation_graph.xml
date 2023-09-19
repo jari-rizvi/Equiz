@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation_graph"
-    app:startDestination="@id/subscriptionFragment">
+    app:startDestination="@id/tempFragment">
 
     <fragment
         android:id="@+id/tempFragment"
@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_tempFragment_to_temp2RegisterFragment"
             app:destination="@id/temp2RegisterFragment" />
+        <action
+            android:id="@+id/action_tempFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
     </fragment>
     <fragment
         android:id="@+id/logInEmailFragment"
@@ -177,6 +180,9 @@
         <action
             android:id="@+id/action_dashboardFragment_to_gamesFragment"
             app:destination="@id/gamesFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_wishlistFragment"
+            app:destination="@id/wishlistFragment" />
     </fragment>
     <fragment
         android:id="@+id/verifyOtpForgotFragment"
