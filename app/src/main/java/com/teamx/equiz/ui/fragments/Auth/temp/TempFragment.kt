@@ -50,26 +50,30 @@ class TempFragment : BaseFragment<FragmentTempBinding, TempViewModel>() {
             }
         }
 
-            if (isAdded) {
-                CoroutineScope(Dispatchers.Main).launch {
-                    dataStoreProvider.token.collect {
-                        Timber.tag("TAG").d("CoroutineScope ${it}")
 
-                        val token = it
+        CoroutineScope(Dispatchers.Main).launch {
+            dataStoreProvider.token.collect {
+                Timber.tag("TAG").d("CoroutineScope ${it}")
 
-                        TOKENER = token.toString()
+                val token = it
 
-                        if (token.isNullOrBlank()) {
+                TOKENER = token.toString()
+
+                if (token.isNullOrBlank()) {
 
 
-                        } else {
-                            findNavController().navigate(R.id.action_tempFragment_to_dashboardFragment)
+                } else {
+                    navController = Navigation.findNavController(
+                        requireActivity(), R.id.nav_host_fragment
+                    )
+                    navController.navigate(
+                        R.id.dashboardFragment, null, options
+                    )
+//                            findNavController().navigate(R.id.action_tempFragment_to_dashboardFragment)
 
-                        }
-                    }
                 }
             }
-
+        }
 
 
         mViewDataBinding.btnLogin.setOnClickListener {

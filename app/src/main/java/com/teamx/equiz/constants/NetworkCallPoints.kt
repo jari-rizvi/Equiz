@@ -12,6 +12,8 @@ class NetworkCallPoints {
         const val EDIT_PROFILE ="/api/users/:id";
         const val GET_ALL_CATEGORIES ="/api/category";
         const val WISHLIST_DATA ="api/wishlist/find";
+        const val BANNERS_DATA ="api/banner";
+        const val GET_PRODUCTS ="api/products";
 
         var TOKENER: String? = ""
 

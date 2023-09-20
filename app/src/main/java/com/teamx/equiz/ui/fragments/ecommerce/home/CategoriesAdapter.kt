@@ -10,7 +10,7 @@ import com.teamx.equiz.data.models.wishlistdata.Product
 import com.teamx.equiz.databinding.ItemCategoriesBinding
 import com.teamx.equiz.databinding.ItemWishlistBinding
 
-class CategoriesAdapter(val arrayList: ArrayList<GetAllCategoriesData>, val onTopCategoriesListener: OnTopCategoriesListener) : RecyclerView.Adapter<CategoriesAdapter.TopCategoriesViewHolder>() {
+class CategoriesAdapter(val arrayList: ArrayList<Data>, val onTopCategoriesListener: OnTopCategoriesListener) : RecyclerView.Adapter<CategoriesAdapter.TopCategoriesViewHolder>() {
 
 
 
@@ -21,10 +21,10 @@ class CategoriesAdapter(val arrayList: ArrayList<GetAllCategoriesData>, val onTo
     }
 
     override fun onBindViewHolder(holder: TopCategoriesViewHolder, position: Int) {
-        val categories : GetAllCategoriesData = arrayList[position]
+        val categories : Data = arrayList[position]
 
-        holder.binding.checkedTextView.text = categories.data[0].name
-        holder.binding.checkedTextView.isChecked = categories.data[0].isChecked
+        holder.binding.checkedTextView.text = categories.name
+        holder.binding.checkedTextView.isChecked = categories.isChecked
 
 
         holder.itemView.setOnClickListener {

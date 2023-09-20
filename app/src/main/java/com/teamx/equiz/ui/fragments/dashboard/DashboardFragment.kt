@@ -45,7 +45,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             activity.openDrawer()
         }
 
-        mViewDataBinding.textView155.setOnClickListener { findNavController().navigate(R.id.action_dashboardFragment_to_wishlistFragment, null) }
+        mViewDataBinding.textView155.setOnClickListener { findNavController().navigate(R.id.action_dashboardFragment_to_ecommerceFragment, null) }
 
 
     }

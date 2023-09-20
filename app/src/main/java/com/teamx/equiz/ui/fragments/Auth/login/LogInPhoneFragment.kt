@@ -31,7 +31,6 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
     override val bindingVariable: Int
         get() = BR.viewModel
 
-
     private var userPhone: String? = null
     private var password: String? = null
     private lateinit var options: NavOptions
@@ -48,8 +47,6 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
-
-
 
 
         mViewDataBinding.btnForgot.setOnClickListener {
@@ -85,7 +82,6 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
                 e.printStackTrace()
             }
 
-
             mViewModel.loginPhone(params)
 
             if (!mViewModel.loginResponse.hasActiveObservers()) {
@@ -102,7 +98,6 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
 
                                 lifecycleScope.launch(Dispatchers.IO) {
                                     dataStoreProvider.saveUserToken(data.token)
-
                                 }
                                 findNavController().navigate(R.id.action_logInFragment_to_dashboardFragment)
                             }

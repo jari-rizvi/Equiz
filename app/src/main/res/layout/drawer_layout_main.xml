@@ -16,9 +16,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:clickable="false"
-        android:focusable="false"
-        android:layout_height="match_parent">
+        android:focusable="false">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelin1e"
@@ -32,208 +32,221 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guidelin1e"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/guidelin1e"
             tools:layout_editor_absoluteX="0dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            app:layout_constraintTop_toTopOf="parent">
-
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profilePicture"
-                android:layout_width="@dimen/_60sdp"
-                android:layout_height="@dimen/_60sdp"
-                android:layout_centerInParent="true"
-                android:background="@drawable/border_background"
-                android:elevation="@dimen/_5sdp"
-                android:padding="@dimen/_2sdp"
-                android:src="@drawable/successmark"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.025" />
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="John Mark"
-                android:textColor="@color/blue"
-                android:textSize="@dimen/_14ssp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/profilePicture"
-                app:layout_constraintStart_toStartOf="@+id/profilePicture"
-                app:layout_constraintTop_toBottomOf="@+id/profilePicture"
-                app:layout_constraintVertical_bias="0.01" />
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="johnmark@gmail.com"
-                android:textColor="@color/blue"
-                android:textSize="@dimen/_12ssp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/textView3"
-                app:layout_constraintStart_toStartOf="@+id/textView3"
-                app:layout_constraintTop_toBottomOf="@+id/textView3"
-                app:layout_constraintVertical_bias="0" />
-
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout5"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/_65sdp"
-                android:layout_marginHorizontal="@dimen/_6sdp"
-                android:background="@drawable/card_background_less_radius"
-                android:backgroundTint="@color/blue"
-                android:elevation="@dimen/_1sdp"
-                android:paddingVertical="@dimen/_10sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView4"
-                app:layout_constraintVertical_bias="0.01"
-                app:layout_constraintVertical_chainStyle="spread">
-
-
-                <TextView
-                    android:id="@+id/btnCurrent"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Ranking"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_11ssp"
-                    app:layout_constraintBottom_toBottomOf="@+id/view1"
-                    app:layout_constraintEnd_toStartOf="@+id/view1"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/view1"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/textView50"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:gravity="center"
-                    android:text="06"
-                    android:textColor="@color/yellow"
-                    android:textSize="@dimen/_15ssp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/btnCurrent"
-                    app:layout_constraintStart_toStartOf="@+id/btnCurrent"
-                    app:layout_constraintTop_toBottomOf="@+id/btnCurrent" />
-
-                <View
-                    android:id="@+id/view1"
-                    android:layout_width="@dimen/_1sdp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:background="@color/yellow"
-                    android:orientation="vertical"
-                    app:layout_constraintBottom_toBottomOf="@+id/btnCurrent"
-                    app:layout_constraintEnd_toStartOf="@+id/btnPast"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/btnCurrent"
-                    app:layout_constraintTop_toTopOf="@+id/btnCurrent" />
-
-                <TextView
-                    android:id="@+id/btnPast"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Total Points"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_11ssp"
-                    app:layout_constraintBottom_toBottomOf="@+id/btnCurrent"
-                    app:layout_constraintEnd_toStartOf="@+id/view2"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/view1"
-                    app:layout_constraintTop_toTopOf="@+id/btnCurrent" />
-
-                <View
-                    android:id="@+id/view2"
-                    android:layout_width="@dimen/_1sdp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:background="@color/yellow"
-                    android:orientation="vertical"
-                    app:layout_constraintBottom_toBottomOf="@+id/view1"
-                    app:layout_constraintEnd_toStartOf="@+id/btnReview"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/btnPast"
-                    app:layout_constraintTop_toTopOf="@+id/btnPast" />
-
-                <TextView
-                    android:id="@+id/textView51"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:gravity="center"
-                    android:text="06"
-                    android:textColor="@color/yellow"
-                    android:textSize="@dimen/_15ssp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/btnPast"
-                    app:layout_constraintStart_toStartOf="@+id/btnPast"
-                    app:layout_constraintTop_toBottomOf="@+id/btnPast" />
-
-                <TextView
-                    android:id="@+id/btnReview"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:gravity="center"
-                    android:text="Total Chances"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_11ssp"
-                    app:layout_constraintBottom_toBottomOf="@+id/btnPast"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/view2"
-                    app:layout_constraintTop_toTopOf="@+id/btnPast" />
-
-                <TextView
-                    android:id="@+id/textView52"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:gravity="center"
-                    android:text="09"
-                    android:textColor="@color/yellow"
-                    android:textSize="@dimen/_15ssp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/btnReview"
-                    app:layout_constraintStart_toStartOf="@+id/btnReview"
-                    app:layout_constraintTop_toBottomOf="@+id/btnReview" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.4" />
+                android:background="@color/white"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profilePicture"
+                    android:layout_width="@dimen/_60sdp"
+                    android:layout_height="@dimen/_60sdp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/border_background"
+                    android:elevation="@dimen/_5sdp"
+                    android:padding="@dimen/_2sdp"
+                    android:src="@drawable/successmark"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.025" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    style="@style/popins_regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="John Mark"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/_14ssp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/profilePicture"
+                    app:layout_constraintStart_toStartOf="@+id/profilePicture"
+                    app:layout_constraintTop_toBottomOf="@+id/profilePicture"
+                    app:layout_constraintVertical_bias="0.01" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    style="@style/popins_regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="johnmark@gmail.com"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/_12ssp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/textView3"
+                    app:layout_constraintStart_toStartOf="@+id/textView3"
+                    app:layout_constraintTop_toBottomOf="@+id/textView3"
+                    app:layout_constraintVertical_bias="0" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout5"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_65sdp"
+                    android:layout_marginHorizontal="@dimen/_6sdp"
+                    android:background="@drawable/card_background_less_radius"
+                    android:backgroundTint="@color/blue"
+                    android:elevation="@dimen/_1sdp"
+                    android:paddingVertical="@dimen/_10sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView4"
+                    app:layout_constraintVertical_bias="0.01"
+                    app:layout_constraintVertical_chainStyle="spread">
+
+
+                    <TextView
+                        android:id="@+id/btnCurrent"
+                        style="@style/popins_regular"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Ranking"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_11ssp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/view1"
+                        app:layout_constraintEnd_toStartOf="@+id/view1"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/view1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView50"
+                        style="@style/popins_regular"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:gravity="center"
+                        android:text="06"
+                        android:textColor="@color/yellow"
+                        android:textSize="@dimen/_15ssp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/btnCurrent"
+                        app:layout_constraintStart_toStartOf="@+id/btnCurrent"
+                        app:layout_constraintTop_toBottomOf="@+id/btnCurrent" />
+
+                    <View
+                        android:id="@+id/view1"
+                        android:layout_width="@dimen/_1sdp"
+                        android:layout_height="@dimen/_50sdp"
+                        android:background="@color/yellow"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="@+id/btnCurrent"
+                        app:layout_constraintEnd_toStartOf="@+id/btnPast"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/btnCurrent"
+                        app:layout_constraintTop_toTopOf="@+id/btnCurrent" />
+
+                    <TextView
+                        android:id="@+id/btnPast"
+                        style="@style/popins_regular"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Total Points"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_11ssp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/btnCurrent"
+                        app:layout_constraintEnd_toStartOf="@+id/view2"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/view1"
+                        app:layout_constraintTop_toTopOf="@+id/btnCurrent" />
+
+                    <View
+                        android:id="@+id/view2"
+                        android:layout_width="@dimen/_1sdp"
+                        android:layout_height="@dimen/_50sdp"
+                        android:background="@color/yellow"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="@+id/view1"
+                        app:layout_constraintEnd_toStartOf="@+id/btnReview"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/btnPast"
+                        app:layout_constraintTop_toTopOf="@+id/btnPast" />
+
+                    <TextView
+                        android:id="@+id/textView51"
+                        style="@style/popins_regular"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:gravity="center"
+                        android:text="06"
+                        android:textColor="@color/yellow"
+                        android:textSize="@dimen/_15ssp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/btnPast"
+                        app:layout_constraintStart_toStartOf="@+id/btnPast"
+                        app:layout_constraintTop_toBottomOf="@+id/btnPast" />
+
+                    <TextView
+                        android:id="@+id/btnReview"
+                        style="@style/popins_regular"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:text="Total Chances"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_11ssp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/btnPast"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/view2"
+                        app:layout_constraintTop_toTopOf="@+id/btnPast" />
+
+                    <TextView
+                        android:id="@+id/textView52"
+                        style="@style/popins_regular"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:gravity="center"
+                        android:text="09"
+                        android:textColor="@color/yellow"
+                        android:textSize="@dimen/_15ssp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/btnReview"
+                        app:layout_constraintStart_toStartOf="@+id/btnReview"
+                        app:layout_constraintTop_toBottomOf="@+id/btnReview" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.4" />
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_marginTop="@dimen/_10sdp"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout5"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout5"
                     app:layout_constraintVertical_bias="0.25">
 
 
@@ -248,7 +261,7 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <LinearLayout
-                            android:id="@+id/btnLanguage"
+                            android:id="@+id/btnHome"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_40sdp"
                             android:layout_gravity="center_vertical"
@@ -267,11 +280,13 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginStart="5dp"
-                                android:layout_weight="0"
                                 android:layout_marginEnd="5dp"
-                                android:src="@drawable/logo_equiz" />
+                                android:layout_weight="0"
+
+                                android:src="@drawable/home_icon" />
 
                             <TextView
+                                style="@style/popins_regular"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -279,7 +294,9 @@
                                 android:paddingStart="@dimen/_7sdp"
                                 android:paddingEnd="@dimen/_7sdp"
                                 android:text="Home"
-                                android:textColor="@color/blue" />
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/_11ssp"
+                                android:textStyle="bold" />
 
                         </LinearLayout>
 
@@ -291,7 +308,7 @@
                             android:background="@color/textSecondaryColor" />
 
                         <LinearLayout
-                            android:id="@+id/btnCoupon"
+                            android:id="@+id/btneccomernce"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_40sdp"
                             android:layout_gravity="center_vertical"
@@ -311,9 +328,10 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginStart="5dp"
                                 android:layout_marginEnd="5dp"
-                                android:src="@drawable/logo_equiz" />
+                                android:src="@drawable/ecommerce_icon" />
 
                             <TextView
+                                style="@style/popins_regular"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -321,7 +339,9 @@
                                 android:paddingStart="@dimen/_7sdp"
                                 android:paddingEnd="@dimen/_7sdp"
                                 android:text="Ecommerce"
-                                android:textColor="@color/blue" />
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/_11ssp"
+                                android:textStyle="bold" />
 
                         </LinearLayout>
 
@@ -333,7 +353,7 @@
                             android:background="@color/textSecondaryColor" />
 
                         <LinearLayout
-                            android:id="@+id/btnNotification"
+                            android:id="@+id/btnquiz"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_40sdp"
                             android:layout_gravity="center_vertical"
@@ -351,9 +371,10 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginStart="5dp"
                                 android:layout_marginEnd="5dp"
-                                android:src="@drawable/logo_equiz" />
+                                android:src="@drawable/quiz_icon" />
 
                             <TextView
+                                style="@style/popins_regular"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -362,7 +383,9 @@
                                 android:paddingStart="@dimen/_7sdp"
                                 android:paddingEnd="@dimen/_7sdp"
                                 android:text="quiz"
-                                android:textColor="@color/blue" />
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/_11ssp"
+                                android:textStyle="bold" />
 
                             <!--                        <androidx.appcompat.widget.SwitchCompat-->
                             <!--                            android:id="@+id/swOnOff"-->
@@ -385,7 +408,7 @@
                             android:background="@color/textSecondaryColor" />
 
                         <LinearLayout
-                            android:id="@+id/btnRateUs"
+                            android:id="@+id/btnWallet"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_40sdp"
                             android:layout_gravity="center_vertical"
@@ -405,9 +428,10 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginStart="5dp"
                                 android:layout_marginEnd="5dp"
-                                android:src="@drawable/logo_equiz" />
+                                android:src="@drawable/wallet_icon" />
 
                             <TextView
+                                style="@style/popins_regular"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -415,7 +439,9 @@
                                 android:paddingStart="@dimen/_7sdp"
                                 android:paddingEnd="@dimen/_7sdp"
                                 android:text="Wallet"
-                                android:textColor="@color/blue" />
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/_11ssp"
+                                android:textStyle="bold" />
 
                         </LinearLayout>
 
@@ -427,7 +453,7 @@
                             android:background="@color/textSecondaryColor" />
 
                         <LinearLayout
-                            android:id="@+id/btnFaq"
+                            android:id="@+id/btnleaderboard"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_40sdp"
                             android:layout_gravity="center_vertical"
@@ -447,17 +473,20 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginStart="5dp"
                                 android:layout_marginEnd="5dp"
-                                android:src="@drawable/logo_equiz" />
+                                android:src="@drawable/leaderboard_icon" />
 
                             <TextView
+                                style="@style/popins_regular"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:gravity="center_vertical"
                                 android:paddingStart="@dimen/_7sdp"
                                 android:paddingEnd="@dimen/_7sdp"
-                                android:text="  Leaderboard"
-                                android:textColor="@color/blue" />
+                                android:text="Leaderboard"
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/_11ssp"
+                                android:textStyle="bold" />
 
                         </LinearLayout>
 
@@ -469,7 +498,7 @@
                             android:background="@color/textSecondaryColor" />
 
                         <LinearLayout
-                            android:id="@+id/btnAboutUs"
+                            android:id="@+id/btnReffeal"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_40sdp"
                             android:layout_gravity="center_vertical"
@@ -489,9 +518,10 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginStart="5dp"
                                 android:layout_marginEnd="5dp"
-                                android:src="@drawable/logo_equiz" />
+                                android:src="@drawable/raferral_icon" />
 
                             <TextView
+                                style="@style/popins_regular"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -499,7 +529,9 @@
                                 android:paddingStart="@dimen/_7sdp"
                                 android:paddingEnd="@dimen/_7sdp"
                                 android:text="Refferal"
-                                android:textColor="@color/blue" />
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/_11ssp"
+                                android:textStyle="bold" />
 
                         </LinearLayout>
 
@@ -511,7 +543,7 @@
                             android:background="@color/textSecondaryColor" />
 
                         <LinearLayout
-                            android:id="@+id/btnTerms"
+                            android:id="@+id/btnProfile"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_40sdp"
                             android:layout_gravity="center_vertical"
@@ -531,9 +563,10 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginStart="5dp"
                                 android:layout_marginEnd="5dp"
-                                android:src="@drawable/logo_equiz" />
+                                android:src="@drawable/account_icon" />
 
                             <TextView
+                                style="@style/popins_regular"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -541,7 +574,9 @@
                                 android:paddingStart="@dimen/_7sdp"
                                 android:paddingEnd="@dimen/_7sdp"
                                 android:text="Profile"
-                                android:textColor="@color/blue" />
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/_11ssp"
+                                android:textStyle="bold" />
 
                         </LinearLayout>
 
@@ -553,7 +588,7 @@
                             android:background="@color/textSecondaryColor" />
 
                         <LinearLayout
-                            android:id="@+id/btnPrivacy"
+                            android:id="@+id/btnCollectPrize"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_40sdp"
                             android:layout_gravity="center_vertical"
@@ -573,9 +608,10 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginStart="5dp"
                                 android:layout_marginEnd="5dp"
-                                android:src="@drawable/logo_equiz" />
+                                android:src="@drawable/premium_icon" />
 
                             <TextView
+                                style="@style/popins_regular"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -583,7 +619,9 @@
                                 android:paddingStart="@dimen/_7sdp"
                                 android:paddingEnd="@dimen/_7sdp"
                                 android:text="Collect Prize"
-                                android:textColor="@color/blue" />
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/_11ssp"
+                                android:textStyle="bold" />
 
                         </LinearLayout>
 
@@ -618,7 +656,8 @@
                         <!--                            android:layout_marginEnd="5dp"-->
                         <!--                            android:src="@drawable/privacy_policy" />-->
 
-                        <!--                        <TextView-->
+                        <!--                        <TextView
+                         android:textStyle="bold"-->
                         <!--                            style="@style/open_sans_regular_medium"-->
                         <!--                            android:layout_width="0dp"-->
                         <!--                            android:layout_height="match_parent"-->
@@ -661,7 +700,8 @@
                         <!--                            android:layout_marginEnd="5dp"-->
                         <!--                            android:src="@drawable/privacy_policy" />-->
 
-                        <!--                        <TextView-->
+                        <!--                        <TextView
+                         android:textStyle="bold"-->
                         <!--                            style="@style/open_sans_regular_medium"-->
                         <!--                            android:layout_width="0dp"-->
                         <!--                            android:layout_height="match_parent"-->
@@ -681,7 +721,7 @@
                             android:background="@color/textSecondaryColor" />
 
                         <LinearLayout
-                            android:id="@+id/btnAddress"
+                            android:id="@+id/btnNotification"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_40sdp"
                             android:layout_gravity="center_vertical"
@@ -701,9 +741,10 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginStart="5dp"
                                 android:layout_marginEnd="5dp"
-                                android:src="@drawable/logo_equiz" />
+                                android:src="@drawable/notification_icon" />
 
                             <TextView
+                                style="@style/popins_regular"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -711,7 +752,9 @@
                                 android:paddingStart="@dimen/_7sdp"
                                 android:paddingEnd="@dimen/_7sdp"
                                 android:text="Notification"
-                                android:textColor="@color/blue" />
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/_11ssp"
+                                android:textStyle="bold" />
 
                         </LinearLayout>
 
@@ -723,7 +766,7 @@
                             android:background="@color/textSecondaryColor" />
 
                         <LinearLayout
-                            android:id="@+id/btnContact"
+                            android:id="@+id/btnNews"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_40sdp"
                             android:layout_gravity="center_vertical"
@@ -743,9 +786,10 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginStart="5dp"
                                 android:layout_marginEnd="5dp"
-                                android:src="@drawable/logo_equiz" />
+                                android:src="@drawable/news_icon" />
 
                             <TextView
+                                style="@style/popins_regular"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -753,9 +797,19 @@
                                 android:paddingStart="@dimen/_7sdp"
                                 android:paddingEnd="@dimen/_7sdp"
                                 android:text="News"
-                                android:textColor="@color/blue" />
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/_11ssp"
+                                android:textStyle="bold" />
 
                         </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@color/textSecondaryColor" />
+
 
                         <LinearLayout
                             android:id="@+id/btnSupport"
@@ -778,9 +832,10 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginStart="5dp"
                                 android:layout_marginEnd="5dp"
-                                android:src="@drawable/logo_equiz" />
+                                android:src="@drawable/supportteam_icon" />
 
                             <TextView
+                                style="@style/popins_regular"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -788,9 +843,19 @@
                                 android:paddingStart="@dimen/_7sdp"
                                 android:paddingEnd="@dimen/_7sdp"
                                 android:text="Support Team"
-                                android:textColor="@color/blue" />
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/_11ssp"
+                                android:textStyle="bold" />
 
                         </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@color/textSecondaryColor" />
+
 
                         <LinearLayout
                             android:id="@+id/btnTermsAndCondition"
@@ -813,9 +878,10 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginStart="5dp"
                                 android:layout_marginEnd="5dp"
-                                android:src="@drawable/logo_equiz" />
+                                android:src="@drawable/term_condition_icon" />
 
                             <TextView
+                                style="@style/popins_regular"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -823,9 +889,19 @@
                                 android:paddingStart="@dimen/_7sdp"
                                 android:paddingEnd="@dimen/_7sdp"
                                 android:text="Tearms And Condition"
-                                android:textColor="@color/blue" />
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/_11ssp"
+                                android:textStyle="bold" />
 
                         </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@color/textSecondaryColor" />
+
 
                         <LinearLayout
                             android:id="@+id/btnSetting"
@@ -848,9 +924,10 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginStart="5dp"
                                 android:layout_marginEnd="5dp"
-                                android:src="@drawable/logo_equiz" />
+                                android:src="@drawable/setting_icon" />
 
                             <TextView
+                                style="@style/popins_regular"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -858,9 +935,19 @@
                                 android:paddingStart="@dimen/_7sdp"
                                 android:paddingEnd="@dimen/_7sdp"
                                 android:text="Setting"
-                                android:textColor="@color/blue" />
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/_11ssp"
+                                android:textStyle="bold" />
 
                         </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@color/textSecondaryColor" />
+
 
                         <LinearLayout
                             android:id="@+id/btnLogout"
@@ -883,9 +970,10 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginStart="5dp"
                                 android:layout_marginEnd="5dp"
-                                android:src="@drawable/logo_equiz" />
+                                android:src="@drawable/logout_icon" />
 
                             <TextView
+                                style="@style/popins_regular"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -893,7 +981,9 @@
                                 android:paddingStart="@dimen/_7sdp"
                                 android:paddingEnd="@dimen/_7sdp"
                                 android:text="Logout"
-                                android:textColor="@color/blue" />
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/_11ssp"
+                                android:textStyle="bold" />
 
                         </LinearLayout>
 
@@ -904,7 +994,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </ScrollView>
 

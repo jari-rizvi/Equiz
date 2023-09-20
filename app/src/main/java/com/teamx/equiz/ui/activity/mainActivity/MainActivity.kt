@@ -3,6 +3,7 @@ package com.teamx.equiz.ui.activity.mainActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
@@ -34,8 +35,62 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
-
         mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+
+        mViewDataBinding.drawerLayoutMain.btneccomernce.setOnClickListener {
+            mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            navController!!.navigate(R.id.ecommerceFragment)
+        }
+        mViewDataBinding.drawerLayoutMain.btnHome.setOnClickListener {
+            mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            navController!!.navigate(R.id.dashboardFragment)
+        }
+        mViewDataBinding.drawerLayoutMain.btnquiz.setOnClickListener {
+            mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            navController!!.navigate(R.id.quizFragment)
+        }
+        mViewDataBinding.drawerLayoutMain.btnWallet.setOnClickListener {
+            mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            navController!!.navigate(R.id.walletFragment)
+        }
+
+        mViewDataBinding.drawerLayoutMain.btnReffeal.setOnClickListener {
+            mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            navController!!.navigate(R.id.referralFragment)
+        }
+        mViewDataBinding.drawerLayoutMain.btnProfile.setOnClickListener {
+            mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            navController!!.navigate(R.id.profileFragment)
+        }
+        mViewDataBinding.drawerLayoutMain.btnNotification.setOnClickListener {
+            mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            navController!!.navigate(R.id.notificationsFragment)
+        }
+        mViewDataBinding.drawerLayoutMain.btnNews.setOnClickListener {
+            mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            navController!!.navigate(R.id.newsFragment)
+        }
+        mViewDataBinding.drawerLayoutMain.btnSupport.setOnClickListener {
+            mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            navController!!.navigate(R.id.supportFragment)
+        }
+        mViewDataBinding.drawerLayoutMain.btnSetting.setOnClickListener {
+            mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            Toast.makeText(this, "Comming Soom", Toast.LENGTH_SHORT).show();
+        }
+        mViewDataBinding.drawerLayoutMain.btnTermsAndCondition.setOnClickListener {
+            mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            Toast.makeText(this, "Comming Soom", Toast.LENGTH_SHORT).show();
+        }
+
+        mViewDataBinding.drawerLayoutMain.btnCollectPrize.setOnClickListener {
+            mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            navController!!.navigate(R.id.profileFragment)
+        }
+        mViewDataBinding.drawerLayoutMain.btnleaderboard.setOnClickListener {
+            mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            Toast.makeText(this, "Comming Soom", Toast.LENGTH_SHORT).show();
+        }
 
     }
 
@@ -46,7 +101,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
             mViewDataBinding.drawerLayout.openDrawer(GravityCompat.START)
         }
     }
-
 
 
     open fun showProgressBar() {
@@ -60,7 +114,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     override fun onBackPressed() {
         super.onBackPressed()
     }
-
 
 
 }
