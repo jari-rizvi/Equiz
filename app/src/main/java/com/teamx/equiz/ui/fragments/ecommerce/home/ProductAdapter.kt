@@ -4,7 +4,6 @@ package com.teamx.equiz.ui.fragments.ecommerce.home
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.tabs.TabLayoutMediator
 import com.squareup.picasso.Picasso
 import com.teamx.equiz.data.models.getProducts.Data
 import com.teamx.equiz.databinding.ItemProductBinding
@@ -27,7 +26,7 @@ class ProductAdapter(
 
         val product: Data = arrayList[position]
 
-        holder.binding.productName.text = product.name
+        holder.binding.productName.text = product.title
 
         holder.binding.productPrice.text = "${product.price} AED"
 
@@ -37,7 +36,7 @@ class ProductAdapter(
         }*/
 
 
-        Picasso.get().load(product.icon).into(holder.binding.img)
+        Picasso.get().load(product.images[0].toString()).into(holder.binding.img)
 
        /* if(product.isFav){
             Log.d("true", "onBindViewHolder: ${product.isFav}")

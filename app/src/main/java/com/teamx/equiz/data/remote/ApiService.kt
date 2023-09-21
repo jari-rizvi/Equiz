@@ -4,12 +4,11 @@ package com.teamx.equiz.data.remote
 import com.google.gson.JsonObject
 import com.teamx.equiz.constants.NetworkCallPoints
 import com.teamx.equiz.constants.NetworkCallPoints.Companion.TOKENER
-import com.teamx.equiz.data.models.ProductModel
 import com.teamx.equiz.data.models.bannerData.BannerData
 import com.teamx.equiz.data.models.categoriesData.GetAllCategoriesData
 import com.teamx.equiz.data.models.editProfile.EditProfileData
 import com.teamx.equiz.data.models.forgotpassData.ForgotPassData
-import com.teamx.equiz.data.models.getProducts.GetProductsData
+import com.teamx.equiz.data.models.getProducts.GetProductData
 import com.teamx.equiz.data.models.loginData.LoginData
 import com.teamx.equiz.data.models.otpForgotData.OtpforgotData
 import com.teamx.equiz.data.models.signupData.SignupData
@@ -33,7 +32,7 @@ interface ApiService {
     suspend fun getBanners(@Header("token") basicCredentials: String = "$TOKENER"): Response<BannerData>
 
     @GET(NetworkCallPoints.GET_PRODUCTS)
-    suspend fun getProducts(@Header("token") basicCredentials: String = "$TOKENER"): Response<GetProductsData>
+    suspend fun getProducts(@Header("token") basicCredentials: String = "$TOKENER"): Response<GetProductData>
 
     @GET(NetworkCallPoints.GET_ALL_CATEGORIES)
     suspend fun getCategories(@Header("token") basicCredentials: String = "$TOKENER"): Response<GetAllCategoriesData>

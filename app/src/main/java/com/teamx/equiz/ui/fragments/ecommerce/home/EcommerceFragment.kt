@@ -110,7 +110,7 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
                         loadingDialog.dismiss()
                         it.data?.let { data ->
 
-                            data.data?.forEach {
+                            data.data.forEach {
                                 if (it != null) {
                                     productArrayList.add(it)
                                 }

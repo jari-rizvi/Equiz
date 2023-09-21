@@ -33,7 +33,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
@@ -58,26 +57,32 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
             mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
             navController!!.navigate(R.id.referralFragment)
         }
+
         mViewDataBinding.drawerLayoutMain.btnProfile.setOnClickListener {
             mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
             navController!!.navigate(R.id.profileFragment)
         }
+
         mViewDataBinding.drawerLayoutMain.btnNotification.setOnClickListener {
             mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
             navController!!.navigate(R.id.notificationsFragment)
         }
+
         mViewDataBinding.drawerLayoutMain.btnNews.setOnClickListener {
             mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
             navController!!.navigate(R.id.newsFragment)
         }
+
         mViewDataBinding.drawerLayoutMain.btnSupport.setOnClickListener {
             mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
             navController!!.navigate(R.id.supportFragment)
         }
+
         mViewDataBinding.drawerLayoutMain.btnSetting.setOnClickListener {
             mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
             Toast.makeText(this, "Comming Soom", Toast.LENGTH_SHORT).show();
         }
+
         mViewDataBinding.drawerLayoutMain.btnTermsAndCondition.setOnClickListener {
             mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
             Toast.makeText(this, "Comming Soom", Toast.LENGTH_SHORT).show();
@@ -87,6 +92,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
             mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
             navController!!.navigate(R.id.profileFragment)
         }
+
         mViewDataBinding.drawerLayoutMain.btnleaderboard.setOnClickListener {
             mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
             Toast.makeText(this, "Comming Soom", Toast.LENGTH_SHORT).show();
@@ -101,7 +107,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
             mViewDataBinding.drawerLayout.openDrawer(GravityCompat.START)
         }
     }
-
 
     open fun showProgressBar() {
         progress_bar.visibility = View.VISIBLE

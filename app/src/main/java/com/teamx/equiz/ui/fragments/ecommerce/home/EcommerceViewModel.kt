@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.teamx.equiz.baseclasses.BaseViewModel
 import com.teamx.equiz.data.models.bannerData.BannerData
 import com.teamx.equiz.data.models.categoriesData.GetAllCategoriesData
-import com.teamx.equiz.data.models.getProducts.GetProductsData
+import com.teamx.equiz.data.models.getProducts.GetProductData
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.data.remote.reporitory.MainRepository
 import com.teamx.equiz.utils.NetworkHelper
@@ -32,8 +32,8 @@ class EcommerceViewModel @Inject constructor(
     val getBannerResponse: LiveData<Resource<BannerData>>
         get() = _getBannerResponse
 
-private val _getProductsResponse = MutableLiveData<Resource<GetProductsData>>()
-    val getProductsResponse: LiveData<Resource<GetProductsData>>
+private val _getProductsResponse = MutableLiveData<Resource<GetProductData>>()
+    val getProductsResponse: LiveData<Resource<GetProductData>>
         get() = _getProductsResponse
 
     fun getCategories() {
