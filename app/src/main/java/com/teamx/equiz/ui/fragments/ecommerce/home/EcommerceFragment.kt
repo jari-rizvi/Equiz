@@ -6,6 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,12 +20,13 @@ import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.data.models.categoriesData.Data
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentEcommerceBinding
+import com.teamx.equiz.ui.activity.mainActivity.MainActivity
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewModel>(),
-    OnTopCategoriesListener,OnProductListener {
+    OnTopCategoriesListener, OnProductListener {
 
     override val layoutId: Int
         get() = R.layout.fragment_ecommerce
@@ -57,6 +59,12 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
                 popEnter = R.anim.nav_default_pop_enter_anim
                 popExit = R.anim.nav_default_pop_exit_anim
             }
+        }
+
+
+        mViewDataBinding.btnmenu.setOnClickListener {
+            val activity = requireActivity() as MainActivity
+            activity.openDrawer()
         }
 
 
@@ -176,10 +184,12 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
         categoriesRecyclerview()
         productRecyclerview()
     }
+
     private val runnable = Runnable {
         mViewDataBinding.screenViewpager.currentItem =
             mViewDataBinding.screenViewpager.currentItem + 1
     }
+
     private fun initializeFeatureProducts() {
 
         featureProductArrayList = ArrayList()
@@ -229,10 +239,11 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
         categoriesAdapter = CategoriesAdapter(categoriesArrayList2, this)
         mViewDataBinding.categoriesRecycler.adapter = categoriesAdapter
     }
+
     private fun productRecyclerview() {
         productArrayList = ArrayList()
 
-        val linearLayoutManager = GridLayoutManager(context, 2,RecyclerView.VERTICAL, false)
+        val linearLayoutManager = GridLayoutManager(context, 2, RecyclerView.VERTICAL, false)
         mViewDataBinding.popularRecycler.layoutManager = linearLayoutManager
 
         productAdapter = ProductAdapter(productArrayList, this)
@@ -245,6 +256,16 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
     }
 
     override fun onproductClick(position: Int) {
+        val id_ = productArrayList[position]._id
+
+        val bundle = Bundle()
+        bundle.putString("id", id_)
+        findNavController().navigate(
+            R.id.action_ecommerceFragment_to_productProfileFragment,
+            bundle
+        )
+
+
     }
 
     override fun onAddFavClick(position: Int, isFav: Boolean) {

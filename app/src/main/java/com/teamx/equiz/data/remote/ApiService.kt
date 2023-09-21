@@ -8,6 +8,7 @@ import com.teamx.equiz.data.models.bannerData.BannerData
 import com.teamx.equiz.data.models.categoriesData.GetAllCategoriesData
 import com.teamx.equiz.data.models.editProfile.EditProfileData
 import com.teamx.equiz.data.models.forgotpassData.ForgotPassData
+import com.teamx.equiz.data.models.getProductById.GetProductByIdData
 import com.teamx.equiz.data.models.getProducts.GetProductData
 import com.teamx.equiz.data.models.loginData.LoginData
 import com.teamx.equiz.data.models.otpForgotData.OtpforgotData
@@ -33,6 +34,12 @@ interface ApiService {
 
     @GET(NetworkCallPoints.GET_PRODUCTS)
     suspend fun getProducts(@Header("token") basicCredentials: String = "$TOKENER"): Response<GetProductData>
+
+    @GET(NetworkCallPoints.GET_PRODUCT_BY_ID)
+    suspend fun getProductById(
+        @Path("id") Productid: String,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<GetProductByIdData>
 
     @GET(NetworkCallPoints.GET_ALL_CATEGORIES)
     suspend fun getCategories(@Header("token") basicCredentials: String = "$TOKENER"): Response<GetAllCategoriesData>

@@ -178,7 +178,7 @@
 
 
                     <TextView
-                        android:id="@+id/productType"
+                        android:id="@+id/productPrice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_5sdp"
@@ -205,8 +205,8 @@
                         android:textColor="@color/light_gray"
                         android:gravity="center"
                         android:text="5 days  4 nights stay"
-                        app:layout_constraintStart_toStartOf="@+id/productType"
-                        app:layout_constraintTop_toBottomOf="@+id/productType" />
+                        app:layout_constraintStart_toStartOf="@+id/productPrice"
+                        app:layout_constraintTop_toBottomOf="@+id/productPrice" />
 
                     <TextView
                         android:id="@+id/accodmodation"

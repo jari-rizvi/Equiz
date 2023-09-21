@@ -14,6 +14,7 @@ class NetworkCallPoints {
         const val WISHLIST_DATA ="api/wishlist/find";
         const val BANNERS_DATA ="api/banner";
         const val GET_PRODUCTS ="api/products";
+        const val GET_PRODUCT_BY_ID ="api/products/find/{id}";
 
         var TOKENER: String? = ""
 

@@ -219,7 +219,11 @@
         android:id="@+id/ecommerceFragment"
         android:name="com.teamx.equiz.ui.fragments.ecommerce.home.EcommerceFragment"
         android:label="EcommerceFragment"
-        tools:layout="@layout/fragment_ecommerce"/>
+        tools:layout="@layout/fragment_ecommerce">
+        <action
+            android:id="@+id/action_ecommerceFragment_to_productProfileFragment"
+            app:destination="@id/productProfileFragment" />
+    </fragment>
     <fragment
         android:id="@+id/productProfileFragment"
         android:name="com.teamx.equiz.ui.fragments.ecommerce.productProfile.ProductProfileFragment"
