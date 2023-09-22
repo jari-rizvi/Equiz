@@ -20,12 +20,12 @@
             android:layout_height="0dp"
             android:layout_margin="@dimen/_6sdp"
             android:background="@drawable/card_background_less_radius"
-            android:backgroundTint="@color/blue"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
+                android:id="@+id/img"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="@dimen/_9sdp"
@@ -39,7 +39,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/textView54"
+            android:id="@+id/productName"
             style="@style/popins_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -48,14 +48,14 @@
             android:textSize="@dimen/_12ssp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/textView56"
+            app:layout_constraintEnd_toStartOf="@+id/productprice"
             app:layout_constraintHorizontal_bias="0.05"
             app:layout_constraintStart_toEndOf="@+id/container"
             app:layout_constraintTop_toTopOf="@+id/container"
             app:layout_constraintVertical_bias="0.1" />
 
         <TextView
-            android:id="@+id/textView55"
+            android:id="@+id/productQuantity"
             style="@style/popins_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -64,14 +64,14 @@
             android:textColor="@color/light_gray"
             android:textSize="@dimen/_12ssp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/textView54"
+            app:layout_constraintEnd_toEndOf="@+id/productName"
             app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toStartOf="@+id/textView54"
-            app:layout_constraintTop_toBottomOf="@+id/textView54"
+            app:layout_constraintStart_toStartOf="@+id/productName"
+            app:layout_constraintTop_toBottomOf="@+id/productName"
             app:layout_constraintVertical_bias="0.1" />
 
         <TextView
-            android:id="@+id/textView56"
+            android:id="@+id/productprice"
             style="@style/popins_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -80,9 +80,9 @@
             android:textColor="@color/yellow"
             android:textSize="@dimen/_12ssp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/textView55"
+            app:layout_constraintBottom_toBottomOf="@+id/productQuantity"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView54" />
+            app:layout_constraintTop_toBottomOf="@+id/productName" />
 
         <View
             android:id="@+id/view7"

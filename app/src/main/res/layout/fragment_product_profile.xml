@@ -9,8 +9,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorAccent">
+        android:layout_height="match_parent">
 
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -42,6 +41,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_200sdp"
                         android:minHeight="100dp"
+                        android:background="@drawable/shape_top_round_fill_white"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -50,7 +50,6 @@
                             android:id="@+id/screen_viewpager"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:background="@drawable/support"
                             app:layout_constraintBottom_toTopOf="@+id/tab_indicator"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="1.0"
@@ -120,18 +119,18 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
 
-                            <!--                            <ImageView-->
-                            <!--                                android:id="@+id/btnBack"-->
-                            <!--                                android:layout_width="@dimen/_30sdp"-->
-                            <!--                                android:layout_height="@dimen/_30sdp"-->
-                            <!--                                android:layout_marginStart="@dimen/_25sdp"-->
-                            <!--                                android:layout_marginTop="@dimen/_15sdp"-->
-                            <!--                                app:layout_constraintBottom_toBottomOf="parent"-->
-                            <!--                                app:layout_constraintStart_toStartOf="parent"-->
-                            <!--                                app:layout_constraintTop_toTopOf="parent"-->
-                            <!--                                app:layout_constraintVertical_bias="0.1"-->
-                            <!--                                app:srcCompat="@drawable/arrow_left"-->
-                            <!--                                app:tint="@color/white" />-->
+                            <ImageView
+                                android:id="@+id/btnWish"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                app:layout_constraintHorizontal_bias="0.95"
+                                android:layout_marginTop="@dimen/_15sdp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintVertical_bias="0.1"
+                                app:srcCompat="@drawable/wishlist_icon" />
 
                             <ImageView
                                 android:id="@+id/btnBack"
@@ -165,28 +164,28 @@
 
                     <TextView
                         android:id="@+id/productName"
+                        style="@style/popins_regular"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_15sdp"
                         android:layout_marginTop="@dimen/_15sdp"
                         android:text="Dubai"
-                        android:textStyle="bold"
-                        style="@style/popins_regular"
                         android:textSize="@dimen/_16sdp"
+                        android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
 
                     <TextView
                         android:id="@+id/productPrice"
+                        style="@style/popins_regular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:text="400 Pts"
                         android:textColor="@color/yellow"
-                        android:textStyle="bold"
-                        style="@style/popins_regular"
                         android:textSize="@dimen/_14sdp"
+                        android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="@+id/productName"
@@ -195,21 +194,22 @@
 
                     <TextView
                         android:id="@+id/time"
+                        style="@style/popins_regular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:layout_weight="1"
                         android:drawableStart="@drawable/arrow"
-                        style="@style/popins_regular"
-                        android:textSize="@dimen/_12sdp"
-                        android:textColor="@color/light_gray"
                         android:gravity="center"
                         android:text="5 days  4 nights stay"
+                        android:textColor="@color/light_gray"
+                        android:textSize="@dimen/_12sdp"
                         app:layout_constraintStart_toStartOf="@+id/productPrice"
                         app:layout_constraintTop_toBottomOf="@+id/productPrice" />
 
                     <TextView
                         android:id="@+id/accodmodation"
+                        style="@style/popins_regular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_5sdp"
@@ -217,23 +217,22 @@
                         android:drawableStart="@drawable/arrow"
                         android:gravity="center"
                         android:text="5 days  4 nights stay"
-                        style="@style/popins_regular"
-                        android:textSize="@dimen/_12sdp"
                         android:textColor="@color/light_gray"
+                        android:textSize="@dimen/_12sdp"
                         app:layout_constraintStart_toStartOf="@+id/time"
                         app:layout_constraintTop_toBottomOf="@+id/time" />
 
                     <TextView
                         android:id="@+id/facilities"
+                        style="@style/popins_regular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="Facilities"
-                        style="@style/popins_regular"
-                        android:textStyle="bold"
                         android:textSize="@dimen/_14sdp"
+                        android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="@+id/accodmodation"
                         app:layout_constraintTop_toBottomOf="@+id/accodmodation" />
 
@@ -250,15 +249,15 @@
 
                     <TextView
                         android:id="@+id/Peoples"
+                        style="@style/popins_regular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="No of People"
-                        style="@style/popins_regular"
-                        android:textStyle="bold"
                         android:textSize="@dimen/_14sdp"
+                        android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="@+id/facilities"
                         app:layout_constraintTop_toBottomOf="@+id/recyclerFacilities" />
 
@@ -276,48 +275,47 @@
 
                     <TextView
                         android:id="@+id/tvDesc"
+                        style="@style/popins_regular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="@string/description"
-                        style="@style/popins_regular"
-                        android:textStyle="bold"
-
                         android:textSize="@dimen/_14sdp"
+
+                        android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="@+id/facilities"
                         app:layout_constraintTop_toBottomOf="@+id/recyclerPeoples" />
 
                     <TextView
                         android:id="@+id/desc"
+                        style="@style/popins_regular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:layout_weight="1"
-                        style="@style/popins_regular"
+                        android:gravity="start"
+                        android:text=""
                         android:textColor="@color/light_gray"
                         android:textSize="@dimen/_12sdp"
-                        android:gravity="start"
-                        android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-
-It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software."
+                        app:layout_constraintEnd_toEndOf="@+id/recyclerPeoples"
                         app:layout_constraintStart_toStartOf="@+id/facilities"
                         app:layout_constraintTop_toBottomOf="@+id/tvDesc" />
 
                     <TextView
                         android:id="@+id/btnCheckout"
+                        style="@style/popins_regular"
                         android:layout_width="286dp"
                         android:layout_height="@dimen/_40sdp"
                         android:layout_marginTop="20dp"
                         android:background="@drawable/card_background"
                         android:backgroundTint="@color/yellow"
                         android:gravity="center"
-                        android:text="Check Out"
-                        style="@style/popins_regular"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/_14sdp"
+                        android:text="@string/add_to_cart"
                         android:textColor="@color/white"
+                        android:textSize="@dimen/_14sdp"
+                        android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.496"
                         app:layout_constraintStart_toStartOf="parent"
@@ -343,7 +341,7 @@ It was popularised in the 1960s with the release of Letraset sheets containing L
                             app:layout_constraintHorizontal_bias="0.5"
                             app:layout_constraintHorizontal_chainStyle="packed"
                             app:layout_constraintTop_toTopOf="@+id/productName"
-                            app:srcCompat="@drawable/arrow" />
+                            app:srcCompat="@drawable/sub" />
 
                         <TextView
                             android:id="@+id/quantity"
@@ -351,6 +349,8 @@ It was popularised in the 1960s with the release of Letraset sheets containing L
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="@dimen/_5sdp"
                             android:text="1"
+                            style="@style/popins_regular"
+                            android:textSize="@dimen/_14ssp"
                             app:layout_constraintBottom_toBottomOf="@+id/btnremove"
                             app:layout_constraintEnd_toStartOf="@+id/btnadd"
                             app:layout_constraintTop_toTopOf="@+id/btnremove" />
@@ -363,7 +363,7 @@ It was popularised in the 1960s with the release of Letraset sheets containing L
                             app:layout_constraintBottom_toBottomOf="@+id/btnremove"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="@+id/btnremove"
-                            app:srcCompat="@drawable/arrow" />
+                            app:srcCompat="@drawable/add" />
 
                     </LinearLayout>
 

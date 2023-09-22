@@ -22,7 +22,7 @@
             app:tint="@color/blue" />
 
         <ImageView
-            android:id="@+id/btnNotification"
+            android:id="@+id/btnCart"
             android:layout_width="@dimen/_35sdp"
             android:layout_height="@dimen/_30sdp"
             android:padding="5dp"

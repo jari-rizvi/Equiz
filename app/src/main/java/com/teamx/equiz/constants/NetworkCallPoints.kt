@@ -12,9 +12,12 @@ class NetworkCallPoints {
         const val EDIT_PROFILE ="/api/users/:id";
         const val GET_ALL_CATEGORIES ="/api/category";
         const val WISHLIST_DATA ="api/wishlist/find";
+        const val ADD_WISHLIST ="api/wishlist/add";
         const val BANNERS_DATA ="api/banner";
         const val GET_PRODUCTS ="api/products";
         const val GET_PRODUCT_BY_ID ="api/products/find/{id}";
+        const val ADD_TO_CART ="api/carts/add";
+        const val GET_CART ="api/carts/find";
 
         var TOKENER: String? = ""
 

@@ -7,8 +7,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.google.gson.JsonObject
 import com.teamx.equiz.baseclasses.BaseViewModel
+import com.teamx.equiz.data.models.addtocart.AddtoCartData
+import com.teamx.equiz.data.models.addtowishlist.AddToWishlistData
 import com.teamx.equiz.data.models.getProductById.GetProductByIdData
 import com.teamx.equiz.data.models.loginData.LoginData
+import com.teamx.equiz.data.models.signupData.SignupData
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.data.remote.reporitory.MainRepository
 import com.teamx.equiz.utils.NetworkHelper
@@ -34,14 +37,14 @@ class ProductProfileViewModel @Inject constructor(
             _productbyidResponse.postValue(Resource.loading(null))
             if (networkHelper.isNetworkConnected()) {
                 try {
-                    Timber.tag("87878787887").d( "starta")
+                    Timber.tag("87878787887").d("starta")
 
                     mainRepository.getProductById(Productid).let {
                         if (it.isSuccessful) {
                             _productbyidResponse.postValue(Resource.success(it.body()!!))
-                            Timber.tag("87878787887").d( it.body()!!.toString())
-                        }  else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
-                            Timber.tag("87878787887").d( "secoonnddd")
+                            Timber.tag("87878787887").d(it.body()!!.toString())
+                        } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
+                            Timber.tag("87878787887").d("secoonnddd")
 
 //                            _productbyidResponse.postValue(Resource.error(it.message(), null))
                             val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
@@ -53,7 +56,7 @@ class ProductProfileViewModel @Inject constructor(
                                     null
                                 )
                             )
-                            Timber.tag("87878787887").d( "third")
+                            Timber.tag("87878787887").d("third")
 
                         }
                     }
@@ -64,6 +67,77 @@ class ProductProfileViewModel @Inject constructor(
         }
     }
 
+
+    private val _addtocartResponse = MutableLiveData<Resource<AddtoCartData>>()
+    val addtocartResponse: LiveData<Resource<AddtoCartData>>
+        get() = _addtocartResponse
+
+    fun addtocart(param: JsonObject) {
+        viewModelScope.launch {
+            _addtocartResponse.postValue(Resource.loading(null))
+            if (networkHelper.isNetworkConnected()) {
+                try {
+                    mainRepository.AddToCart(param).let {
+                        if (it.isSuccessful) {
+                            _addtocartResponse.postValue(Resource.success(it.body()!!))
+                        } else if (it.code() == 401) {
+//                            unAuthorizedCallback.onToSignUpPage()
+                            _addtocartResponse.postValue(Resource.error(it.message(), null))
+                        } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
+//                            _addtocartResponse.postValue(Resource.error(it.message(), null))
+                            val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
+                            _addtocartResponse.postValue(Resource.error(jsonObj.getString("message")))
+                        } else {
+                            _addtocartResponse.postValue(
+                                Resource.error(
+                                    "Some thing went wrong",
+                                    null
+                                )
+                            )
+                        }
+                    }
+                } catch (e: Exception) {
+                    _addtocartResponse.postValue(Resource.error("${e.message}", null))
+                }
+            } else _addtocartResponse.postValue(Resource.error("No internet connection", null))
+        }
+    }
+
+
+    private val _addtowishlistResponse = MutableLiveData<Resource<AddToWishlistData>>()
+    val addtowishlistResponse: LiveData<Resource<AddToWishlistData>>
+        get() = _addtowishlistResponse
+
+    fun addtowishlist(param: JsonObject) {
+        viewModelScope.launch {
+            _addtowishlistResponse.postValue(Resource.loading(null))
+            if (networkHelper.isNetworkConnected()) {
+                try {
+                    mainRepository.AddToWishList(param).let {
+                        if (it.isSuccessful) {
+                            _addtowishlistResponse.postValue(Resource.success(it.body()!!))
+                        } else if (it.code() == 401) {
+//                            unAuthorizedCallback.onToSignUpPage()
+                            _addtowishlistResponse.postValue(Resource.error(it.message(), null))
+                        } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
+//                            _addtowishlistResponse.postValue(Resource.error(it.message(), null))
+                            val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
+                            _addtowishlistResponse.postValue(Resource.error(jsonObj.getString("message")))
+                        } else {
+                            _addtowishlistResponse.postValue(
+                                Resource.error(
+                                    "Some thing went wrong",
+                                    null
+                                )
+                            )
+                        }
+                    }
+                } catch (e: Exception) {
+                    _addtowishlistResponse.postValue(Resource.error("${e.message}", null))
+                }
+            } else _addtowishlistResponse.postValue(Resource.error("No internet connection", null))
+        }
+    }
 
 
 }

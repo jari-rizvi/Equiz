@@ -4,12 +4,15 @@ package com.teamx.equiz.data.remote
 import com.google.gson.JsonObject
 import com.teamx.equiz.constants.NetworkCallPoints
 import com.teamx.equiz.constants.NetworkCallPoints.Companion.TOKENER
+import com.teamx.equiz.data.models.addtocart.AddtoCartData
+import com.teamx.equiz.data.models.addtowishlist.AddToWishlistData
 import com.teamx.equiz.data.models.bannerData.BannerData
 import com.teamx.equiz.data.models.categoriesData.GetAllCategoriesData
 import com.teamx.equiz.data.models.editProfile.EditProfileData
 import com.teamx.equiz.data.models.forgotpassData.ForgotPassData
 import com.teamx.equiz.data.models.getProductById.GetProductByIdData
 import com.teamx.equiz.data.models.getProducts.GetProductData
+import com.teamx.equiz.data.models.getcart.GetCartData
 import com.teamx.equiz.data.models.loginData.LoginData
 import com.teamx.equiz.data.models.otpForgotData.OtpforgotData
 import com.teamx.equiz.data.models.signupData.SignupData
@@ -35,6 +38,9 @@ interface ApiService {
     @GET(NetworkCallPoints.GET_PRODUCTS)
     suspend fun getProducts(@Header("token") basicCredentials: String = "$TOKENER"): Response<GetProductData>
 
+    @GET(NetworkCallPoints.GET_CART)
+    suspend fun getCart(@Header("token") basicCredentials: String = "$TOKENER"): Response<GetCartData>
+
     @GET(NetworkCallPoints.GET_PRODUCT_BY_ID)
     suspend fun getProductById(
         @Path("id") Productid: String,
@@ -52,6 +58,18 @@ interface ApiService {
 
     @POST(NetworkCallPoints.SIGNUP_EMAIL)
     suspend fun Signup(@Body params: JsonObject?): Response<SignupData>
+
+    @POST(NetworkCallPoints.ADD_TO_CART)
+    suspend fun AddToCart(
+        @Body params: JsonObject?,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<AddtoCartData>
+
+    @POST(NetworkCallPoints.ADD_WISHLIST)
+    suspend fun AddToWishList(
+        @Body params: JsonObject?,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<AddToWishlistData>
 
     @POST(NetworkCallPoints.RESET_PASSWORD)
     suspend fun resetPass(@Body params: JsonObject?): Response<SuccessData>

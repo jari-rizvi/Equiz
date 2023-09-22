@@ -66,6 +66,11 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
             val activity = requireActivity() as MainActivity
             activity.openDrawer()
         }
+        mViewDataBinding.btnCart.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_ecommerceFragment_to_checkoutFragment
+            )
+        }
 
 
         mViewModel.getBanners()

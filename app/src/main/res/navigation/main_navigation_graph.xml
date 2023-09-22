@@ -223,6 +223,9 @@
         <action
             android:id="@+id/action_ecommerceFragment_to_productProfileFragment"
             app:destination="@id/productProfileFragment" />
+        <action
+            android:id="@+id/action_ecommerceFragment_to_checkoutFragment"
+            app:destination="@id/checkoutFragment" />
     </fragment>
     <fragment
         android:id="@+id/productProfileFragment"

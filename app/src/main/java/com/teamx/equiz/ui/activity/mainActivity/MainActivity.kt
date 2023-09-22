@@ -85,6 +85,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
         mViewDataBinding.drawerLayoutMain.btnTermsAndCondition.setOnClickListener {
             mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            navController!!.navigate(R.id.wishlistFragment)
             Toast.makeText(this, "Comming Soom", Toast.LENGTH_SHORT).show();
         }
 
