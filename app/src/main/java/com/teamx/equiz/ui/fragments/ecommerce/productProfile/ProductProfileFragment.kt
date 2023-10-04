@@ -7,7 +7,6 @@ import android.os.Looper
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.navigation.NavOptions
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -17,12 +16,8 @@ import com.google.gson.JsonObject
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
-import com.teamx.equiz.data.models.getProducts.Data
 import com.teamx.equiz.data.remote.Resource
-import com.teamx.equiz.databinding.FragmentEcommerceBinding
 import com.teamx.equiz.databinding.FragmentProductProfileBinding
-import com.teamx.equiz.ui.fragments.ecommerce.home.EcommerceViewModel
-import com.teamx.equiz.ui.fragments.ecommerce.home.ProductBannersAdapter
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONException

@@ -4,7 +4,7 @@ data class Data(
     val __v: Int,
     val _id: String,
     val brand: String,
-    val category: String,
+    val category: Category,
     val color: List<Any>,
     val createdAt: String,
     val description: String,

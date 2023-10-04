@@ -13,6 +13,7 @@ import com.teamx.equiz.data.models.forgotpassData.ForgotPassData
 import com.teamx.equiz.data.models.getProductById.GetProductByIdData
 import com.teamx.equiz.data.models.getProducts.GetProductData
 import com.teamx.equiz.data.models.getcart.GetCartData
+import com.teamx.equiz.data.models.getwalletData.GetWalletData
 import com.teamx.equiz.data.models.loginData.LoginData
 import com.teamx.equiz.data.models.otpForgotData.OtpforgotData
 import com.teamx.equiz.data.models.signupData.SignupData
@@ -40,6 +41,9 @@ interface ApiService {
 
     @GET(NetworkCallPoints.GET_CART)
     suspend fun getCart(@Header("token") basicCredentials: String = "$TOKENER"): Response<GetCartData>
+
+    @GET(NetworkCallPoints.GET_WALLET)
+    suspend fun getWallet(@Header("token") basicCredentials: String = "$TOKENER"): Response<GetWalletData>
 
     @GET(NetworkCallPoints.GET_PRODUCT_BY_ID)
     suspend fun getProductById(

@@ -42,7 +42,12 @@ class CartAdapter(var arrayList: ArrayList<Data>) :
             ""
         }
 
-        Picasso.get().load(cart.images[0].toString()).into(holder.binding.img)
+        try {
+
+            Picasso.get().load(cart.images[0].toString()).into(holder.binding.img)
+        } catch (e: Exception) {
+
+        }
 
 
         /*    holder.binding.btnDelete.setOnClickListener {
