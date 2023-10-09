@@ -15,13 +15,16 @@ import com.teamx.equiz.data.models.getProducts.GetProductData
 import com.teamx.equiz.data.models.getcart.GetCartData
 import com.teamx.equiz.data.models.getwalletData.GetWalletData
 import com.teamx.equiz.data.models.loginData.LoginData
+import com.teamx.equiz.data.models.newsdaya.GetNewsData
 import com.teamx.equiz.data.models.otpForgotData.OtpforgotData
 import com.teamx.equiz.data.models.signupData.SignupData
 import com.teamx.equiz.data.models.sucessData.SuccessData
 import com.teamx.equiz.data.models.wishlistdata.WishlistData
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.HTTP
 import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -44,6 +47,9 @@ interface ApiService {
 
     @GET(NetworkCallPoints.GET_WALLET)
     suspend fun getWallet(@Header("token") basicCredentials: String = "$TOKENER"): Response<GetWalletData>
+
+    @GET(NetworkCallPoints.GET_NEWS)
+    suspend fun getNews(@Header("token") basicCredentials: String = "$TOKENER"): Response<GetNewsData>
 
     @GET(NetworkCallPoints.GET_PRODUCT_BY_ID)
     suspend fun getProductById(
@@ -89,6 +95,12 @@ interface ApiService {
     suspend fun otpVerify(
         @Path("uniqueID") uniqueID: String
     ): Response<LoginData>
+
+    @HTTP(method = "DELETE", path = NetworkCallPoints.DELETE_CART)
+    suspend fun deleteCart(
+        @Path("productId") productId: String,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<SuccessData>
 
 
     @GET(NetworkCallPoints.OTP_VERIFY_FORGOT)

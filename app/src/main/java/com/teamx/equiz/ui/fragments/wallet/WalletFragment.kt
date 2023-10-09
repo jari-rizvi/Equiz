@@ -4,6 +4,7 @@ package com.teamx.equiz.ui.fragments.wallet
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -46,6 +47,10 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
             }
         }
 
+        mViewDataBinding.textView9.setOnClickListener {
+            findNavController().navigate(R.id.action_walletFragment_to_referralFragment)
+        }
+
 
         mViewModel.getWallet()
 
@@ -59,6 +64,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
+                            mViewDataBinding.textView10.text = data.data.toString() + " Points"
                             data.transactions.forEach {
                                 walletArrayList.add(it)
                             }
@@ -87,6 +93,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
 
         walletRecyclerview()
     }
+
     private fun walletRecyclerview() {
         walletArrayList = ArrayList()
 

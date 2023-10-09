@@ -8,6 +8,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.FirebaseApp
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.ktx.initialize
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.gson.JsonObject
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
@@ -34,6 +39,7 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
     private var userPhone: String? = null
     private var password: String? = null
     private lateinit var options: NavOptions
+    private lateinit var fcmToken: String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -48,6 +54,22 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
             }
         }
 
+        FirebaseApp.initializeApp(requireContext())
+        Firebase.initialize(requireContext())
+
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w("TAG", "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+
+            // Get new FCM registration token
+            fcmToken = task.result
+
+            Log.d("TokeeennnFcm", "onViewCreated: $fcmToken")
+
+        })
+
 
         mViewDataBinding.btnForgot.setOnClickListener {
             findNavController().navigate(R.id.action_logInFragment_to_forgotPassFragment2)
@@ -60,6 +82,7 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
         mViewDataBinding.btnLogin.setOnClickListener {
             isValidate()
         }
+
 
     }
 

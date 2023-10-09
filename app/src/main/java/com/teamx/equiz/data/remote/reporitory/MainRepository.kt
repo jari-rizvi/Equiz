@@ -18,6 +18,7 @@ class MainRepository @Inject constructor(
     suspend fun getProducts() = apiService.getProducts()
     suspend fun getCart() = apiService.getCart()
     suspend fun getWallet() = apiService.getWallet()
+    suspend fun getNews() = apiService.getNews()
     suspend fun getProductById(@Path("id") Productid: String) = apiService.getProductById(Productid)
     suspend fun getCategories() = apiService.getCategories()
     suspend fun loginPhone(@Body param: JsonObject) = apiService.loginPhone(param)
@@ -28,7 +29,11 @@ class MainRepository @Inject constructor(
     suspend fun resetPass(@Body param: JsonObject) = apiService.resetPass(param)
     suspend fun editProfile(@Body param: JsonObject) = apiService.editProfile(param)
     suspend fun otpVerify(@Path("uniqueID") uniqueID: String) = apiService.otpVerify(uniqueID)
-    suspend fun otpVerifyForgot(@Path("uniqueID") uniqueID: String) = apiService.otpVerifyForgot(uniqueID)
+    suspend fun deleteCart(@Path("deleteCart") deleteCart: String) =
+        apiService.deleteCart(deleteCart)
+
+    suspend fun otpVerifyForgot(@Path("uniqueID") uniqueID: String) =
+        apiService.otpVerifyForgot(uniqueID)
 
 
 }

@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.teamx.equiz.baseclasses.BaseViewModel
 import com.teamx.equiz.data.models.getcart.GetCartData
+import com.teamx.equiz.data.models.loginData.LoginData
+import com.teamx.equiz.data.models.sucessData.SuccessData
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.data.remote.reporitory.MainRepository
 import com.teamx.equiz.utils.NetworkHelper
@@ -58,6 +60,48 @@ class CheckoutViewModel @Inject constructor(
                     _getcartResponse.postValue(Resource.error("${e.message}", null))
                 }
             } else _getcartResponse.postValue(Resource.error("No internet connection", null))
+        }
+    }
+
+
+
+    private val _deleteCartResponse = MutableLiveData<Resource<SuccessData>>()
+    val deleteCartResponse: LiveData<Resource<SuccessData>>
+        get() = _deleteCartResponse
+
+
+    fun deleteCart(productId: String) {
+        viewModelScope.launch {
+            _deleteCartResponse.postValue(Resource.loading(null))
+            if (networkHelper.isNetworkConnected()) {
+                try {
+                    Timber.tag("87878787887").d( "starta")
+
+                    mainRepository.deleteCart(productId).let {
+                        if (it.isSuccessful) {
+                            _deleteCartResponse.postValue(Resource.success(it.body()!!))
+                            Timber.tag("87878787887").d( it.body()!!.toString())
+                        }  else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
+                            Timber.tag("87878787887").d( "secoonnddd")
+
+//                            _deleteCartResponse.postValue(Resource.error(it.message(), null))
+                            val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
+                            _deleteCartResponse.postValue(Resource.error(jsonObj.getString("message")))
+                        } else {
+                            _deleteCartResponse.postValue(
+                                Resource.error(
+                                    "Some thing went wrong",
+                                    null
+                                )
+                            )
+                            Timber.tag("87878787887").d( "third")
+
+                        }
+                    }
+                } catch (e: Exception) {
+                    _deleteCartResponse.postValue(Resource.error("${e.message}", null))
+                }
+            } else _deleteCartResponse.postValue(Resource.error("No internet connection", null))
         }
     }
 

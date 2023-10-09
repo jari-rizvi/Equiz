@@ -18,7 +18,9 @@ class NetworkCallPoints {
         const val GET_PRODUCT_BY_ID ="api/products/find/{id}";
         const val ADD_TO_CART ="api/carts/add";
         const val GET_CART ="api/carts/find";
+        const val DELETE_CART ="/api/carts/{productId}";
         const val GET_WALLET ="api/wallet/getWallet";
+        const val GET_NEWS ="/api/news";
 
         var TOKENER: String? = ""
 

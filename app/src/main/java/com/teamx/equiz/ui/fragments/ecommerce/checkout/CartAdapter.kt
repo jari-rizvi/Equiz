@@ -7,7 +7,7 @@ import com.squareup.picasso.Picasso
 import com.teamx.equiz.data.models.getcart.Data
 import com.teamx.equiz.databinding.ItemCartBinding
 
-class CartAdapter(var arrayList: ArrayList<Data>) :
+class CartAdapter(var arrayList: ArrayList<Data>, val onCartListener: OnCartListener) :
     RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
 
 
@@ -26,7 +26,7 @@ class CartAdapter(var arrayList: ArrayList<Data>) :
 
         val cart: Data = arrayList[position]
         holder.binding.productName.text = try {
-            cart.title
+            cart.product.title
         } catch (e: Exception) {
             ""
         }
@@ -37,24 +37,21 @@ class CartAdapter(var arrayList: ArrayList<Data>) :
             ""
         }
         holder.binding.productprice.text = try {
-            "${cart.price.toString()}"
+            "${cart.product.price.toString()}"
         } catch (e: Exception) {
             ""
         }
 
         try {
 
-            Picasso.get().load(cart.images[0].toString()).into(holder.binding.img)
+            Picasso.get().load(cart.product.images[0].toString()).into(holder.binding.img)
         } catch (e: Exception) {
 
         }
 
-
-        /*    holder.binding.btnDelete.setOnClickListener {
-                onCartListener?.onDeleteClickListener(position)
-            }*/
-
-
+            holder.binding.btnDelete.setOnClickListener {
+                onCartListener?.onRemoveToCartListener(position)
+            }
     }
 
     override fun getItemCount(): Int {
