@@ -275,6 +275,10 @@
         android:id="@+id/quizFragment"
         android:name="com.teamx.equiz.ui.fragments.quiz.QuizFragment"
         android:label="QuizFragment" />
+    <fragment
+        android:id="@+id/topupFragment"
+        android:name="com.teamx.equiz.ui.fragments.topup.TopupFragment"
+        android:label="TopupFragment" />
 
 
 </navigation>

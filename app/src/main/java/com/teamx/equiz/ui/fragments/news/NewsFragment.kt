@@ -3,7 +3,9 @@ package com.teamx.equiz.ui.fragments.news
 
 import android.os.Bundle
 import android.view.View
+import androidx.navigation.NavController
 import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -51,6 +53,7 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>() {
         }
 
         mViewDataBinding.btnback.setOnClickListener {
+            findNavController().popBackStack()
         }
 
         mViewModel.getNews()
@@ -60,6 +63,7 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>() {
                 when (it.status) {
                     Resource.Status.LOADING -> {
                         loadingDialog.show()
+
                     }
 
                     Resource.Status.SUCCESS -> {

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1052802534305",
+    "project_id": "e-quiz-backend",
+    "storage_bucket": "e-quiz-backend.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1052802534305:android:0827aa0aa146cea7b3d9e0",
+        "android_client_info": {
+          "package_name": "com.teamx.equiz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1052802534305-roeesgr7bjoil2ota47lh5l35c1m2t1r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAs0M3S_dFJMO5QATD4FTWub1he7dxB_I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1052802534305-roeesgr7bjoil2ota47lh5l35c1m2t1r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
