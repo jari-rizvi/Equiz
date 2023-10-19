@@ -6,50 +6,49 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:background="@drawable/bg"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/bg">
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintVertical_bias="0.2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/logo" />
+            app:layout_constraintVertical_bias="0.1"
+            app:srcCompat="@drawable/welcome_back" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutTextInput"
             android:layout_width="0dp"
             android:layout_height="@dimen/_40sdp"
             android:layout_marginHorizontal="@dimen/_15sdp"
-            android:textColorHint="@color/white"
+            android:textColorHint="@color/light_gray"
             app:boxBackgroundMode="filled"
             app:boxStrokeWidth="0dp"
             app:hintEnabled="false"
-            app:layout_constraintVertical_bias="0.1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView"
-            >
+            app:layout_constraintTop_toBottomOf="@+id/textView45"
+            app:layout_constraintVertical_bias="0.1">
 
             <com.google.android.material.textfield.TextInputEditText
-                            style="@style/popins_regular"
                 android:id="@+id/etEMail"
-                android:layout_width="match_parent"
-                android:background="@drawable/contact_input_background"
-                android:layout_height="match_parent"
+                style="@style/popins_regular"
+                android:layout_width="370dp"
+                android:layout_height="53dp"
                 android:layout_gravity="center"
-                android:textColorHint="@color/white"
+                android:background="@drawable/contact_input_background"
                 android:gravity="center_vertical"
-                android:textColor="@color/white"
-                android:paddingStart="@dimen/_15sdp"
                 android:hint="Enter your Email or Number"
                 android:imeOptions="actionNext"
                 android:inputType="text"
+                android:paddingStart="@dimen/_15sdp"
+                android:textColor="@color/light_gray"
+                android:textColorHint="@color/light_gray"
                 android:textSize="@dimen/_11ssp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -59,95 +58,109 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/_40sdp"
             android:layout_marginHorizontal="@dimen/_15sdp"
-            android:textColorHint="@color/white"
+            android:textColorHint="@color/light_gray"
             app:boxBackgroundMode="filled"
             app:boxStrokeWidth="0dp"
             app:hintEnabled="false"
-            app:layout_constraintVertical_bias="0.05"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:passwordToggleEnabled="true"
-            app:passwordToggleDrawable="@drawable/show"
-            app:passwordToggleTint="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layoutTextInput"
-            >
+            app:layout_constraintVertical_bias="0.05"
+            app:passwordToggleDrawable="@drawable/show"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/white">
 
             <com.google.android.material.textfield.TextInputEditText
-                            style="@style/popins_regular"
                 android:id="@+id/etPass"
+                style="@style/popins_regular"
                 android:layout_width="match_parent"
-                android:background="@drawable/contact_input_background"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:background="@drawable/contact_input_background"
                 android:gravity="center_vertical"
-                android:textColor="@color/white"
-                android:paddingStart="@dimen/_15sdp"
-                android:textColorHint="@color/white"
                 android:hint="Enter your Password"
                 android:imeOptions="actionNext"
                 android:inputType="text"
+                android:paddingStart="@dimen/_15sdp"
+                android:textColor="@color/light_gray"
+                android:textColorHint="@color/light_gray"
                 android:textSize="@dimen/_11ssp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-                        style="@style/popins_regular"
             android:id="@+id/btnForgot"
+            style="@style/popins_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Forgot Passwords?"
+            android:textColor="@color/light_gray"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.9"
             app:layout_constraintStart_toStartOf="parent"
-            android:textColor="@color/white"
             app:layout_constraintTop_toBottomOf="@+id/layoutTextInput1"
             app:layout_constraintVertical_bias="0.06" />
 
         <TextView
 
             android:id="@+id/btnLogin"
+            style="@style/popins_regular"
             android:layout_width="286dp"
             android:layout_height="@dimen/_40sdp"
             android:layout_marginTop="20dp"
+            android:background="@drawable/card_background"
+            android:backgroundTint="@color/yellow"
             android:gravity="center"
             android:text="@string/login"
             android:textColor="@color/white"
-            style="@style/popins_regular"
-            android:textStyle="bold"
             android:textSize="@dimen/_14ssp"
-            android:background="@drawable/card_background"
-            android:backgroundTint="@color/yellow"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnForgot" />
 
         <TextView
-                        style="@style/popins_regular"
             android:id="@+id/textView5"
+            style="@style/popins_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:text="Don’t have an account?"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.406"
-            android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 
         <TextView
-                        style="@style/popins_regular"
             android:id="@+id/btnSignup"
+            style="@style/popins_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/_5sdp"
             android:text="Register now"
-            android:textColor="@color/white"
+            android:textColor="@color/light_gray"
             app:layout_constraintBottom_toBottomOf="@+id/textView5"
             app:layout_constraintStart_toEndOf="@+id/textView5" />
 
-
+        <TextView
+            android:id="@+id/textView45"
+            style="@style/popins_regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Welcome back! Glad to\nsee you, Again!"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_18ssp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/imageView"
+            app:layout_constraintHorizontal_bias="0.504"
+            app:layout_constraintStart_toStartOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:layout_constraintVertical_bias="0.05" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,6 +12,7 @@
     <string name="password">Password</string>
     <string name="email">Email</string>
     <string name="referral_code">Referral Code</string>
+    <string name="debit_card">Debit Card</string>
     <string name="phone_number">Phone Number</string>
     <string name="otp_verification">OTP Verification</string>
     <string name="verify">Verify</string>

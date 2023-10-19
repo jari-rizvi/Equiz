@@ -8,6 +8,8 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
+import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import androidx.core.app.ActivityCompat
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
@@ -49,6 +51,9 @@ class TempFragment : BaseFragment<FragmentTempBinding, TempViewModel>() {
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+
+
+
 
 
         CoroutineScope(Dispatchers.Main).launch {

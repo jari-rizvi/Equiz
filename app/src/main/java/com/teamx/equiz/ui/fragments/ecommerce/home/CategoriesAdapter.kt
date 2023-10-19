@@ -3,12 +3,8 @@ package com.teamx.equiz.ui.fragments.ecommerce.home
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.Picasso
 import com.teamx.equiz.data.models.categoriesData.Data
-import com.teamx.equiz.data.models.categoriesData.GetAllCategoriesData
-import com.teamx.equiz.data.models.wishlistdata.Product
 import com.teamx.equiz.databinding.ItemCategoriesBinding
-import com.teamx.equiz.databinding.ItemWishlistBinding
 
 class CategoriesAdapter(val arrayList: ArrayList<Data>, val onTopCategoriesListener: OnTopCategoriesListener) : RecyclerView.Adapter<CategoriesAdapter.TopCategoriesViewHolder>() {
 

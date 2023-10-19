@@ -71,7 +71,7 @@
         android:backgroundTint="@color/yellow"
         android:gravity="center"
         android:text="@string/invite_another"
-        android:textColor="@color/white"
+        android:textColor="@color/light_gray"
         android:textSize="@dimen/_14ssp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

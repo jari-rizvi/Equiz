@@ -20,14 +20,15 @@
             android:backgroundTint="@color/yellow"
             android:gravity="center"
             android:text="@string/login"
-            style="@style/popins_bold"
+            style="@style/popins_regular"
+            android:textStyle="bold"
             android:textColor="@color/white"
-            android:textSize="@dimen/_12ssp"
+            android:textSize="@dimen/_14ssp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            app:layout_constraintVertical_bias="0.3" />
+            app:layout_constraintTop_toBottomOf="@+id/asasas"
+            app:layout_constraintVertical_bias="0.1" />
 
         <TextView
             android:id="@+id/btnRegister"
@@ -38,16 +39,33 @@
             android:gravity="center"
             android:text="@string/register"
             app:layout_constraintVertical_bias="0.07"
-            android:textColor="@color/yellow"
-            android:textSize="@dimen/_12ssp"
-            style="@style/popins_bold"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_14ssp"
+            style="@style/popins_regular"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 
+        <TextView
+            android:id="@+id/asasas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Slogan goes here"
+            android:textSize="@dimen/_18ssp"
+            style="@style/popins_regular"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintVertical_bias="0.1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toStartOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -55,7 +73,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.2"
-            tools:srcCompat="@drawable/logo_equiz" />
+            app:srcCompat="@drawable/equiz_logo" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

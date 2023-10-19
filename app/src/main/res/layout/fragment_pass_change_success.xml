@@ -19,7 +19,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.2"
-            app:srcCompat="@drawable/successmark" />
+            app:srcCompat="@drawable/successmark_1" />
 
 
         <TextView
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Password Change"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             style="@style/popins_regular"
             android:textStyle="bold"
             android:textSize="@dimen/_18ssp"
@@ -42,7 +42,7 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="@dimen/_12ssp"
             android:gravity="center"
             style="@style/popins_regular"

@@ -290,7 +290,7 @@
             android:layout_width="@dimen/_150sdp"
             android:layout_height="@dimen/_40sdp"
             android:text="@string/invoice"
-            android:textColor="@color/white"
+            android:textColor="@color/light_gray"
             style="@style/popins_regular"
             android:textStyle="bold"
             android:textSize="@dimen/_12ssp"

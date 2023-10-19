@@ -27,9 +27,9 @@
                 android:buttonTint="@color/blue"
                 android:clickable="false"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/paymentImage"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toEndOf="@+id/paymentName" />
 
             <ImageView
                 android:id="@+id/paymentImage"
@@ -37,24 +37,27 @@
                 android:layout_height="@dimen/_22sdp"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/master_card"
-                app:layout_constraintBottom_toBottomOf="@+id/paymentType"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintHorizontal_bias="0.1"
                 app:layout_constraintEnd_toStartOf="@+id/paymentName"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/paymentType"
-                app:layout_constraintTop_toTopOf="@+id/paymentType" />
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout_editor_absoluteY="2dp" />
 
 
             <TextView
                 android:id="@+id/paymentName"
                 android:layout_width="@dimen/_180sdp"
+                style="@style/popins_regular"
+                android:textSize="@dimen/_12ssp"
+                android:textStyle="bold"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="master Card end **00"
-                app:layout_constraintBottom_toBottomOf="@+id/paymentImage"
-                app:layout_constraintEnd_toStartOf="@+id/paymentImage2"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/paymentImage"
-                app:layout_constraintTop_toTopOf="@+id/paymentImage" />
+                android:text="master Card end **00"
+                app:layout_constraintEnd_toStartOf="@+id/paymentType"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/paymentImage"
+                tools:layout_editor_absoluteX="146dp" />
 
             <ImageView
                 android:id="@+id/paymentImage2"

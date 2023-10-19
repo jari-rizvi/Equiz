@@ -25,7 +25,8 @@ import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewModel>(),
+class
+EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewModel>(),
     OnTopCategoriesListener, OnProductListener {
 
     override val layoutId: Int
@@ -34,6 +35,7 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
         get() = EcommerceViewModel::class.java
     override val bindingVariable: Int
         get() = BR.viewModel
+
 
     lateinit var categoriesAdapter: CategoriesAdapter
     lateinit var categoriesArrayList2: ArrayList<Data>
