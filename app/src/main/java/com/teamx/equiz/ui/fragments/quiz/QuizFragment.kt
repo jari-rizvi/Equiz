@@ -49,6 +49,7 @@ class QuizFragment : BaseFragment<FragmentWishlistBinding, WishlistViewModel>() 
             }
         }
 
+
         mViewModel.getWishlist()
 
         if (!mViewModel.wishlistResponse.hasActiveObservers()) {
@@ -64,10 +65,7 @@ class QuizFragment : BaseFragment<FragmentWishlistBinding, WishlistViewModel>() 
                             data.data.forEach {
                                 favouriteArrayList.add(it.product)
                             }
-
                             favouriteAdapter.notifyDataSetChanged()
-
-
                         }
                     }
 

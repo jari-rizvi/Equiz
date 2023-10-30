@@ -22,7 +22,6 @@ import com.teamx.equiz.data.models.sucessData.SuccessData
 import com.teamx.equiz.data.models.wishlistdata.WishlistData
 import retrofit2.Response
 import retrofit2.http.Body
-import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.HTTP
 import retrofit2.http.Header

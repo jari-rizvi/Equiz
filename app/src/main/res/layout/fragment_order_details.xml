@@ -294,7 +294,7 @@
             style="@style/popins_regular"
             android:textStyle="bold"
             android:textSize="@dimen/_12ssp"
-            android:backgroundTint="@color/yellow"
+            android:backgroundTint="@color/theme_color"
             android:background="@drawable/card_background_border"
             android:gravity="center"
             app:layout_constraintBottom_toBottomOf="@+id/textView35"

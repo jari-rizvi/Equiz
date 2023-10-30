@@ -7,6 +7,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:backgroundTint="@color/theme_color"
         android:background="@drawable/bg">
 
 
@@ -24,7 +25,7 @@
 
         <TextView
             android:id="@+id/textView"
-            style="@style/popins_bold"
+            style="@style/popins_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Referral"
@@ -47,16 +48,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"
             app:layout_constraintVertical_bias="0.2"
-            app:srcCompat="@drawable/successmark" />
+            app:srcCompat="@drawable/referral_benefit" />
 
         <TextView
             android:id="@+id/textView6"
-            style="@style/popins_bold"
+            style="@style/popins_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Refer Your Friends, Earn Gifts"
-            android:textColor="@color/light_gray"
-            android:textSize="@dimen/_14ssp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16ssp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -72,6 +73,7 @@
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_10sdp"
             android:background="@drawable/card_background_border"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.485"
@@ -89,7 +91,7 @@
                 android:gravity="center"
                 android:maxLines="1"
                 android:text="RDSK2321"
-                android:textColor="@color/light_gray"
+                android:textColor="@color/white"
                 android:textSize="@dimen/_14ssp"
                 app:layout_constraintEnd_toStartOf="@+id/textView8"
                 app:layout_constraintStart_toStartOf="parent"
@@ -103,7 +105,7 @@
                 android:background="@drawable/shape_right_round_fill_dark"
                 android:gravity="center"
                 android:text="Copy"
-                android:textColor="@color/light_gray"
+                android:textColor="@color/theme_color"
                 android:textSize="@dimen/_14ssp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -117,7 +119,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/they_can_invite_their_friends_and_earn_more_n_chances_of_winning_the_quiz"
-            android:textColor="@color/light_gray"
+            android:textColor="@color/white"
             android:textSize="@dimen/_12ssp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -128,18 +130,18 @@
 
         <TextView
             android:id="@+id/btnInvite"
-            style="@style/popins_bold"
+            style="@style/popins_regular"
             android:layout_width="286dp"
             android:layout_height="@dimen/_40sdp"
             android:background="@drawable/card_background"
-            android:backgroundTint="@color/yellow"
+            android:backgroundTint="@color/white"
             android:gravity="center"
+            android:textAlignment="center"
             android:text="@string/invite_now"
-            android:textColor="@color/light_gray"
-            android:textStyle="bold"
+            android:textSize="@dimen/_14ssp"
+            android:textColor="@color/theme_color"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView7" />
 

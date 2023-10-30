@@ -51,6 +51,7 @@
                     android:layout_height="@dimen/_60sdp"
                     android:layout_centerInParent="true"
                     android:background="@drawable/border_background"
+                    android:backgroundTint="@color/red"
                     android:elevation="@dimen/_5sdp"
                     android:padding="@dimen/_2sdp"
                     android:src="@drawable/successmark"
@@ -66,7 +67,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="John Mark"
-                    android:textColor="@color/blue"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/_14ssp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -81,7 +82,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="johnmark@gmail.com"
-                    android:textColor="@color/blue"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/_12ssp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -96,7 +97,7 @@
                     android:layout_height="@dimen/_65sdp"
                     android:layout_marginHorizontal="@dimen/_6sdp"
                     android:background="@drawable/card_background_less_radius"
-                    android:backgroundTint="@color/blue"
+                    android:backgroundTint="@color/theme_color"
                     android:elevation="@dimen/_1sdp"
                     android:paddingVertical="@dimen/_10sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -114,7 +115,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="Ranking"
-                        android:textColor="@color/light_gray"
+                        android:textColor="@color/white"
                         android:textSize="@dimen/_11ssp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@+id/view1"
@@ -132,7 +133,7 @@
                         android:layout_marginTop="@dimen/_5sdp"
                         android:gravity="center"
                         android:text="06"
-                        android:textColor="@color/yellow"
+                        android:textColor="@color/white"
                         android:textSize="@dimen/_15ssp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -144,7 +145,7 @@
                         android:id="@+id/view1"
                         android:layout_width="@dimen/_1sdp"
                         android:layout_height="@dimen/_50sdp"
-                        android:background="@color/yellow"
+                        android:background="@color/theme_color"
                         android:orientation="vertical"
                         app:layout_constraintBottom_toBottomOf="@+id/btnCurrent"
                         app:layout_constraintEnd_toStartOf="@+id/btnPast"
@@ -159,7 +160,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="Total Points"
-                        android:textColor="@color/light_gray"
+                        android:textColor="@color/white"
                         android:textSize="@dimen/_11ssp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@+id/btnCurrent"
@@ -172,7 +173,7 @@
                         android:id="@+id/view2"
                         android:layout_width="@dimen/_1sdp"
                         android:layout_height="@dimen/_50sdp"
-                        android:background="@color/yellow"
+                        android:background="@color/theme_color"
                         android:orientation="vertical"
                         app:layout_constraintBottom_toBottomOf="@+id/view1"
                         app:layout_constraintEnd_toStartOf="@+id/btnReview"
@@ -188,7 +189,7 @@
                         android:layout_marginTop="@dimen/_5sdp"
                         android:gravity="center"
                         android:text="06"
-                        android:textColor="@color/yellow"
+                        android:textColor="@color/white"
                         android:textSize="@dimen/_15ssp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -203,7 +204,7 @@
                         android:layout_height="0dp"
                         android:gravity="center"
                         android:text="Total Chances"
-                        android:textColor="@color/light_gray"
+                        android:textColor="@color/white"
                         android:textSize="@dimen/_11ssp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@+id/btnPast"
@@ -220,7 +221,7 @@
                         android:layout_marginTop="@dimen/_5sdp"
                         android:gravity="center"
                         android:text="09"
-                        android:textColor="@color/yellow"
+                        android:textColor="@color/white"
                         android:textSize="@dimen/_15ssp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -282,8 +283,8 @@
                                 android:layout_marginStart="5dp"
                                 android:layout_marginEnd="5dp"
                                 android:layout_weight="0"
-
-                                android:src="@drawable/home_icon" />
+                                android:src="@drawable/home_icon"
+                                app:tint="@color/black" />
 
                             <TextView
                                 style="@style/popins_regular"
@@ -294,7 +295,7 @@
                                 android:paddingStart="@dimen/_7sdp"
                                 android:paddingEnd="@dimen/_7sdp"
                                 android:text="Home"
-                                android:textColor="@color/blue"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/_11ssp"
                                 android:textStyle="bold" />
 
@@ -328,7 +329,8 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginStart="5dp"
                                 android:layout_marginEnd="5dp"
-                                android:src="@drawable/ecommerce_icon" />
+                                android:src="@drawable/ecommerce_icon"
+                                app:tint="@color/black" />
 
                             <TextView
                                 style="@style/popins_regular"
@@ -339,7 +341,7 @@
                                 android:paddingStart="@dimen/_7sdp"
                                 android:paddingEnd="@dimen/_7sdp"
                                 android:text="Ecommerce"
-                                android:textColor="@color/blue"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/_11ssp"
                                 android:textStyle="bold" />
 
@@ -371,7 +373,8 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginStart="5dp"
                                 android:layout_marginEnd="5dp"
-                                android:src="@drawable/quiz_icon" />
+                                android:src="@drawable/quiz_icon"
+                                app:tint="@color/black" />
 
                             <TextView
                                 style="@style/popins_regular"
@@ -383,7 +386,7 @@
                                 android:paddingStart="@dimen/_7sdp"
                                 android:paddingEnd="@dimen/_7sdp"
                                 android:text="quiz"
-                                android:textColor="@color/blue"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/_11ssp"
                                 android:textStyle="bold" />
 
@@ -428,7 +431,8 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginStart="5dp"
                                 android:layout_marginEnd="5dp"
-                                android:src="@drawable/wallet_icon" />
+                                android:src="@drawable/wallet_icon"
+                                app:tint="@color/black" />
 
                             <TextView
                                 style="@style/popins_regular"
@@ -439,7 +443,7 @@
                                 android:paddingStart="@dimen/_7sdp"
                                 android:paddingEnd="@dimen/_7sdp"
                                 android:text="Wallet"
-                                android:textColor="@color/blue"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/_11ssp"
                                 android:textStyle="bold" />
 
@@ -473,7 +477,8 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginStart="5dp"
                                 android:layout_marginEnd="5dp"
-                                android:src="@drawable/leaderboard_icon" />
+                                android:src="@drawable/leaderboard_icon"
+                                app:tint="@color/black" />
 
                             <TextView
                                 style="@style/popins_regular"
@@ -484,7 +489,7 @@
                                 android:paddingStart="@dimen/_7sdp"
                                 android:paddingEnd="@dimen/_7sdp"
                                 android:text="Leaderboard"
-                                android:textColor="@color/blue"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/_11ssp"
                                 android:textStyle="bold" />
 
@@ -518,7 +523,8 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginStart="5dp"
                                 android:layout_marginEnd="5dp"
-                                android:src="@drawable/raferral_icon" />
+                                android:src="@drawable/raferral_icon"
+                                app:tint="@color/black" />
 
                             <TextView
                                 style="@style/popins_regular"
@@ -529,7 +535,7 @@
                                 android:paddingStart="@dimen/_7sdp"
                                 android:paddingEnd="@dimen/_7sdp"
                                 android:text="Refferal"
-                                android:textColor="@color/blue"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/_11ssp"
                                 android:textStyle="bold" />
 
@@ -563,7 +569,8 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginStart="5dp"
                                 android:layout_marginEnd="5dp"
-                                android:src="@drawable/account_icon" />
+                                android:src="@drawable/account_icon"
+                                app:tint="@color/black" />
 
                             <TextView
                                 style="@style/popins_regular"
@@ -574,7 +581,7 @@
                                 android:paddingStart="@dimen/_7sdp"
                                 android:paddingEnd="@dimen/_7sdp"
                                 android:text="Profile"
-                                android:textColor="@color/blue"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/_11ssp"
                                 android:textStyle="bold" />
 
@@ -608,7 +615,8 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginStart="5dp"
                                 android:layout_marginEnd="5dp"
-                                android:src="@drawable/premium_icon" />
+                                android:src="@drawable/premium_icon"
+                                app:tint="@color/black" />
 
                             <TextView
                                 style="@style/popins_regular"
@@ -619,7 +627,7 @@
                                 android:paddingStart="@dimen/_7sdp"
                                 android:paddingEnd="@dimen/_7sdp"
                                 android:text="Collect Prize"
-                                android:textColor="@color/blue"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/_11ssp"
                                 android:textStyle="bold" />
 
@@ -648,7 +656,8 @@
                         <!--                        android:paddingTop="5dp"-->
                         <!--                        android:paddingBottom="5dp">-->
 
-                        <!--                        <ImageView-->
+                        <!--                        <ImageView
+                          app:tint="@color/black"-->
                         <!--                            android:layout_width="wrap_content"-->
                         <!--                            android:layout_height="wrap_content"-->
                         <!--                            android:layout_gravity="center_vertical"-->
@@ -692,7 +701,8 @@
                         <!--                        android:paddingTop="5dp"-->
                         <!--                        android:paddingBottom="5dp">-->
 
-                        <!--                        <ImageView-->
+                        <!--                        <ImageView
+                          app:tint="@color/black"-->
                         <!--                            android:layout_width="wrap_content"-->
                         <!--                            android:layout_height="wrap_content"-->
                         <!--                            android:layout_gravity="center_vertical"-->
@@ -741,7 +751,8 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginStart="5dp"
                                 android:layout_marginEnd="5dp"
-                                android:src="@drawable/notification_icon" />
+                                android:src="@drawable/notification_icon"
+                                app:tint="@color/black" />
 
                             <TextView
                                 style="@style/popins_regular"
@@ -752,7 +763,7 @@
                                 android:paddingStart="@dimen/_7sdp"
                                 android:paddingEnd="@dimen/_7sdp"
                                 android:text="Notification"
-                                android:textColor="@color/blue"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/_11ssp"
                                 android:textStyle="bold" />
 
@@ -786,7 +797,8 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginStart="5dp"
                                 android:layout_marginEnd="5dp"
-                                android:src="@drawable/news_icon" />
+                                android:src="@drawable/news_icon"
+                                app:tint="@color/black" />
 
                             <TextView
                                 style="@style/popins_regular"
@@ -797,7 +809,7 @@
                                 android:paddingStart="@dimen/_7sdp"
                                 android:paddingEnd="@dimen/_7sdp"
                                 android:text="News"
-                                android:textColor="@color/blue"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/_11ssp"
                                 android:textStyle="bold" />
 
@@ -832,7 +844,8 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginStart="5dp"
                                 android:layout_marginEnd="5dp"
-                                android:src="@drawable/supportteam_icon" />
+                                android:src="@drawable/supportteam_icon"
+                                app:tint="@color/black" />
 
                             <TextView
                                 style="@style/popins_regular"
@@ -843,7 +856,7 @@
                                 android:paddingStart="@dimen/_7sdp"
                                 android:paddingEnd="@dimen/_7sdp"
                                 android:text="Support Team"
-                                android:textColor="@color/blue"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/_11ssp"
                                 android:textStyle="bold" />
 
@@ -878,7 +891,8 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginStart="5dp"
                                 android:layout_marginEnd="5dp"
-                                android:src="@drawable/term_condition_icon" />
+                                android:src="@drawable/term_condition_icon"
+                                app:tint="@color/black" />
 
                             <TextView
                                 style="@style/popins_regular"
@@ -889,7 +903,7 @@
                                 android:paddingStart="@dimen/_7sdp"
                                 android:paddingEnd="@dimen/_7sdp"
                                 android:text="Tearms And Condition"
-                                android:textColor="@color/blue"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/_11ssp"
                                 android:textStyle="bold" />
 
@@ -924,7 +938,8 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginStart="5dp"
                                 android:layout_marginEnd="5dp"
-                                android:src="@drawable/setting_icon" />
+                                android:src="@drawable/setting_icon"
+                                app:tint="@color/black" />
 
                             <TextView
                                 style="@style/popins_regular"
@@ -935,7 +950,7 @@
                                 android:paddingStart="@dimen/_7sdp"
                                 android:paddingEnd="@dimen/_7sdp"
                                 android:text="Setting"
-                                android:textColor="@color/blue"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/_11ssp"
                                 android:textStyle="bold" />
 
@@ -970,7 +985,8 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginStart="5dp"
                                 android:layout_marginEnd="5dp"
-                                android:src="@drawable/logout_icon" />
+                                android:src="@drawable/logout_icon"
+                                app:tint="@color/black" />
 
                             <TextView
                                 style="@style/popins_regular"
@@ -981,7 +997,7 @@
                                 android:paddingStart="@dimen/_7sdp"
                                 android:paddingEnd="@dimen/_7sdp"
                                 android:text="Logout"
-                                android:textColor="@color/blue"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/_11ssp"
                                 android:textStyle="bold" />
 

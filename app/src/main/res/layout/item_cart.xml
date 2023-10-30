@@ -89,7 +89,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_15sdp"
             android:text="2 Pts"
-            android:textColor="@color/yellow"
+            android:textColor="@color/theme_color"
             android:textSize="@dimen/_12ssp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/productQuantity"

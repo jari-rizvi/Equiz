@@ -58,7 +58,7 @@
             android:layout_width="286dp"
             android:layout_height="@dimen/_40sdp"
             android:background="@drawable/card_background"
-            android:backgroundTint="@color/yellow"
+            android:backgroundTint="@color/theme_color"
             android:gravity="center"
             android:text="@string/done"
             android:textSize="@dimen/_14ssp"

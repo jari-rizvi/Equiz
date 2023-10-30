@@ -38,13 +38,14 @@
             app:layout_constraintVertical_bias="0.05" />
 
 
-        <com.google.android.material.textfield.TextInputLayout
+      <com.google.android.material.textfield.TextInputLayout
+            android:background="@drawable/contact_input_background"
             android:id="@+id/layoutTextInput11"
             android:layout_width="0dp"
             android:layout_height="@dimen/_40sdp"
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:textColorHint="@color/light_gray"
-            app:boxBackgroundMode="filled"
+            app:boxBackgroundMode="none"
             app:boxStrokeWidth="0dp"
             app:hintEnabled="false"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -53,31 +54,32 @@
             app:layout_constraintTop_toBottomOf="@+id/textView"
             app:layout_constraintVertical_bias="0.05">
 
-            <com.google.android.material.textfield.TextInputEditText
+          <com.google.android.material.textfield.TextInputEditText
+                android:background="@android:color/transparent"
                 android:id="@+id/etName"
                 style="@style/popins_regular"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:background="@drawable/contact_input_background"
+              android:textColor="@color/black"
+              android:layout_gravity="center"
                 android:gravity="center_vertical"
                 android:hint="@string/username"
                 android:imeOptions="actionNext"
                 android:inputType="text"
                 android:paddingStart="@dimen/_15sdp"
-                android:textColor="@color/light_gray"
                 android:textColorHint="@color/light_gray"
                 android:textSize="@dimen/_11ssp" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <com.google.android.material.textfield.TextInputLayout
+      <com.google.android.material.textfield.TextInputLayout
+            android:background="@drawable/contact_input_background"
             android:id="@+id/layoutTextInput"
             android:layout_width="0dp"
             android:layout_height="@dimen/_40sdp"
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:textColorHint="@color/light_gray"
-            app:boxBackgroundMode="filled"
+            app:boxBackgroundMode="none"
             app:boxStrokeWidth="0dp"
             app:hintEnabled="false"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -86,14 +88,14 @@
             app:layout_constraintTop_toBottomOf="@+id/layoutTextInput11"
             app:layout_constraintVertical_bias="0.05">
 
-            <com.google.android.material.textfield.TextInputEditText
+          <com.google.android.material.textfield.TextInputEditText
+                android:background="@android:color/transparent"
                 android:id="@+id/etPhone"
                 style="@style/popins_regular"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:background="@drawable/contact_input_background"
-                android:gravity="center_vertical"
+              android:gravity="center_vertical"
                 android:hint="@string/phone_number"
                 android:imeOptions="actionNext"
                 android:inputType="text"
@@ -104,13 +106,14 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <com.google.android.material.textfield.TextInputLayout
+      <com.google.android.material.textfield.TextInputLayout
+            android:background="@drawable/contact_input_background"
             android:id="@+id/layoutTextInput1"
             android:layout_width="0dp"
             android:layout_height="@dimen/_40sdp"
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:textColorHint="@color/light_gray"
-            app:boxBackgroundMode="filled"
+            app:boxBackgroundMode="none"
             app:boxStrokeWidth="0dp"
             app:hintEnabled="false"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -120,17 +123,17 @@
             app:layout_constraintVertical_bias="0.05"
             app:passwordToggleDrawable="@drawable/show"
             app:passwordToggleEnabled="true"
-            app:passwordToggleTint="@color/white">
+            app:passwordToggleTint="@color/light_gray">
 
-            <com.google.android.material.textfield.TextInputEditText
+          <com.google.android.material.textfield.TextInputEditText
+                android:background="@android:color/transparent"
                 android:id="@+id/etPass"
                 style="@style/popins_regular"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:background="@drawable/contact_input_background"
                 android:gravity="center_vertical"
-                android:hint="Enter your Password"
+              android:hint="Enter your Password"
                 android:imeOptions="actionNext"
                 android:inputType="text"
                 android:paddingStart="@dimen/_15sdp"
@@ -153,13 +156,14 @@
             app:layout_constraintTop_toBottomOf="@+id/layoutTextInput1"
             app:layout_constraintVertical_bias="0.05" />
 
-        <com.google.android.material.textfield.TextInputLayout
+      <com.google.android.material.textfield.TextInputLayout
+            android:background="@drawable/contact_input_background"
             android:id="@+id/layoutTextInput1111"
             android:layout_width="0dp"
             android:layout_height="@dimen/_40sdp"
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:textColorHint="@color/light_gray"
-            app:boxBackgroundMode="filled"
+            app:boxBackgroundMode="none"
             app:boxStrokeWidth="0dp"
             app:hintEnabled="false"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -168,19 +172,19 @@
             app:layout_constraintTop_toBottomOf="@+id/textField"
             app:layout_constraintVertical_bias="0.05">
 
-            <com.google.android.material.textfield.TextInputEditText
+          <com.google.android.material.textfield.TextInputEditText
+                android:background="@android:color/transparent"
                 android:id="@+id/etCode"
                 style="@style/popins_regular"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:background="@drawable/contact_input_background"
                 android:gravity="center_vertical"
                 android:hint="@string/referral_code"
                 android:imeOptions="actionNext"
-                android:inputType="text"
+              android:textColor="@color/black"
+              android:inputType="text"
                 android:paddingStart="@dimen/_15sdp"
-                android:textColor="@color/light_gray"
                 android:textColorHint="@color/light_gray"
                 android:textSize="@dimen/_11ssp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -191,7 +195,7 @@
             android:layout_height="@dimen/_40sdp"
             android:layout_marginTop="20dp"
             android:background="@drawable/card_background"
-            android:backgroundTint="@color/yellow"
+            android:backgroundTint="@color/theme_color"
             android:gravity="center"
             android:text="@string/register"
             style="@style/popins_regular"

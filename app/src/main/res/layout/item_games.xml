@@ -31,7 +31,7 @@
             android:layout_height="@dimen/_30sdp"
             app:layout_constraintVertical_bias="1"
             android:background="@drawable/shape_bottom_round_grey"
-            android:backgroundTint="@color/yellow"
+            android:backgroundTint="@color/theme_color"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">

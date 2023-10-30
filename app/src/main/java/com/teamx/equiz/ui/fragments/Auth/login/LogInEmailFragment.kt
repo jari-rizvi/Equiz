@@ -38,7 +38,7 @@ class LogInEmailFragment : BaseFragment<FragmentLoginEmailBinding, LoginViewMode
             }
         }
         mViewDataBinding.btnSignup.setOnClickListener {
-            findNavController().navigate(R.id.action_logInFragment_to_signupPhoneFragment)
+            findNavController().navigate(R.id.action_logInEmailFragment_to_signupEmailFragment)
         }
 
         mViewDataBinding.btnForgot.setOnClickListener {

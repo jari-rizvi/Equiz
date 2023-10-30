@@ -10,9 +10,10 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#424242</color>
     <color name="light_gray">#CDCDCD</color>
-    <color name="yellow">#9F81CA</color>
+    <color name="theme_color">#9F81CA</color>
     <color name="blue">#020A53</color>
     <color name="purple">#5A1D82</color>
+    <color name="red">#C62E27</color>
 
     <color name="textSecondaryColor">#515c6f</color>
 

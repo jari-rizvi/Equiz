@@ -26,11 +26,13 @@
 
         <TextView
             android:id="@+id/textView3"
+            style="@style/popins_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="John Mark"
-            android:textColor="@color/blue"
+            android:textColor="@color/black"
             android:textSize="@dimen/_14ssp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/profilePicture"
             app:layout_constraintStart_toStartOf="@+id/profilePicture"
@@ -39,11 +41,13 @@
 
         <TextView
             android:id="@+id/textView4"
+            style="@style/popins_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="johnmark@gmail.com"
-            android:textColor="@color/blue"
+            android:textColor="@color/black"
             android:textSize="@dimen/_12ssp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/textView3"
             app:layout_constraintStart_toStartOf="@+id/textView3"
@@ -56,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_10sdp"
             android:background="@drawable/card_background_less_radius"
-            android:backgroundTint="@color/blue"
+            android:backgroundTint="@color/theme_color"
             android:elevation="@dimen/_1sdp"
             android:paddingVertical="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -69,12 +73,13 @@
 
             <TextView
                 android:id="@+id/btnCurrent"
+                style="@style/popins_regular"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Ranking"
-                android:textColor="@color/light_gray"
-                android:textSize="@dimen/_15ssp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_13ssp"
                 app:layout_constraintBottom_toBottomOf="@+id/view1"
                 app:layout_constraintEnd_toStartOf="@+id/view1"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -84,14 +89,14 @@
 
             <TextView
                 android:id="@+id/textView50"
+                style="@style/popins_bold"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:gravity="center"
                 android:text="06"
-                android:textColor="@color/yellow"
+                android:textColor="@color/white"
                 android:textSize="@dimen/_16ssp"
-                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/btnCurrent"
                 app:layout_constraintStart_toStartOf="@+id/btnCurrent"
@@ -101,7 +106,7 @@
                 android:id="@+id/view1"
                 android:layout_width="@dimen/_1sdp"
                 android:layout_height="@dimen/_50sdp"
-                android:background="@color/yellow"
+                android:background="@color/white"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="@+id/btnCurrent"
                 app:layout_constraintEnd_toStartOf="@+id/btnPast"
@@ -111,12 +116,14 @@
 
             <TextView
                 android:id="@+id/btnPast"
+                style="@style/popins_regular"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Total Points"
-                android:textColor="@color/light_gray"
-                android:textSize="@dimen/_15ssp"
+                android:textColor="@color/white"
+
+                android:textSize="@dimen/_13ssp"
                 app:layout_constraintBottom_toBottomOf="@+id/btnCurrent"
                 app:layout_constraintEnd_toStartOf="@+id/view2"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -127,7 +134,7 @@
                 android:id="@+id/view2"
                 android:layout_width="@dimen/_1sdp"
                 android:layout_height="@dimen/_50sdp"
-                android:background="@color/yellow"
+                android:background="@color/white"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="@+id/view1"
                 app:layout_constraintEnd_toStartOf="@+id/btnReview"
@@ -137,14 +144,14 @@
 
             <TextView
                 android:id="@+id/textView51"
+                style="@style/popins_bold"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:gravity="center"
                 android:text="06"
-                android:textColor="@color/yellow"
+                android:textColor="@color/white"
                 android:textSize="@dimen/_16ssp"
-                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/btnPast"
                 app:layout_constraintStart_toStartOf="@+id/btnPast"
@@ -152,12 +159,13 @@
 
             <TextView
                 android:id="@+id/btnReview"
+                style="@style/popins_regular"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Total Chances"
-                android:textColor="@color/light_gray"
-                android:textSize="@dimen/_15ssp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_13ssp"
                 app:layout_constraintBottom_toBottomOf="@+id/btnPast"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -166,14 +174,14 @@
 
             <TextView
                 android:id="@+id/textView52"
+                style="@style/popins_bold"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:gravity="center"
                 android:text="09"
-                android:textColor="@color/yellow"
+                android:textColor="@color/white"
                 android:textSize="@dimen/_16ssp"
-                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/btnReview"
                 app:layout_constraintStart_toStartOf="@+id/btnReview"
@@ -242,9 +250,10 @@
                             android:layout_marginStart="5dp"
                             android:layout_marginEnd="5dp"
                             android:layout_weight="0"
-                            android:src="@drawable/logo_equiz" />
+                            android:src="@drawable/delete" />
 
                         <TextView
+                            style="@style/popins_regular"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -252,7 +261,9 @@
                             android:paddingStart="@dimen/_7sdp"
                             android:paddingEnd="@dimen/_7sdp"
                             android:text="Edit Profile"
-                            android:textColor="@color/blue" />
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_11ssp"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -283,10 +294,12 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="5dp"
+                            android:tint="@color/black"
                             android:layout_marginEnd="5dp"
-                            android:src="@drawable/logo_equiz" />
+                            android:src="@drawable/ic_baseline_shopping_cart_24" />
 
                         <TextView
+                            style="@style/popins_regular"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -294,7 +307,9 @@
                             android:paddingStart="@dimen/_7sdp"
                             android:paddingEnd="@dimen/_7sdp"
                             android:text="Order Manage"
-                            android:textColor="@color/blue" />
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_11ssp"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -324,9 +339,11 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="5dp"
                             android:layout_marginEnd="5dp"
-                            android:src="@drawable/logo_equiz" />
+                            android:tint="@color/black"
+                            android:src="@drawable/chances_icon" />
 
                         <TextView
+                            style="@style/popins_regular"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -335,7 +352,9 @@
                             android:paddingStart="@dimen/_7sdp"
                             android:paddingEnd="@dimen/_7sdp"
                             android:text="Chences"
-                            android:textColor="@color/blue" />
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_11ssp"
+                            android:textStyle="bold" />
 
                         <!--                        <androidx.appcompat.widget.SwitchCompat-->
                         <!--                            android:id="@+id/swOnOff"-->
@@ -377,10 +396,12 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="5dp"
+                            android:tint="@color/black"
                             android:layout_marginEnd="5dp"
-                            android:src="@drawable/logo_equiz" />
+                            android:src="@drawable/leaderboard_icon" />
 
                         <TextView
+                            style="@style/popins_regular"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -388,7 +409,9 @@
                             android:paddingStart="@dimen/_7sdp"
                             android:paddingEnd="@dimen/_7sdp"
                             android:text="Leaderboard"
-                            android:textColor="@color/blue" />
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_11ssp"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -420,9 +443,11 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="5dp"
                             android:layout_marginEnd="5dp"
-                            android:src="@drawable/logo_equiz" />
+                            android:src="@drawable/security_icon"
+                            app:tint="@color/black" />
 
                         <TextView
+                            style="@style/popins_regular"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -430,7 +455,9 @@
                             android:paddingStart="@dimen/_7sdp"
                             android:paddingEnd="@dimen/_7sdp"
                             android:text="Security Policy"
-                            android:textColor="@color/blue" />
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_11ssp"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
