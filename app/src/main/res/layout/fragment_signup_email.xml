@@ -206,7 +206,7 @@
             style="@style/popins_regular"
             android:textStyle="bold"
             android:textSize="@dimen/_14ssp"
-            android:background="@drawable/card_background"
+            android:background="@drawable/card_background_border"
             android:backgroundTint="@color/theme_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"

@@ -8,44 +8,69 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="@dimen/_120sdp"
-        android:layout_height="@dimen/_130sdp"
-        android:layout_margin="@dimen/_5sdp"
-        android:background="@drawable/card_background">
+        android:layout_width="@dimen/_130sdp"
+        android:layout_height="@dimen/_170sdp"
+        android:layout_margin="@dimen/_5sdp">
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelin1e454"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.3" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/container"
+            android:id="@+id/constraintLayout6"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_80sdp"
-            android:layout_margin="@dimen/_5sdp"
-            android:background="@drawable/card_background"
+            android:layout_height="0dp"
+            android:background="@drawable/gradient_background_new"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0">
+            app:layout_constraintTop_toBottomOf="@+id/guidelin1e454" />
+
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:id="@+id/container"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_marginHorizontal="@dimen/_10sdp"-->
+<!--            android:background="@drawable/card_background"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/guidelin1e"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintVertical_bias="0">-->
 
             <ImageView
                 android:id="@+id/img"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginHorizontal="@dimen/_7sdp"
+                android:background="@drawable/card_background"
+                android:clipToOutline="true"
                 android:src="@drawable/ic_baseline_shopping_cart_24"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/guidelin1e"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
                 android:src="@drawable/wishlist_icon"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintVertical_bias="0.2"
                 app:layout_constraintHorizontal_bias="0.9"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.2" />
+                app:layout_constraintTop_toTopOf="@+id/img"
+                app:layout_constraintStart_toStartOf="@+id/img"
+                app:layout_constraintEnd_toEndOf="@+id/img"
+                app:layout_constraintBottom_toBottomOf="@+id/img"/>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelin1e"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.7" />
 
 
         <TextView
@@ -53,33 +78,36 @@
             style="@style/popins_regular"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_3sdp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textStyle="bold"
             android:singleLine="true"
             android:text="Dubai"
-            android:textColor="@color/blue"
-            android:textSize="@dimen/_12ssp"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            app:layout_constraintHorizontal_bias="0"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10ssp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/productPrice"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/container" />
+            app:layout_constraintTop_toBottomOf="@+id/guidelin1e" />
 
 
         <TextView
             android:id="@+id/productPrice"
             style="@style/popins_regular"
-            android:textStyle="bold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_3sdp"
             android:maxLines="1"
-            android:text="TextView"
-            android:textColor="@color/theme_color"
-            android:textSize="@dimen/_12ssp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            android:text="
+"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10ssp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/productName"
             app:layout_constraintTop_toBottomOf="@+id/productName" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

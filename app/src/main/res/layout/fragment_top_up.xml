@@ -6,6 +6,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:background="@color/colorAccent"
         android:layout_height="match_parent">
 
 
@@ -45,7 +46,7 @@
             android:layout_height="@dimen/_90sdp"
             android:layout_marginHorizontal="@dimen/_10sdp"
             android:layout_marginVertical="@dimen/_5sdp"
-            android:background="@drawable/card_background"
+            android:background="@drawable/topup_bg"
             android:elevation="@dimen/_1sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -62,8 +63,8 @@
                 style="@style/popins_regular"
                 android:textStyle="bold"
                 android:textSize="@dimen/_22ssp"
+                android:textColor="@color/white"
                 android:gravity="center"
-                android:drawableStart="@drawable/colletprize_icon"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -75,13 +76,14 @@
         <EditText
             android:id="@+id/editText"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_40sdp"
+            android:layout_height="@dimen/_35sdp"
             android:layout_marginHorizontal="@dimen/_20sdp"
             android:background="@drawable/contact_input_background"
             android:gravity="center_vertical"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:padding="@dimen/_5sdp"
+            android:paddingStart="@dimen/_10sdp"
             android:hint="Enter Amount"
             style="@style/popins_regular"
             android:textSize="@dimen/_12ssp"
@@ -243,7 +245,7 @@
             style="@style/popins_regular"
             android:padding="@dimen/_2sdp"
             android:textSize="@dimen/_12ssp"
-            android:textColor="@color/light_gray"
+            android:textColor="@color/white"
             android:backgroundTint="#9F81CA"
             app:layout_constraintHorizontal_bias="0.9"
             app:layout_constraintStart_toEndOf="@+id/textView43"

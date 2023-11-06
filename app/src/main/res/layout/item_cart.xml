@@ -9,7 +9,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_70sdp"
+        android:layout_height="@dimen/_80sdp"
         android:layout_marginHorizontal="@dimen/_3sdp"
         android:layout_marginVertical="@dimen/_5sdp"
         android:elevation="@dimen/_1sdp">
@@ -56,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Order in Preparation"
-            android:textColor="@color/blue"
+            android:textColor="@color/black"
             android:textSize="@dimen/_12ssp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:maxLines="1"
             android:text="Person : 2"
-            android:textColor="@color/light_gray"
+            android:textColor="@color/black"
             android:textSize="@dimen/_12ssp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/productName"
@@ -81,6 +81,57 @@
             app:layout_constraintStart_toStartOf="@+id/productName"
             app:layout_constraintTop_toBottomOf="@+id/productName"
             app:layout_constraintVertical_bias="0.1" />
+
+
+        <LinearLayout
+            android:id="@+id/lnSimpleAddRemove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/productName"
+            app:layout_constraintHorizontal_bias="0"
+            android:layout_marginTop="@dimen/_5sdp"
+            app:layout_constraintStart_toStartOf="@+id/productQuantity"
+            app:layout_constraintTop_toBottomOf="@+id/productQuantity">
+
+
+            <ImageView
+                android:id="@+id/btnremove"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_5sdp"
+                app:layout_constraintEnd_toStartOf="@+id/quantity"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintTop_toTopOf="@+id/productName"
+                app:srcCompat="@drawable/sub"
+                app:tint="@color/theme_color" />
+
+            <TextView
+                android:id="@+id/quantity"
+                style="@style/popins_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_5sdp"
+                android:text="1"
+                android:textSize="@dimen/_14ssp"
+                app:layout_constraintBottom_toBottomOf="@+id/btnremove"
+                app:layout_constraintEnd_toStartOf="@+id/btnadd"
+                app:layout_constraintTop_toTopOf="@+id/btnremove" />
+
+            <ImageView
+                android:id="@+id/btnadd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:tint="@color/theme_color"
+                app:layout_constraintBottom_toBottomOf="@+id/btnremove"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/btnremove"
+                app:srcCompat="@drawable/add" />
+
+        </LinearLayout>
+
 
         <TextView
             android:id="@+id/productprice"
@@ -92,9 +143,9 @@
             android:textColor="@color/theme_color"
             android:textSize="@dimen/_12ssp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/productQuantity"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/productName" />
+            app:layout_constraintTop_toBottomOf="@+id/productQuantity" />
 
         <View
             android:id="@+id/view7"

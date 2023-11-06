@@ -13,11 +13,11 @@
         android:layout_marginHorizontal="@dimen/_5sdp"
         android:background="@drawable/card_background"
         android:layout_marginVertical="@dimen/_5sdp"
-        android:elevation="@dimen/_1sdp">
+        android:elevation="@dimen/_2sdp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/container"
-            android:layout_width="@dimen/_70sdp"
+            android:layout_width="@dimen/_80sdp"
             android:layout_height="0dp"
             android:layout_margin="@dimen/_6sdp"
             android:background="@drawable/card_background_less_radius"
@@ -45,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Dubai"
-            android:textColor="@color/blue"
+            android:textColor="@color/black"
             android:textSize="@dimen/_14ssp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -76,7 +76,7 @@
             android:text="200 Pts"
             style="@style/popins_regular"
             android:textStyle="bold"
-            android:textColor="@color/theme_color"
+            android:textColor="@color/black"
             android:textSize="@dimen/_14ssp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/textView55"

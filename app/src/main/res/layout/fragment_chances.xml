@@ -23,18 +23,20 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.05"
             app:srcCompat="@drawable/arrow_left"
-            app:tint="@color/blue" />
+            app:tint="@color/black" />
 
         <TextView
             android:id="@+id/textView"
+            style="@style/popins_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/wallet"
-            android:textColor="@color/blue"
+            android:text="Chances"
             android:textSize="@dimen/_14ssp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="@+id/btnback"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.2"
+            app:layout_constraintHorizontal_bias="0.45"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/btnback"
             app:layout_constraintVertical_bias="0.05" />
@@ -43,10 +45,10 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginVertical="@dimen/_5sdp"
             app:layout_constraintBottom_toTopOf="@+id/btnLogin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="@dimen/_10sdp"
             app:layout_constraintTop_toBottomOf="@+id/textView"
             app:layout_constraintVertical_bias="0.1"
             tools:listitem="@layout/item_chances" />
@@ -59,6 +61,7 @@
             android:backgroundTint="@color/theme_color"
             android:gravity="center"
             android:text="@string/login"
+            android:visibility="gone"
             android:layout_marginVertical="@dimen/_10sdp"
             android:textColor="@color/light_gray"
             android:textStyle="bold"

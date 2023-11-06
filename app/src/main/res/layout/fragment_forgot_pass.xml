@@ -35,7 +35,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView"
-            app:layout_constraintVertical_bias="0.05" />
+            app:layout_constraintVertical_bias="0.3" />
 
         <TextView
             android:id="@+id/textView2"
@@ -95,7 +95,7 @@
             android:layout_width="286dp"
             android:layout_height="@dimen/_40sdp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/card_background"
+            android:background="@drawable/card_background_border"
             android:backgroundTint="@color/theme_color"
             android:gravity="center"
             android:text="@string/send_code"

@@ -4,6 +4,7 @@ package com.teamx.equiz.ui.fragments.ecommerce.home
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
@@ -124,14 +125,12 @@ EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewModel>()
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
-
                             data.data.forEach {
-                                if (it != null) {
                                     productArrayList.add(it)
-                                }
+                                Log.d("TAG", "onViewCreated1212121212: $it")
 
                             }
-                            featureProductAdapter.notifyDataSetChanged()
+                            productAdapter.notifyDataSetChanged()
 
 
                         }
@@ -149,7 +148,7 @@ EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewModel>()
         }
 
 
-        mViewModel.getCategories()
+//        mViewModel.getCategories()
 
         if (!mViewModel.getcategoriesResponse.hasActiveObservers()) {
             mViewModel.getcategoriesResponse.observe(requireActivity()) {
@@ -185,11 +184,11 @@ EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewModel>()
                 }
             }
         }
-
+        productRecyclerview()
         initializeFeatureProducts()
 
         categoriesRecyclerview()
-        productRecyclerview()
+
     }
 
     private val runnable = Runnable {

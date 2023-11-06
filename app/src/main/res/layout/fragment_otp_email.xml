@@ -84,7 +84,7 @@
             style="@style/popins_regular"
             android:layout_width="286dp"
             android:layout_height="@dimen/_40sdp"
-            android:background="@drawable/card_background"
+            android:background="@drawable/card_background_border"
             android:backgroundTint="@color/theme_color"
             android:gravity="center"
             android:text="@string/verify"

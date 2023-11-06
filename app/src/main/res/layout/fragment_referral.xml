@@ -7,8 +7,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:backgroundTint="@color/theme_color"
-        android:background="@drawable/bg">
+        android:background="@drawable/bgg">
 
 
         <ImageView
@@ -29,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Referral"
-            android:textColor="@color/light_gray"
+            android:textColor="@color/white"
             android:textSize="@dimen/_14ssp"
             app:layout_constraintBottom_toBottomOf="@+id/btnback"
             app:layout_constraintEnd_toEndOf="parent"
@@ -47,8 +46,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"
-            app:layout_constraintVertical_bias="0.2"
-            app:srcCompat="@drawable/referral_benefit" />
+            app:layout_constraintVertical_bias="0.15"
+            app:srcCompat="@drawable/raffral" />
 
         <TextView
             android:id="@+id/textView6"
@@ -63,7 +62,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView"
-            app:layout_constraintVertical_bias="0.1" />
+            app:layout_constraintVertical_bias="0.06" />
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -72,8 +71,7 @@
             android:layout_height="@dimen/_40sdp"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_10sdp"
-            android:background="@drawable/card_background_border"
-
+            android:background="@drawable/card_background_border_white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.485"
@@ -133,11 +131,12 @@
             style="@style/popins_regular"
             android:layout_width="286dp"
             android:layout_height="@dimen/_40sdp"
-            android:background="@drawable/card_background"
+            android:background="@drawable/card_background_border"
             android:backgroundTint="@color/white"
             android:gravity="center"
             android:textAlignment="center"
             android:text="@string/invite_now"
+            app:layout_constraintVertical_bias="0.2"
             android:textSize="@dimen/_14ssp"
             android:textColor="@color/theme_color"
             app:layout_constraintBottom_toBottomOf="parent"
