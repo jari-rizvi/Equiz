@@ -284,6 +284,10 @@
         android:name="com.teamx.equiz.ui.fragments.support.ChattFragment"
         android:label="ChattFragment"
         tools:layout="@layout/fragment_chat"/>
+    <fragment
+        android:id="@+id/addressFragment"
+        android:name="com.teamx.equiz.ui.fragments.address.AddressFragment"
+        android:label="AddressFragment" />
 
 
 </navigation>
