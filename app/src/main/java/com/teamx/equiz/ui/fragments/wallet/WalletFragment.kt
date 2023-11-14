@@ -61,6 +61,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
                         loadingDialog.show()
                     }
 
+
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
