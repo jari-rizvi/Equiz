@@ -1,37 +1,33 @@
-package com.teamx.equiz.ui.fragments.wallet
+package com.teamx.equiz.ui.fragments.coupons
 
 
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.NavOptions
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
-import com.teamx.equiz.data.models.getwalletData.Transaction
-import com.teamx.equiz.data.models.wishlistdata.Product
+import com.teamx.equiz.data.models.coupons.Data
 import com.teamx.equiz.data.remote.Resource
-import com.teamx.equiz.databinding.FragmentWalletBinding
-import com.teamx.equiz.ui.fragments.Auth.login.LoginViewModel
-import com.teamx.equiz.ui.fragments.wishlist.FavouriteAdapter
+import com.teamx.equiz.databinding.FragmentCouponsBinding
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
+class CoupnsFragment : BaseFragment<FragmentCouponsBinding, CouponsViewModel>() {
 
     override val layoutId: Int
-        get() = R.layout.fragment_wallet
-    override val viewModel: Class<WalletViewModel>
-        get() = WalletViewModel::class.java
+        get() = R.layout.fragment_coupons
+    override val viewModel: Class<CouponsViewModel>
+        get() = CouponsViewModel::class.java
     override val bindingVariable: Int
         get() = BR.viewModel
 
-    lateinit var walletAdapter: WalletAdapter
-    lateinit var walletArrayList: ArrayList<Transaction>
+    lateinit var couponsAdapter: CouponsAdapter
+    lateinit var couponsArrayList: ArrayList<Data>
     private lateinit var options: NavOptions
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -47,15 +43,15 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
             }
         }
 
-        mViewDataBinding.textView9.setOnClickListener {
+  /*      mViewDataBinding.textView9.setOnClickListener {
             findNavController().navigate(R.id.action_walletFragment_to_referralFragment)
-        }
+        }*/
 
 
-        mViewModel.getWallet()
+        mViewModel.getCoupons()
 
-        if (!mViewModel.getwalletResponse.hasActiveObservers()) {
-            mViewModel.getwalletResponse.observe(requireActivity()) {
+        if (!mViewModel.getcouponsResponse.hasActiveObservers()) {
+            mViewModel.getcouponsResponse.observe(requireActivity()) {
                 when (it.status) {
                     Resource.Status.LOADING -> {
                         loadingDialog.show()
@@ -63,12 +59,11 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
-                            mViewDataBinding.textView10.text = data.data.toString() + " Points"
-                            data.transactions.forEach {
-                                walletArrayList.add(it)
+                            data.data.forEach {
+                                couponsArrayList.add(it)
                             }
 
-                            walletAdapter.notifyDataSetChanged()
+                            couponsAdapter.notifyDataSetChanged()
 
 
                         }
@@ -83,24 +78,24 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
                     }
                 }
                 if (isAdded) {
-                    mViewModel.getwalletResponse.removeObservers(
+                    mViewModel.getcouponsResponse.removeObservers(
                         viewLifecycleOwner
                     )
                 }
             }
         }
 
-        walletRecyclerview()
+        couponsRecyclerview()
     }
 
-    private fun walletRecyclerview() {
-        walletArrayList = ArrayList()
+    private fun couponsRecyclerview() {
+        couponsArrayList = ArrayList()
 
         val linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        mViewDataBinding.walletrecycler.layoutManager = linearLayoutManager
+        mViewDataBinding.recyCoupons.layoutManager = linearLayoutManager
 
-        walletAdapter = WalletAdapter(walletArrayList)
-        mViewDataBinding.walletrecycler.adapter = walletAdapter
+        couponsAdapter = CouponsAdapter(couponsArrayList)
+        mViewDataBinding.recyCoupons.adapter = couponsAdapter
 
     }
 

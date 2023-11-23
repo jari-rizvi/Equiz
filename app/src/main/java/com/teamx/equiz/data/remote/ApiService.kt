@@ -8,6 +8,7 @@ import com.teamx.equiz.data.models.addtocart.AddtoCartData
 import com.teamx.equiz.data.models.addtowishlist.AddToWishlistData
 import com.teamx.equiz.data.models.bannerData.BannerData
 import com.teamx.equiz.data.models.categoriesData.GetAllCategoriesData
+import com.teamx.equiz.data.models.coupons.CouponsData
 import com.teamx.equiz.data.models.editProfile.EditProfileData
 import com.teamx.equiz.data.models.forgotpassData.ForgotPassData
 import com.teamx.equiz.data.models.getProductById.GetProductByIdData
@@ -49,6 +50,8 @@ interface ApiService {
 
     @GET(NetworkCallPoints.GET_NEWS)
     suspend fun getNews(@Header("token") basicCredentials: String = "$TOKENER"): Response<GetNewsData>
+ @GET(NetworkCallPoints.GET_COUPONS)
+    suspend fun getCoupons(@Header("token") basicCredentials: String = "$TOKENER"): Response<CouponsData>
 
     @GET(NetworkCallPoints.GET_PRODUCT_BY_ID)
     suspend fun getProductById(
