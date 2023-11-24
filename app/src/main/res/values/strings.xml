@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">EQuizApp</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search_artist">Search artist</string>
 
@@ -67,6 +66,19 @@
     <string name="you_earn_50_points">You earn 50 Points</string>
     <string name="invite_another">Invite Another</string>
     <string name="address">Address</string>
+    <string name="title_activity_main_activitytttt">MainActivitytttt</string>
+
+
+    <string name="body_label">TETRIS</string>
+    <string name="game_over_hint">GAME OVER</string>
+    <string name="button_rotate">ROTATE</string>
+    <string name="button_up">▲</string>
+    <string name="button_left">◀</string>
+    <string name="button_right">▶</string>
+    <string name="button_down">▼</string>
+    <string name="button_sounds">SOUNDS</string>
+    <string name="button_pause">PAUSE/RESUME</string>
+    <string name="button_reset">START/RESET</string>
 
 
 </resources>

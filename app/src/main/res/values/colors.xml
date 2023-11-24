@@ -22,5 +22,39 @@
     <color name="colorPrimaryDarkLight">#DD4D5F</color>
     <color name="colorAccent">#F1F1F1</color>
     <color name="colorBlack">#000000</color>
+
+
     <color name="colorWhite">#FFFFFF</color>
+
+    <color name="Pinky">#FFD597B3</color>
+    <color name="CyanGreen">#FF01B9B9</color>
+    <color name="PaleYellow">#FFF3A100</color>
+    <color name="neoRed">#FFFD292F</color>
+    <color name="neoGreen">#B7A7FF10</color>
+    <color name="Purple200">#FF89CBF8</color>
+    <color name="Purple500">#FF3498db</color>
+    <color name="Purple700">#FF2980b9</color>
+    <color name="Teal200">#FF2980b9</color>
+
+
+    <color name="BrickSpirit">#DD000000</color>
+    <color name="BrickMatrix">#1F000000</color>
+    <color name="BrickHighlight">#FF560000</color>
+    <color name="ScreenBackground">#ff9ead86</color>
+
+
+    <color name="BodyColor">#ffefcc19</color>
+    <color name="BirdColor1">#ffFF5C98</color>
+    <color name="BirdColor2">#ffFEB53A</color>
+    <color name="BirdColor4">#ff926BFA</color>
+    <color name="BirdColor3">#ff71C7FE</color>
+
+
+    <color name="DeceptionBlue">#ff61BAFE</color>
+    <color name="DeceptionPink">#ffFF5C98</color>
+    <color name="DeceptionYellow">#ffFEB53A</color>
+    <color name="DeceptionPurple">#ff926BFA</color>
+    <color name="DeceptionBlack">#ff373737</color>
+
+
 </resources>
