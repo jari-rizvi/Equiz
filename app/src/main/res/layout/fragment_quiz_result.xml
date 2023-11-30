@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/consRoot"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/gradient_background">
+
+        <ImageView
+            android:id="@+id/btnback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.05"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.05"
+            app:srcCompat="@drawable/arrow_left"
+            app:tint="@color/black" />
+
+        <ImageView
+            android:id="@+id/btnback121"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.95"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.05" />
+
+        <TextView
+            android:id="@+id/textView"
+            style="@style/popins_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quiz"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintBottom_toBottomOf="@+id/btnback"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btnback"
+            app:layout_constraintVertical_bias="0.05" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout9"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_radius_corner"
+            android:backgroundTint="@color/white"
+            android:elevation="@dimen/_3sdp"
+            android:minHeight="@dimen/_250sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/btnback121"
+            app:layout_constraintStart_toStartOf="@+id/btnback"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.40" />
+
+            <TextView
+                android:id="@+id/textView4654545454"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="Congratulations Henry"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_15ssp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/guideline12" />
+
+            <TextView
+                android:id="@+id/textView465454545454"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:text="Your Won 30 Chances"
+                android:textAlignment="center"
+                android:textColor="#9F81CA"
+                android:textSize="@dimen/_13ssp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView4654545454" />
+
+            <TextView
+                android:id="@+id/textView46545544545454"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:text="You answered 8 questions correctly"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="@dimen/_11ssp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView465454545454" />
+
+
+            <TextView
+                android:id="@+id/textView465454"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_50sdp"
+                android:background="@drawable/button_radius_green"
+                android:backgroundTint="#9F81CA"
+                android:paddingVertical="@dimen/_7sdp"
+                android:text="Play Again"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_13ssp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/constraintLayout9"
+                app:layout_constraintStart_toStartOf="@+id/constraintLayout9"
+                app:layout_constraintTop_toBottomOf="@+id/textView46545544545454" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <ImageView
+            android:id="@+id/btnback54"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_130sdp"
+            android:elevation="@dimen/_3sdp"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout9"
+            app:layout_constraintEnd_toEndOf="@+id/constraintLayout9"
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout9"
+            app:layout_constraintTop_toTopOf="@+id/constraintLayout9"
+            app:srcCompat="@drawable/arrow_left"
+            app:tint="@color/black" />
+
+
+        <TextView
+            android:id="@+id/textView4654"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/_5sdp"
+            android:text="Back to home"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16ssp"
+            android:layout_marginTop="@dimen/_20sdp"
+            app:layout_constraintEnd_toEndOf="@+id/constraintLayout9"
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout9"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout9" />
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/textView212"-->
+        <!--            style="@style/popins_bold"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            app:layout_constraintStart_toStartOf="@+id/btnback"-->
+        <!--            android:text="What year was the very first model of the iPhone released?"-->
+        <!--            android:textColor="@color/black"-->
+        <!--            android:textSize="@dimen/_14ssp"-->
+        <!--            app:layout_constraintEnd_toEndOf="@+id/btnback121"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/textView"/>-->
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
