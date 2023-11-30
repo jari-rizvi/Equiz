@@ -1,25 +1,32 @@
-package com.teamx.equiz.ui.fragments.profile
+package com.teamx.equiz.ui.fragments.reciept
 
 
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.NavOptions
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
-import com.teamx.equiz.databinding.FragmentProfileBinding
-import com.teamx.equiz.ui.fragments.Auth.login.LoginViewModel
+import com.teamx.equiz.data.models.wishlistdata.Product
+import com.teamx.equiz.data.models.wishlistdata.WishlistData
+import com.teamx.equiz.data.remote.Resource
+import com.teamx.equiz.databinding.FragmentRecieptBinding
+import com.teamx.equiz.databinding.FragmentWishlistBinding
+import com.teamx.equiz.ui.fragments.wishlist.FavouriteAdapter
+import com.teamx.equiz.ui.fragments.wishlist.WishlistViewModel
+import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
+class RecieptFragment : BaseFragment<FragmentRecieptBinding, WishlistViewModel>() {
 
     override val layoutId: Int
-        get() = R.layout.fragment_profile
-    override val viewModel: Class<LoginViewModel>
-        get() = LoginViewModel::class.java
+        get() = R.layout.fragment_reciept
+    override val viewModel: Class<WishlistViewModel>
+        get() = WishlistViewModel::class.java
     override val bindingVariable: Int
         get() = BR.viewModel
 
@@ -38,16 +45,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
                 popEnter = R.anim.nav_default_pop_enter_anim
                 popExit = R.anim.nav_default_pop_exit_anim
             }
-        }
-
-        mViewDataBinding.btnEditProfile.setOnClickListener {
-            findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment)
-        }
-        mViewDataBinding.btnOrder.setOnClickListener {
-            findNavController().navigate(R.id.action_profileFragment_to_ordersFragment)
-        }
-        mViewDataBinding.btnChance.setOnClickListener {
-            findNavController().navigate(R.id.action_profileFragment_to_chancesFragment)
         }
 
 

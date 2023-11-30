@@ -7,7 +7,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/bg"
+        >
 
 
         <ImageView
@@ -44,7 +46,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:elevation="@dimen/_3sdp"
-            app:tabTextColor="@color/white"
+            app:tabTextColor="@color/tab_price"
             android:layout_marginHorizontal="@dimen/_15sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

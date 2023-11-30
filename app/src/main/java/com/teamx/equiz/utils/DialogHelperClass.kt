@@ -66,6 +66,39 @@ class DialogHelperClass {
         }
 
 
+    interface LogoutCallBack {
+            fun OkClick()
+        }
+
+        fun LogoutDialog(context: Context, dialogLogoutCallBack: LogoutCallBack, boo: Boolean) {
+            val dialog = Dialog(context)
+            dialog.setContentView(R.layout.logout_dialog)
+            dialog.window!!.setLayout(
+                WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT
+            )
+
+
+            val removeBtn = dialog.findViewById<TextView>(R.id.btnOk)
+            val cnclBtn = dialog.findViewById<TextView>(R.id.btnCncl)
+
+            cnclBtn.setOnClickListener {
+                dialog.dismiss()
+            }
+            removeBtn.setOnClickListener {
+                if (boo) {
+                    dialogLogoutCallBack.OkClick()
+                } else {
+
+                }
+                dialog.dismiss()
+            }
+            
+
+            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.show()
+        }
+
+
 
 
 

@@ -51,6 +51,11 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
             findNavController().navigate(R.id.action_walletFragment_to_referralFragment)
         }
 
+        mViewDataBinding.btnTopUp.setOnClickListener {
+            findNavController().navigate(R.id.action_walletFragment_to_topupFragment)
+
+        }
+
 
         mViewModel.getWallet()
 
@@ -60,6 +65,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
                     Resource.Status.LOADING -> {
                         loadingDialog.show()
                     }
+
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->

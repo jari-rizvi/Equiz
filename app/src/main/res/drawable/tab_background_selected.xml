@@ -8,7 +8,7 @@
         android:top="@dimen/_3sdp">
 
         <shape>
-            <solid android:color="@color/blue" />
+            <solid android:color="@color/theme_color" />
             <corners android:radius="@dimen/_20sdp" />
         </shape>
 

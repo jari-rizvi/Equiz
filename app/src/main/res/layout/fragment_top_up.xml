@@ -21,7 +21,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.05"
             app:srcCompat="@drawable/arrow_left"
-            app:tint="@color/blue" />
+            app:tint="@color/black" />
 
         <TextView
             android:id="@+id/textView"
@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Top up"
-            android:textColor="@color/blue"
+            android:textColor="@color/black"
             android:textSize="@dimen/_14ssp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/btnback"
@@ -60,6 +60,7 @@
                 android:layout_height="wrap_content"
                 android:text="100"
                 android:textAlignment="center"
+                android:drawableStart="@drawable/coin"
                 style="@style/popins_regular"
                 android:textStyle="bold"
                 android:textSize="@dimen/_22ssp"

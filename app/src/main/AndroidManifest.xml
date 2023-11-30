@@ -19,7 +19,6 @@
         <activity
             android:name=".MainActivitytttt"
             android:exported="true"
-            android:label="@string/title_activity_main_activitytttt"
             android:theme="@style/NoAppTheme">
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->

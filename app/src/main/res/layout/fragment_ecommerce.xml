@@ -6,7 +6,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/bg"
+        >
 
         <ImageView
             android:id="@+id/btnmenu"
@@ -19,14 +21,14 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.05"
             app:srcCompat="@drawable/baseline_menu"
-            app:tint="@color/blue" />
+            app:tint="@color/black" />
 
         <ImageView
             android:id="@+id/btnCart"
             android:layout_width="@dimen/_35sdp"
             android:layout_height="@dimen/_30sdp"
             android:padding="5dp"
-            android:src="@drawable/ic_baseline_shopping_cart_24"
+            android:src="@drawable/cart_icon"
             app:layout_constraintBottom_toBottomOf="@+id/btnmenu"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.95"
@@ -40,7 +42,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             style="@style/popins_bold"
-            android:textColor="@color/blue"
+            android:textColor="@color/black"
             android:textSize="@dimen/_18ssp"
             android:text="@string/find_your_dream"
             app:layout_constraintHorizontal_bias="0"
@@ -95,7 +97,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             style="@style/popins_bold"
-            android:textColor="@color/blue"
+            android:textColor="@color/black"
             android:textSize="@dimen/_12ssp"
             android:text="@string/categories"
             app:layout_constraintHorizontal_bias="0"
@@ -173,7 +175,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             style="@style/popins_bold"
-            android:textColor="@color/blue"
+            android:textColor="@color/black"
             android:textSize="@dimen/_12ssp"
             android:text="@string/popoular"
             app:layout_constraintHorizontal_bias="0"
@@ -189,6 +191,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="See all"
+            android:drawableEnd="@drawable/right"
+            android:drawableTint="@color/theme_color"
+            android:gravity="center"
             android:textColor="@color/theme_color"
             app:layout_constraintBottom_toBottomOf="@+id/textView1334"
             app:layout_constraintEnd_toEndOf="parent"
