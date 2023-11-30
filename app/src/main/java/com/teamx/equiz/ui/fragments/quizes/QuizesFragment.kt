@@ -77,8 +77,11 @@ class QuizesFragment : BaseFragment<FragmentQuizesBinding, QuizesViewModel>(), Q
     }
 
     override fun quizeItem() {
-        findNavController().navigate(R.id.action_quizesFragment_to_singleQuizFragment)
     }
+
+    /*   override fun quizeItem() {
+           findNavController().navigate(R.id.action_quizesFragment_to_singleQuizFragment)
+       }*/
 
 }
 
