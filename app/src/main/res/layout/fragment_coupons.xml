@@ -17,16 +17,17 @@
             app:layout_constraintHorizontal_bias="0.05"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:tint="@color/blue"
             app:layout_constraintVertical_bias="0.05"
-            app:srcCompat="@drawable/arrow_left" />
+            app:srcCompat="@drawable/arrow_left"
+            app:tint="@color/black" />
 
         <TextView
             android:id="@+id/textView"
-            style="@style/popins_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/news"
+            android:text="@string/coupon"
+            android:textColor="@color/black"
+            style="@style/popins_regular"
             android:textSize="@dimen/_14ssp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/btnback"
@@ -36,20 +37,7 @@
             app:layout_constraintTop_toTopOf="@+id/btnback"
             app:layout_constraintVertical_bias="0.05" />
 
-        <TextView
-            android:id="@+id/textView1"
-            style="@style/popins_regular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/todays_news"
-            android:textSize="@dimen/_12ssp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toStartOf="@+id/btnback"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
-            app:layout_constraintVertical_bias="0.05" />
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyCoupons"
@@ -62,10 +50,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView1"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
             app:layout_constraintVertical_bias="0"
             tools:itemCount="3"
-            tools:listitem="@layout/item_news" />
+            tools:listitem="@layout/item_coupon" />
 
 
 

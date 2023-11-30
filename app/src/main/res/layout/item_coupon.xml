@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottomHolder"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_100sdp"
+        android:layout_margin="@dimen/_5sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:background="@drawable/coupon_bg1"
+        android:elevation="@dimen/_2sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
+
+
+        <TextView
+            android:id="@+id/textView46"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="% off"
+            style="@style/popins_regular"
+            android:textStyle="bold"
+            android:textSize="@dimen/_22ssp"
+            android:textColor="@color/white"
+            app:layout_constraintHorizontal_bias="0.2"
+            app:layout_constraintVertical_bias="0.2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView47"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="valid till"
+            style="@style/popins_regular"
+            android:textSize="@dimen/_14ssp"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/textView46"
+            app:layout_constraintStart_toStartOf="@+id/textView46"
+            app:layout_constraintTop_toBottomOf="@+id/textView46" />
+
+        <TextView
+            android:id="@+id/textView48"
+            style="@style/popins_regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="copy code"
+            app:layout_constraintVertical_bias="0.3"
+            android:textColor="@color/theme_color"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:background="@drawable/card_background"
+            android:backgroundTint="@color/theme_color"
+            android:elevation="@dimen/_1sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/textView48"
+            app:layout_constraintStart_toStartOf="@+id/textView48"
+            app:layout_constraintTop_toBottomOf="@+id/textView48">
+
+            <TextView
+                android:id="@+id/code"
+                style="@style/popins_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12345"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_10ssp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

@@ -54,6 +54,11 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
             navController!!.navigate(R.id.walletFragment)
         }
 
+        mViewDataBinding.drawerLayoutMain.btnCoupon.setOnClickListener {
+            mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            navController!!.navigate(R.id.coupnsFragment)
+        }
+
         mViewDataBinding.drawerLayoutMain.btnReffeal.setOnClickListener {
             mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
             navController!!.navigate(R.id.referralFragment)

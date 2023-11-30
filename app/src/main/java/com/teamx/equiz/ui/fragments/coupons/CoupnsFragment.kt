@@ -43,11 +43,6 @@ class CoupnsFragment : BaseFragment<FragmentCouponsBinding, CouponsViewModel>() 
             }
         }
 
-  /*      mViewDataBinding.textView9.setOnClickListener {
-            findNavController().navigate(R.id.action_walletFragment_to_referralFragment)
-        }*/
-
-
         mViewModel.getCoupons()
 
         if (!mViewModel.getcouponsResponse.hasActiveObservers()) {
