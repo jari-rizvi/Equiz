@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation_graph"
-    app:startDestination="@id/tempFragment">
+    app:startDestination="@id/birdWatchingGameFrag">
 
     <fragment
         android:id="@+id/tempFragment"
@@ -288,6 +288,62 @@
         android:id="@+id/addressFragment"
         android:name="com.teamx.equiz.ui.fragments.address.AddressFragment"
         android:label="AddressFragment" />
+    <fragment
+        android:id="@+id/birdWatchingGameFrag"
+        android:name="com.teamx.equiz.ui.game_fragments.BirdWatchingGameFrag"
+        android:label="BirdWatchingGameFrag" />
+    <fragment
+        android:id="@+id/additionAddictionGameFrag"
+        android:name="com.teamx.equiz.ui.game_fragments.AdditionAddictionGameFrag"
+        android:label="AdditionAddictionGameFrag" />
+    <fragment
+        android:id="@+id/breakTheBlockGameFrag"
+        android:name="com.teamx.equiz.ui.game_fragments.BreakTheBlockGameFrag"
+        android:label="BreakTheBlockGameFrag" />
+    <fragment
+        android:id="@+id/colorOfDecepGameFrag"
+        android:name="com.teamx.equiz.ui.game_fragments.ColorOfDecepGameFrag"
+        android:label="ColorOfDecepGameFrag" />
+    <fragment
+        android:id="@+id/colorSwitchGameFrag"
+        android:name="com.teamx.equiz.ui.game_fragments.ColorSwitchGameFrag"
+        android:label="ColorSwitchGameFrag" />
+    <fragment
+        android:id="@+id/concentrationGameFrag"
+        android:name="com.teamx.equiz.ui.game_fragments.ConcentrationGameFrag"
+        android:label="ConcentrationGameFrag" />
+    <fragment
+        android:id="@+id/followTheLeaderGameFrag"
+        android:name="com.teamx.equiz.ui.game_fragments.FollowTheLeaderGameFrag"
+        android:label="FollowTheLeaderGameFrag" />
+    <fragment
+        android:id="@+id/guessTheFlagGameFrag"
+        android:name="com.teamx.equiz.ui.game_fragments.GuessTheFlagGameFrag"
+        android:label="GuessTheFlagGameFrag" />
+    <fragment
+        android:id="@+id/highLowGameFrag"
+        android:name="com.teamx.equiz.ui.game_fragments.HighLowGameFrag"
+        android:label="HighLowGameFrag" />
+    <fragment
+        android:id="@+id/make10GameFrag"
+        android:name="com.teamx.equiz.ui.game_fragments.Make10GameFrag"
+        android:label="Make10GameFrag" />
+    <fragment
+        android:id="@+id/flickGameFrag"
+        android:name="com.teamx.equiz.ui.game_fragments.FlickGameFrag"
+        android:label="FlickGameFrag" />
+    <fragment
+        android:id="@+id/missingPieceGameFrag"
+        android:name="com.teamx.equiz.ui.game_fragments.MissingPieceGameFrag"
+        android:label="MissingPieceGameFrag" />
+    <fragment
+        android:id="@+id/quickEyeGameFrag"
+        android:name="com.teamx.equiz.ui.game_fragments.QuickEyeGameFrag"
+        android:label="QuickEyeGameFrag" />
+    <fragment
+        android:id="@+id/rainFallGameFrag"
+        android:name="com.teamx.equiz.ui.game_fragments.RainFallGameFrag"
+        android:label="RainFallGameFrag" />
 
 
 </navigation>

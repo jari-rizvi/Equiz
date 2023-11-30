@@ -23,8 +23,7 @@ import com.teamx.equiz.ui.activity.mainActivity.MainActivity
 import com.teamx.equiz.utils.DialogHelperClass
 import kotlinx.coroutines.launch
 
-abstract class
-BaseFragment<T : ViewDataBinding, V : BaseViewModel> : androidx.fragment.app.Fragment(){
+abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : androidx.fragment.app.Fragment(){
 
     lateinit var sharedViewModel: SharedViewModel
     lateinit var navController: NavController
