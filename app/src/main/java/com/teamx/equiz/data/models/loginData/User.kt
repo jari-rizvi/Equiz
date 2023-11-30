@@ -21,7 +21,7 @@ data class User(
     val street: String,
     val uniqueID: String,
     val updatedAt: String,
-    val wallet: Int,
+    val wallet: Double,
     val wishlist: List<Wishlist>,
     val zip: String
 )

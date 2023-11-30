@@ -188,7 +188,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation platform('com.google.firebase:firebase-bom:32.1.1')
 
-
+//bottom navigaation
+    implementation 'com.github.simformsolutions:SSCustomBottomNavigation:3.6'
 
 
 }

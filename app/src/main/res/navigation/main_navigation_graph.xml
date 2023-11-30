@@ -44,7 +44,7 @@
             android:id="@+id/action_logInFragment_to_forgotPassFragment2"
             app:destination="@id/forgotPassFragment2" />
         <action
-            android:id="@+id/action_logInFragment_to_dashboardFragment"
+            android:id="  @+id/action_logInFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment" />
     </fragment>
     <fragment
@@ -288,6 +288,10 @@
         android:id="@+id/addressFragment"
         android:name="com.teamx.equiz.ui.fragments.address.AddressFragment"
         android:label="AddressFragment" />
+    <fragment
+        android:id="@+id/coupnsFragment"
+        android:name="com.teamx.equiz.ui.fragments.coupons.CoupnsFragment"
+        android:label="CoupnsFragment" />
 
 
 </navigation>
