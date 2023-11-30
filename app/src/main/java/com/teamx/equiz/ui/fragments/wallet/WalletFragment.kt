@@ -51,10 +51,10 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
             findNavController().navigate(R.id.action_walletFragment_to_referralFragment)
         }
 
-        mViewDataBinding.btnTopUp.setOnClickListener {
+     /*   mViewDataBinding.btnTopUp.setOnClickListener {
             findNavController().navigate(R.id.action_walletFragment_to_topupFragment)
 
-        }
+        }*/
 
 
         mViewModel.getWallet()

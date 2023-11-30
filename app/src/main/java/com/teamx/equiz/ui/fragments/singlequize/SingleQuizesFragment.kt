@@ -83,7 +83,7 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
 
 
         mViewDataBinding.textView4654.setOnClickListener {
-            findNavController().navigate(R.id.action_quizesFragment_to_quizResultFragment)
+//            findNavController().navigate(R.id.action_quizesFragment_to_quizResultFragment)
         }
 
 
