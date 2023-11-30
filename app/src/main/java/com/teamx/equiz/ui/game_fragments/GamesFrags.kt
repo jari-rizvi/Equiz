@@ -12,6 +12,7 @@ import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.databinding.FragmentAddressBinding
 import com.teamx.equiz.games.games.BirdWatchingGame
+import com.teamx.equiz.games.games.ui_components.ToolbarCompose
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -42,7 +43,13 @@ class AdditionAddictionGameFrag : BaseFragment<FragmentAddressBinding, GameFrags
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame()
+
+            BirdWatchingGame(content = {
+                ToolbarCompose(title = "Training", onClick = {
+                    navController.popBackStack()
+                })
+            })
+
         }
         options = navOptions {
             anim {
@@ -86,7 +93,11 @@ class BirdWatchingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame()
+            BirdWatchingGame(content = {
+                ToolbarCompose(title = "Training", onClick = {
+                    navController.popBackStack()
+                })
+            })
         }
         options = navOptions {
             anim {
@@ -129,7 +140,11 @@ class BreakTheBlockGameFrag : BaseFragment<FragmentAddressBinding, GameFragsView
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame()
+            BirdWatchingGame(content = {
+                ToolbarCompose(title = "Training", onClick = {
+                    navController.popBackStack()
+                })
+            })
         }
         options = navOptions {
             anim {
@@ -172,7 +187,11 @@ class CardCalculationGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame()
+            BirdWatchingGame(content = {
+                ToolbarCompose(title = "Training", onClick = {
+                    navController.popBackStack()
+                })
+            })
         }
         options = navOptions {
             anim {
@@ -215,7 +234,11 @@ class ColorOfDecepGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame()
+            BirdWatchingGame(content = {
+                ToolbarCompose(title = "Training", onClick = {
+                    navController.popBackStack()
+                })
+            })
         }
         options = navOptions {
             anim {
@@ -258,7 +281,11 @@ class ColorSwitchGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame()
+            BirdWatchingGame(content = {
+                ToolbarCompose(title = "Training", onClick = {
+                    navController.popBackStack()
+                })
+            })
         }
         options = navOptions {
             anim {
@@ -301,7 +328,11 @@ class ConcentrationGameFrag : BaseFragment<FragmentAddressBinding, GameFragsView
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame()
+            BirdWatchingGame(content = {
+                ToolbarCompose(title = "Training", onClick = {
+                    navController.popBackStack()
+                })
+            })
         }
         options = navOptions {
             anim {
@@ -344,7 +375,11 @@ class FlickGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>()
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame()
+            BirdWatchingGame(content = {
+                ToolbarCompose(title = "Training", onClick = {
+                    navController.popBackStack()
+                })
+            })
         }
         options = navOptions {
             anim {
@@ -387,7 +422,11 @@ class FollowTheLeaderGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame()
+            BirdWatchingGame(content = {
+                ToolbarCompose(title = "Training", onClick = {
+                    navController.popBackStack()
+                })
+            })
         }
         options = navOptions {
             anim {
@@ -430,7 +469,11 @@ class GuessTheFlagGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame()
+            BirdWatchingGame(content = {
+                ToolbarCompose(title = "Training", onClick = {
+                    navController.popBackStack()
+                })
+            })
         }
         options = navOptions {
             anim {
@@ -473,7 +516,11 @@ class HexaChainGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMode
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame()
+            BirdWatchingGame(content = {
+                ToolbarCompose(title = "Training", onClick = {
+                    navController.popBackStack()
+                })
+            })
         }
         options = navOptions {
             anim {
@@ -516,7 +563,11 @@ class HighLowGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame()
+            BirdWatchingGame(content = {
+                ToolbarCompose(title = "Training", onClick = {
+                    navController.popBackStack()
+                })
+            })
         }
         options = navOptions {
             anim {
@@ -559,7 +610,11 @@ class LearningThingFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMode
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame()
+            BirdWatchingGame(content = {
+                ToolbarCompose(title = "Training", onClick = {
+                    navController.popBackStack()
+                })
+            })
         }
         options = navOptions {
             anim {
@@ -602,7 +657,11 @@ class Make10GameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame()
+            BirdWatchingGame(content = {
+                ToolbarCompose(title = "Training", onClick = {
+                    navController.popBackStack()
+                })
+            })
         }
         options = navOptions {
             anim {
@@ -645,7 +704,11 @@ class MatchingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame()
+            BirdWatchingGame(content = {
+                ToolbarCompose(title = "Training", onClick = {
+                    navController.popBackStack()
+                })
+            })
         }
         options = navOptions {
             anim {
@@ -688,7 +751,11 @@ class MenuScreenFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame()
+            BirdWatchingGame(content = {
+                ToolbarCompose(title = "Training", onClick = {
+                    navController.popBackStack()
+                })
+            })
         }
         options = navOptions {
             anim {
@@ -731,7 +798,11 @@ class MissingPieceGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame()
+            BirdWatchingGame(content = {
+                ToolbarCompose(title = "Training", onClick = {
+                    navController.popBackStack()
+                })
+            })
         }
         options = navOptions {
             anim {
@@ -774,7 +845,11 @@ class OperationsGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame()
+            BirdWatchingGame(content = {
+                ToolbarCompose(title = "Training", onClick = {
+                    navController.popBackStack()
+                })
+            })
         }
         options = navOptions {
             anim {
@@ -817,7 +892,11 @@ class PathToSaftyGFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame()
+            BirdWatchingGame(content = {
+                ToolbarCompose(title = "Training", onClick = {
+                    navController.popBackStack()
+                })
+            })
         }
         options = navOptions {
             anim {
@@ -860,7 +939,11 @@ class ProfileScreenFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMode
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame()
+            BirdWatchingGame(content = {
+                ToolbarCompose(title = "Training", onClick = {
+                    navController.popBackStack()
+                })
+            })
         }
         options = navOptions {
             anim {
@@ -903,7 +986,11 @@ class QuickEyeGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame()
+            BirdWatchingGame(content = {
+                ToolbarCompose(title = "Training", onClick = {
+                    navController.popBackStack()
+                })
+            })
         }
         options = navOptions {
             anim {
@@ -946,7 +1033,11 @@ class RainFallGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame()
+            BirdWatchingGame(content = {
+                ToolbarCompose(title = "Training", onClick = {
+                    navController.popBackStack()
+                })
+            })
         }
         options = navOptions {
             anim {
@@ -989,7 +1080,11 @@ class RapidSortingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame()
+            BirdWatchingGame(content = {
+                ToolbarCompose(title = "Training", onClick = {
+                    navController.popBackStack()
+                })
+            })
         }
         options = navOptions {
             anim {
@@ -1032,7 +1127,11 @@ class ReflectionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame()
+            BirdWatchingGame(content = {
+                ToolbarCompose(title = "Training", onClick = {
+                    navController.popBackStack()
+                })
+            })
         }
         options = navOptions {
             anim {
@@ -1075,7 +1174,11 @@ class ResultComposeFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMode
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame()
+            BirdWatchingGame(content = {
+                ToolbarCompose(title = "Training", onClick = {
+                    navController.popBackStack()
+                })
+            })
         }
         options = navOptions {
             anim {
@@ -1118,7 +1221,11 @@ class ReverseRPSFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame()
+            BirdWatchingGame(content = {
+                ToolbarCompose(title = "Training", onClick = {
+                    navController.popBackStack()
+                })
+            })
         }
         options = navOptions {
             anim {
@@ -1161,7 +1268,11 @@ class SimplicityGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame()
+            BirdWatchingGame(content = {
+                ToolbarCompose(title = "Training", onClick = {
+                    navController.popBackStack()
+                })
+            })
         }
         options = navOptions {
             anim {
@@ -1204,7 +1315,11 @@ class SpinningBlockGameFrag : BaseFragment<FragmentAddressBinding, GameFragsView
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame()
+            BirdWatchingGame(content = {
+                ToolbarCompose(title = "Training", onClick = {
+                    navController.popBackStack()
+                })
+            })
         }
         options = navOptions {
             anim {
@@ -1247,7 +1362,11 @@ class SpinningLotteryGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame()
+            BirdWatchingGame(content = {
+                ToolbarCompose(title = "Training", onClick = {
+                    navController.popBackStack()
+                })
+            })
         }
         options = navOptions {
             anim {
@@ -1290,7 +1409,11 @@ class TapTheColorGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame()
+            BirdWatchingGame(content = {
+                ToolbarCompose(title = "Training", onClick = {
+                    navController.popBackStack()
+                })
+            })
         }
         options = navOptions {
             anim {
@@ -1333,7 +1456,11 @@ class TenSecondFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>()
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame()
+            BirdWatchingGame(content = {
+                ToolbarCompose(title = "Training", onClick = {
+                    navController.popBackStack()
+                })
+            })
         }
         options = navOptions {
             anim {
@@ -1376,7 +1503,11 @@ class testiFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame()
+            BirdWatchingGame(content = {
+                ToolbarCompose(title = "Training", onClick = {
+                    navController.popBackStack()
+                })
+            })
         }
         options = navOptions {
             anim {
@@ -1419,7 +1550,11 @@ class TestingFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame()
+            BirdWatchingGame(content = {
+                ToolbarCompose(title = "Training", onClick = {
+                    navController.popBackStack()
+                })
+            })
         }
         options = navOptions {
             anim {
@@ -1462,7 +1597,11 @@ class TetrisGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame()
+            BirdWatchingGame(content = {
+                ToolbarCompose(title = "Training", onClick = {
+                    navController.popBackStack()
+                })
+            })
         }
         options = navOptions {
             anim {
@@ -1505,7 +1644,11 @@ class ToolbarFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame()
+            BirdWatchingGame(content = {
+                ToolbarCompose(title = "Training", onClick = {
+                    navController.popBackStack()
+                })
+            })
         }
         options = navOptions {
             anim {
@@ -1548,7 +1691,11 @@ class TouchTheNumGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame()
+            BirdWatchingGame(content = {
+                ToolbarCompose(title = "Training", onClick = {
+                    navController.popBackStack()
+                })
+            })
         }
         options = navOptions {
             anim {
@@ -1591,7 +1738,11 @@ class TouchTheNumPlusGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame()
+            BirdWatchingGame(content = {
+                ToolbarCompose(title = "Training", onClick = {
+                    navController.popBackStack()
+                })
+            })
         }
         options = navOptions {
             anim {
@@ -1634,7 +1785,11 @@ class UnfollowTheLeaderGameFrag : BaseFragment<FragmentAddressBinding, GameFrags
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame()
+            BirdWatchingGame(content = {
+                ToolbarCompose(title = "Training", onClick = {
+                    navController.popBackStack()
+                })
+            })
         }
         options = navOptions {
             anim {
@@ -1677,7 +1832,11 @@ class WeatherCastGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame()
+            BirdWatchingGame(content = {
+                ToolbarCompose(title = "Training", onClick = {
+                    navController.popBackStack()
+                })
+            })
         }
         options = navOptions {
             anim {

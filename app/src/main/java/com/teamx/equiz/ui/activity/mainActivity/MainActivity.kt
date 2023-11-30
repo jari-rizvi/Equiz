@@ -13,6 +13,8 @@ import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseActivity
 import com.teamx.equiz.databinding.ActivityMainBinding
+import com.teamx.equiz.games.games.CustomBottomNavigation3
+import com.teamx.equiz.games.games.PoliceSirenIndicator
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -54,11 +56,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), DialogH
         mViewDataBinding.drawerLayoutMain.btnWallet.setOnClickListener {
             mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
             navController!!.navigate(R.id.walletFragment)
-        }
-
-        mViewDataBinding.drawerLayoutMain.btnCoupon.setOnClickListener {
-            mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-            navController!!.navigate(R.id.coupnsFragment)
         }
 
         mViewDataBinding.drawerLayoutMain.btnReffeal.setOnClickListener {
@@ -107,14 +104,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), DialogH
             Toast.makeText(this, "Comming Soom", Toast.LENGTH_SHORT).show();
         }
 
-        mViewDataBinding.drawerLayoutMain.btnLogout.setOnClickListener {
-            mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-            DialogHelperClass.LogoutDialog(
-
-               this , this, true
-            )
-        }
-
     }
 
     fun openDrawer() {
@@ -137,8 +126,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), DialogH
         super.onBackPressed()
     }
 
-
     override fun OkClick() {
+
     }
 
 

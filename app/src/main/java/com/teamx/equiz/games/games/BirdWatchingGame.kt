@@ -6,6 +6,7 @@ import androidx.compose.animation.core.repeatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
@@ -41,8 +42,10 @@ import kotlin.random.Random
 @Preview
 @Composable
 fun BirdWatchingGame(content: @Composable () -> Unit = {}) {
-    content()
-    BirdAscendingObjects()
+    Column {
+        content()
+        BirdAscendingObjects()
+    }
 }
 
 //
@@ -213,8 +216,7 @@ fun BirdAnimatedObject(
             .clickable(
 //                enabled = birdlinkListAdded.contains(number)
             ) {
-                onClick(itemCompared)
-                /*   if (itemCompared.color == Color.Transparent) {
+                onClick(itemCompared)/*   if (itemCompared.color == Color.Transparent) {
                        Log.d("123123", "AnimatedObjectWrong2:${itemCompared.name} ::$itemCompared ")
                        return@clickable
                    } else if (itemCompared.name == birdlinkListAdded.first.name) {
@@ -269,8 +271,7 @@ fun BirdAnimatedObject2(
             .clickable(
 //                enabled = birdlinkListAdded.contains(number)
             ) {
-                onClick(itemCompared)
-                /*   if (itemCompared.color == Color.Transparent) {
+                onClick(itemCompared)/*   if (itemCompared.color == Color.Transparent) {
                        Log.d("123123", "AnimatedObjectWrong2:${itemCompared.name} ::$itemCompared ")
                        return@clickable
                    } else if (itemCompared.name == birdlinkListAdded.first.name) {
