@@ -87,6 +87,7 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
         }
 
 
+
     }
 
 
