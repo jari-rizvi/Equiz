@@ -118,7 +118,7 @@
             android:layout_height="@dimen/_30sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:background="@drawable/contact_input_background"
-            android:drawableEnd="@drawable/arrow"
+            android:drawableEnd="@drawable/baseline_my_location"
             android:marqueeRepeatLimit="marquee_forever"
             android:minHeight="@dimen/_35sdp"
             android:paddingStart="@dimen/_10sdp"

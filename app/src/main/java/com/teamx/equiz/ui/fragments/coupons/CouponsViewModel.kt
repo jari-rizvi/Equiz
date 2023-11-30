@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.teamx.equiz.baseclasses.BaseViewModel
 import com.teamx.equiz.data.models.coupons.CouponsData
-import com.teamx.equiz.data.models.getwalletData.GetWalletData
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.data.remote.reporitory.MainRepository
 import com.teamx.equiz.utils.NetworkHelper

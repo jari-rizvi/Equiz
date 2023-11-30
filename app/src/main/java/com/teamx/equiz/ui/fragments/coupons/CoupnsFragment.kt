@@ -54,8 +54,14 @@ class CoupnsFragment : BaseFragment<FragmentCouponsBinding, CouponsViewModel>() 
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
-                            data.data.forEach {
+                        /*    data.data.forEach {
                                 couponsArrayList.add(it)
+                            }*/
+
+                            data.data.forEach {
+                                if (it != null) {
+                                    couponsArrayList.add(it)
+                                }
                             }
 
                             couponsAdapter.notifyDataSetChanged()

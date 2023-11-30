@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
@@ -12,10 +13,11 @@ import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseActivity
 import com.teamx.equiz.databinding.ActivityMainBinding
+import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
+class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), DialogHelperClass.Companion.LogoutCallBack  {
 
     override val viewModel: Class<MainViewModel>
         get() = MainViewModel::class.java
@@ -105,6 +107,14 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
             Toast.makeText(this, "Comming Soom", Toast.LENGTH_SHORT).show();
         }
 
+        mViewDataBinding.drawerLayoutMain.btnLogout.setOnClickListener {
+            mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            DialogHelperClass.LogoutDialog(
+
+               this , this, true
+            )
+        }
+
     }
 
     fun openDrawer() {
@@ -125,6 +135,10 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
     override fun onBackPressed() {
         super.onBackPressed()
+    }
+
+
+    override fun OkClick() {
     }
 
 
