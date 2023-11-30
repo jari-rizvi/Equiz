@@ -12,6 +12,7 @@ import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.teamx.equiz.BR
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.databinding.FragmentQuizResultBinding
@@ -51,7 +52,7 @@ class QuizResultFragment : BaseFragment<FragmentQuizResultBinding, SingleQuizesV
             }
         }
 
-//        mViewDataBinding.txtLogin1.background = ResourcesCompat.getDrawable(resources, R.drawable.txt_food_category,null)
+
 
 
 

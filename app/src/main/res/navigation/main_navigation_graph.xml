@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation_graph"
-    app:startDestination="@id/subscriptionFragment">
+    app:startDestination="@id/tempFragment">
 
     <fragment
         android:id="@+id/tempFragment"
@@ -358,6 +358,33 @@
         android:id="@+id/coupnsFragment"
         android:name="com.teamx.equiz.ui.fragments.coupons.CoupnsFragment"
         android:label="CoupnsFragment" />
+
+
+    <fragment
+        android:id="@+id/quizesFragment"
+        android:name="com.teamx.equiz.ui.fragments.quizes.QuizesFragment"
+        android:label="QuizesFragment"
+        tools:layout="@layout/fragment_quizes">
+        <action
+            android:id="@+id/action_quizesFragment_to_singleQuizFragment"
+            app:destination="@id/singleQuizFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/singleQuizFragment"
+        android:name="com.teamx.equiz.ui.fragments.singlequize.SingleQuizesFragment"
+        android:label="SingleQuizFragment"
+        tools:layout="@layout/fragment_single_quiz" >
+        <action
+            android:id="@+id/action_quizesFragment_to_quizResultFragment"
+            app:destination="@id/quizResultFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/quizResultFragment"
+        android:name="com.teamx.equiz.ui.fragments.quizresult.QuizResultFragment"
+        android:label="QuizResultFragment"
+        tools:layout="@layout/fragment_quiz_result" />
 
 
 </navigation>
