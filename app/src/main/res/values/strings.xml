@@ -85,4 +85,9 @@
     <string name="personal_information">Personal Information</string>
 
 
+    <string name="_1st">1<sup>st</sup></string>
+    <string name="_2nd">2<sup>nd</sup></string>
+    <string name="_3rd">3<sup>rd</sup></string>
+
+
 </resources>

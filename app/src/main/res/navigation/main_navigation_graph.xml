@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation_graph"
-    app:startDestination="@id/tempFragment">
+    app:startDestination="@id/loaderBoardFragment">
 
     <fragment
         android:id="@+id/tempFragment"
@@ -148,7 +148,7 @@
         android:id="@+id/profileFragment"
         android:name="com.teamx.equiz.ui.fragments.profile.ProfileFragment"
         android:label="ProfileFragment"
-        tools:layout="@layout/fragment_profile" >
+        tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_profileFragment_to_chancesFragment"
             app:destination="@id/chancesFragment" />
@@ -163,7 +163,7 @@
         android:id="@+id/walletFragment"
         android:name="com.teamx.equiz.ui.fragments.wallet.WalletFragment"
         android:label="WalletFragment"
-        tools:layout="@layout/fragment_wallet" >
+        tools:layout="@layout/fragment_wallet">
         <action
             android:id="@+id/action_walletFragment_to_referralFragment"
             app:destination="@id/referralFragment" />
@@ -182,7 +182,7 @@
         android:id="@+id/editProfileFragment"
         android:name="com.teamx.equiz.ui.fragments.profile.EditProfileFragment"
         android:label="EditProfileFragment"
-        tools:layout="@layout/fragment_edit_profile" >
+        tools:layout="@layout/fragment_edit_profile">
         <action
             android:id="@+id/action_editProfileFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment" />
@@ -191,7 +191,7 @@
         android:id="@+id/dashboardFragment"
         android:name="com.teamx.equiz.ui.fragments.dashboard.DashboardFragment"
         android:label="DashboardFragment"
-        tools:layout="@layout/fragment_dashboard" >
+        tools:layout="@layout/fragment_dashboard">
         <action
             android:id="@+id/action_dashboardFragment_to_gamesFragment"
             app:destination="@id/gamesFragment" />
@@ -232,7 +232,7 @@
         android:id="@+id/notificationsFragment"
         android:name="com.teamx.equiz.ui.fragments.notifications.NotificationsFragment"
         android:label="NotificationsFragment"
-        tools:layout="@layout/fragment_notifications"/>
+        tools:layout="@layout/fragment_notifications" />
     <fragment
         android:id="@+id/ecommerceFragment"
         android:name="com.teamx.equiz.ui.fragments.ecommerce.home.EcommerceFragment"
@@ -249,42 +249,42 @@
         android:id="@+id/productProfileFragment"
         android:name="com.teamx.equiz.ui.fragments.ecommerce.productProfile.ProductProfileFragment"
         android:label="ProductProfileFragment"
-        tools:layout="@layout/fragment_product_profile"/>
+        tools:layout="@layout/fragment_product_profile" />
     <fragment
         android:id="@+id/checkoutFragment"
         android:name="com.teamx.equiz.ui.fragments.ecommerce.checkout.CheckoutFragment"
         android:label="CheckoutFragment"
-        tools:layout="@layout/fragment_checkout"/>
+        tools:layout="@layout/fragment_checkout" />
     <fragment
         android:id="@+id/paymentMethodsFragment"
         android:name="com.teamx.equiz.ui.fragments.ecommerce.paymentMethods.PaymentMethodsFragment"
         android:label="PaymentMethodsFragment"
-        tools:layout="@layout/fragment_payment_methods"/>
+        tools:layout="@layout/fragment_payment_methods" />
     <fragment
         android:id="@+id/orderDetailsFragment"
         android:name="com.teamx.equiz.ui.fragments.orders.orderdetails.OrderDetailsFragment"
         android:label="OrderDetailsFragment"
-        tools:layout="@layout/fragment_order_details"/>
+        tools:layout="@layout/fragment_order_details" />
     <fragment
         android:id="@+id/subscriptionFragment"
         android:name="com.teamx.equiz.ui.fragments.subscription.SubscriptionFragment"
         android:label="SubscriptionFragment"
-        tools:layout="@layout/fragment_subscription"/>
+        tools:layout="@layout/fragment_subscription" />
     <fragment
         android:id="@+id/newsFragment"
         android:name="com.teamx.equiz.ui.fragments.news.NewsFragment"
         android:label="NewsFragment"
-        tools:layout="@layout/fragment_news"/>
+        tools:layout="@layout/fragment_news" />
     <fragment
         android:id="@+id/supportFragment"
         android:name="com.teamx.equiz.ui.fragments.support.SupportFragment"
         android:label="SupportFragment"
-        tools:layout="@layout/fragment_support"/>
+        tools:layout="@layout/fragment_support" />
     <fragment
         android:id="@+id/gamesFragment"
         android:name="com.teamx.equiz.ui.fragments.games.GamesFragment"
         android:label="GamesFragment"
-        tools:layout="@layout/fragment_games"/>
+        tools:layout="@layout/fragment_games" />
     <fragment
         android:id="@+id/quizFragment"
         android:name="com.teamx.equiz.ui.fragments.quiz.QuizFragment"
@@ -297,7 +297,7 @@
         android:id="@+id/chattFragment"
         android:name="com.teamx.equiz.ui.fragments.support.ChattFragment"
         android:label="ChattFragment"
-        tools:layout="@layout/fragment_chat"/>
+        tools:layout="@layout/fragment_chat" />
     <fragment
         android:id="@+id/addressFragment"
         android:name="com.teamx.equiz.ui.fragments.address.AddressFragment"
@@ -378,7 +378,7 @@
         android:id="@+id/singleQuizFragment"
         android:name="com.teamx.equiz.ui.fragments.singlequize.SingleQuizesFragment"
         android:label="SingleQuizFragment"
-        tools:layout="@layout/fragment_single_quiz" >
+        tools:layout="@layout/fragment_single_quiz">
         <action
             android:id="@+id/action_quizesFragment_to_quizResultFragment"
             app:destination="@id/quizResultFragment" />
@@ -433,6 +433,13 @@
         android:id="@+id/tapTheColorGameFrag"
         android:name="com.teamx.equiz.ui.game_fragments.TapTheColorGameFrag"
         android:label="TapTheColorGameFrag" />
+
+
+    <fragment
+        android:id="@+id/loaderBoardFragment"
+        android:name="com.teamx.equiz.ui.fragments.loaderboard.LoaderBoardFragment"
+        android:label="LoaderBoardFragment"
+        tools:layout="@layout/fragment_loader_board" />
 
 
 </navigation>
