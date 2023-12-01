@@ -1,9 +1,11 @@
 package com.teamx.equiz.ui.game_fragments
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.compose.ui.platform.ComposeView
 import androidx.navigation.NavOptions
 import androidx.navigation.navOptions
@@ -12,6 +14,14 @@ import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.databinding.FragmentAddressBinding
 import com.teamx.equiz.games.games.BirdWatchingGame
+import com.teamx.equiz.games.games.SpinningBlockGame
+import com.teamx.equiz.games.games.TapTheColorGame
+import com.teamx.equiz.games.games.TetrisGame
+import com.teamx.equiz.games.games.TouchTheNumGame
+import com.teamx.equiz.games.games.TouchTheNumPlusGame
+import com.teamx.equiz.games.games.TouchTheNumbersGameScreen
+import com.teamx.equiz.games.games.UnfollowTheLeaderGame
+import com.teamx.equiz.games.games.WeatherCastGame
 import com.teamx.equiz.games.games.ui_components.ToolbarCompose
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -1362,7 +1372,7 @@ class SpinningLotteryGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame(content = {
+            SpinningBlockGame(content = {
                 ToolbarCompose(title = "Training", onClick = {
                     navController.popBackStack()
                 })
@@ -1404,12 +1414,13 @@ class TapTheColorGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame(content = {
+            TapTheColorGame(content = {
                 ToolbarCompose(title = "Training", onClick = {
                     navController.popBackStack()
                 })
@@ -1428,7 +1439,7 @@ class TapTheColorGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
     }
 }
 
-@AndroidEntryPoint
+/*@AndroidEntryPoint
 class TenSecondFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
 
     override val layoutId: Int
@@ -1473,9 +1484,9 @@ class TenSecondFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>()
 
 
     }
-}
+}*/
 
-@AndroidEntryPoint
+/*@AndroidEntryPoint
 class testiFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
 
     override val layoutId: Int
@@ -1520,9 +1531,9 @@ class testiFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
 
 
     }
-}
+}*/
 
-@AndroidEntryPoint
+/*@AndroidEntryPoint
 class TestingFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
 
     override val layoutId: Int
@@ -1567,7 +1578,7 @@ class TestingFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
 
 
     }
-}
+}*/
 
 @AndroidEntryPoint
 class TetrisGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
@@ -1597,7 +1608,7 @@ class TetrisGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame(content = {
+            TetrisGame(content = {
                 ToolbarCompose(title = "Training", onClick = {
                     navController.popBackStack()
                 })
@@ -1616,7 +1627,7 @@ class TetrisGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
     }
 }
 
-@AndroidEntryPoint
+/*@AndroidEntryPoint
 class ToolbarFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
 
     override val layoutId: Int
@@ -1661,7 +1672,7 @@ class ToolbarFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
 
 
     }
-}
+}*/
 
 @AndroidEntryPoint
 class TouchTheNumGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
@@ -1686,12 +1697,13 @@ class TouchTheNumGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame(content = {
+            TouchTheNumbersGameScreen(content = {
                 ToolbarCompose(title = "Training", onClick = {
                     navController.popBackStack()
                 })
@@ -1738,7 +1750,7 @@ class TouchTheNumPlusGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame(content = {
+            TouchTheNumPlusGame(content = {
                 ToolbarCompose(title = "Training", onClick = {
                     navController.popBackStack()
                 })
@@ -1785,7 +1797,7 @@ class UnfollowTheLeaderGameFrag : BaseFragment<FragmentAddressBinding, GameFrags
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame(content = {
+            UnfollowTheLeaderGame(content = {
                 ToolbarCompose(title = "Training", onClick = {
                     navController.popBackStack()
                 })
@@ -1832,7 +1844,7 @@ class WeatherCastGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame(content = {
+            WeatherCastGame(content = {
                 ToolbarCompose(title = "Training", onClick = {
                     navController.popBackStack()
                 })

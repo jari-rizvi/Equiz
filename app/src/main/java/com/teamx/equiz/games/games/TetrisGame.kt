@@ -33,7 +33,7 @@ fun TetrisGamePreview() {
 }
 
 @Composable
-fun TetrisGame(){
+fun TetrisGame(content: @Composable () -> Unit = {}){
     val context = LocalContext.current
     StatusBarUtil.transparentStatusBar(context as Activity)
     SoundUtil.init(context)

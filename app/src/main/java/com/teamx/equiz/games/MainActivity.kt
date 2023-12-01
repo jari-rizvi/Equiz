@@ -102,36 +102,6 @@ fun DefaultPreview() {
 }
 
 
-class Hexagon(private val size: Size) {
-    private val radius: Float = size.width / 2f
-
-    private val angles = listOf(
-        0f, 60f, 120f, 180f, 240f, 300f
-    )
-
-    fun toPath(): Path {
-        val path = Path()
-
-        for (i in 0 until 6) {
-            val angleRad = Math.toRadians(angles[i].toDouble())
-            val x = size.width / 2f + radius * Math.cos(angleRad).toFloat()
-            val y = size.height / 2f + radius * Math.sin(angleRad).toFloat()
-
-            val point = if (i == 0) {
-                Offset(x, y)
-            } else {
-                path.lineTo(x, y)
-                null
-            }
-
-            if (i == 5) {
-                point?.let { path.lineTo(it.x, it.y) }
-            }
-        }
-
-        return path
-    }
-}
 
 
 //lazycolum//

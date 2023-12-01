@@ -33,6 +33,7 @@ class QuizesAdapter(
     }
 
     override fun getItemCount(): Int {
+        
         return addressArrayList.size
     }
 }

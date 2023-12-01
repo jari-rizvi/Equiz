@@ -30,7 +30,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
-import com.teamx.equiz.games.Hexagon
 import kotlin.math.sqrt
 
 class HexaChainGame {
@@ -280,24 +279,9 @@ fun HexaChainGrid() {
     }
 }
 
-@Composable
-fun HexaChainCell(color: Color, size: Dp) {
-    Canvas(
-        modifier = Modifier.size(size),
-        onDraw = {
-            val hexagon = Hexagon(size = Size(size.toPx(), size.toPx()))
-            drawHexagon(hexagon, color)
-        }
-    )
-}
 
-private fun DrawScope.drawHexagon(hexagon: Hexagon, color: Color) {
-    drawPath(
-        path = hexagon.toPath(),
-        color = color,
-        style = androidx.compose.ui.graphics.drawscope.Fill
-    )
-}
+
+
 
 @Preview
 @Composable

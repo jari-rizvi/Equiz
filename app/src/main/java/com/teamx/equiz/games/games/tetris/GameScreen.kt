@@ -70,12 +70,13 @@ fun GameScreen(modifier: Modifier = Modifier) {
             .padding(10.dp)
     ) {
 
-        val animateValue by rememberInfiniteTransition().animateFloat(
+        val animateValue by rememberInfiniteTransition(label = "").animateFloat(
             initialValue = 0f, targetValue = 0.7f,
             animationSpec = infiniteRepeatable(
                 animation = tween(durationMillis = 1500),
                 repeatMode = RepeatMode.Reverse,
             ),
+            label = "",
         )
 
         Canvas(
