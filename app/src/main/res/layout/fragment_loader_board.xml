@@ -12,11 +12,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ImageView
             android:id="@+id/layout1"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="#9F81CA"
+            android:src="@drawable/leaderboard"
+            android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
