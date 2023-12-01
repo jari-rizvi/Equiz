@@ -43,7 +43,7 @@
             android:id="@+id/constraintLayout8"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_300sdp"
-            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:layout_marginHorizontal="@dimen/_20sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:background="@drawable/reciept_bg"
             android:backgroundTint="@color/theme_color"
@@ -65,8 +65,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0"
-                app:srcCompat="@drawable/successmark"
-                tools:layout_editor_absoluteX="129dp" />
+                app:srcCompat="@drawable/successmark_theme" />
 
             <TextView
                 android:id="@+id/textView62"

@@ -16,18 +16,23 @@ import com.teamx.equiz.data.models.getProducts.GetProductData
 import com.teamx.equiz.data.models.getcart.GetCartData
 import com.teamx.equiz.data.models.getwalletData.GetWalletData
 import com.teamx.equiz.data.models.loginData.LoginData
+import com.teamx.equiz.data.models.meModel.MeModel
+import com.teamx.equiz.data.models.modelUploadImages.ModelUploadImage
 import com.teamx.equiz.data.models.newsdaya.GetNewsData
 import com.teamx.equiz.data.models.otpForgotData.OtpforgotData
 import com.teamx.equiz.data.models.signupData.SignupData
 import com.teamx.equiz.data.models.sucessData.SuccessData
 import com.teamx.equiz.data.models.wishlistdata.WishlistData
+import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.HTTP
 import retrofit2.http.Header
+import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Part
 import retrofit2.http.Path
 
 interface ApiService {
@@ -86,12 +91,12 @@ interface ApiService {
     @POST(NetworkCallPoints.RESET_PASSWORD)
     suspend fun resetPass(@Body params: JsonObject?): Response<SuccessData>
 
-    @PUT(NetworkCallPoints.EDIT_PROFILE)
-    suspend fun editProfile(
-        @Body params: JsonObject?,
-        @Header("Authorization") basicCredentials: String = "Bearer $TOKENER"
-    ): Response<EditProfileData>
-
+    @Multipart
+    @POST(NetworkCallPoints.UPLOAD_IMGS)
+    suspend fun uploadReviewImg(
+        @Part images: List<MultipartBody.Part>,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<ModelUploadImage>
 
     @GET(NetworkCallPoints.OTP_VERIFY)
     suspend fun otpVerify(
@@ -109,5 +114,15 @@ interface ApiService {
     suspend fun otpVerifyForgot(
         @Path("uniqueID") uniqueID: String
     ): Response<OtpforgotData>
+
+    @GET(NetworkCallPoints.ME)
+    suspend fun me(
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<MeModel>
+    @PUT(NetworkCallPoints.UPDATE_PROFILE)
+    suspend fun updateProfile(
+        @Body params: JsonObject,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<EditProfileData>
 
 }

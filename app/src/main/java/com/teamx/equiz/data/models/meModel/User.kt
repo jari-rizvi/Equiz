@@ -1,24 +1,33 @@
-package com.teamx.equiz.data.models.editProfile
+package com.teamx.equiz.data.models.meModel
 
 data class User(
     val __v: Int,
     val _id: String,
     val apartment: String,
     val cart: List<Any>,
+    val chances: Int,
     val city: String,
     val country: String,
+    val createdAt: String,
+    val dateOfBirth: Any,
+    val email: String,
+    val image: String,
     val isAdmin: Boolean,
     val isPremium: Boolean,
-    val image: String,
     val isValid: Boolean,
     val name: String,
     val password: String,
+    val permission: List<Any>,
     val phone: String,
     val referralCode: String,
     val registrationDate: String,
     val resetTokenExpiration: String,
+    val roles: String,
+    val score: Int,
     val street: String,
     val uniqueID: String,
+    val updatedAt: String,
     val wallet: Int,
+    val wishlist: List<Any>,
     val zip: String
 )

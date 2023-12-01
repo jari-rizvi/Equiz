@@ -1,15 +1,22 @@
 package com.teamx.equiz.ui.fragments.profile
 
 import android.app.DatePickerDialog
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.widget.DatePicker
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.google.gson.JsonObject
+import com.squareup.picasso.Picasso
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
@@ -17,10 +24,16 @@ import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentEditProfileBinding
 import com.teamx.equiz.ui.fragments.Auth.login.LoginViewModel
 import com.teamx.equiz.utils.DialogHelperClass
+import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import org.json.JSONException
+import java.io.File
+import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -42,6 +55,12 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
     var cal = Calendar.getInstance()
     var textview_date: TextView? = null
 
+    var imageUrl = ""
+    var userName = ""
+    var userEmail = ""
+    var userDOB = ""
+    var userPhone = ""
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
@@ -55,24 +74,161 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
             }
         }
 
-        mViewDataBinding.btnSave.setOnClickListener {
-            ApiCall()
+        mViewDataBinding.btnAddPicture.setOnClickListener {
+            fetchImageFromGallery()
+        }
+
+        mViewDataBinding.btnback.setOnClickListener {
+            popUpStack()
         }
 
 
-        val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+        mViewDataBinding.btnSave.setOnClickListener {
+            userName = mViewDataBinding.userName.text.toString()
+            if (userName.isNotEmpty()) {
+                val params = JsonObject()
+                try {
+                    params.addProperty("email", userEmail)
+                    params.addProperty("DOB", userDOB)
+                    params.addProperty("username", userName)
+                    params.addProperty("image", imageUrl)
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+
+                mViewModel.updateProfile(params)
+            } else {
+                mViewDataBinding.root.snackbar("Enter Username")
+            }
+
+        }
+
+
+        if (!mViewModel.updateProfileResponse.hasActiveObservers()) {
+            mViewModel.updateProfileResponse.observe(requireActivity()) {
+                when (it.status) {
+                    Resource.Status.LOADING -> {
+                        loadingDialog.show()
+                    }
+
+                    Resource.Status.SUCCESS -> {
+                        loadingDialog.dismiss()
+                        it.data?.let { data ->
+                            Picasso.get().load(data.user.image).resize(500, 500)
+                                .into(mViewDataBinding.profilePicture)
+
+                            mViewDataBinding.userName.setText(data.user.name)
+                            /*  val userData = PrefHelper.getInstance(requireActivity()).getUserData()
+                              userData!!.name = data.name
+                              userData!!.profileImage = data.profileImage
+                              PrefHelper.getInstance(requireActivity()).setUserData(userData)*/
+                            mViewDataBinding.root.snackbar("Profile updated")
+
+
+                            /*       val bundle = arguments
+                                   if (bundle != null) {
+                                       bundle.putString("userimg", data.profileImage)
+                                       bundle.putString("username", data.name)
+                                   }*/
+
+
+                            findNavController().navigate(R.id.action_editProfileFragment_to_dashboardFragment)
+
+
+                        }
+                    }
+
+                    Resource.Status.ERROR -> {
+
+                        loadingDialog.dismiss()
+                        mViewDataBinding.root.snackbar(it.message!!)
+                    }
+                }
+            }
+        }
+
+
+        mViewModel.me()
+        if (!mViewModel.meResponse.hasActiveObservers()) {
+            mViewModel.meResponse.observe(requireActivity()) {
+                when (it.status) {
+                    Resource.Status.LOADING -> {
+                        loadingDialog.show()
+                    }
+
+                    Resource.Status.SUCCESS -> {
+                        loadingDialog.dismiss()
+                        it.data?.let { data ->
+                            imageUrl = data.user.image
+//                            userDOB = data.user.dateOfBirth.toString()
+                            userEmail = data.user.email
+                            userPhone = data.user.phone
+                            userName = data.user.name
+                            mViewDataBinding.userName.setText(data.user.name)
+                            mViewDataBinding.phone.setText(data.user.phone)
+                            mViewDataBinding.email.setText(data.user.email)
+//                            mViewDataBinding.dob.setText(data.user.dateOfBirth.toString())
+
+                            Picasso.get().load(data.user.image).resize(500, 500)
+                                .into(mViewDataBinding.profilePicture)
+
+
+                        }
+                    }
+
+                    Resource.Status.ERROR -> {
+                        loadingDialog.dismiss()
+                        mViewDataBinding.root.snackbar(it.message!!)
+                    }
+                }
+            }
+        }
+
+
+        if (!mViewModel.uploadReviewImgResponse.hasActiveObservers()) {
+            mViewModel.uploadReviewImgResponse.observe(requireActivity()) {
+                when (it.status) {
+                    Resource.Status.LOADING -> {
+                        loadingDialog.show()
+                    }
+
+                    Resource.Status.SUCCESS -> {
+                        loadingDialog.dismiss()
+                        it.data?.let { data ->
+                                Picasso.get().load(imageUrl).resize(500, 500)
+                                    .into(mViewDataBinding.profilePicture)
+
+
+                        }
+                    }
+
+                    Resource.Status.ERROR -> {
+                        loadingDialog.dismiss()
+                        Log.d("uploadReviewIm", "onViewCreated: ${it.message}")
+                        mViewDataBinding.root.snackbar(it.message!!)
+                    }
+                }
+            }
+        }
+
+
+        val dateSetListener =
+            DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                 cal.set(Calendar.YEAR, year)
                 cal.set(Calendar.MONTH, monthOfYear)
                 cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                updateDateInView() }
+                updateDateInView()
+            }
 
         mViewDataBinding.dob.setOnClickListener {
-            DatePickerDialog(requireContext(),
+            DatePickerDialog(
+                requireContext(),
                 dateSetListener,
                 // set DatePickerDialog to point to today's date when it loads up
                 cal.get(Calendar.YEAR),
                 cal.get(Calendar.MONTH),
-                cal.get(Calendar.DAY_OF_MONTH)).show()
+                cal.get(Calendar.DAY_OF_MONTH)
+            ).show()
         }
 
     }
@@ -90,48 +246,53 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
 //        dob = mViewDataBinding.dob.text.toString().trim()
     }
 
-    fun ApiCall() {
+    private fun fetchImageFromGallery() {
+        startForResult.launch("image/*")
+    }
 
-        initialization()
-        val params = JsonObject()
-        try {
-            params.addProperty("fName", fName)
-        } catch (e: JSONException) {
-            e.printStackTrace()
-        }
+    private val startForResult =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+            uri?.let {
+                val str = "${requireContext().filesDir}/file.jpg"
 
-
-        mViewModel.editProfile(params)
-
-        if (!mViewModel.editProfileResponse.hasActiveObservers()) {
-            mViewModel.editProfileResponse.observe(requireActivity()) {
-                when (it.status) {
-                    Resource.Status.LOADING -> {
-                        loadingDialog.show()
-                    }
-
-                    Resource.Status.SUCCESS -> {
-                        loadingDialog.dismiss()
-
-                        it.data?.let { data ->
-
-                            showToast("Updated")
+                Log.d("startForResult", "Profile image: $it")
 
 
-                        }
-                    }
+//                uploadWithRetrofit(it)
 
-                    Resource.Status.ERROR -> {
-                        loadingDialog.dismiss()
-                        DialogHelperClass.errorDialog(requireContext(), it.message!!)
-                    }
-                }
-                if (isAdded) {
-                    mViewModel.editProfileResponse.removeObservers(viewLifecycleOwner)
-                }
+                val imageUri = uri
+
+                val bitmap = MediaStore.Images.Media.getBitmap(
+                    requireActivity().contentResolver,
+                    imageUri
+                )
+
+// Compress the bitmap to a JPEG format with 80% quality and save it to a file
+                val outputStream = FileOutputStream(str)
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 50, outputStream)
+                outputStream.close()
+
+//                Picasso.get().load(it).into(mViewDataBinding.hatlyIcon)
+
+                uploadWithRetrofit(File(str))
             }
         }
 
+
+    private fun uploadWithRetrofit(file: File) {
+
+        val imagesList = mutableListOf<MultipartBody.Part>()
+
+        imagesList.add(prepareFilePart("image", file))
+
+        mViewModel.uploadReviewImg(imagesList)
+
+    }
+
+
+    private fun prepareFilePart(partName: String, fileUri: File): MultipartBody.Part {
+        val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), fileUri)
+        return MultipartBody.Part.createFormData(partName, fileUri.name, requestFile)
     }
 
 

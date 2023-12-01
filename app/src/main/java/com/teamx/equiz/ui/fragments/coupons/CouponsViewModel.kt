@@ -1,5 +1,6 @@
 package com.teamx.equiz.ui.fragments.coupons
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -42,6 +43,7 @@ class CouponsViewModel @Inject constructor(
 //                            _getcouponsResponse.postValue(Resource.error(it.message(), null))
                             val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
                             _getcouponsResponse.postValue(Resource.error(jsonObj.getString("message")))
+                            Log.d("TAG", "getCouponserror: $jsonObj")
                         } else {
                             _getcouponsResponse.postValue(
                                 Resource.error(

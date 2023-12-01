@@ -8,9 +8,11 @@ class NetworkCallPoints {
         const val SIGNUP_EMAIL ="/api/auth/register";
         const val OTP_VERIFY ="/api/auth/verifyOtp/{uniqueID}";
         const val OTP_VERIFY_FORGOT ="/api/auth/otpReset/{uniqueID}";
+        const val ME = "api/users/find"
+        const val UPDATE_PROFILE = "api/users/update"
+
 
         const val RESET_PASSWORD ="api/auth/passwordReset";
-        const val EDIT_PROFILE ="/api/users/:id";
         const val GET_ALL_CATEGORIES ="/api/category";
         const val WISHLIST_DATA ="api/wishlist/find";
         const val ADD_WISHLIST ="api/wishlist/add";
@@ -22,7 +24,11 @@ class NetworkCallPoints {
         const val DELETE_CART ="/api/carts/{productId}";
         const val GET_WALLET ="api/wallet/getWallet";
         const val GET_NEWS ="/api/news";
-        const val GET_COUPONS ="/api/coupons/find";
+        const val GET_COUPONS ="/api/coupon/find";
+
+
+        const val UPLOAD_IMGS = "api/users/upload"
+
 
         var TOKENER: String? = ""
 

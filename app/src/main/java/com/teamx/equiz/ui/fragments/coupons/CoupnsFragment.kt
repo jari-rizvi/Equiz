@@ -1,6 +1,9 @@
 package com.teamx.equiz.ui.fragments.coupons
 
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.NavOptions
@@ -17,7 +20,7 @@ import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CoupnsFragment : BaseFragment<FragmentCouponsBinding, CouponsViewModel>() {
+class CoupnsFragment : BaseFragment<FragmentCouponsBinding, CouponsViewModel>(),CouponsAdapter.CallBackCoupon  {
 
     override val layoutId: Int
         get() = R.layout.fragment_coupons
@@ -95,9 +98,16 @@ class CoupnsFragment : BaseFragment<FragmentCouponsBinding, CouponsViewModel>() 
         val linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         mViewDataBinding.recyCoupons.layoutManager = linearLayoutManager
 
-        couponsAdapter = CouponsAdapter(couponsArrayList)
+        couponsAdapter = CouponsAdapter(couponsArrayList,this)
         mViewDataBinding.recyCoupons.adapter = couponsAdapter
 
+    }
+
+    override fun onClickCoupon(pos: Int, str: String) {
+        val clipboard: ClipboardManager? =
+            requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager?
+        val clip = ClipData.newPlainText("io", "$str")
+        clipboard!!.setPrimaryClip(clip)
     }
 
 }

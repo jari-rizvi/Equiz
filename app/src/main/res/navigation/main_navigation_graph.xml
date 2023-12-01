@@ -182,7 +182,11 @@
         android:id="@+id/editProfileFragment"
         android:name="com.teamx.equiz.ui.fragments.profile.EditProfileFragment"
         android:label="EditProfileFragment"
-        tools:layout="@layout/fragment_edit_profile" />
+        tools:layout="@layout/fragment_edit_profile" >
+        <action
+            android:id="@+id/action_editProfileFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
+    </fragment>
     <fragment
         android:id="@+id/dashboardFragment"
         android:name="com.teamx.equiz.ui.fragments.dashboard.DashboardFragment"

@@ -22,9 +22,9 @@
             app:layout_constraintHorizontal_bias="0.05"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:tint="@color/black"
             app:layout_constraintVertical_bias="0.05"
-            app:srcCompat="@drawable/arrow_left" />
+            app:srcCompat="@drawable/arrow_left"
+            app:tint="@color/black" />
 
         <TextView
             android:id="@+id/textView"
@@ -50,6 +50,7 @@
             android:background="@drawable/border_background"
             android:elevation="@dimen/_5sdp"
             android:padding="@dimen/_2sdp"
+            android:src="@drawable/baseline_person"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -82,7 +83,7 @@
             android:minHeight="@dimen/_35sdp"
             android:paddingStart="@dimen/_10sdp"
             android:singleLine="true"
-            android:textColor="@color/light_gray"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView25" />
@@ -95,7 +96,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:layout_marginBottom="@dimen/_5sdp"
-            android:text="Personal Information"
+            android:text="@string/personal_information"
             android:textColor="@color/black"
             android:textSize="@dimen/_12ssp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -133,8 +134,8 @@
             android:inputType="textEmailAddress"
             android:minHeight="@dimen/_35sdp"
             android:paddingStart="@dimen/_10sdp"
+            android:textColor="@color/black"
             android:singleLine="true"
-            android:textColor="@color/colorBlack"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etaTxt" />
