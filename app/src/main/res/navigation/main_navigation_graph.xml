@@ -389,6 +389,50 @@
         android:name="com.teamx.equiz.ui.fragments.quizresult.QuizResultFragment"
         android:label="QuizResultFragment"
         tools:layout="@layout/fragment_quiz_result" />
+    <fragment
+        android:id="@+id/unfollowTheLeaderGameFrag"
+        android:name="com.teamx.equiz.ui.game_fragments.UnfollowTheLeaderGameFrag"
+        android:label="UnfollowTheLeaderGameFrag" />
+    <fragment
+        android:id="@+id/cardCalculationGameFrag"
+        android:name="com.teamx.equiz.ui.game_fragments.CardCalculationGameFrag"
+        android:label="CardCalculationGameFrag" />
+    <fragment
+        android:id="@+id/operationsGameFrag"
+        android:name="com.teamx.equiz.ui.game_fragments.OperationsGameFrag"
+        android:label="OperationsGameFrag" />
+    <fragment
+        android:id="@+id/rapidSortingGameFrag"
+        android:name="com.teamx.equiz.ui.game_fragments.RapidSortingGameFrag"
+        android:label="RapidSortingGameFrag" />
+    <fragment
+        android:id="@+id/simplicityGameFrag"
+        android:name="com.teamx.equiz.ui.game_fragments.SimplicityGameFrag"
+        android:label="SimplicityGameFrag" />
+    <fragment
+        android:id="@+id/reverseRPSFrag"
+        android:name="com.teamx.equiz.ui.game_fragments.ReverseRPSFrag"
+        android:label="ReverseRPSFrag" />
+    <fragment
+        android:id="@+id/tetrisGameFrag"
+        android:name="com.teamx.equiz.ui.game_fragments.TetrisGameFrag"
+        android:label="TetrisGameFrag" />
+    <fragment
+        android:id="@+id/touchTheNumGameFrag"
+        android:name="com.teamx.equiz.ui.game_fragments.TouchTheNumGameFrag"
+        android:label="TouchTheNumGameFrag" />
+    <fragment
+        android:id="@+id/touchTheNumPlusGameFrag"
+        android:name="com.teamx.equiz.ui.game_fragments.TouchTheNumPlusGameFrag"
+        android:label="TouchTheNumPlusGameFrag" />
+    <fragment
+        android:id="@+id/weatherCastGameFrag"
+        android:name="com.teamx.equiz.ui.game_fragments.WeatherCastGameFrag"
+        android:label="WeatherCastGameFrag" />
+    <fragment
+        android:id="@+id/tapTheColorGameFrag"
+        android:name="com.teamx.equiz.ui.game_fragments.TapTheColorGameFrag"
+        android:label="TapTheColorGameFrag" />
 
 
 </navigation>

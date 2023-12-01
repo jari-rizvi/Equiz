@@ -25,7 +25,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -41,7 +40,7 @@ import com.teamx.equiz.games.ui.theme.BirdColor3
 import com.teamx.equiz.games.ui.theme.BirdColor4
 import kotlin.random.Random
 
-class OperationsGame {}
+
 
 //operations
 val operators = listOf("+", "-", "*", "/")
@@ -49,7 +48,7 @@ val operators = listOf("+", "-", "*", "/")
 @RequiresApi(Build.VERSION_CODES.O)
 
 @Composable
-fun GameScreen2(content: () -> Unit) {
+fun OperationGame(content: @Composable () -> Unit) {
     var equation by remember { mutableStateOf(generateEquation()) }
     var selectedOperator by remember { mutableStateOf("") }
     var allCounter by remember { mutableStateOf(0) }
@@ -220,7 +219,7 @@ fun evaluateEquation(equation: String): Int {
 @Composable
 fun ShowBar2() {
     MaterialTheme {
-        GameScreen2 {}
+        OperationGame {}
     }
 
 

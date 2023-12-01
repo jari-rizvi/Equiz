@@ -482,6 +482,6 @@ fun GeneralScreen(text: String) {
 
 
 enum class GamesUID {
-    /*DashboardScreen,*/ AdditionScreen, BirdWatchingScreen, BreakTheBlockScreen, ColorDeceptionScreen, ColorSwitchScreen, ConcentrationScreen, CardCalculationGameScreen, FlickScreen, FollowTheLeaderScreen, HexaChainScreen, HighLowScreen, LearningThingScreen, MakeTenScreen, MatchingScreen, MissingPieceScreen, OperationsScreen, QuickEyeScreen, RainFallScreen, ResultScreen, RapidSorting, ReverseRpsScreen, SimplicityScreen, SpinningBlockScreen, TapTheColorScreen, TenSecondScreen, TouchTheNumScreen, TouchTheNumPlusScreen, UnfollowTheLeaderScreen, WeatherCast
+    AdditionScreen, BirdWatchingScreen, BreakTheBlockScreen, ColorDeceptionScreen, ColorSwitchScreen, ConcentrationScreen, CardCalculationGameScreen, FlickScreen, FollowTheLeaderScreen, HexaChainScreen, HighLowScreen, LearningThingScreen, MakeTenScreen, MatchingScreen, MissingPieceScreen, OperationsScreen, QuickEyeScreen, RainFallScreen, ResultScreen, RapidSorting, ReverseRpsScreen, SimplicityScreen, SpinningBlockScreen, TapTheColorScreen, TenSecondScreen, TouchTheNumScreen, TouchTheNumPlusScreen, UnfollowTheLeaderScreen, WeatherCast
 }
 

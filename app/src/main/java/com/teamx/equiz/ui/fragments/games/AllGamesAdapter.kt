@@ -1,9 +1,9 @@
-package com.teamx.equiz.ui.fragments.dashboard.adapter
+package com.teamx.equiz.ui.fragments.games
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.teamx.equiz.databinding.GamesItemLayoutDashBinding
+import com.teamx.equiz.databinding.GamesItemLayoutGmBinding
 
 class AllGamesAdapter(
     private val addressArrayList: ArrayList<String>, val allGameInterface: AllGameInterface
@@ -13,7 +13,7 @@ class AllGamesAdapter(
         parent: ViewGroup, viewType: Int
     ): AllGamesAdapterViewHolder {
         return AllGamesAdapterViewHolder(
-            GamesItemLayoutDashBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            GamesItemLayoutGmBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
 
     }
@@ -31,14 +31,16 @@ class AllGamesAdapter(
     }
 
     override fun getItemCount(): Int {
-        
+
         return addressArrayList.size
     }
 }
-interface AllGameInterface{
+
+interface AllGameInterface {
     fun onClickGame(position: Int)
 }
-class AllGamesAdapterViewHolder(private var binding: GamesItemLayoutDashBinding) :
+
+class AllGamesAdapterViewHolder(private var binding: GamesItemLayoutGmBinding) :
     RecyclerView.ViewHolder(binding.root) {
     val bind = binding
 }

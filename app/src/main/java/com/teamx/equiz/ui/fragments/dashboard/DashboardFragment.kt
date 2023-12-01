@@ -57,7 +57,12 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
         mViewDataBinding.textView155.setOnClickListener {
             findNavController().navigate(
-                R.id.action_dashboardFragment_to_ecommerceFragment, null
+                R.id.quizesFragment, arguments
+            )
+        }
+        mViewDataBinding.seeAllGames.setOnClickListener {
+            findNavController().navigate(
+                R.id.gamesFragment, arguments
             )
         }
 
@@ -100,10 +105,11 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
     private fun initializeGameAdapter() {
         gameStrArrayList = ArrayList()
 
-        gameStrArrayList.add("")
-        gameStrArrayList.add("")
-        gameStrArrayList.add("")
-        gameStrArrayList.add("")
+        for (i in GamesUID2.values()) {
+
+            gameStrArrayList.add(i.name)
+        }
+
 
         val layoutManager1 =
             LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
@@ -142,9 +148,139 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
     override fun onClickGame(position: Int) {
         Log.d("123", "onClickGame: ")
+        when (gameStrArrayList[position]) {
+
+            GamesUID2.AdditionAddiction.name -> {
+
+                findNavController().navigate(R.id.additionAddictionGameFrag,arguments)
+
+
+            }
+
+            GamesUID2.BirdWatching.name -> {
+                findNavController().navigate(R.id.birdWatchingGameFrag,arguments)
+
+            }
+
+            GamesUID2.BreakTheBlock.name -> {
+                findNavController().navigate(R.id.breakTheBlockGameFrag,arguments)
+
+            }
+
+            GamesUID2.ColorDeception.name -> {
+                findNavController().navigate(R.id.colorOfDecepGameFrag,arguments)
+
+            }
+
+            GamesUID2.Tetris.name -> {
+                findNavController().navigate(R.id.tetrisGameFrag,arguments)
+
+            }
+
+            GamesUID2.Concentration.name -> {
+
+                findNavController().navigate(R.id.concentrationGameFrag,arguments)
+            }
+
+            GamesUID2.CardCalculation.name -> {
+                findNavController().navigate(R.id.cardCalculationGameFrag,arguments)
+
+            }
+
+            GamesUID2.Flick.name -> {
+                findNavController().navigate(R.id.flickGameFrag,arguments)
+
+            }
+
+            GamesUID2.FollowTheLeader.name -> {
+                findNavController().navigate(R.id.followTheLeaderGameFrag,arguments)
+
+            }
+
+            GamesUID2.UnfollowTheLeader.name -> {
+                findNavController().navigate(R.id.unfollowTheLeaderGameFrag,arguments)
+
+            }
+
+            GamesUID2.SpinTheWheel.name -> {
+//                findNavController().navigate(R.id,arguments)
+
+            }
+
+            GamesUID2.HighLow.name -> {
+                findNavController().navigate(R.id.highLowGameFrag,arguments)
+
+            }
+
+            GamesUID2.MakeTen.name -> {
+                findNavController().navigate(R.id.make10GameFrag,arguments)
+
+            }
+
+            GamesUID2.MissingPiece.name -> {
+                findNavController().navigate(R.id.missingPieceGameFrag,arguments)
+
+            }
+
+
+
+
+
+            GamesUID2.QuickEye.name -> {
+                findNavController().navigate(R.id.quickEyeGameFrag,arguments)
+
+            }
+
+            GamesUID2.RainFall.name -> {
+                findNavController().navigate(R.id.rainFallGameFrag,arguments)
+
+            }
+
+            GamesUID2.RapidSorting.name -> {
+                findNavController().navigate(R.id.rapidSortingGameFrag,arguments)
+
+            }
+
+            GamesUID2.ReverseRps.name -> {
+                findNavController().navigate(R.id.reverseRPSFrag,arguments)
+
+            }
+
+            GamesUID2.Simplicity.name -> {
+                findNavController().navigate(R.id.simplicityGameFrag,arguments)
+
+            }
+
+            GamesUID2.TapTheColor.name -> {
+                findNavController().navigate(R.id.tapTheColorGameFrag,arguments)
+
+            }
+
+            GamesUID2.TouchTheNum.name -> {
+                findNavController().navigate(R.id.touchTheNumGameFrag,arguments)
+
+            }
+
+            GamesUID2.TouchTheNumPlus.name -> {
+                findNavController().navigate(R.id.touchTheNumPlusGameFrag,arguments)
+
+            }
+
+            GamesUID2.WeatherCast.name -> {
+                findNavController().navigate(R.id.weatherCastGameFrag,arguments)
+
+            }
+
+
+        }
     }
 
     override fun onWinnerClick(position: Int) {
         Log.d("123", "onWinnerClick: ")
     }
+}
+
+
+enum class GamesUID2 {
+    AdditionAddiction, BirdWatching, BreakTheBlock, ColorDeception, Tetris, Concentration, CardCalculation, Flick, FollowTheLeader, SpinTheWheel, HighLow, MakeTen, Matching, MissingPiece, Operations, QuickEye, RainFall, RapidSorting, ReverseRps, Simplicity, TapTheColor, TouchTheNum, TouchTheNumPlus, UnfollowTheLeader, WeatherCast
 }

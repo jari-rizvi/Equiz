@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.navigation.NavOptions
 import androidx.navigation.navOptions
@@ -13,7 +14,28 @@ import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.databinding.FragmentAddressBinding
+import com.teamx.equiz.games.games.AdditionAddictionGame
 import com.teamx.equiz.games.games.BirdWatchingGame
+import com.teamx.equiz.games.games.BreakTheBlockGame
+import com.teamx.equiz.games.games.CardCalculationGameScreen
+import com.teamx.equiz.games.games.ColorSwitchGameScreen
+import com.teamx.equiz.games.games.ConcentrationGame
+import com.teamx.equiz.games.games.FlickGameScreen
+import com.teamx.equiz.games.games.FollowTheLeaderGame
+import com.teamx.equiz.games.games.GuessTheFlagGame
+import com.teamx.equiz.games.games.HighLowComponent
+import com.teamx.equiz.games.games.HighLowGame
+import com.teamx.equiz.games.games.ImplicityGameScreen
+import com.teamx.equiz.games.games.Make10GameScreen
+import com.teamx.equiz.games.games.MatchingStepGame
+import com.teamx.equiz.games.games.MissingPieceGameScreen
+import com.teamx.equiz.games.games.OperationGame
+import com.teamx.equiz.games.games.QuickEyeGame
+import com.teamx.equiz.games.games.RainFallGame
+import com.teamx.equiz.games.games.RapidSortingGame
+import com.teamx.equiz.games.games.ReflectionGame
+import com.teamx.equiz.games.games.ReverseRPS
+import com.teamx.equiz.games.games.SimplicityGame
 import com.teamx.equiz.games.games.SpinningBlockGame
 import com.teamx.equiz.games.games.TapTheColorGame
 import com.teamx.equiz.games.games.TetrisGame
@@ -22,6 +44,7 @@ import com.teamx.equiz.games.games.TouchTheNumPlusGame
 import com.teamx.equiz.games.games.TouchTheNumbersGameScreen
 import com.teamx.equiz.games.games.UnfollowTheLeaderGame
 import com.teamx.equiz.games.games.WeatherCastGame
+import com.teamx.equiz.games.games.rpsCastGamePlot
 import com.teamx.equiz.games.games.ui_components.ToolbarCompose
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -54,7 +77,7 @@ class AdditionAddictionGameFrag : BaseFragment<FragmentAddressBinding, GameFrags
 
         composeView.setContent {
 
-            BirdWatchingGame(content = {
+            AdditionAddictionGame(content = {
                 ToolbarCompose(title = "Training", onClick = {
                     navController.popBackStack()
                 })
@@ -150,7 +173,7 @@ class BreakTheBlockGameFrag : BaseFragment<FragmentAddressBinding, GameFragsView
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame(content = {
+            BreakTheBlockGame(content = {
                 ToolbarCompose(title = "Training", onClick = {
                     navController.popBackStack()
                 })
@@ -197,7 +220,7 @@ class CardCalculationGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame(content = {
+            CardCalculationGameScreen(content = {
                 ToolbarCompose(title = "Training", onClick = {
                     navController.popBackStack()
                 })
@@ -244,7 +267,7 @@ class ColorOfDecepGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame(content = {
+            ColorSwitchGameScreen(content = {
                 ToolbarCompose(title = "Training", onClick = {
                     navController.popBackStack()
                 })
@@ -291,7 +314,7 @@ class ColorSwitchGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame(content = {
+            ColorSwitchGameScreen(content = {
                 ToolbarCompose(title = "Training", onClick = {
                     navController.popBackStack()
                 })
@@ -338,7 +361,7 @@ class ConcentrationGameFrag : BaseFragment<FragmentAddressBinding, GameFragsView
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame(content = {
+            ConcentrationGame(content = {
                 ToolbarCompose(title = "Training", onClick = {
                     navController.popBackStack()
                 })
@@ -385,7 +408,7 @@ class FlickGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>()
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame(content = {
+            FlickGameScreen(content = {
                 ToolbarCompose(title = "Training", onClick = {
                     navController.popBackStack()
                 })
@@ -432,7 +455,7 @@ class FollowTheLeaderGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame(content = {
+            FollowTheLeaderGame(content = {
                 ToolbarCompose(title = "Training", onClick = {
                     navController.popBackStack()
                 })
@@ -479,7 +502,7 @@ class GuessTheFlagGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame(content = {
+            GuessTheFlagGame(content = {
                 ToolbarCompose(title = "Training", onClick = {
                     navController.popBackStack()
                 })
@@ -498,52 +521,6 @@ class GuessTheFlagGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
     }
 }
 
-@AndroidEntryPoint
-class HexaChainGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
-
-    override val layoutId: Int
-        get() = R.layout.fragment_address
-    override val viewModel: Class<GameFragsViewModel>
-        get() = GameFragsViewModel::class.java
-    override val bindingVariable: Int
-        get() = BR.viewModel
-
-
-    private lateinit var options: NavOptions
-    private lateinit var composeView: ComposeView
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        mViewDataBinding = FragmentAddressBinding.inflate(inflater)
-        return ComposeView(requireContext()).also {
-            composeView = it
-        }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        mViewDataBinding.lifecycleOwner = viewLifecycleOwner
-
-        composeView.setContent {
-            BirdWatchingGame(content = {
-                ToolbarCompose(title = "Training", onClick = {
-                    navController.popBackStack()
-                })
-            })
-        }
-        options = navOptions {
-            anim {
-                enter = R.anim.enter_from_left
-                exit = R.anim.exit_to_left
-                popEnter = R.anim.nav_default_pop_enter_anim
-                popExit = R.anim.nav_default_pop_exit_anim
-            }
-        }
-
-
-    }
-}
 
 @AndroidEntryPoint
 class HighLowGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
@@ -573,7 +550,7 @@ class HighLowGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame(content = {
+            HighLowComponent(content = {
                 ToolbarCompose(title = "Training", onClick = {
                     navController.popBackStack()
                 })
@@ -667,7 +644,7 @@ class Make10GameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame(content = {
+            Make10GameScreen(content = {
                 ToolbarCompose(title = "Training", onClick = {
                     navController.popBackStack()
                 })
@@ -714,7 +691,7 @@ class MatchingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame(content = {
+            MatchingStepGame(Modifier,content = {
                 ToolbarCompose(title = "Training", onClick = {
                     navController.popBackStack()
                 })
@@ -733,7 +710,7 @@ class MatchingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
     }
 }
 
-@AndroidEntryPoint
+/*@AndroidEntryPoint
 class MenuScreenFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
 
     override val layoutId: Int
@@ -778,7 +755,7 @@ class MenuScreenFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
 
 
     }
-}
+}*/
 
 @AndroidEntryPoint
 class MissingPieceGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
@@ -808,7 +785,7 @@ class MissingPieceGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame(content = {
+            MissingPieceGameScreen(content = {
                 ToolbarCompose(title = "Training", onClick = {
                     navController.popBackStack()
                 })
@@ -855,7 +832,7 @@ class OperationsGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame(content = {
+            OperationGame(content = {
                 ToolbarCompose(title = "Training", onClick = {
                     navController.popBackStack()
                 })
@@ -921,7 +898,7 @@ class PathToSaftyGFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
     }
 }
 
-@AndroidEntryPoint
+/*@AndroidEntryPoint
 class ProfileScreenFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
 
     override val layoutId: Int
@@ -966,7 +943,7 @@ class ProfileScreenFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMode
 
 
     }
-}
+}*/
 
 @AndroidEntryPoint
 class QuickEyeGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
@@ -996,7 +973,7 @@ class QuickEyeGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame(content = {
+            QuickEyeGame(content = {
                 ToolbarCompose(title = "Training", onClick = {
                     navController.popBackStack()
                 })
@@ -1043,7 +1020,7 @@ class RainFallGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame(content = {
+            RainFallGame(content = {
                 ToolbarCompose(title = "Training", onClick = {
                     navController.popBackStack()
                 })
@@ -1090,7 +1067,7 @@ class RapidSortingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame(content = {
+            RapidSortingGame(content = {
                 ToolbarCompose(title = "Training", onClick = {
                     navController.popBackStack()
                 })
@@ -1137,7 +1114,7 @@ class ReflectionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame(content = {
+            ReflectionGame(content = {
                 ToolbarCompose(title = "Training", onClick = {
                     navController.popBackStack()
                 })
@@ -1156,7 +1133,7 @@ class ReflectionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
     }
 }
 
-@AndroidEntryPoint
+/*@AndroidEntryPoint
 class ResultComposeFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
 
     override val layoutId: Int
@@ -1201,7 +1178,7 @@ class ResultComposeFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMode
 
 
     }
-}
+}*/
 
 @AndroidEntryPoint
 class ReverseRPSFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
@@ -1231,7 +1208,7 @@ class ReverseRPSFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame(content = {
+            rpsCastGamePlot(content = {
                 ToolbarCompose(title = "Training", onClick = {
                     navController.popBackStack()
                 })
@@ -1278,7 +1255,7 @@ class SimplicityGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame(content = {
+            ImplicityGameScreen(content = {
                 ToolbarCompose(title = "Training", onClick = {
                     navController.popBackStack()
                 })
@@ -1325,7 +1302,7 @@ class SpinningBlockGameFrag : BaseFragment<FragmentAddressBinding, GameFragsView
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame(content = {
+            SpinningBlockGame(content = {
                 ToolbarCompose(title = "Training", onClick = {
                     navController.popBackStack()
                 })

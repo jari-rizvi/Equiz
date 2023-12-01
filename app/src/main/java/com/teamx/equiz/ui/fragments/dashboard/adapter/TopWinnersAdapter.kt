@@ -20,7 +20,7 @@ class TopWinnersAdapter(
 
     override fun onBindViewHolder(holder: TopWinnerViewHolder, position: Int) {
 
-//        val arrayData = addressArrayList[position]
+        val arrayData = addressArrayList[position]
 
         holder.itemView.setOnClickListener {
             quizesInterface.onWinnerClick(position)

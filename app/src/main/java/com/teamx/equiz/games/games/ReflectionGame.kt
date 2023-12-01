@@ -23,7 +23,7 @@ import com.teamx.equiz.games.GamesUID
 import kotlin.random.Random
 
 @Composable
-fun ReflectionGame() {
+fun ReflectionGame(content: @Composable () -> Unit={}) {
 }
 
 data class ReflectionListItem(

@@ -277,7 +277,7 @@ fun PreviewReverseRockPaperScissorsGameScreen() {
 
 
 @Composable
-fun rpsCastGamePlot() {
+fun rpsCastGamePlot(content: @Composable () -> Unit={}) {
     val leftItems = (0..(2)).map {
         rpsListItem(
             height = 70.dp, id = it, gamesUID = GamesUID.values()[it], color = if (it % 5 == 0) {
@@ -461,13 +461,13 @@ enum class EnumRPS {
 @Composable
 fun previewRPSCastGame() {
     MaterialTheme {
-        rpsCastGamePlot()
+        rpsCastGamePlot(){}
     }
 }
 
 @Composable
 fun ReverseRockPaperScissorsGameScreen(content: @Composable () -> Unit) {
-    rpsCastGamePlot()
+    rpsCastGamePlot(){}
 }
 
 //Rock paper scissor

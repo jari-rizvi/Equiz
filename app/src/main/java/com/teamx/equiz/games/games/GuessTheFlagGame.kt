@@ -36,7 +36,7 @@ import com.teamx.equiz.R
 
 
 @Composable
-fun GuessTheFlagGame() {
+fun GuessTheFlagGame(content: @Composable () -> Unit={}) {
     var score by remember { mutableStateOf(0) }
     var currentFlagIndex by remember { mutableStateOf(0) }
     var guessedCountry by remember { mutableStateOf(TextFieldValue()) }

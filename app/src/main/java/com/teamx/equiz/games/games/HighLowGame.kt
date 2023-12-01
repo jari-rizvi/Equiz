@@ -162,7 +162,7 @@ var dragged = true
 
 
 @Composable
-fun HighLowComponent() {
+fun HighLowComponent(content: @Composable () -> Unit) {
     var swipeStateX by remember { mutableStateOf(false) }
 
     var previousNumber by remember { mutableStateOf(Random.nextInt(0, 100)) }
@@ -385,7 +385,7 @@ fun HighLowGame() {
         Box(
             modifier = Modifier.fillMaxSize(), Alignment.Center
         ) {
-            HighLowComponent()
+            HighLowComponent(){}
         }
     }
 }
