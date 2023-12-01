@@ -70,7 +70,30 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
+            <com.teamx.equiz.games.nav_custom.custombottomnav.SSCustomBottomNavigation
+                android:id="@+id/bottomNavigationq"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:ss_backgroundBottomColor="#ffffff"
+                app:ss_backgroundBottomDrawable="@drawable/bottom_drawable"
+                app:ss_circleColor="#ff6f00"
+                app:ss_countBackgroundColor="#ff6f00"
+                app:ss_countTextColor="#ffffff"
 
+                app:ss_defaultIconColor="@color/black"
+                app:ss_iconTextColor="@color/black"
+                app:ss_iconTextSize="12sp"
+
+                app:ss_rippleColor="#2f424242"
+                app:ss_selectedIconColor="#ff6f00"
+                app:ss_selectedIconTextColor="#ff6f00"
+                app:ss_shadowColor="#1f212121"
+                app:ss_waveHeight="7"
+                />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

@@ -83,6 +83,8 @@
     <string name="back_to_home">Back To Home</string>
     <string name="Games">Games</string>
     <string name="personal_information">Personal Information</string>
+    <string name="profile">Profile</string>
+    <string name="dashboard">Dashboard</string>
 
 
     <string name="_1st">1<sup>st</sup></string>

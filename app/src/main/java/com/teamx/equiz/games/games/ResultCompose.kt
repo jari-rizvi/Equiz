@@ -3,13 +3,11 @@ package com.teamx.equiz.games.games
 import androidx.annotation.StringRes
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,7 +17,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.size
@@ -49,16 +46,13 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -67,7 +61,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
- 
+import com.teamx.equiz.games.ui.theme.BirdColor1
 import com.teamx.equiz.games.ui.theme.CyanGreen
 import com.teamx.equiz.games.ui.theme.GameEquizApplicationTheme
 import com.teamx.equiz.games.ui.theme.Pinky
@@ -104,7 +98,7 @@ fun ChartScreen() {
 @Composable
 fun DefaultPreview() {
     GameEquizApplicationTheme {
-        ResultScreenToolbar() {}
+        ResultScreen() {}
     }
 }
 
@@ -114,7 +108,7 @@ fun ShowScoring(title: String, color: Color, score: String) {
         horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center
     ) {
         Text(text = "$title", color = color)
-        Text(text = score)
+        Text(text = score, color = Color.White)
     }
 }
 
@@ -122,14 +116,16 @@ fun ShowScoring(title: String, color: Color, score: String) {
 @Composable
 fun ShowMeantime(title: String, score: String) {
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .padding(top = 12.dp)
+            .fillMaxWidth(),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(imageVector = Icons.Default.AvTimer, contentDescription = null)
-        Text(modifier = Modifier.padding(6.dp), text = "$title")
+        Text(modifier = Modifier.padding(6.dp), text = "$title", color = BirdColor1)
         Text(
-            modifier = Modifier.padding(6.dp), text = score, fontSize = 14.sp
+            modifier = Modifier.padding(6.dp), text = score, fontSize = 14.sp, color = BirdColor1
         )
     }
 }
@@ -142,14 +138,14 @@ fun BottomResult() {
             .height(100.dp)
             .width(230.dp)
             .clip(RoundedCornerShape(6))
-            .background(Color.White),
+            .background(Purple80),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text(text = "Battle Record", fontSize = 24.sp)
+        Text(text = "Battle Record", color = Color.White, fontSize = 24.sp)
         Row(modifier = Modifier.fillMaxWidth(), Arrangement.SpaceAround) {
-            ShowScoring("Highest", Color.LightGray, "0")
-            ShowScoring("Lowest", Color.LightGray, "0")
+            ShowScoring("Highest", Color.White, "0")
+            ShowScoring("Lowest", Color.White, "0")
         }
     }
 
@@ -162,12 +158,12 @@ fun BottomResult2() {
             .height(100.dp)
             .width(130.dp)
             .clip(RoundedCornerShape(6))
-            .background(Color.White),
+            .background(Purple80),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text(text = "Score", fontSize = 24.sp)
-        Icon(imageVector = Icons.Default.Lock, contentDescription = null)
+        Text(text = "Score", fontSize = 24.sp, color = Color.White)
+        Icon(imageVector = Icons.Default.Lock, tint = Color.White, contentDescription = null)
     }
 
 }
@@ -178,14 +174,15 @@ fun bottomButtons(onContinueClicked: () -> Unit) {
         modifier = Modifier
             .clip(RoundedCornerShape(6))
             .background(Color.White)
-            .fillMaxWidth(),
-        Arrangement.SpaceEvenly
+            .padding(vertical = 12.dp)
+
+            .fillMaxWidth(), Arrangement.SpaceEvenly, verticalAlignment = Alignment.Bottom
     ) {
         Button(
             onClick = { /*TODO*/ },
+            shape = RoundedCornerShape(19.dp),
             modifier = Modifier.width(130.dp),
-            shape = RoundedCornerShape(6.dp),
-            colors = ButtonDefaults.buttonColors(Color.Gray)
+            colors = ButtonDefaults.buttonColors(Purple80)
         ) {
             Text(text = "Retry")
 
@@ -193,16 +190,17 @@ fun bottomButtons(onContinueClicked: () -> Unit) {
         Button(
             onClick = onContinueClicked,
             modifier = Modifier.width(130.dp),
-            shape = RoundedCornerShape(6.dp),
-            colors = ButtonDefaults.buttonColors(CyanGreen)
+            shape = RoundedCornerShape(19.dp),
+            colors = ButtonDefaults.buttonColors(Color.White)
         ) {
-            Text(text = "Back")
+            Text(text = "Back", color = Color.Black)
 
         }
         Button(
-            onClick = { /*TODO*/ },
-            shape = RoundedCornerShape(6.dp),
-            colors = ButtonDefaults.buttonColors(CyanGreen)
+            shape = RoundedCornerShape(26.dp),
+            onClick = { },
+            modifier = Modifier,
+            colors = ButtonDefaults.buttonColors(Purple80)
 
         ) {
             Icon(imageVector = Icons.Default.Share, contentDescription = null)
@@ -221,59 +219,83 @@ fun BackButton(onClick: () -> Unit) {
         Icon(
             imageVector = Icons.Default.ArrowBackIos,
             contentDescription = null,
+            tint = Color.White,
             modifier = Modifier
                 .height(56.dp)
                 .padding(start = 15.dp)
+
         )
     }
 }
 
 
 @Composable
-fun ResultScreenToolbar(onContinueClicked: () -> Unit) {
+fun ResultScreen(onContinueClicked: () -> Unit) {
 
     val context = LocalContext.current
     var shouldShowOnboarding2 by rememberSaveable { mutableStateOf(true) }
     if (shouldShowOnboarding2) {
-        Column(modifier = Modifier.fillMaxHeight(), Arrangement.SpaceAround) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .background(color = Color.White),
+        ) {
 
 
             Row(modifier = Modifier.background(color = Purple80)) {
 
                 BackButton(onClick = onContinueClicked)
                 Text(
-                    text = "Result Preview",
+                    text = "Training",
                     modifier = Modifier
                         .fillMaxWidth()
+
                         .align(alignment = Alignment.CenterVertically),
                     textAlign = TextAlign.Center,
-                    fontSize = 13.sp
+                    color = Color.White,
+                    fontSize = 17.sp
                 )
 
             }
             TitleHeader()
-//        CircularChart1()
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                Arrangement.SpaceEvenly,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                ShowScoring("Incorrect", Pinky, "67")
-                PieChart(
-                    listOf(
-                        ChartSlice(4f, CyanGreen), ChartSlice(1f, Pinky)
-                    )
+
+            PieChart(
+                listOf(
+                    ChartSlice(4f, CyanGreen), ChartSlice(1f, Pinky)
                 )
-                ShowScoring("Correct", CyanGreen, "33")
-            }
-            ShowMeantime("Mean Time", "1.765s")
-            Row(
-                modifier = Modifier.fillMaxWidth(), Arrangement.SpaceAround
+            )
+
+            Column(
+                modifier = Modifier
+                    .padding(top = 32.dp)
+                    .fillMaxHeight()
+                    .fillMaxWidth(),
+                Arrangement.Bottom,
             ) {
-                BottomResult()
-                BottomResult2()
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 16.dp),
+                    Arrangement.SpaceEvenly,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    ShowScoring("Incorrect", Pinky, "67")
+
+                    ShowScoring("Correct", CyanGreen, "33")
+                }
+                ShowMeantime("Mean Time", "1.765s")
+
+                Row(
+                    modifier = Modifier
+                        .padding(top = 32.dp)
+                        .fillMaxWidth(), Arrangement.SpaceAround
+                ) {
+                    BottomResult()
+                    BottomResult2()
+                }
+                bottomButtons({ shouldShowOnboarding2 = false })
             }
-            bottomButtons({ shouldShowOnboarding2 = false })
         }
     } else {
 //        HighOrLowGameScreen({ shouldShowOnboarding2 = true })
@@ -459,6 +481,9 @@ fun PieChart(chartData: List<ChartSlice>) {
     }
 
     Column(
+        modifier = Modifier
+            .padding(top = 12.dp)
+            .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Box(
@@ -549,7 +574,7 @@ fun HomeScreen(modifier: Modifier = Modifier) {
             }
 
         } else {
-            ResultScreenToolbar(onContinueClicked = { shouldShowOnboarding = true })
+            ResultScreen(onContinueClicked = { shouldShowOnboarding = true })
         }
     }
 }
@@ -576,6 +601,7 @@ fun OnBoardingScreen(
 }
 
 
+/*
 @Composable
 fun dpToPx(dp: Dp): Float {
     val density = LocalDensity.current.density
@@ -603,7 +629,8 @@ fun SwipeAbleButton(
                 },
                 onDragEnd = {
                     isSwiping = false
-                    if (offsetX < -buttonHeight.toPx() /*|| velocity > 800*/) {
+                    if (offsetX < -buttonHeight.toPx() *//*|| velocity > 800*//*
+) {
                         onSwipe()
                     } else {
                         offsetX = 0f
@@ -624,7 +651,8 @@ fun SwipeAbleButton(
                 .offset(y = offsetX.dp)
         ) {
             Button(
-                onClick = { /* Handle button click */ },
+                onClick = { *//* Handle button click *//*
+ },
                 modifier = Modifier
                     .fillMaxWidth()
 
@@ -641,7 +669,8 @@ fun SwipeAbleButton(
 
         if (isSwiping) {
             Button(
-                onClick = { /* Handle swipe action click */ },
+                onClick = { *//* Handle swipe action click *//*
+ },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(buttonHeight)
@@ -676,4 +705,4 @@ fun foody() {
 
         Text(text = "Score:$scoring")
     }
-}
+}*/

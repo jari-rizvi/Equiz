@@ -34,6 +34,7 @@ import com.teamx.equiz.games.games.QuickEyeGame
 import com.teamx.equiz.games.games.RainFallGame
 import com.teamx.equiz.games.games.RapidSortingGame
 import com.teamx.equiz.games.games.ReflectionGame
+import com.teamx.equiz.games.games.ResultScreen
 import com.teamx.equiz.games.games.ReverseRPS
 import com.teamx.equiz.games.games.SimplicityGame
 import com.teamx.equiz.games.games.SpinningBlockGame
@@ -1133,7 +1134,7 @@ class ReflectionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
     }
 }
 
-/*@AndroidEntryPoint
+ @AndroidEntryPoint
 class ResultComposeFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
 
     override val layoutId: Int
@@ -1161,11 +1162,9 @@ class ResultComposeFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMode
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            BirdWatchingGame(content = {
-                ToolbarCompose(title = "Training", onClick = {
-                    navController.popBackStack()
-                })
-            })
+            ResultScreen(){
+
+            }
         }
         options = navOptions {
             anim {
@@ -1178,7 +1177,7 @@ class ResultComposeFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMode
 
 
     }
-}*/
+}
 
 @AndroidEntryPoint
 class ReverseRPSFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
