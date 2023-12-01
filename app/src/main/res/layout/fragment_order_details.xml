@@ -57,10 +57,10 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyleritems"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_210sdp"
             android:layout_marginHorizontal="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_5sdp"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -94,6 +94,7 @@
             android:layout_height="wrap_content"
             android:text="Product name"
             android:textColor="@color/black"
+            android:visibility="gone"
             android:textSize="@dimen/_10ssp"
             app:layout_constraintBottom_toTopOf="@+id/textView23"
             app:layout_constraintEnd_toEndOf="parent"
@@ -113,9 +114,9 @@
             android:textColor="@color/black"
             android:textSize="@dimen/_10ssp"
             app:layout_constraintBottom_toTopOf="@+id/textView24"
-            app:layout_constraintEnd_toEndOf="@+id/textView22"
+            app:layout_constraintEnd_toEndOf="@+id/textView21"
             app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toStartOf="@+id/textView22"
+            app:layout_constraintStart_toStartOf="@+id/textView21"
             app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
         <TextView
@@ -179,14 +180,15 @@
             app:layout_constraintTop_toBottomOf="@+id/textView27" />
 
         <TextView
-            android:id="@+id/textView29"
+            android:id="@+id/productName"
             style="@style/popins_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
             android:textColor="@color/black"
+            android:visibility="gone"
             android:textSize="@dimen/_10ssp"
-            app:layout_constraintBottom_toTopOf="@+id/textView30"
+            app:layout_constraintBottom_toTopOf="@+id/orderId"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.8"
             app:layout_constraintStart_toEndOf="@+id/textView22"
@@ -195,7 +197,7 @@
             app:layout_constraintVertical_chainStyle="packed" />
 
         <TextView
-            android:id="@+id/textView30"
+            android:id="@+id/orderId"
             style="@style/popins_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -203,14 +205,14 @@
             android:text=""
             android:textColor="@color/black"
             android:textSize="@dimen/_10ssp"
-            app:layout_constraintBottom_toTopOf="@+id/textView31"
-            app:layout_constraintEnd_toEndOf="@+id/textView29"
+            app:layout_constraintBottom_toTopOf="@+id/date"
+            app:layout_constraintEnd_toEndOf="@+id/productName"
             app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toStartOf="@+id/textView29"
-            app:layout_constraintTop_toBottomOf="@+id/textView29" />
+            app:layout_constraintStart_toStartOf="@+id/productName"
+            app:layout_constraintTop_toBottomOf="@+id/productName" />
 
         <TextView
-            android:id="@+id/textView31"
+            android:id="@+id/date"
             style="@style/popins_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -218,14 +220,14 @@
             android:text=""
             android:textColor="@color/black"
             android:textSize="@dimen/_10ssp"
-            app:layout_constraintBottom_toTopOf="@+id/textView32"
-            app:layout_constraintEnd_toEndOf="@+id/textView30"
+            app:layout_constraintBottom_toTopOf="@+id/paymentType"
+            app:layout_constraintEnd_toEndOf="@+id/orderId"
             app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toStartOf="@+id/textView30"
-            app:layout_constraintTop_toBottomOf="@+id/textView30" />
+            app:layout_constraintStart_toStartOf="@+id/orderId"
+            app:layout_constraintTop_toBottomOf="@+id/orderId" />
 
         <TextView
-            android:id="@+id/textView32"
+            android:id="@+id/paymentType"
             style="@style/popins_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -233,29 +235,29 @@
             android:text=""
             android:textColor="@color/black"
             android:textSize="@dimen/_10ssp"
-            app:layout_constraintBottom_toTopOf="@+id/textView33"
-            app:layout_constraintEnd_toEndOf="@+id/textView31"
+            app:layout_constraintBottom_toTopOf="@+id/discount"
+            app:layout_constraintEnd_toEndOf="@+id/date"
             app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toStartOf="@+id/textView31"
-            app:layout_constraintTop_toBottomOf="@+id/textView31" />
+            app:layout_constraintStart_toStartOf="@+id/date"
+            app:layout_constraintTop_toBottomOf="@+id/date" />
 
         <TextView
-            android:id="@+id/textView33"
+            android:id="@+id/discount"
             style="@style/popins_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_5sdp"
-            android:text=""
+            android:text="0.00"
             android:textColor="@color/black"
             android:textSize="@dimen/_10ssp"
-            app:layout_constraintBottom_toTopOf="@+id/textView34"
-            app:layout_constraintEnd_toEndOf="@+id/textView32"
+            app:layout_constraintBottom_toTopOf="@+id/total"
+            app:layout_constraintEnd_toEndOf="@+id/paymentType"
             app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toStartOf="@+id/textView32"
-            app:layout_constraintTop_toBottomOf="@+id/textView32" />
+            app:layout_constraintStart_toStartOf="@+id/paymentType"
+            app:layout_constraintTop_toBottomOf="@+id/paymentType" />
 
         <TextView
-            android:id="@+id/textView34"
+            android:id="@+id/total"
             style="@style/popins_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -264,13 +266,13 @@
             android:textColor="@color/black"
             android:textSize="@dimen/_10ssp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/textView33"
+            app:layout_constraintEnd_toEndOf="@+id/discount"
             app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toStartOf="@+id/textView33"
-            app:layout_constraintTop_toBottomOf="@+id/textView33" />
+            app:layout_constraintStart_toStartOf="@+id/discount"
+            app:layout_constraintTop_toBottomOf="@+id/discount" />
 
         <TextView
-            android:id="@+id/textView35"
+            android:id="@+id/btnReOrder"
             android:layout_width="@dimen/_150sdp"
             android:layout_height="@dimen/_40sdp"
             android:text="@string/reorder"
@@ -281,14 +283,14 @@
             app:layout_constraintVertical_bias="0.3"
             android:textSize="@dimen/_12ssp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/textView36"
+            app:layout_constraintEnd_toStartOf="@+id/btnInvoice"
             app:layout_constraintHorizontal_bias="0.5"
             android:background="@drawable/card_background_border_theme"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView28" />
 
         <TextView
-            android:id="@+id/textView36"
+            android:id="@+id/btnInvoice"
             android:layout_width="@dimen/_150sdp"
             android:layout_height="@dimen/_40sdp"
             android:text="@string/invoice"
@@ -299,11 +301,11 @@
             android:backgroundTint="@color/theme_color"
             android:background="@drawable/card_background_border"
             android:gravity="center"
-            app:layout_constraintBottom_toBottomOf="@+id/textView35"
+            app:layout_constraintBottom_toBottomOf="@+id/btnReOrder"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/textView35"
-            app:layout_constraintTop_toTopOf="@+id/textView35" />
+            app:layout_constraintStart_toEndOf="@+id/btnReOrder"
+            app:layout_constraintTop_toTopOf="@+id/btnReOrder" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

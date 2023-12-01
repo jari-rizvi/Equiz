@@ -11,11 +11,14 @@ import com.teamx.equiz.R
 import com.teamx.equiz.data.models.getorderData.Data
 import com.teamx.equiz.databinding.ItemCancelledOrderBinding
 import com.teamx.equiz.databinding.ItemOrderBinding
+import com.teamx.equiz.ui.fragments.orders.OrderListener
 
 
 class CancelledAdapter(
-    val arrayList: ArrayList<Data>
+    val arrayList: ArrayList<Data>,
+    private val orderListener: OrderListener
 ) : RecyclerView.Adapter<CancelledAdapter.TopProductViewHolder>() {
+
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopProductViewHolder {
@@ -42,6 +45,10 @@ class CancelledAdapter(
         val o = orders.createdAt.toString().replaceAfter('T', "").replace("T", "")
 
         holder.binding.date.text = o
+
+        holder.itemView.setOnClickListener {
+            orderListener.onItemClick(position)
+        }
 
     }
 

@@ -8,7 +8,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="@dimen/_250sdp"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/_85sdp"
         android:layout_marginHorizontal="@dimen/_5sdp"
         android:background="@drawable/card_background"
@@ -20,17 +20,18 @@
             android:layout_width="@dimen/_80sdp"
             android:layout_height="0dp"
             android:layout_margin="@dimen/_6sdp"
+            android:elevation="@dimen/_2sdp"
             android:background="@drawable/card_background_less_radius"
-            android:backgroundTint="@color/blue"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
+                android:id="@+id/img"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="@dimen/_9sdp"
-                android:src="@drawable/logo"
+                android:scaleType="fitXY"
+                android:clipToOutline="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -62,7 +63,7 @@
             style="@style/popins_regular"
             android:textColor="@color/light_gray"
             android:textSize="@dimen/_10ssp"
-            android:text="Person : 2"
+            android:text=""
             app:layout_constraintBottom_toTopOf="@+id/textView13"
             app:layout_constraintEnd_toEndOf="@+id/textView54"
             app:layout_constraintHorizontal_bias="0"
@@ -73,7 +74,7 @@
             android:id="@+id/textView13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="200 Pts"
+            android:text=""
             style="@style/popins_regular"
             android:textStyle="bold"
             android:textColor="@color/black"

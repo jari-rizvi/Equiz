@@ -5,10 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.teamx.equiz.data.models.getorderData.Data
 import com.teamx.equiz.databinding.ItemOrderBinding
+import com.teamx.equiz.ui.fragments.orders.OrderListener
 
 
 class ProcessingAdapter(
-    val arrayList: ArrayList<Data>) : RecyclerView.Adapter<ProcessingAdapter.TopProductViewHolder>() {
+    val arrayList: ArrayList<Data>, private val orderListener: OrderListener
+) : RecyclerView.Adapter<ProcessingAdapter.TopProductViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopProductViewHolder {
@@ -30,6 +32,10 @@ class ProcessingAdapter(
 
         holder.binding.date.text = o
 //        holder.binding.productName.text = orders.
+
+        holder.itemView.setOnClickListener {
+            orderListener.onItemClick(position)
+        }
 
 
     }

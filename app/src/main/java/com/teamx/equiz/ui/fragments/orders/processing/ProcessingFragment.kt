@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.navigation.NavOptions
+import androidx.navigation.Navigation
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,11 +14,13 @@ import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.data.models.getorderData.Data
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentProcessingBinding
+import com.teamx.equiz.ui.fragments.orders.OrderListener
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ProcessingFragment : BaseFragment<FragmentProcessingBinding, ProcessingViewModel>() {
+class ProcessingFragment : BaseFragment<FragmentProcessingBinding, ProcessingViewModel>(),
+    OrderListener {
 
     override val layoutId: Int
         get() = R.layout.fragment_processing
@@ -47,7 +50,7 @@ class ProcessingFragment : BaseFragment<FragmentProcessingBinding, ProcessingVie
 
 
         try {
-            mViewModel.getOrders( "Processing")
+            mViewModel.getOrders("Processing")
         } catch (e: Exception) {
 
         }
@@ -101,8 +104,24 @@ class ProcessingFragment : BaseFragment<FragmentProcessingBinding, ProcessingVie
         val linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         mViewDataBinding.ProcessingRecyclerView.layoutManager = linearLayoutManager
 
-        activeOrderAdapter = ProcessingAdapter(activeOrderArrayList)
+        activeOrderAdapter = ProcessingAdapter(activeOrderArrayList, this)
         mViewDataBinding.ProcessingRecyclerView.adapter = activeOrderAdapter
+
+    }
+
+    override fun onItemClick(position: Int) {
+        var id = activeOrderArrayList[position]._id
+        var bundle = arguments
+        if (bundle == null) {
+            bundle = Bundle()
+        }
+        bundle.putString("id", id)
+
+        navController = Navigation.findNavController(
+            requireActivity(), R.id.nav_host_fragment
+        )
+        navController.navigate(R.id.orderDetailsFragment, bundle, options)
+
 
     }
 

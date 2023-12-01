@@ -10,7 +10,7 @@ data class Orders(
     val orderStatus: String,
     val paymentIntent: String,
     val shippingInfo: ShippingInfo,
-    val totalPoints: Int,
-    val totalPrice: Int,
+    val totalPoints: Any,
+    val totalPrice: Any,
     val user: User
 )

@@ -1,8 +1,11 @@
 package com.teamx.equiz.ui.fragments.orders.cancelled
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.navigation.NavOptions
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,12 +15,14 @@ import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.data.models.getorderData.Data
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentCanclledBinding
+import com.teamx.equiz.ui.fragments.orders.OrderListener
 import com.teamx.equiz.ui.fragments.orders.processing.ProcessingAdapter
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CancelledFragment : BaseFragment<FragmentCanclledBinding, CancelledViewModel>() {
+class CancelledFragment : BaseFragment<FragmentCanclledBinding, CancelledViewModel>(),
+    OrderListener {
 
     override val layoutId: Int
         get() = R.layout.fragment_canclled
@@ -46,7 +51,7 @@ class CancelledFragment : BaseFragment<FragmentCanclledBinding, CancelledViewMod
         }
 
         try {
-            mViewModel.getOrders( "Cancelled")
+            mViewModel.getOrders("Cancelled")
         } catch (e: Exception) {
 
         }
@@ -100,8 +105,23 @@ class CancelledFragment : BaseFragment<FragmentCanclledBinding, CancelledViewMod
         val linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         mViewDataBinding.cancelledRecyclerView.layoutManager = linearLayoutManager
 
-        cancelOrderAdapter = CancelledAdapter(cancelOrderArrayList)
+        cancelOrderAdapter = CancelledAdapter(cancelOrderArrayList, this)
         mViewDataBinding.cancelledRecyclerView.adapter = cancelOrderAdapter
+
+    }
+
+    override fun onItemClick(position: Int) {
+        var id = cancelOrderArrayList[position]._id
+        var bundle = arguments
+        if (bundle == null) {
+            bundle = Bundle()
+        }
+        bundle.putString("id", id)
+
+        navController = Navigation.findNavController(
+            requireActivity(), R.id.nav_host_fragment
+        )
+        navController.navigate(R.id.orderDetailsFragment, bundle, options)
 
     }
 

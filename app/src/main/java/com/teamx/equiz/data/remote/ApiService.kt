@@ -20,6 +20,7 @@ import com.teamx.equiz.data.models.loginData.LoginData
 import com.teamx.equiz.data.models.meModel.MeModel
 import com.teamx.equiz.data.models.modelUploadImages.ModelUploadImage
 import com.teamx.equiz.data.models.newsdaya.GetNewsData
+import com.teamx.equiz.data.models.orderDetailData.OrderDetailData
 import com.teamx.equiz.data.models.otpForgotData.OtpforgotData
 import com.teamx.equiz.data.models.signupData.SignupData
 import com.teamx.equiz.data.models.sucessData.SuccessData
@@ -133,5 +134,12 @@ interface ApiService {
         @Query("orderStatus") orderStatus: String,
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<GetOrdersData>
+
+
+    @GET(NetworkCallPoints.GET_ORDER_DETAILS)
+    suspend fun getOrderDetail(
+        @Path("id") id: String,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<OrderDetailData>
 
 }

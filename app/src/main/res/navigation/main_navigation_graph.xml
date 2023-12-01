@@ -433,6 +433,15 @@
         android:id="@+id/tapTheColorGameFrag"
         android:name="com.teamx.equiz.ui.game_fragments.TapTheColorGameFrag"
         android:label="TapTheColorGameFrag" />
+    <fragment
+        android:id="@+id/cancelledFragment"
+        android:name="com.teamx.equiz.ui.fragments.orders.cancelled.CancelledFragment"
+        android:label="CancelledFragment" />
+    <fragment
+        android:id="@+id/recieptFragment"
+        android:name="com.teamx.equiz.ui.fragments.reciept.RecieptFragment"
+        android:label="RecieptFragment"
+        tools:layout="@layout/fragment_reciept"/>
 
 
     <fragment

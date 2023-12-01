@@ -4,5 +4,5 @@ data class ProductDetail(
     val _id: String,
     val product: Product,
     val quantity: Int,
-    val totalPrice: Int
+    val totalPrice: Any
 )

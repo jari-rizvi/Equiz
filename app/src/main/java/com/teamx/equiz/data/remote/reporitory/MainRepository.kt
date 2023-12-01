@@ -41,6 +41,7 @@ class MainRepository @Inject constructor(
     suspend fun uploadReviewImg(
         @Part images: List<MultipartBody.Part>
     ) = apiService.uploadReviewImg(images)
+
     suspend fun updateProfile(
         @Body params: JsonObject,
     ) = apiService.updateProfile(params)
@@ -48,6 +49,11 @@ class MainRepository @Inject constructor(
     suspend fun getOrders(
         @Query("orderStatus") orderStatus: String,
     ) = apiService.getOrders(orderStatus)
+
+    suspend fun getOrderDetail(
+        @Query("id") id: String,
+    ) = apiService.getOrderDetail(id)
+
     suspend fun me() = apiService.me()
 
 

@@ -42,6 +42,10 @@ class OrdersFragment : BaseFragment<FragmentOrdersBinding, LoginViewModel>() {
             }
         }
 
+        mViewDataBinding.btnback.setOnClickListener {
+            popUpStack()
+        }
+
         setupViewPager()
         setupTabLayout()
 
