@@ -98,6 +98,7 @@ class LogInEmailFragment : BaseFragment<FragmentLoginEmailBinding, LoginViewMode
             try {
                 params.addProperty("email", userEmail)
                 params.addProperty("password", password)
+                params.addProperty("fcmToken", fcmToken)
             } catch (e: JSONException) {
                 e.printStackTrace()
             }

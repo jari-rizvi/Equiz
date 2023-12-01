@@ -101,6 +101,7 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
             try {
                 params.addProperty("phone", userPhone)
                 params.addProperty("password", password)
+                params.addProperty("fcmToken", fcmToken)
             } catch (e: JSONException) {
                 e.printStackTrace()
             }

@@ -2,6 +2,7 @@ package com.teamx.equiz.ui.fragments.profile
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
@@ -67,6 +68,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
                         mViewDataBinding.root.snackbar(it.message!!)
+                        Log.d("TAG", "eeeeeeeeeee: ${it.message}")
                     }
                 }
             }

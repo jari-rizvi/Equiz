@@ -46,7 +46,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:elevation="@dimen/_3sdp"
-            app:tabTextColor="@color/tab_price"
             android:layout_marginHorizontal="@dimen/_15sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

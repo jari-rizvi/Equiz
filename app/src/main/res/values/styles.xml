@@ -15,7 +15,7 @@
 
     <style name="tabTextColor" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">@dimen/_10ssp</item>
-        <item name="android:textColor">@color/light_gray</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="popins_regular" parent="Widget.AppCompat.TextView">

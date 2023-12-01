@@ -1,6 +1,7 @@
 package com.teamx.equiz.ui.fragments.orders.processing
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.navigation.NavOptions
 import androidx.navigation.navOptions
@@ -9,7 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.teamx.equiz.R
 import com.teamx.equiz.BR
 import com.teamx.equiz.baseclasses.BaseFragment
+import com.teamx.equiz.data.models.getorderData.Data
+import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentProcessingBinding
+import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,9 +28,9 @@ class ProcessingFragment : BaseFragment<FragmentProcessingBinding, ProcessingVie
 
     private lateinit var options: NavOptions
 
-    lateinit var productAdapter: ProcessingAdapter
+    lateinit var activeOrderAdapter: ProcessingAdapter
 
-    lateinit var productArrayList: ArrayList<String>
+    lateinit var activeOrderArrayList: ArrayList<Data>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,26 +45,64 @@ class ProcessingFragment : BaseFragment<FragmentProcessingBinding, ProcessingVie
             }
         }
 
+
+        try {
+            mViewModel.getOrders( "Processing")
+        } catch (e: Exception) {
+
+        }
+
+        if (!mViewModel.getOrdersResponse.hasActiveObservers()) {
+            mViewModel.getOrdersResponse.observe(requireActivity()) {
+                when (it.status) {
+                    Resource.Status.LOADING -> {
+                        loadingDialog.show()
+                    } /* Resource.Status.AUTH -> {
+                    loadingDialog.dismiss()
+                    onToSignUpPage()
+                }*/
+
+                    Resource.Status.SUCCESS -> {
+                        loadingDialog.dismiss()
+                        it.data?.let { data ->
+
+                            data.data.forEach {
+                                activeOrderArrayList.add(it)
+                            }
+
+                            activeOrderAdapter.notifyDataSetChanged()
+
+
+                        }
+                    }
+
+                    Resource.Status.ERROR -> {
+                        loadingDialog.dismiss()
+                        DialogHelperClass.errorDialog(
+                            requireContext(),
+                            it.message!!
+                        )
+                    }
+                }
+                if (isAdded) {
+                    mViewModel.getOrdersResponse.removeObservers(
+                        viewLifecycleOwner
+                    )
+                }
+            }
+        }
         productRecyclerview()
-
-        productArrayList.add("")
-        productArrayList.add("")
-        productArrayList.add("")
-        productArrayList.add("")
-
-        productAdapter.notifyDataSetChanged()
-
     }
 
 
     private fun productRecyclerview() {
-        productArrayList = ArrayList()
+        activeOrderArrayList = ArrayList()
 
         val linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         mViewDataBinding.ProcessingRecyclerView.layoutManager = linearLayoutManager
 
-        productAdapter = ProcessingAdapter(productArrayList)
-        mViewDataBinding.ProcessingRecyclerView.adapter = productAdapter
+        activeOrderAdapter = ProcessingAdapter(activeOrderArrayList)
+        mViewDataBinding.ProcessingRecyclerView.adapter = activeOrderAdapter
 
     }
 

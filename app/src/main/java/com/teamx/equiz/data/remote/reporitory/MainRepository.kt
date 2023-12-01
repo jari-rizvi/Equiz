@@ -7,6 +7,7 @@ import okhttp3.MultipartBody
 import retrofit2.http.Body
 import retrofit2.http.Part
 import retrofit2.http.Path
+import retrofit2.http.Query
 import javax.inject.Inject
 
 class MainRepository @Inject constructor(
@@ -44,6 +45,9 @@ class MainRepository @Inject constructor(
         @Body params: JsonObject,
     ) = apiService.updateProfile(params)
 
+    suspend fun getOrders(
+        @Query("orderStatus") orderStatus: String,
+    ) = apiService.getOrders(orderStatus)
     suspend fun me() = apiService.me()
 
 

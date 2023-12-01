@@ -13,6 +13,7 @@ data class User(
     val isValid: Boolean,
     val name: String,
     val password: String,
+    val email: String,
     val phone: String,
     val referralCode: String,
     val registrationDate: String,

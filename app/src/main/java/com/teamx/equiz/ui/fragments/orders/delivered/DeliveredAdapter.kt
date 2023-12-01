@@ -1,13 +1,20 @@
 package com.teamx.equiz.ui.fragments.orders.delivered
 
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getColor
+import androidx.core.view.ViewCompat.setBackgroundTintList
 import androidx.recyclerview.widget.RecyclerView
+import com.teamx.equiz.MainApplication.Companion.context
+import com.teamx.equiz.R
+import com.teamx.equiz.data.models.getorderData.Data
 import com.teamx.equiz.databinding.ItemOrderBinding
 
 
 class DeliveredAdapter(
-    val arrayList: ArrayList<String>) : RecyclerView.Adapter<DeliveredAdapter.DeliveredOrderViewHolder>() {
+    val arrayList: ArrayList<Data>) : RecyclerView.Adapter<DeliveredAdapter.DeliveredOrderViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DeliveredOrderViewHolder {
@@ -20,7 +27,19 @@ class DeliveredAdapter(
 
     override fun onBindViewHolder(holder: DeliveredOrderViewHolder, position: Int) {
 
+        val orders: Data = arrayList[position]
 
+
+        holder.binding.orderId.text = "Order#"+orders._id
+        holder.binding.amount.text = orders.totalPoints.toString()
+        val o = orders.createdAt.toString().replaceAfter('T', "").replace("T", "")
+
+        holder.binding.textView42.text = "Cancelled"
+
+        holder.binding.cartBottom.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.Green) )
+
+
+        holder.binding.date.text = o
     }
 
     override fun getItemCount(): Int {

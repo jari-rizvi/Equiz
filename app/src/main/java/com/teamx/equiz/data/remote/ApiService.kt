@@ -14,6 +14,7 @@ import com.teamx.equiz.data.models.forgotpassData.ForgotPassData
 import com.teamx.equiz.data.models.getProductById.GetProductByIdData
 import com.teamx.equiz.data.models.getProducts.GetProductData
 import com.teamx.equiz.data.models.getcart.GetCartData
+import com.teamx.equiz.data.models.getorderData.GetOrdersData
 import com.teamx.equiz.data.models.getwalletData.GetWalletData
 import com.teamx.equiz.data.models.loginData.LoginData
 import com.teamx.equiz.data.models.meModel.MeModel
@@ -34,6 +35,7 @@ import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
 
@@ -124,5 +126,12 @@ interface ApiService {
         @Body params: JsonObject,
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<EditProfileData>
+
+
+    @GET(NetworkCallPoints.GET_ORDERS)
+    suspend fun getOrders(
+        @Query("orderStatus") orderStatus: String,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<GetOrdersData>
 
 }

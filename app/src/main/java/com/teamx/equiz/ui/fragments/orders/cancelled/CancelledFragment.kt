@@ -9,7 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.teamx.equiz.R
 import com.teamx.equiz.BR
 import com.teamx.equiz.baseclasses.BaseFragment
+import com.teamx.equiz.data.models.getorderData.Data
+import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentCanclledBinding
+import com.teamx.equiz.ui.fragments.orders.processing.ProcessingAdapter
+import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,9 +28,9 @@ class CancelledFragment : BaseFragment<FragmentCanclledBinding, CancelledViewMod
 
     private lateinit var options: NavOptions
 
-    lateinit var productAdapter: CancelledAdapter
+    lateinit var cancelOrderAdapter: CancelledAdapter
 
-    lateinit var productArrayList: ArrayList<String>
+    lateinit var cancelOrderArrayList: ArrayList<Data>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,26 +45,63 @@ class CancelledFragment : BaseFragment<FragmentCanclledBinding, CancelledViewMod
             }
         }
 
+        try {
+            mViewModel.getOrders( "Cancelled")
+        } catch (e: Exception) {
+
+        }
+
+        if (!mViewModel.getOrdersResponse.hasActiveObservers()) {
+            mViewModel.getOrdersResponse.observe(requireActivity()) {
+                when (it.status) {
+                    Resource.Status.LOADING -> {
+                        loadingDialog.show()
+                    } /* Resource.Status.AUTH -> {
+                    loadingDialog.dismiss()
+                    onToSignUpPage()
+                }*/
+
+                    Resource.Status.SUCCESS -> {
+                        loadingDialog.dismiss()
+                        it.data?.let { data ->
+
+                            data.data.forEach {
+                                cancelOrderArrayList.add(it)
+                            }
+
+                            cancelOrderAdapter.notifyDataSetChanged()
+
+
+                        }
+                    }
+
+                    Resource.Status.ERROR -> {
+                        loadingDialog.dismiss()
+                        DialogHelperClass.errorDialog(
+                            requireContext(),
+                            it.message!!
+                        )
+                    }
+                }
+                if (isAdded) {
+                    mViewModel.getOrdersResponse.removeObservers(
+                        viewLifecycleOwner
+                    )
+                }
+            }
+        }
         productRecyclerview()
-
-        productArrayList.add("")
-        productArrayList.add("")
-        productArrayList.add("")
-        productArrayList.add("")
-
-        productAdapter.notifyDataSetChanged()
-
     }
 
 
     private fun productRecyclerview() {
-        productArrayList = ArrayList()
+        cancelOrderArrayList = ArrayList()
 
         val linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         mViewDataBinding.cancelledRecyclerView.layoutManager = linearLayoutManager
 
-        productAdapter = CancelledAdapter(productArrayList)
-        mViewDataBinding.cancelledRecyclerView.adapter = productAdapter
+        cancelOrderAdapter = CancelledAdapter(cancelOrderArrayList)
+        mViewDataBinding.cancelledRecyclerView.adapter = cancelOrderAdapter
 
     }
 

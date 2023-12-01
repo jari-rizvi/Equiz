@@ -118,6 +118,8 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                                 .into(mViewDataBinding.profilePicture)
 
                             mViewDataBinding.userName.setText(data.user.name)
+                            mViewDataBinding.phone.setText(data.user.phone)
+                            mViewDataBinding.email.setText(data.user.email)
                             /*  val userData = PrefHelper.getInstance(requireActivity()).getUserData()
                               userData!!.name = data.name
                               userData!!.profileImage = data.profileImage
@@ -197,8 +199,6 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                         it.data?.let { data ->
                                 Picasso.get().load(imageUrl).resize(500, 500)
                                     .into(mViewDataBinding.profilePicture)
-
-
                         }
                     }
 
@@ -278,7 +278,6 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
             }
         }
 
-
     private fun uploadWithRetrofit(file: File) {
 
         val imagesList = mutableListOf<MultipartBody.Part>()
@@ -288,7 +287,6 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
         mViewModel.uploadReviewImg(imagesList)
 
     }
-
 
     private fun prepareFilePart(partName: String, fileUri: File): MultipartBody.Part {
         val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), fileUri)

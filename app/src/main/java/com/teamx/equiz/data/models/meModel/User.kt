@@ -11,6 +11,7 @@ data class User(
     val createdAt: String,
     val dateOfBirth: Any,
     val email: String,
+    val fcmToken: String,
     val image: String,
     val isAdmin: Boolean,
     val isPremium: Boolean,
@@ -23,11 +24,11 @@ data class User(
     val registrationDate: String,
     val resetTokenExpiration: String,
     val roles: String,
-    val score: Int,
+    val score: Any,
     val street: String,
     val uniqueID: String,
     val updatedAt: String,
-    val wallet: Int,
+    val wallet: Any,
     val wishlist: List<Any>,
     val zip: String
 )

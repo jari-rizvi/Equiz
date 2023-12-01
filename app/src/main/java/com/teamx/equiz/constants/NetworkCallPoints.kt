@@ -25,6 +25,7 @@ class NetworkCallPoints {
         const val GET_WALLET ="api/wallet/getWallet";
         const val GET_NEWS ="/api/news";
         const val GET_COUPONS ="/api/coupon/find";
+        const val GET_ORDERS ="/api/orders/find";
 
 
         const val UPLOAD_IMGS = "api/users/upload"
