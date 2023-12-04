@@ -27,6 +27,7 @@ import com.teamx.equiz.data.models.signupData.SignupData
 import com.teamx.equiz.data.models.sucessData.SuccessData
 import com.teamx.equiz.data.models.topWinnerData.TopWinnerData
 import com.teamx.equiz.data.models.wishlistdata.WishlistData
+import com.teamx.equiz.ui.fragments.singlequize.model.SingleQuizData
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.Body
@@ -129,6 +130,23 @@ interface ApiService {
         @Body params: JsonObject,
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<EditProfileData>
+
+
+    @GET(NetworkCallPoints.QUIZ_TITLE)
+    suspend fun quizTitle(
+        @Query("country") country: String,
+        @Query("topic") topic: String?,
+        @Query("type") type: String,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<QuizTitleData>
+
+    @GET(NetworkCallPoints.QUIZ_FIND)
+    suspend fun quizFind(
+        @Query("country") country: String,
+        @Query("topic") topic: String?,
+        @Query("type") type: String?,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<SingleQuizData>
 
 
     @GET(NetworkCallPoints.GET_ORDERS)

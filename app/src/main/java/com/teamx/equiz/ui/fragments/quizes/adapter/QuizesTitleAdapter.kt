@@ -5,9 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.teamx.equiz.databinding.ItemQuizesTitleBinding
 import com.teamx.equiz.ui.fragments.quizes.QuizesInterface
+import com.teamx.equiz.ui.fragments.quizes.TitleData
 
 class QuizesTitleAdapter(
-    private val addressArrayList: ArrayList<String>,
+    private val addressArrayList: ArrayList<TitleData>,
     val quizesInterface: QuizesInterface
 ) :
     RecyclerView.Adapter<QuizesTitleAdapterViewHolder>() {
@@ -25,16 +26,17 @@ class QuizesTitleAdapter(
     override fun onBindViewHolder(holder: QuizesTitleAdapterViewHolder, position: Int) {
 
         val arrayData = addressArrayList[position]
-        holder.bind.txtTitle.text = arrayData
+        holder.bind.txtTitle.text = arrayData.value
+
+        holder.bind.txtTitle.isChecked = arrayData.isSelected
 
         holder.itemView.setOnClickListener {
-            quizesInterface.quizTitle()
+            quizesInterface.quizTitle(position)
         }
 
     }
 
     override fun getItemCount(): Int {
-        
         return addressArrayList.size
     }
 }

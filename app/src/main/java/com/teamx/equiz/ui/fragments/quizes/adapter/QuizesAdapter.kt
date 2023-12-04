@@ -31,7 +31,7 @@ class QuizesAdapter(
         holder.bind.textView27.text = quizData.type
 
         holder.itemView.setOnClickListener {
-            quizesInterface.quizeItem()
+            quizesInterface.quizeItem(position)
         }
 
     }

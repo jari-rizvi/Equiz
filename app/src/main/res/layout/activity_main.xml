@@ -79,7 +79,6 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:ss_backgroundBottomColor="#9F81CA"
-                app:ss_backgroundBottomDrawable="@drawable/input_auth_field"
                 app:ss_circleColor="#ffffff"
                 app:ss_countBackgroundColor="#ffffff"
                 app:ss_countTextColor="#ffffff"

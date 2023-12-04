@@ -12,6 +12,10 @@ class NetworkCallPoints {
         const val UPDATE_PROFILE = "api/users/update"
 
 
+        const val QUIZ_TITLE = "/api/quiz/tile"
+        const val QUIZ_FIND = "/api/quiz/find"
+
+
         const val RESET_PASSWORD ="api/auth/passwordReset";
         const val GET_ALL_CATEGORIES ="/api/category";
         const val WISHLIST_DATA ="api/wishlist/find";

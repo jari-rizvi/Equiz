@@ -46,6 +46,18 @@ class MainRepository @Inject constructor(
         @Body params: JsonObject,
     ) = apiService.updateProfile(params)
 
+    suspend fun quizTitle(
+        @Query("country") country: String,
+        @Query("topic") topic: String?,
+        @Query("type") type: String,
+    ) = apiService.quizTitle(country, topic, type)
+
+    suspend fun quizFind(
+        @Query("country") country: String,
+        @Query("topic") topic: String?,
+        @Query("type") type: String?,
+    ) = apiService.quizFind(country, topic, type)
+
     suspend fun getOrders(
         @Query("orderStatus") orderStatus: String,
     ) = apiService.getOrders(orderStatus)

@@ -26,6 +26,7 @@ import com.teamx.equiz.ui.fragments.dashboard.adapter.TopWinnersAdapter
 import com.teamx.equiz.ui.fragments.ecommerce.home.CategoriesAdapter
 import com.teamx.equiz.ui.fragments.ecommerce.home.ProductAdapter
 import com.teamx.equiz.ui.fragments.quizes.QuizesInterface
+import com.teamx.equiz.ui.fragments.quizes.TitleData
 import com.teamx.equiz.ui.fragments.quizes.adapter.QuizesAdapter
 import com.teamx.equiz.ui.fragments.quizes.adapter.QuizesTitleAdapter
 import com.teamx.equiz.utils.DialogHelperClass
@@ -197,7 +198,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         initializeQuizesAdapter()
     }
 
-    private lateinit var strArrayList: ArrayList<String>
+    private lateinit var strArrayList: ArrayList<TitleData>
     private lateinit var gameStrArrayList: ArrayList<String>
     private lateinit var winStrArrayList: ArrayList<String>
     private lateinit var quizesTitleAdapter: QuizesTitleAdapter
@@ -207,9 +208,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
     private fun initializeCategoriesAdapter() {
         strArrayList = ArrayList()
 
-        strArrayList.add("Word")
-        strArrayList.add("National")
-        strArrayList.add("City")
+        strArrayList.add(TitleData("World",true))
+        strArrayList.add(TitleData("National",false))
+        strArrayList.add(TitleData("City",false))
 
         val layoutManager1 =
             LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
@@ -264,12 +265,12 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
     }
 
-    override fun quizTitle() {
+    override fun quizTitle(position : Int) {
         mViewModel.getquizTitile("World","","normal")
 
     }
 
-    override fun quizeItem() {
+    override fun quizeItem(position : Int) {
         findNavController().navigate(R.id.action_quizesFragment_to_singleQuizFragment)
     }
 
