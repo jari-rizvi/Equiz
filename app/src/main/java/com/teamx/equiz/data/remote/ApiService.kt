@@ -22,8 +22,10 @@ import com.teamx.equiz.data.models.modelUploadImages.ModelUploadImage
 import com.teamx.equiz.data.models.newsdaya.GetNewsData
 import com.teamx.equiz.data.models.orderDetailData.OrderDetailData
 import com.teamx.equiz.data.models.otpForgotData.OtpforgotData
+import com.teamx.equiz.data.models.quizTitleData.QuizTitleData
 import com.teamx.equiz.data.models.signupData.SignupData
 import com.teamx.equiz.data.models.sucessData.SuccessData
+import com.teamx.equiz.data.models.topWinnerData.TopWinnerData
 import com.teamx.equiz.data.models.wishlistdata.WishlistData
 import okhttp3.MultipartBody
 import retrofit2.Response
@@ -134,6 +136,13 @@ interface ApiService {
         @Query("orderStatus") orderStatus: String,
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<GetOrdersData>
+ @GET(NetworkCallPoints.GET_QUIZ_TITLE)
+    suspend fun getQuizTitle(
+        @Query("country") country: String,
+        @Query("topic") topic: String,
+        @Query("type") type: String,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<QuizTitleData>
 
 
     @GET(NetworkCallPoints.GET_ORDER_DETAILS)
@@ -141,5 +150,9 @@ interface ApiService {
         @Path("id") id: String,
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<OrderDetailData>
+  @GET(NetworkCallPoints.GET_TOP_WINNERS)
+    suspend fun getTopWinners(
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<TopWinnerData>
 
 }

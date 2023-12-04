@@ -64,12 +64,12 @@ class QuizesFragment : BaseFragment<FragmentQuizesBinding, QuizesViewModel>(), Q
         mViewDataBinding.recCategories.adapter = quizesTitleAdapter
 
 
-        val layoutManager2 =
+     /*   val layoutManager2 =
             LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         mViewDataBinding.recQuizes.layoutManager = layoutManager2
 
         quizesAdapter = QuizesAdapter(strArrayList, this)
-        mViewDataBinding.recQuizes.adapter = quizesAdapter
+        mViewDataBinding.recQuizes.adapter = quizesAdapter*/
     }
 
     override fun quizTitle() {

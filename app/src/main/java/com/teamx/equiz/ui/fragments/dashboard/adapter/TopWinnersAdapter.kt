@@ -3,10 +3,13 @@ package com.teamx.equiz.ui.fragments.dashboard.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
+import com.teamx.equiz.data.models.topWinnerData.Game
+import com.teamx.equiz.data.models.topWinnerData.UserRank
 import com.teamx.equiz.databinding.ItemWinnerBinding
 
 class TopWinnersAdapter(
-    private val addressArrayList: ArrayList<String>, val quizesInterface: TopWinnerInterface
+    private val addressArrayList: ArrayList<Game>, val quizesInterface: TopWinnerInterface
 ) : RecyclerView.Adapter<TopWinnerViewHolder>() {
 
     override fun onCreateViewHolder(
@@ -20,7 +23,14 @@ class TopWinnersAdapter(
 
     override fun onBindViewHolder(holder: TopWinnerViewHolder, position: Int) {
 
-        val arrayData = addressArrayList[position]
+        val winners = addressArrayList[position]
+
+        try {
+
+            holder.bind.name.text = winners.name
+            Picasso.get().load(winners.image).into(holder.binding.profilePicture)
+        } catch (e: Exception) {
+        }
 
         holder.itemView.setOnClickListener {
             quizesInterface.onWinnerClick(position)
@@ -29,7 +39,7 @@ class TopWinnersAdapter(
     }
 
     override fun getItemCount(): Int {
-        
+
         return addressArrayList.size
     }
 }
@@ -38,7 +48,7 @@ interface TopWinnerInterface {
     fun onWinnerClick(position: Int)
 }
 
-class TopWinnerViewHolder(private var binding: ItemWinnerBinding) :
+class TopWinnerViewHolder(var binding: ItemWinnerBinding) :
     RecyclerView.ViewHolder(binding.root) {
     val bind = binding
 }

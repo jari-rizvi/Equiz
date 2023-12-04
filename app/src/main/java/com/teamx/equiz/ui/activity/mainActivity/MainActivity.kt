@@ -111,7 +111,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), DialogH
         }
 
 
-        setBottomNavigationWithNavController(savedInstanceState)
+//        setBottomNavigationWithNavController(savedInstanceState)
 
     }
 

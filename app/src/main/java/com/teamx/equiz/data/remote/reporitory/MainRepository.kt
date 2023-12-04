@@ -49,10 +49,16 @@ class MainRepository @Inject constructor(
     suspend fun getOrders(
         @Query("orderStatus") orderStatus: String,
     ) = apiService.getOrders(orderStatus)
+  suspend fun getQuizTitle(
+        @Query("country") country: String,
+        @Query("topic") topic: String,
+        @Query("type") type: String,
+    ) = apiService.getQuizTitle(country, topic, type)
 
     suspend fun getOrderDetail(
         @Query("id") id: String,
     ) = apiService.getOrderDetail(id)
+ suspend fun getTopWinners() = apiService.getTopWinners()
 
     suspend fun me() = apiService.me()
 

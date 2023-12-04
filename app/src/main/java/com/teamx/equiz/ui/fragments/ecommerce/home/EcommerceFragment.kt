@@ -76,6 +76,7 @@ EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewModel>()
         }
 
 
+
         mViewModel.getBanners()
 
         if (!mViewModel.getBannerResponse.hasActiveObservers()) {

@@ -25,6 +25,7 @@ class QuizesTitleAdapter(
     override fun onBindViewHolder(holder: QuizesTitleAdapterViewHolder, position: Int) {
 
         val arrayData = addressArrayList[position]
+        holder.bind.txtTitle.text = arrayData
 
         holder.itemView.setOnClickListener {
             quizesInterface.quizTitle()
