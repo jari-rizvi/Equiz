@@ -99,7 +99,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textViewName5656"
+            android:id="@+id/score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_5sdp"
@@ -121,9 +121,9 @@
             android:checked="true"
             android:elevation="@dimen/_2sdp"
             android:padding="@dimen/_5sdp"
-            app:layout_constraintBottom_toBottomOf="@+id/textViewName5656"
-            app:layout_constraintEnd_toStartOf="@+id/textViewName5656"
-            app:layout_constraintTop_toTopOf="@+id/textViewName5656" />
+            app:layout_constraintBottom_toBottomOf="@+id/score"
+            app:layout_constraintEnd_toStartOf="@+id/score"
+            app:layout_constraintTop_toTopOf="@+id/score" />
 
 
         <androidx.constraintlayout.widget.Guideline

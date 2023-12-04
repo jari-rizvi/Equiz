@@ -8,10 +8,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatCheckedTextView
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import com.teamx.equiz.R
+import com.teamx.equiz.data.models.topWinnerData.Game
 
 class LoaderMultiViewAdapter(
-    private val dataSet: ArrayList<Boolean>
+    private val dataSet: ArrayList<Game>
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -49,7 +51,9 @@ class LoaderMultiViewAdapter(
         holder: RecyclerView.ViewHolder,
         @SuppressLint("RecyclerView") position: Int
     ) {
-        when (dataSet[position]) {
+        val data = dataSet[position]
+
+        when (dataSet[position].bool) {
             true -> {
                 val holderClass2 = holder as OptionalViewHolder
 
@@ -61,9 +65,20 @@ class LoaderMultiViewAdapter(
                     holderClass2.textView16.visibility = View.VISIBLE
                 }
 
-                holderClass2.hatlyIcon54545454.isChecked = true
+//                holderClass2.hatlyIcon54545454.isChecked = true
 
                 holderClass2.textView16.text = "${position + 1}"
+                holderClass2.score.text = data.score.toString()
+                holderClass2.name.text = data.name.toString()
+
+                try {
+
+                    Picasso.get().load(data.image).into(holderClass2.hatlyIcon5454)
+                }
+                catch (e:Exception){
+
+                }
+
 
 
 
@@ -83,6 +98,17 @@ class LoaderMultiViewAdapter(
                 holderClass1.hatlyIcon54545454.isChecked = false
 
                 holderClass1.textView16.text = "${position + 1}"
+                holderClass1.score.text = data.score.toString()
+                holderClass1.name.text = data.name.toString()
+                try {
+
+                    Picasso.get().load(data.image).into(holderClass1.hatlyIcon5454)
+                }
+                catch (e:Exception){
+
+                }
+
+
 
 
             }
@@ -94,7 +120,7 @@ class LoaderMultiViewAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (dataSet[position]) {
+        return if (dataSet[position].bool) {
             VIEW_TYPE_1
         } else {
             VIEW_TYPE_2
@@ -105,27 +131,42 @@ class LoaderMultiViewAdapter(
     internal class RequiredViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
         val textView15456: ImageView
+        val hatlyIcon5454: ImageView
         val hatlyIcon54545454: AppCompatCheckedTextView
         val textView16: TextView
+        val name: TextView
+        val score: TextView
+
 
         init {
             textView15456 = itemView.findViewById(R.id.textView15456)
             hatlyIcon54545454 = itemView.findViewById(R.id.hatlyIcon54545454)
+            hatlyIcon5454 = itemView.findViewById(R.id.hatlyIcon5454)
             textView16 = itemView.findViewById(R.id.textView16)
+            name = itemView.findViewById(R.id.textViewName)
+            score = itemView.findViewById(R.id.score)
+
         }
     }
 
 
     internal class OptionalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textView15456: ImageView
+        val hatlyIcon5454: ImageView
         val hatlyIcon54545454: AppCompatCheckedTextView
         val textView16: TextView
+        val name: TextView
+        val score: TextView
+
 
 
         init {
             textView15456 = itemView.findViewById(R.id.textView15456)
+            hatlyIcon5454 = itemView.findViewById(R.id.hatlyIcon5454)
             hatlyIcon54545454 = itemView.findViewById(R.id.hatlyIcon54545454)
             textView16 = itemView.findViewById(R.id.textView16)
+            name = itemView.findViewById(R.id.textViewName)
+            score = itemView.findViewById(R.id.score)
         }
     }
 }

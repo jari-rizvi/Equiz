@@ -107,7 +107,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), DialogH
 
         mViewDataBinding.drawerLayoutMain.btnleaderboard.setOnClickListener {
             mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-            Toast.makeText(this, "Comming Soom", Toast.LENGTH_SHORT).show();
+            navController!!.navigate(R.id.loaderBoardFragment)
         }
 
 
