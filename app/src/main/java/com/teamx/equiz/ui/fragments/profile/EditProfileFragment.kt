@@ -6,13 +6,9 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
-import android.widget.DatePicker
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.google.gson.JsonObject
@@ -22,12 +18,8 @@ import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentEditProfileBinding
-import com.teamx.equiz.ui.fragments.Auth.login.LoginViewModel
-import com.teamx.equiz.utils.DialogHelperClass
 import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -78,11 +70,9 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
             fetchImageFromGallery()
         }
 
-        mViewDataBinding.btnback.setOnClickListener {
-            popUpStack()
-        }
 
 
+        mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
         mViewDataBinding.btnSave.setOnClickListener {
             userName = mViewDataBinding.userName.text.toString()
             if (userName.isNotEmpty()) {

@@ -9,13 +9,12 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
-import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseActivity
 import com.teamx.equiz.databinding.ActivityMainBinding
+import com.teamx.equiz.games.games.tetris.logic.SoundUtil
+import com.teamx.equiz.games.games.tetris.logic.StatusBarUtil
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -37,6 +36,12 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), DialogH
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+//for tetris
+        StatusBarUtil.transparentStatusBar(this)
+        SoundUtil.init(this)
+
+        //
 
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
@@ -138,36 +143,36 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), DialogH
     private fun setBottomNavigationWithNavController(savedInstanceState: Bundle?) {
 
         // If you don't pass activeIndex then by default it will take 0 position
-        val activeIndex = savedInstanceState?.getInt("activeIndex") ?: 2
+        val activeIndex = savedInstanceState?.getInt("activeIndex") ?: 0
 
         val navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.dashboardFragment,
-                R.id.gamesFragment,
-                R.id.editProfileFragment,
-            )
-        )
+//        val appBarConfiguration = AppBarConfiguration(
+//            setOf(
+//                R.id.dashboardFragment,
+//                R.id.gamesFragment,
+//                R.id.editProfileFragment,
+//            )
+//        )
 //        setupActionBarWithNavController(this, navController, appBarConfiguration)
         val menuItems = arrayOf(
             com.teamx.equiz.games.nav_custom.custombottomnav.Model(
-                icon = R.drawable.coin,
+                icon = R.drawable.home_dash,
                 destinationId = R.id.dashboardFragment,
                 id = 0,
                 text = /*R.string.title_home*/R.string.dashboard,
                 count = R.string.empty_value
             ),
             com.teamx.equiz.games.nav_custom.custombottomnav.Model(
-                R.drawable.coin,
+                R.drawable.game_dash,
                 R.id.gamesFragment,
                 id = 1,
                 R.string.Games/*R.string.title_favorite*/,
                 R.string.empty_value
             ),
             com.teamx.equiz.games.nav_custom.custombottomnav.Model(
-                R.drawable.coin,
+                R.drawable.setting_dash,
                 R.id.editProfileFragment,
                 2,/*R.string.title_chat*/
                 R.string.profile,

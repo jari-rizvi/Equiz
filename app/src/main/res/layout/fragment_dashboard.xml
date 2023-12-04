@@ -36,6 +36,62 @@
             app:layout_constraintTop_toTopOf="@+id/btnback"
             app:layout_constraintVertical_bias="0.05" />
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/topCoinContainer"
+            style="@style/popins_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Emirates Q"
+            android:textColor="@color/red"
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintBottom_toBottomOf="@+id/btnback"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.89"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btnback">
+
+            <ImageView
+                android:id="@+id/coinImg"
+                style="@style/popins_bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="@dimen/_5sdp"
+                android:src="@drawable/coin"
+                android:text="Emirates Q"
+                android:textColor="@color/red"
+                android:textSize="@dimen/_14ssp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.01"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.05" />
+
+            <TextView
+                android:id="@+id/tv_coins"
+                style="@style/popins_bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:background="@drawable/rounded_dialog_background"
+                android:backgroundTint="#9F81C9"
+                android:gravity="center"
+                android:paddingStart="@dimen/_25sdp"
+                android:paddingEnd="@dimen/_15sdp"
+                android:text="2500"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14ssp"
+                app:drawableRightCompat="@drawable/plus_dash"
+                 android:drawablePadding="@dimen/_5sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/coinImg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.2"
+                app:layout_constraintStart_toStartOf="@+id/coinImg"
+                app:layout_constraintTop_toTopOf="@+id/coinImg" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout4"
@@ -144,7 +200,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="See all"
-                    android:drawableEnd="@drawable/right"
+                    android:drawableEnd="@drawable/see_allicon"
                     android:gravity="center"
                     android:drawableTint="@color/theme_color"
                     android:textColor="@color/theme_color"
@@ -251,6 +307,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
+                    android:paddingBottom="@dimen/_50sdp"
                     app:layout_constraintTop_toBottomOf="@+id/winnerRecycler">
 
                     <TextView
@@ -272,7 +329,7 @@
                         android:id="@+id/seeAllGames"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawableEnd="@drawable/right"
+                        android:drawableEnd="@drawable/see_allicon"
                         android:drawableTint="@color/theme_color"
                         android:gravity="center"
                         android:text="See all"

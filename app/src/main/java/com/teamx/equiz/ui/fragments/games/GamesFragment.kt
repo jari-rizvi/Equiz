@@ -43,6 +43,9 @@ class GamesFragment : BaseFragment<FragmentGamesBinding, GamesViewModel>(), AllG
             }
         }
 
+        mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
+
+
         initializeGameAdapter()
     }
 

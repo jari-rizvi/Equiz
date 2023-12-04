@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- Base application theme. -->
     <style name="NoAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
@@ -30,4 +30,22 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:fontFamily">@font/poppins_bold</item>
     </style>
+
+
+
+    <color  name="gradient_color_dash">
+        <gradient
+            android:type="linear"
+            android:startX="0"
+            android:startY="0"
+            android:endX="0"
+            android:endY="100"
+            android:angle="190"
+            android:startColor="#9F81CA"
+            android:endColor="#C62E27"
+            />
+    </color>
+
+
+
 </resources>
