@@ -47,17 +47,18 @@
             android:textSize="@dimen/_12ssp"
             android:textStyle="bold"
             android:textColor="@color/black"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="@+id/btnback"
             app:layout_constraintTop_toBottomOf="@+id/textView"
-            app:layout_constraintVertical_bias="0.05" />
+            app:layout_constraintVertical_bias="0.02" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recylertodaysnews"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_130sdp"
             android:layout_marginHorizontal="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:orientation="horizontal"
@@ -90,7 +91,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recylerupcomingnews"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_130sdp"
             android:layout_marginHorizontal="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:orientation="horizontal"
@@ -121,7 +122,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recylerrecentnews"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_130sdp"
             android:layout_marginHorizontal="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:orientation="horizontal"

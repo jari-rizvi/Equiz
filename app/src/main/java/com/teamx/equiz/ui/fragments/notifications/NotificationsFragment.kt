@@ -6,30 +6,38 @@ import android.util.Log
 import android.view.View
 import androidx.navigation.NavOptions
 import androidx.navigation.navOptions
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayoutMediator
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
+import com.teamx.equiz.data.models.coupons.Data
+import com.teamx.equiz.data.models.notificationData.NewNotification
+import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentNotificationsBinding
 import com.teamx.equiz.databinding.FragmentOrdersBinding
 import com.teamx.equiz.databinding.FragmentProfileBinding
 import com.teamx.equiz.ui.fragments.Auth.login.LoginViewModel
+import com.teamx.equiz.ui.fragments.coupons.CouponsAdapter
 import com.teamx.equiz.ui.fragments.orders.ViewPagerAdapter
+import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, LoginViewModel>() {
+class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, NotificaitonsViewModel>() {
 
     override val layoutId: Int
         get() = R.layout.fragment_notifications
-    override val viewModel: Class<LoginViewModel>
-        get() = LoginViewModel::class.java
+    override val viewModel: Class<NotificaitonsViewModel>
+        get() = NotificaitonsViewModel::class.java
     override val bindingVariable: Int
         get() = BR.viewModel
 
 
     private lateinit var options: NavOptions
-
+    lateinit var notificationAdapter: NotificationAdapter
+    lateinit var notificationArrayList: ArrayList<NewNotification>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -44,37 +52,100 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, LoginVi
             }
         }
 
-        setupViewPager()
-        setupTabLayout()
+        mViewDataBinding.btnback.setOnClickListener {
+            popUpStack()
+        }
 
-    }
+        mViewModel.getNotifications()
 
-    private fun setupViewPager() {
-        val adapter = ViewPagerAdapter(requireActivity(), 3)
-        mViewDataBinding.viewPagerNotification.adapter = adapter
-    }
+        if (!mViewModel.getNotificationsResponse.hasActiveObservers()) {
+            mViewModel.getNotificationsResponse.observe(requireActivity()) {
+                when (it.status) {
+                    Resource.Status.LOADING -> {
+                        loadingDialog.show()
+                    }
 
-    private fun setupTabLayout() {
-        TabLayoutMediator(
-            mViewDataBinding.tabLayout, mViewDataBinding.viewPagerNotification
-        ) { tab, position ->
+                    Resource.Status.SUCCESS -> {
+                        loadingDialog.dismiss()
+                        it.data?.let { data ->
+                            /*    data.data.forEach {
+                                    couponsArrayList.add(it)
+                                }*/
 
-            when (position) {
-                0 -> {
-                    
-                    tab.text = "All"
+                            data.newNotification.forEach {
+                                if (it != null) {
+                                    notificationArrayList.add(it)
+                                }
+                            }
+
+                            notificationAdapter.notifyDataSetChanged()
+
+
+                        }
+                    }
+
+                    Resource.Status.ERROR -> {
+                        loadingDialog.dismiss()
+                        DialogHelperClass.errorDialog(
+                            requireContext(),
+                            it.message!!
+                        )
+                    }
                 }
-
-                1 -> {
-                    tab.text = "Unread"
-                }
-
-                2 -> {
-                    tab.text = "Read"
+                if (isAdded) {
+                    mViewModel.getNotificationsResponse.removeObservers(
+                        viewLifecycleOwner
+                    )
                 }
             }
+        }
 
+        notificationRecyclerview()
 
-        }.attach()
+        /*        setupViewPager()
+                setupTabLayout()*/
+
     }
+
+
+    private fun notificationRecyclerview() {
+        notificationArrayList = ArrayList()
+
+        val linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        mViewDataBinding.recNoti.layoutManager = linearLayoutManager
+
+        notificationAdapter = NotificationAdapter(notificationArrayList)
+        mViewDataBinding.recNoti.adapter = notificationAdapter
+
+    }
+
+
+    /* private fun setupViewPager() {
+         val adapter = ViewPagerAdapter(requireActivity(), 3)
+         mViewDataBinding.viewPagerNotification.adapter = adapter
+     }
+
+     private fun setupTabLayout() {
+         TabLayoutMediator(
+             mViewDataBinding.tabLayout, mViewDataBinding.viewPagerNotification
+         ) { tab, position ->
+
+             when (position) {
+                 0 -> {
+
+                     tab.text = "All"
+                 }
+
+                 1 -> {
+                     tab.text = "Unread"
+                 }
+
+                 2 -> {
+                     tab.text = "Read"
+                 }
+             }
+
+
+         }.attach()
+     }*/
 }

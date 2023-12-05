@@ -28,11 +28,13 @@ class NetworkCallPoints {
         const val DELETE_CART ="/api/carts/{productId}";
         const val GET_WALLET ="api/wallet/getWallet";
         const val GET_NEWS ="/api/news";
+        const val GET_NEWS_BY_ID ="/api/news/find/{id}";
         const val GET_COUPONS ="/api/coupon/find";
         const val GET_ORDERS ="/api/orders/find";
         const val GET_ORDER_DETAILS ="/api/orders/order/{id}";
         const val GET_TOP_WINNERS ="/api/game/all";
         const val GET_QUIZ_TITLE ="/api/quiz/tile";
+        const val GET_NOTIFICATION ="api/notification/find";
 
 
         const val UPLOAD_IMGS = "api/users/upload"

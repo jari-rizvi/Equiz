@@ -96,8 +96,7 @@
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_65sdp"
                     android:layout_marginHorizontal="@dimen/_6sdp"
-                    android:background="@drawable/card_background_less_radius"
-                    android:backgroundTint="@color/theme_color"
+                    android:background="@drawable/bg_circle_square"
                     android:elevation="@dimen/_1sdp"
                     android:paddingVertical="@dimen/_10sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -809,8 +808,9 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginStart="5dp"
                                 android:layout_marginEnd="5dp"
-                                android:src="@drawable/notification_icon"
+                                android:src="@drawable/icc_coupons"
                                 app:tint="@color/black" />
+
 
                             <TextView
                                 style="@style/popins_regular"
@@ -1025,12 +1025,12 @@
 
                         </LinearLayout>
 
-<!--                        <View-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="0.5dp"-->
-<!--                            android:layout_marginTop="5dp"-->
-<!--                            android:layout_marginBottom="5dp"-->
-<!--                            android:background="@color/textSecondaryColor" />-->
+                        <!--                        <View-->
+                        <!--                            android:layout_width="match_parent"-->
+                        <!--                            android:layout_height="0.5dp"-->
+                        <!--                            android:layout_marginTop="5dp"-->
+                        <!--                            android:layout_marginBottom="5dp"-->
+                        <!--                            android:background="@color/textSecondaryColor" />-->
 
 
                         <LinearLayout
@@ -1071,6 +1071,77 @@
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_11ssp"
                                 android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/btnSubscribe"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_80sdp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_margin="@dimen/_8sdp"
+                            android:background="@drawable/bg_circle_square"
+                            android:elevation="@dimen/_5sdp"
+                            android:orientation="vertical">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_80sdp"
+                                android:background="@drawable/card_background_border_theme"
+                                android:backgroundTint="@color/theme_color"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+
+                                <TextView
+                                    android:id="@+id/csds"
+                                    style="@style/popins_bold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginHorizontal="@dimen/_15sdp"
+                                    android:gravity="center_vertical"
+                                    android:text="Subscribe your Plan"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/_14ssp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintHorizontal_bias="0"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintVertical_bias="0.25" />
+
+                                <TextView
+                                    android:id="@+id/textView15"
+                                    style="@style/popins_regular"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_vertical"
+                                    android:text="Let’s Upgrade to Pro Account"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/_12ssp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="@id/csds"
+                                    app:layout_constraintHorizontal_bias="0"
+                                    app:layout_constraintStart_toStartOf="@id/csds"
+                                    app:layout_constraintTop_toBottomOf="@+id/imageView11"
+                                    app:layout_constraintVertical_bias="0.2" />
+
+                                <ImageView
+                                    android:id="@+id/imageView11"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintHorizontal_bias="0.8"
+                                    app:layout_constraintStart_toEndOf="@+id/csds"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintVertical_bias="0.3"
+                                    app:srcCompat="@drawable/move_forward" />
+
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
                         </LinearLayout>
 

@@ -1,12 +1,14 @@
-package com.teamx.equiz.data.models.newsdaya
+package com.teamx.equiz.data.models.newsbyId
 
-data class New(
+data class Data(
     val __v: Int,
     val _id: String,
+    val country: String,
     val createdAt: String,
+    val description: String,
     val image: String,
     val isActive: Boolean,
-    val tags: String,
     val title: String,
+    val type: String,
     val updatedAt: String
 )

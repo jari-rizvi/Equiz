@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation_graph"
-    app:startDestination="@id/singleQuizFragment">
+    app:startDestination="@id/referralFragment">
 
     <fragment
         android:id="@+id/tempFragment"
@@ -274,7 +274,11 @@
         android:id="@+id/newsFragment"
         android:name="com.teamx.equiz.ui.fragments.news.NewsFragment"
         android:label="NewsFragment"
-        tools:layout="@layout/fragment_news" />
+        tools:layout="@layout/fragment_news" >
+        <action
+            android:id="@+id/action_newsFragment_to_newsDetailFragment"
+            app:destination="@id/newsDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/supportFragment"
         android:name="com.teamx.equiz.ui.fragments.support.SupportFragment"
@@ -449,6 +453,11 @@
         android:name="com.teamx.equiz.ui.fragments.loaderboard.LoaderBoardFragment"
         android:label="LoaderBoardFragment"
         tools:layout="@layout/fragment_loader_board" />
+    <fragment
+        android:id="@+id/newsDetailFragment"
+        android:name="com.teamx.equiz.ui.fragments.news.NewsDetailFragment"
+        android:label="NewsDetailFragment"
+        tools:layout="@layout/fragment_news_detail"/>
 
 
 </navigation>

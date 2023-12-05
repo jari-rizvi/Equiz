@@ -1,3 +1,4 @@
+/*
 package com.teamx.equiz.ui.fragments.notifications.unread
 
 import android.os.Bundle
@@ -66,4 +67,4 @@ class UnReadNotificationsFragment : BaseFragment<FragmentCanclledBinding, UnRead
     }
 
 
-}
+}*/

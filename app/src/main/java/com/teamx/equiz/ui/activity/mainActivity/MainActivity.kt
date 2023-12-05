@@ -19,7 +19,8 @@ import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), DialogHelperClass.Companion.LogoutCallBack  {
+class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
+    DialogHelperClass.Companion.LogoutCallBack {
 
     override val viewModel: Class<MainViewModel>
         get() = MainViewModel::class.java
@@ -109,6 +110,10 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), DialogH
             mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
             navController!!.navigate(R.id.loaderBoardFragment)
         }
+        mViewDataBinding.drawerLayoutMain.btnSubscribe.setOnClickListener {
+            mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            navController!!.navigate(R.id.subscriptionFragment)
+        }
 
 
 //        setBottomNavigationWithNavController(savedInstanceState)
@@ -190,7 +195,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), DialogH
             // onMenuItemClick(4)
 
             // If you want to change notification count
-            setCount(1/*ID_NOTIFICATION*/,  R.string.profile/*R.string.count_update*/)
+            setCount(1/*ID_NOTIFICATION*/, R.string.profile/*R.string.count_update*/)
         }
 
     }

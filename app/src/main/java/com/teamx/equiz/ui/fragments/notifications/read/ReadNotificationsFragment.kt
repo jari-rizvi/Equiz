@@ -1,3 +1,4 @@
+/*
 package com.teamx.equiz.ui.fragments.notifications.read
 
 import android.os.Bundle
@@ -44,7 +45,7 @@ class ReadNotificationsFragment : BaseFragment<FragmentCanclledBinding, ReadNoti
             }
         }
 
-        productRecyclerview()
+//        productRecyclerview()
 
         productArrayList.add("")
         productArrayList.add("")
@@ -56,16 +57,16 @@ class ReadNotificationsFragment : BaseFragment<FragmentCanclledBinding, ReadNoti
     }
 
 
-    private fun productRecyclerview() {
-        productArrayList = ArrayList()
+//    private fun productRecyclerview() {
+//        productArrayList = ArrayList()
+//
+//        val linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+//        mViewDataBinding.cancelledRecyclerView.layoutManager = linearLayoutManager
+//
+//        productAdapter = NotificationAdapter(productArrayList)
+//        mViewDataBinding.cancelledRecyclerView.adapter = productAdapter
+//
+//    }
 
-        val linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        mViewDataBinding.cancelledRecyclerView.layoutManager = linearLayoutManager
 
-        productAdapter = NotificationAdapter(productArrayList)
-        mViewDataBinding.cancelledRecyclerView.adapter = productAdapter
-
-    }
-
-
-}
+}*/
