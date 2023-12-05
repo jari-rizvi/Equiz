@@ -1,19 +1,25 @@
 package com.teamx.equiz.ui.fragments.news
 
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.compose.ui.input.key.Key.Companion.G
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.squareup.picasso.Picasso
-import com.teamx.equiz.data.models.getwalletData.Transaction
-import com.teamx.equiz.data.models.newsdaya.New
-import com.teamx.equiz.data.models.wishlistdata.Product
+import com.teamx.equiz.MainApplication.Companion.context
+import com.teamx.equiz.R
+import com.teamx.equiz.data.models.newsData.NewsDataX
 import com.teamx.equiz.databinding.ItemNewsBinding
 import com.teamx.equiz.databinding.ItemWishlistBinding
 
 
 class NewsAdapter(
-    val arrayList: ArrayList<New>
+    val arrayList: ArrayList<NewsDataX>,
+    val onNewslistner: onNewslistner
 ) : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
+
+
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
@@ -25,17 +31,18 @@ class NewsAdapter(
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
 
-        val news: New = arrayList[position]
+        val news: NewsDataX = arrayList[position]
 
-        try {
 
-            Picasso.get().load(news.image).into(holder.binding.img)
-        } catch (e: Exception) {
 
+//        Picasso.get().load(news.image).resize(500,500).into(holder.binding.img)
+
+        Glide.with(context).load(news.image).into(holder.binding.img);
+
+
+        holder.itemView.setOnClickListener {
+            onNewslistner.newsclick(position)
         }
-
-
-        holder.itemView.setOnClickListener {}
 
 
     }
@@ -49,4 +56,8 @@ class NewsAdapter(
         val binding = itemNewsBinding
 
     }
+}
+
+interface onNewslistner{
+    fun newsclick(position: Int)
 }

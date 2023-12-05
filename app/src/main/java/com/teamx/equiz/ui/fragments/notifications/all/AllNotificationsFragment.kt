@@ -1,3 +1,4 @@
+/*
 package com.teamx.equiz.ui.fragments.notifications.all
 
 import android.os.Bundle
@@ -68,4 +69,4 @@ class AllNotificationsFragment : BaseFragment<FragmentCanclledBinding, AllNotifi
     }
 
 
-}
+}*/

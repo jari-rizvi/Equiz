@@ -41,7 +41,7 @@ class DialogHelperClass {
 
         fun InviteDialog(context: Context, dialogLoginCallBack: DialogInviteAnotherCallBack, boo: Boolean) {
             val dialog = Dialog(context)
-            dialog.setContentView(R.layout.invite_dialog)
+            dialog.setContentView(R.layout.quiz_dialog)
             dialog.window!!.setLayout(
                 WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT
             )

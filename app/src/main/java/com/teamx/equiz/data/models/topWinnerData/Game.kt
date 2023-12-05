@@ -6,6 +6,6 @@ data class Game(
     val name: String,
     val rank: Int,
     val score: Double,
-    val wallet: Int,
+    val wallet: Any,
     val bool : Boolean
 )

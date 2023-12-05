@@ -19,7 +19,9 @@ import com.teamx.equiz.data.models.getwalletData.GetWalletData
 import com.teamx.equiz.data.models.loginData.LoginData
 import com.teamx.equiz.data.models.meModel.MeModel
 import com.teamx.equiz.data.models.modelUploadImages.ModelUploadImage
-import com.teamx.equiz.data.models.newsdaya.GetNewsData
+import com.teamx.equiz.data.models.newsData.NewsData
+import com.teamx.equiz.data.models.newsbyId.GetNewsByIdData
+import com.teamx.equiz.data.models.notificationData.NotificationData
 import com.teamx.equiz.data.models.orderDetailData.OrderDetailData
 import com.teamx.equiz.data.models.otpForgotData.OtpforgotData
 import com.teamx.equiz.data.models.quizTitleData.QuizTitleData
@@ -60,8 +62,30 @@ interface ApiService {
     suspend fun getWallet(@Header("token") basicCredentials: String = "$TOKENER"): Response<GetWalletData>
 
     @GET(NetworkCallPoints.GET_NEWS)
-    suspend fun getNews(@Header("token") basicCredentials: String = "$TOKENER"): Response<GetNewsData>
- @GET(NetworkCallPoints.GET_COUPONS)
+    suspend fun getUpcomingNews(
+        @Query("upcoming") upcoming: Boolean,
+        @Header("token") basicCredentials: String = "$TOKENER",
+    ): Response<NewsData>
+
+    @GET(NetworkCallPoints.GET_NEWS_BY_ID)
+    suspend fun getNewsById(
+        @Path("id") id: String,
+        @Header("token") basicCredentials: String = "$TOKENER",
+    ): Response<GetNewsByIdData>
+
+    @GET(NetworkCallPoints.GET_NEWS)
+    suspend fun getCurrentNews(
+        @Query("current") current: Boolean,
+        @Header("token") basicCredentials: String = "$TOKENER",
+    ): Response<NewsData>
+
+    @GET(NetworkCallPoints.GET_NEWS)
+    suspend fun getRecentNews(
+        @Query("recent") recent: Boolean,
+        @Header("token") basicCredentials: String = "$TOKENER",
+    ): Response<NewsData>
+
+    @GET(NetworkCallPoints.GET_COUPONS)
     suspend fun getCoupons(@Header("token") basicCredentials: String = "$TOKENER"): Response<CouponsData>
 
     @GET(NetworkCallPoints.GET_PRODUCT_BY_ID)
@@ -125,6 +149,7 @@ interface ApiService {
     suspend fun me(
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<MeModel>
+
     @PUT(NetworkCallPoints.UPDATE_PROFILE)
     suspend fun updateProfile(
         @Body params: JsonObject,
@@ -154,7 +179,13 @@ interface ApiService {
         @Query("orderStatus") orderStatus: String,
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<GetOrdersData>
- @GET(NetworkCallPoints.GET_QUIZ_TITLE)
+
+    @GET(NetworkCallPoints.GET_NOTIFICATION)
+    suspend fun getNotifications(
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<NotificationData>
+
+    @GET(NetworkCallPoints.GET_QUIZ_TITLE)
     suspend fun getQuizTitle(
         @Query("country") country: String,
         @Query("topic") topic: String,
@@ -168,7 +199,8 @@ interface ApiService {
         @Path("id") id: String,
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<OrderDetailData>
-  @GET(NetworkCallPoints.GET_TOP_WINNERS)
+
+    @GET(NetworkCallPoints.GET_TOP_WINNERS)
     suspend fun getTopWinners(
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<TopWinnerData>

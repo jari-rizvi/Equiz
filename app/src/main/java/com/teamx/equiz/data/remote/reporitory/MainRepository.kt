@@ -21,7 +21,18 @@ class MainRepository @Inject constructor(
     suspend fun getProducts() = apiService.getProducts()
     suspend fun getCart() = apiService.getCart()
     suspend fun getWallet() = apiService.getWallet()
-    suspend fun getNews() = apiService.getNews()
+    suspend fun getUpcomingNews(
+        @Query("upcoming") upcoming: Boolean
+    ) = apiService.getUpcomingNews(upcoming)
+
+    suspend fun getCurrentNews(
+        @Query("current") current: Boolean
+    ) = apiService.getCurrentNews(current)
+
+    suspend fun getRecentNews(
+        @Query("recent") recent: Boolean
+    ) = apiService.getRecentNews(recent)
+
     suspend fun getCoupons() = apiService.getCoupons()
     suspend fun getProductById(@Path("id") Productid: String) = apiService.getProductById(Productid)
     suspend fun getCategories() = apiService.getCategories()
@@ -32,6 +43,7 @@ class MainRepository @Inject constructor(
     suspend fun AddToWishList(@Body param: JsonObject) = apiService.AddToWishList(param)
     suspend fun resetPass(@Body param: JsonObject) = apiService.resetPass(param)
     suspend fun otpVerify(@Path("uniqueID") uniqueID: String) = apiService.otpVerify(uniqueID)
+    suspend fun getNewsById(@Path("id") id: String) = apiService.getNewsById(id)
     suspend fun deleteCart(@Path("deleteCart") deleteCart: String) =
         apiService.deleteCart(deleteCart)
 
@@ -61,7 +73,10 @@ class MainRepository @Inject constructor(
     suspend fun getOrders(
         @Query("orderStatus") orderStatus: String,
     ) = apiService.getOrders(orderStatus)
-  suspend fun getQuizTitle(
+
+    suspend fun getNotifications() = apiService.getNotifications()
+
+    suspend fun getQuizTitle(
         @Query("country") country: String,
         @Query("topic") topic: String,
         @Query("type") type: String,
@@ -70,7 +85,8 @@ class MainRepository @Inject constructor(
     suspend fun getOrderDetail(
         @Query("id") id: String,
     ) = apiService.getOrderDetail(id)
- suspend fun getTopWinners() = apiService.getTopWinners()
+
+    suspend fun getTopWinners() = apiService.getTopWinners()
 
     suspend fun me() = apiService.me()
 

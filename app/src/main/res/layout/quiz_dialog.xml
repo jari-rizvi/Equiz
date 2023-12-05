@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_280sdp"
+    android:background="@android:color/transparent"
+    android:layout_gravity="center"
+    android:layout_marginHorizontal="@dimen/_35sdp">
+
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:elevation="@dimen/_5sdp"
+        android:src="@drawable/trophy_1"
+        app:layout_constraintBottom_toTopOf="@+id/guidelin1e"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelin1e"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.3" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelin1e454"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.18" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:elevation="@dimen/_1sdp"
+        android:background="@drawable/card_background"
+        android:clipToOutline="true"
+        app:layout_constraintTop_toBottomOf="@+id/guidelin1e454"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+
+
+        <TextView
+            android:id="@+id/removeBtn"
+            style="@style/popins_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Congratulations"
+            android:textAlignment="center"
+            android:textColor="@color/blue"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.3"
+            android:textSize="@dimen/_14ssp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/cancelBtn"
+            style="@style/popins_regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="@dimen/_1sdp"
+            android:gravity="center"
+            android:maxLines="3"
+            android:text="@string/you_earn_50_points"
+            android:textAlignment="center"
+            android:textColor="@color/theme_color"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/removeBtn"
+            app:layout_constraintStart_toStartOf="@+id/removeBtn"
+            app:layout_constraintTop_toBottomOf="@+id/removeBtn"
+            app:layout_constraintVertical_bias="0.05" />
+
+
+        <TextView
+            android:id="@+id/btnInvite"
+            style="@style/popins_regular"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:background="@drawable/card_background_border_theme"
+            android:backgroundTint="@color/theme_color"
+            android:gravity="center"
+            android:text="@string/invite_another"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14ssp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cancelBtn"
+            app:layout_constraintVertical_bias="0.4" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
