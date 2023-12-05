@@ -1,12 +1,17 @@
 package com.teamx.equiz.games.games
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -31,16 +36,61 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.lifecycleScope
 import com.teamx.equiz.R
 import com.teamx.equiz.games.GamesUID
- 
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 @Composable
 fun WeatherCastGame(content: @Composable () -> Unit) {
-    Column(modifier = Modifier.fillMaxSize()) {
-        content()
-        weatherCastGamePlot()
+    MaterialTheme {
+
+
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .background(color = Color.White),
+        ) {
+        Column(modifier = Modifier.fillMaxSize().background(color = Color.White)) {
+            content()
+            weatherCastGamePlot()
+        }
+
+          Image(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(),
+                painter = painterResource(id = R.drawable.iconbg),
+                contentDescription = "bg"
+            )
+        }
+    }
+
+
+}
+lateinit var job: Job
+@RequiresApi(Build.VERSION_CODES.M)
+private fun timerStart() {
+    val durationSeconds = 30
+    var remainingSeconds = durationSeconds
+    var progressTime = 100
+//    mViewDataBinding.progressbar.progress = progressTime
+
+    job = GlobalScope.launch {
+        while (remainingSeconds > 0) {
+            delay(1000) // Delay for 1 second
+            remainingSeconds--
+            progressTime - 3
+//            mViewDataBinding.textView46545454.text = "$remainingSeconds"
+//            mViewDataBinding.progressbar.progress = progressTime
+        }
+
+//        changeObserver()
     }
 }
 
@@ -54,7 +104,7 @@ fun weatherCastGamePlot() {
                 Color(0xFF4CAF50).copy(alpha = 1f)
             } else {
                 Color(0xFF00BCD4).copy(alpha = 1f)
-            }, gameObject = EnumWeather.values().get(it)/*if (it % 5 == 0) {
+            }, gameObject = EnumWeather.values()[it]/*if (it % 5 == 0) {
                 EnumWeather.SUN
             } else if (it % 2 == 0) {
                 EnumWeather.CLOUD
@@ -111,7 +161,7 @@ fun weatherCastGamePlot() {
     }
 
     Column(
-        Modifier.fillMaxSize(),
+        Modifier.fillMaxSize().background(color = Color.White),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -156,7 +206,9 @@ fun weatherCastGamePlot() {
         }
 
     }
+
 }
+
 
 
 @Preview
@@ -260,3 +312,5 @@ data class WeatherListItem(
 enum class EnumWeather {
     DROP, CLOUD, SUN, DROP_CLOUD, DROP_SUN, SUN_CLOUD, SUN_DROP, CLOUD_DROP, CLOUD_SUN
 }
+
+

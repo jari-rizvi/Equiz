@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -45,6 +46,13 @@ fun MissingPieceGameScreen(content: @Composable () -> Unit) {
     var score by remember { mutableStateOf(0) }
     var currentShapes by remember { mutableStateOf(generateShapes()) }
     var missingShapeIndex by remember { mutableStateOf(generateMissingShapeIndex()) }
+
+Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .background(color = Color.White),
+        ) {
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -116,6 +124,15 @@ fun MissingPieceGameScreen(content: @Composable () -> Unit) {
             modifier = Modifier.padding(top = 16.dp)
         )
     }
+  Image(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(),
+                painter = painterResource(id = R.drawable.iconbg),
+                contentDescription = "bg"
+            )
+        }
+
 }
 
 private fun generateShapes(): List<Shape> {

@@ -1,11 +1,17 @@
 package com.teamx.equiz.games.games.ui_components
 
 import android.util.Log
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -28,11 +34,14 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.teamx.equiz.R
 import com.teamx.equiz.ui.theme.toolbarUnique
 
 
@@ -443,7 +452,11 @@ fun CardPreview() {
 
 @Preview
 @Composable
-fun ToolbarCompose(title: String = "Training", onClick: () -> Unit = {}) {
+fun ToolbarCompose(
+    title: String = "Training",
+
+    onClick: () -> Unit = {}
+) {
     Box(
         Modifier
             .fillMaxWidth()
@@ -476,4 +489,77 @@ fun ToolbarCompose(title: String = "Training", onClick: () -> Unit = {}) {
     }
 }
 
+
+@Preview
+@Composable
+fun StartUpDialogCompose(
+    title: String = "Concentration",
+    exampleTxt: String = "Same Shape: Swipe the same direction Different Shape: Opposite direction",
+    onClick: () -> Unit = {},
+    painter: Painter = painterResource(id = R.drawable.concentration_instruction_c)
+) {
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(448.dp)
+            .background(color = Color.White)
+            .border(BorderStroke(6.dp, Color.Red), shape = RoundedCornerShape(14.dp))
+            .background(color = Color.White, shape = RoundedCornerShape(14.dp)),
+    ) {
+        Box(
+            Modifier
+                .fillMaxWidth()
+                .height(448.dp)
+                .border(BorderStroke(6.dp, Color.Red), shape = RoundedCornerShape(14.dp))
+                .background(color = Color.White, shape = RoundedCornerShape(14.dp))
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(10.dp),
+                verticalArrangement = Arrangement.SpaceEvenly,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    modifier = Modifier
+                        .wrapContentSize()
+                        .padding(top = 12.dp),
+                    text = title,
+                    color = toolbarUnique,
+                    fontSize = 16.sp,
+                    textAlign = TextAlign.Center
+                )
+                Image(painter = painter/*Icons.Default.ArrowBackIos*/,
+                    contentDescription = "BackButton",
+
+                    modifier = Modifier
+                        .padding(top = 12.dp)
+                        .clickable(true) {
+                            onClick
+                        }
+
+                )
+                Text(
+                    modifier = Modifier
+                        .wrapContentSize()
+                        .padding(top = 12.dp),
+                    text = exampleTxt,
+                    color = Color(0xFF323232),
+                    fontSize = 16.sp,
+                    textAlign = TextAlign.Center
+                )
+            }
+
+        }
+
+        Image(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(),
+            painter = painterResource(id = R.drawable.iconbg),
+            contentDescription = "bg"
+        )
+    }
+}
 

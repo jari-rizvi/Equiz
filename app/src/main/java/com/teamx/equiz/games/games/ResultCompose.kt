@@ -4,9 +4,11 @@ import androidx.annotation.StringRes
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -52,20 +54,20 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
-import com.teamx.equiz.games.ui.theme.BirdColor1
 import com.teamx.equiz.games.ui.theme.CyanGreen
 import com.teamx.equiz.games.ui.theme.GameEquizApplicationTheme
 import com.teamx.equiz.games.ui.theme.Pinky
-import com.teamx.equiz.games.ui.theme.Purple80
 import kotlinx.coroutines.launch
 import java.util.Locale
 
@@ -105,10 +107,16 @@ fun DefaultPreview() {
 @Composable
 fun ShowScoring(title: String, color: Color, score: String) {
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center
+        modifier = Modifier
+            .width(170.dp)
+            .height(55.dp)
+            .border(BorderStroke(1.dp, color), shape = RoundedCornerShape(14.dp))
+            .background(color = Color.White, shape = RoundedCornerShape(14.dp)),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
-        Text(text = "$title", color = color)
-        Text(text = score, color = Color.White)
+        Text(text = "$title", color = color, fontWeight = FontWeight.Bold)
+        Text(text = score, color = color, fontWeight = FontWeight.Bold)
     }
 }
 
@@ -123,9 +131,12 @@ fun ShowMeantime(title: String, score: String) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(imageVector = Icons.Default.AvTimer, contentDescription = null)
-        Text(modifier = Modifier.padding(6.dp), text = "$title", color = BirdColor1)
+        Text(modifier = Modifier.padding(6.dp), text = "$title", color = Color(0xFF9F81CA))
         Text(
-            modifier = Modifier.padding(6.dp), text = score, fontSize = 14.sp, color = BirdColor1
+            modifier = Modifier.padding(6.dp), fontWeight = FontWeight.Bold,
+            text = score,
+            fontSize = 14.sp,
+            color = Color(0xFF9F81CA)
         )
     }
 }
@@ -138,14 +149,38 @@ fun BottomResult() {
             .height(100.dp)
             .width(230.dp)
             .clip(RoundedCornerShape(6))
-            .background(Purple80),
+            .background(Color(0xFF9F81CA)),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text(text = "Battle Record", color = Color.White, fontSize = 24.sp)
+        Text(
+            text = "Battle Record",
+            color = Color.White,
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Bold
+        )
         Row(modifier = Modifier.fillMaxWidth(), Arrangement.SpaceAround) {
-            ShowScoring("Highest", Color.White, "0")
-            ShowScoring("Lowest", Color.White, "0")
+
+            Column(
+                modifier = Modifier/*.border(BorderStroke(2.dp, Color.Red), shape = RoundedCornerShape(14.dp))
+                .background(color = Color.White, shape = RoundedCornerShape(14.dp))*/,
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Text(text = "Highest", color = Color.White)
+                Text(text = "0", color = Color.White)
+            }
+
+
+            Column(
+                modifier = Modifier/*.border(BorderStroke(2.dp, Color.Red), shape = RoundedCornerShape(14.dp))
+                .background(color = Color.White, shape = RoundedCornerShape(14.dp))*/,
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Text(text = "Lowest", color = Color.White)
+                Text(text = "0", color = Color.White)
+            }
         }
     }
 
@@ -158,11 +193,11 @@ fun BottomResult2() {
             .height(100.dp)
             .width(130.dp)
             .clip(RoundedCornerShape(6))
-            .background(Purple80),
+            .background(Color(0xFF9F81CA)),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text(text = "Score", fontSize = 24.sp, color = Color.White)
+        Text(text = "Score", fontSize = 24.sp, color = Color.White, fontWeight = FontWeight.Bold)
         Icon(imageVector = Icons.Default.Lock, tint = Color.White, contentDescription = null)
     }
 
@@ -182,7 +217,7 @@ fun bottomButtons(onContinueClicked: () -> Unit) {
             onClick = { /*TODO*/ },
             shape = RoundedCornerShape(19.dp),
             modifier = Modifier.width(130.dp),
-            colors = ButtonDefaults.buttonColors(Purple80)
+            colors = ButtonDefaults.buttonColors(Color(0xFF9F81CA))
         ) {
             Text(text = "Retry")
 
@@ -200,7 +235,7 @@ fun bottomButtons(onContinueClicked: () -> Unit) {
             shape = RoundedCornerShape(26.dp),
             onClick = { },
             modifier = Modifier,
-            colors = ButtonDefaults.buttonColors(Purple80)
+            colors = ButtonDefaults.buttonColors(Color(0xFF9F81CA))
 
         ) {
             Icon(imageVector = Icons.Default.Share, contentDescription = null)
@@ -235,67 +270,81 @@ fun ResultScreen(onContinueClicked: () -> Unit) {
     val context = LocalContext.current
     var shouldShowOnboarding2 by rememberSaveable { mutableStateOf(true) }
     if (shouldShowOnboarding2) {
-        Column(
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
                 .background(color = Color.White),
         ) {
-
-
-            Row(modifier = Modifier.background(color = Purple80)) {
-
-                BackButton(onClick = onContinueClicked)
-                Text(
-                    text = "Training",
-                    modifier = Modifier
-                        .fillMaxWidth()
-
-                        .align(alignment = Alignment.CenterVertically),
-                    textAlign = TextAlign.Center,
-                    color = Color.White,
-                    fontSize = 17.sp
-                )
-
-            }
-            TitleHeader()
-
-            PieChart(
-                listOf(
-                    ChartSlice(4f, CyanGreen), ChartSlice(1f, Pinky)
-                )
-            )
-
             Column(
                 modifier = Modifier
-                    .padding(top = 32.dp)
-                    .fillMaxHeight()
-                    .fillMaxWidth(),
-                Arrangement.Bottom,
+                    .fillMaxWidth()
+                    .fillMaxHeight(),
             ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 16.dp),
-                    Arrangement.SpaceEvenly,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    ShowScoring("Incorrect", Pinky, "67")
 
-                    ShowScoring("Correct", CyanGreen, "33")
+
+                Row(modifier = Modifier.background(color = Color(0xFF9F81CA))) {
+
+                    BackButton(onClick = onContinueClicked)
+                    Text(
+                        text = "Training",
+                        modifier = Modifier
+                            .fillMaxWidth()
+
+                            .align(alignment = Alignment.CenterVertically),
+                        textAlign = TextAlign.Center,
+                        color = Color.White,
+                        fontSize = 17.sp
+                    )
+
                 }
-                ShowMeantime("Mean Time", "1.765s")
+                TitleHeader()
 
-                Row(
+                PieChart(
+                    listOf(
+                        ChartSlice(4f, CyanGreen), ChartSlice(1f, Pinky)
+                    )
+                )
+
+                Column(
                     modifier = Modifier
                         .padding(top = 32.dp)
-                        .fillMaxWidth(), Arrangement.SpaceAround
+                        .fillMaxHeight()
+                        .fillMaxWidth(),
+                    Arrangement.Bottom,
                 ) {
-                    BottomResult()
-                    BottomResult2()
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 16.dp),
+                        Arrangement.SpaceEvenly,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        ShowScoring("Correct", Color(0xFF9F81CA), "33")
+                        ShowScoring("Incorrect", Color(0xFFC62E27), "67")
+
+                    }
+                    ShowMeantime("Mean Time", "1.765s")
+
+                    Row(
+                        modifier = Modifier
+                            .padding(top = 32.dp)
+                            .fillMaxWidth(), Arrangement.SpaceAround
+                    ) {
+                        BottomResult()
+                        BottomResult2()
+                    }
+                    bottomButtons({ shouldShowOnboarding2 = false })
                 }
-                bottomButtons({ shouldShowOnboarding2 = false })
             }
+
+            Image(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(),
+                painter = painterResource(id = R.drawable.iconbg),
+                contentDescription = "bg"
+            )
         }
     } else {
 //        HighOrLowGameScreen({ shouldShowOnboarding2 = true })
@@ -303,23 +352,24 @@ fun ResultScreen(onContinueClicked: () -> Unit) {
 }
 
 @Composable
-fun TitleHeader() {
+fun TitleHeader(
+    painter: Painter = painterResource(id = R.drawable.concentration_icon_c),
+    title: String = "Concentration"
+) {
     Row(
         modifier = Modifier.padding(22.dp)
     ) {
 
         Image(
-            painter = painterResource(id = R.drawable.ic_launcher_background),
-            contentDescription = null,
-            modifier = Modifier.size(56.dp)
+            painter = painter, contentDescription = null, modifier = Modifier.size(56.dp)
 
         )
         Text(
-            text = "Title",
+            text = "$title",
             modifier = Modifier
                 .align(alignment = Alignment.CenterVertically)
                 .padding(start = 13.dp),
-
+            fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
             color = Color.Gray
         )

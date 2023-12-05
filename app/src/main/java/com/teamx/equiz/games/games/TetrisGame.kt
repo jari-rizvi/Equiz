@@ -1,19 +1,27 @@
 package com.teamx.equiz.games.games
 
 import android.app.Activity
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.teamx.equiz.R
 import com.teamx.equiz.games.games.tetris.GameBody
 import com.teamx.equiz.games.games.tetris.GameScreen
 import com.teamx.equiz.games.games.tetris.combinedClickable
@@ -69,7 +77,14 @@ fun TetrisGame(content: @Composable () -> Unit = {}){
                     }
                 }
 
-
+//
+                Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .background(color = Color.White),
+        ) {
+//
                 GameBody(combinedClickable(
                     onMove = { direction: Direction ->
                         if (direction == Direction.Up) viewModel.dispatch(Action.Drop)
@@ -96,6 +111,15 @@ fun TetrisGame(content: @Composable () -> Unit = {}){
                         Modifier.fillMaxSize()
                     )
                 }
+//
+                  Image(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(),
+                painter = painterResource(id = R.drawable.iconbg),
+                contentDescription = "bg"
+            )
+        }//
             }
         }
 

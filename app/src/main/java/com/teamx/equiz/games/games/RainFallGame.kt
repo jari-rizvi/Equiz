@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -52,6 +53,15 @@ fun LazyListState.isScrolledToEnd() =
 
 @Composable
 fun RainFallGame(content: @Composable () -> Unit) {
+
+
+
+    Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .background(color = Color.White),
+        ) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
 
         content()
@@ -59,6 +69,15 @@ fun RainFallGame(content: @Composable () -> Unit) {
         rainFallDrops()
 
     }
+
+      Image(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(),
+                painter = painterResource(id = R.drawable.iconbg),
+                contentDescription = "bg"
+            )
+        }
 
 
 }

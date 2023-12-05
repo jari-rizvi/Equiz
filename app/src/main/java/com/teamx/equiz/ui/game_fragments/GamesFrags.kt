@@ -24,7 +24,6 @@ import com.teamx.equiz.games.games.FlickGameScreen
 import com.teamx.equiz.games.games.FollowTheLeaderGame
 import com.teamx.equiz.games.games.GuessTheFlagGame
 import com.teamx.equiz.games.games.HighLowComponent
-import com.teamx.equiz.games.games.HighLowGame
 import com.teamx.equiz.games.games.ImplicityGameScreen
 import com.teamx.equiz.games.games.Make10GameScreen
 import com.teamx.equiz.games.games.MatchingStepGame
@@ -35,12 +34,9 @@ import com.teamx.equiz.games.games.RainFallGame
 import com.teamx.equiz.games.games.RapidSortingGame
 import com.teamx.equiz.games.games.ReflectionGame
 import com.teamx.equiz.games.games.ResultScreen
-import com.teamx.equiz.games.games.ReverseRPS
-import com.teamx.equiz.games.games.SimplicityGame
 import com.teamx.equiz.games.games.SpinningBlockGame
 import com.teamx.equiz.games.games.TapTheColorGame
 import com.teamx.equiz.games.games.TetrisGame
-import com.teamx.equiz.games.games.TouchTheNumGame
 import com.teamx.equiz.games.games.TouchTheNumPlusGame
 import com.teamx.equiz.games.games.TouchTheNumbersGameScreen
 import com.teamx.equiz.games.games.UnfollowTheLeaderGame
@@ -687,6 +683,7 @@ class MatchingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
@@ -774,7 +771,7 @@ class MissingPieceGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         mViewDataBinding = FragmentAddressBinding.inflate(inflater)
         return ComposeView(requireContext()).also {
             composeView = it
@@ -828,6 +825,7 @@ class OperationsGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
