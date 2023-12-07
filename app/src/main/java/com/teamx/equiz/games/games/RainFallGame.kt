@@ -40,9 +40,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
 
 import com.teamx.equiz.games.utils.RainGameObject
@@ -60,10 +62,24 @@ fun RainFallGame(content: @Composable () -> Unit) {
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
-                .background(color = Color.White),
+                .background(color = Color(0xFFE1E1E1)),
         ) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Row(modifier = Modifier.background(color = Color(0xFF9F81CA))) {
 
+            BackButton(onClick = {}/*onContinueClicked*/)
+            Text(
+                text = "Training",
+                modifier = Modifier
+                    .fillMaxWidth()
+
+                    .align(alignment = Alignment.CenterVertically),
+                textAlign = TextAlign.Center,
+                color = Color.White,
+                fontSize = 17.sp
+            )
+
+        }
         content()
 
         rainFallDrops()

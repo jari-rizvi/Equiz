@@ -9,6 +9,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -26,6 +27,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -50,10 +52,27 @@ fun FollowTheLeaderGame(content: @Composable () -> Unit) {
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
-                .background(color = Color.White),
+                .background(color = Color(0xFFE1E1E1)),
         ) {
+        Column {
+            Row(modifier = Modifier.background(color = Color(0xFF9F81CA))) {
+
+                BackButton(onClick = {}/*onContinueClicked*/)
+                Text(
+                    text = "Training",
+                    modifier = Modifier
+                        .fillMaxWidth()
+
+                        .align(alignment = Alignment.CenterVertically),
+                    textAlign = TextAlign.Center,
+                    color = Color.White,
+                    fontSize = 17.sp
+                )
+
+            }
     content()
     AscendingObjects()
+        }
 
       Image(
                 modifier = Modifier
@@ -220,26 +239,25 @@ fun AnimatedObject(number: Int, itemCompared: Int, onClick: (Item: Int) -> Unit)
             .size(85.dp)
             .offset(
                 y = /*(-number * 60).dp*/
-               /* if ((number *//*+ 1*//*) % 3 == 0) {
+                /* if ((number *//*+ 1*//*) % 3 == 0) {
                     (number * 90).dp
                 } else {
                     ((number % 3) * 90).dp
                 }*/
 
                 if (number in 3..5) {
-                    (((number % 3)+2) * 90).dp
+                    (((number % 3) + 2) * 90).dp
                 } else if (number > 5) {
-                    (((number % 3)+2) * 90).dp
+                    (((number % 3) + 2) * 90).dp
                 } else {
-                    ((number+2) * 90).dp
+                    ((number + 2) * 90).dp
                 },
 
                 x = if (number in 3..5) {
                     (/*-number*/2 * 70).dp
                 } else if (number > 5) {
                     (/*-number*/3 * 80).dp
-                }
-                else {
+                } else {
                     (/*-number*/1 * 40).dp
                 }/*(-number * 60).dp*/
             )

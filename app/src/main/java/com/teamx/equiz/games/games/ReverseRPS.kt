@@ -33,6 +33,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
 import com.teamx.equiz.games.GamesUID
  
@@ -484,6 +485,21 @@ fun previewRPSCastGame() {
 
 @Composable
 fun ReverseRockPaperScissorsGameScreen(content: @Composable () -> Unit) {
+    Row(modifier = Modifier.background(color = Color(0xFF9F81CA))) {
+
+        BackButton(onClick = {}/*onContinueClicked*/)
+        Text(
+            text = "Training",
+            modifier = Modifier
+                .fillMaxWidth()
+
+                .align(alignment = Alignment.CenterVertically),
+            textAlign = TextAlign.Center,
+            color = Color.White,
+            fontSize = 17.sp
+        )
+
+    }
     rpsCastGamePlot(){}
 }
 

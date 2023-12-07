@@ -23,6 +23,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -34,6 +35,7 @@ import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -49,15 +51,19 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -65,9 +71,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
-import com.teamx.equiz.games.ui.theme.CyanGreen
 import com.teamx.equiz.games.ui.theme.GameEquizApplicationTheme
-import com.teamx.equiz.games.ui.theme.Pinky
+import com.teamx.equiz.ui.theme.toolbarUnique
 import kotlinx.coroutines.launch
 import java.util.Locale
 
@@ -110,12 +115,12 @@ fun ShowScoring(title: String, color: Color, score: String) {
         modifier = Modifier
             .width(170.dp)
             .height(55.dp)
-            .border(BorderStroke(1.dp, color), shape = RoundedCornerShape(14.dp))
+            .border(BorderStroke(2.dp, color), shape = RoundedCornerShape(14.dp))
             .background(color = Color.White, shape = RoundedCornerShape(14.dp)),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text(text = "$title", color = color, fontWeight = FontWeight.Bold)
+        Text(text = "$title", color = color, fontWeight = FontWeight.Normal)
         Text(text = score, color = color, fontWeight = FontWeight.Bold)
     }
 }
@@ -208,7 +213,7 @@ fun bottomButtons(onContinueClicked: () -> Unit) {
     Row(
         modifier = Modifier
             .clip(RoundedCornerShape(6))
-            .background(Color.White)
+
             .padding(vertical = 12.dp)
 
             .fillMaxWidth(), Arrangement.SpaceEvenly, verticalAlignment = Alignment.Bottom
@@ -224,6 +229,7 @@ fun bottomButtons(onContinueClicked: () -> Unit) {
         }
         Button(
             onClick = onContinueClicked,
+
             modifier = Modifier.width(130.dp),
             shape = RoundedCornerShape(19.dp),
             colors = ButtonDefaults.buttonColors(Color.White)
@@ -268,13 +274,21 @@ fun BackButton(onClick: () -> Unit) {
 fun ResultScreen(onContinueClicked: () -> Unit) {
 
     val context = LocalContext.current
+
+    val accurateCount: Float = 33f
+    val inaccurateCount: Float = 67f
+
+    val totalCount = accurateCount + inaccurateCount
+
+    val accuracyPercentage: Float = (accurateCount / totalCount).toFloat()
+
     var shouldShowOnboarding2 by rememberSaveable { mutableStateOf(true) }
     if (shouldShowOnboarding2) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
-                .background(color = Color.White),
+                .background(color = Color(0xFFE1E1E1)),
         ) {
             Column(
                 modifier = Modifier
@@ -300,19 +314,21 @@ fun ResultScreen(onContinueClicked: () -> Unit) {
                 }
                 TitleHeader()
 
-                PieChart(
-                    listOf(
-                        ChartSlice(4f, CyanGreen), ChartSlice(1f, Pinky)
-                    )
-                )
+                /* PieChart(
+                     listOf(
+                         ChartSlice(4f, CyanGreen), ChartSlice(1f, Pinky)
+                     )
+                 )*/
+
 
                 Column(
                     modifier = Modifier
                         .padding(top = 32.dp)
                         .fillMaxHeight()
                         .fillMaxWidth(),
-                    Arrangement.Bottom,
+                    Arrangement.SpaceEvenly,
                 ) {
+                    DualColorCircularProgressBar2(accuracyPercentage)
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -320,8 +336,8 @@ fun ResultScreen(onContinueClicked: () -> Unit) {
                         Arrangement.SpaceEvenly,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        ShowScoring("Correct", Color(0xFF9F81CA), "33")
-                        ShowScoring("Incorrect", Color(0xFFC62E27), "67")
+                        ShowScoring("Correct", Color(0xFF9F81CA), "${accurateCount.toInt()}")
+                        ShowScoring("Incorrect", Color(0xFFC62E27), "${inaccurateCount.toInt()}")
 
                     }
                     ShowMeantime("Mean Time", "1.765s")
@@ -361,7 +377,13 @@ fun TitleHeader(
     ) {
 
         Image(
-            painter = painter, contentDescription = null, modifier = Modifier.size(56.dp)
+            painter = painter,
+            contentDescription = null,
+            modifier = Modifier
+
+                .size(66.dp)
+                .background(Color.White,shape= RoundedCornerShape(8.dp))
+                .padding(5.dp)
 
         )
         Text(
@@ -575,6 +597,92 @@ fun PieChart(chartData: List<ChartSlice>) {
         ) {
             Text(text = "Button")
         }*/
+    }
+}
+
+@Preview
+@Composable
+fun DualColorCircularProgressBar2(progressVal: Float = 0.05f) {
+    var progress by remember { mutableStateOf(progressVal) }
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentSize(),
+        contentAlignment = Alignment.Center,
+    ) {
+
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+
+
+            Text(
+                text = "Accuracy",
+                color = toolbarUnique,
+                fontSize = 12.sp,
+                fontStyle = FontStyle.Normal, fontWeight = FontWeight.ExtraBold,
+            )
+            Text(
+                text = "${(progressVal * 100).toInt()}%",
+                color = toolbarUnique,
+                fontSize = 36.sp,
+                fontStyle = FontStyle.Normal, fontWeight = FontWeight.ExtraBold,
+            )
+        }
+
+        CircularProgressIndicator(
+            progress = .33f,
+            modifier = Modifier
+                .size(185.dp)
+                .rotate(0f)
+
+            /*.background(Color.Transparent)*/,
+            color = Color(0xFF9F81CA)/*BirdColor1*/,
+
+            strokeWidth = 42.dp
+        )
+        CircularProgressIndicator(
+            progress = .33f,
+            modifier = Modifier
+                .size(185.dp)
+                .rotate(118f)
+            /*.background(Color.Transparent)*/,
+            color = Color(0xFF9F81CA)/*BirdColor1*/,
+
+            strokeWidth = 45.dp
+        )
+        CircularProgressIndicator(
+            progress = .35f,
+            modifier = Modifier
+                .size(185.dp)
+                .rotate(118f + 118f)
+            /*.background(Color.Transparent)*/,
+            color = Color(0xFF9F81CA)/*BirdColor1*/,
+
+            strokeWidth = 46.dp
+        )
+        CircularProgressIndicator(
+            progress = progress, // Remaining progress
+            modifier = Modifier
+                .size(185.dp)
+
+                .rotate(190f)
+            /*.background(Color.Transparent)*/,
+            color = Color(0xFF9F81CA)/*Color.Transparent*/, strokeWidth = 38.dp
+
+        )
+        CircularProgressIndicator(
+            progress = 1f - progress,
+            modifier = Modifier
+                .size(185.dp)
+                .rotate(315f)
+            /*.background(Color.Transparent)*/,
+            color = Color(0xFFF7D1D1)/*BirdColor1*/,
+
+            strokeWidth = 42.dp
+        )
     }
 }
 

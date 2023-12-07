@@ -27,6 +27,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
@@ -36,7 +37,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.lifecycleScope
+import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
 import com.teamx.equiz.games.GamesUID
 import kotlinx.coroutines.GlobalScope
@@ -54,20 +55,40 @@ fun WeatherCastGame(content: @Composable () -> Unit) {
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
-                .background(color = Color.White),
+                .background(color = Color(0xFFE1E1E1)),
         ) {
-        Column(modifier = Modifier.fillMaxSize().background(color = Color.White)) {
-            content()
-            weatherCastGamePlot()
-        }
-
-          Image(
+            Image(
                 modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight(),
                 painter = painterResource(id = R.drawable.iconbg),
                 contentDescription = "bg"
             )
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(color = Color.Transparent)
+            ) {
+                Row(modifier = Modifier.background(color = Color(0xFF9F81CA))) {
+
+                    BackButton(onClick = {}/*onContinueClicked*/)
+                    Text(
+                        text = "Training",
+                        modifier = Modifier
+                            .fillMaxWidth()
+
+                            .align(alignment = Alignment.CenterVertically),
+                        textAlign = TextAlign.Center,
+                        color = Color.White,
+                        fontSize = 17.sp
+                    )
+
+                }
+                content()
+                weatherCastGamePlot()
+            }
+
+
         }
     }
 
@@ -161,7 +182,9 @@ fun weatherCastGamePlot() {
     }
 
     Column(
-        Modifier.fillMaxSize().background(color = Color.White),
+        Modifier
+            .fillMaxSize()
+            .background(color = Color.Transparent),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -230,7 +253,8 @@ fun weatherDrop(item: WeatherListItem, onClick: () -> Unit) {
             .width(90.dp)
             .height(item.height)
             .clip(RoundedCornerShape(10.dp))
-//            .background(item.color)
+
+            .background(Color.White)
             .clickable {
                 onClick()
             }, contentAlignment = Alignment.Center
@@ -238,6 +262,10 @@ fun weatherDrop(item: WeatherListItem, onClick: () -> Unit) {
 
     ) {
         Column(
+            modifier = Modifier
+                .padding(6.dp)
+                .background(Color.White)
+
 
         ) {
             Image(

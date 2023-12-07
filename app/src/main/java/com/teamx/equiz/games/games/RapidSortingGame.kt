@@ -10,7 +10,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -21,6 +23,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime. mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -50,7 +53,21 @@ class RapidSortingGame {}
 @Composable
 fun RapidSortingGame(content: @Composable () -> Unit) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Row(modifier = Modifier.background(color = Color(0xFF9F81CA))) {
 
+            BackButton(onClick = {}/*onContinueClicked*/)
+            Text(
+                text = "Training",
+                modifier = Modifier
+                    .fillMaxWidth()
+
+                    .align(alignment = Alignment.CenterVertically),
+                textAlign = TextAlign.Center,
+                color = Color.White,
+                fontSize = 17.sp
+            )
+
+        }
         content()
 
         RapidGame()

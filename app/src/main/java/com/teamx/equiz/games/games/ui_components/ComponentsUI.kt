@@ -23,17 +23,24 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIos
 import androidx.compose.material3.Card
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -42,6 +49,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
+import com.teamx.equiz.ui.theme.BirdColor1
+import com.teamx.equiz.ui.theme.BirdColor2
 import com.teamx.equiz.ui.theme.toolbarUnique
 
 
@@ -563,3 +572,59 @@ fun StartUpDialogCompose(
     }
 }
 
+@Preview
+@Composable
+fun CircularProgressBar() {
+    var progress by remember { mutableStateOf(0.5f) }
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        CircularProgressIndicator(
+            progress = progress,
+            modifier = Modifier
+                .size(100.dp)
+                .rotate(180f), color = Color.White // Rotate to start from the top,
+
+
+        )
+    }
+}
+
+@Preview
+@Composable
+fun DualColorCircularProgressBar(progressVal:Float=0.5f) {
+    var progress by remember { mutableStateOf(progressVal) }
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        // Circular progress indicator for the progressed part
+
+
+        // Circular progress indicator for the remaining part
+        CircularProgressIndicator(
+            progress = 1f, // Remaining progress
+            modifier = Modifier
+                .size(140.dp)
+                .rotate(180f)
+                .background(Color.Transparent), // Rotate to start from the top
+            color = BirdColor2, strokeWidth = 28.dp
+
+        )
+        CircularProgressIndicator(
+            progress = progress + .25f,
+            modifier = Modifier
+                .size(140.dp)
+                .rotate(90f)
+                .background(Color.Transparent), // Rotate to start from the top
+            color = BirdColor1,
+            strokeWidth = 28.dp
+        )
+    }
+}

@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -26,9 +27,11 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.times
 import kotlin.math.sqrt
 
@@ -222,7 +225,21 @@ fun HexaChainGameScreen(content: @Composable () -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
-    ) {
+    ) { Row(modifier = Modifier.background(color = Color(0xFF9F81CA))) {
+
+        BackButton(onClick = {}/*onContinueClicked*/)
+        Text(
+            text = "Training",
+            modifier = Modifier
+                .fillMaxWidth()
+
+                .align(alignment = Alignment.CenterVertically),
+            textAlign = TextAlign.Center,
+            color = Color.White,
+            fontSize = 17.sp
+        )
+
+    }
         Text(
             text = "Hexa-Chain",
             style = MaterialTheme.typography.headlineMedium,
