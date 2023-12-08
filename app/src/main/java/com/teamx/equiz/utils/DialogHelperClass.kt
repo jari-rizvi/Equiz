@@ -65,6 +65,32 @@ class DialogHelperClass {
             dialog.show()
         }
 
+        fun topUpDialog(context: Context, dialogLoginCallBack: DialogInviteAnotherCallBack, boo: Boolean) {
+            val dialog = Dialog(context)
+            dialog.setContentView(R.layout.top_up_dialog)
+            dialog.window!!.setLayout(
+                WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT
+            )
+
+
+            val removeBtn = dialog.findViewById<TextView>(R.id.btnInvite)
+            removeBtn.setOnClickListener {
+                if (boo) {
+                    dialogLoginCallBack.InviteClicked()
+                } else {
+                }
+                dialog.dismiss()
+            }
+
+            /*         val cancelBtn = dialog.findViewById<TextView>(R.id.cancelBtn)
+                     cancelBtn.setOnClickListener {
+                         dialog.dismiss()
+                     }*/
+
+            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.show()
+        }
+
 
     interface LogoutCallBack {
             fun OkClick()

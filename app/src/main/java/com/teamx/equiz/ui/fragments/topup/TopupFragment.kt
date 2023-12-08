@@ -1,10 +1,8 @@
 package com.teamx.equiz.ui.fragments.topup
 
-
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.NavOptions
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,21 +10,14 @@ import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.data.models.PaymentMethod
-import com.teamx.equiz.data.models.getwalletData.Transaction
-import com.teamx.equiz.data.models.wishlistdata.Product
-import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentTopUpBinding
-import com.teamx.equiz.databinding.FragmentWalletBinding
-import com.teamx.equiz.ui.fragments.Auth.login.LoginViewModel
 import com.teamx.equiz.ui.fragments.ecommerce.paymentMethods.OnTopSellerListener
-import com.teamx.equiz.ui.fragments.wallet.WalletAdapter
-import com.teamx.equiz.ui.fragments.wallet.WalletViewModel
-import com.teamx.equiz.ui.fragments.wishlist.FavouriteAdapter
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTopSellerListener {
+class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTopSellerListener,
+    DialogHelperClass.Companion.DialogInviteAnotherCallBack {
 
     override val layoutId: Int
         get() = R.layout.fragment_top_up
@@ -36,9 +27,10 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
         get() = BR.viewModel
 
     private lateinit var options: NavOptions
-    lateinit var paymentAdapter: PaymentAdapter
-    lateinit var paymentArrayList: ArrayList<PaymentMethod>
+    private lateinit var paymentAdapter: PaymentAdapter
+    private lateinit var paymentArrayList: ArrayList<PaymentMethod>
 
+    var amount = "0"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -62,6 +54,9 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
             mViewDataBinding.pts3.isChecked = false
             mViewDataBinding.pts4.isChecked = false
             mViewDataBinding.pts5.isChecked = false
+
+            amount = "100"
+            mViewDataBinding.img.text = amount
         }
 
         mViewDataBinding.pts2.setOnClickListener {
@@ -71,6 +66,9 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
             mViewDataBinding.pts3.isChecked = false
             mViewDataBinding.pts4.isChecked = false
             mViewDataBinding.pts5.isChecked = false
+
+            amount = "200"
+            mViewDataBinding.img.text = amount
         }
 
         mViewDataBinding.pts3.setOnClickListener {
@@ -80,6 +78,9 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
             mViewDataBinding.pts3.isChecked = true
             mViewDataBinding.pts4.isChecked = false
             mViewDataBinding.pts5.isChecked = false
+
+            amount = "300"
+            mViewDataBinding.img.text = amount
         }
 
         mViewDataBinding.pts4.setOnClickListener {
@@ -89,6 +90,9 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
             mViewDataBinding.pts3.isChecked = false
             mViewDataBinding.pts4.isChecked = true
             mViewDataBinding.pts5.isChecked = false
+
+            amount = "400"
+            mViewDataBinding.img.text = amount
         }
         mViewDataBinding.pts5.setOnClickListener {
             mViewDataBinding.pts6.isChecked = false
@@ -97,6 +101,9 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
             mViewDataBinding.pts3.isChecked = false
             mViewDataBinding.pts4.isChecked = false
             mViewDataBinding.pts5.isChecked = true
+
+            amount = "500"
+            mViewDataBinding.img.text = amount
         }
         mViewDataBinding.pts6.setOnClickListener {
             mViewDataBinding.pts6.isChecked = true
@@ -105,6 +112,43 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
             mViewDataBinding.pts3.isChecked = false
             mViewDataBinding.pts4.isChecked = false
             mViewDataBinding.pts5.isChecked = false
+
+            amount = "600"
+            mViewDataBinding.img.text = amount
+        }
+
+        mViewDataBinding.textView445.setOnClickListener {
+            DialogHelperClass.topUpDialog(
+                requireContext(), this, true
+            )
+        }
+
+        mViewDataBinding.btnpaypal.setOnClickListener {
+            mViewDataBinding.radioPaypal.isChecked = true
+            mViewDataBinding.radioVisa.isChecked = false
+            mViewDataBinding.radiomaster.isChecked = false
+            mViewDataBinding.radiogoogle.isChecked = false
+        }
+
+        mViewDataBinding.btnvisa.setOnClickListener {
+            mViewDataBinding.radioPaypal.isChecked = false
+            mViewDataBinding.radioVisa.isChecked = true
+            mViewDataBinding.radiomaster.isChecked = false
+            mViewDataBinding.radiogoogle.isChecked = false
+        }
+
+        mViewDataBinding.btnmaster.setOnClickListener {
+            mViewDataBinding.radioPaypal.isChecked = false
+            mViewDataBinding.radioVisa.isChecked = false
+            mViewDataBinding.radiomaster.isChecked = true
+            mViewDataBinding.radiogoogle.isChecked = false
+        }
+
+        mViewDataBinding.btnGoogle.setOnClickListener {
+            mViewDataBinding.radioPaypal.isChecked = false
+            mViewDataBinding.radioVisa.isChecked = false
+            mViewDataBinding.radiomaster.isChecked = false
+            mViewDataBinding.radiogoogle.isChecked = true
         }
 
 
@@ -204,6 +248,10 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
     }
 
     override fun onTopSellerSelectClick(position: Int, name: String) {
+    }
+
+    override fun InviteClicked() {
+
     }
 
 }

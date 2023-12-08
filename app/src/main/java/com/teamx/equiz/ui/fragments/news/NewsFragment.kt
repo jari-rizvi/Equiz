@@ -222,7 +222,7 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(),onNewsli
         }
         bundle.putString("id", id)
 
-        findNavController().navigate(R.id.action_newsFragment_to_newsDetailFragment,bundle)
+//        findNavController().navigate(R.id.action_newsFragment_to_newsDetailFragment,bundle)
     }
 
 }

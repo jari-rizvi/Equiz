@@ -13,6 +13,8 @@ import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.databinding.FragmentGamesBinding
+import com.teamx.equiz.ui.fragments.dashboard.DashboardFragment.Companion.returnImg
+import com.teamx.equiz.ui.fragments.dashboard.GamesModel
 import com.teamx.equiz.ui.fragments.dashboard.GamesUID2
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -49,14 +51,18 @@ class GamesFragment : BaseFragment<FragmentGamesBinding, GamesViewModel>(), AllG
         initializeGameAdapter()
     }
 
-    private lateinit var gameStrArrayList: ArrayList<String>
+    private lateinit var gameStrArrayList: ArrayList<GamesModel>
     private lateinit var gameAdapter: AllGamesAdapter
     private fun initializeGameAdapter() {
         gameStrArrayList = ArrayList()
 
-        for (i in GamesUID2.values()) {
+//        for (i in GamesUID2.values()) {
+//
+//            gameStrArrayList.add(i.name)
+//        }
 
-            gameStrArrayList.add(i.name)
+        GamesUID2.values().forEachIndexed { index, gamesUID2 ->
+            gameStrArrayList.add(GamesModel(gamesUID2.name, returnImg(gamesUID2.name)))
         }
 
         val linearLayoutManager = GridLayoutManager(context, 3, RecyclerView.VERTICAL, false)
@@ -72,7 +78,7 @@ class GamesFragment : BaseFragment<FragmentGamesBinding, GamesViewModel>(), AllG
     override fun onClickGame(position: Int) {
         Log.d("123123", "onClickGame: ")
 
-        when (gameStrArrayList[position]) {
+        when (gameStrArrayList[position].name) {
 
             GamesUID2.AdditionAddiction.name -> {
 

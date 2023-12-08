@@ -4,9 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.teamx.equiz.databinding.GamesItemLayoutGmBinding
+import com.teamx.equiz.ui.fragments.dashboard.GamesModel
 
 class AllGamesAdapter(
-    private val addressArrayList: ArrayList<String>, val allGameInterface: AllGameInterface
+    private val addressArrayList: ArrayList<GamesModel>, val allGameInterface: AllGameInterface
 ) : RecyclerView.Adapter<AllGamesAdapterViewHolder>() {
 
     override fun onCreateViewHolder(
@@ -25,7 +26,10 @@ class AllGamesAdapter(
         holder.itemView.setOnClickListener {
             allGameInterface.onClickGame(position)
         }
-        holder.bind.titleGame.text = arrayData
+
+        holder.bind.profilePicture.setImageResource(arrayData.image)
+
+        holder.bind.titleGame.text = arrayData.name
 
 
     }

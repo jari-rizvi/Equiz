@@ -37,7 +37,7 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
 
     private lateinit var options: NavOptions
 
-    lateinit var quizArrayList: ArrayList<Data>
+    private lateinit var quizArrayList: ArrayList<Data>
 
     private var quesNo = 0
 
@@ -306,13 +306,13 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
         }
     }
 
-    lateinit var job: Job
+    private lateinit var job: Job
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun timerStart() {
         val durationSeconds = 30
         var remainingSeconds = durationSeconds
-        var progressTime = 100
+        val progressTime = 100
         mViewDataBinding.progressbar.progress = progressTime
 
         job = lifecycleScope.launch {

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_250sdp"
+    android:layout_gravity="center"
+    android:layout_marginHorizontal="@dimen/_35sdp"
+    android:background="@drawable/card_background"
+    android:backgroundTint="@color/colorWhite"
+    android:elevation="@dimen/_5sdp">
+
+
+    <ImageView
+        android:id="@+id/tv_title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_31sdp"
+        android:gravity="center"
+        android:src="@drawable/successmark"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/_13ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/removeBtn"
+        style="@style/popins_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Top Up Successfully Done"
+        android:textAlignment="center"
+        android:textColor="@color/blue"
+        android:textSize="@dimen/_14ssp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title_text"
+        app:layout_constraintVertical_bias="0.1" />
+
+    <TextView
+        android:id="@+id/cancelBtn"
+        style="@style/popins_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/_1sdp"
+        android:gravity="center"
+        android:maxLines="3"
+        android:text="You Earned 1000 Points "
+        android:textAlignment="center"
+        android:textColor="#9F81CA"
+        android:textSize="@dimen/_12ssp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/removeBtn"
+        app:layout_constraintStart_toStartOf="@+id/removeBtn"
+        app:layout_constraintTop_toBottomOf="@+id/removeBtn"
+        app:layout_constraintVertical_bias="0.05" />
+
+
+    <TextView
+        android:id="@+id/btnInvite"
+        style="@style/popins_regular"
+        android:layout_width="240dp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/card_background_border"
+        android:backgroundTint="@color/theme_color"
+        android:gravity="center"
+        android:text="Back to Home"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_14ssp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cancelBtn"
+        app:layout_constraintVertical_bias="0.1" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

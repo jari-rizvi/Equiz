@@ -4,6 +4,7 @@ package com.teamx.equiz.ui.fragments.dashboard
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.annotation.Keep
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
@@ -101,8 +102,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
                         DialogHelperClass.errorDialog(
-                            requireContext(),
-                            it.message!!
+                            requireContext(), it.message!!
                         )
                     }
                 }
@@ -140,8 +140,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
                         DialogHelperClass.errorDialog(
-                            requireContext(),
-                            it.message!!
+                            requireContext(), it.message!!
                         )
                     }
                 }
@@ -176,8 +175,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
                         DialogHelperClass.errorDialog(
-                            requireContext(),
-                            it.message!!
+                            requireContext(), it.message!!
                         )
                     }
                 }
@@ -199,7 +197,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
     }
 
     private lateinit var strArrayList: ArrayList<TitleData>
-    private lateinit var gameStrArrayList: ArrayList<String>
+    private lateinit var gameStrArrayList: ArrayList<GamesModel>
     private lateinit var winStrArrayList: ArrayList<String>
     private lateinit var quizesTitleAdapter: QuizesTitleAdapter
     private lateinit var gameAdapter: AllGamesAdapter
@@ -208,9 +206,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
     private fun initializeCategoriesAdapter() {
         strArrayList = ArrayList()
 
-        strArrayList.add(TitleData("World",true))
-        strArrayList.add(TitleData("National",false))
-        strArrayList.add(TitleData("City",false))
+        strArrayList.add(TitleData("World", true))
+        strArrayList.add(TitleData("National", false))
+        strArrayList.add(TitleData("City", false))
 
         val layoutManager1 =
             LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
@@ -224,9 +222,10 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
     private fun initializeGameAdapter() {
         gameStrArrayList = ArrayList()
 
-        for (i in GamesUID2.values()) {
 
-            gameStrArrayList.add(i.name)
+
+        GamesUID2.values().forEachIndexed { index, gamesUID2 ->
+            gameStrArrayList.add(GamesModel(gamesUID2.name, returnImg(gamesUID2.name)))
         }
 
 
@@ -240,6 +239,88 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
     }
 
+
+    companion object{
+        fun returnImg(index: String): Int {
+            when (index) {
+                GamesUID2.AdditionAddiction.name -> {
+                    return R.drawable.addition_icon
+                }
+                GamesUID2.BirdWatching.name -> {
+                    return R.drawable.bird_favicon
+                }
+                GamesUID2.ColorDeception.name -> {
+                    return R.drawable.colorofdeception_icon
+                }
+                GamesUID2.Tetris.name -> {
+                    return R.drawable.tetris_icon
+                }
+                GamesUID2.Concentration.name -> {
+                    return R.drawable.concentration_icon
+                }
+                GamesUID2.CardCalculation.name -> {
+                    return R.drawable.cardscalculations_icon
+                }
+                GamesUID2.Flick.name -> {
+                    return R.drawable.flick_icon
+                }
+                GamesUID2.FollowTheLeader.name -> {
+                    return R.drawable.follow_the_leder
+                }
+                GamesUID2.SpinTheWheel.name -> {
+                    return R.drawable.spinthewheel_icon
+                }
+                GamesUID2.HighLow.name -> {
+                    return R.drawable.highorlow_icon
+                }
+                GamesUID2.MakeTen.name -> {
+                    return R.drawable.maketen_icon
+                }
+                GamesUID2.Matching.name -> {
+                    return R.drawable.matching_icon
+                }
+                GamesUID2.MissingPiece.name -> {
+                    return R.drawable.missingpieces_icon
+                }
+                GamesUID2.Operations.name -> {
+                    return R.drawable.operations_icon
+                }
+                GamesUID2.QuickEye.name -> {
+                    return R.drawable.quickeye_icon
+                }
+                GamesUID2.RainFall.name -> {
+                    return R.drawable.rainfall_icon
+                }
+                GamesUID2.RapidSorting.name -> {
+                    return R.drawable.rapid_sorting_icon
+                }
+                GamesUID2.ReverseRps.name -> {
+                    return R.drawable.reverserps_icon
+                }
+                GamesUID2.Simplicity.name -> {
+                    return R.drawable.simplicity_icon
+                }
+                GamesUID2.TapTheColor.name -> {
+                    return R.drawable.tapthecolor_icon
+                }
+                GamesUID2.TouchTheNum.name -> {
+                    return R.drawable.touchthenumber_icon
+                }
+                GamesUID2.TouchTheNumPlus.name -> {
+                    return R.drawable.touchthenumbers_icon_plus
+                }
+                GamesUID2.UnfollowTheLeader.name -> {
+                    return R.drawable.favicon
+                }
+                GamesUID2.WeatherCast.name -> {
+                    return R.drawable.weathercast_icon
+                }
+                else -> return 0
+            }
+        }
+    }
+
+
     private fun initializeWinnerAdapter() {
         winnerArrayList = ArrayList()
 
@@ -252,6 +333,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
 
     }
+
     private fun initializeQuizesAdapter() {
         quizArrayList = ArrayList()
 
@@ -265,18 +347,18 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
     }
 
-    override fun quizTitle(position : Int) {
-        mViewModel.getquizTitile("World","","normal")
+    override fun quizTitle(position: Int) {
+        mViewModel.getquizTitile("World", "", "normal")
 
     }
 
-    override fun quizeItem(position : Int) {
+    override fun quizeItem(position: Int) {
         findNavController().navigate(R.id.action_quizesFragment_to_singleQuizFragment)
     }
 
     override fun onClickGame(position: Int) {
         Log.d("123", "onClickGame: ")
-        when (gameStrArrayList[position]) {
+        when (gameStrArrayList[position].name) {
 
             GamesUID2.AdditionAddiction.name -> {
 
@@ -404,6 +486,11 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         Log.d("123", "onWinnerClick: ")
     }
 }
+
+@Keep
+data class GamesModel(
+    val name: String, val image: Int
+)
 
 
 enum class GamesUID2 {
