@@ -12,7 +12,7 @@ data class Data(
     val images: List<String>,
     val isActive: Boolean,
     val point: Int,
-    val price: Int,
+    val price: Double,
     val product_type: String,
     val quantity: Int,
     val ratings: List<Any>,

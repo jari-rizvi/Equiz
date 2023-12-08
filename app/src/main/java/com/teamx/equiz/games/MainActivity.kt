@@ -224,9 +224,9 @@ fun Navigation() {
         }
         composable(GamesUID.ColorDeceptionScreen.name) {
             TouchTheColorsGameScreen() {
-                ToolbarPreview(
+                /*ToolbarPreview(
                     navController = navController, GamesUID.ColorDeceptionScreen.name
-                )
+                )*/
             }
         }
         composable(GamesUID.ColorSwitchScreen.name) {
@@ -238,30 +238,30 @@ fun Navigation() {
         }
         composable(GamesUID.ConcentrationScreen.name) {
             ConcentrationGame() {
-                ToolbarPreview(
+                /*ToolbarPreview(
                     navController = navController, GamesUID.ConcentrationScreen.name
-                )
+                )*/
             }
         }
         composable(GamesUID.CardCalculationGameScreen.name) {
             CardCalculationGameScreen() {
-                ToolbarPreview(
+                /*ToolbarPreview(
                     navController = navController, GamesUID.CardCalculationGameScreen.name
-                )
+                )*/
             }
         }
         composable(GamesUID.FlickScreen.name) {
             FlickGameScreen() {
-                ToolbarPreview(
+                /*ToolbarPreview(
                     navController = navController, GamesUID.FlickScreen.name
-                )
+                )*/
             }
         }
         composable(GamesUID.FollowTheLeaderScreen.name) {
             FollowTheLeaderGame() {
-                ToolbarPreview(
+               /* ToolbarPreview(
                     navController = navController, GamesUID.FollowTheLeaderScreen.name
-                )
+                )*/
             }
         }
         composable(GamesUID.HexaChainScreen.name) {
@@ -287,23 +287,23 @@ fun Navigation() {
         }
         composable(GamesUID.MakeTenScreen.name) {
             Make10GameScreen() {
-                ToolbarPreview(
+                /*ToolbarPreview(
                     navController = navController, GamesUID.MakeTenScreen.name
-                )
+                )*/
             }
         }
         composable(GamesUID.MatchingScreen.name) {
             MatchingStepGame(Modifier.padding(2.dp)) {
-                ToolbarPreview(
+                /*ToolbarPreview(
                     navController = navController, GamesUID.MatchingScreen.name
-                )
+                )*/
             }
         }
         composable(GamesUID.MissingPieceScreen.name) {
             MissingPieceGameScreen() {
-                ToolbarPreview(
+                /*ToolbarPreview(
                     navController = navController, GamesUID.MissingPieceScreen.name
-                )
+                )*/
             }
         }
         composable(GamesUID.OperationsScreen.name) {
@@ -316,16 +316,16 @@ fun Navigation() {
 
         composable(GamesUID.QuickEyeScreen.name) {
             QuickEyeGame() {
-                ToolbarPreview(
+                /*ToolbarPreview(
                     navController = navController, GamesUID.QuickEyeScreen.name
-                )
+                )*/
             }
         }
         composable(GamesUID.RainFallScreen.name) {
             RainFallGame() {
-                ToolbarPreview(
+                /*ToolbarPreview(
                     navController = navController, GamesUID.RainFallScreen.name
-                )
+                )*/
             }
         }
         composable(GamesUID.ResultScreen.name) {
@@ -392,9 +392,9 @@ fun Navigation() {
         }
         composable(GamesUID.WeatherCast.name) {
             WeatherCastGame() {
-                ToolbarPreview(
+               /* ToolbarPreview(
                     navController = navController, GamesUID.WeatherCast.name
-                )
+                )*/
             }
         }
 

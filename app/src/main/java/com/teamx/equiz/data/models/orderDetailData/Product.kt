@@ -4,6 +4,6 @@ data class Product(
     val _id: String,
     val description: String,
     val images: List<String>,
-    val price: Int,
+    val price: Double,
     val title: String
 )

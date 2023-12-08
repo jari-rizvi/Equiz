@@ -9,6 +9,7 @@ import androidx.annotation.RequiresApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
@@ -218,9 +219,9 @@ class CardCalculationGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
 
         composeView.setContent {
             CardCalculationGameScreen(content = {
-                ToolbarCompose(title = "Training", onClick = {
+
                     navController.popBackStack()
-                })
+
             })
         }
         options = navOptions {
@@ -359,9 +360,9 @@ class ConcentrationGameFrag : BaseFragment<FragmentAddressBinding, GameFragsView
 
         composeView.setContent {
             ConcentrationGame(content = {
-                ToolbarCompose(title = "Training", onClick = {
+
                     navController.popBackStack()
-                })
+
             })
         }
         options = navOptions {
@@ -406,9 +407,10 @@ class FlickGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>()
 
         composeView.setContent {
             FlickGameScreen(content = {
-                ToolbarCompose(title = "Training", onClick = {
+
                     navController.popBackStack()
-                })
+
+
             })
         }
         options = navOptions {
@@ -453,9 +455,9 @@ class FollowTheLeaderGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
 
         composeView.setContent {
             FollowTheLeaderGame(content = {
-                ToolbarCompose(title = "Training", onClick = {
+
                     navController.popBackStack()
-                })
+
             })
         }
         options = navOptions {
@@ -500,9 +502,10 @@ class GuessTheFlagGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
 
         composeView.setContent {
             GuessTheFlagGame(content = {
-                ToolbarCompose(title = "Training", onClick = {
+               /* ToolbarCompose(title = "Training", onClick = {
                     navController.popBackStack()
-                })
+                })*/
+                findNavController().navigate(R.id.resultComposeFrag, arguments)
             })
         }
         options = navOptions {
@@ -548,9 +551,9 @@ class HighLowGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
 
         composeView.setContent {
             HighLowComponent(content = {
-                ToolbarCompose(title = "Training", onClick = {
+
                     navController.popBackStack()
-                })
+
             })
         }
         options = navOptions {
@@ -642,9 +645,9 @@ class Make10GameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
 
         composeView.setContent {
             Make10GameScreen(content = {
-                ToolbarCompose(title = "Training", onClick = {
+
                     navController.popBackStack()
-                })
+
             })
         }
         options = navOptions {
@@ -690,9 +693,9 @@ class MatchingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
 
         composeView.setContent {
             MatchingStepGame(Modifier,content = {
-                ToolbarCompose(title = "Training", onClick = {
+
                     navController.popBackStack()
-                })
+
             })
         }
         options = navOptions {
@@ -784,9 +787,9 @@ class MissingPieceGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
 
         composeView.setContent {
             MissingPieceGameScreen(content = {
-                ToolbarCompose(title = "Training", onClick = {
+
                     navController.popBackStack()
-                })
+
             })
         }
         options = navOptions {
@@ -833,9 +836,9 @@ class OperationsGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
 
         composeView.setContent {
             OperationGame(content = {
-                ToolbarCompose(title = "Training", onClick = {
+
                     navController.popBackStack()
-                })
+
             })
         }
         options = navOptions {
@@ -974,9 +977,9 @@ class QuickEyeGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
 
         composeView.setContent {
             QuickEyeGame(content = {
-                ToolbarCompose(title = "Training", onClick = {
+
                     navController.popBackStack()
-                })
+
             })
         }
         options = navOptions {
@@ -1021,9 +1024,9 @@ class RainFallGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
 
         composeView.setContent {
             RainFallGame(content = {
-                ToolbarCompose(title = "Training", onClick = {
+
                     navController.popBackStack()
-                })
+
             })
         }
         options = navOptions {
@@ -1162,7 +1165,7 @@ class ResultComposeFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMode
 
         composeView.setContent {
             ResultScreen(){
-
+                findNavController().popBackStack()
             }
         }
         options = navOptions {
@@ -1820,9 +1823,10 @@ class WeatherCastGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
 
         composeView.setContent {
             WeatherCastGame(content = {
-                ToolbarCompose(title = "Training", onClick = {
+              /*  ToolbarCompose(title = "Training", onClick = {
                     navController.popBackStack()
-                })
+                })*/
+                findNavController().navigate(R.id.resultComposeFrag, arguments)
             })
         }
         options = navOptions {

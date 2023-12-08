@@ -1,6 +1,7 @@
 package com.teamx.equiz.games.games
 
 import android.annotation.SuppressLint
+import android.os.CountDownTimer
 import android.util.Log
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.animateFloat
@@ -27,8 +28,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime. mutableStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -47,7 +46,6 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
-
 import com.teamx.equiz.games.ui.theme.Pink80
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -166,13 +164,42 @@ var dragged = true
 
 
 @Composable
-fun HighLowComponent(content: @Composable () -> Unit) {
+fun HighLowComponent(content: () -> Unit) {
+
+    var isGameOver by remember { mutableStateOf(false) }
+
+    var timeLeft by remember { mutableStateOf(60L) }
+
+    var timerRunning by remember { mutableStateOf(true) }
+    LaunchedEffect(true) {
+//        generateOptions()
+
+        // Start the timer
+        object : CountDownTimer(timeLeft * 1000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                if (timerRunning) {
+                    timeLeft = millisUntilFinished / 1000
+                }
+            }
+
+            override fun onFinish() {
+                isGameOver = true
+            }
+        }.start()
+    }
+
+
+    if (isGameOver) {
+        content()
+    }
+
+
     var swipeStateX by remember { mutableStateOf(false) }
 
     var previousNumber by remember { mutableStateOf(Random.nextInt(0, 100)) }
     var showNumber by remember { mutableStateOf(Random.nextInt(0, 100)) }
     var valuesTranslation by remember {
-         mutableStateOf(
+        mutableStateOf(
             590f
         )
     }

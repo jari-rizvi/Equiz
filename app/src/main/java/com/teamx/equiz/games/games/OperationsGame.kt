@@ -1,6 +1,7 @@
 package com.teamx.equiz.games.games
 
 import android.os.Build
+import android.os.CountDownTimer
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.util.Log
@@ -53,7 +54,35 @@ val operators = listOf("+", "-", "*", "/")
 @RequiresApi(Build.VERSION_CODES.O)
 
 @Composable
-fun OperationGame(content: @Composable () -> Unit) {
+fun OperationGame(content: () -> Unit) {
+
+    var isGameOver by remember { mutableStateOf(false) }
+
+    var timeLeft by remember { mutableStateOf(60L) }
+
+    var timerRunning by remember { mutableStateOf(true) }
+    LaunchedEffect(true) {
+//        generateOptions()
+
+        // Start the timer
+        object : CountDownTimer(timeLeft * 1000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                if (timerRunning) {
+                    timeLeft = millisUntilFinished / 1000
+                }
+            }
+
+            override fun onFinish() {
+                isGameOver = true
+            }
+        }.start()
+    }
+
+
+    if (isGameOver) {
+        content()
+    }
+
     var equation by remember { mutableStateOf(generateEquation()) }
     var selectedOperator by remember { mutableStateOf("") }
     var allCounter by remember { mutableStateOf(0) }

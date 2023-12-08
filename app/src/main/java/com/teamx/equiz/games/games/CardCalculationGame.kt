@@ -144,7 +144,7 @@ private fun generateCardsOption(answer: Int): List<OptionCards> {
 }
 
 @Composable
-fun CardCalculationGameScreen(content: @Composable () -> Unit) {
+fun CardCalculationGameScreen(content:  () -> Unit) {
     val cards = generateCards()/*listOf(
         Card(7, CardColor.GREEN), Card(2, CardneoRed)
     )*/

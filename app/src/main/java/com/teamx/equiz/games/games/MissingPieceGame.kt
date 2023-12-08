@@ -1,5 +1,6 @@
 package com.teamx.equiz.games.games
 
+import android.os.CountDownTimer
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -18,8 +19,8 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -44,17 +45,43 @@ enum class Shape {
 }
 
 @Composable
-fun MissingPieceGameScreen(content: @Composable () -> Unit) {
+fun MissingPieceGameScreen(content: () -> Unit) {
+    var isGameOver by remember { mutableStateOf(false) }
+
+    var timeLeft by remember { mutableStateOf(60L) }
+
+    var timerRunning by remember { mutableStateOf(true) }
+    LaunchedEffect(true) {
+//        generateOptions()
+
+        // Start the timer
+        object : CountDownTimer(timeLeft * 1000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                if (timerRunning) {
+                    timeLeft = millisUntilFinished / 1000
+                }
+            }
+
+            override fun onFinish() {
+                isGameOver = true
+            }
+        }.start()
+    }
+
+
+    if (isGameOver) {
+        content()
+    }
     var score by remember { mutableStateOf(0) }
     var currentShapes by remember { mutableStateOf(generateShapes()) }
     var missingShapeIndex by remember { mutableStateOf(generateMissingShapeIndex()) }
 
-Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
-                .background(color = Color(0xFFE1E1E1)),
-        ) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+            .background(color = Color(0xFFE1E1E1)),
+    ) {
 
     Column(
         modifier = Modifier.fillMaxSize(),

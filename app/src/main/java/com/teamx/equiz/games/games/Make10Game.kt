@@ -1,5 +1,6 @@
 package com.teamx.equiz.games.games
 
+import android.os.CountDownTimer
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -19,6 +20,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
@@ -110,7 +112,34 @@ fun PreviewMake10GameScreen() {
 class SelectedCard(var index: Int, var cardValue: Int)
 
 @Composable
-fun Make10GameScreen(content: @Composable () -> Unit = {}) {
+fun Make10GameScreen(content:   () -> Unit = {}) {
+
+    var isGameOver by remember { mutableStateOf(false) }
+
+    var timeLeft by remember { mutableStateOf(60L) }
+
+    var timerRunning by remember { mutableStateOf(true) }
+    LaunchedEffect(true) {
+//        generateOptions()
+
+        // Start the timer
+        object : CountDownTimer(timeLeft * 1000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                if (timerRunning) {
+                    timeLeft = millisUntilFinished / 1000
+                }
+            }
+
+            override fun onFinish() {
+                isGameOver = true
+            }
+        }.start()
+    }
+
+
+    if (isGameOver) {
+        content()
+    }
 //    var availableCards = remember { mutableStateOf(listOf(1, 2, 3, 4, 5, 6, 7, 8, 9)) }
     var availableCards = remember { mutableStateOf(generateArray()) }
     val selectedCards = remember { mutableStateListOf<Int>() }

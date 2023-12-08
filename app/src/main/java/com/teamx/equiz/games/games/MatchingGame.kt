@@ -1,6 +1,7 @@
 package com.teamx.equiz.games.games
 
 import android.os.Build
+import android.os.CountDownTimer
 import android.os.VibrationEffect
 import android.os.Vibrator
 import androidx.annotation.RequiresApi
@@ -31,7 +32,35 @@ var arr = arrayListOf<MemoryItem>()
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun MatchingStepGame(modifier: Modifier, content: @Composable () -> Unit) {
+fun MatchingStepGame(modifier: Modifier, content:   () -> Unit) {
+
+    var isGameOver by remember { mutableStateOf(false) }
+
+    var timeLeft by remember { mutableStateOf(60L) }
+
+    var timerRunning by remember { mutableStateOf(true) }
+    LaunchedEffect(true) {
+//        generateOptions()
+
+        // Start the timer
+        object : CountDownTimer(timeLeft * 1000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                if (timerRunning) {
+                    timeLeft = millisUntilFinished / 1000
+                }
+            }
+
+            override fun onFinish() {
+                isGameOver = true
+            }
+        }.start()
+    }
+
+
+    if (isGameOver) {
+        content()
+    }
+
     var gameStarted by remember { mutableStateOf(false) }
     var r by remember { mutableStateOf(0) }
     var r1 by remember { mutableStateOf(0) }

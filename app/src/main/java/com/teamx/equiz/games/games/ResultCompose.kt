@@ -52,13 +52,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -203,7 +201,8 @@ fun BottomResult2() {
         verticalArrangement = Arrangement.Center
     ) {
         Text(text = "Score", fontSize = 24.sp, color = Color.White, fontWeight = FontWeight.Bold)
-        Icon(imageVector = Icons.Default.Lock, tint = Color.White, contentDescription = null)
+
+        Icon(painter =painterResource(id =R.drawable.padlockrain)/*imageVector = Icons.Default.Lock*/ , contentDescription = null)
     }
 
 }
@@ -233,6 +232,7 @@ fun bottomButtons(onContinueClicked: () -> Unit) {
             modifier = Modifier.width(130.dp),
             shape = RoundedCornerShape(19.dp),
             colors = ButtonDefaults.buttonColors(Color.White)
+
         ) {
             Text(text = "Back", color = Color.Black)
 
@@ -382,8 +382,11 @@ fun TitleHeader(
             modifier = Modifier
 
                 .size(66.dp)
-                .background(Color.White,shape= RoundedCornerShape(8.dp))
+                .background(Color.White, shape = RoundedCornerShape(8.dp))
                 .padding(5.dp)
+                .clickable {
+
+                }
 
         )
         Text(

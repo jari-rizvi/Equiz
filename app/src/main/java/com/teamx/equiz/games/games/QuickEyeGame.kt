@@ -1,5 +1,6 @@
 package com.teamx.equiz.games.games
 
+import android.os.CountDownTimer
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -15,6 +16,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -36,8 +38,33 @@ import kotlin.random.Random
 
 @Preview
 @Composable
-fun QuickEyeGame(content: @Composable () -> Unit = {}) {
-    content()
+fun QuickEyeGame(content:  () -> Unit = {}) {
+    var isGameOver by remember { mutableStateOf(false) }
+
+    var timeLeft by remember { mutableStateOf(60L) }
+
+    var timerRunning by remember { mutableStateOf(true) }
+    LaunchedEffect(true) {
+//        generateOptions()
+
+        // Start the timer
+        object : CountDownTimer(timeLeft * 1000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                if (timerRunning) {
+                    timeLeft = millisUntilFinished / 1000
+                }
+            }
+
+            override fun onFinish() {
+                isGameOver = true
+            }
+        }.start()
+    }
+
+
+    if (isGameOver) {
+        content()
+    }
 
     var restart by remember { mutableStateOf(true) }
 

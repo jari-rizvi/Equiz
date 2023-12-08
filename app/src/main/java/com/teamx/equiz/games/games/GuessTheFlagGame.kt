@@ -40,7 +40,7 @@ import com.teamx.equiz.R
 
 
 @Composable
-fun GuessTheFlagGame(content: @Composable () -> Unit={}) {
+fun GuessTheFlagGame(content:  () -> Unit={}) {
     var score by remember { mutableStateOf(0) }
     var currentFlagIndex by remember { mutableStateOf(0) }
     var guessedCountry by remember { mutableStateOf(TextFieldValue()) }
@@ -163,7 +163,8 @@ fun GuessTheFlagGame(content: @Composable () -> Unit={}) {
         Text("Score: $score", style = MaterialTheme.typography.bodySmall)
 
         if (isGameOver) {
-            Dialog(
+            content()
+         /*   Dialog(
                 onDismissRequest = { isGameOver = false },
 
                 content = {
@@ -183,7 +184,7 @@ fun GuessTheFlagGame(content: @Composable () -> Unit={}) {
                         Text("Retry")
                     }
                 }
-            )
+            )*/
         }
     }
       Image(

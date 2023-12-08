@@ -1,5 +1,6 @@
 package com.teamx.equiz.games.games
 
+import android.os.CountDownTimer
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandVertically
@@ -54,9 +55,34 @@ fun LazyListState.isScrolledToEnd() =
     layoutInfo.visibleItemsInfo.lastOrNull()?.index == layoutInfo.totalItemsCount - 1
 
 @Composable
-fun RainFallGame(content: @Composable () -> Unit) {
+fun RainFallGame(content:  () -> Unit) {
+
+    var isGameOver by remember { mutableStateOf(false) }
+
+    var timeLeft by remember { mutableStateOf(60L) }
+
+    var timerRunning by remember { mutableStateOf(true) }
+    LaunchedEffect(true) {
+//        generateOptions()
+
+        // Start the timer
+        object : CountDownTimer(timeLeft * 1000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                if (timerRunning) {
+                    timeLeft = millisUntilFinished / 1000
+                }
+            }
+
+            override fun onFinish() {
+                isGameOver = true
+            }
+        }.start()
+    }
 
 
+    if (isGameOver) {
+        content()
+    }
 
     Box(
             modifier = Modifier
