@@ -88,11 +88,16 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             mViewModel.getwalletResponse.observe(requireActivity()) {
                 when (it.status) {
                     Resource.Status.LOADING -> {
-                        loadingDialog.show()
+//                        loadingDialog.show()
+                        mViewDataBinding.shimmerLayout.startShimmer()
+                        mViewDataBinding.shimmerLayout.visibility = View.VISIBLE
                     }
 
                     Resource.Status.SUCCESS -> {
-                        loadingDialog.dismiss()
+//                        loadingDialog.dismiss()
+                        mViewDataBinding.shimmerLayout.stopShimmer()
+                        mViewDataBinding.shimmerLayout.visibility = View.GONE
+                        mViewDataBinding.mainLayout.visibility = View.VISIBLE
                         it.data?.let { data ->
 
                             mViewDataBinding.tvCoins.text = data.data.toString()
@@ -100,7 +105,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                     }
 
                     Resource.Status.ERROR -> {
-                        loadingDialog.dismiss()
+//                        loadingDialog.dismiss()
+                        mViewDataBinding.shimmerLayout.stopShimmer()
+                        mViewDataBinding.shimmerLayout.visibility = View.GONE
                         DialogHelperClass.errorDialog(
                             requireContext(), it.message!!
                         )
@@ -121,11 +128,16 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             mViewModel.getTopWinnersResponse.observe(requireActivity()) {
                 when (it.status) {
                     Resource.Status.LOADING -> {
-                        loadingDialog.show()
+//                        loadingDialog.show()
+                        mViewDataBinding.shimmerLayout.startShimmer()
+                        mViewDataBinding.shimmerLayout.visibility = View.VISIBLE
                     }
 
                     Resource.Status.SUCCESS -> {
-                        loadingDialog.dismiss()
+//                        loadingDialog.dismiss()
+                        mViewDataBinding.shimmerLayout.stopShimmer()
+                        mViewDataBinding.shimmerLayout.visibility = View.GONE
+                        mViewDataBinding.mainLayout.visibility = View.VISIBLE
                         it.data?.let { data ->
                             data.game.forEach {
                                 winnerArrayList.add(it)
@@ -138,7 +150,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                     }
 
                     Resource.Status.ERROR -> {
-                        loadingDialog.dismiss()
+//                        loadingDialog.dismiss()
+                        mViewDataBinding.shimmerLayout.stopShimmer()
+                        mViewDataBinding.shimmerLayout.visibility = View.GONE
                         DialogHelperClass.errorDialog(
                             requireContext(), it.message!!
                         )
@@ -158,11 +172,16 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             mViewModel.getquizTitileResponse.observe(requireActivity()) {
                 when (it.status) {
                     Resource.Status.LOADING -> {
-                        loadingDialog.show()
+//                        loadingDialog.show()
+                        mViewDataBinding.shimmerLayout.startShimmer()
+                        mViewDataBinding.shimmerLayout.visibility = View.VISIBLE
                     }
 
                     Resource.Status.SUCCESS -> {
-                        loadingDialog.dismiss()
+//                        loadingDialog.dismiss()
+                        mViewDataBinding.shimmerLayout.stopShimmer()
+                        mViewDataBinding.shimmerLayout.visibility = View.GONE
+                        mViewDataBinding.mainLayout.visibility = View.VISIBLE
                         it.data?.let { data ->
                             data.data.forEach {
                                 quizArrayList.add(it)
@@ -173,7 +192,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                     }
 
                     Resource.Status.ERROR -> {
-                        loadingDialog.dismiss()
+//                        loadingDialog.dismiss()
+                        mViewDataBinding.shimmerLayout.stopShimmer()
+                        mViewDataBinding.shimmerLayout.visibility = View.GONE
                         DialogHelperClass.errorDialog(
                             requireContext(), it.message!!
                         )

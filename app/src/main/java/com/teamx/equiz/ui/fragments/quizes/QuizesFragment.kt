@@ -50,28 +50,38 @@ class QuizesFragment : BaseFragment<FragmentQuizesBinding, QuizesViewModel>(), Q
             }
         }
 
-        TOKENER = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTFlNWZiOGM3NjU2MDdlNzE0NjNiZGYiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3MDE2ODg4ODAsImV4cCI6MTcwMTc3NTI4MH0.th7AmVunSuxLeq8XP5oe-JywCZGijWOAtrqPmImIKzM"
+        TOKENER =
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTFlNWZiOGM3NjU2MDdlNzE0NjNiZGYiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3MDE2ODg4ODAsImV4cCI6MTcwMTc3NTI4MH0.th7AmVunSuxLeq8XP5oe-JywCZGijWOAtrqPmImIKzM"
 
         initializeCategoriesAdapter()
 
 
         if (!mViewModel.quizTitleResponse.hasActiveObservers()) {
-            mViewModel.quizTitle("World",null,"normal")
+            mViewModel.quizTitle("World", null, "normal")
             mViewModel.quizTitleResponse.observe(requireActivity()) {
                 when (it.status) {
                     Resource.Status.LOADING -> {
-                        loadingDialog.show()
+//                        loadingDialog.show()
+                        mViewDataBinding.shimmerLayout.startShimmer()
+                        mViewDataBinding.shimmerLayout.visibility = View.VISIBLE
                     }
+
                     Resource.Status.SUCCESS -> {
-                        loadingDialog.dismiss()
+//                        loadingDialog.dismiss()
+                        mViewDataBinding.shimmerLayout.stopShimmer()
+                        mViewDataBinding.shimmerLayout.visibility = View.GONE
+                        mViewDataBinding.mainLayout.visibility = View.VISIBLE
                         it.data?.let { data ->
                             strArrayList.clear()
                             strArrayList.addAll(data.data)
                             quizesAdapter.notifyDataSetChanged()
                         }
                     }
+
                     Resource.Status.ERROR -> {
-                        loadingDialog.dismiss()
+//                        loadingDialog.dismiss()
+                        mViewDataBinding.shimmerLayout.stopShimmer()
+                        mViewDataBinding.shimmerLayout.visibility = View.GONE
                         if (isAdded) {
                             mViewDataBinding.root.snackbar(it.message!!)
                         }
@@ -86,9 +96,9 @@ class QuizesFragment : BaseFragment<FragmentQuizesBinding, QuizesViewModel>(), Q
     private fun initializeCategoriesAdapter() {
         strArrayList = ArrayList()
         strTitleArrayList = ArrayList()
-        strTitleArrayList.add(TitleData("World",true))
-        strTitleArrayList.add(TitleData("World",false))
-        strTitleArrayList.add(TitleData("World",false))
+        strTitleArrayList.add(TitleData("World", true))
+        strTitleArrayList.add(TitleData("World", false))
+        strTitleArrayList.add(TitleData("World", false))
 
         val layoutManager1 =
             LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
@@ -106,18 +116,18 @@ class QuizesFragment : BaseFragment<FragmentQuizesBinding, QuizesViewModel>(), Q
         mViewDataBinding.recQuizes.adapter = quizesAdapter
     }
 
-    override fun quizTitle(position : Int) {
+    override fun quizTitle(position: Int) {
         strTitleArrayList.forEach { it.isSelected = false }
         strTitleArrayList[position].isSelected = true
         quizesTitleAdapter.notifyDataSetChanged()
-        mViewModel.quizTitle("World",null,"normal")
+        mViewModel.quizTitle("World", null, "normal")
     }
 
-    override fun quizeItem(position : Int) {
+    override fun quizeItem(position: Int) {
         val modelQuiz = strArrayList[position]
         val bundle = Bundle()
-        bundle.putString("modelQuizId",modelQuiz._id)
-        findNavController().navigate(R.id.action_quizesFragment_to_singleQuizFragment,bundle)
+        bundle.putString("modelQuizId", modelQuiz._id)
+        findNavController().navigate(R.id.action_quizesFragment_to_singleQuizFragment, bundle)
     }
 
     /*   override fun quizeItem() {
@@ -127,8 +137,8 @@ class QuizesFragment : BaseFragment<FragmentQuizesBinding, QuizesViewModel>(), Q
 }
 
 interface QuizesInterface {
-    fun quizTitle(position : Int)
-    fun quizeItem(position : Int)
+    fun quizTitle(position: Int)
+    fun quizeItem(position: Int)
 }
 
 data class TitleData(

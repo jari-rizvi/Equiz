@@ -56,11 +56,16 @@ class QuizFragment : BaseFragment<FragmentWishlistBinding, WishlistViewModel>() 
             mViewModel.wishlistResponse.observe(requireActivity()) {
                 when (it.status) {
                     Resource.Status.LOADING -> {
-                        loadingDialog.show()
+//                        loadingDialog.show()
+                        mViewDataBinding.shimmerLayout.startShimmer()
+                        mViewDataBinding.shimmerLayout.visibility = View.VISIBLE
                     }
 
                     Resource.Status.SUCCESS -> {
-                        loadingDialog.dismiss()
+//                        loadingDialog.dismiss()
+                        mViewDataBinding.shimmerLayout.stopShimmer()
+                        mViewDataBinding.shimmerLayout.visibility = View.GONE
+                        mViewDataBinding.mainLayout.visibility = View.VISIBLE
                         it.data?.let { data ->
                             data.data.forEach {
                                 favouriteArrayList.add(it.product)
@@ -70,7 +75,9 @@ class QuizFragment : BaseFragment<FragmentWishlistBinding, WishlistViewModel>() 
                     }
 
                     Resource.Status.ERROR -> {
-                        loadingDialog.dismiss()
+//                        loadingDialog.dismiss()
+                        mViewDataBinding.shimmerLayout.stopShimmer()
+                        mViewDataBinding.shimmerLayout.visibility = View.GONE
                         DialogHelperClass.errorDialog(
                             requireContext(),
                             it.message!!

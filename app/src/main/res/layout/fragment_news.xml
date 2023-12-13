@@ -3,138 +3,159 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/bg"
-        >
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/btnback"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.05"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:tint="@color/black"
-            app:layout_constraintVertical_bias="0.05"
-            app:srcCompat="@drawable/arrow_left" />
-
-        <TextView
-            android:id="@+id/textView"
-            style="@style/popins_regular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/news"
-            android:textSize="@dimen/_14ssp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/btnback"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/btnback"
-            app:layout_constraintVertical_bias="0.05" />
-
-        <TextView
-            android:id="@+id/textView1"
-            style="@style/popins_regular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/todays_news"
-            android:textSize="@dimen/_12ssp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toStartOf="@+id/btnback"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
-            app:layout_constraintVertical_bias="0.02" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recylertodaysnews"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/mainLayout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_130sdp"
-            android:layout_marginHorizontal="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView1"
-            app:layout_constraintVertical_bias="0"
-            tools:itemCount="3"
-            tools:listitem="@layout/item_news" />
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:background="@drawable/bg">
 
-        <TextView
-            android:id="@+id/textView12"
-            style="@style/popins_regular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/upcoming_news"
-            android:textSize="@dimen/_12ssp"
-            android:textColor="@color/black"
+            <ImageView
+                android:id="@+id/btnback"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.05"
+                app:srcCompat="@drawable/arrow_left"
+                app:tint="@color/black" />
 
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toStartOf="@+id/recylertodaysnews"
-            app:layout_constraintTop_toBottomOf="@+id/recylertodaysnews"
-            app:layout_constraintVertical_bias="0.05" />
+            <TextView
+                android:id="@+id/textView"
+                style="@style/popins_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/news"
+                android:textSize="@dimen/_14ssp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/btnback"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/btnback"
+                app:layout_constraintVertical_bias="0.05" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recylerupcomingnews"
+            <TextView
+                android:id="@+id/textView1"
+                style="@style/popins_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/todays_news"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12ssp"
+                android:textStyle="bold"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toStartOf="@+id/btnback"
+                app:layout_constraintTop_toBottomOf="@+id/textView"
+                app:layout_constraintVertical_bias="0.02" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recylertodaysnews"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_130sdp"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView1"
+                app:layout_constraintVertical_bias="0"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_news" />
+
+            <TextView
+                android:id="@+id/textView12"
+                style="@style/popins_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/upcoming_news"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12ssp"
+
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toStartOf="@+id/recylertodaysnews"
+                app:layout_constraintTop_toBottomOf="@+id/recylertodaysnews"
+                app:layout_constraintVertical_bias="0.05" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recylerupcomingnews"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_130sdp"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView12"
+                app:layout_constraintVertical_bias="0"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_news" />
+
+            <TextView
+                android:id="@+id/textView122"
+                style="@style/popins_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/recent_news"
+                android:textSize="@dimen/_12ssp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toStartOf="@+id/recylerupcomingnews"
+                app:layout_constraintTop_toBottomOf="@+id/recylerupcomingnews"
+                app:layout_constraintVertical_bias="0.05" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recylerrecentnews"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_130sdp"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView122"
+                app:layout_constraintVertical_bias="0.05"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_news" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerLayout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_130sdp"
-            android:layout_marginHorizontal="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView12"
-            app:layout_constraintVertical_bias="0"
-            tools:itemCount="3"
-            tools:listitem="@layout/item_news" />
+            android:layout_height="match_parent"
+            android:visibility="visible">
 
-        <TextView
-            android:id="@+id/textView122"
-            style="@style/popins_regular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/recent_news"
-            android:textSize="@dimen/_12ssp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toStartOf="@+id/recylerupcomingnews"
-            app:layout_constraintTop_toBottomOf="@+id/recylerupcomingnews"
-            app:layout_constraintVertical_bias="0.05" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recylerrecentnews"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_130sdp"
-            android:layout_marginHorizontal="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView122"
-            app:layout_constraintVertical_bias="0.05"
-            tools:itemCount="3"
-            tools:listitem="@layout/item_news" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <include layout="@layout/shimmer_news" />
 
+            </LinearLayout>
 
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+    </RelativeLayout>
 </layout>

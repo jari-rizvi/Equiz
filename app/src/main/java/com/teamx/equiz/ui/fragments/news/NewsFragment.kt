@@ -76,13 +76,19 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(),onNewsli
             mViewModel.getCurrentNewsResponse.observe(requireActivity()) {
                 when (it.status) {
                     Resource.Status.LOADING -> {
-                        loadingDialog.show()
+//                        loadingDialog.show()
+                        mViewDataBinding.shimmerLayout.startShimmer()
+                        mViewDataBinding.shimmerLayout.visibility = View.VISIBLE
 
                     }
 
                     Resource.Status.SUCCESS -> {
-                        loadingDialog.dismiss()
+//                        loadingDialog.dismiss()
                         it.data?.let { data ->
+
+                            mViewDataBinding.shimmerLayout.stopShimmer()
+                            mViewDataBinding.shimmerLayout.visibility = View.GONE
+                            mViewDataBinding.mainLayout.visibility = View.VISIBLE
 
                             newsArrayListcurrent.addAll(data.newsData)
 
@@ -93,7 +99,9 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(),onNewsli
                     }
 
                     Resource.Status.ERROR -> {
-                        loadingDialog.dismiss()
+//                        loadingDialog.dismiss()
+                        mViewDataBinding.shimmerLayout.stopShimmer()
+                        mViewDataBinding.shimmerLayout.visibility = View.GONE
                         DialogHelperClass.errorDialog(
                             requireContext(),
                             it.message!!

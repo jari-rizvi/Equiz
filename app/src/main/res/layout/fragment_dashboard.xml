@@ -3,318 +3,193 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/btnback"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.05"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.05"
-            app:srcCompat="@drawable/baseline_menu"
-            app:tint="@color/black" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Emirates Q"
-            android:textColor="@color/red"
-            android:textSize="@dimen/_14ssp"
-            style="@style/popins_bold"
-            app:layout_constraintBottom_toBottomOf="@+id/btnback"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/btnback"
-            app:layout_constraintVertical_bias="0.05" />
-
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/topCoinContainer"
-            style="@style/popins_bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Emirates Q"
-            android:textColor="@color/red"
-            android:textSize="@dimen/_14ssp"
-            app:layout_constraintBottom_toBottomOf="@+id/btnback"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.89"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/btnback">
+            android:id="@+id/mainLayout"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/coinImg"
-                style="@style/popins_bold"
+                android:id="@+id/btnback"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:elevation="@dimen/_5sdp"
-                android:src="@drawable/coin"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.05"
+                app:srcCompat="@drawable/baseline_menu"
+                app:tint="@color/black" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="Emirates Q"
                 android:textColor="@color/red"
                 android:textSize="@dimen/_14ssp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                style="@style/popins_bold"
+                app:layout_constraintBottom_toBottomOf="@+id/btnback"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.01"
+                app:layout_constraintHorizontal_bias="0.2"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/btnback"
                 app:layout_constraintVertical_bias="0.05" />
 
-            <TextView
-                android:id="@+id/tv_coins"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/topCoinContainer"
                 style="@style/popins_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_15sdp"
-                android:background="@drawable/rounded_dialog_background"
-                android:backgroundTint="#9F81C9"
-                android:gravity="center"
-                android:paddingStart="@dimen/_25sdp"
-                android:paddingEnd="@dimen/_15sdp"
-                android:text="2500"
-                android:textColor="@color/white"
+                android:text="Emirates Q"
+                android:textColor="@color/red"
                 android:textSize="@dimen/_14ssp"
-                app:drawableRightCompat="@drawable/plus_dash"
-                 android:drawablePadding="@dimen/_5sdp"
-                app:layout_constraintBottom_toBottomOf="@+id/coinImg"
+                app:layout_constraintBottom_toBottomOf="@+id/btnback"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.2"
-                app:layout_constraintStart_toStartOf="@+id/coinImg"
-                app:layout_constraintTop_toTopOf="@+id/coinImg" />
+                app:layout_constraintHorizontal_bias="0.89"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/btnback">
+
+                <ImageView
+                    android:id="@+id/coinImg"
+                    style="@style/popins_bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elevation="@dimen/_5sdp"
+                    android:src="@drawable/coin"
+                    android:text="Emirates Q"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/_14ssp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.01"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.05" />
+
+                <TextView
+                    android:id="@+id/tv_coins"
+                    style="@style/popins_bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:background="@drawable/rounded_dialog_background"
+                    android:backgroundTint="#9F81C9"
+                    android:gravity="center"
+                    android:paddingStart="@dimen/_25sdp"
+                    android:paddingEnd="@dimen/_15sdp"
+                    android:text="2500"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_14ssp"
+                    app:drawableRightCompat="@drawable/plus_dash"
+                    android:drawablePadding="@dimen/_5sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/coinImg"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.2"
+                    app:layout_constraintStart_toStartOf="@+id/coinImg"
+                    app:layout_constraintTop_toTopOf="@+id/coinImg" />
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout4"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/_80sdp"
-            android:layout_margin="@dimen/_10sdp"
-            android:background="@drawable/card_background"
-            android:elevation="@dimen/_2sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
-            app:layout_constraintVertical_bias="0.0">
-
-            <ImageView
-                android:id="@+id/img"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout4"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_height="@dimen/_80sdp"
+                android:layout_margin="@dimen/_10sdp"
                 android:background="@drawable/card_background"
-                android:clipToOutline="true"
-                android:scaleType="fitXY"
-                android:src="@drawable/successmark"
+                android:elevation="@dimen/_2sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/textView"
+                app:layout_constraintVertical_bias="0.0">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <ImageView
+                    android:id="@+id/img"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/card_background"
+                    android:clipToOutline="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/successmark"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/constraintLayout4"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout4"
-            app:layout_constraintVertical_bias="0.05">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <!--<TextView
-                    android:id="@+id/textView14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Games"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.05"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.02" />
-
-                <TextView
-                    android:id="@+id/textView15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="See all"
-                    android:gravity="center"
-                    android:drawableEnd="@drawable/right"
-                    android:drawableTint="@color/theme_color"
-                    android:textColor="@color/theme_color"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView14"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.9"
-                    app:layout_constraintStart_toEndOf="@+id/textView14"
-                    app:layout_constraintTop_toTopOf="@+id/textView14" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/gamesRecycler"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_10sdp"
-                    android:orientation="horizontal"
-                    tools:listitem="@layout/item_games"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView14"
-                    app:layout_constraintVertical_bias="0.02" />-->
-
-                <TextView
-                    android:id="@+id/textView16"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/quizzes"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.05"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.03" />
-
-                <TextView
-                    android:id="@+id/textView155"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="See all"
-                    android:drawableEnd="@drawable/see_allicon"
-                    android:gravity="center"
-                    android:drawableTint="@color/theme_color"
-                    android:textColor="@color/theme_color"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView16"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.9"
-                    app:layout_constraintStart_toEndOf="@+id/textView16"
-                    app:layout_constraintTop_toTopOf="@+id/textView16" />
-
-
-               <!-- <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/tabLayout"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_15sdp"
-                    android:elevation="@dimen/_3sdp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView16"
-                    app:layout_constraintVertical_bias="0.02"
-                    app:tabBackground="@drawable/tab_background"
-                    app:tabRippleColor="@null"
-                    app:tabTextAppearance="@style/tabTextColor"
-                    app:tabTextColor="@color/white" />
-
-
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/viewPager"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_200sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintVertical_bias="0.02"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tabLayout">
-
-                </androidx.viewpager2.widget.ViewPager2>-->
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recCategories"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView16"
-                    app:layout_constraintVertical_bias="0.02"
-                    tools:listitem="@layout/item_quizes_title" />
-
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recQuizes"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_270sdp"
-                    android:maxHeight="@dimen/_70sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recCategories"
-                    app:layout_constraintVertical_bias="0"
-                    app:spanCount="2"
-                    tools:listitem="@layout/item_quzies" />
-
-
-                <TextView
-                    android:id="@+id/textView17"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/top_winners"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.05"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recQuizes"
-                    app:layout_constraintVertical_bias="0.05" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/winnerRecycler"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_10sdp"
-                    tools:listitem="@layout/item_winner"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView17"
-                    app:layout_constraintVertical_bias="0.03" />
-                <!--Bottom Game rec-->
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/constraintLayout4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout4"
+                app:layout_constraintVertical_bias="0.05">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/bottomGameLayout"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:paddingBottom="@dimen/_50sdp"
-                    app:layout_constraintTop_toBottomOf="@+id/winnerRecycler">
+                    app:layout_constraintTop_toTopOf="parent">
 
-                    <TextView
-                        android:id="@+id/gameTitle"
+                    <!--<TextView
+                        android:id="@+id/textView14"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/Games"
+                        android:text="Games"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.05"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.02" />
+
+                    <TextView
+                        android:id="@+id/textView15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="See all"
+                        android:gravity="center"
+                        android:drawableEnd="@drawable/right"
+                        android:drawableTint="@color/theme_color"
+                        android:textColor="@color/theme_color"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView14"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.9"
+                        app:layout_constraintStart_toEndOf="@+id/textView14"
+                        app:layout_constraintTop_toTopOf="@+id/textView14" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/gamesRecycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_10sdp"
+                        android:orientation="horizontal"
+                        tools:listitem="@layout/item_games"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView14"
+                        app:layout_constraintVertical_bias="0.02" />-->
+
+                    <TextView
+                        android:id="@+id/textView16"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/quizzes"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12ssp"
                         android:textStyle="bold"
@@ -326,42 +201,193 @@
                         app:layout_constraintVertical_bias="0.03" />
 
                     <TextView
-                        android:id="@+id/seeAllGames"
+                        android:id="@+id/textView155"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawableEnd="@drawable/see_allicon"
-                        android:drawableTint="@color/theme_color"
-                        android:gravity="center"
                         android:text="See all"
+                        android:drawableEnd="@drawable/see_allicon"
+                        android:gravity="center"
+                        android:drawableTint="@color/theme_color"
                         android:textColor="@color/theme_color"
-                        app:layout_constraintBottom_toBottomOf="@+id/gameTitle"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView16"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.9"
-                        app:layout_constraintStart_toEndOf="@+id/gameTitle"
-                        app:layout_constraintTop_toTopOf="@+id/gameTitle" />
+                        app:layout_constraintStart_toEndOf="@+id/textView16"
+                        app:layout_constraintTop_toTopOf="@+id/textView16" />
+
+
+                    <!-- <com.google.android.material.tabs.TabLayout
+                         android:id="@+id/tabLayout"
+                         android:layout_width="0dp"
+                         android:layout_height="wrap_content"
+                         android:layout_marginHorizontal="@dimen/_15sdp"
+                         android:elevation="@dimen/_3sdp"
+                         app:layout_constraintBottom_toBottomOf="parent"
+                         app:layout_constraintEnd_toEndOf="parent"
+                         app:layout_constraintStart_toStartOf="parent"
+                         app:layout_constraintTop_toBottomOf="@+id/textView16"
+                         app:layout_constraintVertical_bias="0.02"
+                         app:tabBackground="@drawable/tab_background"
+                         app:tabRippleColor="@null"
+                         app:tabTextAppearance="@style/tabTextColor"
+                         app:tabTextColor="@color/white" />
+
+
+                     <androidx.viewpager2.widget.ViewPager2
+                         android:id="@+id/viewPager"
+                         android:layout_width="0dp"
+                         android:layout_height="@dimen/_200sdp"
+                         android:layout_marginTop="@dimen/_10sdp"
+                         app:layout_constraintBottom_toBottomOf="parent"
+                         app:layout_constraintEnd_toEndOf="parent"
+                         app:layout_constraintVertical_bias="0.02"
+                         app:layout_constraintStart_toStartOf="parent"
+                         app:layout_constraintTop_toBottomOf="@+id/tabLayout">
+
+                     </androidx.viewpager2.widget.ViewPager2>-->
+
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/allGamesRecycler"
-                        android:layout_width="match_parent"
+                        android:id="@+id/recCategories"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/_10sdp"
                         android:orientation="horizontal"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/gameTitle"
-                        app:layout_constraintVertical_bias="0.03"
-                        tools:listitem="@layout/games_item_layout_dash" />
+                        app:layout_constraintTop_toBottomOf="@+id/textView16"
+                        app:layout_constraintVertical_bias="0.02"
+                        tools:listitem="@layout/item_quizes_title" />
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recQuizes"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_270sdp"
+                        android:maxHeight="@dimen/_70sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/recCategories"
+                        app:layout_constraintVertical_bias="0"
+                        app:spanCount="2"
+                        tools:listitem="@layout/item_quzies" />
+
+
+                    <TextView
+                        android:id="@+id/textView17"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/top_winners"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.05"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/recQuizes"
+                        app:layout_constraintVertical_bias="0.05" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/winnerRecycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_10sdp"
+                        tools:listitem="@layout/item_winner"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView17"
+                        app:layout_constraintVertical_bias="0.03" />
+                    <!--Bottom Game rec-->
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/bottomGameLayout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:paddingBottom="@dimen/_50sdp"
+                        app:layout_constraintTop_toBottomOf="@+id/winnerRecycler">
+
+                        <TextView
+                            android:id="@+id/gameTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/Games"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12ssp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.05"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.03" />
+
+                        <TextView
+                            android:id="@+id/seeAllGames"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableEnd="@drawable/see_allicon"
+                            android:drawableTint="@color/theme_color"
+                            android:gravity="center"
+                            android:text="See all"
+                            android:textColor="@color/theme_color"
+                            app:layout_constraintBottom_toBottomOf="@+id/gameTitle"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.9"
+                            app:layout_constraintStart_toEndOf="@+id/gameTitle"
+                            app:layout_constraintTop_toTopOf="@+id/gameTitle" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/allGamesRecycler"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/_10sdp"
+                            android:orientation="horizontal"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/gameTitle"
+                            app:layout_constraintVertical_bias="0.03"
+                            tools:listitem="@layout/games_item_layout_dash" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </ScrollView>
+            </ScrollView>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <include layout="@layout/shimmer_dashboard" />
+
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+    </RelativeLayout>
+
+
 
 
 </layout>

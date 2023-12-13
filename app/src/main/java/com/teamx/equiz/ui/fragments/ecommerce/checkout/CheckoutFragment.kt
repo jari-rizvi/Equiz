@@ -58,11 +58,16 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
             mViewModel.getcartResponse.observe(requireActivity(), Observer {
                 when (it.status) {
                     Resource.Status.LOADING -> {
-                        loadingDialog.show()
+//                        loadingDialog.show()
+                        mViewDataBinding.shimmerLayout.startShimmer()
+                        mViewDataBinding.shimmerLayout.visibility = View.VISIBLE
                     }
 
                     Resource.Status.SUCCESS -> {
-                        loadingDialog.dismiss()
+//                        loadingDialog.dismiss()
+                        mViewDataBinding.shimmerLayout.stopShimmer()
+                        mViewDataBinding.shimmerLayout.visibility = View.GONE
+                        mViewDataBinding.mainLayout.visibility = View.VISIBLE
                         it.data?.let { data ->
 
                             data.data.forEach {
@@ -79,7 +84,9 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
                     }
 
                     Resource.Status.ERROR -> {
-                        loadingDialog.dismiss()
+//                        loadingDialog.dismiss()
+                        mViewDataBinding.shimmerLayout.stopShimmer()
+                        mViewDataBinding.shimmerLayout.visibility = View.GONE
                         DialogHelperClass.errorDialog(requireContext(), it.message!!)
                     }
                 }
@@ -117,11 +124,16 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
             mViewModel.deleteCartResponse.observe(requireActivity(), Observer {
                 when (it.status) {
                     Resource.Status.LOADING -> {
-                        loadingDialog.show()
+//                        loadingDialog.show()
+                        mViewDataBinding.shimmerLayout.startShimmer()
+                        mViewDataBinding.shimmerLayout.visibility = View.VISIBLE
                     }
 
                     Resource.Status.SUCCESS -> {
-                        loadingDialog.dismiss()
+//                        loadingDialog.dismiss()
+                        mViewDataBinding.shimmerLayout.stopShimmer()
+                        mViewDataBinding.shimmerLayout.visibility = View.GONE
+                        mViewDataBinding.mainLayout.visibility = View.VISIBLE
                         it.data?.let { data ->
                             cartArrayList2  .clear()
                             mViewModel.getCart()
@@ -130,7 +142,9 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
                     }
 
                     Resource.Status.ERROR -> {
-                        loadingDialog.dismiss()
+//                        loadingDialog.dismiss()
+                        mViewDataBinding.shimmerLayout.stopShimmer()
+                        mViewDataBinding.shimmerLayout.visibility = View.GONE
                         DialogHelperClass.errorDialog(requireContext(), it.message!!)
                     }
                 }
