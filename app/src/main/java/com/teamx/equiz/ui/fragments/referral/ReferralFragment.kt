@@ -1,6 +1,5 @@
 package com.teamx.equiz.ui.fragments.referral
 
-
 import android.app.Dialog
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -46,15 +45,13 @@ class ReferralFragment : BaseFragment<FragmentReferralBinding, ReferralViewModel
         }
 
         mViewDataBinding.btnInvite.setOnClickListener {
-
             DialogHelperClass.InviteDialog(
-                
                 requireContext(), this, true
             )
         }
+
         mViewDataBinding.textView8.setOnClickListener {
             onClickCoupon(mViewDataBinding.code.text.toString())
-
         }
 
     }

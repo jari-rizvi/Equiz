@@ -19,7 +19,6 @@ class DialogHelperClass {
             return dialog
         }
 
-
         fun errorDialog(context: Context, errorMessage: String) {
             val dialog = Dialog(context)
             dialog.setContentView(R.layout.dialog_layout_error)
@@ -29,19 +28,13 @@ class DialogHelperClass {
             dialog.show()
         }
 
-
-
-
-
-
-
         interface DialogInviteAnotherCallBack {
             fun InviteClicked()
         }
 
         fun InviteDialog(context: Context, dialogLoginCallBack: DialogInviteAnotherCallBack, boo: Boolean) {
             val dialog = Dialog(context)
-            dialog.setContentView(R.layout.quiz_dialog)
+            dialog.setContentView(R.layout.invite_dialog)
             dialog.window!!.setLayout(
                 WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT
             )
@@ -55,11 +48,6 @@ class DialogHelperClass {
                 }
                 dialog.dismiss()
             }
-
-   /*         val cancelBtn = dialog.findViewById<TextView>(R.id.cancelBtn)
-            cancelBtn.setOnClickListener {
-                dialog.dismiss()
-            }*/
 
             dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             dialog.show()
@@ -123,11 +111,6 @@ class DialogHelperClass {
             dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             dialog.show()
         }
-
-
-
-
-
 
     }
 }

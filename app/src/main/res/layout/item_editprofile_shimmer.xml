@@ -1,44 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/consRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorAccent">
-        <com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/shimmerLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <include layout="@layout/item_editprofile_shimmer" />
-
-
-            </LinearLayout>
-
-        </com.facebook.shimmer.ShimmerFrameLayout>
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <ImageView
@@ -47,27 +21,31 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:backgroundTint="#B5B5B5"
             app:layout_constraintHorizontal_bias="0.05"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.05"
             app:srcCompat="@drawable/arrow_left"
-            app:tint="@color/black" />
+            app:tint="@color/white" />
 
         <TextView
             android:id="@+id/textView"
             style="@style/popins_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="#B5B5B5"
+            android:backgroundTint="#B5B5B5"
             android:text="Edit Profile"
-            android:textColor="@color/black"
+            android:textColor="#B5B5B5"
             android:textSize="@dimen/_14ssp"
             app:layout_constraintBottom_toBottomOf="@+id/btnback"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/btnback"
-            app:layout_constraintVertical_bias="0.05" />
+            app:layout_constraintVertical_bias="0.05"
+            app:tint="#B5B5B5" />
 
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -76,27 +54,29 @@
             android:layout_height="@dimen/_60sdp"
             android:layout_centerInParent="true"
             android:background="@drawable/border_background"
+            android:backgroundTint="#B5B5B5"
             android:elevation="@dimen/_5sdp"
             android:padding="@dimen/_2sdp"
-            android:src="@drawable/baseline_person"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"
-            app:layout_constraintVertical_bias="0.05" />
+            app:layout_constraintVertical_bias="0.05"
+            app:tint="#B5B5B5" />
 
         <ImageView
             android:id="@+id/btnAddPicture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="#B5B5B5"
             android:elevation="@dimen/_5sdp"
-            android:src="@drawable/camera_icon"
             app:layout_constraintBottom_toBottomOf="@+id/profilePicture"
             app:layout_constraintEnd_toEndOf="@+id/profilePicture"
             app:layout_constraintHorizontal_bias="1"
             app:layout_constraintStart_toStartOf="@+id/profilePicture"
             app:layout_constraintTop_toTopOf="@+id/profilePicture"
-            app:layout_constraintVertical_bias="1" />
+            app:layout_constraintVertical_bias="1"
+            app:tint="#B5B5B5" />
 
 
         <EditText
@@ -106,12 +86,12 @@
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_marginBottom="@dimen/_5sdp"
-            android:background="@drawable/contact_input_background"
+            android:background="#B5B5B5"
             android:maxLength="30"
             android:minHeight="@dimen/_35sdp"
             android:paddingStart="@dimen/_10sdp"
             android:singleLine="true"
-            android:textColor="@color/black"
+            android:textColor="#B5B5B5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView25" />
@@ -124,8 +104,9 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:layout_marginBottom="@dimen/_5sdp"
+            android:background="#B5B5B5"
             android:text="@string/personal_information"
-            android:textColor="@color/black"
+            android:textColor="#B5B5B5"
             android:textSize="@dimen/_12ssp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -141,10 +122,11 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:layout_marginBottom="@dimen/_5sdp"
+            android:background="#B5B5B5"
             android:text="User Name"
-            android:textStyle="bold"
-            android:textColor="@color/black"
+            android:textColor="#B5B5B5"
             android:textSize="@dimen/_12ssp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -157,13 +139,13 @@
             android:layout_height="@dimen/_35sdp"
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_5sdp"
-            android:background="@drawable/contact_input_background"
+            android:background="#B5B5B5"
             android:enabled="false"
             android:inputType="textEmailAddress"
             android:minHeight="@dimen/_35sdp"
             android:paddingStart="@dimen/_10sdp"
-            android:textColor="@color/black"
             android:singleLine="true"
+            android:textColor="#B5B5B5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etaTxt" />
@@ -176,10 +158,11 @@
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_marginBottom="@dimen/_5sdp"
+            android:background="#B5B5B5"
             android:text="Email"
-            android:textStyle="bold"
-            android:textColor="@color/black"
+            android:textColor="#B5B5B5"
             android:textSize="@dimen/_12ssp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/userName" />
@@ -190,12 +173,12 @@
             android:layout_height="@dimen/_35sdp"
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_5sdp"
-            android:background="@drawable/contact_input_background"
+            android:background="#B5B5B5"
             android:inputType="phone"
             android:minHeight="@dimen/_35sdp"
             android:paddingStart="@dimen/_10sdp"
             android:singleLine="true"
-            android:textColor="@color/black"
+            android:textColor="#B5B5B5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Address" />
@@ -207,10 +190,11 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_5sdp"
+            android:background="#B5B5B5"
             android:text="Mobile Number"
-            android:textStyle="bold"
-            android:textColor="@color/black"
+            android:textColor="#B5B5B5"
             android:textSize="@dimen/_12ssp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/btnChangePhone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/email" />
@@ -223,15 +207,14 @@
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_marginBottom="@dimen/_7sdp"
-            android:background="@drawable/contact_input_background"
-            android:drawableEnd="@drawable/calendar"
+            android:background="#B5B5B5"
             android:drawableTint="@color/black"
             android:inputType="text"
             android:minHeight="@dimen/_35sdp"
             android:padding="@dimen/_5sdp"
             android:paddingStart="@dimen/_10sdp"
             android:singleLine="true"
-            android:textColor="@color/black"
+            android:textColor="#B5B5B5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2444"
@@ -244,10 +227,11 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_5sdp"
+            android:background="#B5B5B5"
             android:text="Date of birth"
-            android:textStyle="bold"
-            android:textColor="@color/black"
+            android:textColor="#B5B5B5"
             android:textSize="@dimen/_12ssp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/btnChangePass"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/phone" />
@@ -260,13 +244,13 @@
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_marginBottom="@dimen/_7sdp"
-            android:background="@drawable/contact_input_background"
+            android:background="#B5B5B5"
             android:inputType="text"
             android:minHeight="@dimen/_35sdp"
             android:padding="@dimen/_5sdp"
             android:paddingStart="@dimen/_10sdp"
             android:singleLine="true"
-            android:textColor="@color/black"
+            android:textColor="#B5B5B5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView244"
@@ -279,8 +263,9 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_5sdp"
+            android:background="#B5B5B5"
             android:text="Password"
-            android:textColor="@color/black"
+            android:textColor="#B5B5B5"
             android:textSize="@dimen/_12ssp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/btnChangePass"
@@ -290,15 +275,15 @@
 
         <TextView
             android:id="@+id/btnSave"
+            style="@style/popins_bold"
             android:layout_width="286dp"
             android:layout_height="@dimen/_40sdp"
             android:layout_marginTop="20dp"
             android:background="@drawable/card_background_border"
-            android:backgroundTint="@color/theme_color"
+            android:backgroundTint="#B5B5B5"
             android:gravity="center"
             android:text="Save"
-            style="@style/popins_bold"
-            android:textColor="@color/white"
+            android:textColor="#B5B5B5"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
@@ -308,14 +293,15 @@
 
         <TextView
             android:id="@+id/btnChangePass"
+            style="@style/popins_regular"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginEnd="@dimen/_15sdp"
+            android:background="#B5B5B5"
             android:text="Change Password"
-            style="@style/popins_regular"
-            android:textColor="@color/black"
-            android:textStyle="bold"
+            android:textColor="#B5B5B5"
             android:textSize="@dimen/_12ssp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/textView244"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView244" />
@@ -325,15 +311,14 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginEnd="@dimen/_15sdp"
+            android:background="#B5B5B5"
             android:text="Change Phone Number"
-            android:textColor="@color/black"
+            android:textColor="#B5B5B5"
             android:textSize="@dimen/_10ssp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/Address"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/Address" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>
