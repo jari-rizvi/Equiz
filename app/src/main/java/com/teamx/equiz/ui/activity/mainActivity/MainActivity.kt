@@ -38,11 +38,9 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-//for tetris
         StatusBarUtil.transparentStatusBar(this)
         SoundUtil.init(this)
 
-        //
 
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
@@ -104,6 +102,12 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
         mViewDataBinding.drawerLayoutMain.btnCollectPrize.setOnClickListener {
             mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
             navController!!.navigate(R.id.profileFragment)
+        }
+
+        mViewDataBinding.drawerLayoutMain.btnCoupon.setOnClickListener {
+            mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            navController!!.navigate(R.id.coupnsFragment
+            )
         }
 
         mViewDataBinding.drawerLayoutMain.btnleaderboard.setOnClickListener {

@@ -20,6 +20,10 @@ import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentEditProfileBinding
 import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -70,9 +74,18 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
             fetchImageFromGallery()
         }
 
+        GlobalScope.launch(Dispatchers.Main) {
+            mViewDataBinding.shimmerLayout.visibility = View.GONE
+            mViewDataBinding.root.visibility = View.VISIBLE
+            delay(3000)
+
+        }
+
+
 
 
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
+
         mViewDataBinding.btnSave.setOnClickListener {
             userName = mViewDataBinding.userName.text.toString()
             if (userName.isNotEmpty()) {

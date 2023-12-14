@@ -59,6 +59,10 @@ class WishlistFragment : BaseFragment<FragmentWishlistBinding, WishlistViewModel
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
+
+                            mViewDataBinding.shimmerLayout.visibility = View.GONE
+                            mViewDataBinding.root.visibility = View.VISIBLE
+
                             data.data.forEach {
                                 favouriteArrayList.add(it.product)
                             }

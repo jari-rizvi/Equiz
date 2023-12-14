@@ -100,6 +100,10 @@ class ProductProfileFragment :
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
+
+                            mViewDataBinding.shimmerLayout.visibility = View.GONE
+                            mViewDataBinding.root.visibility = View.VISIBLE
+
                             mViewDataBinding.productName.text = it.data.data.title
                             mViewDataBinding.productPrice.text = it.data.data.price.toString()
                             mViewDataBinding.desc.text = it.data.data.description

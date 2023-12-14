@@ -12,131 +12,104 @@
         android:layout_height="match_parent">
 
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <include layout="@layout/item_product_profile_shimmer" />
+
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/root"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.appbar.AppBarLayout
-                android:id="@+id/appBar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fitsSystemWindows="true"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-                <com.google.android.material.appbar.CollapsingToolbarLayout
-                    android:id="@+id/collapsing_toolbar"
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.appbar.AppBarLayout
+                    android:id="@+id/appBar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fitsSystemWindows="true"
-                    app:layout_scrollFlags="scroll|snap|exitUntilCollapsed">
+                    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/head"
+                    <com.google.android.material.appbar.CollapsingToolbarLayout
+                        android:id="@+id/collapsing_toolbar"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_200sdp"
-                        android:background="@drawable/shape_top_round_fill_white"
-                        android:minHeight="100dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        android:layout_height="wrap_content"
+                        android:fitsSystemWindows="true"
+                        app:layout_scrollFlags="scroll|snap|exitUntilCollapsed">
 
-                        <androidx.viewpager2.widget.ViewPager2
-                            android:id="@+id/screen_viewpager"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            app:layout_constraintBottom_toTopOf="@+id/tab_indicator"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="1.0"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.47">
-
-
-                        </androidx.viewpager2.widget.ViewPager2>
-
-                        <com.google.android.material.tabs.TabLayout
-                            android:id="@+id/tab_indicator"
-                            android:layout_width="64dp"
-                            android:layout_height="8dp"
-                            android:backgroundTint="@android:color/transparent"
-                            android:orientation="horizontal"
-                            android:paddingStart="16dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.75"
-                            app:tabBackground="@drawable/indicator_default"
-                            app:tabIndicatorHeight="0dp">
-
-                        </com.google.android.material.tabs.TabLayout>
-
-                        <ImageView
-                            android:id="@+id/btnback"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:visibility="gone"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.05"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.05"
-                            app:srcCompat="@drawable/arrow_left"
-                            app:tint="@color/white" />
-
-                        <TextView
-                            android:id="@+id/textView"
-                            style="@style/popins_bold"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Details"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/_14ssp"
-                            app:layout_constraintBottom_toBottomOf="@+id/btnback"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.2"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/btnback"
-                            app:layout_constraintVertical_bias="0.05" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.appcompat.widget.Toolbar
-                        android:id="@+id/toolbar"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_100sdp"
-                        app:contentInsetLeft="0dp"
-                        app:contentInsetStart="0dp"
-                        app:layout_collapseMode="pin">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/head"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="@dimen/_200sdp"
+                            android:background="@drawable/shape_top_round_fill_white"
+                            android:minHeight="100dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
 
-                            <ImageView
-                                android:id="@+id/btnWish"
-                                android:layout_width="@dimen/_20sdp"
-                                android:layout_height="@dimen/_20sdp"
-                                android:layout_marginTop="@dimen/_15sdp"
-                                app:layout_constraintBottom_toBottomOf="parent"
+                            <androidx.viewpager2.widget.ViewPager2
+                                android:id="@+id/screen_viewpager"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                app:layout_constraintBottom_toTopOf="@+id/tab_indicator"
                                 app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_bias="0.95"
+                                app:layout_constraintHorizontal_bias="1.0"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintVertical_bias="0.1"
-                                app:srcCompat="@drawable/wishlist_icon" />
+                                app:layout_constraintVertical_bias="0.47">
+
+
+                            </androidx.viewpager2.widget.ViewPager2>
+
+                            <com.google.android.material.tabs.TabLayout
+                                android:id="@+id/tab_indicator"
+                                android:layout_width="64dp"
+                                android:layout_height="8dp"
+                                android:backgroundTint="@android:color/transparent"
+                                android:orientation="horizontal"
+                                android:paddingStart="16dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintVertical_bias="0.75"
+                                app:tabBackground="@drawable/indicator_default"
+                                app:tabIndicatorHeight="0dp">
+
+                            </com.google.android.material.tabs.TabLayout>
 
                             <ImageView
-                                android:id="@+id/btnBack"
+                                android:id="@+id/btnback"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:visibility="gone"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintHorizontal_bias="0.05"
@@ -146,242 +119,299 @@
                                 app:srcCompat="@drawable/arrow_left"
                                 app:tint="@color/white" />
 
+                            <TextView
+                                android:id="@+id/textView"
+                                style="@style/popins_bold"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Details"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_14ssp"
+                                app:layout_constraintBottom_toBottomOf="@+id/btnback"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.2"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="@+id/btnback"
+                                app:layout_constraintVertical_bias="0.05" />
+
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    </androidx.appcompat.widget.Toolbar>
+                        <androidx.appcompat.widget.Toolbar
+                            android:id="@+id/toolbar"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_100sdp"
+                            app:contentInsetLeft="0dp"
+                            app:contentInsetStart="0dp"
+                            app:layout_collapseMode="pin">
 
-                </com.google.android.material.appbar.CollapsingToolbarLayout>
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
 
-            </com.google.android.material.appbar.AppBarLayout>
+                                <ImageView
+                                    android:id="@+id/btnWish"
+                                    android:layout_width="@dimen/_20sdp"
+                                    android:layout_height="@dimen/_20sdp"
+                                    android:layout_marginTop="@dimen/_15sdp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintHorizontal_bias="0.95"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintVertical_bias="0.1"
+                                    app:srcCompat="@drawable/wishlist_icon" />
 
-            <androidx.core.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                                <ImageView
+                                    android:id="@+id/btnBack"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintHorizontal_bias="0.05"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintVertical_bias="0.05"
+                                    app:srcCompat="@drawable/arrow_left"
+                                    app:tint="@color/white" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </androidx.appcompat.widget.Toolbar>
+
+                    </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+                </com.google.android.material.appbar.AppBarLayout>
+
+                <androidx.core.widget.NestedScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-                    <TextView
-                        android:id="@+id/productName"
-                        style="@style/popins_regular"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_15sdp"
-                        android:layout_marginTop="@dimen/_15sdp"
-                        android:text="Dubai"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_16sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-
-                    <TextView
-                        android:id="@+id/productPrice"
-                        style="@style/popins_regular"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:text="400 Pts"
-                        android:textColor="@color/red"
-                        android:textSize="@dimen/_14sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="@+id/productName"
-                        app:layout_constraintTop_toBottomOf="@+id/productName" />
-
-
-                    <TextView
-                        android:id="@+id/time"
-                        style="@style/popins_regular"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:layout_weight="1"
-                        android:drawableStart="@drawable/arrow"
-                        android:gravity="center"
-                        android:text="5 days  4 nights stay"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_12sdp"
-                        app:layout_constraintStart_toStartOf="@+id/productPrice"
-                        app:layout_constraintTop_toBottomOf="@+id/productPrice" />
-
-                    <TextView
-                        android:id="@+id/accodmodation"
-                        style="@style/popins_regular"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:layout_weight="1"
-                        android:drawableStart="@drawable/arrow"
-                        android:gravity="center"
-                        android:text="5 days  4 nights stay"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_12sdp"
-                        app:layout_constraintStart_toStartOf="@+id/time"
-                        app:layout_constraintTop_toBottomOf="@+id/time" />
-
-                    <TextView
-                        android:id="@+id/facilities"
-                        style="@style/popins_regular"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="Facilities"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_14sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="@+id/accodmodation"
-                        app:layout_constraintTop_toBottomOf="@+id/accodmodation" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerFacilities"
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/_10sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:orientation="horizontal"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        app:layout_constraintStart_toStartOf="@+id/accodmodation"
-                        app:layout_constraintTop_toBottomOf="@+id/facilities" />
-
-                    <TextView
-                        android:id="@+id/Peoples"
-                        style="@style/popins_regular"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="No of People"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_14sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="@+id/facilities"
-                        app:layout_constraintTop_toBottomOf="@+id/recyclerFacilities" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerPeoples"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/_10sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:orientation="horizontal"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        app:layout_constraintStart_toStartOf="@+id/accodmodation"
-                        app:layout_constraintTop_toBottomOf="@+id/Peoples" />
-
-
-                    <TextView
-                        android:id="@+id/tvDesc"
-                        style="@style/popins_regular"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="@string/description"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_14sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="@+id/facilities"
-                        app:layout_constraintTop_toBottomOf="@+id/recyclerPeoples" />
-
-                    <TextView
-                        android:id="@+id/desc"
-                        style="@style/popins_regular"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:layout_weight="1"
-                        android:gravity="start"
-                        android:text=""
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_12sdp"
-                        app:layout_constraintEnd_toEndOf="@+id/recyclerPeoples"
-                        app:layout_constraintStart_toStartOf="@+id/facilities"
-                        app:layout_constraintTop_toBottomOf="@+id/tvDesc" />
-
-                    <TextView
-                        android:id="@+id/btnCheckout"
-                        style="@style/popins_regular"
-                        android:layout_width="286dp"
-                        android:layout_height="@dimen/_40sdp"
-                        android:layout_marginTop="20dp"
-                        android:background="@drawable/card_background_border"
-                        android:backgroundTint="@color/theme_color"
-                        android:gravity="center"
-                        android:text="@string/add_to_cart"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_14sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.496"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/desc" />
-
-
-                    <LinearLayout
-                        android:id="@+id/lnSimpleAddRemove"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.9"
-                        app:layout_constraintStart_toStartOf="@+id/productName"
-                        app:layout_constraintTop_toTopOf="@+id/productName">
-
-
-                        <ImageView
-                            android:id="@+id/btnremove"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/_10sdp"
-                            app:layout_constraintEnd_toStartOf="@+id/quantity"
-                            app:layout_constraintHorizontal_bias="0.5"
-                            app:layout_constraintHorizontal_chainStyle="packed"
-                            app:layout_constraintTop_toTopOf="@+id/productName"
-                            app:srcCompat="@drawable/sub"
-                            app:tint="@color/theme_color" />
+                        android:layout_height="wrap_content">
 
                         <TextView
-                            android:id="@+id/quantity"
+                            android:id="@+id/productName"
+                            style="@style/popins_regular"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/_15sdp"
+                            android:layout_marginTop="@dimen/_15sdp"
+                            android:text="Dubai"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_16sdp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toStartOf="@+id/lnSimpleAddRemove"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <TextView
+                            android:id="@+id/productPrice"
                             style="@style/popins_regular"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="@dimen/_10sdp"
-                            android:text="1"
-                            android:textSize="@dimen/_14ssp"
-                            app:layout_constraintBottom_toBottomOf="@+id/btnremove"
-                            app:layout_constraintEnd_toStartOf="@+id/btnadd"
-                            app:layout_constraintTop_toTopOf="@+id/btnremove" />
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:text="400 Pts"
+                            android:textColor="@color/red"
+                            android:textSize="@dimen/_14sdp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="@+id/productName"
+                            app:layout_constraintTop_toBottomOf="@+id/productName" />
 
-                        <ImageView
-                            android:id="@+id/btnadd"
+
+                        <TextView
+                            android:id="@+id/time"
+                            style="@style/popins_regular"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_10sdp"
-                            app:layout_constraintBottom_toBottomOf="@+id/btnremove"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:layout_weight="1"
+                            android:drawableStart="@drawable/arrow"
+                            android:gravity="center"
+                            android:text="5 days  4 nights stay"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12sdp"
+                            app:layout_constraintStart_toStartOf="@+id/productPrice"
+                            app:layout_constraintTop_toBottomOf="@+id/productPrice" />
+
+                        <TextView
+                            android:id="@+id/accodmodation"
+                            style="@style/popins_regular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:layout_weight="1"
+                            android:drawableStart="@drawable/arrow"
+                            android:gravity="center"
+                            android:text="5 days  4 nights stay"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12sdp"
+                            app:layout_constraintStart_toStartOf="@+id/time"
+                            app:layout_constraintTop_toBottomOf="@+id/time" />
+
+                        <TextView
+                            android:id="@+id/facilities"
+                            style="@style/popins_regular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="Facilities"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_14sdp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="@+id/accodmodation"
+                            app:layout_constraintTop_toBottomOf="@+id/accodmodation" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerFacilities"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:orientation="horizontal"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintStart_toStartOf="@+id/accodmodation"
+                            app:layout_constraintTop_toBottomOf="@+id/facilities" />
+
+                        <TextView
+                            android:id="@+id/Peoples"
+                            style="@style/popins_regular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="No of People"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_14sdp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="@+id/facilities"
+                            app:layout_constraintTop_toBottomOf="@+id/recyclerFacilities" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerPeoples"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:orientation="horizontal"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintStart_toStartOf="@+id/accodmodation"
+                            app:layout_constraintTop_toBottomOf="@+id/Peoples" />
+
+
+                        <TextView
+                            android:id="@+id/tvDesc"
+                            style="@style/popins_regular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="@string/description"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_14sdp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="@+id/facilities"
+                            app:layout_constraintTop_toBottomOf="@+id/recyclerPeoples" />
+
+                        <TextView
+                            android:id="@+id/desc"
+                            style="@style/popins_regular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:layout_weight="1"
+                            android:gravity="start"
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12sdp"
+                            app:layout_constraintEnd_toEndOf="@+id/recyclerPeoples"
+                            app:layout_constraintStart_toStartOf="@+id/facilities"
+                            app:layout_constraintTop_toBottomOf="@+id/tvDesc" />
+
+                        <TextView
+                            android:id="@+id/btnCheckout"
+                            style="@style/popins_regular"
+                            android:layout_width="286dp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/card_background_border"
+                            android:backgroundTint="@color/theme_color"
+                            android:gravity="center"
+                            android:text="@string/add_to_cart"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_14sdp"
+                            android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/btnremove"
-                            app:srcCompat="@drawable/add"
-                            app:tint="@color/theme_color" />
-
-                    </LinearLayout>
+                            app:layout_constraintHorizontal_bias="0.496"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/desc" />
 
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        <LinearLayout
+                            android:id="@+id/lnSimpleAddRemove"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.9"
+                            app:layout_constraintStart_toEndOf="@+id/productName"
+                            app:layout_constraintTop_toTopOf="@+id/productName">
 
 
-            </androidx.core.widget.NestedScrollView>
+                            <ImageView
+                                android:id="@+id/btnremove"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/_10sdp"
+                                app:layout_constraintEnd_toStartOf="@+id/quantity"
+                                app:layout_constraintHorizontal_bias="0.5"
+                                app:layout_constraintHorizontal_chainStyle="packed"
+                                app:layout_constraintTop_toTopOf="@+id/productName"
+                                app:srcCompat="@drawable/sub"
+                                app:tint="@color/theme_color" />
+
+                            <TextView
+                                android:id="@+id/quantity"
+                                style="@style/popins_regular"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/_10sdp"
+                                android:text="1"
+                                android:textSize="@dimen/_14ssp"
+                                app:layout_constraintBottom_toBottomOf="@+id/btnremove"
+                                app:layout_constraintEnd_toStartOf="@+id/btnadd"
+                                app:layout_constraintTop_toTopOf="@+id/btnremove" />
+
+                            <ImageView
+                                android:id="@+id/btnadd"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_10sdp"
+                                app:layout_constraintBottom_toBottomOf="@+id/btnremove"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="@+id/btnremove"
+                                app:srcCompat="@drawable/add"
+                                app:tint="@color/theme_color" />
+
+                        </LinearLayout>
 
 
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+                </androidx.core.widget.NestedScrollView>
+
+
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

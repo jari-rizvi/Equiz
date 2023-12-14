@@ -61,6 +61,11 @@ class CoupnsFragment : BaseFragment<FragmentCouponsBinding, CouponsViewModel>(),
                                 couponsArrayList.add(it)
                             }*/
 
+                            mViewDataBinding.shimmerLayout.visibility = View.GONE
+                            mViewDataBinding.root.visibility = View.VISIBLE
+
+                            mViewDataBinding.shimmerLayout.stopShimmer()
+
                             data.data.forEach {
                                 if (it != null) {
                                     couponsArrayList.add(it)

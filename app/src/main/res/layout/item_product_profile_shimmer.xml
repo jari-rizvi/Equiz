@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/mainnn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_200sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0">
+
+            <ImageView
+                android:id="@+id/btnback"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.05"
+                app:srcCompat="@drawable/baseline_image_24" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mainnn"
+            app:layout_constraintVertical_bias="0">
+
+            <TextView
+                android:id="@+id/productName"
+                style="@style/popins_regular"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:text="Dubai"
+                android:background="#B5B5B5"
+                android:backgroundTint="#B5B5B5"
+                android:textColor="#B5B5B5"
+                android:tint="#B5B5B5"
+                android:textSize="@dimen/_16sdp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/productPrice"
+                style="@style/popins_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:text="400 Pts"
+                android:background="#B5B5B5"
+                android:backgroundTint="#B5B5B5"
+                android:textColor="#B5B5B5"
+                android:tint="#B5B5B5"
+                android:textSize="@dimen/_14sdp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/productName"
+                app:layout_constraintTop_toBottomOf="@+id/productName" />
+
+
+            <TextView
+                android:id="@+id/time"
+                style="@style/popins_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="5 days  4 nights stay"
+                android:background="#B5B5B5"
+                android:backgroundTint="#B5B5B5"
+                android:textColor="#B5B5B5"
+                android:tint="#B5B5B5"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintStart_toStartOf="@+id/productPrice"
+                app:layout_constraintTop_toBottomOf="@+id/productPrice" />
+
+            <TextView
+                android:id="@+id/accodmodation"
+                style="@style/popins_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="5 days  4 nights stay"
+                android:background="#B5B5B5"
+                android:backgroundTint="#B5B5B5"
+                android:textColor="#B5B5B5"
+                android:tint="#B5B5B5"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintStart_toStartOf="@+id/time"
+                app:layout_constraintTop_toBottomOf="@+id/time" />
+
+            <TextView
+                android:id="@+id/facilities"
+                style="@style/popins_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Facilities"
+                android:background="#B5B5B5"
+                android:backgroundTint="#B5B5B5"
+                android:textColor="#B5B5B5"
+                android:tint="#B5B5B5"
+                android:textSize="@dimen/_14sdp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/accodmodation"
+                app:layout_constraintTop_toBottomOf="@+id/accodmodation" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerFacilities"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintStart_toStartOf="@+id/accodmodation"
+                app:layout_constraintTop_toBottomOf="@+id/facilities" />
+
+            <TextView
+                android:id="@+id/Peoples"
+                style="@style/popins_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="No of People"
+                android:background="#B5B5B5"
+                android:backgroundTint="#B5B5B5"
+                android:textColor="#B5B5B5"
+                android:tint="#B5B5B5"
+                android:textSize="@dimen/_14sdp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/facilities"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerFacilities" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerPeoples"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintStart_toStartOf="@+id/accodmodation"
+                app:layout_constraintTop_toBottomOf="@+id/Peoples" />
+
+
+            <TextView
+                android:id="@+id/tvDesc"
+                style="@style/popins_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/description"
+                android:background="#B5B5B5"
+                android:backgroundTint="#B5B5B5"
+                android:textColor="#B5B5B5"
+                android:tint="#B5B5B5"
+                android:textSize="@dimen/_14sdp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/facilities"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerPeoples" />
+
+            <TextView
+                android:id="@+id/desc"
+                style="@style/popins_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintEnd_toEndOf="@+id/recyclerPeoples"
+                app:layout_constraintStart_toStartOf="@+id/facilities"
+                app:layout_constraintTop_toBottomOf="@+id/tvDesc" />
+
+            <TextView
+                android:id="@+id/btnCheckout"
+                style="@style/popins_regular"
+                android:layout_width="286dp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/card_background_border"
+                android:gravity="center"
+                android:text="@string/add_to_cart"
+                android:backgroundTint="#B5B5B5"
+                android:textColor="#B5B5B5"
+                android:tint="#B5B5B5"
+                android:textSize="@dimen/_14sdp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.496"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/desc" />
+
+
+            <LinearLayout
+                android:id="@+id/lnSimpleAddRemove"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.9"
+                app:layout_constraintStart_toEndOf="@+id/productName"
+                app:layout_constraintTop_toTopOf="@+id/productName">
+
+
+                <ImageView
+                    android:id="@+id/btnremove"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:background="#B5B5B5"
+                    app:tint="#B5B5B5"
+                    app:layout_constraintEnd_toStartOf="@+id/quantity"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintTop_toTopOf="@+id/productName"
+                    app:srcCompat="@drawable/sub" />
+
+                <TextView
+                    android:id="@+id/quantity"
+                    style="@style/popins_regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:text="1"
+                    android:background="#B5B5B5"
+                    android:backgroundTint="#B5B5B5"
+                    android:textColor="#B5B5B5"
+                    android:tint="#B5B5B5"
+                    android:textSize="@dimen/_14ssp"
+                    app:layout_constraintBottom_toBottomOf="@+id/btnremove"
+                    app:layout_constraintEnd_toStartOf="@+id/btnadd"
+                    app:layout_constraintTop_toTopOf="@+id/btnremove" />
+
+                <ImageView
+                    android:id="@+id/btnadd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#B5B5B5"
+                    app:tint="#B5B5B5"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/btnremove"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/btnremove"
+                    app:srcCompat="@drawable/add" />
+
+            </LinearLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

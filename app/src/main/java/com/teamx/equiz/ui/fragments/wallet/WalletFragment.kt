@@ -69,6 +69,11 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
+
+                            mViewDataBinding.shimmerLayout.visibility = View.GONE
+                            mViewDataBinding.root.visibility = View.VISIBLE
+
+                            mViewDataBinding.shimmerLayout.stopShimmer()
                             mViewDataBinding.textView10.text = data.data.toString() + " Points"
                             data.transactions.forEach {
                                 walletArrayList.add(it)
