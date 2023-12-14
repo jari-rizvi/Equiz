@@ -67,6 +67,7 @@ class ProcessingFragment : BaseFragment<FragmentProcessingBinding, ProcessingVie
                     onToSignUpPage()
                 }*/
 
+
                     Resource.Status.SUCCESS -> {
 //                        loadingDialog.dismiss()
                         mViewDataBinding.shimmerLayout.stopShimmer()
