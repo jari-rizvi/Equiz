@@ -53,21 +53,26 @@ class CancelledFragment : BaseFragment<FragmentCanclledBinding, CancelledViewMod
         try {
             mViewModel.getOrders("Cancelled")
         } catch (e: Exception) {
-
+            e.printStackTrace()
         }
 
         if (!mViewModel.getOrdersResponse.hasActiveObservers()) {
             mViewModel.getOrdersResponse.observe(requireActivity()) {
                 when (it.status) {
                     Resource.Status.LOADING -> {
-                        loadingDialog.show()
+//                        loadingDialog.show()
+                        mViewDataBinding.shimmerLayout.startShimmer()
+                        mViewDataBinding.shimmerLayout.visibility = View.VISIBLE
                     } /* Resource.Status.AUTH -> {
                     loadingDialog.dismiss()
                     onToSignUpPage()
                 }*/
 
                     Resource.Status.SUCCESS -> {
-                        loadingDialog.dismiss()
+//                        loadingDialog.dismiss()
+                        mViewDataBinding.shimmerLayout.stopShimmer()
+                        mViewDataBinding.shimmerLayout.visibility = View.GONE
+                        mViewDataBinding.mainLayout.visibility = View.VISIBLE
                         it.data?.let { data ->
 
                             data.data.forEach {
@@ -81,7 +86,9 @@ class CancelledFragment : BaseFragment<FragmentCanclledBinding, CancelledViewMod
                     }
 
                     Resource.Status.ERROR -> {
-                        loadingDialog.dismiss()
+//                        loadingDialog.dismiss()
+                        mViewDataBinding.shimmerLayout.stopShimmer()
+                        mViewDataBinding.shimmerLayout.visibility = View.GONE
                         DialogHelperClass.errorDialog(
                             requireContext(),
                             it.message!!
