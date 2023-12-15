@@ -1,6 +1,8 @@
 package com.teamx.equiz.constants
 
+import android.view.View
 import androidx.annotation.StringDef
+import com.google.android.material.snackbar.Snackbar
 import com.google.api.AnnotationsProto.http
 
 
@@ -39,6 +41,12 @@ object AppConstants {
             const val CONTINUE_KEY = "continue_key"
             const val TOKEN = "token"
         }
+    }
+
+    fun showSnackBar(message: String, veiw:View) {
+        Snackbar.make(
+            veiw, message, Snackbar.LENGTH_SHORT
+        ).show()
     }
 
 }

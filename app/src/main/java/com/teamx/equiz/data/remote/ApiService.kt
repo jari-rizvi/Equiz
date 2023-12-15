@@ -29,6 +29,7 @@ import com.teamx.equiz.data.models.signupData.SignupData
 import com.teamx.equiz.data.models.sucessData.SuccessData
 import com.teamx.equiz.data.models.topWinnerData.TopWinnerData
 import com.teamx.equiz.data.models.wishlistdata.WishlistData
+import com.teamx.equiz.ui.fragments.ecommerce.paymentMethods.model.StripeModel
 import com.teamx.equiz.ui.fragments.singlequize.model.SingleQuizData
 import okhttp3.MultipartBody
 import retrofit2.Response
@@ -87,6 +88,13 @@ interface ApiService {
 
     @GET(NetworkCallPoints.GET_COUPONS)
     suspend fun getCoupons(@Header("token") basicCredentials: String = "$TOKENER"): Response<CouponsData>
+
+
+    @POST(NetworkCallPoints.ORDERS_CHECKOUT)
+    suspend fun stripeDataMethod(
+        @Body params: JsonObject?,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<StripeModel>
 
     @GET(NetworkCallPoints.GET_PRODUCT_BY_ID)
     suspend fun getProductById(

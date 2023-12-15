@@ -30,6 +30,7 @@ class NetworkCallPoints {
         const val GET_NEWS ="/api/news";
         const val GET_NEWS_BY_ID ="/api/news/find/{id}";
         const val GET_COUPONS ="/api/coupon/find";
+        const val ORDERS_CHECKOUT ="/api/orders/checkout";
         const val GET_ORDERS ="/api/orders/find";
         const val GET_ORDER_DETAILS ="/api/orders/order/{id}";
         const val GET_TOP_WINNERS ="/api/game/all";

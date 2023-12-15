@@ -34,6 +34,7 @@ class MainRepository @Inject constructor(
     ) = apiService.getRecentNews(recent)
 
     suspend fun getCoupons() = apiService.getCoupons()
+    suspend fun stripeDataMethod(@Body params: JsonObject?) = apiService.stripeDataMethod(params)
     suspend fun getProductById(@Path("id") Productid: String) = apiService.getProductById(Productid)
     suspend fun getCategories() = apiService.getCategories()
     suspend fun loginPhone(@Body param: JsonObject) = apiService.loginPhone(param)
