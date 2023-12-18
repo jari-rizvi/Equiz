@@ -270,6 +270,7 @@ fun TouchTheShapesGameScreen(content: () -> Unit) {
 
                                 }
 
+
                                 ShapeBundle.BLACK_SQUARE -> {
                                     DeceptionBlack
 //                                    drawSquare(color = box.color)
