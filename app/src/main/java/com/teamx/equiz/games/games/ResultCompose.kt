@@ -31,7 +31,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIos
 import androidx.compose.material.icons.filled.AvTimer
-import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -202,13 +201,13 @@ fun BottomResult2() {
     ) {
         Text(text = "Score", fontSize = 24.sp, color = Color.White, fontWeight = FontWeight.Bold)
 
-        Icon(painter =painterResource(id =R.drawable.padlockrain)/*imageVector = Icons.Default.Lock*/ , contentDescription = null)
+        Image(painter =painterResource(id =R.drawable.padlockrain), contentDescription = null)
     }
 
 }
 
 @Composable
-fun bottomButtons(onContinueClicked: () -> Unit) {
+fun BottomButtons(onContinueClicked: () -> Unit) {
     Row(
         modifier = Modifier
             .clip(RoundedCornerShape(6))
@@ -350,7 +349,7 @@ fun ResultScreen(onContinueClicked: () -> Unit) {
                         BottomResult()
                         BottomResult2()
                     }
-                    bottomButtons({ shouldShowOnboarding2 = false })
+                    BottomButtons({ shouldShowOnboarding2 = false })
                 }
             }
 

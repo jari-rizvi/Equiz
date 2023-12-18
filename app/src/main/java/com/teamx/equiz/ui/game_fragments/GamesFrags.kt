@@ -40,6 +40,7 @@ import com.teamx.equiz.games.games.TapTheColorGame
 import com.teamx.equiz.games.games.TetrisGame
 import com.teamx.equiz.games.games.TouchTheNumPlusGame
 import com.teamx.equiz.games.games.TouchTheNumbersGameScreen
+import com.teamx.equiz.games.games.TouchTheShapesGameScreen
 import com.teamx.equiz.games.games.UnfollowTheLeaderGame
 import com.teamx.equiz.games.games.WeatherCastGame
 import com.teamx.equiz.games.games.rpsCastGamePlot
@@ -410,7 +411,7 @@ class FlickGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>()
 
                     navController.popBackStack()
 
-
+    
             })
         }
         options = navOptions {
@@ -1823,6 +1824,53 @@ class WeatherCastGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
 
         composeView.setContent {
             WeatherCastGame(content = {
+              /*  ToolbarCompose(title = "Training", onClick = {
+                    navController.popBackStack()
+                })*/
+                findNavController().navigate(R.id.resultComposeFrag, arguments)
+            })
+        }
+        options = navOptions {
+            anim {
+                enter = R.anim.enter_from_left
+                exit = R.anim.exit_to_left
+                popEnter = R.anim.nav_default_pop_enter_anim
+                popExit = R.anim.nav_default_pop_exit_anim
+            }
+        }
+
+
+    }
+}
+@AndroidEntryPoint
+class ShapeDeceptionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
+
+    override val layoutId: Int
+        get() = R.layout.fragment_address
+    override val viewModel: Class<GameFragsViewModel>
+        get() = GameFragsViewModel::class.java
+    override val bindingVariable: Int
+        get() = BR.viewModel
+
+
+    private lateinit var options: NavOptions
+    private lateinit var composeView: ComposeView
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
+        mViewDataBinding = FragmentAddressBinding.inflate(inflater)
+        return ComposeView(requireContext()).also {
+            composeView = it
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        mViewDataBinding.lifecycleOwner = viewLifecycleOwner
+
+        composeView.setContent {
+            TouchTheShapesGameScreen(content = {
               /*  ToolbarCompose(title = "Training", onClick = {
                     navController.popBackStack()
                 })*/

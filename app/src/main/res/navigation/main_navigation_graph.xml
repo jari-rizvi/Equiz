@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation_graph"
-    app:startDestination="@id/paymentMethodsFragment">
+    app:startDestination="@id/shapeDeceptionGameFrag">
 
     <fragment
         android:id="@+id/tempFragment"
@@ -466,6 +466,10 @@
         android:id="@+id/spinningBlockGameFrag"
         android:name="com.teamx.equiz.ui.game_fragments.SpinningBlockGameFrag"
         android:label="SpinningBlockGameFrag" />
+    <fragment
+        android:id="@+id/shapeDeceptionGameFrag"
+        android:name="com.teamx.equiz.ui.game_fragments.ShapeDeceptionGameFrag"
+        android:label="ShapeDeceptionGameFrag" />
 
 
 </navigation>

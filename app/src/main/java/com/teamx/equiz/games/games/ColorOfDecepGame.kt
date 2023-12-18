@@ -47,7 +47,7 @@ enum class ColorBundle {
 
 
 @Composable
-fun TouchTheColorsGameScreen(content: () -> Unit) {
+fun TouchTheColorGameScreen(content: () -> Unit) {
     var isGameOver by remember { mutableStateOf(false) }
 
     var timeLeft by remember { mutableStateOf(60L) }
@@ -287,6 +287,6 @@ private fun updateScore(
 
 @Preview
 @Composable
-fun PreviewTouchTheColorsGameScreen() {
-    TouchTheColorsGameScreen() {}
+fun PreviewTouchTheColorGameScreen() {
+    TouchTheColorGameScreen() {}
 }
