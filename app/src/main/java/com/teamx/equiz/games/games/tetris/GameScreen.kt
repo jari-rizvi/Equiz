@@ -51,7 +51,8 @@ import com.teamx.equiz.games.games.tetris.logic.Spirit
 import com.teamx.equiz.games.games.tetris.logic.SpiritType
 import com.teamx.equiz.games.ui.theme.BrickMatrix
 import com.teamx.equiz.games.ui.theme.BrickSpirit
-import com.teamx.equiz.games.ui.theme.ScreenBackground
+import com.teamx.equiz.ui.theme.BirdColor4
+import com.teamx.equiz.ui.theme.BirdColor44
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 import kotlin.math.min
 
@@ -66,7 +67,7 @@ fun GameScreen(modifier: Modifier = Modifier) {
         modifier
             .background(Color.Black)
             .padding(1.dp)
-            .background(ScreenBackground)
+            .background(Color.White)
             .padding(10.dp)
     ) {
 
@@ -98,17 +99,17 @@ fun GameScreen(modifier: Modifier = Modifier) {
 
         }
 
-        GameScoreboard(
-            spirit = run {
-                if (viewState.spirit == Spirit.Empty) Spirit.Empty
-                else viewState.spiritNext.rotate()
-            },
-            score = viewState.score,
-            line = viewState.line,
-            level = viewState.level,
-            isMute = viewState.isMute,
-            isPaused = viewState.isPaused
-        )
+//        GameScoreboard(
+//            spirit = run {
+//                if (viewState.spirit == Spirit.Empty) Spirit.Empty
+//                else viewState.spiritNext.rotate()
+//            },
+//            score = viewState.score,
+//            line = viewState.line,
+//            level = viewState.level,
+//            isMute = viewState.isMute,
+//            isPaused = viewState.isPaused
+//        )
     }
 }
 
@@ -228,18 +229,18 @@ private fun DrawScope.drawMatrix(brickSize: Float, matrix: Pair<Int, Int>) {
         (0 until matrix.second).forEach { y ->
             drawBrick(
                 brickSize,
-                Offset(x.toFloat(), y.toFloat()),
-                BrickMatrix
+                Offset(x.toFloat(), y.toFloat())
+//                BrickMatrix
             )
         }
     }
 }
 
 private fun DrawScope.drawMatrixBorder(brickSize: Float, matrix: Pair<Int, Int>) {
-
+//matrix border color
     val gap = matrix.first * brickSize * 0.05f
     drawRect(
-        Color.Black,
+        Color.White,
         size = Size(
             matrix.first * brickSize + gap,
             matrix.second * brickSize + gap
@@ -260,7 +261,7 @@ private fun DrawScope.drawBricks(brick: List<Brick>, brickSize: Float, matrix: P
         matrix.second * brickSize
     ) {
         brick.forEach {
-            drawBrick(brickSize, it.location, BrickSpirit)
+            drawBrick(brickSize, it.location, BirdColor4)
         }
     }
 }
@@ -275,7 +276,7 @@ private fun DrawScope.drawSpirit(spirit: Spirit, brickSize: Float, matrix: Pair<
             drawBrick(
                 brickSize,
                 Offset(it.x, it.y),
-                BrickSpirit
+                BirdColor4
             )
         }
     }
@@ -312,11 +313,41 @@ private fun DrawScope.drawBrick(
     )
 
 }
+private fun DrawScope.drawBrick(
+    brickSize: Float,
+    offset: Offset
+) {
+
+    val actualLocation = Offset(
+        offset.x * brickSize,
+        offset.y * brickSize
+    )
+
+    val outerSize = brickSize * 0.8f
+    val outerOffset = (brickSize - outerSize) / 2
+
+    drawRect(
+        BirdColor44,
+        topLeft = actualLocation + Offset(outerOffset, outerOffset),
+        size = Size(outerSize, outerSize),
+        style = Stroke(outerSize / 10)
+    )
+
+    val innerSize = brickSize * 0.5f
+    val innerOffset = (brickSize - innerSize) / 2
+
+    drawRect(
+        Color.White,
+        actualLocation + Offset(innerOffset, innerOffset),
+        size = Size(innerSize, innerSize)
+    )
+
+}
 
 
 @Preview
 @Composable
-fun PreviewGamescreen(
+fun PreviewGameScreen(
     modifier: Modifier = Modifier
         .width(260.dp)
         .height(300.dp)
@@ -326,14 +357,14 @@ fun PreviewGamescreen(
         modifier
             .background(Color.Black)
             .padding(1.dp)
-            .background(ScreenBackground)
+            .background(Color.White)
             .padding(10.dp)
     ) {
 
         Canvas(
             modifier = Modifier
                 .fillMaxSize()
-                .background(ScreenBackground)
+                .background(Color.White)
         ) {
 
             val brickSize = min(
@@ -363,7 +394,7 @@ fun PreviewSpiritType() {
     Row(
         Modifier
             .size(300.dp, 50.dp)
-            .background(ScreenBackground)
+            .background(Color.White)
     ) {
         val matrix = 2 to 4
         SpiritType.forEach {

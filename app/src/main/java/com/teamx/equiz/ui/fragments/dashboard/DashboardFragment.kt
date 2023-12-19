@@ -9,14 +9,11 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.play.integrity.internal.t
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.data.models.quizTitleData.Data
 import com.teamx.equiz.data.models.topWinnerData.Game
-import com.teamx.equiz.data.models.topWinnerData.UserRank
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentDashboardBinding
 import com.teamx.equiz.ui.activity.mainActivity.MainActivity
@@ -24,8 +21,6 @@ import com.teamx.equiz.ui.fragments.dashboard.adapter.AllGameInterface
 import com.teamx.equiz.ui.fragments.dashboard.adapter.AllGamesAdapter
 import com.teamx.equiz.ui.fragments.dashboard.adapter.TopWinnerInterface
 import com.teamx.equiz.ui.fragments.dashboard.adapter.TopWinnersAdapter
-import com.teamx.equiz.ui.fragments.ecommerce.home.CategoriesAdapter
-import com.teamx.equiz.ui.fragments.ecommerce.home.ProductAdapter
 import com.teamx.equiz.ui.fragments.quizes.QuizesInterface
 import com.teamx.equiz.ui.fragments.quizes.TitleData
 import com.teamx.equiz.ui.fragments.quizes.adapter.QuizesAdapter
@@ -321,6 +316,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                 GamesUID2.Simplicity.name -> {
                     return R.drawable.simplicity_icon
                 }
+                GamesUID2.ShapeDeception.name -> {
+                    return R.drawable.simplicity_icon
+                }
                 GamesUID2.TapTheColor.name -> {
                     return R.drawable.tapthecolor_icon
                 }
@@ -478,7 +476,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                 findNavController().navigate(R.id.simplicityGameFrag, arguments)
 
             }
-
+            GamesUID2.ShapeDeception.name -> {
+                findNavController().navigate(R.id.shapeDeceptionGameFrag, arguments)
+            }
             GamesUID2.TapTheColor.name -> {
                 findNavController().navigate(R.id.tapTheColorGameFrag, arguments)
 
@@ -515,5 +515,5 @@ data class GamesModel(
 
 
 enum class GamesUID2 {
-    AdditionAddiction, BirdWatching, BreakTheBlock, ColorDeception, Tetris, Concentration, CardCalculation, Flick, FollowTheLeader, SpinTheWheel, HighLow, MakeTen, Matching, MissingPiece, Operations, QuickEye, RainFall, RapidSorting, ReverseRps, Simplicity, TapTheColor, TouchTheNum, TouchTheNumPlus, UnfollowTheLeader, WeatherCast
+    AdditionAddiction, BirdWatching, BreakTheBlock, ColorDeception, Tetris, Concentration, CardCalculation, Flick, FollowTheLeader, SpinTheWheel, HighLow, MakeTen, Matching, MissingPiece, Operations, QuickEye, RainFall, RapidSorting, ReverseRps, Simplicity, ShapeDeception, TapTheColor, TouchTheNum, TouchTheNumPlus, UnfollowTheLeader, WeatherCast
 }

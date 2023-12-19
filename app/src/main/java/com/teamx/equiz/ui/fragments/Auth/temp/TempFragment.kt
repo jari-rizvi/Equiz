@@ -60,8 +60,9 @@ class TempFragment : BaseFragment<FragmentTempBinding, TempViewModel>() {
             dataStoreProvider.token.collect {
                 Timber.tag("TAG").d("CoroutineScope ${it}")
 
-                val token = it
+                var token = it
 
+token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTJlNWEyYTE2YTU5OGNjYzRhNmIwZGUiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3MDI5ODk4NjQsImV4cCI6MTcwMzA3NjI2NH0.vgKdhrZQqSc_x-0kB_EHgRmVi4zoI6LzDMbCzGLTtXQ"
                 TOKENER = token.toString()
 
                 if (token.isNullOrBlank()) {

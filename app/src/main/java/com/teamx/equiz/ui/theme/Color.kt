@@ -34,6 +34,7 @@ val BirdColor1 = Color(0xffFF5C98)
 
 val BirdColor2 = Color(0xffFEB53A)
 val BirdColor4 = Color(0xff926BFA)
+val BirdColor44 = Color(0xEDBCA8F0)
 val BirdColor3 = Color(0xff71C7FE)
 
 

@@ -30,7 +30,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.RoundRect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
@@ -71,7 +73,7 @@ fun TouchTheShapesGameScreen(content: () -> Unit) {
             }
 
             override fun onFinish() {
-//                isGameOver = true
+                isGameOver = true
             }
         }.start()
     }
@@ -190,7 +192,7 @@ fun TouchTheShapesGameScreen(content: () -> Unit) {
                                     Color.White
 //                                    drawTriangle(color = box.color)
 
-                                    if (deceptionNumShape == ShapeBundle.YELLOW_HEXAGON) {
+                                    if (deceptionNumShape == ShapeBundle.WHITE_TRIANGLE) {
                                         drawTriangle(color = box.color)
                                     } else {
                                         drawSquare(color = box.color)
@@ -201,7 +203,7 @@ fun TouchTheShapesGameScreen(content: () -> Unit) {
                                     DeceptionBlack
 //                                    drawSquare(color = box.color)
 
-                                    if (deceptionNumShape == ShapeBundle.YELLOW_HEXAGON) {
+                                    if (deceptionNumShape == ShapeBundle.BLACK_SQUARE) {
                                         drawSquare(color = box.color)
                                     } else {
                                         drawTriangle(color = box.color)
@@ -214,7 +216,7 @@ fun TouchTheShapesGameScreen(content: () -> Unit) {
 //                                    drawCircle(color = box.color)
 
 
-                                    if (deceptionNumShape == ShapeBundle.YELLOW_HEXAGON) {
+                                    if (deceptionNumShape == ShapeBundle.PURPLE_CIRCLE) {
                                         drawCircle(color = box.color)
                                     } else {
                                         drawHexagon(color = box.color)
@@ -441,7 +443,7 @@ fun TriangleComposable() {
             Box(modifier = Modifier.padding(5.dp), contentAlignment = Alignment.BottomCenter) {
 
                 Canvas(modifier = Modifier.size(65.dp), onDraw = {
-                    drawTriangle(color = Color.Black)
+                    drawRoundedTriangle(color = Color.Red)
                 })
                 Text(text = "Triangle", color = Color.White)
             }
@@ -511,6 +513,106 @@ fun DrawScope.drawSquare(color: Color) {
     drawPath(
         path = path, color = color, style = Fill
     )
+}
+
+fun DrawScope.drawRoundedTriangle(color: Color) {
+    /*val width = size.width
+    val height = size.height
+    val cornerRadius = CornerRadius(size.minDimension / 10f) // Adjust the radius as needed
+
+    val path = android.graphics.Path().apply {
+        moveTo(width / 2f, 0f)
+        lineTo(0f, height)
+        lineTo(width, height)
+        close()
+    }
+
+    drawRoundRect(
+        color = color,
+        topLeft = Offset(0f, 0f),
+        size = Size(width, height),
+        cornerRadius = cornerRadius,
+        style = Fill
+    )*/
+    /* val path = Path().apply {
+         moveTo(size.width / 2f, 0f)
+         lineTo(0f, size.height)
+         lineTo(size.width, size.height)
+         close()
+     }
+
+     // Calculate the corner radius to round the edges
+     val cornerRadius = size.width / 10f // Adjust the radius as needed
+
+     // Draw the rounded triangle
+     drawPath(
+         path = path,
+         color = color,
+         style = Fill,
+         topLeftRadius = CornerRadius(cornerRadius),
+         topRightRadius = CornerRadius(cornerRadius),
+         bottomLeftRadius = CornerRadius(cornerRadius),
+         bottomRightRadius = CornerRadius(cornerRadius)
+     )*/
+
+    /*  val path = Path().apply {
+          moveTo(size.width / 2f, 0f)
+          lineTo(0f, size.height)
+          lineTo(size.width, size.height)
+          close()
+      }
+
+      // Calculate the corner radius to round the edges
+      val cornerRadius = size.width / 10f // Adjust the radius as needed
+
+      // Apply rounded corners manually
+      path.apply {
+          addRoundRect(
+              RoundRect(
+                  left = 0f,
+                  top = 0f,
+                  right = size.width,
+                  bottom = size.height,
+                  cornerRadius = CornerRadius(cornerRadius)
+              )
+          )
+      }
+
+      // Draw the rounded triangle
+      drawPath(
+          path = path,
+          color = color,
+  //        style = Fill
+      )*/
+
+    val path = Path().apply {
+        val triangleSize = size.width / 2
+        val cornerRadius = triangleSize / 5 // Adjust the radius as needed
+
+        moveTo(size.width / 2f, 0f)
+        lineTo(0f, size.height)
+        lineTo(size.width, size.height)
+        close()
+
+        // Apply rounded corners manually
+        addRoundRect(
+            RoundRect(
+                left = size.width / 2f - triangleSize / 2,
+                top = 0f,
+                right = size.width / 2f + triangleSize / 2,
+                bottom = cornerRadius,
+                cornerRadius = CornerRadius(cornerRadius)
+            )
+        )
+    }
+
+    // Draw the rounded triangle
+    drawPath(
+        path = path,
+        color = color,
+        style = Fill
+    )
+
 }
 
 fun DrawScope.drawCircle(color: Color) {

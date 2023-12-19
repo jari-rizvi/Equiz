@@ -180,7 +180,9 @@ class GamesFragment : BaseFragment<FragmentGamesBinding, GamesViewModel>(), AllG
                 findNavController().navigate(R.id.simplicityGameFrag,arguments)
 
             }
-
+            GamesUID2.ShapeDeception.name -> {
+                findNavController().navigate(R.id.shapeDeceptionGameFrag, arguments)
+            }
             GamesUID2.TapTheColor.name -> {
                 findNavController().navigate(R.id.tapTheColorGameFrag,arguments)
 

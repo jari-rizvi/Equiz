@@ -49,7 +49,7 @@ class PaymentMethodsFragment : BaseFragment<FragmentPaymentMethodsBinding, Payme
             }
         }
 
-        TOKENER = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTJlNWEyYTE2YTU5OGNjYzRhNmIwZGUiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3MDI2NDQwODQsImV4cCI6MTcwMjczMDQ4NH0.bLVjA-x-AUf7jRKZT8bSxcGA-tEZIioIfZsTFQ7MzCM"
+//        TOKENER = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTJlNWEyYTE2YTU5OGNjYzRhNmIwZGUiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3MDI2NDQwODQsImV4cCI6MTcwMjczMDQ4NH0.bLVjA-x-AUf7jRKZT8bSxcGA-tEZIioIfZsTFQ7MzCM"
 
         mViewDataBinding.btnmaster.setOnClickListener {
 //            presentPaymentSheet("657c49d67cf8073363b445af")

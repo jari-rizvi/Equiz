@@ -1,7 +1,7 @@
 package com.teamx.equiz.games.games.tetris
 
 import android.view.MotionEvent.*
-import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.indication
@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ripple.rememberRipple
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -22,14 +24,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.input.pointer.pointerInteropFilter
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.teamx.equiz.games.ui.theme.Purple200
-import com.teamx.equiz.games.ui.theme.Purple500
+import com.teamx.equiz.R
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.channels.ticker
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
@@ -41,10 +44,11 @@ fun GameButton(
     size: Dp,
     onClick: () -> Unit = {},
     autoInvokeWhenPressed: Boolean = false,
-    content: @Composable (Modifier) -> Unit = {}
+    painter: Painter= painterResource(id = R.drawable.ic_launcher_background)
+//    content: @Composable (Modifier) -> Unit = {}
 ) {
     val backgroundShape = RoundedCornerShape(size / 2)
-    lateinit var ticker: ReceiveChannel<Unit>
+    var ticker: ReceiveChannel<Unit>? = null
 
     val coroutineScope = rememberCoroutineScope()
     val pressedInteraction = remember { mutableStateOf<PressInteraction.Press?>(null) }
@@ -58,8 +62,7 @@ fun GameButton(
             .background(
                 brush = Brush.verticalGradient(
                     colors = listOf(
-                        Purple200,
-                        Purple500
+                        Color.White, Color.White
                     ),
                     startY = 0f,
                     endY = 80f
@@ -85,7 +88,7 @@ fun GameButton(
 
                                 ticker = ticker(initialDelayMillis = 300, delayMillis = 60)
                                 coroutineScope.launch {
-                                    ticker
+                                    ticker!!
                                         .receiveAsFlow()
                                         .collect { onClick() }
                                 }
@@ -98,14 +101,14 @@ fun GameButton(
                                         pressedInteraction.value = null
                                     }
                                 }
-                                ticker.cancel()
+                                ticker?.cancel()
                                 if (it.action == ACTION_UP) {
                                     onClick()
                                 }
                             }
                             else -> {
                                 if (it.action != ACTION_MOVE) {
-                                    ticker.cancel()
+                                    ticker?.cancel()
                                 }
                                 return@pointerInteropFilter false
                             }
@@ -118,6 +121,8 @@ fun GameButton(
             }
 
     ) {
-        content(Modifier.align(Alignment.Center))
+        IconButton( onClick={ onClick()},modifier = Modifier.align(Alignment.Center)){
+            Icon(painter = painter , contentDescription ="" )
+        }
     }
 }

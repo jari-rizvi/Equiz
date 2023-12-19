@@ -1,6 +1,5 @@
 package com.teamx.equiz.games.games
 
-import android.app.Activity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -14,7 +13,6 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,8 +26,6 @@ import com.teamx.equiz.games.games.tetris.combinedClickable
 import com.teamx.equiz.games.games.tetris.logic.Action
 import com.teamx.equiz.games.games.tetris.logic.Direction
 import com.teamx.equiz.games.games.tetris.logic.GameViewModel
-import com.teamx.equiz.games.games.tetris.logic.SoundUtil
-import com.teamx.equiz.games.games.tetris.logic.StatusBarUtil
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 
@@ -42,13 +38,20 @@ fun TetrisGamePreview() {
 
 @Composable
 fun TetrisGame(content: @Composable () -> Unit = {}){
-    val context = LocalContext.current
-    StatusBarUtil.transparentStatusBar(context as Activity)
-    SoundUtil.init(context)
+//    val context = LocalContext.current
+    /*    StatusBarUtil.transparentStatusBar(context as Activity)
+        SoundUtil.init(context)*/
 
-        MaterialTheme {
+    MaterialTheme {
+
+
+        Box(
+            modifier = Modifier.fillMaxSize()
+               
+                .background(color = Color(0xFFE1E1E1)),
+        ) {
             // A surface container using the 'background' color from the theme
-            Surface(color = MaterialTheme.colorScheme.background) {
+            Surface( modifier = Modifier.fillMaxSize(),color = MaterialTheme.colorScheme.background) {
 
                 val viewModel = viewModel<GameViewModel>()
                 val viewState = viewModel.viewState.value
@@ -79,48 +82,57 @@ fun TetrisGame(content: @Composable () -> Unit = {}){
 
 //
                 Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
-                .background(color = Color.White),
-        ) {
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight()
+                        .background(color = Color.White),
+                ) {
 //
-                GameBody(combinedClickable(
-                    onMove = { direction: Direction ->
-                        if (direction == Direction.Up) viewModel.dispatch(Action.Drop)
-                        else viewModel.dispatch(Action.Move(direction))
-                    },
-                    onRotate = {
-                        viewModel.dispatch(Action.Rotate)
-                    },
-                    onRestart = {
-                        viewModel.dispatch(Action.Reset)
-                    },
-                    onPause = {
-                        if (viewModel.viewState.value.isRuning) {
-                            viewModel.dispatch(Action.Pause)
-                        } else {
-                            viewModel.dispatch(Action.Resume)
+                    GameBody(combinedClickable(
+                        onMove = { direction: Direction ->
+                            if (direction == Direction.Up) viewModel.dispatch(Action.Drop)
+                            else viewModel.dispatch(Action.Move(direction))
+                        },
+                        onRotate = {
+                            viewModel.dispatch(Action.Rotate)
+                        },
+                        onRestart = {
+                            viewModel.dispatch(Action.Reset)
+                        },
+                        onPause = {
+                            if (viewModel.viewState.value.isRuning) {
+                                viewModel.dispatch(Action.Pause)
+                            } else {
+                                viewModel.dispatch(Action.Resume)
+                            }
+                        },
+                        onMute = {
+                            viewModel.dispatch(Action.Mute)
                         }
-                    },
-                    onMute = {
-                        viewModel.dispatch(Action.Mute)
+                    )) {
+                        GameScreen(
+                            Modifier.fillMaxSize()
+                        )
                     }
-                )) {
-                    GameScreen(
-                        Modifier.fillMaxSize()
-                    )
-                }
 //
-                  Image(
+                    Image(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight(),
+                        painter = painterResource(id = R.drawable.iconbg),
+                        contentDescription = "bg"
+                    )
+                }//
+            }
+
+            Image(
                 modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight(),
                 painter = painterResource(id = R.drawable.iconbg),
                 contentDescription = "bg"
             )
-        }//
-            }
+        }
         }
 
 }
