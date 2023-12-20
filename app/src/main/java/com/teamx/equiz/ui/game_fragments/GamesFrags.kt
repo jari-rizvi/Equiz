@@ -38,6 +38,8 @@ import com.teamx.equiz.games.games.ResultScreen
 import com.teamx.equiz.games.games.SpinningBlockGame
 import com.teamx.equiz.games.games.TapTheColorGame
 import com.teamx.equiz.games.games.TetrisGame
+import com.teamx.equiz.games.games.TouchTheColorGameScreen
+import com.teamx.equiz.games.games.TouchTheNumGamePlus
 import com.teamx.equiz.games.games.TouchTheNumPlusGame
 import com.teamx.equiz.games.games.TouchTheNumbersGameScreen
 import com.teamx.equiz.games.games.TouchTheShapesGameScreen
@@ -266,11 +268,7 @@ class ColorOfDecepGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            ColorSwitchGameScreen(content = {
-                ToolbarCompose(title = "Training", onClick = {
-                    navController.popBackStack()
-                })
-            })
+            TouchTheColorGameScreen( {})
         }
         options = navOptions {
             anim {
@@ -1682,7 +1680,7 @@ class TouchTheNumGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            TouchTheNumbersGameScreen(content = {
+            TouchTheNumGamePlus(content = {
                 ToolbarCompose(title = "Training", onClick = {
                     navController.popBackStack()
                 })

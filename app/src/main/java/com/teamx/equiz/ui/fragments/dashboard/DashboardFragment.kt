@@ -283,7 +283,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                 GamesUID2.FollowTheLeader.name -> {
                     return R.drawable.follow_the_leder
                 }
-                GamesUID2.SpinTheWheel.name -> {
+                GamesUID2.GuessTheFlag.name -> {
                     return R.drawable.spinthewheel_icon
                 }
                 GamesUID2.HighLow.name -> {
@@ -328,9 +328,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                 GamesUID2.TouchTheNum.name -> {
                     return R.drawable.touchthenumber_icon
                 }
-                GamesUID2.TouchTheNumPlus.name -> {
-                    return R.drawable.touchthenumbers_icon_plus
-                }
+
                 GamesUID2.UnfollowTheLeader.name -> {
                     return R.drawable.favicon
                 }
@@ -394,10 +392,10 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
             }
 
-            GamesUID2.BreakTheBlock.name -> {
-                findNavController().navigate(R.id.breakTheBlockGameFrag, arguments)
-
-            }
+//            GamesUID2.BreakTheBlock.name -> {
+//                findNavController().navigate(R.id.breakTheBlockGameFrag, arguments)
+//
+//            }
 
             GamesUID2.ColorDeception.name -> {
                 findNavController().navigate(R.id.colorOfDecepGameFrag, arguments)
@@ -434,7 +432,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
             }
 
-            GamesUID2.SpinTheWheel.name -> {
+            GamesUID2.GuessTheFlag.name -> {
 //                findNavController().navigate(R.id,arguments)
 
             }
@@ -522,5 +520,5 @@ data class GamesModel(
 
 
 enum class GamesUID2 {
-    AdditionAddiction, BirdWatching, BreakTheBlock, ColorDeception, Tetris, Concentration, CardCalculation, Flick, FollowTheLeader, SpinTheWheel, HighLow, MakeTen, Matching, MissingPiece, Operations, QuickEye, RainFall, RapidSorting, ReverseRps, SpinningBlock,Simplicity, ShapeDeception, TapTheColor, TouchTheNum, TouchTheNumPlus, UnfollowTheLeader, WeatherCast
+    AdditionAddiction, BirdWatching,  ColorDeception, Tetris, Concentration, CardCalculation, Flick, FollowTheLeader, GuessTheFlag, HighLow, MakeTen, Matching, MissingPiece, Operations, QuickEye, RainFall, RapidSorting, ReverseRps, SpinningBlock,Simplicity, ShapeDeception, TapTheColor, TouchTheNum,TouchTheNumPlus,  UnfollowTheLeader, WeatherCast
 }

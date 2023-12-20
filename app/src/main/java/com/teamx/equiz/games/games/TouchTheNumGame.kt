@@ -3,21 +3,20 @@ package com.teamx.equiz.games.games
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.repeatable
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -26,16 +25,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -55,7 +55,7 @@ class TouchTheNumGame {}
 data class NumberBox(val number: Int, val color: Color)
 
 @RequiresApi(Build.VERSION_CODES.N)
-@Preview
+
 @Composable
 fun TouchTheNumbersGameScreen(content: @Composable () -> Unit = {}) {
     var score by remember { mutableStateOf(0) }
@@ -64,50 +64,89 @@ fun TouchTheNumbersGameScreen(content: @Composable () -> Unit = {}) {
 
 
     Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
-                .background(color = Color.White),
-        ) {
-    Column(
         modifier = Modifier
-            .fillMaxSize()
-            .background(BirdColor4),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+            .fillMaxWidth()
+            .fillMaxHeight()
+            .background(color = Color(0xFFE1E1E1)),
     ) {
-        Text(
-            text = "Score: $score", color= Color.White,
-            style = MaterialTheme.typography.bodyLarge,
-            modifier = Modifier.padding(top = 16.dp)
-        )
-        Text(
-            text = "Touch the Numbers",
-            color= Color.White,
-            style = MaterialTheme.typography.headlineSmall,
-            modifier = Modifier.padding(bottom = 16.dp)
-        )
-
-        /*LazyRow(
-            modifier = Modifier
-                .size(300.dp)
-                .padding(horizontal = 16.dp)
+        Column(
+            modifier = Modifier.wrapContentSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            itemsIndexed(boxes) { index, box ->
-                Box(modifier = Modifier
-                    .padding(2.dp)
-                    .clip(RoundedCornerShape(10.dp))
-                    .size(64.dp)
+            /*Text(
+                text = "Score: $score",
+                color = Color.White,
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.padding(top = 16.dp)
+            )
+            Text(
+                text = "Touch the Numbers",
+                color = Color.White,
+                style = MaterialTheme.typography.headlineSmall,
+                modifier = Modifier.padding(bottom = 16.dp)
+            )
+*//*LazyRow(
+                modifier = Modifier
+                    .size(300.dp)
+                    .padding(horizontal = 16.dp)
+            ) {
+                itemsIndexed(boxes) { index, box ->
+                    Box(modifier = Modifier
+                        .padding(2.dp)
+                        .clip(RoundedCornerShape(10.dp))
+                        .size(64.dp)
 
 
-                    .background(color = box.color)
-                    .clickable {
-                        updateScore(boxes, box, index) { i ->
+                        .background(color = box.color)
+                        .clickable {
+                            updateScore(boxes, box, index) { i ->
+                                score++
+                                restart = true
+                                val arr = ArrayList<NumberBox>()
+                                boxes.forEach {
+                                    if (i != it.number) {
+                                        arr.add(it)
+                                    }
+                                }
+                                boxes = arr
+                                if (boxes.isEmpty()) {
+                                    restart = false
+                                }
+                            }
+                            if (!restart) {
+                                boxes = generateBoxes()
+                                restart = true
+                            }
+                        }) {
+                        Text(
+                            text = box.number.toString(),
+                            style = MaterialTheme.typography.bodyLarge,
+                            modifier = Modifier.align(Alignment.Center)
+                        )
+                    }
+                }
+            }*/
+
+            Box(
+                modifier = Modifier
+                    .padding(16.dp)
+
+                    .size(300.dp), contentAlignment = Alignment.Center
+            ) {
+
+                /*for (i in boxes.indices) {
+
+                    TouchAnimatedObject(i, boxes[i]*//*boxes[0]*//*) { iit ->
+                        Log.d("123123", "TouchTheNumbersGameScreen12: ")
+                        updateScore(boxes, iit*//*boxes[i]*//**//*box*//*, i) { i2 ->
+                            Log.d("123123", "TouchTheNumbersGameScreen122: ")
+
                             score++
                             restart = true
                             val arr = ArrayList<NumberBox>()
                             boxes.forEach {
-                                if (i != it.number) {
+                                if (i2 != it.number) {
                                     arr.add(it)
                                 }
                             }
@@ -120,51 +159,60 @@ fun TouchTheNumbersGameScreen(content: @Composable () -> Unit = {}) {
                             boxes = generateBoxes()
                             restart = true
                         }
-                    }) {
-                    Text(
-                        text = box.number.toString(),
-                        style = MaterialTheme.typography.bodyLarge,
-                        modifier = Modifier.align(Alignment.Center)
-                    )
-                }
-            }
-        }*/
+                    }
 
-        Box(
-            modifier = Modifier
-                .padding(16.dp)
+                }*/
 
-                .size(300.dp)
-        ) {
+                Column(
+                    modifier = Modifier
+                        .wrapContentSize()
+                        .padding(6.dp),
+                    verticalArrangement = Arrangement.Center
 
-            for (i in boxes.indices) {
+                ) {
+                    repeat(3) { row ->
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.Center
+                        ) {
+                            repeat(3) { column ->
+                                val index = row * 3 + column
 
-                TouchAnimatedObject(i, boxes[i]/*boxes[0]*/) {iit->
-                    Log.d("123123", "TouchTheNumbersGameScreen12: ")
-                    updateScore(boxes, iit/*boxes[i]*//*box*/, i) { i2 ->
-                        Log.d("123123", "TouchTheNumbersGameScreen122: ")
 
-                        score++
-                        restart = true
-                        val arr = ArrayList<NumberBox>()
-                        boxes.forEach {
-                            if (i2 != it.number) {
-                                arr.add(it)
+
+                                TouchAnimatedObject(index, boxes[index]) { iit ->
+                                    Log.d("123123", "TouchTheNumbersGameScreen12: ")
+                                    updateScore(boxes, iit, index) { i2 ->
+                                        Log.d("123123", "TouchTheNumbersGameScreen122: ")
+
+                                        score++
+                                        restart = true
+                                        val arr = ArrayList<NumberBox>()
+                                        boxes.forEach {
+                                            if (i2 != it.number) {
+                                                arr.add(it)
+                                            }
+                                        }
+                                        boxes = arr
+                                        if (boxes.isEmpty()) {
+                                            restart = false
+                                        }
+                                    }
+                                    if (!restart) {
+                                        boxes = generateBoxes()
+                                        restart = true
+                                    }
+                                }
+
+
                             }
                         }
-                        boxes = arr
-                        if (boxes.isEmpty()) {
-                            restart = false
-                        }
                     }
-                    if (!restart) {
-                        boxes = generateBoxes()
-                        restart = true
-                    }
+
                 }
 
+
             }
-        }
 
 
     }
@@ -181,14 +229,14 @@ fun TouchTheNumbersGameScreen(content: @Composable () -> Unit = {}) {
 
 private fun generateBoxes(): List<NumberBox> {
     val numbers = mutableListOf<Int>()
-    for (i in 1..9) {
+    for (i in 0..8) {
         numbers.add(i)
     }
     numbers.shuffle()
 
     val colors = mutableListOf<Color>()
-    val colorBox = if (Random.nextBoolean()) BirdColor3 else BirdColor1
-    for (i in 1..9) {
+    val colorBox = if (Random.nextBoolean()) BirdColor3 else BirdColor4
+    for (i in 0..8) {
         colors.add(colorBox)
     }
 
@@ -236,11 +284,10 @@ private fun updateScore(boxes: List<NumberBox>, box: NumberBox, index: Int, onCl
 }
 
 
-@RequiresApi(Build.VERSION_CODES.N)
-@Preview
+
 @Composable
 fun PreviewTouchTheNumbersGameScreen() {
-    TouchTheNumbersGameScreen() {}
+    TouchTheNumGamePlus {}
 }
 
 
@@ -249,9 +296,27 @@ fun PreviewTouchTheNumbersGameScreen() {
 
 @Preview
 @Composable
-fun FollowTheLeaderGame2(content: @Composable () -> Unit={}) {
-    content()
-    AscendingObjects2()
+fun TouchTheNumGamePlus(content: @Composable () -> Unit = {}) {
+
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+            .background(color = Color(0xFFE1E1E1)),
+    ) {
+
+        content()
+        NumAscendingObjects2()
+
+        Image(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(),
+            painter = painterResource(id = R.drawable.iconbg),
+            contentDescription = "bg"
+        )
+    }
 }
 
 @Composable
@@ -259,92 +324,100 @@ fun followTheLeaderPlot2() {
 
 }
 
-var linkListAdded32 = LinkedList<Int>()
+var numLinkListAdded32 = LinkedList<Int>()
 
-@Preview
+
 @Composable
-fun AscendingObjects2() {
+fun NumAscendingObjects2() {
+
     val maxCount = 8
     var currentCount by remember { mutableStateOf(0) }
 
-    LaunchedEffect(Unit) {
-        repeat(maxCount) { count ->
-            delay(190L)
-            currentCount = count + 1
+    var changable by remember { mutableStateOf(true) }
+
+    var gameStarted by remember { mutableStateOf(false) }
+
+    if (changable) {
+//        LaunchedEffect(Unit) {
+//            repeat(maxCount) { count ->
+//                delay(190L)
+//            }
+//        }
+
+
+        val link = LinkedList<Int>()
+
+        numLinkListAdded32.forEach {
+            link.push(it)
         }
-    }
 
+        numLinkListAdded32.clear()
 
-    val link = LinkedList<Int>()
-
-    linkListAdded32.forEach {
-        link.push(it)
-    }
-    Log.d("123123", "AscendingObjects:linkListAddedabb $linkListAdded")
-    linkListAdded32.clear()
-    Log.d("123123", "AscendingObjects:linkListAddedabb $link")
-    if (link.size >= 1) {
-        Log.d("123123", "AscendingObjects:1212 $linkListAdded32")
-        for (i in link) {
-            linkListAdded32.push(i)
-        }
-    } else {
-        Log.d("123123", "AscendingObjects:12 $linkListAdded32")
-        for (i in 0..maxCount) {
-            if (Random.nextBoolean()) {
-                linkListAdded32.push(i)
+        Log.d("123123", "AscendingObjects:linkListAddedabb $link")
+        if (link.size >= 1) {
+            Log.d("123123", "AscendingObjects:1212 $numLinkListAdded32")
+            for (i in link) {
+                numLinkListAdded32.push(i)
+            }
+        } else {
+            Log.d("123123", "AscendingObjects:12 $numLinkListAdded32")
+            for (i in 0..maxCount) {
+                if (Random.nextBoolean()) {
+                    numLinkListAdded32.push(i)
+                }
             }
         }
-    }
 
-    Log.d("123123", "AscendingObjects:linkListAddedabbbbbb $linkListAdded32")
+        LaunchedEffect(Unit) {
+            delay(10)
 
-    Log.d("123123", "AscendingObjects:linkListAdded ${linkListAdded32.size}")
-    ///
-    var rotationState by remember { mutableStateOf(0f) }
-    LaunchedEffect(Unit) {
-        repeat(180) { count ->
-            delay(10L)
-            rotationState = 180f
+            changable = false
 
         }
     }
-    // Animate the rotationState from 0f to 360f repeatedly
-    val rotation by animateFloatAsState(
-        targetValue = rotationState, animationSpec = repeatable(
-            iterations = 1,
-            animation = tween(5000)
-        )
-    )
-    ///
+
 
     Box(
         modifier = Modifier
             .padding(16.dp)
-            .fillMaxSize()
+//            .rotate(90f)
+            .wrapContentSize()
     ) {
+        Box(
+            modifier = Modifier
+                .padding(16.dp)
+//            .rotate(90f)
+                .wrapContentSize()
+        ) {
 
-        for (i in 0..currentCount) {
-            val temp = linkListAdded32
-            Log.d("123123", "AscendingObjects:temp ${temp.first}")
-            AnimatedObject2(i, temp.first ) {
-                temp.pop()
-                linkListAdded32 = temp
-                Log.d("123123", "AscendingObjects:linkListAdded $linkListAdded32")
+            for (i in 0..maxCount) {
+                val temp = numLinkListAdded32
+//            Log.d("123123", "AscendingObjects:temp ${temp.first}")
+                NumAnimatedObject2(i, temp.first) {
+                    temp.remove(it)
+                    numLinkListAdded32 = temp
+
+                    if (linkListSpin67.isEmpty()) {
+                        changable = true
+                    }
+                    Log.d("123123", "AscendingObjects:linkListAdded $numLinkListAdded32")
 
 
+                }
             }
         }
+
+
     }
 }
 
 @Composable
-fun AnimatedObject2(number: Int, itemCompared: Int, onClick: (Item: Int) -> Unit) {
-    var colorState by remember { mutableStateOf<Color>(BirdColor3) }
+fun NumAnimatedObject2(number: Int, itemCompared: Int, onClick: (Item: Int) -> Unit) {
+    var colorState by remember { mutableStateOf<Color>(BirdColor4) }
 
     Surface(
-        color =
-        if (linkListAdded32.contains(number)/* % 2 == 0*/) {
+        color = if (numLinkListAdded32.contains(number)) {
+            colorState = BirdColor4
             colorState
         } else {
             Color.Transparent
@@ -376,16 +449,13 @@ fun AnimatedObject2(number: Int, itemCompared: Int, onClick: (Item: Int) -> Unit
             .clip(RoundedCornerShape(6.dp))
 
             .clickable(
-                enabled = if (linkListAdded32.contains(number)/* % 2 == 0*/) {
-                    true
-                } else {
-                    false
-                }
+                enabled = numLinkListAdded32.contains(number)
             ) {
                 if (colorState == Color.Transparent) {
+
                     Log.d("123123", "AnimatedObjectWrong2:$number ::$itemCompared ")
                     return@clickable
-                } else if (number == linkListAdded32.first) {
+                } else if (number == numLinkListAdded32.first) {
                     colorState = Color.Transparent
                     onClick(itemCompared)
                     Log.d("123123", "AnimatedObjectWrong1:$number ::$itemCompared ")
@@ -398,10 +468,14 @@ fun AnimatedObject2(number: Int, itemCompared: Int, onClick: (Item: Int) -> Unit
     ) {
 
         Text(
-            text = number.toString(),
-            style = MaterialTheme.typography.bodySmall,
-            color = Color.White,
-            fontSize = 20.sp,
+            modifier = Modifier/*.rotate(-90f)*/,
+            text = (number + 1).toString(),
+            style = MaterialTheme.typography.bodyLarge,
+            color = if (numLinkListAdded32.contains(number)) {
+                Color.White
+            } else Color.Transparent,
+            fontSize = 40.sp,
+            fontWeight = FontWeight.ExtraBold,
             textAlign = TextAlign.Center,
             fontFamily = FontFamily.Cursive
         )
@@ -415,14 +489,12 @@ fun AnimatedObject2(number: Int, itemCompared: Int, onClick: (Item: Int) -> Unit
 fun TouchAnimatedObject(number: Int, itemCompared: NumberBox, onClick: (Item: NumberBox) -> Unit) {
     var colorState by remember { mutableStateOf<Color>(BirdColor3) }
 
-    Surface(color = itemCompared.color
-        /*if (true*//*linkListAdded.contains(number)*//**//* % 2 == 0*//*) {
-        colorState
-    } else {
-        BirdColor1
-    }*/, shape = RectangleShape, modifier = Modifier
-            .size(85.dp)
-            .offset(
+    Box(modifier = Modifier
+        .padding(6.dp)
+        .background(
+            color = itemCompared.color, shape = RoundedCornerShape(6.dp)
+        )
+        .size(85.dp)/*.offset(
                 y = if (number in 3..5) {
                     (((number % 3) + 2) * 90).dp
                 } else if (number > 5) {
@@ -438,14 +510,11 @@ fun TouchAnimatedObject(number: Int, itemCompared: NumberBox, onClick: (Item: Nu
                 } else {
                     (1 * 40).dp
                 }
-            )
-            .clip(RoundedCornerShape(6.dp))
+            )*/
+        .clip(RoundedCornerShape(6.dp))
 
-            .clickable(
-//            enabled = linkListAdded.contains(number)
-            ) {
-                onClick(itemCompared)
-                /*   if (colorState == BirdColor1) {
+        .clickable {
+            onClick(itemCompared)/*   if (colorState == BirdColor1) {
                 Log.d("123123", "AnimatedObjectWrong2:$number ::$itemCompared ")
                 return@clickable
             } else if (number == linkListAdded.first) {
@@ -455,16 +524,16 @@ fun TouchAnimatedObject(number: Int, itemCompared: NumberBox, onClick: (Item: Nu
             } else {
                 Log.d("123123", "AnimatedObjectWrong2:$number ::$itemCompared ")
             }*/
-            }
+        }
 //            .graphicsLayer(rotationZ = rotation)
-
-    ) {
+        , contentAlignment = Alignment.Center) {
 
         Text(
             text = itemCompared.number.toString(),
             style = MaterialTheme.typography.bodySmall,
             color = Color.White,
-            fontSize = 20.sp,
+            fontSize = 40.sp,
+            fontWeight = FontWeight.ExtraBold,
             textAlign = TextAlign.Center,
             fontFamily = FontFamily.Cursive
         )
@@ -472,3 +541,5 @@ fun TouchAnimatedObject(number: Int, itemCompared: NumberBox, onClick: (Item: Nu
 
     }
 }
+
+

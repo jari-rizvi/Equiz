@@ -226,13 +226,13 @@ fun Navigation() {
                 )*/
             }
         }
-        composable(GamesUID.ColorSwitchScreen.name) {
+      /*  composable(GamesUID.ColorSwitchScreen.name) {
             ColorSwitchGameScreen() {
                 ToolbarPreview(
                     navController = navController, GamesUID.ColorSwitchScreen.name
                 )
             }
-        }
+        }*/
         composable(GamesUID.ConcentrationScreen.name) {
             ConcentrationGame() {
                 /*ToolbarPreview(
@@ -261,13 +261,13 @@ fun Navigation() {
                 )*/
             }
         }
-        composable(GamesUID.HexaChainScreen.name) {
+      /*  composable(GamesUID.HexaChainScreen.name) {
             HexaChainGameScreen() {
                 ToolbarPreview(
                     navController = navController, GamesUID.HexaChainScreen.name
                 )
             }
-        }
+        }*/
         composable(GamesUID.HighLowScreen.name) {
             HighOrLowGameScreen(content = {
                 ToolbarPreview(
@@ -275,13 +275,13 @@ fun Navigation() {
                 )
             }) {}
         }
-        composable(GamesUID.LearningThingScreen.name) {
+        /*composable(GamesUID.LearningThingScreen.name) {
             Main() {
                 ToolbarPreview(
                     navController = navController, GamesUID.LearningThingScreen.name
                 )
             }
-        }
+        }*/
         composable(GamesUID.MakeTenScreen.name) {
             Make10GameScreen() {
                 /*ToolbarPreview(
@@ -325,9 +325,9 @@ fun Navigation() {
                 )*/
             }
         }
-        composable(GamesUID.ResultScreen.name) {
+       /* composable(GamesUID.ResultScreen.name) {
 //            MainScreen()
-        }
+        }*/
         composable(GamesUID.ReverseRpsScreen.name) {
             ReverseRockPaperScissorsGameScreen() {
                 ToolbarPreview(
@@ -363,23 +363,23 @@ fun Navigation() {
                 )
             }
         }
-        composable(GamesUID.TenSecondScreen.name) {
+/*        composable(GamesUID.TenSecondScreen.name) {
 //            MainScreen()
-        }
+        }*/
         composable(GamesUID.TouchTheNumScreen.name) {
-            TouchTheNumbersGameScreen() {
+            TouchTheNumGamePlus() {
                 ToolbarPreview(
                     navController = navController, GamesUID.TouchTheNumScreen.name
                 )
             }
         }
-        composable(GamesUID.TouchTheNumPlusScreen.name) {
+        /*composable(GamesUID.TouchTheNumPlusScreen.name) {
             TouchTheNumPlusGame() {
                 ToolbarPreview(
                     navController = navController, GamesUID.TouchTheNumPlusScreen.name
                 )
             }
-        }
+        }*/
         composable(GamesUID.UnfollowTheLeaderScreen.name) {
             UnfollowTheLeaderGame() {
                 ToolbarPreview(
@@ -479,6 +479,6 @@ fun GeneralScreen(text: String) {
 
 
 enum class GamesUID {
-    AdditionScreen, BirdWatchingScreen, BreakTheBlockScreen, ColorDeceptionScreen, ColorSwitchScreen, ConcentrationScreen, CardCalculationGameScreen, FlickScreen, FollowTheLeaderScreen, HexaChainScreen, HighLowScreen, LearningThingScreen, MakeTenScreen, MatchingScreen, MissingPieceScreen, OperationsScreen, QuickEyeScreen, RainFallScreen, ResultScreen, RapidSorting, ReverseRpsScreen, SimplicityScreen, SpinningBlockScreen, TapTheColorScreen, TenSecondScreen, TouchTheNumScreen, TouchTheNumPlusScreen, UnfollowTheLeaderScreen, WeatherCast
+    AdditionScreen, BirdWatchingScreen, BreakTheBlockScreen, ColorDeceptionScreen,  ConcentrationScreen, CardCalculationGameScreen, FlickScreen, FollowTheLeaderScreen,  HighLowScreen,  MakeTenScreen, MatchingScreen, MissingPieceScreen, OperationsScreen, QuickEyeScreen, RainFallScreen,  RapidSorting, ReverseRpsScreen, SimplicityScreen, SpinningBlockScreen, TapTheColorScreen,  TouchTheNumScreen,  UnfollowTheLeaderScreen, WeatherCast
 }
 

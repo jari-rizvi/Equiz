@@ -68,20 +68,20 @@ Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
-                .background(color = Color.White),
+                .background(color = Color(0xFFE1E1E1)),
         ) {
 
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(BirdColor4),
+                 ,
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
                 text = currentQuestion.equation,
                 style = MaterialTheme.typography.headlineSmall,
-                color = Color.White, fontSize = 33.sp,
+                color = Color.Black, fontSize = 33.sp, fontWeight = FontWeight.ExtraBold,
                 modifier = Modifier.padding(bottom = 16.dp)
             )
 
@@ -123,12 +123,12 @@ Box(
                 }
             }
 
-            Text(
+           /* Text(
                 text = "Score: $score",
                 style = MaterialTheme.typography.bodyLarge, color = Color.White,
                 fontSize = 33.sp,
                 modifier = Modifier.padding(top = 16.dp)
-            )
+            )*/
         }
   Image(
                 modifier = Modifier

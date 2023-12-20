@@ -37,19 +37,20 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
-import com.teamx.equiz.games.ui.theme.BirdColor3
 import com.teamx.equiz.games.ui.theme.BirdColor4
 import kotlin.random.Random
 
 
-
 //operations
-val operators = listOf("+", "-", "*", "/")
+val operators = listOf("+", "-", "x", "/")
 
 @RequiresApi(Build.VERSION_CODES.O)
 
@@ -131,28 +132,29 @@ Box(
 
         Column(
             modifier = Modifier
-                .wrapContentSize()
-                .background(BirdColor4),
+                .wrapContentSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
 
             Text(
                 text = equation
-                    .replaceFirst("*", "[ ]")
+                    .replaceFirst("x", "[ ]")
                     .replaceFirst("+", "[ ]")
                     .replaceFirst("-", "[ ]")
                     .replaceFirst("/", "[ ]"),
-                style = MaterialTheme.typography.headlineSmall,
-                modifier = Modifier.padding(bottom = 16.dp),
-                color = Color.White
+                style = MaterialTheme.typography.headlineLarge,
+                modifier = Modifier.padding(bottom = 26.dp),
+                fontWeight = FontWeight.ExtraBold,
+                color = Color.Black,
+                fontSize = 36.sp,
             )
-            Text(
-                text = "Accurate: $accurateCounter \n WrongAnswer: $allCounter",
-                style = MaterialTheme.typography.headlineSmall,
-                modifier = Modifier.padding(top = 16.dp),
-                color = Color.White
-            )
+            /*    Text(
+                    text = "Accurate: $accurateCounter \n WrongAnswer: $allCounter",
+                    style = MaterialTheme.typography.headlineSmall,
+                    modifier = Modifier.padding(top = 16.dp),
+                    color = Color.White
+                )*/
 
         }
         Box(
@@ -196,7 +198,7 @@ Box(
                         }
                         .size(83.dp)
                         .clip(RoundedCornerShape((5.dp)))
-                        .background(BirdColor3)
+                        .background(Color.White)
                         .clickable {
                             selectedButtonIndex = index
                             allCounter++
@@ -217,11 +219,15 @@ Box(
 
 
                     ) {
+
+
                     Text(
                         modifier = Modifier.wrapContentSize(),
-                        color = Color.White,
+                        color = BirdColor4,
                         text = operator,
-                        fontSize = 23.sp
+                        fontWeight = FontWeight.ExtraBold,
+
+                        fontSize = 53.sp
                     )
                 }
 
@@ -257,7 +263,7 @@ fun evaluateEquation(equation: String): Int {
     return when (operator) {
         "+" -> number1 + number2
         "-" -> number1 - number2
-        "*" -> number1 * number2
+        "x" -> number1 * number2
         "/" -> number1 / number2
         else -> throw IllegalArgumentException("Invalid operator: $operator")
     }

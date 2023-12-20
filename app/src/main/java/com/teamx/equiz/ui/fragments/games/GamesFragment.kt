@@ -132,7 +132,7 @@ class GamesFragment : BaseFragment<FragmentGamesBinding, GamesViewModel>(), AllG
 
             }
 
-            GamesUID2.SpinTheWheel.name -> {
+            GamesUID2.GuessTheFlag.name -> {
 //                findNavController().navigate(R.id,arguments)
 
             }
