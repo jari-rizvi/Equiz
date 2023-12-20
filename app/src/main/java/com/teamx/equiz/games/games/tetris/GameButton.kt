@@ -1,7 +1,6 @@
 package com.teamx.equiz.games.games.tetris
 
 import android.view.MotionEvent.*
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.indication
@@ -31,6 +30,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.teamx.equiz.R
+import com.teamx.equiz.ui.theme.BirdColor4
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.channels.ticker
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -47,7 +47,7 @@ fun GameButton(
     painter: Painter= painterResource(id = R.drawable.ic_launcher_background)
 //    content: @Composable (Modifier) -> Unit = {}
 ) {
-    val backgroundShape = RoundedCornerShape(size / 2)
+    val backgroundShape = RoundedCornerShape(size / 7)
     var ticker: ReceiveChannel<Unit>? = null
 
     val coroutineScope = rememberCoroutineScope()
@@ -57,7 +57,7 @@ fun GameButton(
     Box(
         modifier = modifier
             .shadow(5.dp, shape = backgroundShape)
-            .size(size = size)
+            .size(width = size, height = (size - 10.dp))
             .clip(backgroundShape)
             .background(
                 brush = Brush.verticalGradient(
@@ -121,8 +121,18 @@ fun GameButton(
             }
 
     ) {
-        IconButton( onClick={ onClick()},modifier = Modifier.align(Alignment.Center)){
-            Icon(painter = painter , contentDescription ="" )
+        IconButton(
+            onClick = { onClick() },
+            modifier = Modifier
+                .background(Color.Transparent)
+                .align(Alignment.Center)
+        ) {
+            Icon(
+                painter = painter,
+                contentDescription = "",
+                Modifier.background(Color.Transparent),
+                tint = BirdColor4
+            )
         }
     }
 }
