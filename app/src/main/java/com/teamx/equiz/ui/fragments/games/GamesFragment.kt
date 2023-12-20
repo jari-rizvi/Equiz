@@ -172,19 +172,26 @@ class GamesFragment : BaseFragment<FragmentGamesBinding, GamesViewModel>(), AllG
             }
 
             GamesUID2.ReverseRps.name -> {
-                findNavController().navigate(R.id.reverseRPSFrag,arguments)
+                findNavController().navigate(R.id.reverseRPSFrag, arguments)
 
             }
 
             GamesUID2.Simplicity.name -> {
-                findNavController().navigate(R.id.simplicityGameFrag,arguments)
+                findNavController().navigate(R.id.simplicityGameFrag, arguments)
 
             }
+
+            GamesUID2.SpinningBlock.name -> {
+                findNavController().navigate(R.id.spinningBlockGameFrag, arguments)
+
+            }
+
             GamesUID2.ShapeDeception.name -> {
                 findNavController().navigate(R.id.shapeDeceptionGameFrag, arguments)
             }
+
             GamesUID2.TapTheColor.name -> {
-                findNavController().navigate(R.id.tapTheColorGameFrag,arguments)
+                findNavController().navigate(R.id.tapTheColorGameFrag, arguments)
 
             }
 

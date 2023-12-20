@@ -482,7 +482,7 @@ fun ToolbarCompose(
                 contentDescription = "BackButton",
                 tint = Color.White,
                 modifier = Modifier.clickable(true) {
-                    onClick
+                    onClick()
                 }
 
             )

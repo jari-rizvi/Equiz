@@ -316,6 +316,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                 GamesUID2.Simplicity.name -> {
                     return R.drawable.simplicity_icon
                 }
+                GamesUID2.SpinningBlock.name -> {
+                    return R.drawable.simplicity_icon
+                }
                 GamesUID2.ShapeDeception.name -> {
                     return R.drawable.simplicity_icon
                 }
@@ -476,6 +479,10 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                 findNavController().navigate(R.id.simplicityGameFrag, arguments)
 
             }
+            GamesUID2.SpinningBlock.name -> {
+                findNavController().navigate(R.id.spinningBlockGameFrag, arguments)
+
+            }
             GamesUID2.ShapeDeception.name -> {
                 findNavController().navigate(R.id.shapeDeceptionGameFrag, arguments)
             }
@@ -515,5 +522,5 @@ data class GamesModel(
 
 
 enum class GamesUID2 {
-    AdditionAddiction, BirdWatching, BreakTheBlock, ColorDeception, Tetris, Concentration, CardCalculation, Flick, FollowTheLeader, SpinTheWheel, HighLow, MakeTen, Matching, MissingPiece, Operations, QuickEye, RainFall, RapidSorting, ReverseRps, Simplicity, ShapeDeception, TapTheColor, TouchTheNum, TouchTheNumPlus, UnfollowTheLeader, WeatherCast
+    AdditionAddiction, BirdWatching, BreakTheBlock, ColorDeception, Tetris, Concentration, CardCalculation, Flick, FollowTheLeader, SpinTheWheel, HighLow, MakeTen, Matching, MissingPiece, Operations, QuickEye, RainFall, RapidSorting, ReverseRps, SpinningBlock,Simplicity, ShapeDeception, TapTheColor, TouchTheNum, TouchTheNumPlus, UnfollowTheLeader, WeatherCast
 }
