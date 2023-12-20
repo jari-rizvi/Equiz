@@ -92,10 +92,10 @@ class GamesFragment : BaseFragment<FragmentGamesBinding, GamesViewModel>(), AllG
 
             }
 
-            GamesUID2.BreakTheBlock.name -> {
-                findNavController().navigate(R.id.breakTheBlockGameFrag,arguments)
-
-            }
+//            GamesUID2.BreakTheBlock.name -> {
+//                findNavController().navigate(R.id.breakTheBlockGameFrag,arguments)
+//
+//            }
 
             GamesUID2.ColorDeception.name -> {
                 findNavController().navigate(R.id.colorOfDecepGameFrag,arguments)
