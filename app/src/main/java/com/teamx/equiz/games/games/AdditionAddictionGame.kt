@@ -27,7 +27,6 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -173,7 +172,7 @@ fun AddingObjects() {
                 val temp = arrList
                 AnimatedAddingObject(i, temp[i]) {
                     arrList = temp
-                    Log.d("123123", "AscendingObjects:arrList $arrList")
+                    Log.d("123123", "AscendingObjects: $arrList")
 
                 }
             }
@@ -185,47 +184,50 @@ fun AddingObjects() {
 fun AnimatedAddingObject(number: Int, itemCompared: Int, onClick: (Item: Int) -> Unit) {
     var colorState by remember { mutableStateOf<Color>(Color.Black) }
 
-    Surface(color = if (arrList.contains(number)) {
-        colorState
-    } else {
-        colorState
-//        Color.Transparent
-    }, shape = RectangleShape, modifier = Modifier
-        .size(85.dp)
-        .offset(
-            y = when (number) {
-                in 0..2 -> {
-                    ((number - 1) * 90).dp
-                }
+    Box(
+        modifier = Modifier
+            .background(
+                color = if (arrList.contains(number)) {
+                    colorState
+                } else {
+                    colorState
+                }, shape = RectangleShape
+            )
+            .size(85.dp)
+            .offset(
+                y = when (number) {
+                    in 0..2 -> {
+                        ((number - 1) * 90).dp
+                    }
 
-                in 3..5 -> {
-                    ((number - 3 - 1) * 90).dp
-                }
+                    in 3..5 -> {
+                        ((number - 3 - 1) * 90).dp
+                    }
 
-                else -> {
-                    ((number - 6 - 1) * 90).dp
-                }
-            }, x = when (number) {
-                in 0..2 -> {
-                    ((number * 0 - 1) * 90).dp
-                }
+                    else -> {
+                        ((number - 6 - 1) * 90).dp
+                    }
+                }, x = when (number) {
+                    in 0..2 -> {
+                        ((number * 0 - 1) * 90).dp
+                    }
 
-                in 3..5 -> {
-                    ((1 - 1) * 90).dp
-                }
+                    in 3..5 -> {
+                        ((1 - 1) * 90).dp
+                    }
 
-                else -> {
-                    ((2 - 1) * 90).dp
-                }
-            }/*(-number * 60).dp*/
-        )
-        .clip(RoundedCornerShape(6.dp))
+                    else -> {
+                        ((2 - 1) * 90).dp
+                    }
+                }/*(-number * 60).dp*/
+            )
+            .clip(RoundedCornerShape(6.dp))
 
-        .clickable(
+            .clickable(
 //            enabled = arrList.contains(number)
-        ) {
-            onClick(itemCompared)
-            /*if (colorState == Color.Transparent) {
+            ) {
+                onClick(itemCompared)/*
+            if (colorState == Color.Transparent) {
                 Log.d("123123", "AnimatedObjectWrong2:$number ::$itemCompared ")
                 return@clickable
             } else if (number == arrList.get(0)) {
@@ -234,8 +236,9 @@ fun AnimatedAddingObject(number: Int, itemCompared: Int, onClick: (Item: Int) ->
                 Log.d("123123", "AnimatedObjectWrong1:$number ::$itemCompared ")
             } else {
                 Log.d("123123", "AnimatedObjectWrong2:$number ::$itemCompared ")
-            }*/
-        }
+            }
+            */
+            }
 
     ) {
 

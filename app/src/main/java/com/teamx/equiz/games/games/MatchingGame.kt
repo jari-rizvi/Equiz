@@ -31,8 +31,9 @@ import kotlin.math.roundToInt
 var arr = arrayListOf<MemoryItem>()
 
 @RequiresApi(Build.VERSION_CODES.O)
+@Preview
 @Composable
-fun MatchingStepGame(modifier: Modifier, content:   () -> Unit) {
+fun MatchingStepGame(modifier: Modifier=Modifier, content:   () -> Unit={}) {
 
     var isGameOver by remember { mutableStateOf(false) }
 
@@ -90,9 +91,9 @@ fun MatchingStepGame(modifier: Modifier, content:   () -> Unit) {
     Column(
         modifier = modifier.fillMaxSize(), Arrangement.Center, Alignment.CenterHorizontally
     ) {
-        Text(modifier = modifier, text = "Memorize The Same numbers")
+//        Text(modifier = modifier, text = "Memorize The Same numbers")
 
-        Text(modifier = modifier, text = "Total Attemps: $r   Accurate: $r1")
+//        Text(modifier = modifier, text = "Total Attemps: $r   Accurate: $r1")
         Row(modifier = modifier) {
             for (i in arr.subList(0, 3).indices) {
                 // Trigger the vibration effect when the Composable is recomposed
@@ -401,10 +402,14 @@ fun GestureDetectionExample() {
                 }
             }
     ) {
-        Text(
-            text = "Drag Me",
-            modifier = Modifier.offset { IntOffset(offsetX.roundToInt(), offsetY.roundToInt()) }
-        )
+        Text(text = "Drag Me",
+            modifier = Modifier
+                .offset {
+                    IntOffset(
+                        offsetX.roundToInt(),
+                        offsetY.roundToInt()
+                    )
+                })
     }
 }
 

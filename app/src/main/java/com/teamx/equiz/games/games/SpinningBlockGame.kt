@@ -62,13 +62,14 @@ fun SpinningBlockGame(content: @Composable () -> Unit) {
 
         }
         content()
-        SpinObjects67()
+
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
                 .background(color = Color(0xFFE1E1E1)),
         ) {
+            SpinObjects67()
             Image(
                 modifier = Modifier
                     .fillMaxWidth()
