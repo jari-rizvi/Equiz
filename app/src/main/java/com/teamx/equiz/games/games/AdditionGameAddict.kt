@@ -88,7 +88,7 @@ fun AddictGame() {
         LaunchedEffect(Unit) {
             delay(500)
         }
-        randNumber = Random.nextInt(1, 9)
+        randNumber = Random.nextInt(1, 10)
         linkListAddict67.clear()
         linkListAddict67Checker.clear()
         for (i in 0..maxCount) {
@@ -273,8 +273,8 @@ fun AddictObject67(
                         if (linkListAddict67Checker.size <= linkListAddict67.size && randomNum == linkListAddict67Checker.sum()) {
                             Log.d("123123", "AddictGame:Right ${linkListAddict67Checker.sum()}")
 
-                            colorStateTxt = BirdColor3
-                            colorState = Color.White
+//                            colorStateTxt = BirdColor3
+//                            colorState = Color.White
                             true
                         } else {
                             Log.d("123123", "AddictGame:Wrong ${linkListAddict67Checker.sum()}")
@@ -295,8 +295,8 @@ fun AddictObject67(
                         if (linkListAddict67Checker.size <= linkListAddict67.size && randomNum == linkListAddict67Checker.sum()) {
                             Log.d("123123", "AddictGame:Right ${linkListAddict67Checker.sum()}")
 
-                            colorStateTxt = BirdColor3
-                            colorState = Color.White
+//                            colorStateTxt = BirdColor3
+//                            colorState = Color.White
                             true
                         } else {
                             Log.d("123123", "AddictGame:Wrong ${linkListAddict67Checker.sum()}")
