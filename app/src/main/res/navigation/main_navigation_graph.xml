@@ -173,6 +173,9 @@
         <action
             android:id="@+id/action_walletFragment_to_referralFragment"
             app:destination="@id/referralFragment" />
+        <action
+            android:id="@+id/action_walletFragment_to_topupFragment"
+            app:destination="@id/topupFragment" />
     </fragment>
     <fragment
         android:id="@+id/chancesFragment"
