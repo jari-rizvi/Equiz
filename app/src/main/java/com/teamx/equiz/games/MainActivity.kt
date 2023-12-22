@@ -199,11 +199,11 @@ fun Navigation() {
         }*/
 
         composable(GamesUID.AdditionScreen.name) {
-            AdditionAddictionGame() {
-                ToolbarPreview(
+            AdditionAddictionGameMethod(){} /*{
+              *//*  ToolbarPreview(
                     navController = navController, GamesUID.AdditionScreen.name
-                )
-            }
+                )*//*
+            }*/
         }
         composable(GamesUID.BirdWatchingScreen.name) {
             BirdWatchingGame() {
