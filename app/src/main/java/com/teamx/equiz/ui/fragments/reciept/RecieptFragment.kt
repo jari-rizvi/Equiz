@@ -12,6 +12,7 @@ import android.text.format.DateFormat
 import android.view.View
 import androidx.core.content.FileProvider
 import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
@@ -55,9 +56,8 @@ class RecieptFragment : BaseFragment<FragmentRecieptBinding, WishlistViewModel>(
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
-        mViewDataBinding.btnback.setOnClickListener {
-            popUpStack()
-        }
+        mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
+
 
 
         mViewDataBinding.btnSave.setOnClickListener {

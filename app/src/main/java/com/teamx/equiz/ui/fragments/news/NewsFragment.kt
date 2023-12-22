@@ -81,7 +81,9 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(),onNewsli
                         mViewDataBinding.shimmerLayout.visibility = View.VISIBLE
 
                     }
-
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
+                    }
                     Resource.Status.SUCCESS -> {
 //                        loadingDialog.dismiss()
                         it.data?.let { data ->
@@ -123,7 +125,9 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(),onNewsli
                         loadingDialog.show()
 
                     }
-
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
+                    }
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
@@ -159,7 +163,9 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(),onNewsli
                         loadingDialog.show()
 
                     }
-
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
+                    }
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->

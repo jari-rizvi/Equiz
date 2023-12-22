@@ -52,16 +52,26 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
                         loadingDialog.show()
                     }
 
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
+                    }
+
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
-                            mViewDataBinding.textView3.setText(data.user.name)
-                            mViewDataBinding.textView4.setText(data.user.email)
 
-                            Picasso.get().load(data.user.image).resize(500, 500)
-                                .into(mViewDataBinding.profilePicture)
+                            try {
 
 
+                                mViewDataBinding.textView3.setText(data.user.name)
+                                mViewDataBinding.textView4.setText(data.user.email)
+
+                                Picasso.get().load(data.user.image).resize(500, 500)
+                                    .into(mViewDataBinding.profilePicture)
+
+                            } catch (e: Exception) {
+
+                            }
                         }
                     }
 

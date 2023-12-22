@@ -84,7 +84,9 @@ class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding, OrderDeta
                         mViewDataBinding.shimmerLayout.startShimmer()
                         mViewDataBinding.shimmerLayout.visibility = View.VISIBLE
                     }
-
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
+                    }
                     Resource.Status.SUCCESS -> {
 //                        loadingDialog.dismiss()
                         mViewDataBinding.shimmerLayout.stopShimmer()

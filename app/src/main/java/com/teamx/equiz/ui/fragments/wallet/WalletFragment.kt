@@ -46,6 +46,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+        mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
 
         mViewDataBinding.textView9.setOnClickListener {
             findNavController().navigate(R.id.action_walletFragment_to_referralFragment)
@@ -65,7 +66,9 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
                     Resource.Status.LOADING -> {
                         loadingDialog.show()
                     }
-
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
+                    }
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->

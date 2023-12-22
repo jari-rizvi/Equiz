@@ -31,6 +31,9 @@
         <action
             android:id="@+id/action_logInEmailFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment" />
+        <action
+            android:id="@+id/action_logInEmailFragment_to_otpEmailFragment"
+            app:destination="@id/otpEmailFragment" />
     </fragment>
     <fragment
         android:id="@+id/logInFragment"
@@ -46,6 +49,9 @@
         <action
             android:id="@+id/action_logInFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment" />
+        <action
+            android:id="@+id/action_logInFragment_to_otpPhoneFragment"
+            app:destination="@id/otpPhoneFragment" />
     </fragment>
     <fragment
         android:id="@+id/temp2Fragment"

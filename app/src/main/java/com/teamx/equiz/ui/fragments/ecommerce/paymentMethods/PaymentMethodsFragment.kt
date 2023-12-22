@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.teamx.equiz.BR
 import com.teamx.equiz.MainApplication
@@ -48,6 +49,7 @@ class PaymentMethodsFragment : BaseFragment<FragmentPaymentMethodsBinding, Payme
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+        mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
 
 //        TOKENER = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTJlNWEyYTE2YTU5OGNjYzRhNmIwZGUiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3MDI2NDQwODQsImV4cCI6MTcwMjczMDQ4NH0.bLVjA-x-AUf7jRKZT8bSxcGA-tEZIioIfZsTFQ7MzCM"
 

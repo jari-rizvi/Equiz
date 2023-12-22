@@ -87,7 +87,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                         mViewDataBinding.shimmerLayout.startShimmer()
                         mViewDataBinding.shimmerLayout.visibility = View.VISIBLE
                     }
-
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
+                    }
                     Resource.Status.SUCCESS -> {
 //                        loadingDialog.dismiss()
                         mViewDataBinding.shimmerLayout.stopShimmer()
@@ -127,7 +129,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                         mViewDataBinding.shimmerLayout.startShimmer()
                         mViewDataBinding.shimmerLayout.visibility = View.VISIBLE
                     }
-
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
+                    }
                     Resource.Status.SUCCESS -> {
 //                        loadingDialog.dismiss()
                         mViewDataBinding.shimmerLayout.stopShimmer()
@@ -171,7 +175,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                         mViewDataBinding.shimmerLayout.startShimmer()
                         mViewDataBinding.shimmerLayout.visibility = View.VISIBLE
                     }
-
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
+                    }
                     Resource.Status.SUCCESS -> {
 //                        loadingDialog.dismiss()
                         mViewDataBinding.shimmerLayout.stopShimmer()

@@ -4,6 +4,7 @@ package com.teamx.equiz.ui.fragments.wishlist
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -46,6 +47,7 @@ class WishlistFragment : BaseFragment<FragmentWishlistBinding, WishlistViewModel
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+        mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
 
         mViewModel.getWishlist()
 
@@ -54,6 +56,9 @@ class WishlistFragment : BaseFragment<FragmentWishlistBinding, WishlistViewModel
                 when (it.status) {
                     Resource.Status.LOADING -> {
                         loadingDialog.show()
+                    }
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
                     }
 
                     Resource.Status.SUCCESS -> {

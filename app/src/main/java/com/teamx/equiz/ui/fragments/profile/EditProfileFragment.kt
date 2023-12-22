@@ -69,6 +69,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+        mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
 
         mViewDataBinding.btnAddPicture.setOnClickListener {
             fetchImageFromGallery()
@@ -113,7 +114,9 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                     Resource.Status.LOADING -> {
                         loadingDialog.show()
                     }
-
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
+                    }
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
@@ -160,23 +163,31 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                     Resource.Status.LOADING -> {
                         loadingDialog.show()
                     }
-
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
+                    }
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
-                            imageUrl = data.user.image
+                            try {
+
+
+                                imageUrl = data.user.image
 //                            userDOB = data.user.dateOfBirth.toString()
-                            userEmail = data.user.email
-                            userPhone = data.user.phone
-                            userName = data.user.name
-                            mViewDataBinding.userName.setText(data.user.name)
-                            mViewDataBinding.phone.setText(data.user.phone)
-                            mViewDataBinding.email.setText(data.user.email)
+                                userEmail = data.user.email
+                                userPhone = data.user.phone
+                                userName = data.user.name
+                                mViewDataBinding.userName.setText(data.user.name)
+                                mViewDataBinding.phone.setText(data.user.phone)
+                                mViewDataBinding.email.setText(data.user.email)
 //                            mViewDataBinding.dob.setText(data.user.dateOfBirth.toString())
 
-                            Picasso.get().load(data.user.image).resize(500, 500)
-                                .into(mViewDataBinding.profilePicture)
+                                Picasso.get().load(data.user.image).resize(500, 500)
+                                    .into(mViewDataBinding.profilePicture)
+                            }
+                            catch (e: Exception) {
 
+                            }
 
                         }
                     }
@@ -196,12 +207,19 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                     Resource.Status.LOADING -> {
                         loadingDialog.show()
                     }
-
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
+                    }
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
+                            try {
                                 Picasso.get().load(imageUrl).resize(500, 500)
                                     .into(mViewDataBinding.profilePicture)
+                            }
+                            catch (e: Exception) {
+
+                            }
                         }
                     }
 

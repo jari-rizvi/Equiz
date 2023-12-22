@@ -3,6 +3,7 @@ package com.teamx.equiz.ui.fragments.loaderboard
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.squareup.picasso.Picasso
@@ -46,6 +47,7 @@ class LoaderBoardFragment : BaseFragment<FragmentLoaderBoardBinding, LoaderBoard
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+        mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
 
 //        initializeCategoriesAdapter()
 
@@ -58,33 +60,41 @@ class LoaderBoardFragment : BaseFragment<FragmentLoaderBoardBinding, LoaderBoard
                         loadingDialog.show()
                     }
 
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
+                    }
+
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
 
-                              data.game.forEach {
-                                  winnerArrayList.add(it)
-                              }
+                            data.game.forEach {
+                                winnerArrayList.add(it)
+                            }
 
-                              loaderMultiViewAdapter.notifyDataSetChanged()
+                            loaderMultiViewAdapter.notifyDataSetChanged()
 
+                            try {
+                                Picasso.get().load(data.game[0].image)
+                                    .into(mViewDataBinding.hatlyIcon)
+                                Picasso.get().load(data.game[1].image)
+                                    .into(mViewDataBinding.hatlyIcon5454)
+                                Picasso.get().load(data.game[2].image)
+                                    .into(mViewDataBinding.hatlyIcon54)
+                                mViewDataBinding.textView545.text = data.game[0].name
+                                mViewDataBinding.textView545455.text =
+                                    data.game[0].wallet.toString()
 
-                            Picasso.get().load(data.game[0].image).into(mViewDataBinding.hatlyIcon)
-                            Picasso.get().load(data.game[1].image)
-                                .into(mViewDataBinding.hatlyIcon5454)
-                            Picasso.get().load(data.game[2].image)
-                                .into(mViewDataBinding.hatlyIcon54)
-                            mViewDataBinding.textView545.text = data.game[0].name
-                            mViewDataBinding.textView545455.text = data.game[0].wallet.toString()
+                                mViewDataBinding.textView54545.text = data.game[1].name
+                                mViewDataBinding.textView545545455.text =
+                                    data.game[1].wallet.toString()
 
-                            mViewDataBinding.textView54545.text = data.game[1].name
-                            mViewDataBinding.textView545545455.text = data.game[1].wallet.toString()
+                                mViewDataBinding.textView545545445.text = data.game[2].name
+                                mViewDataBinding.textView5455454554545.text =
+                                    data.game[2].wallet.toString()
 
-                            mViewDataBinding.textView545545445.text = data.game[2].name
-                            mViewDataBinding.textView5455454554545.text =
-                                data.game[2].wallet.toString()
-
-
+                            } catch (e: Exception) {
+                            }
                         }
                     }
 

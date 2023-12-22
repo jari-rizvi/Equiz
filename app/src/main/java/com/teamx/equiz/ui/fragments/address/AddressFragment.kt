@@ -13,6 +13,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
@@ -51,6 +52,9 @@ class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>()
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+
+        mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
+
 
         mViewDataBinding.imgLocation.setOnClickListener {
 

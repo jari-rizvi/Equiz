@@ -66,7 +66,9 @@ class ProcessingFragment : BaseFragment<FragmentProcessingBinding, ProcessingVie
                     loadingDialog.dismiss()
                     onToSignUpPage()
                 }*/
-
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
+                    }
 
                     Resource.Status.SUCCESS -> {
 //                        loadingDialog.dismiss()

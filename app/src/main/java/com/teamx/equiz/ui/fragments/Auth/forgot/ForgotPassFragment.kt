@@ -101,7 +101,9 @@ class ForgotPassFragment : BaseFragment<FragmentForgotPassBinding, ForgotPassVie
                             Resource.Status.LOADING -> {
                                 loadingDialog.show()
                             }
-
+                            Resource.Status.NOTVERIFY -> {
+                                loadingDialog.dismiss()
+                            }
                             Resource.Status.SUCCESS -> {
                                 loadingDialog.dismiss()
 
@@ -133,7 +135,9 @@ class ForgotPassFragment : BaseFragment<FragmentForgotPassBinding, ForgotPassVie
                             Resource.Status.LOADING -> {
                                 loadingDialog.show()
                             }
-
+                            Resource.Status.NOTVERIFY -> {
+                                loadingDialog.dismiss()
+                            }
                             Resource.Status.SUCCESS -> {
                                 loadingDialog.dismiss()
 

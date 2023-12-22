@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.google.android.material.tabs.TabLayoutMediator
 import com.teamx.equiz.BR
@@ -41,10 +42,8 @@ class OrdersFragment : BaseFragment<FragmentOrdersBinding, LoginViewModel>() {
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+        mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
 
-        mViewDataBinding.btnback.setOnClickListener {
-            popUpStack()
-        }
 
         setupViewPager()
         setupTabLayout()

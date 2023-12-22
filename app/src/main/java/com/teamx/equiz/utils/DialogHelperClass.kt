@@ -112,5 +112,37 @@ class DialogHelperClass {
             dialog.show()
         }
 
+
+      /*  interface DialogCallBackOtpVerify {
+            fun onOtpClick()
+        }
+
+        fun verifyOtpDialog(context: Context, dialogCallBack: DialogCallBackOtpVerify): Dialog {
+            val dialog = Dialog(context)
+            dialog.setContentView(R.layout.verify_otp_dialog)
+            dialog.window!!.setLayout(
+                WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT
+            )
+            dialog.setCancelable(false)
+            val send = dialog.findViewById<TextView>(R.id.sendOtp)
+            val cancelBtn = dialog.findViewById<TextView>(R.id.btnCancel)
+
+            cancelBtn.setOnClickListener {
+                dialog.dismiss()
+            }
+            send.setOnClickListener {
+                dialogCallBack.onOtpClick()
+                dialog.dismiss()
+            }
+
+            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+            return dialog
+        }
+
+*/
+
+
+
     }
 }

@@ -2,6 +2,7 @@ package com.teamx.equiz.ui.fragments.Auth.login
 
 
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.lifecycleScope
@@ -114,7 +115,15 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
                         Resource.Status.LOADING -> {
                             loadingDialog.show()
                         }
+                        Resource.Status.NOTVERIFY -> {
+                            loadingDialog.dismiss()
+                            mViewDataBinding.root.snackbar(it.message!!)
+                            Handler().postDelayed({
+                                findNavController().navigate(R.id.action_logInFragment_to_otpPhoneFragment)
+                            }, 1000)
 
+//                            onToOtpPage()
+                        }
                         Resource.Status.SUCCESS -> {
                             loadingDialog.dismiss()
 

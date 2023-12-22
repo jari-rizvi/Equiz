@@ -64,7 +64,9 @@ class DeliveredFragment : BaseFragment<FragmentDeliveredBinding, DeliveredViewMo
                     loadingDialog.dismiss()
                     onToSignUpPage()
                 }*/
-
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
+                    }
                     Resource.Status.SUCCESS -> {
 //                        loadingDialog.dismiss()
                         mViewDataBinding.shimmerLayout.stopShimmer()

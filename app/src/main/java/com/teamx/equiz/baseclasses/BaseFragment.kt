@@ -3,6 +3,7 @@ package com.teamx.equiz.baseclasses
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +22,7 @@ import com.teamx.equiz.baseclasses.BaseViewModel
 import com.teamx.equiz.data.local.datastore.DataStoreProvider
 import com.teamx.equiz.ui.activity.mainActivity.MainActivity
 import com.teamx.equiz.utils.DialogHelperClass
+import com.teamx.equiz.utils.VeriffyOtp
 import kotlinx.coroutines.launch
 
 abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : androidx.fragment.app.Fragment(){
@@ -137,6 +139,41 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : androidx.f
 
     }
 
+
+/*
+    var dialog: Dialog? = null
+
+    override fun onToOtpPage() {
+        if (isAdded) {
+            Log.d("123123", "onToSignUpPage: ")
+
+            if (dialog == null) {
+                dialog = DialogHelperClass.verifyOtpDialog(requireContext(), this@BaseFragment)
+
+                dialog?.show()
+                dialog?.setOnDismissListener {
+                    dialog = null
+                }
+            } else {
+                dialog?.dismiss()
+                dialog = null
+            }
+
+        }
+    }
+*/
+
+
+
+
+/*    override fun onOtpClick() {
+        mViewModel.viewModelScope.launch {
+//            dataStoreProvider.saveUserToken("")
+            navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
+            navController.navigate(R.id.otpEmailFragment, null)
+
+        }
+    }*/
 
 
 }

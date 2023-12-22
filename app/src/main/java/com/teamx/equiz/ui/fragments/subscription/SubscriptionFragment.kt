@@ -4,6 +4,7 @@ package com.teamx.equiz.ui.fragments.subscription
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
@@ -41,6 +42,7 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
             }
         }
 
+        mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
 
 
     }

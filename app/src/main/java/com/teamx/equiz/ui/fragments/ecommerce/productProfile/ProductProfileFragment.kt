@@ -7,6 +7,7 @@ import android.os.Looper
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -48,6 +49,7 @@ class ProductProfileFragment :
         super.onViewCreated(view, savedInstanceState)
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
+        mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
 
 
         options = navOptions {
@@ -96,7 +98,9 @@ class ProductProfileFragment :
                     Resource.Status.LOADING -> {
                         loadingDialog.show()
                     }
-
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
+                    }
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
@@ -156,7 +160,9 @@ class ProductProfileFragment :
                         Resource.Status.LOADING -> {
                             loadingDialog.show()
                         }
-
+                        Resource.Status.NOTVERIFY -> {
+                            loadingDialog.dismiss()
+                        }
                         Resource.Status.SUCCESS -> {
                             loadingDialog.dismiss()
 
@@ -201,7 +207,9 @@ class ProductProfileFragment :
                         Resource.Status.LOADING -> {
                             loadingDialog.show()
                         }
-
+                        Resource.Status.NOTVERIFY -> {
+                            loadingDialog.dismiss()
+                        }
                         Resource.Status.SUCCESS -> {
                             loadingDialog.dismiss()
 

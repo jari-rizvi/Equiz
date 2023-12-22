@@ -2,6 +2,7 @@ package com.teamx.equiz.ui.fragments.Auth.login
 
 
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.lifecycleScope
@@ -112,6 +113,15 @@ class LogInEmailFragment : BaseFragment<FragmentLoginEmailBinding, LoginViewMode
                             loadingDialog.show()
                         }
 
+                        Resource.Status.NOTVERIFY -> {
+                            loadingDialog.dismiss()
+                            mViewDataBinding.root.snackbar(it.message!!)
+                            Handler().postDelayed({
+                                findNavController().navigate(R.id.action_logInEmailFragment_to_otpEmailFragment)
+                            }, 1000)
+
+                        }
+
                         Resource.Status.SUCCESS -> {
                             loadingDialog.dismiss()
 
@@ -156,7 +166,6 @@ class LogInEmailFragment : BaseFragment<FragmentLoginEmailBinding, LoginViewMode
         ApiCall()
         return true
     }
-
 
 
 }

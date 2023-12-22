@@ -7,6 +7,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -45,6 +46,7 @@ class CoupnsFragment : BaseFragment<FragmentCouponsBinding, CouponsViewModel>(),
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+        mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
 
         mViewModel.getCoupons()
 
@@ -53,6 +55,9 @@ class CoupnsFragment : BaseFragment<FragmentCouponsBinding, CouponsViewModel>(),
                 when (it.status) {
                     Resource.Status.LOADING -> {
                         loadingDialog.show()
+                    }
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
                     }
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()

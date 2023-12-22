@@ -35,10 +35,9 @@ class LoginViewModel @Inject constructor(
                     mainRepository.loginPhone(param).let {
                         if (it.isSuccessful) {
                             _loginResponse.postValue(Resource.success(it.body()!!))
-                        } else if (it.code() == 401) {
-//                            unAuthorizedCallback.onToSignUpPage()
-                            _loginResponse.postValue(Resource.error(it.message(), null))
-                        } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
+                        }  else if (it.code() == 302) {
+                            _loginResponse.postValue(Resource.notVerify("", null))
+                        } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400 || it.code() == 401) {
 //                            _loginResponse.postValue(Resource.error(it.message(), null))
                             val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
                             _loginResponse.postValue(Resource.error(jsonObj.getString("message")))
