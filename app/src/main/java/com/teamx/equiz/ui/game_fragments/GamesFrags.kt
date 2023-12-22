@@ -16,6 +16,7 @@ import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.databinding.FragmentAddressBinding
 import com.teamx.equiz.games.games.AdditionAddictionGame
+import com.teamx.equiz.games.games.AdditionAddictionGameMethod
 import com.teamx.equiz.games.games.BirdWatchingGame
 import com.teamx.equiz.games.games.BreakTheBlockGame
 import com.teamx.equiz.games.games.CardCalculationGameScreen
@@ -78,10 +79,10 @@ class AdditionAddictionGameFrag : BaseFragment<FragmentAddressBinding, GameFrags
 
         composeView.setContent {
 
-            AdditionAddictionGame(content = {
-                ToolbarCompose(title = "Training", onClick = {
+            AdditionAddictionGameMethod(content = {
+//                ToolbarCompose(title = "Training", onClick = {
                     navController.popBackStack()
-                })
+//                })
             })
 
         }

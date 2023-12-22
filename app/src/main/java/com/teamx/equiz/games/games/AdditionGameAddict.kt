@@ -18,7 +18,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -40,10 +39,11 @@ import com.teamx.equiz.ui.theme.BirdColor3
 import com.teamx.equiz.ui.theme.BirdColor4
 import kotlinx.coroutines.delay
 import java.util.LinkedList
+import kotlin.random.Random
 
 
 @Composable
-fun AdditionAddictionGameMethod() {
+fun AdditionAddictionGameMethod(content: () -> Unit) {
 
     Box(
         modifier = Modifier
@@ -70,7 +70,7 @@ var linkListAddict67Checker = LinkedList<Int>()
 @Composable
 fun ViewAddictionGame() {
     MaterialTheme {
-        AdditionAddictionGameMethod()
+        AdditionAddictionGameMethod(){}
     }
 }
 
@@ -83,11 +83,14 @@ fun AddictGame() {
     var changable by remember { mutableStateOf(false) }
 
     var counter = 0
-    var randNumber by remember { mutableStateOf(6/*Random.nextInt(0, 6)*/) }
+    var randNumber by remember { mutableStateOf(0) }
     if (changable) {
-
-        randNumber = 7
+        LaunchedEffect(Unit) {
+            delay(500)
+        }
+        randNumber = Random.nextInt(1, 9)
         linkListAddict67.clear()
+        linkListAddict67Checker.clear()
         for (i in 0..maxCount) {
 
             linkListAddict67.push(i)
@@ -103,8 +106,67 @@ fun AddictGame() {
         Log.d("123123", "AscendingObjects:AddictGame ${linkListAddict67.size}")
         ///
 
-         changable  = false
+        changable = false
+        Box(
+            modifier = Modifier
+                .padding(16.dp)
+                .fillMaxSize(), contentAlignment = Alignment.Center
+        ) {
+            Column(
+                modifier = Modifier
+                    .wrapContentSize()
+                    .padding(6.dp),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
 
+            ) {
+                Text(
+                    modifier = Modifier,
+                    text = randNumber.toString(),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = Color.Black,
+                    fontSize = 60.sp,
+                    fontWeight = FontWeight.ExtraBold,
+                    textAlign = TextAlign.Center
+                )
+
+                Column(
+                    modifier = Modifier
+                        .wrapContentSize()
+                        .padding(6.dp),
+                    verticalArrangement = Arrangement.Center
+
+                ) {
+                    repeat(2) { row ->
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.Center
+                        ) {
+                            repeat(3) { column ->
+                                val index = row * 3 + column
+                                Log.d("123123", "AddictGame:$index ")/*counter*/
+                                AddictObject67(index, randNumber, Color.White) {
+//                                temp.remove(it)
+//                            temp.pop()
+//                                linkListAddict67Checker /*= temp*/
+                                    changable = it
+
+                                    Log.d(
+                                        "123123",
+                                        "AscendingObjects:AddictGame $linkListAddict67Checker"
+                                    )
+                                }
+                            }
+                        }
+                    }
+                    LaunchedEffect(Unit) {
+                        delay(1300)
+                        gameStarted = false
+                        changable = true
+                    }
+                }
+            }
+        }
     }
 
 
@@ -124,7 +186,12 @@ fun AddictGame() {
         ) {
             Text(
                 modifier = Modifier,
-                text = randNumber.toString(),
+
+                text = if (randNumber != 0) {
+                    randNumber.toString()
+                } else {
+                    ""
+                },
                 style = MaterialTheme.typography.bodySmall,
                 color = Color.Black,
                 fontSize = 60.sp,
@@ -147,11 +214,11 @@ fun AddictGame() {
                         repeat(3) { column ->
                             val index = row * 3 + column
                             Log.d("123123", "AddictGame:$index ")/*counter*/
-                            AddictObject67(index, randNumber  ) {
+                            AddictObject67(index, randNumber, Color.White) {
 //                                temp.remove(it)
 //                            temp.pop()
 //                                linkListAddict67Checker /*= temp*/
-                               changable = it
+                                changable = it
 
                                 Log.d(
                                     "123123", "AscendingObjects:AddictGame $linkListAddict67Checker"
@@ -171,7 +238,12 @@ fun AddictGame() {
 }
 
 @Composable
-fun AddictObject67(number: Int,randomNum: Int, onClick: (item: Boolean) -> Unit) {
+fun AddictObject67(
+    number: Int,
+    randomNum: Int,
+    colorState1: Color,
+    onClick: (item: Boolean) -> Unit
+) {
     var colorState by remember { mutableStateOf<Color>(Color.White) }
     var colorStateTxt by remember { mutableStateOf<Color>(BirdColor3) }
 //    var colorState by remember { mutableStateOf<Color>(Color.Gray) }
@@ -181,7 +253,12 @@ fun AddictObject67(number: Int,randomNum: Int, onClick: (item: Boolean) -> Unit)
             .padding(6.dp)
             .size(85.dp)
             .background(
-                color = colorState, shape = RoundedCornerShape(16.dp)
+                color = if (linkListAddict67Checker.isEmpty() && colorState == BirdColor4) {
+                    colorState = Color.White
+                    colorState
+                } else {
+                    colorState
+                }, shape = RoundedCornerShape(16.dp)
             )
             .clip(RoundedCornerShape(6.dp))
 
@@ -192,13 +269,18 @@ fun AddictObject67(number: Int,randomNum: Int, onClick: (item: Boolean) -> Unit)
                     colorState = BirdColor4
                     colorStateTxt = Color.White
                     linkListAddict67Checker.push(number)
-                  val too =   if (linkListAddict67Checker.size >= 3 && randomNum == linkListAddict67Checker.sum()) {
-                        Log.d("TAG", "AddictGame:Right ${linkListAddict67Checker.sum()}")
-                        true
-                    } else {
-                        Log.d("TAG", "AddictGame:Wrong ${linkListAddict67Checker.sum()}")
-                    false
-                    }
+                    val too =
+                        if (linkListAddict67Checker.size <= linkListAddict67.size && randomNum == linkListAddict67Checker.sum()) {
+                            Log.d("123123", "AddictGame:Right ${linkListAddict67Checker.sum()}")
+
+                            colorStateTxt = BirdColor3
+                            colorState = Color.White
+                            true
+                        } else {
+                            Log.d("123123", "AddictGame:Wrong ${linkListAddict67Checker.sum()}")
+                            false
+                        }
+
                     onClick(too)
 
 
@@ -209,7 +291,19 @@ fun AddictObject67(number: Int,randomNum: Int, onClick: (item: Boolean) -> Unit)
 //                    colorState = Color.White
                     colorState = Color.White
                     colorStateTxt = BirdColor3
-                    onClick(false)
+                    val too =
+                        if (linkListAddict67Checker.size <= linkListAddict67.size && randomNum == linkListAddict67Checker.sum()) {
+                            Log.d("123123", "AddictGame:Right ${linkListAddict67Checker.sum()}")
+
+                            colorStateTxt = BirdColor3
+                            colorState = Color.White
+                            true
+                        } else {
+                            Log.d("123123", "AddictGame:Wrong ${linkListAddict67Checker.sum()}")
+                            false
+                        }
+
+                    onClick(too)
                     Log.d("123123", "AnimatedObject1:$number ::$number ")
                 } else {
                     Log.d("123123", "AnimatedObject2:$number ::$number ")
@@ -223,7 +317,11 @@ fun AddictObject67(number: Int,randomNum: Int, onClick: (item: Boolean) -> Unit)
                 modifier = Modifier,
                 text = number.toString(),
                 style = MaterialTheme.typography.bodySmall,
-                color = colorStateTxt,
+                color = if (colorState == BirdColor4) {
+                    Color.White
+                } else {
+                    BirdColor3
+                },
                 fontSize = 40.sp,
                 fontWeight = FontWeight.ExtraBold,
                 textAlign = TextAlign.Center
