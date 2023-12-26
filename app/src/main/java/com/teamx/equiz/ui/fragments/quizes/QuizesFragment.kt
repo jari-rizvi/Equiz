@@ -10,7 +10,6 @@ import com.squareup.picasso.Picasso
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
-import com.teamx.equiz.constants.NetworkCallPoints.Companion.TOKENER
 import com.teamx.equiz.data.models.quizTitleData.Data
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentQuizesBinding

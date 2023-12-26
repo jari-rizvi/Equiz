@@ -30,6 +30,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import com.teamx.equiz.games.ui.theme.BirdColor3
 import com.teamx.equiz.games.ui.theme.DeceptionBlack
 import com.teamx.equiz.games.ui.theme.DeceptionPink
@@ -47,10 +48,12 @@ enum class ColorBundle {
 
 
 @Composable
-fun TouchTheColorGameScreen(content: () -> Unit) {
+fun TouchTheColorGameScreen(content: (bool:Boolean) -> Unit) {
     var isGameOver by remember { mutableStateOf(false) }
+    var isAlert by remember { mutableStateOf(false) }
+    var isTimeUp by remember { mutableStateOf(false) }
 
-    var timeLeft by remember { mutableStateOf(60L) }
+    var timeLeft by remember { mutableStateOf(20L) }
 
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
@@ -59,20 +62,23 @@ fun TouchTheColorGameScreen(content: () -> Unit) {
         // Start the timer
         object : CountDownTimer(timeLeft * 1000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                if (timerRunning) {
+                  if (timerRunning) {
                     timeLeft = millisUntilFinished / 1000
+                }
+                if (timeLeft<5){
+                    isAlert = true
                 }
             }
 
             override fun onFinish() {
-                isGameOver = true
+                isTimeUp = true
             }
         }.start()
     }
 
 
     if (isGameOver) {
-        content()
+        content(true)
     }
     var score by remember { mutableStateOf(0) }
     var spanCount by remember { mutableStateOf(2) }
@@ -80,96 +86,120 @@ fun TouchTheColorGameScreen(content: () -> Unit) {
     var boxes by remember { mutableStateOf(generateBoxes()) }
     var restart by remember { mutableStateOf(true) }
 
-    Column(
-        modifier = Modifier.fillMaxSize().background(
-            BirdColor3
-        ),
-
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = "Colors Deception",
-            style = MaterialTheme.typography.headlineSmall,
-            modifier = Modifier.padding(bottom = 16.dp)
-        )
-        LazyVerticalGrid(
-            modifier = Modifier.width(250.dp),
-            verticalArrangement = Arrangement.Center,
-            columns = asGridCells,
-        ) {
+    if (isGameOver) {
 
 
-            itemsIndexed(boxes) { index, box ->
+        content(true)
 
+    }
+    if (isTimeUp) {
 
-                Box(
-                    modifier = Modifier
-                        .padding(horizontal = 10.dp, vertical = 5.dp)
-                        .clip(
-                            RoundedCornerShape(19.dp)
-                        )
-                        .height(80.dp)
-                        .width(67.dp)
-                        .background(color = box.color)
-                        .border(BorderStroke(1.dp, Color.Transparent))
+        TimeUpDialogCompose() { i ->
+            if (i) {
+                isGameOver = true
 
-
-                        .clickable {
-                            updateScore(boxes, box, index) { i, bool ->
-                                score++
-                                restart = true
-                                val arr = ArrayList<ColorBox>()
-                                boxes.forEach {
-                                    if (i != it.colorName) {
-                                        arr.add(it)
-                                    }
-                                }
-                                boxes = arr
-                                if (bool) {
-                                    restart = false
-                                }
-
-                            }
-                            if (!restart) {
-                                boxes = generateBoxes()
-                                restart = true
-                            }
-                        },
-
-
-                    ) {
-
-                    Text(
-
-                        modifier = Modifier.align(Alignment.Center),
-                        color = if (box.colorName.toString()
-                                .equals(ColorBundle.WHITE.toString()) && box.color == Color.White
-                        ) {
-                            DeceptionBlack
-                        } else if (box.color == Color.White) {
-                            DeceptionBlack
-                        } else {
-
-                            Color.White
-                        },
-                        text = box.colorName.toString(),
-                        style = MaterialTheme.typography.bodyLarge,
-                    )
-                    /*}*/
-                }
+            } else {
+                content(false)
             }
-
         }
 
 
+    }else{
+        Column(
+            modifier = Modifier.fillMaxSize().background(
+                BirdColor3
+            ),
 
-        Text(
-            text = "Score: $score",
-            style = MaterialTheme.typography.bodyLarge,
-            modifier = Modifier.padding(top = 16.dp)
-        )
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = "Colors Deception",
+                style = MaterialTheme.typography.headlineSmall,
+                modifier = Modifier.padding(bottom = 16.dp)
+            )
+            LazyVerticalGrid(
+                modifier = Modifier.width(250.dp),
+                verticalArrangement = Arrangement.Center,
+                columns = asGridCells,
+            ) {
+
+
+                itemsIndexed(boxes) { index, box ->
+
+
+                    Box(
+                        modifier = Modifier
+                            .padding(horizontal = 10.dp, vertical = 5.dp)
+                            .clip(
+                                RoundedCornerShape(19.dp)
+                            )
+                            .height(80.dp)
+                            .width(67.dp)
+                            .background(color = box.color)
+                            .border(BorderStroke(1.dp, Color.Transparent))
+
+
+                            .clickable {
+                                updateScore(boxes, box, index) { i, bool ->
+                                    score++
+                                    restart = true
+                                    val arr = ArrayList<ColorBox>()
+                                    boxes.forEach {
+                                        if (i != it.colorName) {
+                                            arr.add(it)
+                                        }
+                                    }
+                                    boxes = arr
+                                    if (bool) {
+                                        restart = false
+                                    }
+
+                                }
+                                if (!restart) {
+                                    boxes = generateBoxes()
+                                    restart = true
+                                }
+                            },
+
+
+                        ) {
+
+                        Text(
+
+                            modifier = Modifier.align(Alignment.Center),
+                            color = if (box.colorName.toString()
+                                    .equals(ColorBundle.WHITE.toString()) && box.color == Color.White
+                            ) {
+                                DeceptionBlack
+                            } else if (box.color == Color.White) {
+                                DeceptionBlack
+                            } else {
+
+                                Color.White
+                            },
+                            text = box.colorName.toString(),
+                            style = MaterialTheme.typography.bodyLarge,
+                        )
+                        /*}*/
+                    }
+                }
+
+            }
+
+
+
+            Text(
+                text = "Score: $score",
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.padding(top = 16.dp)
+            )
+        }
     }
+
+
+
+
 }
 
 var deceptionNum: ColorBundle? = null

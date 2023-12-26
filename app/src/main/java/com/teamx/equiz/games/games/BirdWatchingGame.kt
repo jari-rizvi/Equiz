@@ -10,13 +10,18 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBackIos
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -26,6 +31,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -38,6 +44,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
+import com.teamx.equiz.games.games.ui_components.GameAlertingTime
+import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import com.teamx.equiz.games.ui.theme.BirdColor1
 import com.teamx.equiz.games.ui.theme.BirdColor2
 import com.teamx.equiz.games.ui.theme.BirdColor3
@@ -46,12 +54,14 @@ import kotlinx.coroutines.delay
 import java.util.LinkedList
 import kotlin.random.Random
 
-@Preview
-@Composable
-fun BirdWatchingGame(content: @Composable () -> Unit = {}) {
-    var isGameOver by remember { mutableStateOf(false) }
 
-    var timeLeft by remember { mutableStateOf(60L) }
+@Composable
+fun BirdWatchingGame(content: (boo: Boolean) -> Unit) {
+    var isGameOver by remember { mutableStateOf(false) }
+    var isAlert by remember { mutableStateOf(false) }
+    var isTimeUp by remember { mutableStateOf(false) }
+
+    var timeLeft by remember { mutableStateOf(20L) }
 
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
@@ -60,39 +70,88 @@ fun BirdWatchingGame(content: @Composable () -> Unit = {}) {
         // Start the timer
         object : CountDownTimer(timeLeft * 1000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                if (timerRunning) {
+                  if (timerRunning) {
                     timeLeft = millisUntilFinished / 1000
+                }
+
+                if (timeLeft<5){
+                    isAlert = true
                 }
             }
 
             override fun onFinish() {
-                isGameOver = true
+                isTimeUp = true
             }
         }.start()
     }
 
 
     if (isGameOver) {
-        content()
+
+
+        content(true)
+
     }
-    Box(
+
+    if (isTimeUp) {
+
+        TimeUpDialogCompose() { i ->
+            if (i) {
+                isGameOver = true
+
+            } else {
+                content(false)
+            }
+        }
+
+
+    } else {
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
                 .background(color = Color.White),
         ) {
-    Column {
-        content()
-        BirdAscendingObjects()
-    }
-      Image(
+            Column {
+                Row(
+                    modifier = Modifier
+                        .wrapContentSize()
+                        .padding(10.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(imageVector = Icons.Default.ArrowBackIos,
+                        contentDescription = "BackButton",
+                        tint = Color.White,
+                        modifier = Modifier.clickable(true) {
+                            content(false)
+                        }
+
+                    )
+                    Text(
+                        modifier = Modifier.wrapContentSize(),
+                        text = "Bird Watching",
+                        color = Color.White,
+                        fontSize = 16.sp,
+                        textAlign = TextAlign.Center
+                    )
+                }
+                BirdAscendingObjects()
+            }
+            Image(
                 modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight(),
                 painter = painterResource(id = R.drawable.iconbg),
                 contentDescription = "bg"
             )
+
+            if (isAlert) {
+                GameAlertingTime()
+            }
         }
+    }
+
+
 }
 
 //

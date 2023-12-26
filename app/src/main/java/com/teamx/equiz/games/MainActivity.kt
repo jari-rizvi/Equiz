@@ -1,5 +1,6 @@
 package com.teamx.equiz.games
 
+import LoadingAnimation
 import android.os.Build
 import android.os.Bundle
 import android.view.animation.OvershootInterpolator
@@ -79,9 +80,9 @@ fun startUp(modifier: Modifier) {
         Column(
 
         ) {
-            Navigation()/* Text(text = "Loading...", modifier = Modifier.padding(vertical = 48.dp))
-             LoadingAnimation()
-             grids()*/
+//            androidx.navigation.Navigation()/* Text(text = "Loading...", modifier = Modifier.padding(vertical = 48.dp))
+//             LoadingAnimation()
+//             grids()*/
         }
     }
 
@@ -180,225 +181,225 @@ fun PreviewLazyGridExample() {
 }*/
 //
 
-@RequiresApi(Build.VERSION_CODES.O)
-@Composable
-fun Navigation() {
-    val navController = rememberNavController()
-
-    NavHost(navController = navController, startDestination = "splashScreen") {
-
-        composable("splashScreen") {
-            SplashScreen(navController = navController)
-        }
-
-        composable("mainScreen") {
-            MainScreen(navController = navController)
-        }
-      /*  composable(GamesUID.DashboardScreen.name) {
-//            MainScreen()
-        }*/
-
-        composable(GamesUID.AdditionScreen.name) {
-            AdditionAddictionGameMethod(){} /*{
-              *//*  ToolbarPreview(
-                    navController = navController, GamesUID.AdditionScreen.name
-                )*//*
-            }*/
-        }
-        composable(GamesUID.BirdWatchingScreen.name) {
-            BirdWatchingGame() {
-                ToolbarPreview(
-                    navController = navController, GamesUID.BirdWatchingScreen.name
-                )
-            }
-        }
-        composable(GamesUID.BreakTheBlockScreen.name) {
-            BreakTheBlockGame() {
-                ToolbarPreview(
-                    navController = navController, GamesUID.BreakTheBlockScreen.name
-                )
-            }
-        }
-        composable(GamesUID.ColorDeceptionScreen.name) {
-            TouchTheColorGameScreen() {
-                /*ToolbarPreview(
-                    navController = navController, GamesUID.ColorDeceptionScreen.name
-                )*/
-            }
-        }
-      /*  composable(GamesUID.ColorSwitchScreen.name) {
-            ColorSwitchGameScreen() {
-                ToolbarPreview(
-                    navController = navController, GamesUID.ColorSwitchScreen.name
-                )
-            }
-        }*/
-        composable(GamesUID.ConcentrationScreen.name) {
-            ConcentrationGame() {
-                /*ToolbarPreview(
-                    navController = navController, GamesUID.ConcentrationScreen.name
-                )*/
-            }
-        }
-        composable(GamesUID.CardCalculationGameScreen.name) {
-            CardCalculationGameScreen() {
-                /*ToolbarPreview(
-                    navController = navController, GamesUID.CardCalculationGameScreen.name
-                )*/
-            }
-        }
-        composable(GamesUID.FlickScreen.name) {
-            FlickGameScreen() {
-                /*ToolbarPreview(
-                    navController = navController, GamesUID.FlickScreen.name
-                )*/
-            }
-        }
-        composable(GamesUID.FollowTheLeaderScreen.name) {
-            FollowTheLeaderGame() {
-               /* ToolbarPreview(
-                    navController = navController, GamesUID.FollowTheLeaderScreen.name
-                )*/
-            }
-        }
-      /*  composable(GamesUID.HexaChainScreen.name) {
-            HexaChainGameScreen() {
-                ToolbarPreview(
-                    navController = navController, GamesUID.HexaChainScreen.name
-                )
-            }
-        }*/
-        composable(GamesUID.HighLowScreen.name) {
-            HighOrLowGameScreen(content = {
-                ToolbarPreview(
-                    navController = navController, GamesUID.HighLowScreen.name
-                )
-            }) {}
-        }
-        /*composable(GamesUID.LearningThingScreen.name) {
-            Main() {
-                ToolbarPreview(
-                    navController = navController, GamesUID.LearningThingScreen.name
-                )
-            }
-        }*/
-        composable(GamesUID.MakeTenScreen.name) {
-            Make10GameScreen() {
-                /*ToolbarPreview(
-                    navController = navController, GamesUID.MakeTenScreen.name
-                )*/
-            }
-        }
-        composable(GamesUID.MatchingScreen.name) {
-            MatchingStepGame(Modifier.padding(2.dp)) {
-                /*ToolbarPreview(
-                    navController = navController, GamesUID.MatchingScreen.name
-                )*/
-            }
-        }
-        composable(GamesUID.MissingPieceScreen.name) {
-            MissingPieceGameScreen() {
-                /*ToolbarPreview(
-                    navController = navController, GamesUID.MissingPieceScreen.name
-                )*/
-            }
-        }
-        composable(GamesUID.OperationsScreen.name) {
-//            GameScreen2() {
+//@RequiresApi(Build.VERSION_CODES.O)
+//@Composable
+//fun Navigation() {
+//    val navController = rememberNavController()
+//
+//    NavHost(navController = navController, startDestination = "splashScreen") {
+//
+//        composable("splashScreen") {
+//            SplashScreen(navController = navController)
+//        }
+//
+//        composable("mainScreen") {
+//            MainScreen(navController = navController)
+//        }
+//      /*  composable(GamesUID.DashboardScreen.name) {
+////            MainScreen()
+//        }*/
+//
+//        composable(GamesUID.AdditionScreen.name) {
+//            AdditionAddictionGameMethod(){} /*{
+//              *//*  ToolbarPreview(
+//                    navController = navController, GamesUID.AdditionScreen.name
+//                )*//*
+//            }*/
+//        }
+//        composable(GamesUID.BirdWatchingScreen.name) {
+//            BirdWatchingGame() {
 //                ToolbarPreview(
-//                    navController = navController, GamesUID.OperationsScreen.name
+//                    navController = navController, GamesUID.BirdWatchingScreen.name
 //                )
 //            }
-        }
-
-        composable(GamesUID.QuickEyeScreen.name) {
-            QuickEyeGame() {
-                /*ToolbarPreview(
-                    navController = navController, GamesUID.QuickEyeScreen.name
-                )*/
-            }
-        }
-        composable(GamesUID.RainFallScreen.name) {
-            RainFallGame() {
-                /*ToolbarPreview(
-                    navController = navController, GamesUID.RainFallScreen.name
-                )*/
-            }
-        }
-       /* composable(GamesUID.ResultScreen.name) {
-//            MainScreen()
-        }*/
-        composable(GamesUID.ReverseRpsScreen.name) {
-            ReverseRockPaperScissorsGameScreen() {
-                ToolbarPreview(
-                    navController = navController, GamesUID.ReverseRpsScreen.name
-                )
-            }
-        }
-        composable(GamesUID.RapidSorting.name) {
-            RapidSortingGame() {
-                ToolbarPreview(
-                    navController = navController, GamesUID.RapidSorting.name
-                )
-            }
-        }
-        composable(GamesUID.SimplicityScreen.name) {
-            ImplicityGameScreen() {
-                ToolbarPreview(
-                    navController = navController, GamesUID.SimplicityScreen.name
-                )
-            }
-        }
-        composable(GamesUID.SpinningBlockScreen.name) {
-            SpinningBlockGame() {
-                ToolbarPreview(
-                    navController = navController, GamesUID.SpinningBlockScreen.name
-                )
-            }
-        }
-        composable(GamesUID.TapTheColorScreen.name) {
-            TapTheColorGame() {
-                ToolbarPreview(
-                    navController = navController, GamesUID.TapTheColorScreen.name
-                )
-            }
-        }
-/*        composable(GamesUID.TenSecondScreen.name) {
-//            MainScreen()
-        }*/
-        composable(GamesUID.TouchTheNumScreen.name) {
-            TouchTheNumGamePlus() {
-                ToolbarPreview(
-                    navController = navController, GamesUID.TouchTheNumScreen.name
-                )
-            }
-        }
-        /*composable(GamesUID.TouchTheNumPlusScreen.name) {
-            TouchTheNumPlusGame() {
-                ToolbarPreview(
-                    navController = navController, GamesUID.TouchTheNumPlusScreen.name
-                )
-            }
-        }*/
-        composable(GamesUID.UnfollowTheLeaderScreen.name) {
-            UnfollowTheLeaderGame() {
-                ToolbarPreview(
-                    navController = navController, GamesUID.UnfollowTheLeaderScreen.name
-                )
-            }
-        }
-        composable(GamesUID.WeatherCast.name) {
-            WeatherCastGame() {
-               /* ToolbarPreview(
-                    navController = navController, GamesUID.WeatherCast.name
-                )*/
-            }
-        }
-
-    }
-
-
-}
+//        }
+//        composable(GamesUID.BreakTheBlockScreen.name) {
+//            BreakTheBlockGame() {
+//                ToolbarPreview(
+//                    navController = navController, GamesUID.BreakTheBlockScreen.name
+//                )
+//            }
+//        }
+//        composable(GamesUID.ColorDeceptionScreen.name) {
+//            TouchTheColorGameScreen() {
+//                /*ToolbarPreview(
+//                    navController = navController, GamesUID.ColorDeceptionScreen.name
+//                )*/
+//            }
+//        }
+//      /*  composable(GamesUID.ColorSwitchScreen.name) {
+//            ColorSwitchGameScreen() {
+//                ToolbarPreview(
+//                    navController = navController, GamesUID.ColorSwitchScreen.name
+//                )
+//            }
+//        }*/
+//        composable(GamesUID.ConcentrationScreen.name) {
+//            ConcentrationGame() {
+//                /*ToolbarPreview(
+//                    navController = navController, GamesUID.ConcentrationScreen.name
+//                )*/
+//            }
+//        }
+//        composable(GamesUID.CardCalculationGameScreen.name) {
+//            CardCalculationGameScreen() {
+//                /*ToolbarPreview(
+//                    navController = navController, GamesUID.CardCalculationGameScreen.name
+//                )*/
+//            }
+//        }
+//        composable(GamesUID.FlickScreen.name) {
+//            FlickGameScreen() {
+//                /*ToolbarPreview(
+//                    navController = navController, GamesUID.FlickScreen.name
+//                )*/
+//            }
+//        }
+//        composable(GamesUID.FollowTheLeaderScreen.name) {
+//            FollowTheLeaderGame() {
+//               /* ToolbarPreview(
+//                    navController = navController, GamesUID.FollowTheLeaderScreen.name
+//                )*/
+//            }
+//        }
+//      /*  composable(GamesUID.HexaChainScreen.name) {
+//            HexaChainGameScreen() {
+//                ToolbarPreview(
+//                    navController = navController, GamesUID.HexaChainScreen.name
+//                )
+//            }
+//        }*/
+//        composable(GamesUID.HighLowScreen.name) {
+//            HighOrLowGameScreen(content = {
+//                ToolbarPreview(
+//                    navController = navController, GamesUID.HighLowScreen.name
+//                )
+//            }) {}
+//        }
+//        /*composable(GamesUID.LearningThingScreen.name) {
+//            Main() {
+//                ToolbarPreview(
+//                    navController = navController, GamesUID.LearningThingScreen.name
+//                )
+//            }
+//        }*/
+//        composable(GamesUID.MakeTenScreen.name) {
+//            Make10GameScreen() {
+//                /*ToolbarPreview(
+//                    navController = navController, GamesUID.MakeTenScreen.name
+//                )*/
+//            }
+//        }
+//        composable(GamesUID.MatchingScreen.name) {
+//            MatchingStepGame(Modifier.padding(2.dp)) {
+//                /*ToolbarPreview(
+//                    navController = navController, GamesUID.MatchingScreen.name
+//                )*/
+//            }
+//        }
+//        composable(GamesUID.MissingPieceScreen.name) {
+//            MissingPieceGameScreen() {
+//                /*ToolbarPreview(
+//                    navController = navController, GamesUID.MissingPieceScreen.name
+//                )*/
+//            }
+//        }
+//        composable(GamesUID.OperationsScreen.name) {
+////            GameScreen2() {
+////                ToolbarPreview(
+////                    navController = navController, GamesUID.OperationsScreen.name
+////                )
+////            }
+//        }
+//
+//        composable(GamesUID.QuickEyeScreen.name) {
+//            QuickEyeGame() {
+//                /*ToolbarPreview(
+//                    navController = navController, GamesUID.QuickEyeScreen.name
+//                )*/
+//            }
+//        }
+//        composable(GamesUID.RainFallScreen.name) {
+//            RainFallGame() {
+//                /*ToolbarPreview(
+//                    navController = navController, GamesUID.RainFallScreen.name
+//                )*/
+//            }
+//        }
+//       /* composable(GamesUID.ResultScreen.name) {
+////            MainScreen()
+//        }*/
+//        composable(GamesUID.ReverseRpsScreen.name) {
+//            ReverseRockPaperScissorsGameScreen() {
+//                ToolbarPreview(
+//                    navController = navController, GamesUID.ReverseRpsScreen.name
+//                )
+//            }
+//        }
+//        composable(GamesUID.RapidSorting.name) {
+//            RapidSortingGame() {
+//                ToolbarPreview(
+//                    navController = navController, GamesUID.RapidSorting.name
+//                )
+//            }
+//        }
+//        composable(GamesUID.SimplicityScreen.name) {
+//            ImplicityGameScreen() {
+//                ToolbarPreview(
+//                    navController = navController, GamesUID.SimplicityScreen.name
+//                )
+//            }
+//        }
+//        composable(GamesUID.SpinningBlockScreen.name) {
+//            SpinningBlockGame() {
+//                ToolbarPreview(
+//                    navController = navController, GamesUID.SpinningBlockScreen.name
+//                )
+//            }
+//        }
+//        composable(GamesUID.TapTheColorScreen.name) {
+//            TapTheColorGame() {
+//                ToolbarPreview(
+//                    navController = navController, GamesUID.TapTheColorScreen.name
+//                )
+//            }
+//        }
+///*        composable(GamesUID.TenSecondScreen.name) {
+////            MainScreen()
+//        }*/
+//        composable(GamesUID.TouchTheNumScreen.name) {
+//            TouchTheNumGamePlus() {
+//                ToolbarPreview(
+//                    navController = navController, GamesUID.TouchTheNumScreen.name
+//                )
+//            }
+//        }
+//        /*composable(GamesUID.TouchTheNumPlusScreen.name) {
+//            TouchTheNumPlusGame() {
+//                ToolbarPreview(
+//                    navController = navController, GamesUID.TouchTheNumPlusScreen.name
+//                )
+//            }
+//        }*/
+//        composable(GamesUID.UnfollowTheLeaderScreen.name) {
+//            UnfollowTheLeaderGame() {
+//                ToolbarPreview(
+//                    navController = navController, GamesUID.UnfollowTheLeaderScreen.name
+//                )
+//            }
+//        }
+//        composable(GamesUID.WeatherCast.name) {
+//            WeatherCastGame() {
+//               /* ToolbarPreview(
+//                    navController = navController, GamesUID.WeatherCast.name
+//                )*/
+//            }
+//        }
+//
+//    }
+//
+//
+//}
 
 @Composable
 fun SplashScreen(navController: NavController) {

@@ -101,7 +101,7 @@ fun ChartScreen() {
 @Composable
 fun DefaultPreview() {
     GameEquizApplicationTheme {
-        ResultScreen(10, 7,30) {}
+        ResultScreen(10, 7, 30, "", painterResource(id = R.drawable.weathercast_icon)) {}
     }
 }
 
@@ -269,7 +269,14 @@ fun BackButton(onClick: () -> Unit) {
 
 
 @Composable
-fun ResultScreen(total: Int, right: Int, time: Int, onContinueClicked: () -> Unit) {
+fun ResultScreen(
+    total: Int,
+    right: Int,
+    time: Int,
+    gameName: String,
+    painter: Painter,
+    onContinueClicked: () -> Unit
+) {
 
 
     var percentage = ((right.toDouble() / total)).toFloat()
@@ -313,7 +320,9 @@ fun ResultScreen(total: Int, right: Int, time: Int, onContinueClicked: () -> Uni
                     )
 
                 }
-                TitleHeader()
+                TitleHeader(
+                    painter = painter, title = gameName
+                )
 
                 /* PieChart(
                      listOf(
@@ -736,7 +745,7 @@ fun HomeScreen(modifier: Modifier = Modifier) {
             }
 
         } else {
-            ResultScreen(10, 7,30, onContinueClicked = { shouldShowOnboarding = true })
+            ResultScreen(10, 7,30,"", painterResource(id = R.drawable.weathercast_icon), onContinueClicked = { shouldShowOnboarding = true })
         }
     }
 }

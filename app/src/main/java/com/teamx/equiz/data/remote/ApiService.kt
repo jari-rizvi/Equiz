@@ -26,7 +26,9 @@ import com.teamx.equiz.data.models.orderDetailData.OrderDetailData
 import com.teamx.equiz.data.models.otpForgotData.OtpforgotData
 import com.teamx.equiz.data.models.quizTitleData.QuizTitleData
 import com.teamx.equiz.data.models.signupData.SignupData
+
 import com.teamx.equiz.data.models.sucessData.SuccessData
+import com.teamx.equiz.data.models.sucessData.gamesuccess.GameObj
 import com.teamx.equiz.data.models.topWinnerData.TopWinnerData
 import com.teamx.equiz.data.models.wishlistdata.WishlistData
 import com.teamx.equiz.ui.fragments.ecommerce.paymentMethods.model.StripeModel
@@ -130,11 +132,11 @@ interface ApiService {
     suspend fun resetPass(@Body params: JsonObject?): Response<SuccessData>
 
 
-    @POST(NetworkCallPoints.RESULT_GAME)
+    @PUT(NetworkCallPoints.RESULT_GAME)
     suspend fun resultGame(
         @Body params: JsonObject?,
         @Header("token") basicCredentials: String = "$TOKENER"
-    ): Response<SuccessData>
+    ): Response<GameObj>
 
     @Multipart
     @POST(NetworkCallPoints.UPLOAD_IMGS)

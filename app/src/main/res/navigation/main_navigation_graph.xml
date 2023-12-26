@@ -479,6 +479,14 @@
         android:id="@+id/shapeDeceptionGameFrag"
         android:name="com.teamx.equiz.ui.game_fragments.ShapeDeceptionGameFrag"
         android:label="ShapeDeceptionGameFrag" />
+    <fragment
+        android:id="@+id/startUpGameFrag"
+        android:name="com.teamx.equiz.ui.game_fragments.StartUpGameFrag"
+        android:label="StartUpGameFrag" />
+    <fragment
+        android:id="@+id/matchingGameFrag"
+        android:name="com.teamx.equiz.ui.game_fragments.MatchingGameFrag"
+        android:label="MatchingGameFrag" />
 
 
 </navigation>

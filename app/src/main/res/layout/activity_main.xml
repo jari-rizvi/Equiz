@@ -82,7 +82,7 @@
                 app:ss_circleColor="#ffffff"
                 app:ss_countBackgroundColor="#ffffff"
                 app:ss_countTextColor="#ffffff"
-
+              android:elevation="@dimen/_5sdp"
                 app:ss_defaultIconColor="@color/white"
                 app:ss_iconTextColor="@color/white"
                 app:ss_iconTextSize="12sp"

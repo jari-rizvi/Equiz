@@ -42,6 +42,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.teamx.equiz.R
+import com.teamx.equiz.games.games.ui_components.GameAlertingTime
+import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import com.teamx.equiz.games.ui.theme.BirdColor1
 import com.teamx.equiz.games.ui.theme.BirdColor3
 import com.teamx.equiz.games.ui.theme.Pink80
@@ -53,10 +55,12 @@ import kotlin.random.Random
 
 @Preview
 @Composable
-fun FlickGameScreen(content: () -> Unit = {}) {
+fun FlickGameScreen(content: (bool:Boolean) -> Unit = {}) {
     var isGameOver by remember { mutableStateOf(false) }
+    var isAlert by remember { mutableStateOf(false) }
+    var isTimeUp by remember { mutableStateOf(false) }
 
-    var timeLeft by remember { mutableStateOf(60L) }
+    var timeLeft by remember { mutableStateOf(20L) }
 
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
@@ -65,43 +69,73 @@ fun FlickGameScreen(content: () -> Unit = {}) {
         // Start the timer
         object : CountDownTimer(timeLeft * 1000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                if (timerRunning) {
+                  if (timerRunning) {
                     timeLeft = millisUntilFinished / 1000
+                }
+                if (timeLeft<5){
+                    isAlert = true
                 }
             }
 
             override fun onFinish() {
-                isGameOver = true
+                isTimeUp = true
             }
         }.start()
     }
 
 
     if (isGameOver) {
-        content()
+        content(true)
     }
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight()
-            .background(color = Color.White),
-    ) {
-        Column {
-            content()
-            Box(
-                modifier = Modifier.fillMaxSize(), Alignment.Center
-            ) {
-                FlickComponent()
+
+    if (isGameOver) {
+
+
+        content(true)
+
+    }
+    if (isTimeUp) {
+
+        TimeUpDialogCompose() { i ->
+            if (i) {
+                isGameOver = true
+
+            } else {
+                content(false)
             }
         }
-        Image(
+
+
+    }else{
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(),
-            painter = painterResource(id = R.drawable.iconbg),
-            contentDescription = "bg"
-        )
+                .fillMaxHeight()
+                .background(color = Color.White),
+        ) {
+            Column {
+
+                Box(
+                    modifier = Modifier.fillMaxSize(), Alignment.Center
+                ) {
+                    FlickComponent()
+                }
+            }
+            Image(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(),
+                painter = painterResource(id = R.drawable.iconbg),
+                contentDescription = "bg"
+            )
+            if (isAlert) {
+                GameAlertingTime()
+            }
+        }
     }
+
+
+
 }
 
 //flick

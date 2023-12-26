@@ -12,6 +12,7 @@ import androidx.navigation.findNavController
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseActivity
+import com.teamx.equiz.constants.NetworkCallPoints
 import com.teamx.equiz.databinding.ActivityMainBinding
 import com.teamx.equiz.games.games.tetris.logic.SoundUtil
 import com.teamx.equiz.games.games.tetris.logic.StatusBarUtil
@@ -120,7 +121,74 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
         }
 
 
-//        setBottomNavigationWithNavController(savedInstanceState)
+        setBottomNavigationWithNavController(savedInstanceState)
+
+
+
+        navController!!.addOnDestinationChangedListener { _, destination, _ ->
+
+            when (destination.id) {
+
+                R.id.dashboardFragment -> {
+                     mViewDataBinding.bottomNavigationq?.visibility = View.VISIBLE
+                }
+
+                R.id.gamesFragment -> {
+
+                     mViewDataBinding.bottomNavigationq?.visibility = View.VISIBLE
+                }
+
+                R.id.profileFragment -> {
+
+                     mViewDataBinding.bottomNavigationq?.visibility = View.VISIBLE
+                }
+
+                R.id.quizesFragment -> {
+                     mViewDataBinding.bottomNavigationq?.visibility = View.VISIBLE
+                }
+
+                R.id.editProfileFragment -> {
+                     mViewDataBinding.bottomNavigationq?.visibility = View.VISIBLE
+                }
+
+            /*    R.id.qr -> {
+                     mViewDataBinding.bottomNavigationq?.visibility = View.VISIBLE
+                }
+
+                R.id.shopHomePageFragment -> {
+                     mViewDataBinding.bottomNavigationq?.visibility = View.VISIBLE
+                }
+
+                R.id.productPreviewFragment -> {
+                     mViewDataBinding.bottomNavigationq?.visibility = View.VISIBLE
+                }*/
+
+                else -> {
+                     mViewDataBinding.bottomNavigationq?.visibility = View.GONE
+                }
+            }
+          /*  mViewDataBinding.bottomNavigationq?.menu?.getItem(2)?.isVisible =
+                !(NetworkCallPoints.TOKENER == null || NetworkCallPoints.TOKENER.equals("null") || NetworkCallPoints.TOKENER.equals(
+                    ""
+                ))
+            mViewDataBinding.bottomNavigationq?.menu?.getItem(1)?.isVisible =
+                !(NetworkCallPoints.TOKENER == null || NetworkCallPoints.TOKENER.equals("null") || NetworkCallPoints.TOKENER.equals(
+                    ""
+                ))*/
+//            setupBottomNavMenu(navController!!)
+        }
+
+
+
+
+
+
+
+
+
+
+
+
 
     }
 
@@ -192,7 +260,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
 
         mViewDataBinding.bottomNavigationq.apply {
             // If you don't pass activeIndex then by default it will take 0 position
-            setMenuItems(menuItems, activeIndex)
+            setMenuItems(menuItems, -1)
             setupWithNavController(navController)
 
             // manually set the active item, so from which you can control which position item should be active when it is initialized.

@@ -1,22 +1,16 @@
 package com.teamx.equiz.ui.game_fragments
 
-import android.os.Bundle
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.fragment.findNavController
 import com.google.gson.JsonObject
-import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseViewModel
-import com.teamx.equiz.data.models.sucessData.SuccessData
+import com.teamx.equiz.data.models.sucessData.gamesuccess.GameObj
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.data.remote.reporitory.MainRepository
-import com.teamx.equiz.utils.DialogHelperClass
 import com.teamx.equiz.utils.NetworkHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import org.json.JSONException
 import org.json.JSONObject
 import javax.inject.Inject
 
@@ -27,8 +21,8 @@ class GameFragsViewModel @Inject constructor(
 ) : BaseViewModel() {
 
 
-    private val resultResponseGame = MutableLiveData<Resource<SuccessData>>()
-    val resultResponseGameOB: LiveData<Resource<SuccessData>>
+    private val resultResponseGame = MutableLiveData<Resource<GameObj>>()
+    val resultResponseGameOB: LiveData<Resource<GameObj>>
         get() = resultResponseGame
 
     fun resultGame(param: JsonObject) {

@@ -1,6 +1,11 @@
 package com.teamx.equiz.games.games.ui_components
 
 import android.util.Log
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
@@ -28,6 +33,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -40,10 +46,10 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
-import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -52,6 +58,7 @@ import com.teamx.equiz.R
 import com.teamx.equiz.ui.theme.BirdColor1
 import com.teamx.equiz.ui.theme.BirdColor2
 import com.teamx.equiz.ui.theme.toolbarUnique
+import kotlinx.coroutines.delay
 
 
 class ComponentsUI {
@@ -118,14 +125,14 @@ class ComponentsUI {
     @Preview
     @Composable
     fun CardButtonRoundComp(onClick: () -> Unit = {}) {
-        val context = LocalContext.current
+
         Box(
             modifier = Modifier
                 .padding(2.dp)
                 .height(30.dp)
                 .width(140.dp)
                 .clip(RoundedCornerShape(18.dp))
-                .background(Color.Yellow)
+                .background(toolbarUnique)
                 .clickable(enabled = false, null) {
                     onClick()
                 }, contentAlignment = Alignment.Center
@@ -221,33 +228,96 @@ class ComponentsUI {
 
     @Preview
     @Composable
-    fun DiagonalGradientCard5(
-        modifier: Modifier = Modifier, content: @Composable () -> Unit = {}
-    ) {
-        Card(
-            modifier = modifier
-                .fillMaxSize()
-                .background(
-                    brush = Brush.linearGradient(
-                        colors = listOf(
-                            Color.Blue, // Top color
-                            Color.Red   // Bottom color
-                        ), start = Offset.Zero, end = Offset.Infinite
-                    )
+    fun gameAlertingTime() {
+
+        val animationProgress = remember { Animatable(0f) }
+        LaunchedEffect(true) {
+            animationProgress.animateTo(
+                targetValue = .75f/*1f*/,
+
+                animationSpec = infiniteRepeatable(
+                    animation = tween(1000, easing = LinearEasing), repeatMode = RepeatMode.Reverse
                 )
+            )
+        }
+
+        val alpha = animationProgress.value * 255
+        val color = android.graphics.Color.argb(
+            alpha.toInt(), (toolbarUnique.copy(alpha = 0.7f).red.toInt() + alpha).toInt(), 0,0
+        )
+
+        Box(
+            modifier = Modifier.fillMaxSize()
+
         ) {
             Box(modifier = Modifier.fillMaxSize()) {
-                Canvas(modifier = Modifier.fillMaxSize()) {
-                    drawRect(
-                        brush = Brush.verticalGradient(
-                            colors = listOf(
-                                Color.Blue, // Top color
-                                Color.Red   // Bottom color
+                Row(modifier = Modifier.fillMaxSize(),Arrangement.SpaceBetween) {
+                    Canvas(
+                        modifier = Modifier
+                            .width(70.dp)
+                            .fillMaxHeight()
+                    ) {
+                        drawRect(
+                            brush = Brush.horizontalGradient(
+                                colors = listOf(
+                                    Color(color)/*toolbarUnique.copy(alpha = 0.7f)*/, // Top color
+                                    Color.Transparent   // Bottom color
+                                )
                             )
                         )
-                    )
+                    }
+
+
+                    Canvas(
+                        modifier = Modifier
+                            .width(70.dp)
+                            .fillMaxHeight()
+                    ) {
+                        drawRect(
+                            brush = Brush.horizontalGradient(
+                                colors = listOf(
+                                    Color.Transparent, // Top color
+                                    Color(color)/*toolbarUnique.copy(alpha = 0.7f)*/   // Bottom color
+                                )
+                            )
+                        )
+                    }
+
                 }
-                content()
+                Column(modifier = Modifier.fillMaxSize(),Arrangement.SpaceBetween) {
+                    Canvas(
+                        modifier = Modifier
+                            .height(70.dp)
+                            .fillMaxWidth()
+
+                    ) {
+                        drawRect(
+                            brush = Brush.verticalGradient(
+                                colors = listOf(
+                                    Color(color)/*toolbarUnique.copy(alpha = 0.7f)*/, // Top color
+                                    Color.Transparent   // Bottom color
+                                )
+                            )
+                        )
+                    }
+
+                    Canvas(
+                        modifier = Modifier
+                            .height(70.dp)
+                            .fillMaxWidth()
+                    ) {
+                        drawRect(
+                            brush = Brush.verticalGradient(
+                                colors = listOf(
+                                    Color.Transparent, // Top color
+                                    Color(color)/*toolbarUnique.copy(alpha = 0.7f)*/   // Bottom color
+                                )
+                            )
+                        )
+                    }
+                }
+
+
             }
         }
     }
@@ -511,56 +581,206 @@ fun StartUpDialogCompose(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(448.dp)
-            .background(color = Color.White)
-            .border(BorderStroke(6.dp, Color.Red), shape = RoundedCornerShape(14.dp))
-            .background(color = Color.White, shape = RoundedCornerShape(14.dp)),
+            .fillMaxHeight()
+            .background(color = Color.White),
     ) {
+
         Box(
             Modifier
                 .fillMaxWidth()
-                .height(448.dp)
-                .border(BorderStroke(6.dp, Color.Red), shape = RoundedCornerShape(14.dp))
-                .background(color = Color.White, shape = RoundedCornerShape(14.dp))
+                .height(48.dp)
+                .background(color = toolbarUnique)
         ) {
-            Column(
+            Row(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(10.dp),
-                verticalArrangement = Arrangement.SpaceEvenly,
-                horizontalAlignment = Alignment.CenterHorizontally
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(
-                    modifier = Modifier
-                        .wrapContentSize()
-                        .padding(top = 12.dp),
-                    text = title,
-                    color = toolbarUnique,
-                    fontSize = 16.sp,
-                    textAlign = TextAlign.Center
-                )
-                Image(painter = painter/*Icons.Default.ArrowBackIos*/,
+                Icon(imageVector = Icons.Default.ArrowBackIos,
                     contentDescription = "BackButton",
-
-                    modifier = Modifier
-                        .padding(top = 12.dp)
-                        .clickable(true) {
-                            onClick
-                        }
+                    tint = Color.White,
+                    modifier = Modifier.clickable(true) {
+                        onClick()
+                    }
 
                 )
                 Text(
-                    modifier = Modifier
-                        .wrapContentSize()
-                        .padding(top = 12.dp),
-                    text = exampleTxt,
-                    color = Color(0xFF323232),
+                    modifier = Modifier.fillMaxSize(),
+                    text = title,
+                    color = Color.White,
                     fontSize = 16.sp,
                     textAlign = TextAlign.Center
                 )
             }
 
         }
+
+        Column(
+            modifier = Modifier
+
+                .fillMaxWidth()
+                .fillMaxHeight(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+
+
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(448.dp)
+                    .padding(20.dp)
+                    .background(color = Color.White)
+                    .border(BorderStroke(6.dp, Color.Red), shape = RoundedCornerShape(14.dp))
+                    .background(color = Color.White, shape = RoundedCornerShape(14.dp)),
+            ) {
+                Box(
+                    Modifier
+                        .fillMaxWidth()
+                        .height(448.dp)
+                        .border(BorderStroke(6.dp, Color.Red), shape = RoundedCornerShape(14.dp))
+                        .background(color = Color.White, shape = RoundedCornerShape(14.dp))
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(10.dp),
+                        verticalArrangement = Arrangement.SpaceEvenly,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            modifier = Modifier
+                                .wrapContentSize()
+                                .padding(top = 12.dp),
+                            text = title,
+                            color = toolbarUnique,
+                            fontWeight = FontWeight.ExtraBold,
+                            fontSize = 18.sp,
+                            textAlign = TextAlign.Center
+                        )
+                        Image(painter = painter/*Icons.Default.ArrowBackIos*/,
+                            contentDescription = "BackButton",
+
+                            modifier = Modifier
+                                .padding(top = 12.dp)
+                                .clickable(true) {
+                                    onClick()
+                                }
+
+                        )
+                        Text(
+                            modifier = Modifier
+                                .wrapContentSize()
+                                .padding(top = 12.dp),
+                            text = exampleTxt,
+                            color = Color(0xFF323232),
+                            fontSize = 16.sp,
+                            textAlign = TextAlign.Center
+                        )
+                    }
+
+                }
+
+                Image(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(),
+                    painter = painterResource(id = R.drawable.iconbg),
+                    contentDescription = "bg"
+                )
+            }
+
+            Box(
+                modifier = Modifier
+                    .padding(10.dp)
+
+                    .height(40.dp)
+                    .width(140.dp)
+                    .clip(RoundedCornerShape(18.dp))
+                    .background(toolbarUnique)
+                    .clickable(enabled = true) {
+                        onClick()
+                    }, contentAlignment = Alignment.Center
+
+            ) {
+                Text(
+                    modifier = Modifier.wrapContentSize(),
+                    textAlign = TextAlign.Center,
+                    fontWeight = FontWeight.ExtraBold,
+                    text = "Start",
+                    color = Color.White,
+
+                    style = MaterialTheme.typography.bodyMedium
+                )
+
+            }
+
+        }
+        Image(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(),
+            painter = painterResource(id = R.drawable.iconbg),
+            contentDescription = "bg"
+        )
+    }
+}
+
+@Preview
+@Composable
+fun TimeUpDialogCompose(
+    title: String = "Concentration",
+    onClick: (bool: Boolean) -> Unit = {}
+) {
+    LaunchedEffect(Unit) {
+        delay(1000)
+        onClick(true)
+    }
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+            .background(color = Color.White),
+    ) {
+
+        Box(
+            Modifier
+                .fillMaxWidth()
+                .height(48.dp)
+                .background(color = toolbarUnique)
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(10.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(imageVector = Icons.Default.ArrowBackIos,
+                    contentDescription = "BackButton",
+                    tint = Color.White,
+                    modifier = Modifier.clickable(true) {
+                        onClick(false)
+                    }
+
+                )
+                Text(
+                    modifier = Modifier.fillMaxSize(),
+                    text = title,
+                    color = Color.White,
+                    fontSize = 16.sp,
+                    textAlign = TextAlign.Center
+                )
+            }
+
+        }
+        Image(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(),
+            painter = painterResource(id = R.drawable.times_up),
+            contentDescription = "bg"
+        )
 
         Image(
             modifier = Modifier
@@ -626,5 +846,102 @@ fun DualColorCircularProgressBar(progressVal:Float=0.5f) {
             color = BirdColor1,
             strokeWidth = 28.dp
         )
+    }
+}
+
+
+@Preview
+@Composable
+fun GameAlertingTime() {
+
+    val animationProgress = remember { Animatable(0f) }
+    LaunchedEffect(true) {
+        animationProgress.animateTo(
+            targetValue = .75f/*1f*/,
+
+            animationSpec = infiniteRepeatable(
+                animation = tween(1000, easing = LinearEasing), repeatMode = RepeatMode.Reverse
+            )
+        )
+    }
+
+    val alpha = animationProgress.value * 255
+    val color = android.graphics.Color.argb(
+        alpha.toInt(), (toolbarUnique.copy(alpha = 0.7f).red.toInt() + alpha).toInt(), 0,0
+    )
+
+    Box(
+        modifier = Modifier.fillMaxSize()
+
+    ) {
+        Box(modifier = Modifier.fillMaxSize()) {
+            Row(modifier = Modifier.fillMaxSize(),Arrangement.SpaceBetween) {
+                Canvas(
+                    modifier = Modifier
+                        .width(70.dp)
+                        .fillMaxHeight()
+                ) {
+                    drawRect(
+                        brush = Brush.horizontalGradient(
+                            colors = listOf(
+                                Color(color)/*toolbarUnique.copy(alpha = 0.7f)*/, // Top color
+                                Color.Transparent   // Bottom color
+                            )
+                        )
+                    )
+                }
+
+
+                Canvas(
+                    modifier = Modifier
+                        .width(70.dp)
+                        .fillMaxHeight()
+                ) {
+                    drawRect(
+                        brush = Brush.horizontalGradient(
+                            colors = listOf(
+                                Color.Transparent, // Top color
+                                Color(color)/*toolbarUnique.copy(alpha = 0.7f)*/   // Bottom color
+                            )
+                        )
+                    )
+                }
+
+            }
+            Column(modifier = Modifier.fillMaxSize(),Arrangement.SpaceBetween) {
+                Canvas(
+                    modifier = Modifier
+                        .height(70.dp)
+                        .fillMaxWidth()
+
+                ) {
+                    drawRect(
+                        brush = Brush.verticalGradient(
+                            colors = listOf(
+                                Color(color)/*toolbarUnique.copy(alpha = 0.7f)*/, // Top color
+                                Color.Transparent   // Bottom color
+                            )
+                        )
+                    )
+                }
+
+                Canvas(
+                    modifier = Modifier
+                        .height(70.dp)
+                        .fillMaxWidth()
+                ) {
+                    drawRect(
+                        brush = Brush.verticalGradient(
+                            colors = listOf(
+                                Color.Transparent, // Top color
+                                Color(color)/*toolbarUnique.copy(alpha = 0.7f)*/   // Bottom color
+                            )
+                        )
+                    )
+                }
+            }
+
+
+        }
     }
 }

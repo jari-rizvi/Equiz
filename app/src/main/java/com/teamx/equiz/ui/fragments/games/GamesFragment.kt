@@ -77,12 +77,22 @@ class GamesFragment : BaseFragment<FragmentGamesBinding, GamesViewModel>(), AllG
 
     override fun onClickGame(position: Int) {
         Log.d("123123", "onClickGame: ")
+        var strname = gameStrArrayList[position].name
+        Log.d("123123", "onClickGame:$strname ")
+        var bundle = arguments
+        if (bundle == null) {
+            bundle = Bundle()
+        }
+        bundle?.putString("gameName", strname)
+        findNavController().navigate(R.id.startUpGameFrag, bundle)
 
-        when (gameStrArrayList[position].name) {
+        /*when (strname) {
 
             GamesUID2.AdditionAddiction.name -> {
 
-                findNavController().navigate(R.id.additionAddictionGameFrag,arguments)
+                findNavController().navigate(R.id.additionAddictionGameFrag, arguments?.apply {
+                    putString("gameName",strname)
+                })
 
 
             }
@@ -211,7 +221,7 @@ class GamesFragment : BaseFragment<FragmentGamesBinding, GamesViewModel>(), AllG
             }
 
 
-        }
+        }*/
 
 
     }

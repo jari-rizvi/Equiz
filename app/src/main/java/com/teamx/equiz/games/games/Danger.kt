@@ -48,6 +48,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
+import com.teamx.equiz.ui.theme.toolbarUnique
 
 @Composable
 fun PoliceSirenIndicator(
@@ -66,7 +67,7 @@ fun PoliceSirenIndicator(
 
     val alpha = animationProgress.value * 255
     val color = argb(
-        alpha.toInt(), (Color.White.red.toInt() + alpha).toInt(), 0, 0
+        alpha.toInt(), (toolbarUnique.red.toInt() + alpha).toInt(), 0, 0
     )
     val transparency = 0.5f
     Box(

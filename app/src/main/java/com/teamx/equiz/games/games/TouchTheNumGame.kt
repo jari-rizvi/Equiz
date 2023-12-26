@@ -1,6 +1,7 @@
 package com.teamx.equiz.games.games
 
 import android.os.Build
+import android.os.CountDownTimer
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
@@ -41,6 +42,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
+import com.teamx.equiz.games.games.ui_components.GameAlertingTime
+import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import com.teamx.equiz.games.ui.theme.BirdColor1
 import com.teamx.equiz.games.ui.theme.BirdColor3
 import com.teamx.equiz.games.ui.theme.BirdColor4
@@ -224,6 +227,9 @@ fun TouchTheNumbersGameScreen(content: @Composable () -> Unit = {}) {
                 painter = painterResource(id = R.drawable.iconbg),
                 contentDescription = "bg"
             )
+//        if (isAlert) {
+//            GameAlertingTime()
+//        }
         }
 }
 
@@ -296,27 +302,77 @@ fun PreviewTouchTheNumbersGameScreen() {
 
 @Preview
 @Composable
-fun TouchTheNumGamePlus(content: @Composable () -> Unit = {}) {
+fun TouchTheNumGamePlus(content:  (bool:Boolean) -> Unit = {}) {
+
+    var isGameOver by remember { mutableStateOf(false) }
+    var isAlert by remember { mutableStateOf(false) }
+    var isTimeUp by remember { mutableStateOf(false) }
+
+    var timeLeft by remember { mutableStateOf(20L) }
+
+    var timerRunning by remember { mutableStateOf(true) }
+    LaunchedEffect(true) {
+//        generateOptions()
+
+        // Start the timer
+        object : CountDownTimer(timeLeft * 1000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                  if (timerRunning) {
+                    timeLeft = millisUntilFinished / 1000
+                }
+                if (timeLeft<5){
+                    isAlert = true
+                }
+            }
+
+            override fun onFinish() {
+                isTimeUp = true
+            }
+        }.start()
+    }
 
 
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight()
-            .background(color = Color(0xFFE1E1E1)),
-    ) {
+    if (isGameOver) {
 
-        content()
-        NumAscendingObjects2()
 
-        Image(
+        content(true)
+
+    }
+
+    if (isTimeUp) {
+
+        TimeUpDialogCompose() { i ->
+            if (i) {
+                isGameOver = true
+
+            } else {
+                content(false)
+            }
+        }
+
+
+    }else{
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(),
-            painter = painterResource(id = R.drawable.iconbg),
-            contentDescription = "bg"
-        )
+                .fillMaxHeight()
+                .background(color = Color(0xFFE1E1E1)),
+        ) {
+
+
+            NumAscendingObjects2()
+
+            Image(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(),
+                painter = painterResource(id = R.drawable.iconbg),
+                contentDescription = "bg"
+            )
+        }
     }
+
+
 }
 
 @Composable

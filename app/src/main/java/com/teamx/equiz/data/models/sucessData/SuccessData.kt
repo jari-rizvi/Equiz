@@ -4,3 +4,4 @@ data class SuccessData(
     val message: String,
     val otp: String
 )
+

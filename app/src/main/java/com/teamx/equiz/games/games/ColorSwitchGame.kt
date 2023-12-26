@@ -43,6 +43,7 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
+import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import kotlinx.coroutines.delay
 
 class ColorSwitchGame {}
@@ -222,6 +223,9 @@ fun ColorSwitchGameScreen(content: @Composable () -> Unit) {
                 painter = painterResource(id = R.drawable.iconbg),
                 contentDescription = "bg"
             )
+//        if (isAlert) {
+//            GameAlertingTime()
+//        }
         }
 }
 

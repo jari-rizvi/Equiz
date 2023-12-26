@@ -1,5 +1,6 @@
 package com.teamx.equiz.games.games
 
+import android.os.CountDownTimer
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -23,6 +24,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,6 +39,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
+import com.teamx.equiz.games.games.ui_components.GameAlertingTime
+import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import com.teamx.equiz.games.ui.theme.BirdColor4
 import kotlin.random.Random
 
@@ -47,10 +51,11 @@ data class Question(val equation: String, val choices: List<Int>, val correctAns
 
 @Preview
 @Composable
-fun ImplicityGameScreen(content: @Composable () -> Unit = {}) {
+fun ImplicityGameScreen(content: (bool: Boolean) -> Unit = {}) {
     var score by remember { mutableStateOf(0) }
     var questionIndex by remember { mutableStateOf(0) }
     var gameState by remember { mutableStateOf(true) }
+
 
     val questions = generateQuestions()
     Log.d("TAG", "ImplicityGameScreen:$questions ")
@@ -64,80 +69,134 @@ fun ImplicityGameScreen(content: @Composable () -> Unit = {}) {
         }
 
 
-Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
-                .background(color = Color(0xFFE1E1E1)),
-        ) {
+        var isGameOver by remember { mutableStateOf(false) }
+        var isAlert by remember { mutableStateOf(false) }
+        var isTimeUp by remember { mutableStateOf(false) }
 
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                 ,
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(
-                text = currentQuestion.equation,
-                style = MaterialTheme.typography.headlineSmall,
-                color = Color.Black, fontSize = 33.sp, fontWeight = FontWeight.ExtraBold,
-                modifier = Modifier.padding(bottom = 16.dp)
-            )
+        var timeLeft by remember { mutableStateOf(20L) }
 
-            LazyColumn(
-                modifier = Modifier.padding(horizontal = 16.dp)
-            ) {
+        var timerRunning by remember { mutableStateOf(true) }
+        LaunchedEffect(true) {
+//        generateOptions()
 
-                itemsIndexed(currentQuestion.choices.shuffled()) { _, choice ->
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(65.dp)
-                            .padding(vertical = 8.dp, horizontal = 70.dp)
-                            .clip(RoundedCornerShape(12.dp))
-                            .background(Color.White)
-                            .clickable {
-                                if (gameState) {
-
-                                    if (choice == currentQuestion.correctAnswer) {
-                                        score++
-                                    }
-//                        nextQuestion(questions.size)
-                                    questionIndex++
-                                    if (questionIndex == questions.size) {
-                                        gameState = false
-                                    }
-                                }
-                            },
-                        contentAlignment = Alignment.Center
-
-                    ) {
-                        Text(
-                            text = choice.toString(),
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 33.sp,
-                            color = BirdColor4
-                        )
+            // Start the timer
+            object : CountDownTimer(timeLeft * 1000, 1000) {
+                override fun onTick(millisUntilFinished: Long) {
+                    if (timerRunning) {
+                        timeLeft = millisUntilFinished / 1000
                     }
+                }
+
+                override fun onFinish() {
+                    isTimeUp = true
+                }
+            }.start()
+        }
+
+
+        if (isGameOver) {
+
+
+            content(true)
+
+        }
+
+        if (isTimeUp) {
+
+            TimeUpDialogCompose() { i ->
+                if (i) {
+                    isGameOver = true
+
+                } else {
+                    content(false)
                 }
             }
 
-           /* Text(
-                text = "Score: $score",
-                style = MaterialTheme.typography.bodyLarge, color = Color.White,
-                fontSize = 33.sp,
-                modifier = Modifier.padding(top = 16.dp)
-            )*/
-        }
-  Image(
+
+        } else {
+            Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight(),
-                painter = painterResource(id = R.drawable.iconbg),
-                contentDescription = "bg"
-            )
+                    .fillMaxHeight()
+                    .background(color = Color(0xFFE1E1E1)),
+            ) {
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                    ,
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = currentQuestion.equation,
+                        style = MaterialTheme.typography.headlineSmall,
+                        color = Color.Black, fontSize = 33.sp, fontWeight = FontWeight.ExtraBold,
+                        modifier = Modifier.padding(bottom = 16.dp)
+                    )
+
+                    LazyColumn(
+                        modifier = Modifier.padding(horizontal = 16.dp)
+                    ) {
+
+                        itemsIndexed(currentQuestion.choices.shuffled()) { _, choice ->
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(65.dp)
+                                    .padding(vertical = 8.dp, horizontal = 70.dp)
+                                    .clip(RoundedCornerShape(12.dp))
+                                    .background(Color.White)
+                                    .clickable {
+                                        if (gameState) {
+
+                                            if (choice == currentQuestion.correctAnswer) {
+                                                score++
+                                            }
+//                        nextQuestion(questions.size)
+                                            questionIndex++
+                                            if (questionIndex == questions.size) {
+                                                gameState = false
+                                            }
+                                        }
+                                    },
+                                contentAlignment = Alignment.Center
+
+                            ) {
+                                Text(
+                                    text = choice.toString(),
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 33.sp,
+                                    color = BirdColor4
+                                )
+                            }
+                        }
+                    }
+
+                    /* Text(
+                         text = "Score: $score",
+                         style = MaterialTheme.typography.bodyLarge, color = Color.White,
+                         fontSize = 33.sp,
+                         modifier = Modifier.padding(top = 16.dp)
+                     )*/
+                }
+                Image(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(),
+                    painter = painterResource(id = R.drawable.iconbg),
+                    contentDescription = "bg"
+                )
+                if (isAlert) {
+                    GameAlertingTime()
+                }
+            }
         }
+
+
+
+
+
 
     } else {
         Column(

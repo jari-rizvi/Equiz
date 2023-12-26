@@ -179,6 +179,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                         loadingDialog.dismiss()
                     }
                     Resource.Status.SUCCESS -> {
+                        quizArrayList.clear()
 //                        loadingDialog.dismiss()
                         mViewDataBinding.shimmerLayout.stopShimmer()
                         mViewDataBinding.shimmerLayout.visibility = View.GONE
@@ -374,7 +375,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
     }
 
     override fun quizTitle(position: Int) {
-        mViewModel.getquizTitile("World", "", "normal")
+        mViewModel.getquizTitile("", "", "")
 
     }
 
@@ -384,7 +385,16 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
     override fun onClickGame(position: Int) {
         Log.d("123", "onClickGame: ")
-        when (gameStrArrayList[position].name) {
+        Log.d("123123", "onClickGame: ")
+        var strname = gameStrArrayList[position].name
+        Log.d("123123", "onClickGame:$strname ")
+        var bundle = arguments
+        if (bundle == null) {
+            bundle = Bundle()
+        }
+        bundle?.putString("gameName", strname)
+        findNavController().navigate(R.id.startUpGameFrag, bundle)
+      /*  when (gameStrArrayList[position].name) {
 
             GamesUID2.AdditionAddiction.name -> {
 
@@ -511,7 +521,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             }
 
 
-        }
+        }*/
     }
 
     override fun onWinnerClick(position: Int) {
@@ -526,5 +536,5 @@ data class GamesModel(
 
 
 enum class GamesUID2 {
-    AdditionAddiction, BirdWatching,  ColorDeception, Tetris, Concentration, CardCalculation, Flick, FollowTheLeader, GuessTheFlag, HighLow, MakeTen, Matching, MissingPiece, Operations, QuickEye, RainFall, RapidSorting, ReverseRps, SpinningBlock,Simplicity, ShapeDeception, TapTheColor, TouchTheNum,TouchTheNumPlus,  UnfollowTheLeader, WeatherCast
+    AdditionAddiction, BirdWatching,  ColorDeception, Tetris, Concentration, CardCalculation, Flick, FollowTheLeader, GuessTheFlag, HighLow,  MakeTen, Matching, MissingPiece, Operations, QuickEye, RainFall, RapidSorting, ReverseRps, SpinningBlock,Simplicity, ShapeDeception, TapTheColor, TouchTheNum,TouchTheNumPlus,  UnfollowTheLeader, WeatherCast
 }

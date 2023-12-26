@@ -39,8 +39,9 @@ import kotlin.random.Random
 @Composable
 fun QuickEyeGame(content:  () -> Unit = {}) {
     var isGameOver by remember { mutableStateOf(false) }
+    var isAlert by remember { mutableStateOf(false) }
 
-    var timeLeft by remember { mutableStateOf(60L) }
+    var timeLeft by remember { mutableStateOf(20L) }
 
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
@@ -49,8 +50,11 @@ fun QuickEyeGame(content:  () -> Unit = {}) {
         // Start the timer
         object : CountDownTimer(timeLeft * 1000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                if (timerRunning) {
+                  if (timerRunning) {
                     timeLeft = millisUntilFinished / 1000
+                }
+                if (timeLeft<5){
+                    isAlert = true
                 }
             }
 

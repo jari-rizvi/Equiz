@@ -32,6 +32,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
+import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 
 
 class MissingPieceGame {
@@ -47,8 +48,9 @@ enum class Shape {
 @Composable
 fun MissingPieceGameScreen(content: () -> Unit) {
     var isGameOver by remember { mutableStateOf(false) }
+    var isAlert by remember { mutableStateOf(false) }
 
-    var timeLeft by remember { mutableStateOf(60L) }
+    var timeLeft by remember { mutableStateOf(20L) }
 
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
@@ -57,8 +59,11 @@ fun MissingPieceGameScreen(content: () -> Unit) {
         // Start the timer
         object : CountDownTimer(timeLeft * 1000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                if (timerRunning) {
+                  if (timerRunning) {
                     timeLeft = millisUntilFinished / 1000
+                }
+                if (timeLeft<5){
+                    isAlert = true
                 }
             }
 
@@ -175,6 +180,9 @@ fun MissingPieceGameScreen(content: () -> Unit) {
                 painter = painterResource(id = R.drawable.iconbg),
                 contentDescription = "bg"
             )
+        if (isAlert) {
+            GameAlertingTime()
+        }
         }
 
 }

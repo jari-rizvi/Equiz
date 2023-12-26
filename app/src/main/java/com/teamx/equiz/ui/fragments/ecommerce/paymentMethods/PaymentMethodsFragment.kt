@@ -12,8 +12,6 @@ import com.teamx.equiz.BR
 import com.teamx.equiz.MainApplication
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
-import com.teamx.equiz.constants.AppConstants.showSnackBar
-import com.teamx.equiz.constants.NetworkCallPoints.Companion.TOKENER
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentEcommerceBinding
 import com.teamx.equiz.databinding.FragmentPaymentMethodsBinding
