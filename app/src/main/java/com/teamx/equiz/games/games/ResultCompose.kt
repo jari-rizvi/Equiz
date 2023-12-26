@@ -57,7 +57,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
@@ -102,7 +101,7 @@ fun ChartScreen() {
 @Composable
 fun DefaultPreview() {
     GameEquizApplicationTheme {
-        ResultScreen() {}
+        ResultScreen(10, 7,30) {}
     }
 }
 
@@ -270,16 +269,19 @@ fun BackButton(onClick: () -> Unit) {
 
 
 @Composable
-fun ResultScreen(onContinueClicked: () -> Unit) {
+fun ResultScreen(total: Int, right: Int, time: Int, onContinueClicked: () -> Unit) {
 
-    val context = LocalContext.current
 
-    val accurateCount: Float = 33f
-    val inaccurateCount: Float = 67f
+    var percentage = ((right.toDouble() / total)).toFloat()
+//    val accurateCount: Float = 33f
+//    val inaccurateCount: Float = 67f
+    val accurateCount: Float = percentage
+    val inaccurateCount: Float = 100f - percentage
 
     val totalCount = accurateCount + inaccurateCount
 
-    val accuracyPercentage: Float = (accurateCount / totalCount).toFloat()
+//    val accuracyPercentage: Float = (accurateCount / totalCount).toFloat()
+    val accuracyPercentage: Float = percentage/*(accurateCount / totalCount).toFloat()*/
 
     var shouldShowOnboarding2 by rememberSaveable { mutableStateOf(true) }
     if (shouldShowOnboarding2) {
@@ -335,11 +337,11 @@ fun ResultScreen(onContinueClicked: () -> Unit) {
                         Arrangement.SpaceEvenly,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        ShowScoring("Correct", Color(0xFF9F81CA), "${accurateCount.toInt()}")
-                        ShowScoring("Incorrect", Color(0xFFC62E27), "${inaccurateCount.toInt()}")
+                        ShowScoring("Correct", Color(0xFF9F81CA), "${right.toInt()}")
+                        ShowScoring("Incorrect", Color(0xFFC62E27), "${(total - right).toInt()}")
 
                     }
-                    ShowMeantime("Mean Time", "1.765s")
+                    ShowMeantime("Mean Time", " ${time / right}s")
 
                     Row(
                         modifier = Modifier
@@ -734,7 +736,7 @@ fun HomeScreen(modifier: Modifier = Modifier) {
             }
 
         } else {
-            ResultScreen(onContinueClicked = { shouldShowOnboarding = true })
+            ResultScreen(10, 7,30, onContinueClicked = { shouldShowOnboarding = true })
         }
     }
 }

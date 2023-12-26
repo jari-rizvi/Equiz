@@ -17,6 +17,7 @@ class NetworkCallPoints {
 
 
         const val RESET_PASSWORD ="api/auth/passwordReset";
+        const val RESULT_GAME ="api/game/progress";
         const val GET_ALL_CATEGORIES ="/api/category";
         const val WISHLIST_DATA ="api/wishlist/find";
         const val ADD_WISHLIST ="api/wishlist/add";

@@ -43,6 +43,7 @@ class MainRepository @Inject constructor(
     suspend fun AddToCart(@Body param: JsonObject) = apiService.AddToCart(param)
     suspend fun AddToWishList(@Body param: JsonObject) = apiService.AddToWishList(param)
     suspend fun resetPass(@Body param: JsonObject) = apiService.resetPass(param)
+    suspend fun resultGame(@Body param: JsonObject) = apiService.resultGame(param)
     suspend fun otpVerify(@Path("uniqueID") uniqueID: String) = apiService.otpVerify(uniqueID)
     suspend fun getNewsById(@Path("id") id: String) = apiService.getNewsById(id)
     suspend fun deleteCart(@Path("deleteCart") deleteCart: String) =

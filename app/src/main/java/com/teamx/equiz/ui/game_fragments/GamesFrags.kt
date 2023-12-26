@@ -8,14 +8,16 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
+import androidx.lifecycle.Observer
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
+import com.google.gson.JsonObject
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
+import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentAddressBinding
-import com.teamx.equiz.games.games.AdditionAddictionGame
 import com.teamx.equiz.games.games.AdditionAddictionGameMethod
 import com.teamx.equiz.games.games.BirdWatchingGame
 import com.teamx.equiz.games.games.BreakTheBlockGame
@@ -42,13 +44,14 @@ import com.teamx.equiz.games.games.TetrisGame
 import com.teamx.equiz.games.games.TouchTheColorGameScreen
 import com.teamx.equiz.games.games.TouchTheNumGamePlus
 import com.teamx.equiz.games.games.TouchTheNumPlusGame
-import com.teamx.equiz.games.games.TouchTheNumbersGameScreen
 import com.teamx.equiz.games.games.TouchTheShapesGameScreen
 import com.teamx.equiz.games.games.UnfollowTheLeaderGame
 import com.teamx.equiz.games.games.WeatherCastGame
 import com.teamx.equiz.games.games.rpsCastGamePlot
 import com.teamx.equiz.games.games.ui_components.ToolbarCompose
+import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
+import org.json.JSONException
 
 @AndroidEntryPoint
 class AdditionAddictionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
@@ -1164,7 +1167,7 @@ class ResultComposeFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMode
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
-            ResultScreen(){
+            ResultScreen(10,7,30){
                 findNavController().popBackStack()
             }
         }
@@ -1177,9 +1180,56 @@ class ResultComposeFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMode
             }
         }
 
-
+        resultGame(10, 7)
     }
-}
+
+     private fun resultGame(total: Int, right: Int, time: Int = 30) {
+
+         var bundle = arguments
+         if (bundle == null) {
+             bundle = Bundle()
+         }
+
+
+         val params = JsonObject()
+         try {
+             params.addProperty("correct", right)
+             params.addProperty("total", total)
+             params.addProperty("time", time)
+
+         } catch (e: JSONException) {
+             e.printStackTrace()
+         }
+
+         mViewModel.resultGame(params)
+
+         mViewModel.resultResponseGameOB.observe(requireActivity(), Observer {
+             when (it.status) {
+                 Resource.Status.LOADING -> {
+                     loadingDialog.show()
+                 }
+
+                 Resource.Status.NOTVERIFY -> {
+                     loadingDialog.dismiss()
+                 }
+
+                 Resource.Status.SUCCESS -> {
+                     loadingDialog.dismiss()
+                     it.data?.let { data ->
+                         showToast("Toast")
+//                         findNavController().navigate(R.id.resultComposeFrag)
+                     }
+                 }
+
+                 Resource.Status.ERROR -> {
+                     loadingDialog.dismiss()
+                     DialogHelperClass.errorDialog(requireContext(), it.message!!)
+                 }
+             }
+         })
+     }
+
+ }
 
 @AndroidEntryPoint
 class ReverseRPSFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {

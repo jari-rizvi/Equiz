@@ -129,6 +129,13 @@ interface ApiService {
     @POST(NetworkCallPoints.RESET_PASSWORD)
     suspend fun resetPass(@Body params: JsonObject?): Response<SuccessData>
 
+
+    @POST(NetworkCallPoints.RESULT_GAME)
+    suspend fun resultGame(
+        @Body params: JsonObject?,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<SuccessData>
+
     @Multipart
     @POST(NetworkCallPoints.UPLOAD_IMGS)
     suspend fun uploadReviewImg(

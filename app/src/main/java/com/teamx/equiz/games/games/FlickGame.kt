@@ -53,7 +53,7 @@ import kotlin.random.Random
 
 @Preview
 @Composable
-fun FlickGameScreen(content:  () -> Unit={}) {
+fun FlickGameScreen(content: () -> Unit = {}) {
     var isGameOver by remember { mutableStateOf(false) }
 
     var timeLeft by remember { mutableStateOf(60L) }
@@ -81,27 +81,27 @@ fun FlickGameScreen(content:  () -> Unit={}) {
         content()
     }
     Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+            .background(color = Color.White),
+    ) {
+        Column {
+            content()
+            Box(
+                modifier = Modifier.fillMaxSize(), Alignment.Center
+            ) {
+                FlickComponent()
+            }
+        }
+        Image(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight()
-                .background(color = Color.White),
-        ) {
-    Column {
-        content()
-        Box(
-            modifier = Modifier.fillMaxSize(), Alignment.Center
-        ) {
-            FlickComponent()
-        }
+                .fillMaxHeight(),
+            painter = painterResource(id = R.drawable.iconbg),
+            contentDescription = "bg"
+        )
     }
-      Image(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight(),
-                painter = painterResource(id = R.drawable.iconbg),
-                contentDescription = "bg"
-            )
-        }
 }
 
 //flick
@@ -113,7 +113,7 @@ fun FlickComponent() {
     var randomInt by remember { mutableStateOf(0) }
     var wapsiState by remember { mutableStateOf(false) }
     var intOffset by remember { mutableStateOf(IntOffset(y = 0, x = 0)) }
-    var valuesTranslation by remember {  mutableStateOf(150f) }
+    var valuesTranslation by remember { mutableStateOf(150f) }
 
     var bimap by remember { mutableStateOf(R.drawable.left) }
 
@@ -254,7 +254,7 @@ fun HighLowComponent2() {
     var previousNumber by remember { mutableStateOf(Random.nextInt(0, 100)) }
     var showNumber by remember { mutableStateOf(Random.nextInt(0, 100)) }
     val valuesTranslation by remember {
-         mutableStateOf(
+        mutableStateOf(
             590f
         )
     }
@@ -269,7 +269,7 @@ fun HighLowComponent2() {
         4
     }
 
-    var fadeValue by remember {  mutableStateOf(0f) }
+    var fadeValue by remember { mutableStateOf(0f) }
     var bimap by remember { mutableStateOf(R.drawable.down) }
     bimap = when (randomInt) {
         4 -> {
@@ -485,7 +485,7 @@ fun HighLowComponent2() {
 
                     }
                 },
-            ) {
+        ) {
             Box(
                 modifier = Modifier
                     .size(165.dp)
@@ -553,8 +553,6 @@ fun FlickGameS() {
         }
     }
 }
-
-
 
 
 //
