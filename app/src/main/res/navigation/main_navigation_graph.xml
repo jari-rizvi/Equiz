@@ -488,6 +488,10 @@
         android:id="@+id/playQuizFragment"
         android:name="com.teamx.equiz.ui.fragments.quiz.PlayQuizFragment"
         android:label="PlayQuizFragment" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.teamx.equiz.ui.fragments.settings.SettingsFragment"
+        android:label="SettingsFragment" />
 
 
 </navigation>

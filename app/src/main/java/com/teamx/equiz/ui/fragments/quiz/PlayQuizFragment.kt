@@ -22,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class PlayQuizFragment : BaseFragment<PlayQuizLayoutBinding, WishlistViewModel>() {
 
     override val layoutId: Int
-        get() = R.layout.fragment_wishlist
+        get() = R.layout.play_quiz_layout
     override val viewModel: Class<WishlistViewModel>
         get() = WishlistViewModel::class.java
     override val bindingVariable: Int
@@ -46,6 +46,9 @@ class PlayQuizFragment : BaseFragment<PlayQuizLayoutBinding, WishlistViewModel>(
                 popEnter = R.anim.nav_default_pop_enter_anim
                 popExit = R.anim.nav_default_pop_exit_anim
             }
+        }
+        mViewDataBinding.btnback.setOnClickListener {
+            findNavController().popBackStack()
         }
         val bundle = arguments
        val id=  bundle?.getString("modelQuizId")

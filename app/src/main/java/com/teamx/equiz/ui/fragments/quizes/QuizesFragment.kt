@@ -53,7 +53,9 @@ class QuizesFragment : BaseFragment<FragmentQuizesBinding, QuizesViewModel>(), Q
 //            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTFlNWZiOGM3NjU2MDdlNzE0NjNiZGYiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3MDE2ODg4ODAsImV4cCI6MTcwMTc3NTI4MH0.th7AmVunSuxLeq8XP5oe-JywCZGijWOAtrqPmImIKzM"
 
         initializeCategoriesAdapter()
-
+        mViewDataBinding.btnback.setOnClickListener {
+            findNavController().popBackStack()
+        }
 
         if (!mViewModel.quizTitleResponse.hasActiveObservers()) {
             mViewModel.quizTitle("World", null, "normal")
