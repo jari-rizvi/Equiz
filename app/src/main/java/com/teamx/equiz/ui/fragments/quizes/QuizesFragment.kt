@@ -126,9 +126,9 @@ class QuizesFragment : BaseFragment<FragmentQuizesBinding, QuizesViewModel>(), Q
 
     override fun quizeItem(position: Int) {
         val modelQuiz = strArrayList[position]
-        val bundle = Bundle()
-        bundle.putString("modelQuizId", modelQuiz._id)
-        findNavController().navigate(R.id.action_quizesFragment_to_singleQuizFragment, bundle)
+        val bundle = arguments
+        bundle?.putString("modelQuizId", modelQuiz._id)
+        findNavController().navigate(R.id.playQuizFragment, bundle)
     }
 
     /*   override fun quizeItem() {

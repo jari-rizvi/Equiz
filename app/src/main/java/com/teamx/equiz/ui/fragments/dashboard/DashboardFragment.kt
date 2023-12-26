@@ -523,7 +523,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
     }
 
     override fun quizeItem(position: Int) {
-        findNavController().navigate(R.id.singleQuizFragment,arguments)
+        findNavController().navigate(R.id.playQuizFragment,arguments)
     }
 
     override fun onClickGame(position: Int) {
