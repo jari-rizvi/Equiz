@@ -62,7 +62,7 @@ class GamesFragment : BaseFragment<FragmentGamesBinding, GamesViewModel>(), AllG
 //        }
 
         GamesUID2.values().forEachIndexed { index, gamesUID2 ->
-            gameStrArrayList.add(GamesModel(gamesUID2.name, returnImg(gamesUID2.name)))
+            gameStrArrayList.add(GamesModel(returnGameName(gamesUID2.name), returnImg(gamesUID2.name)))
         }
 
         val linearLayoutManager = GridLayoutManager(context, 3, RecyclerView.VERTICAL, false)
@@ -74,7 +74,149 @@ class GamesFragment : BaseFragment<FragmentGamesBinding, GamesViewModel>(), AllG
 
 
     }
+    private fun returnGameName(enumNumberEnum: String): String {
 
+
+        return when (enumNumberEnum) {
+
+            GamesUID2.AdditionAddiction.name -> {
+                "Addition Addiction"
+
+            }
+
+            GamesUID2.BirdWatching.name -> {
+                "Bird Watching"
+
+            }
+
+            GamesUID2.Matching.name -> {
+                "Matching"
+
+            }
+
+            GamesUID2.Operations.name -> {
+
+                "Operations"
+            }
+
+            GamesUID2.ColorDeception.name -> {
+                "ColorDeception"
+
+            }
+
+            GamesUID2.Tetris.name -> {
+                "Tetris"
+
+            }
+
+
+            GamesUID2.CardCalculation.name -> {
+                "Card Calculation"
+
+            }
+
+            GamesUID2.Concentration.name -> {
+                "Concentration"
+
+            }
+
+            GamesUID2.Flick.name -> {
+                "Flick"
+
+            }
+
+            GamesUID2.FollowTheLeader.name -> {
+                "Follow The Leader"
+
+            }
+
+            GamesUID2.UnfollowTheLeader.name -> {
+                "Un Follow The Leader"
+
+            }
+
+            GamesUID2.GuessTheFlag.name -> {
+                "Guess The Flag"
+            }
+
+            GamesUID2.HighLow.name -> {
+                "High Low"
+
+            }
+
+            GamesUID2.MakeTen.name -> {
+                "Make Ten"
+
+            }
+
+            GamesUID2.MissingPiece.name -> {
+                "Missing Piece"
+
+            }
+
+
+            GamesUID2.QuickEye.name -> {
+                "Quick Eye"
+
+            }
+
+            GamesUID2.RainFall.name -> {
+                "Rain Fall"
+
+            }
+
+            GamesUID2.RapidSorting.name -> {
+                "Rapid Sorting"
+
+            }
+
+            GamesUID2.ReverseRps.name -> {
+                "Reverse RPS"
+
+            }
+
+            GamesUID2.Simplicity.name -> {
+                "Simplicity"
+
+            }
+
+            GamesUID2.SpinningBlock.name -> {
+                "Spinning Block"
+
+            }
+
+            GamesUID2.ShapeDeception.name -> {
+                "Shape Deception"
+            }
+
+            GamesUID2.TapTheColor.name -> {
+                "Tap The Color"
+
+            }
+
+            GamesUID2.TouchTheNum.name -> {
+                "Touch The Num"
+
+            }
+
+            GamesUID2.TouchTheNumPlus.name -> {
+                "Touch The Number Plus"
+
+            }
+
+            GamesUID2.WeatherCast.name -> {
+                "Weather Cast"
+
+            }
+
+
+            else -> {
+                "Weather Cast"
+            }
+        }
+
+
+    }
     override fun onClickGame(position: Int) {
         Log.d("123123", "onClickGame: ")
         var strname = gameStrArrayList[position].name

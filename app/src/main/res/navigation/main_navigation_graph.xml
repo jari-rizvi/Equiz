@@ -298,10 +298,7 @@
         android:name="com.teamx.equiz.ui.fragments.games.GamesFragment"
         android:label="GamesFragment"
         tools:layout="@layout/fragment_games" />
-    <fragment
-        android:id="@+id/quizFragment"
-        android:name="com.teamx.equiz.ui.fragments.quiz.QuizFragment"
-        android:label="QuizFragment" />
+
     <fragment
         android:id="@+id/topupFragment"
         android:name="com.teamx.equiz.ui.fragments.topup.TopupFragment"

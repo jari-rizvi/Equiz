@@ -233,12 +233,13 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         strArrayList.add(TitleData("National", false))
         strArrayList.add(TitleData("City", false))
 
-        val layoutManager1 =
-            LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
+        val layoutManager1 = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
         mViewDataBinding.recCategories.layoutManager = layoutManager1
 
         quizesTitleAdapter = QuizesTitleAdapter(strArrayList, this)
         mViewDataBinding.recCategories.adapter = quizesTitleAdapter
+
+        mViewModel.getquizTitile("", "", "")
 
     }
 
@@ -248,7 +249,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
 
         GamesUID2.values().forEachIndexed { index, gamesUID2 ->
-            gameStrArrayList.add(GamesModel(gamesUID2.name, returnImg(gamesUID2.name)))
+            gameStrArrayList.add(GamesModel(returnGameName(gamesUID2.name), returnImg(gamesUID2.name)))
         }
 
 
@@ -373,14 +374,156 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
 
     }
+    private fun returnGameName(enumNumberEnum: String): String {
 
+
+        return when (enumNumberEnum) {
+
+            GamesUID2.AdditionAddiction.name -> {
+                "Addition Addiction"
+
+            }
+
+            GamesUID2.BirdWatching.name -> {
+                "Bird Watching"
+
+            }
+
+            GamesUID2.Matching.name -> {
+                "Matching"
+
+            }
+
+            GamesUID2.Operations.name -> {
+
+                "Operations"
+            }
+
+            GamesUID2.ColorDeception.name -> {
+                "ColorDeception"
+
+            }
+
+            GamesUID2.Tetris.name -> {
+                "Tetris"
+
+            }
+
+
+            GamesUID2.CardCalculation.name -> {
+                "Card Calculation"
+
+            }
+
+            GamesUID2.Concentration.name -> {
+                "Concentration"
+
+            }
+
+            GamesUID2.Flick.name -> {
+                "Flick"
+
+            }
+
+            GamesUID2.FollowTheLeader.name -> {
+                "Follow The Leader"
+
+            }
+
+            GamesUID2.UnfollowTheLeader.name -> {
+                "Un Follow The Leader"
+
+            }
+
+            GamesUID2.GuessTheFlag.name -> {
+                "Guess The Flag"
+            }
+
+            GamesUID2.HighLow.name -> {
+                "High Low"
+
+            }
+
+            GamesUID2.MakeTen.name -> {
+                "Make Ten"
+
+            }
+
+            GamesUID2.MissingPiece.name -> {
+                "Missing Piece"
+
+            }
+
+
+            GamesUID2.QuickEye.name -> {
+                "Quick Eye"
+
+            }
+
+            GamesUID2.RainFall.name -> {
+                "Rain Fall"
+
+            }
+
+            GamesUID2.RapidSorting.name -> {
+                "Rapid Sorting"
+
+            }
+
+            GamesUID2.ReverseRps.name -> {
+                "Reverse RPS"
+
+            }
+
+            GamesUID2.Simplicity.name -> {
+                "Simplicity"
+
+            }
+
+            GamesUID2.SpinningBlock.name -> {
+                "Spinning Block"
+
+            }
+
+            GamesUID2.ShapeDeception.name -> {
+                "Shape Deception"
+            }
+
+            GamesUID2.TapTheColor.name -> {
+                "Tap The Color"
+
+            }
+
+            GamesUID2.TouchTheNum.name -> {
+                "Touch The Num"
+
+            }
+
+            GamesUID2.TouchTheNumPlus.name -> {
+                "Touch The Number Plus"
+
+            }
+
+            GamesUID2.WeatherCast.name -> {
+                "Weather Cast"
+
+            }
+
+
+            else -> {
+                "Weather Cast"
+            }
+        }
+
+
+    }
     override fun quizTitle(position: Int) {
         mViewModel.getquizTitile("", "", "")
 
     }
 
     override fun quizeItem(position: Int) {
-        findNavController().navigate(R.id.action_quizesFragment_to_singleQuizFragment)
+        findNavController().navigate(R.id.singleQuizFragment,arguments)
     }
 
     override fun onClickGame(position: Int) {

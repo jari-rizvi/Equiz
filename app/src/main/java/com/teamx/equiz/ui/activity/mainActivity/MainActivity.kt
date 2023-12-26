@@ -57,7 +57,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
         }
         mViewDataBinding.drawerLayoutMain.btnquiz.setOnClickListener {
             mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-            navController!!.navigate(R.id.quizFragment)
+            navController!!.navigate(R.id.quizesFragment)
         }
         mViewDataBinding.drawerLayoutMain.btnWallet.setOnClickListener {
             mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
