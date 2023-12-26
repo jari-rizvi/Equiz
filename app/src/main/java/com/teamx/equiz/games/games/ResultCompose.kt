@@ -188,7 +188,7 @@ fun BottomResult() {
 }
 
 @Composable
-fun BottomResult2() {
+fun BottomResult2(onClick: (int: Int) -> Unit) {
     Column(
         modifier = Modifier
             .height(100.dp)
@@ -200,13 +200,18 @@ fun BottomResult2() {
     ) {
         Text(text = "Score", fontSize = 24.sp, color = Color.White, fontWeight = FontWeight.Bold)
 
-        Image(painter =painterResource(id =R.drawable.padlockrain), contentDescription = null)
+        Image(
+            modifier = Modifier.clickable(enabled = true) {
+                onClick(3)
+            },
+            painter = painterResource(id = R.drawable.padlockrain), contentDescription = null
+        )
     }
 
 }
 
 @Composable
-fun BottomButtons(onContinueClicked: () -> Unit) {
+fun BottomButtons(onContinueClicked: (int: Int) -> Unit) {
     Row(
         modifier = Modifier
             .clip(RoundedCornerShape(6))
@@ -216,7 +221,7 @@ fun BottomButtons(onContinueClicked: () -> Unit) {
             .fillMaxWidth(), Arrangement.SpaceEvenly, verticalAlignment = Alignment.Bottom
     ) {
         Button(
-            onClick = { /*TODO*/ },
+            onClick = { onContinueClicked(1) },
             shape = RoundedCornerShape(19.dp),
             modifier = Modifier.width(130.dp),
             colors = ButtonDefaults.buttonColors(Color(0xFF9F81CA))
@@ -225,7 +230,7 @@ fun BottomButtons(onContinueClicked: () -> Unit) {
 
         }
         Button(
-            onClick = onContinueClicked,
+            onClick = { onContinueClicked(2) },
 
             modifier = Modifier.width(130.dp),
             shape = RoundedCornerShape(19.dp),
@@ -275,7 +280,7 @@ fun ResultScreen(
     time: Int,
     gameName: String,
     painter: Painter,
-    onContinueClicked: () -> Unit
+    onContinueClicked: (i: Int) -> Unit
 ) {
 
 
@@ -307,7 +312,8 @@ fun ResultScreen(
 
                 Row(modifier = Modifier.background(color = Color(0xFF9F81CA))) {
 
-                    BackButton(onClick = onContinueClicked)
+                    BackButton(onClick = { onContinueClicked(1) }
+                    )
                     Text(
                         text = "Training",
                         modifier = Modifier
@@ -358,9 +364,14 @@ fun ResultScreen(
                             .fillMaxWidth(), Arrangement.SpaceAround
                     ) {
                         BottomResult()
-                        BottomResult2()
+                        BottomResult2(){at->
+                            onContinueClicked(at)
+                        }
                     }
-                    BottomButtons({ shouldShowOnboarding2 = false })
+                    BottomButtons { i ->
+                        shouldShowOnboarding2 = false
+                        onContinueClicked(i)
+                    }
                 }
             }
 

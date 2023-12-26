@@ -54,7 +54,6 @@ import com.teamx.equiz.games.games.UnfollowTheLeaderGame
 import com.teamx.equiz.games.games.WeatherCastGame
 import com.teamx.equiz.games.games.rpsCastGamePlot
 import com.teamx.equiz.games.games.ui_components.StartUpDialogCompose
-import com.teamx.equiz.games.games.ui_components.ToolbarCompose
 import com.teamx.equiz.ui.fragments.dashboard.GamesUID2
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
@@ -96,18 +95,6 @@ class AdditionAddictionGameFrag : BaseFragment<FragmentAddressBinding, GameFrags
 
         Log.d("123123", "onViewCreated:$gameName ")
 
-        composeView.setContent {
-
-            AdditionAddictionGameMethod(content = {
-                if (it) {
-                    findNavController().navigate(R.id.resultComposeFrag, arguments)
-                } else {
-                    navController.popBackStack()
-                }
-//                })
-            })
-
-        }
         options = navOptions {
             anim {
                 enter = R.anim.enter_from_left
@@ -115,6 +102,18 @@ class AdditionAddictionGameFrag : BaseFragment<FragmentAddressBinding, GameFrags
                 popEnter = R.anim.nav_default_pop_enter_anim
                 popExit = R.anim.nav_default_pop_exit_anim
             }
+        }
+        composeView.setContent {
+
+            AdditionAddictionGameMethod(content = {
+                if (it) {
+                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                } else {
+                    navController.popBackStack()
+                }
+//                })
+            })
+
         }
 
 
@@ -149,14 +148,22 @@ class BirdWatchingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
         super.onViewCreated(composeView, savedInstanceState)
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
+        options = navOptions {
+            anim {
+                enter = R.anim.enter_from_left
+                exit = R.anim.exit_to_left
+                popEnter = R.anim.nav_default_pop_enter_anim
+                popExit = R.anim.nav_default_pop_exit_anim
+            }
+        }
         composeView.setContent {
             Box {
 //                ToolbarCompose(title = "Training", onClick = {
-                    navController.popBackStack()
+                navController.popBackStack()
 //                })
                 BirdWatchingGame() { bool ->
                     if (bool) {
-                        findNavController().navigate(R.id.resultComposeFrag, arguments)
+                        findNavController().navigate(R.id.resultComposeFrag, arguments, options)
                     } else {
                         findNavController().popBackStack()
 
@@ -167,14 +174,6 @@ class BirdWatchingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
             }
 
 
-        }
-        options = navOptions {
-            anim {
-                enter = R.anim.enter_from_left
-                exit = R.anim.exit_to_left
-                popEnter = R.anim.nav_default_pop_enter_anim
-                popExit = R.anim.nav_default_pop_exit_anim
-            }
         }
 
 
@@ -208,13 +207,6 @@ class BreakTheBlockGameFrag : BaseFragment<FragmentAddressBinding, GameFragsView
         super.onViewCreated(view, savedInstanceState)
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
-        composeView.setContent {
-            BreakTheBlockGame(content = {
-//                ToolbarCompose(title = "Training", onClick = {
-                    navController.popBackStack()
-//                })
-            })
-        }
         options = navOptions {
             anim {
                 enter = R.anim.enter_from_left
@@ -222,6 +214,13 @@ class BreakTheBlockGameFrag : BaseFragment<FragmentAddressBinding, GameFragsView
                 popEnter = R.anim.nav_default_pop_enter_anim
                 popExit = R.anim.nav_default_pop_exit_anim
             }
+        }
+        composeView.setContent {
+            BreakTheBlockGame(content = {
+//                ToolbarCompose(title = "Training", onClick = {
+                navController.popBackStack()
+//                })
+            })
         }
 
 
@@ -255,13 +254,6 @@ class CardCalculationGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
         super.onViewCreated(view, savedInstanceState)
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
-        composeView.setContent {
-            CardCalculationGameScreen(content = {
-
-                    navController.popBackStack()
-
-            })
-        }
         options = navOptions {
             anim {
                 enter = R.anim.enter_from_left
@@ -269,6 +261,13 @@ class CardCalculationGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
                 popEnter = R.anim.nav_default_pop_enter_anim
                 popExit = R.anim.nav_default_pop_exit_anim
             }
+        }
+        composeView.setContent {
+            CardCalculationGameScreen(content = {
+
+                navController.popBackStack()
+
+            })
         }
 
 
@@ -302,9 +301,6 @@ class ColorOfDecepGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
         super.onViewCreated(view, savedInstanceState)
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
-        composeView.setContent {
-            TouchTheColorGameScreen( {})
-        }
         options = navOptions {
             anim {
                 enter = R.anim.enter_from_left
@@ -312,6 +308,9 @@ class ColorOfDecepGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
                 popEnter = R.anim.nav_default_pop_enter_anim
                 popExit = R.anim.nav_default_pop_exit_anim
             }
+        }
+        composeView.setContent {
+            TouchTheColorGameScreen({})
         }
 
 
@@ -345,13 +344,6 @@ class ColorSwitchGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
         super.onViewCreated(view, savedInstanceState)
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
-        composeView.setContent {
-            ColorSwitchGameScreen(content = {
-//                ToolbarCompose(title = "Training", onClick = {
-                    navController.popBackStack()
-//                })
-            })
-        }
         options = navOptions {
             anim {
                 enter = R.anim.enter_from_left
@@ -359,6 +351,13 @@ class ColorSwitchGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
                 popEnter = R.anim.nav_default_pop_enter_anim
                 popExit = R.anim.nav_default_pop_exit_anim
             }
+        }
+        composeView.setContent {
+            ColorSwitchGameScreen(content = {
+//                ToolbarCompose(title = "Training", onClick = {
+                navController.popBackStack()
+//                })
+            })
         }
 
 
@@ -392,13 +391,6 @@ class ConcentrationGameFrag : BaseFragment<FragmentAddressBinding, GameFragsView
         super.onViewCreated(view, savedInstanceState)
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
-        composeView.setContent {
-            ConcentrationGame(content = {
-
-                    navController.popBackStack()
-
-            })
-        }
         options = navOptions {
             anim {
                 enter = R.anim.enter_from_left
@@ -406,6 +398,13 @@ class ConcentrationGameFrag : BaseFragment<FragmentAddressBinding, GameFragsView
                 popEnter = R.anim.nav_default_pop_enter_anim
                 popExit = R.anim.nav_default_pop_exit_anim
             }
+        }
+        composeView.setContent {
+            ConcentrationGame(content = {
+
+                navController.popBackStack()
+
+            })
         }
 
 
@@ -439,14 +438,6 @@ class FlickGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>()
         super.onViewCreated(view, savedInstanceState)
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
-        composeView.setContent {
-            FlickGameScreen(content = {
-
-                    navController.popBackStack()
-
-    
-            })
-        }
         options = navOptions {
             anim {
                 enter = R.anim.enter_from_left
@@ -454,6 +445,14 @@ class FlickGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>()
                 popEnter = R.anim.nav_default_pop_enter_anim
                 popExit = R.anim.nav_default_pop_exit_anim
             }
+        }
+        composeView.setContent {
+            FlickGameScreen(content = {
+
+                navController.popBackStack()
+
+
+            })
         }
 
 
@@ -487,13 +486,6 @@ class FollowTheLeaderGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
         super.onViewCreated(view, savedInstanceState)
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
-        composeView.setContent {
-            FollowTheLeaderGame(content = {
-
-                    navController.popBackStack()
-
-            })
-        }
         options = navOptions {
             anim {
                 enter = R.anim.enter_from_left
@@ -501,6 +493,13 @@ class FollowTheLeaderGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
                 popEnter = R.anim.nav_default_pop_enter_anim
                 popExit = R.anim.nav_default_pop_exit_anim
             }
+        }
+        composeView.setContent {
+            FollowTheLeaderGame(content = {
+
+                navController.popBackStack()
+
+            })
         }
 
 
@@ -534,14 +533,6 @@ class GuessTheFlagGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
         super.onViewCreated(view, savedInstanceState)
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
-        composeView.setContent {
-            GuessTheFlagGame(content = {
-//               /* ToolbarCompose(title = "Training", onClick = {
-                    navController.popBackStack()
-//                })*/
-                findNavController().navigate(R.id.resultComposeFrag, arguments)
-            })
-        }
         options = navOptions {
             anim {
                 enter = R.anim.enter_from_left
@@ -549,6 +540,14 @@ class GuessTheFlagGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
                 popEnter = R.anim.nav_default_pop_enter_anim
                 popExit = R.anim.nav_default_pop_exit_anim
             }
+        }
+        composeView.setContent {
+            GuessTheFlagGame(content = {
+//               /* ToolbarCompose(title = "Training", onClick = {
+                navController.popBackStack()
+//                })*/
+                findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+            })
         }
 
 
@@ -583,13 +582,6 @@ class HighLowGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
         super.onViewCreated(view, savedInstanceState)
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
-        composeView.setContent {
-            HighLowComponent(content = {
-
-                    navController.popBackStack()
-
-            })
-        }
         options = navOptions {
             anim {
                 enter = R.anim.enter_from_left
@@ -597,6 +589,13 @@ class HighLowGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
                 popEnter = R.anim.nav_default_pop_enter_anim
                 popExit = R.anim.nav_default_pop_exit_anim
             }
+        }
+        composeView.setContent {
+            HighLowComponent(content = {
+
+                navController.popBackStack()
+
+            })
         }
 
 
@@ -636,8 +635,7 @@ class LearningThingFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMode
 //                ToolbarCompose(title = "Training", onClick = {
                     navController.popBackStack()
 //                })
-            })
-        }
+
         options = navOptions {
             anim {
                 enter = R.anim.enter_from_left
@@ -645,6 +643,7 @@ class LearningThingFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMode
                 popEnter = R.anim.nav_default_pop_enter_anim
                 popExit = R.anim.nav_default_pop_exit_anim
             }
+        }   })
         }
 
 
@@ -679,13 +678,6 @@ class Make10GameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
         super.onViewCreated(view, savedInstanceState)
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
-        composeView.setContent {
-            Make10GameScreen(content = {
-
-                    navController.popBackStack()
-
-            })
-        }
         options = navOptions {
             anim {
                 enter = R.anim.enter_from_left
@@ -693,6 +685,13 @@ class Make10GameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
                 popEnter = R.anim.nav_default_pop_enter_anim
                 popExit = R.anim.nav_default_pop_exit_anim
             }
+        }
+        composeView.setContent {
+            Make10GameScreen(content = {
+
+                navController.popBackStack()
+
+            })
         }
 
 
@@ -727,13 +726,6 @@ class MatchingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
         super.onViewCreated(view, savedInstanceState)
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
-        composeView.setContent {
-            MatchingStepGame(Modifier,content = {
-
-                    navController.popBackStack()
-
-            })
-        }
         options = navOptions {
             anim {
                 enter = R.anim.enter_from_left
@@ -741,6 +733,13 @@ class MatchingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
                 popEnter = R.anim.nav_default_pop_enter_anim
                 popExit = R.anim.nav_default_pop_exit_anim
             }
+        }
+        composeView.setContent {
+            MatchingStepGame(Modifier, content = {
+
+                navController.popBackStack()
+
+            })
         }
 
 
@@ -779,8 +778,7 @@ class MenuScreenFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
 //                ToolbarCompose(title = "Training", onClick = {
                     navController.popBackStack()
 //                })
-            })
-        }
+
         options = navOptions {
             anim {
                 enter = R.anim.enter_from_left
@@ -788,6 +786,7 @@ class MenuScreenFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
                 popEnter = R.anim.nav_default_pop_enter_anim
                 popExit = R.anim.nav_default_pop_exit_anim
             }
+        }   })
         }
 
 
@@ -821,13 +820,6 @@ class MissingPieceGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
         super.onViewCreated(view, savedInstanceState)
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
-        composeView.setContent {
-            MissingPieceGameScreen(content = {
-
-                    navController.popBackStack()
-
-            })
-        }
         options = navOptions {
             anim {
                 enter = R.anim.enter_from_left
@@ -835,6 +827,13 @@ class MissingPieceGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
                 popEnter = R.anim.nav_default_pop_enter_anim
                 popExit = R.anim.nav_default_pop_exit_anim
             }
+        }
+        composeView.setContent {
+            MissingPieceGameScreen(content = {
+
+                navController.popBackStack()
+
+            })
         }
 
 
@@ -870,13 +869,6 @@ class OperationsGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
         super.onViewCreated(view, savedInstanceState)
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
-        composeView.setContent {
-            OperationGame(content = {
-
-                    navController.popBackStack()
-
-            })
-        }
         options = navOptions {
             anim {
                 enter = R.anim.enter_from_left
@@ -884,6 +876,13 @@ class OperationsGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
                 popEnter = R.anim.nav_default_pop_enter_anim
                 popExit = R.anim.nav_default_pop_exit_anim
             }
+        }
+        composeView.setContent {
+            OperationGame(content = {
+
+                navController.popBackStack()
+
+            })
         }
 
 
@@ -922,8 +921,7 @@ class PathToSaftyGFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
 //                ToolbarCompose(title = "Training", onClick = {
                     navController.popBackStack()
 //                })
-            })
-        }
+
         options = navOptions {
             anim {
                 enter = R.anim.enter_from_left
@@ -931,6 +929,7 @@ class PathToSaftyGFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
                 popEnter = R.anim.nav_default_pop_enter_anim
                 popExit = R.anim.nav_default_pop_exit_anim
             }
+        }   })
         }
 
 
@@ -969,8 +968,7 @@ class ProfileScreenFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMode
 //                ToolbarCompose(title = "Training", onClick = {
                     navController.popBackStack()
 //                })
-            })
-        }
+
         options = navOptions {
             anim {
                 enter = R.anim.enter_from_left
@@ -978,6 +976,7 @@ class ProfileScreenFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMode
                 popEnter = R.anim.nav_default_pop_enter_anim
                 popExit = R.anim.nav_default_pop_exit_anim
             }
+        }   })
         }
 
 
@@ -1011,13 +1010,6 @@ class QuickEyeGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
         super.onViewCreated(view, savedInstanceState)
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
-        composeView.setContent {
-            QuickEyeGame(content = {
-
-                    navController.popBackStack()
-
-            })
-        }
         options = navOptions {
             anim {
                 enter = R.anim.enter_from_left
@@ -1025,6 +1017,13 @@ class QuickEyeGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
                 popEnter = R.anim.nav_default_pop_enter_anim
                 popExit = R.anim.nav_default_pop_exit_anim
             }
+        }
+        composeView.setContent {
+            QuickEyeGame(content = {
+
+                navController.popBackStack()
+
+            })
         }
 
 
@@ -1058,13 +1057,6 @@ class RainFallGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
         super.onViewCreated(view, savedInstanceState)
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
-        composeView.setContent {
-            RainFallGame(content = {
-
-                    navController.popBackStack()
-
-            })
-        }
         options = navOptions {
             anim {
                 enter = R.anim.enter_from_left
@@ -1072,6 +1064,13 @@ class RainFallGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
                 popEnter = R.anim.nav_default_pop_enter_anim
                 popExit = R.anim.nav_default_pop_exit_anim
             }
+        }
+        composeView.setContent {
+            RainFallGame(content = {
+
+                navController.popBackStack()
+
+            })
         }
 
 
@@ -1105,13 +1104,6 @@ class RapidSortingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
         super.onViewCreated(view, savedInstanceState)
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
-        composeView.setContent {
-            RapidSortingGame(content = {
-//                ToolbarCompose(title = "Training", onClick = {
-                    navController.popBackStack()
-//                })
-            })
-        }
         options = navOptions {
             anim {
                 enter = R.anim.enter_from_left
@@ -1119,6 +1111,13 @@ class RapidSortingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
                 popEnter = R.anim.nav_default_pop_enter_anim
                 popExit = R.anim.nav_default_pop_exit_anim
             }
+        }
+        composeView.setContent {
+            RapidSortingGame(content = {
+//                ToolbarCompose(title = "Training", onClick = {
+                navController.popBackStack()
+//                })
+            })
         }
 
 
@@ -1152,13 +1151,6 @@ class ReflectionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
         super.onViewCreated(view, savedInstanceState)
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
-        composeView.setContent {
-            ReflectionGame(content = {
-//                ToolbarCompose(title = "Training", onClick = {
-                    navController.popBackStack()
-//                })
-            })
-        }
         options = navOptions {
             anim {
                 enter = R.anim.enter_from_left
@@ -1166,6 +1158,13 @@ class ReflectionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
                 popEnter = R.anim.nav_default_pop_enter_anim
                 popExit = R.anim.nav_default_pop_exit_anim
             }
+        }
+        composeView.setContent {
+            ReflectionGame(content = {
+//                ToolbarCompose(title = "Training", onClick = {
+                navController.popBackStack()
+//                })
+            })
         }
 
 
@@ -1209,6 +1208,14 @@ class ResultComposeFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMode
 
         Log.d("123123", "onViewCreated: $gameName ")
 
+        options = navOptions {
+            anim {
+                enter = R.anim.enter_from_left
+                exit = R.anim.exit_to_left
+                popEnter = R.anim.nav_default_pop_enter_anim
+                popExit = R.anim.nav_default_pop_exit_anim
+            }
+        }
         composeView.setContent {
             ResultScreen(
                 10,
@@ -1216,16 +1223,21 @@ class ResultComposeFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMode
                 30,
                 returnGameName(gameName.toString()),
                 returnGameIcon(gameName.toString())
-            ) {
-                findNavController().popBackStack()
-            }
-        }
-        options = navOptions {
-            anim {
-                enter = R.anim.enter_from_left
-                exit = R.anim.exit_to_left
-                popEnter = R.anim.nav_default_pop_enter_anim
-                popExit = R.anim.nav_default_pop_exit_anim
+            ) { i ->
+                when (i) {
+                    1 -> {
+                        findNavController().popBackStack()
+                    }
+
+                    2 -> {
+                        navController.navigate(R.id.dashboardFragment,arguments)
+                    }
+                    3 -> {
+
+                    }
+                    else -> {  navController.navigate(R.id.dashboardFragment,arguments)}
+                }
+
             }
         }
 
@@ -1588,13 +1600,6 @@ class ReverseRPSFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
         super.onViewCreated(view, savedInstanceState)
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
-        composeView.setContent {
-            rpsCastGamePlot(content = {
-//                ToolbarCompose(title = "Training", onClick = {
-                    navController.popBackStack()
-//                })
-            })
-        }
         options = navOptions {
             anim {
                 enter = R.anim.enter_from_left
@@ -1602,6 +1607,13 @@ class ReverseRPSFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
                 popEnter = R.anim.nav_default_pop_enter_anim
                 popExit = R.anim.nav_default_pop_exit_anim
             }
+        }
+        composeView.setContent {
+            rpsCastGamePlot(content = {
+//                ToolbarCompose(title = "Training", onClick = {
+                navController.popBackStack()
+//                })
+            })
         }
 
 
@@ -1634,14 +1646,6 @@ class SimplicityGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
-
-        composeView.setContent {
-            ImplicityGameScreen(content = {
-//                ToolbarCompose(title = "Training", onClick = {
-                    navController.popBackStack()
-//                })
-            })
-        }
         options = navOptions {
             anim {
                 enter = R.anim.enter_from_left
@@ -1650,6 +1654,14 @@ class SimplicityGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+        composeView.setContent {
+            ImplicityGameScreen(content = {
+//                ToolbarCompose(title = "Training", onClick = {
+                navController.popBackStack()
+//                })
+            })
+        }
+
 
 
     }
@@ -1681,14 +1693,6 @@ class SpinningBlockGameFrag : BaseFragment<FragmentAddressBinding, GameFragsView
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
-
-        composeView.setContent {
-            SpinningBlockGame(content = {
-//                ToolbarCompose(title = "Training", onClick = {
-                    navController.popBackStack()
-//                })
-            })
-        }
         options = navOptions {
             anim {
                 enter = R.anim.enter_from_left
@@ -1697,6 +1701,14 @@ class SpinningBlockGameFrag : BaseFragment<FragmentAddressBinding, GameFragsView
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+        composeView.setContent {
+            SpinningBlockGame(content = {
+//                ToolbarCompose(title = "Training", onClick = {
+                navController.popBackStack()
+//                })
+            })
+        }
+
 
 
     }
@@ -1728,14 +1740,6 @@ class SpinningLotteryGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
-
-        composeView.setContent {
-            SpinningBlockGame(content = {
-//                ToolbarCompose(title = "Training", onClick = {
-                    navController.popBackStack()
-//                })
-            })
-        }
         options = navOptions {
             anim {
                 enter = R.anim.enter_from_left
@@ -1744,6 +1748,14 @@ class SpinningLotteryGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+        composeView.setContent {
+            SpinningBlockGame(content = {
+//                ToolbarCompose(title = "Training", onClick = {
+                navController.popBackStack()
+//                })
+            })
+        }
+
 
 
     }
@@ -1776,14 +1788,6 @@ class TapTheColorGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
-
-        composeView.setContent {
-            TapTheColorGame(content = {
-//                ToolbarCompose(title = "Training", onClick = {
-                    navController.popBackStack()
-//                })
-            })
-        }
         options = navOptions {
             anim {
                 enter = R.anim.enter_from_left
@@ -1792,6 +1796,14 @@ class TapTheColorGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+        composeView.setContent {
+            TapTheColorGame(content = {
+//                ToolbarCompose(title = "Training", onClick = {
+                navController.popBackStack()
+//                })
+            })
+        }
+
 
 
     }
@@ -1829,8 +1841,7 @@ class TenSecondFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>()
 //                ToolbarCompose(title = "Training", onClick = {
                     navController.popBackStack()
 //                })
-            })
-        }
+
         options = navOptions {
             anim {
                 enter = R.anim.enter_from_left
@@ -1838,6 +1849,7 @@ class TenSecondFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>()
                 popEnter = R.anim.nav_default_pop_enter_anim
                 popExit = R.anim.nav_default_pop_exit_anim
             }
+        }   })
         }
 
 
@@ -1876,8 +1888,7 @@ class testiFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
 //                ToolbarCompose(title = "Training", onClick = {
                     navController.popBackStack()
 //                })
-            })
-        }
+
         options = navOptions {
             anim {
                 enter = R.anim.enter_from_left
@@ -1885,6 +1896,7 @@ class testiFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
                 popEnter = R.anim.nav_default_pop_enter_anim
                 popExit = R.anim.nav_default_pop_exit_anim
             }
+        }   })
         }
 
 
@@ -1923,8 +1935,7 @@ class TestingFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
 //                ToolbarCompose(title = "Training", onClick = {
                     navController.popBackStack()
 //                })
-            })
-        }
+
         options = navOptions {
             anim {
                 enter = R.anim.enter_from_left
@@ -1932,6 +1943,7 @@ class TestingFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
                 popEnter = R.anim.nav_default_pop_enter_anim
                 popExit = R.anim.nav_default_pop_exit_anim
             }
+        }   })
         }
 
 
@@ -1964,14 +1976,6 @@ class TetrisGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
-
-        composeView.setContent {
-            TetrisGame(content = {
-//                ToolbarCompose(title = "Training", onClick = {
-                    navController.popBackStack()
-//                })
-            })
-        }
         options = navOptions {
             anim {
                 enter = R.anim.enter_from_left
@@ -1980,6 +1984,14 @@ class TetrisGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+        composeView.setContent {
+            TetrisGame(content = {
+//                ToolbarCompose(title = "Training", onClick = {
+                navController.popBackStack()
+//                })
+            })
+        }
+
 
 
     }
@@ -2017,8 +2029,7 @@ class ToolbarFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
 //                ToolbarCompose(title = "Training", onClick = {
                     navController.popBackStack()
 //                })
-            })
-        }
+
         options = navOptions {
             anim {
                 enter = R.anim.enter_from_left
@@ -2026,6 +2037,7 @@ class ToolbarFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
                 popEnter = R.anim.nav_default_pop_enter_anim
                 popExit = R.anim.nav_default_pop_exit_anim
             }
+        }   })
         }
 
 
@@ -2059,14 +2071,6 @@ class TouchTheNumGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
-
-        composeView.setContent {
-            TouchTheNumGamePlus(content = {
-//                ToolbarCompose(title = "Training", onClick = {
-                    navController.popBackStack()
-//                })
-            })
-        }
         options = navOptions {
             anim {
                 enter = R.anim.enter_from_left
@@ -2075,6 +2079,14 @@ class TouchTheNumGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+        composeView.setContent {
+            TouchTheNumGamePlus(content = {
+//                ToolbarCompose(title = "Training", onClick = {
+                navController.popBackStack()
+//                })
+            })
+        }
+
 
 
     }
@@ -2106,14 +2118,6 @@ class TouchTheNumPlusGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
-
-        composeView.setContent {
-            TouchTheNumPlusGame(content = {
-//                ToolbarCompose(title = "Training", onClick = {
-                    navController.popBackStack()
-//                })
-            })
-        }
         options = navOptions {
             anim {
                 enter = R.anim.enter_from_left
@@ -2122,6 +2126,14 @@ class TouchTheNumPlusGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+        composeView.setContent {
+            TouchTheNumPlusGame(content = {
+//                ToolbarCompose(title = "Training", onClick = {
+                navController.popBackStack()
+//                })
+            })
+        }
+
 
 
     }
@@ -2153,14 +2165,6 @@ class UnfollowTheLeaderGameFrag : BaseFragment<FragmentAddressBinding, GameFrags
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
-
-        composeView.setContent {
-            UnfollowTheLeaderGame(content = {
-//                ToolbarCompose(title = "Training", onClick = {
-                    navController.popBackStack()
-//                })
-            })
-        }
         options = navOptions {
             anim {
                 enter = R.anim.enter_from_left
@@ -2169,6 +2173,14 @@ class UnfollowTheLeaderGameFrag : BaseFragment<FragmentAddressBinding, GameFrags
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+        composeView.setContent {
+            UnfollowTheLeaderGame(content = {
+//                ToolbarCompose(title = "Training", onClick = {
+                navController.popBackStack()
+//                })
+            })
+        }
+
 
 
     }
@@ -2200,15 +2212,6 @@ class WeatherCastGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
-
-        composeView.setContent {
-            WeatherCastGame(content = {
-//              /*  ToolbarCompose(title = "Training", onClick = {
-                    navController.popBackStack()
-//                })*/
-                findNavController().navigate(R.id.resultComposeFrag, arguments)
-            })
-        }
         options = navOptions {
             anim {
                 enter = R.anim.enter_from_left
@@ -2217,6 +2220,15 @@ class WeatherCastGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+        composeView.setContent {
+            WeatherCastGame(content = {
+//              /*  ToolbarCompose(title = "Training", onClick = {
+                navController.popBackStack()
+//                })*/
+                findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+            })
+        }
+
 
 
     }
@@ -2247,15 +2259,6 @@ class ShapeDeceptionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVie
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
-
-        composeView.setContent {
-            TouchTheShapesGameScreen(content = {
-//              /*  ToolbarCompose(title = "Training", onClick = {
-                    navController.popBackStack()
-//                })*/
-                findNavController().navigate(R.id.resultComposeFrag, arguments)
-            })
-        }
         options = navOptions {
             anim {
                 enter = R.anim.enter_from_left
@@ -2264,6 +2267,15 @@ class ShapeDeceptionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVie
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+        composeView.setContent {
+            TouchTheShapesGameScreen(content = {
+//              /*  ToolbarCompose(title = "Training", onClick = {
+                navController.popBackStack()
+//                })*/
+                findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+            })
+        }
+
 
 
     }
@@ -2295,7 +2307,14 @@ class StartUpGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
-
+        options = navOptions {
+            anim {
+                enter = R.anim.enter_from_left
+                exit = R.anim.exit_to_left
+                popEnter = R.anim.nav_default_pop_enter_anim
+                popExit = R.anim.nav_default_pop_exit_anim
+            }
+        }
         var bundle = arguments
         if (bundle == null) {
             bundle = Bundle()
@@ -2325,14 +2344,7 @@ class StartUpGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
                     returnGameIcon(GamesUID2.ShapeDeception.name)
                 )*/
         }
-        options = navOptions {
-            anim {
-                enter = R.anim.enter_from_left
-                exit = R.anim.exit_to_left
-                popEnter = R.anim.nav_default_pop_enter_anim
-                popExit = R.anim.nav_default_pop_exit_anim
-            }
-        }
+
 
 
     }
@@ -2914,136 +2926,137 @@ class StartUpGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
 
         when (enumNumberEnum) {
             GamesUID2.Matching.name -> {
-                findNavController().navigate(R.id.matchingGameFrag, arguments)
+                findNavController().navigate(R.id.matchingGameFrag, arguments, options)
 
 
             }
 
+
             GamesUID2.AdditionAddiction.name -> {
 
-                findNavController().navigate(R.id.additionAddictionGameFrag, arguments)
+                findNavController().navigate(R.id.additionAddictionGameFrag, arguments, options)
 
 
             }
 
             GamesUID2.Operations.name -> {
 
-                findNavController().navigate(R.id.operationsGameFrag, arguments)
+                findNavController().navigate(R.id.operationsGameFrag, arguments, options)
 
             }
 
             GamesUID2.BirdWatching.name -> {
-                findNavController().navigate(R.id.birdWatchingGameFrag, arguments)
+                findNavController().navigate(R.id.birdWatchingGameFrag, arguments, options)
 
             }
 
             GamesUID2.ColorDeception.name -> {
-                findNavController().navigate(R.id.colorOfDecepGameFrag, arguments)
+                findNavController().navigate(R.id.colorOfDecepGameFrag, arguments, options)
 
             }
 
             GamesUID2.Tetris.name -> {
-                findNavController().navigate(R.id.tetrisGameFrag, arguments)
+                findNavController().navigate(R.id.tetrisGameFrag, arguments, options)
 
             }
 
             GamesUID2.Concentration.name -> {
 
-                findNavController().navigate(R.id.concentrationGameFrag, arguments)
+                findNavController().navigate(R.id.concentrationGameFrag, arguments, options)
             }
 
             GamesUID2.CardCalculation.name -> {
-                findNavController().navigate(R.id.cardCalculationGameFrag, arguments)
+                findNavController().navigate(R.id.cardCalculationGameFrag, arguments, options)
 
             }
 
             GamesUID2.Flick.name -> {
-                findNavController().navigate(R.id.flickGameFrag, arguments)
+                findNavController().navigate(R.id.flickGameFrag, arguments, options)
 
             }
 
             GamesUID2.FollowTheLeader.name -> {
-                findNavController().navigate(R.id.followTheLeaderGameFrag, arguments)
+                findNavController().navigate(R.id.followTheLeaderGameFrag, arguments, options)
 
             }
 
             GamesUID2.UnfollowTheLeader.name -> {
-                findNavController().navigate(R.id.unfollowTheLeaderGameFrag, arguments)
+                findNavController().navigate(R.id.unfollowTheLeaderGameFrag, arguments, options)
 
             }
 
             GamesUID2.GuessTheFlag.name -> {
-//                findNavController().navigate(R.id,arguments)
+                findNavController().navigate(R.id.guessTheFlagGameFrag, arguments)
 
             }
 
             GamesUID2.HighLow.name -> {
-                findNavController().navigate(R.id.highLowGameFrag, arguments)
+                findNavController().navigate(R.id.highLowGameFrag, arguments, options)
 
             }
 
             GamesUID2.MakeTen.name -> {
-                findNavController().navigate(R.id.make10GameFrag, arguments)
+                findNavController().navigate(R.id.make10GameFrag, arguments, options)
 
             }
 
             GamesUID2.MissingPiece.name -> {
-                findNavController().navigate(R.id.missingPieceGameFrag, arguments)
+                findNavController().navigate(R.id.missingPieceGameFrag, arguments, options)
 
             }
 
 
             GamesUID2.QuickEye.name -> {
-                findNavController().navigate(R.id.quickEyeGameFrag, arguments)
+                findNavController().navigate(R.id.quickEyeGameFrag, arguments, options)
 
             }
 
             GamesUID2.RainFall.name -> {
-                findNavController().navigate(R.id.rainFallGameFrag, arguments)
+                findNavController().navigate(R.id.rainFallGameFrag, arguments, options)
 
             }
 
             GamesUID2.RapidSorting.name -> {
-                findNavController().navigate(R.id.rapidSortingGameFrag, arguments)
+                findNavController().navigate(R.id.rapidSortingGameFrag, arguments, options)
 
             }
 
             GamesUID2.ReverseRps.name -> {
-                findNavController().navigate(R.id.reverseRPSFrag, arguments)
+                findNavController().navigate(R.id.reverseRPSFrag, arguments, options)
 
             }
 
             GamesUID2.Simplicity.name -> {
-                findNavController().navigate(R.id.simplicityGameFrag, arguments)
+                findNavController().navigate(R.id.simplicityGameFrag, arguments, options)
 
             }
 
             GamesUID2.SpinningBlock.name -> {
-                findNavController().navigate(R.id.spinningBlockGameFrag, arguments)
+                findNavController().navigate(R.id.spinningBlockGameFrag, arguments, options)
 
             }
 
             GamesUID2.ShapeDeception.name -> {
-                findNavController().navigate(R.id.shapeDeceptionGameFrag, arguments)
+                findNavController().navigate(R.id.shapeDeceptionGameFrag, arguments, options)
             }
 
             GamesUID2.TapTheColor.name -> {
-                findNavController().navigate(R.id.tapTheColorGameFrag, arguments)
+                findNavController().navigate(R.id.tapTheColorGameFrag, arguments, options)
 
             }
 
             GamesUID2.TouchTheNum.name -> {
-                findNavController().navigate(R.id.touchTheNumGameFrag, arguments)
+                findNavController().navigate(R.id.touchTheNumGameFrag, arguments, options)
 
             }
 
             GamesUID2.TouchTheNumPlus.name -> {
-                findNavController().navigate(R.id.touchTheNumPlusGameFrag, arguments)
+                findNavController().navigate(R.id.touchTheNumPlusGameFrag, arguments, options)
 
             }
 
             GamesUID2.WeatherCast.name -> {
-                findNavController().navigate(R.id.weatherCastGameFrag, arguments)
+                findNavController().navigate(R.id.weatherCastGameFrag, arguments, options)
 
             }
 

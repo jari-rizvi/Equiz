@@ -54,7 +54,7 @@ fun TetrisGame(content:  (bool:Boolean) -> Unit = {}){
     var isAlert by remember { mutableStateOf(false) }
     var isTimeUp by remember { mutableStateOf(false) }
 
-    var timeLeft by remember { mutableStateOf(20L) }
+    var timeLeft by remember { mutableStateOf(120L) }
 
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
@@ -66,7 +66,7 @@ fun TetrisGame(content:  (bool:Boolean) -> Unit = {}){
                   if (timerRunning) {
                     timeLeft = millisUntilFinished / 1000
                 }
-                if (timeLeft<5){
+                if (timeLeft<15){
                     isAlert = true
                 }
             }
