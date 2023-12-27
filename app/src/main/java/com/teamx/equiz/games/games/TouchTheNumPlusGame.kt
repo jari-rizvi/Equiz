@@ -21,6 +21,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
+import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 
 @Composable
@@ -101,6 +102,9 @@ fun TouchTheNumPlusGame(content:   (bool:Boolean) -> Unit) {
                 painter = painterResource(id = R.drawable.iconbg),
                 contentDescription = "bg"
             )
+            if (isAlert) {
+                GameAlertingTime()
+            }
         }
     }
 

@@ -327,22 +327,31 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                 GamesUID2.SpinningBlock.name -> {
                     return R.drawable.simplicity_icon
                 }
+
                 GamesUID2.ShapeDeception.name -> {
                     return R.drawable.simplicity_icon
                 }
+
                 GamesUID2.TapTheColor.name -> {
                     return R.drawable.tapthecolor_icon
                 }
+
                 GamesUID2.TouchTheNum.name -> {
                     return R.drawable.touchthenumber_icon
+                }
+
+                GamesUID2.TouchTheNumPlus.name -> {
+                    return R.drawable.touchthenumbers_icon_plus
                 }
 
                 GamesUID2.UnfollowTheLeader.name -> {
                     return R.drawable.favicon
                 }
+
                 GamesUID2.WeatherCast.name -> {
                     return R.drawable.weathercast_icon
                 }
+
                 else -> return 0
             }
         }
@@ -431,7 +440,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             }
 
             GamesUID2.UnfollowTheLeader.name -> {
-                "Un Follow The Leader"
+                "UnFollow The Leader"
 
             }
 
@@ -529,7 +538,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
     override fun onClickGame(position: Int) {
         Log.d("123", "onClickGame: ")
         Log.d("123123", "onClickGame: ")
-        var strname = gameStrArrayList[position].name
+        var strname = GamesUID2.values()[position].name
         Log.d("123123", "onClickGame:$strname ")
         var bundle = arguments
         if (bundle == null) {

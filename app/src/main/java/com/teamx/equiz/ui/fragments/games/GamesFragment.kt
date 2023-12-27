@@ -219,7 +219,7 @@ class GamesFragment : BaseFragment<FragmentGamesBinding, GamesViewModel>(), AllG
     }
     override fun onClickGame(position: Int) {
         Log.d("123123", "onClickGame: ")
-        var strname = gameStrArrayList[position].name
+        var strname = GamesUID2.values()[position].name
         Log.d("123123", "onClickGame:$strname ")
         var bundle = arguments
         if (bundle == null) {

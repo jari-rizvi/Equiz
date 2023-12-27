@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.teamx.equiz.R
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
+import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
@@ -34,14 +35,26 @@ var arr = arrayListOf<MemoryItem>()
 @RequiresApi(Build.VERSION_CODES.O)
 @Preview
 @Composable
-fun MatchingStepGame(modifier: Modifier=Modifier, content:   () -> Unit={}) {
+fun MatchingStepGame(modifier: Modifier=Modifier, content:   (boolean:Boolean) -> Unit={}) {
 
     var isGameOver by remember { mutableStateOf(false) }
     var isAlert by remember { mutableStateOf(false) }
-
+    var isTimeUp by remember { mutableStateOf(false) }
     var timeLeft by remember { mutableStateOf(20L) }
 
     var timerRunning by remember { mutableStateOf(true) }
+    var gameStarted by remember { mutableStateOf(false) }
+    var r by remember { mutableStateOf(0) }
+    var r1 by remember { mutableStateOf(0) }
+    val myRandomValues = mutableListOf(1, 2, 3, 1, 2, 3)
+    myRandomValues.shuffle()
+    val coroutineScope = rememberCoroutineScope()
+    val context = LocalContext.current
+    val vibrator = context.getSystemService(Vibrator::class.java)
+    for (i in myRandomValues) {
+        arr.add(MemoryItem(name = "$i", uniqueId = counter++))
+    }
+
     LaunchedEffect(true) {
 //        generateOptions()
 
@@ -61,97 +74,102 @@ fun MatchingStepGame(modifier: Modifier=Modifier, content:   () -> Unit={}) {
             }
         }.start()
     }
-
-
     if (isGameOver) {
-        content()
+        content(true)
     }
 
-    var gameStarted by remember { mutableStateOf(false) }
-    var r by remember { mutableStateOf(0) }
-    var r1 by remember { mutableStateOf(0) }
-    val myRandomValues = mutableListOf(1, 2, 3, 1, 2, 3)
-    myRandomValues.shuffle()
-    val coroutineScope = rememberCoroutineScope()
-    val context = LocalContext.current
-    val vibrator = context.getSystemService(Vibrator::class.java)
-    for (i in myRandomValues) {
-        arr.add(MemoryItem(name = "$i", uniqueId = counter++))
-    }
+    if (isTimeUp) {
 
-    if (gameStarted) {
-        LaunchedEffect(true) {
-            delay(3000)
-            gameStarted = true
+        TimeUpDialogCompose() { i ->
+            if (i) {
+                isGameOver = true
+
+            } else {
+                content(false)
+            }
         }
-    }
 
-    Box(
+
+    }else{
+        if (gameStarted) {
+            LaunchedEffect(true) {
+                delay(3000)
+                gameStarted = true
+            }
+        }
+
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
                 .background(color = Color.White),
         ) {
 
-    Column(
-        modifier = modifier.fillMaxSize(), Arrangement.Center, Alignment.CenterHorizontally
-    ) {
+            Column(
+                modifier = modifier.fillMaxSize(), Arrangement.Center, Alignment.CenterHorizontally
+            ) {
 //        Text(modifier = modifier, text = "Memorize The Same numbers")
 
 //        Text(modifier = modifier, text = "Total Attemps: $r   Accurate: $r1")
-        Row(modifier = modifier) {
-            for (i in arr.subList(0, 3).indices) {
-                // Trigger the vibration effect when the Composable is recomposed
-                LaunchedEffect(true) {
-                    vibrator?.let { v ->
-                        v.vibrate(
-                            VibrationEffect.createOneShot(
-                                500, VibrationEffect.DEFAULT_AMPLITUDE
-                            )
-                        )
-                        // Delay for the vibration duration
-                        delay(500)
-                        // Stop the vibration
-                        v.cancel()
+                Row(modifier = modifier) {
+                    for (i in arr.subList(0, 3).indices) {
+                        // Trigger the vibration effect when the Composable is recomposed
+                        LaunchedEffect(true) {
+                            vibrator?.let { v ->
+                                v.vibrate(
+                                    VibrationEffect.createOneShot(
+                                        500, VibrationEffect.DEFAULT_AMPLITUDE
+                                    )
+                                )
+                                // Delay for the vibration duration
+                                delay(500)
+                                // Stop the vibration
+                                v.cancel()
+                            }
+                        }
+
+                        CardShape(modifier, i, {
+                            r++
+                        }, {
+                            r1++
+                        }, {
+
+
+                        })
+                    }
+                }
+                Row(modifier = modifier) {
+                    for (i in arr.subList(3, 6).indices) {
+                        CardShape(modifier, i, {
+                            r++
+                        }, {
+                            r1++
+                        }, {})
                     }
                 }
 
-                CardShape(modifier, i, {
-                    r++
-                }, {
-                    r1++
-                }, {
-
-
-                })
-            }
-        }
-        Row(modifier = modifier) {
-            for (i in arr.subList(3, 6).indices) {
-                CardShape(modifier, i, {
-                    r++
-                }, {
-                    r1++
-                }, {})
-            }
-        }
-
-        ShakingButton()
+                ShakingButton()
 //        SwipeGestureExample()
-    }
+            }
 
 
-      Image(
+            Image(
                 modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight(),
                 painter = painterResource(id = R.drawable.iconbg),
                 contentDescription = "bg"
             )
-        if (isAlert) {
-            GameAlertingTime()
+            if (isAlert) {
+                GameAlertingTime()
+            }
         }
-        }
+    }
+
+
+
+
+
 
 
     /*else {

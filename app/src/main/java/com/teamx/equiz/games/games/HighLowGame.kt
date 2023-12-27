@@ -47,6 +47,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
+import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import com.teamx.equiz.games.ui.theme.Pink80
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -165,11 +166,11 @@ var dragged = true
 
 
 @Composable
-fun HighLowComponent(content: () -> Unit) {
+fun HighLowComponent(content: (boo:Boolean) -> Unit) {
 
     var isGameOver by remember { mutableStateOf(false) }
     var isAlert by remember { mutableStateOf(false) }
-
+    var isTimeUp by remember { mutableStateOf(false) }
     var timeLeft by remember { mutableStateOf(20L) }
 
     var timerRunning by remember { mutableStateOf(true) }
@@ -188,14 +189,26 @@ fun HighLowComponent(content: () -> Unit) {
             }
 
             override fun onFinish() {
-                isGameOver = true
+                isTimeUp = true
             }
         }.start()
     }
 
+    if (isTimeUp) {
 
+        TimeUpDialogCompose() { i ->
+            if (i) {
+                isGameOver = true
+
+            } else {
+                content(false)
+            }
+        }
+
+
+    }
     if (isGameOver) {
-        content()
+        content(true)
     }
 
 

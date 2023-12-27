@@ -1,5 +1,6 @@
 package com.teamx.equiz.games.games
 
+import android.os.CountDownTimer
 import android.util.Log
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.animateFloat
@@ -11,6 +12,7 @@ import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
@@ -22,9 +24,9 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime. mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -41,7 +43,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
-
+import com.teamx.equiz.games.games.ui_components.GameAlertingTime
+import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import com.teamx.equiz.games.ui.theme.Pink80
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -51,26 +54,97 @@ import kotlin.random.Random
 class RapidSortingGame {}
 
 @Composable
-fun RapidSortingGame(content: @Composable () -> Unit) {
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Row(modifier = Modifier.background(color = Color(0xFF9F81CA))) {
+fun RapidSortingGame(content: (boolean: Boolean) -> Unit) {
+    var isGameOver by remember { mutableStateOf(false) }
+    var isAlert by remember { mutableStateOf(false) }
+    var isTimeUp by remember { mutableStateOf(false) }
 
-            BackButton(onClick = {}/*onContinueClicked*/)
-            Text(
-                text = "Training",
+    var timeLeft by remember { mutableStateOf(20L) }
+
+    var timerRunning by remember { mutableStateOf(true) }
+    LaunchedEffect(true) {
+//        generateOptions()
+
+        // Start the timer
+        object : CountDownTimer(timeLeft * 1000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                if (timerRunning) {
+                    timeLeft = millisUntilFinished / 1000
+                }
+
+                if (timeLeft < 5) {
+                    isAlert = true
+                }
+            }
+
+            override fun onFinish() {
+                isTimeUp = true
+            }
+        }.start()
+    }
+
+
+    if (isGameOver) {
+
+
+        content(true)
+
+    }
+
+    if (isTimeUp) {
+
+        TimeUpDialogCompose() { i ->
+            if (i) {
+                isGameOver = true
+
+            } else {
+                content(false)
+            }
+        }
+
+
+    } else {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .background(color = Color(0xFFE1E1E1)),
+        ) {
+
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Row(modifier = Modifier.background(color = Color(0xFF9F81CA))) {
+
+                    BackButton(onClick = {}/*onContinueClicked*/)
+                    Text(
+                        text = "Training",
+                        modifier = Modifier
+                            .fillMaxWidth()
+
+                            .align(alignment = Alignment.CenterVertically),
+                        textAlign = TextAlign.Center,
+                        color = Color.White,
+                        fontSize = 17.sp
+                    )
+
+                }
+
+
+                RapidGame()
+
+            }
+
+            Image(
                 modifier = Modifier
                     .fillMaxWidth()
-
-                    .align(alignment = Alignment.CenterVertically),
-                textAlign = TextAlign.Center,
-                color = Color.White,
-                fontSize = 17.sp
+                    .fillMaxHeight(),
+                painter = painterResource(id = R.drawable.iconbg),
+                contentDescription = "bg"
             )
 
+            if (isAlert) {
+                GameAlertingTime()
+            }
         }
-        content()
-
-        RapidGame()
 
     }
 
@@ -127,9 +201,9 @@ var dragged2 = true
 
                 modifier = Modifier
                     .testTag("DraggableCard")
-    //            .width(165.dp)
+                    //            .width(165.dp)
                     .wrapContentSize()
-    //            .height(165.dp)
+                    //            .height(165.dp)
 
                     .padding(horizontal = 4.dp, vertical = 1.dp)
                     .offset(
@@ -143,9 +217,9 @@ var dragged2 = true
                             0.dp
                         }, y = if (transitionState.targetState) {
                             if (randomInt == 1) {
-                                (offsetTransitionY*0.2).dp
+                                (offsetTransitionY * 0.2).dp
                             } else {
-                                (offsetTransitionY*0.2).dp
+                                (offsetTransitionY * 0.2).dp
                             }
                         } else {
                             0.dp
@@ -195,7 +269,7 @@ var dragged2 = true
                     }
                     .graphicsLayer {
 
-    //                if (transition.currentState) {
+                        //                if (transition.currentState) {
                         if (i232 < 2) {
                             if (transition.isRunning) {
                                 Log.d("123123", "MyCard2222: ${i232++}")
@@ -207,7 +281,7 @@ var dragged2 = true
                                     }
 
 
-    //                                delay(700)
+                                    //                                delay(700)
                                     transitionState.targetState = false
 
 

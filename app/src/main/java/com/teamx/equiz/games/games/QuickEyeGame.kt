@@ -33,16 +33,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
+import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import kotlin.random.Random
 
 @Preview
 @Composable
-fun QuickEyeGame(content:  () -> Unit = {}) {
+fun QuickEyeGame(content:  (bool:Boolean) -> Unit = {}) {
     var isGameOver by remember { mutableStateOf(false) }
     var isAlert by remember { mutableStateOf(false) }
 
     var timeLeft by remember { mutableStateOf(20L) }
-
+    var isTimeUp by remember { mutableStateOf(false) }
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
 //        generateOptions()
@@ -59,52 +60,67 @@ fun QuickEyeGame(content:  () -> Unit = {}) {
             }
 
             override fun onFinish() {
-                isGameOver = true
+                isTimeUp = true
             }
         }.start()
     }
 
 
     if (isGameOver) {
-//        content()
+        content(true)
     }
 
-    var restart by remember { mutableStateOf(true) }
+    if (isTimeUp) {
+
+        TimeUpDialogCompose() { i ->
+            if (i) {
+                isGameOver = true
+
+            } else {
+                content(false)
+            }
+        }
+
+
+    }else{
+        var restart by remember { mutableStateOf(true) }
 
 //    var boxes by remember { mutableStateOf(generateBoxes()) }
 
 
 
-    Box(
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
                 .background(color = Color.White),
         ) {
-        /* Box(
-             modifier = Modifier
-                 .padding(16.dp)
-
-                 .size(300.dp)
-         ) {
-
-     //        for (i in boxes.indices) {
-     //
-     //
-     //
-     //        }
-
-         }
-
-             Image(
+            /* Box(
                  modifier = Modifier
-                     .fillMaxWidth()
-                     .fillMaxHeight(),
-                 painter = painterResource(id = R.drawable.iconbg),
-                 contentDescription = "bg"
-             )*/
-        QuickCardCalculationGameScreen() { /*content() */ }
+                     .padding(16.dp)
+
+                     .size(300.dp)
+             ) {
+
+         //        for (i in boxes.indices) {
+         //
+         //
+         //
+         //        }
+
+             }
+
+                 Image(
+                     modifier = Modifier
+                         .fillMaxWidth()
+                         .fillMaxHeight(),
+                     painter = painterResource(id = R.drawable.iconbg),
+                     contentDescription = "bg"
+                 )*/
+            QuickCardCalculationGameScreen() { /*content() */ }
+        }
     }
+
 
 
 }

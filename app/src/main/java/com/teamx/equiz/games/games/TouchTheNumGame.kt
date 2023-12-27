@@ -369,6 +369,10 @@ fun TouchTheNumGamePlus(content:  (bool:Boolean) -> Unit = {}) {
                 painter = painterResource(id = R.drawable.iconbg),
                 contentDescription = "bg"
             )
+            if (isAlert) {
+                GameAlertingTime()
+            }
+
         }
     }
 

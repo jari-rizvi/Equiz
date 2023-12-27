@@ -38,10 +38,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.teamx.equiz.R
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
+import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 
 
 @Composable
-fun GuessTheFlagGame(content:  () -> Unit={}) {
+fun GuessTheFlagGame(content:  (boo:Boolean) -> Unit={}) {
     var score by remember { mutableStateOf(0) }
     var currentFlagIndex by remember { mutableStateOf(0) }
     var guessedCountry by remember { mutableStateOf(TextFieldValue()) }
@@ -52,6 +53,8 @@ fun GuessTheFlagGame(content:  () -> Unit={}) {
 
     var timeLeft by remember { mutableStateOf(20L) }
     var timerRunning by remember { mutableStateOf(true) }
+    var isTimeUp by remember { mutableStateOf(false) }
+
 
     val flags = listOf(
         R.drawable.usa_flag,
@@ -102,9 +105,24 @@ fun GuessTheFlagGame(content:  () -> Unit={}) {
             }
 
             override fun onFinish() {
-                isGameOver = true
+                isTimeUp = true
             }
         }.start()
+    }
+
+
+    if (isTimeUp) {
+
+        TimeUpDialogCompose() { i ->
+            if (i) {
+                isGameOver = true
+
+            } else {
+                content(false)
+            }
+        }
+
+
     }
 
     LaunchedEffect(guessedCountry.text) {
@@ -168,7 +186,7 @@ fun GuessTheFlagGame(content:  () -> Unit={}) {
         Text("Score: $score", style = MaterialTheme.typography.bodySmall)
 
         if (isGameOver) {
-            content()
+            content(true)
          /*   Dialog(
                 onDismissRequest = { isGameOver = false },
 

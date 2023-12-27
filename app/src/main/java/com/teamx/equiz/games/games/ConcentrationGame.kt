@@ -37,6 +37,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.teamx.equiz.R
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
+import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 
 import com.teamx.equiz.games.ui.theme.BirdColor3
 import com.teamx.equiz.games.ui.theme.BirdColor4
@@ -45,12 +46,12 @@ import kotlinx.coroutines.delay
 
 @Preview
 @Composable
-fun ConcentrationGame(content:   () -> Unit = {}) {
+fun ConcentrationGame(content: (bool: Boolean) -> Unit = {}) {
     var isGameOver by remember { mutableStateOf(false) }
     var isAlert by remember { mutableStateOf(false) }
 
     var timeLeft by remember { mutableStateOf(20L) }
-
+    var isTimeUp by remember { mutableStateOf(false) }
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
 //        generateOptions()
@@ -67,37 +68,52 @@ fun ConcentrationGame(content:   () -> Unit = {}) {
             }
 
             override fun onFinish() {
-                isGameOver = true
+                isTimeUp = true
             }
         }.start()
     }
 
 
     if (isGameOver) {
-        content()
+        content(true)
     }
 
+    if (isTimeUp) {
 
-    Box(
+        TimeUpDialogCompose() { i ->
+            if (i) {
+                isGameOver = true
+
+            } else {
+                content(false)
+            }
+        }
+
+
+    } else {
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
                 .background(color = Color.White),
         ) {
-    content()
-    ConcentrationObjects()
 
-      Image(
+            ConcentrationObjects()
+
+            Image(
                 modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight(),
                 painter = painterResource(id = R.drawable.iconbg),
                 contentDescription = "bg"
             )
-        if (isAlert) {
-            GameAlertingTime()
+            if (isAlert) {
+                GameAlertingTime()
+            }
         }
-        }
+    }
+
+
 }
 
 var linkListAdded2 = ArrayList<ConcentrationModel>()

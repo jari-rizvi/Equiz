@@ -79,8 +79,6 @@ fun SpinningBlockGame(content: (bool:Boolean) -> Unit) {
 
 
     if (isGameOver) {
-
-
         content(true)
 
     }

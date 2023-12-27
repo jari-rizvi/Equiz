@@ -48,6 +48,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
+import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 
 import com.teamx.equiz.games.utils.RainGameObject
 import kotlinx.coroutines.GlobalScope
@@ -56,13 +57,13 @@ fun LazyListState.isScrolledToEnd() =
     layoutInfo.visibleItemsInfo.lastOrNull()?.index == layoutInfo.totalItemsCount - 1
 
 @Composable
-fun RainFallGame(content:  () -> Unit) {
+fun RainFallGame(content:  (boolean:Boolean) -> Unit) {
 
     var isGameOver by remember { mutableStateOf(false) }
     var isAlert by remember { mutableStateOf(false) }
 
     var timeLeft by remember { mutableStateOf(20L) }
-
+    var isTimeUp by remember { mutableStateOf(false) }
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
 //        generateOptions()
@@ -79,55 +80,72 @@ fun RainFallGame(content:  () -> Unit) {
             }
 
             override fun onFinish() {
-                isGameOver = true
+                isTimeUp = true
             }
         }.start()
     }
 
 
     if (isGameOver) {
-        content()
+        content(true)
     }
 
-    Box(
+
+    if (isTimeUp) {
+
+        TimeUpDialogCompose() { i ->
+            if (i) {
+                isGameOver = true
+
+            } else {
+                content(false)
+            }
+        }
+
+
+    }else{
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
                 .background(color = Color(0xFFE1E1E1)),
         ) {
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Row(modifier = Modifier.background(color = Color(0xFF9F81CA))) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Row(modifier = Modifier.background(color = Color(0xFF9F81CA))) {
 
-            BackButton(onClick = {}/*onContinueClicked*/)
-            Text(
-                text = "Training",
-                modifier = Modifier
-                    .fillMaxWidth()
+                    BackButton(onClick = {}/*onContinueClicked*/)
+                    Text(
+                        text = "Training",
+                        modifier = Modifier
+                            .fillMaxWidth()
 
-                    .align(alignment = Alignment.CenterVertically),
-                textAlign = TextAlign.Center,
-                color = Color.White,
-                fontSize = 17.sp
-            )
+                            .align(alignment = Alignment.CenterVertically),
+                        textAlign = TextAlign.Center,
+                        color = Color.White,
+                        fontSize = 17.sp
+                    )
 
-        }
-        content()
+                }
 
-        rainFallDrops()
 
-    }
+                rainFallDrops()
 
-      Image(
+            }
+
+            Image(
                 modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight(),
                 painter = painterResource(id = R.drawable.iconbg),
                 contentDescription = "bg"
             )
-        if (isAlert) {
-            GameAlertingTime()
+            if (isAlert) {
+                GameAlertingTime()
+            }
         }
-        }
+    }
+
+
 
 
 }

@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
+import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 
 
 class MissingPieceGame {
@@ -46,7 +47,7 @@ enum class Shape {
 }
 
 @Composable
-fun MissingPieceGameScreen(content: () -> Unit) {
+fun MissingPieceGameScreen(content: (bool:Boolean) -> Unit) {
     var isGameOver by remember { mutableStateOf(false) }
     var isAlert by remember { mutableStateOf(false) }
 
@@ -75,115 +76,133 @@ fun MissingPieceGameScreen(content: () -> Unit) {
 
 
     if (isGameOver) {
-        content()
+        content(true)
     }
     var score by remember { mutableStateOf(0) }
     var currentShapes by remember { mutableStateOf(generateShapes()) }
     var missingShapeIndex by remember { mutableStateOf(generateMissingShapeIndex()) }
 
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight()
-            .background(color = Color(0xFFE1E1E1)),
-    ) {
+    var isTimeUp by remember { mutableStateOf(false) }
+    if (isTimeUp) {
 
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Row(modifier = Modifier.background(color = Color(0xFF9F81CA))) {
+        TimeUpDialogCompose() { i ->
+            if (i) {
+                isGameOver = true
 
-            BackButton(onClick = {}/*onContinueClicked*/)
-            Text(
-                text = "Training",
-                modifier = Modifier
-                    .fillMaxWidth()
-
-                    .align(alignment = Alignment.CenterVertically),
-                textAlign = TextAlign.Center,
-                color = Color.White,
-                fontSize = 17.sp
-            )
-
+            } else {
+                content(false)
+            }
         }
-        Text(
-            text = "Missing Piece",
-            style = MaterialTheme.typography.headlineSmall,
-            modifier = Modifier.padding(bottom = 16.dp)
-        )
 
-        Row(
-            modifier = Modifier.padding(bottom = 16.dp),
-            verticalAlignment = Alignment.CenterVertically
+
+    }else{
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .background(color = Color(0xFFE1E1E1)),
         ) {
-            currentShapes.forEachIndexed { index, shape ->
-                if (index == missingShapeIndex) {
-                    Box(
-                        modifier = Modifier
-                            .size(60.dp)
-                            .padding(4.dp)
-                            .border(
-                                border = BorderStroke(2.dp, MaterialTheme.colorScheme.primary),
-                                shape = RoundedCornerShape(4.dp)
-                            )
-                    )
-                } else {
-                    Box(
-                        modifier = Modifier
-                            .size(60.dp)
-                            .padding(4.dp)
-                            .background(colorForShape(shape))
-                    ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.ic_launcher_foreground),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .size(150.dp)
 
-                        )
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Row(modifier = Modifier.background(color = Color(0xFF9F81CA))) {
+
+                    BackButton(onClick = {}/*onContinueClicked*/)
+                    Text(
+                        text = "Training",
+                        modifier = Modifier
+                            .fillMaxWidth()
+
+                            .align(alignment = Alignment.CenterVertically),
+                        textAlign = TextAlign.Center,
+                        color = Color.White,
+                        fontSize = 17.sp
+                    )
+
+                }
+                Text(
+                    text = "Missing Piece",
+                    style = MaterialTheme.typography.headlineSmall,
+                    modifier = Modifier.padding(bottom = 16.dp)
+                )
+
+                Row(
+                    modifier = Modifier.padding(bottom = 16.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    currentShapes.forEachIndexed { index, shape ->
+                        if (index == missingShapeIndex) {
+                            Box(
+                                modifier = Modifier
+                                    .size(60.dp)
+                                    .padding(4.dp)
+                                    .border(
+                                        border = BorderStroke(2.dp, MaterialTheme.colorScheme.primary),
+                                        shape = RoundedCornerShape(4.dp)
+                                    )
+                            )
+                        } else {
+                            Box(
+                                modifier = Modifier
+                                    .size(60.dp)
+                                    .padding(4.dp)
+                                    .background(colorForShape(shape))
+                            ) {
+                                Image(
+                                    painter = painterResource(id = R.drawable.ic_launcher_foreground),
+                                    contentDescription = null,
+                                    modifier = Modifier
+                                        .size(150.dp)
+
+                                )
+                            }
+                        }
                     }
                 }
-            }
-        }
 
-        currentShapes.forEachIndexed { index, shape ->
-            Button(
-                onClick = {
-                    if (index == missingShapeIndex) {
-                        score++
-                    } else {
-                        score = 0
+                currentShapes.forEachIndexed { index, shape ->
+                    Button(
+                        onClick = {
+                            if (index == missingShapeIndex) {
+                                score++
+                            } else {
+                                score = 0
+                            }
+                            currentShapes = generateShapes()
+                            missingShapeIndex = generateMissingShapeIndex()
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 8.dp)
+                    ) {
+                        Text(text = shape.toString())
                     }
-                    currentShapes = generateShapes()
-                    missingShapeIndex = generateMissingShapeIndex()
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 8.dp)
-            ) {
-                Text(text = shape.toString())
-            }
-        }
+                }
 
-        Text(
-            text = "Score: $score",
-            style = MaterialTheme.typography.bodyLarge,
-            modifier = Modifier.padding(top = 16.dp)
-        )
-    }
-  Image(
+                Text(
+                    text = "Score: $score",
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.padding(top = 16.dp)
+                )
+            }
+            Image(
                 modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight(),
                 painter = painterResource(id = R.drawable.iconbg),
                 contentDescription = "bg"
             )
-        if (isAlert) {
-            GameAlertingTime()
+            if (isAlert) {
+                GameAlertingTime()
+            }
         }
-        }
+    }
+
+
+
 
 }
 

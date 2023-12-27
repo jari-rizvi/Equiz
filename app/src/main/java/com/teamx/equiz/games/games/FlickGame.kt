@@ -88,12 +88,7 @@ fun FlickGameScreen(content: (bool:Boolean) -> Unit = {}) {
         content(true)
     }
 
-    if (isGameOver) {
 
-
-        content(true)
-
-    }
     if (isTimeUp) {
 
         TimeUpDialogCompose() { i ->

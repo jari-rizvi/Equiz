@@ -352,102 +352,104 @@ fun rpsCastGamePlot(content: (bool:Boolean) -> Unit={}) {
         }
 
 
-    }
-
-
-
-    Box(
+    }else{
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
                 .background(color = Color.White),
         ) {
-    Column(
-        Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
+            Column(
+                Modifier.fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
 
-        Image(
-            modifier = Modifier.size(130.dp),
-            painter = painterResource(id = rpsCheckStringReturnDrawable(imageCheckObj)),
-            contentDescription = ""
-        )
-        Text(
-            modifier = Modifier.size(1.dp), text = imageCheckObj.name, textAlign = TextAlign.Center
-        )
-        Row() {
-            leftBoxes.forEach {
-                rpsDrop(item = it) {
-                    if (imageCheckObj.name.toString().contains("INV")) {
-                        if (imageCheckObj == EnumRPS.INVPAPER && it.gameObject == EnumRPS.ROCK) {
-                            gameRand = Random.nextInt(0, 6)
-                            imageCheckObj = EnumRPS.values()[gameRand]
-                            counter++
-                        } else if (imageCheckObj == EnumRPS.INVSCISSOR && it.gameObject == EnumRPS.PAPER) {
-                            gameRand = Random.nextInt(0, 6)
-                            imageCheckObj = EnumRPS.values()[gameRand]
-                            counter++
-                        } else if (imageCheckObj == EnumRPS.INVROCK && it.gameObject == EnumRPS.SCISSOR) {
+                Image(
+                    modifier = Modifier.size(130.dp),
+                    painter = painterResource(id = rpsCheckStringReturnDrawable(imageCheckObj)),
+                    contentDescription = ""
+                )
+                Text(
+                    modifier = Modifier.size(1.dp), text = imageCheckObj.name, textAlign = TextAlign.Center
+                )
+                Row() {
+                    leftBoxes.forEach {
+                        rpsDrop(item = it) {
+                            if (imageCheckObj.name.toString().contains("INV")) {
+                                if (imageCheckObj == EnumRPS.INVPAPER && it.gameObject == EnumRPS.ROCK) {
+                                    gameRand = Random.nextInt(0, 6)
+                                    imageCheckObj = EnumRPS.values()[gameRand]
+                                    counter++
+                                } else if (imageCheckObj == EnumRPS.INVSCISSOR && it.gameObject == EnumRPS.PAPER) {
+                                    gameRand = Random.nextInt(0, 6)
+                                    imageCheckObj = EnumRPS.values()[gameRand]
+                                    counter++
+                                } else if (imageCheckObj == EnumRPS.INVROCK && it.gameObject == EnumRPS.SCISSOR) {
 
-                            gameRand = Random.nextInt(0, 6)
-                            imageCheckObj = EnumRPS.values()[gameRand]
-                            counter++
+                                    gameRand = Random.nextInt(0, 6)
+                                    imageCheckObj = EnumRPS.values()[gameRand]
+                                    counter++
+                                }
+                            } else {
+                                if (imageCheckObj.equals(it.gameObject)) {
+
+                                } else if (imageCheckObj == EnumRPS.PAPER && it.gameObject == EnumRPS.SCISSOR) {
+                                    gameRand = Random.nextInt(0, 6)
+                                    imageCheckObj = EnumRPS.values()[gameRand]
+                                    counter++
+                                } else if (imageCheckObj == EnumRPS.SCISSOR && it.gameObject == EnumRPS.ROCK) {
+                                    gameRand = Random.nextInt(0, 6)
+                                    imageCheckObj = EnumRPS.values()[gameRand]
+                                    counter++
+                                } else if (imageCheckObj == EnumRPS.ROCK && it.gameObject == EnumRPS.PAPER) {
+
+                                    gameRand = Random.nextInt(0, 6)
+                                    imageCheckObj = EnumRPS.values()[gameRand]
+                                    counter++
+                                }
+                            }
+
+
+                            /*  if (imageCheckObj.name == it.gameObject.name) {
+                                  gameRand = Random.nextInt(0, 6)
+                                  imageCheckObj = EnumRPS.values()[gameRand]
+                                  counter++
+                              } else if (!imageCheckObj.name.contains(it.gameObject.name) && imageCheckObj.name.contains(
+                                      "INV"
+                                  )
+                              ) {
+                                  gameRand = Random.nextInt(0, 6)
+                                  imageCheckObj = EnumRPS.values()[gameRand]
+                                  counter++
+                              } else if (imageCheckObj.name == it.gameObject.name) {
+          //
+                                  gameRand = Random.nextInt(0, 6)
+                                  imageCheckObj = EnumRPS.values()[gameRand]
+                                  counter++
+                              }*/
                         }
-                    } else {
-                        if (imageCheckObj.equals(it.gameObject)) {
 
-                        } else if (imageCheckObj == EnumRPS.PAPER && it.gameObject == EnumRPS.SCISSOR) {
-                            gameRand = Random.nextInt(0, 6)
-                            imageCheckObj = EnumRPS.values()[gameRand]
-                            counter++
-                        } else if (imageCheckObj == EnumRPS.SCISSOR && it.gameObject == EnumRPS.ROCK) {
-                            gameRand = Random.nextInt(0, 6)
-                            imageCheckObj = EnumRPS.values()[gameRand]
-                            counter++
-                        } else if (imageCheckObj == EnumRPS.ROCK && it.gameObject == EnumRPS.PAPER) {
-
-                            gameRand = Random.nextInt(0, 6)
-                            imageCheckObj = EnumRPS.values()[gameRand]
-                            counter++
-                        }
                     }
-
-
-                    /*  if (imageCheckObj.name == it.gameObject.name) {
-                          gameRand = Random.nextInt(0, 6)
-                          imageCheckObj = EnumRPS.values()[gameRand]
-                          counter++
-                      } else if (!imageCheckObj.name.contains(it.gameObject.name) && imageCheckObj.name.contains(
-                              "INV"
-                          )
-                      ) {
-                          gameRand = Random.nextInt(0, 6)
-                          imageCheckObj = EnumRPS.values()[gameRand]
-                          counter++
-                      } else if (imageCheckObj.name == it.gameObject.name) {
-  //
-                          gameRand = Random.nextInt(0, 6)
-                          imageCheckObj = EnumRPS.values()[gameRand]
-                          counter++
-                      }*/
                 }
 
             }
-        }
-
-    }
-      Image(
+            Image(
                 modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight(),
                 painter = painterResource(id = R.drawable.iconbg),
                 contentDescription = "bg"
             )
-        if (isAlert) {
-            GameAlertingTime()
+            if (isAlert) {
+                GameAlertingTime()
+            }
         }
-        }
+    }
+
+
+
+
 }
 
 

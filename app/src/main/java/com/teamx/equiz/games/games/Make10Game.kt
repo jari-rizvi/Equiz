@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
+import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import com.teamx.equiz.games.ui.theme.BirdColor1
 import com.teamx.equiz.games.ui.theme.BirdColor3
 import com.teamx.equiz.games.ui.theme.BirdColor4
@@ -113,13 +114,18 @@ fun PreviewMake10GameScreen() {
 class SelectedCard(var index: Int, var cardValue: Int)
 
 @Composable
-fun Make10GameScreen(content:   () -> Unit = {}) {
-
+fun Make10GameScreen(content: (bool: Boolean) -> Unit = {}) {
+    var availableCards = remember { mutableStateOf(generateArray()) }
+    val selectedCards = remember { mutableStateListOf<Int>() }
+    val selectedCardstr = remember { mutableStateListOf<String>() }
+    val selectedCards2 = remember { mutableStateListOf<SelectedCard>() }
+    var restart by remember { mutableStateOf(true) }
+    var counter by remember { mutableStateOf(0) }
     var isGameOver by remember { mutableStateOf(false) }
     var isAlert by remember { mutableStateOf(false) }
 
     var timeLeft by remember { mutableStateOf(20L) }
-
+    var isTimeUp by remember { mutableStateOf(false) }
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
 //        generateOptions()
@@ -136,159 +142,165 @@ fun Make10GameScreen(content:   () -> Unit = {}) {
             }
 
             override fun onFinish() {
-                isGameOver = true
+                isTimeUp = true
             }
         }.start()
     }
-
-
     if (isGameOver) {
-        content()
+        content(true)
     }
-//    var availableCards = remember { mutableStateOf(listOf(1, 2, 3, 4, 5, 6, 7, 8, 9)) }
-    var availableCards = remember { mutableStateOf(generateArray()) }
-    val selectedCards = remember { mutableStateListOf<Int>() }
-    val selectedCardstr = remember { mutableStateListOf<String>() }
-    val selectedCards2 = remember { mutableStateListOf<SelectedCard>() }
-    var restart by remember { mutableStateOf(true) }
-    var counter by remember { mutableStateOf(0) }
+    if (isTimeUp) {
 
-    if (restart) {
-//        availableCards.value = availableCards.value.shuffled()
-        counter += 1
-        if (counter == 14) {
-            counter = 0
+        TimeUpDialogCompose() { i ->
+            if (i) {
+                isGameOver = true
+
+            } else {
+                content(false)
+            }
         }
 
-        selectedCards.clear()
-        selectedCardstr.clear()
-        selectedCards2.clear()
-        restart = false
-    }
 
-    Box(
+    } else {
+        if (restart) {
+//        availableCards.value = availableCards.value.shuffled()
+            counter += 1
+            if (counter == 14) {
+                counter = 0
+            }
+
+            selectedCards.clear()
+            selectedCardstr.clear()
+            selectedCards2.clear()
+            restart = false
+        }
+
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
                 .background(color = Color.White),
         ) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(BirdColor4),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = "Make 10",
-            color = Color.White,
-            style = MaterialTheme.typography.headlineSmall,
-            modifier = Modifier.padding(bottom = 16.dp)
-        )
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(BirdColor4),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = "Make 10",
+                    color = Color.White,
+                    style = MaterialTheme.typography.headlineSmall,
+                    modifier = Modifier.padding(bottom = 16.dp)
+                )
 
-        Row(
-            modifier = Modifier.padding(horizontal = 16.dp),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            availableCards.value.get(counter).forEachIndexed { index, card ->
+                Row(
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    availableCards.value.get(counter).forEachIndexed { index, card ->
 
-                Box(modifier = Modifier
-                    .padding(8.dp)
-                    .width(72.dp)
-                    .height(92.dp)
-                    .clip(RoundedCornerShape(12.dp))
-                    .clickable {
-                        var checker = false
-                        //
-                        if (selectedCards.contains(card)) {
-                            selectedCards2.forEach { selectedCard ->
-                                if (card == selectedCard.cardValue) {
-                                    checker = selectedCard.index == index
+                        Box(modifier = Modifier
+                            .padding(8.dp)
+                            .width(72.dp)
+                            .height(92.dp)
+                            .clip(RoundedCornerShape(12.dp))
+                            .clickable {
+                                var checker = false
+                                //
+                                if (selectedCards.contains(card)) {
+                                    selectedCards2.forEach { selectedCard ->
+                                        if (card == selectedCard.cardValue) {
+                                            checker = selectedCard.index == index
+                                        }
+                                    }
+                                    if (selectedCards.sum() + card <= 10 && !checker) {
+                                        if (selectedCards.sum() + card == 10) {
+                                            restart = true
+                                            selectedCards.add(card)
+                                            selectedCardstr.add("$card@$index")
+                                            selectedCards2.add(SelectedCard(index, card))
+                                            return@clickable
+                                        }
+                                        selectedCards.add(card)
+                                        selectedCardstr.add("$card@$index")
+                                        selectedCards2.add(SelectedCard(index, card))
+
+                                    }
+                                } else {
+                                    if (selectedCards.sum() + card <= 10) {
+                                        if (selectedCards.sum() + card == 10) {
+                                            restart = true
+                                            selectedCards.add(card)
+                                            selectedCardstr.add("$card@$index")
+                                            selectedCards2.add(SelectedCard(index, card))
+                                            return@clickable
+                                        }
+                                        selectedCardstr.add("$card@$index")
+                                        selectedCards.add(card)
+                                        selectedCards2.add(SelectedCard(index, card))
+
+                                    }
                                 }
-                            }
-                            if (selectedCards.sum() + card <= 10 && !checker) {
-                                if (selectedCards.sum() + card == 10) {
-                                    restart = true
-                                    selectedCards.add(card)
-                                    selectedCardstr.add("$card@$index")
-                                    selectedCards2.add(SelectedCard(index, card))
-                                    return@clickable
-                                }
-                                selectedCards.add(card)
-                                selectedCardstr.add("$card@$index")
-                                selectedCards2.add(SelectedCard(index, card))
 
                             }
-                        } else {
-                            if (selectedCards.sum() + card <= 10) {
-                                if (selectedCards.sum() + card == 10) {
-                                    restart = true
-                                    selectedCards.add(card)
-                                    selectedCardstr.add("$card@$index")
-                                    selectedCards2.add(SelectedCard(index, card))
-                                    return@clickable
-                                }
-                                selectedCardstr.add("$card@$index")
-                                selectedCards.add(card)
-                                selectedCards2.add(SelectedCard(index, card))
-
-                            }
-                        }
-
-                    }
-                    .background(
-                        if (selectedCardstr.contains("$card@$index")) {
+                            .background(
+                                if (selectedCardstr.contains("$card@$index")) {
 //                            if (selectedCards.contains(card)) {
 
 //                                    if (selectedCards2[selectedCards.indexOf(card)].index == index) {
-                            BirdColor3/*} else {
+                                    BirdColor3/*} else {
                                     BirdColor1
                                 }*/
 
-                        } else {
-                            BirdColor1
-                        }
-                    )
+                                } else {
+                                    BirdColor1
+                                }
+                            )
 //                        .border(BorderStroke(1.dp, Color.Black))
-                    , contentAlignment = Alignment.Center
+                            , contentAlignment = Alignment.Center
 //                    colors = ButtonDefaults.buttonColors(
 //                        containerColor = if (selectedCards.contains(card)) Color.Gray else Color.White
 //                    ),
 //                    border = BorderStroke(1.dp, Color.Black)
+                        ) {
+                            Text(text = card.toString(), fontSize = 26.sp, color = Color.White)
+                        }
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Text(
+                    color = Color.White,
+                    text = "Selected Cards: ${selectedCards.joinToString(", ")}",
+                    style = MaterialTheme.typography.bodyLarge
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Button(
+                    onClick = { selectedCards.clear() }, modifier = Modifier.padding(8.dp)
                 ) {
-                    Text(text = card.toString(), fontSize = 26.sp, color = Color.White)
+                    Text(text = "Clear", color = Color.White)
                 }
             }
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Text(
-            color = Color.White,
-            text = "Selected Cards: ${selectedCards.joinToString(", ")}",
-            style = MaterialTheme.typography.bodyLarge
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Button(
-            onClick = { selectedCards.clear() }, modifier = Modifier.padding(8.dp)
-        ) {
-            Text(text = "Clear", color = Color.White)
-        }
-    }
-      Image(
+            Image(
                 modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight(),
                 painter = painterResource(id = R.drawable.iconbg),
                 contentDescription = "bg"
             )
-        if (isAlert) {
-            GameAlertingTime()
+            if (isAlert) {
+                GameAlertingTime()
+            }
         }
-        }
+    }
+
+
 }
 
 @Preview

@@ -44,6 +44,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.teamx.equiz.R
+import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import com.teamx.equiz.games.ui.theme.DeceptionBlack
 import com.teamx.equiz.games.ui.theme.DeceptionPink
 import com.teamx.equiz.games.ui.theme.DeceptionPurple
@@ -59,12 +60,12 @@ enum class ShapeBundle {
 
 
 @Composable
-fun TouchTheShapesGameScreen(content: () -> Unit) {
+fun TouchTheShapesGameScreen(content: (boolean: Boolean) -> Unit) {
     var isGameOver by remember { mutableStateOf(false) }
     var isAlert by remember { mutableStateOf(false) }
 
     var timeLeft by remember { mutableStateOf(20L) }
-
+    var isTimeUp by remember { mutableStateOf(false) }
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
 //        generateOptions()
@@ -81,249 +82,264 @@ fun TouchTheShapesGameScreen(content: () -> Unit) {
             }
 
             override fun onFinish() {
-                isGameOver = true
+                isTimeUp = true
             }
         }.start()
     }
 
 
     if (isGameOver) {
-        content()
+        content(true)
     }
-    var score by remember { mutableStateOf(0) }
-    var spanCount by remember { mutableStateOf(2) }
-    var asGridCells by remember { mutableStateOf(GridCells.Fixed(2)) }
-    var boxes by remember { mutableStateOf(generateBoxes()) }
-    var restart by remember { mutableStateOf(true) }
+
+    if (isTimeUp) {
+
+        TimeUpDialogCompose() { i ->
+            if (i) {
+                isGameOver = true
+
+            } else {
+                content(false)
+            }
+        }
+
+
+    } else {
+
+
+        var score by remember { mutableStateOf(0) }
+        var spanCount by remember { mutableStateOf(2) }
+        var asGridCells by remember { mutableStateOf(GridCells.Fixed(2)) }
+        var boxes by remember { mutableStateOf(generateBoxes()) }
+        var restart by remember { mutableStateOf(true) }
 //    var strName by remember { mutableStateOf("") }
 //    var strName = ""
 
 
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight()
-            .background(color = Color(0xFFE1E1E1)),
-    ) {
-        Column(
+        Box(
             modifier = Modifier
-                .fillMaxSize(),
-
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .background(color = Color(0xFFE1E1E1)),
         ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize(),
+
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
 //            Text(
 //                text = "Shapes Deception",
 //                style = MaterialTheme.typography.headlineSmall,
 //                modifier = Modifier.padding(bottom = 16.dp)
 //            )
-            LazyVerticalGrid(
-                modifier = Modifier.width(250.dp),
-                verticalArrangement = Arrangement.Center,
-                columns = asGridCells,
-            ) {
+                LazyVerticalGrid(
+                    modifier = Modifier.width(250.dp),
+                    verticalArrangement = Arrangement.Center,
+                    columns = asGridCells,
+                ) {
 
 
-                itemsIndexed(boxes) { index, box ->
-
-
-                    Box(
-                        modifier = Modifier
-                            .padding(horizontal = 10.dp, vertical = 5.dp)
-                            .clip(
-                                RoundedCornerShape(19.dp)
-                            )
-                            .height(80.dp)
-                            .width(67.dp)
-                            .background(color = Color.Transparent/*box.color*/)
-                            .border(BorderStroke(1.dp, Color.Transparent))
-
-
-                            .clickable {
-                                updateScore(boxes, box, index) { i, bool ->
-                                    score++
-                                    restart = true
-                                    val arr = ArrayList<ShapeBox>()
-                                    boxes.forEach {
-                                        if (i != it.colorName) {
-                                            arr.add(it)
-                                        }
-                                    }
-                                    boxes = arr
-                                    if (bool) {
-                                        restart = false
-                                    }
-
-                                }
-                                if (!restart) {
-                                    boxes = generateBoxes()
-                                    restart = true
-                                }
-                            }, contentAlignment = Alignment.Center
-
-
-                    ) {
-
-                        /*   Text(
-
-                               modifier = Modifier.align(Alignment.Center),
-                               color = if (box.colorName.toString()
-                                       .equals(ShapeBundle.WHITE_TRIANGLE.toString()) && box.color == Color.White
-                               ) {
-                                   DeceptionBlack
-                               } else if (box.color == Color.White) {
-                                   DeceptionBlack
-                               } else {
-
-                                   Color.White
-                               },
-                               text = box.colorName.toString(),
-                               style = MaterialTheme.typography.bodyLarge,
-                           )*//*}*/
+                    itemsIndexed(boxes) { index, box ->
 
 
                         Box(
-                            modifier = Modifier.padding(5.dp),
-                            contentAlignment = Alignment.Center
+                            modifier = Modifier
+                                .padding(horizontal = 10.dp, vertical = 5.dp)
+                                .clip(
+                                    RoundedCornerShape(19.dp)
+                                )
+                                .height(80.dp)
+                                .width(67.dp)
+                                .background(color = Color.Transparent/*box.color*/)
+                                .border(BorderStroke(1.dp, Color.Transparent))
+
+
+                                .clickable {
+                                    updateScore(boxes, box, index) { i, bool ->
+                                        score++
+                                        restart = true
+                                        val arr = ArrayList<ShapeBox>()
+                                        boxes.forEach {
+                                            if (i != it.colorName) {
+                                                arr.add(it)
+                                            }
+                                        }
+                                        boxes = arr
+                                        if (bool) {
+                                            restart = false
+                                        }
+
+                                    }
+                                    if (!restart) {
+                                        boxes = generateBoxes()
+                                        restart = true
+                                    }
+                                }, contentAlignment = Alignment.Center
+
+
                         ) {
-                            Canvas(modifier = Modifier.size(65.dp), onDraw = {
 
-                                when (box.colorName) {
+                            /*   Text(
+
+                                   modifier = Modifier.align(Alignment.Center),
+                                   color = if (box.colorName.toString()
+                                           .equals(ShapeBundle.WHITE_TRIANGLE.toString()) && box.color == Color.White
+                                   ) {
+                                       DeceptionBlack
+                                   } else if (box.color == Color.White) {
+                                       DeceptionBlack
+                                   } else {
+
+                                       Color.White
+                                   },
+                                   text = box.colorName.toString(),
+                                   style = MaterialTheme.typography.bodyLarge,
+                               )*//*}*/
 
 
-                                    ShapeBundle.YELLOW_HEXAGON -> {
-                                        DeceptionYellow
+                            Box(
+                                modifier = Modifier.padding(5.dp),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Canvas(modifier = Modifier.size(65.dp), onDraw = {
+
+                                    when (box.colorName) {
 
 
-                                        if (deceptionNumShape == ShapeBundle.YELLOW_HEXAGON) {
-                                            drawHexagon(color = box.color)
+                                        ShapeBundle.YELLOW_HEXAGON -> {
+                                            DeceptionYellow
 
-                                        } else {
-                                            drawCircle(color = box.color)
+
+                                            if (deceptionNumShape == ShapeBundle.YELLOW_HEXAGON) {
+                                                drawHexagon(color = box.color)
+
+                                            } else {
+                                                drawCircle(color = box.color)
+                                            }
+
+
                                         }
 
-
-                                    }
-
-                                    ShapeBundle.WHITE_TRIANGLE -> {
-                                        Color.White
+                                        ShapeBundle.WHITE_TRIANGLE -> {
+                                            Color.White
 //                                    drawTriangle(color = box.color)
 
-                                        if (deceptionNumShape == ShapeBundle.WHITE_TRIANGLE) {
-                                            drawTriangle(color = box.color)
-                                        } else {
-                                            drawSquare(color = box.color)
+                                            if (deceptionNumShape == ShapeBundle.WHITE_TRIANGLE) {
+                                                drawTriangle(color = box.color)
+                                            } else {
+                                                drawSquare(color = box.color)
+                                            }
                                         }
-                                    }
 
-                                    ShapeBundle.BLACK_SQUARE -> {
-                                        DeceptionBlack
+                                        ShapeBundle.BLACK_SQUARE -> {
+                                            DeceptionBlack
 //                                    drawSquare(color = box.color)
 
-                                        if (deceptionNumShape == ShapeBundle.BLACK_SQUARE) {
-                                            drawSquare(color = box.color)
-                                        } else {
-                                            drawTriangle(color = box.color)
+                                            if (deceptionNumShape == ShapeBundle.BLACK_SQUARE) {
+                                                drawSquare(color = box.color)
+                                            } else {
+                                                drawTriangle(color = box.color)
+                                            }
+
                                         }
 
-                                    }
-
-                                    ShapeBundle.PURPLE_CIRCLE -> {
-                                        DeceptionPurple
+                                        ShapeBundle.PURPLE_CIRCLE -> {
+                                            DeceptionPurple
 //                                    drawCircle(color = box.color)
 
 
-                                        if (deceptionNumShape == ShapeBundle.PURPLE_CIRCLE) {
-                                            drawCircle(color = box.color)
-                                        } else {
-                                            drawHexagon(color = box.color)
+                                            if (deceptionNumShape == ShapeBundle.PURPLE_CIRCLE) {
+                                                drawCircle(color = box.color)
+                                            } else {
+                                                drawHexagon(color = box.color)
+                                            }
                                         }
-                                    }
 
-                                    else -> {
-                                        DeceptionPurple
+                                        else -> {
+                                            DeceptionPurple
 //                                    drawHexagon(color = box.color)
 
 
-                                        if (deceptionNumShape == ShapeBundle.YELLOW_HEXAGON) {
-                                            drawHexagon(color = box.color)
-                                        } else {
-                                            drawCircle(color = box.color)
+                                            if (deceptionNumShape == ShapeBundle.YELLOW_HEXAGON) {
+                                                drawHexagon(color = box.color)
+                                            } else {
+                                                drawCircle(color = box.color)
+                                            }
+
                                         }
-
-                                    }
-                                }
-
-
-                            })
-
-                            Text(
-
-                                modifier = Modifier.align(Alignment.Center),
-                                color = if (box.colorName.toString()
-                                        .equals(ShapeBundle.WHITE_TRIANGLE.toString()) && box.color == Color.White
-                                ) {
-                                    DeceptionBlack
-                                } else if (box.color == Color.White) {
-                                    DeceptionBlack
-                                } else {
-
-                                    Color.White
-                                },
-                                text = when (box.colorName) {
-
-
-                                    ShapeBundle.YELLOW_HEXAGON -> {
-                                        DeceptionYellow
-
-                                        "Hexagon"
-
-
-                                    }
-
-                                    ShapeBundle.WHITE_TRIANGLE -> {
-                                        Color.White
-//                                    drawTriangle(color = box.color)
-                                        "Triangle"
-
                                     }
 
 
-                                    ShapeBundle.BLACK_SQUARE -> {
+                                })
+
+                                Text(
+
+                                    modifier = Modifier.align(Alignment.Center),
+                                    color = if (box.colorName.toString()
+                                            .equals(ShapeBundle.WHITE_TRIANGLE.toString()) && box.color == Color.White
+                                    ) {
                                         DeceptionBlack
+                                    } else if (box.color == Color.White) {
+                                        DeceptionBlack
+                                    } else {
+
+                                        Color.White
+                                    },
+                                    text = when (box.colorName) {
+
+
+                                        ShapeBundle.YELLOW_HEXAGON -> {
+                                            DeceptionYellow
+
+                                            "Hexagon"
+
+
+                                        }
+
+                                        ShapeBundle.WHITE_TRIANGLE -> {
+                                            Color.White
+//                                    drawTriangle(color = box.color)
+                                            "Triangle"
+
+                                        }
+
+
+                                        ShapeBundle.BLACK_SQUARE -> {
+                                            DeceptionBlack
 //                                    drawSquare(color = box.color)
-                                        "Square"
+                                            "Square"
 
 
-                                    }
+                                        }
 
-                                    ShapeBundle.PURPLE_CIRCLE -> {
-                                        DeceptionPurple
+                                        ShapeBundle.PURPLE_CIRCLE -> {
+                                            DeceptionPurple
 //                                    drawCircle(color = box.color)
-                                        "Circle"
+                                            "Circle"
 
 
-                                    }
+                                        }
 
-                                    else -> {
-                                        DeceptionPurple
+                                        else -> {
+                                            DeceptionPurple
 //                                    drawHexagon(color = box.color)
-                                        "Hexagon"
+                                            "Hexagon"
 
 
-                                    }
-                                },
-                                /*box.colorName.toString()*/
-                                style = MaterialTheme.typography.bodySmall,
-                            )
+                                        }
+                                    },
+                                    /*box.colorName.toString()*/
+                                    style = MaterialTheme.typography.bodySmall,
+                                )
+                            }
+
+
                         }
-
-
                     }
+
                 }
-
-            }
-
 
 
 //            Text(
@@ -331,14 +347,15 @@ fun TouchTheShapesGameScreen(content: () -> Unit) {
 //                style = MaterialTheme.typography.bodyLarge,
 //                modifier = Modifier.padding(top = 16.dp)
 //            )
+            }
+            Image(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(),
+                painter = painterResource(id = R.drawable.iconbg),
+                contentDescription = "bg"
+            )
         }
-        Image(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(),
-            painter = painterResource(id = R.drawable.iconbg),
-            contentDescription = "bg"
-        )
     }
 }
 

@@ -46,6 +46,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
+import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import com.teamx.equiz.games.ui.theme.BirdColor4
 import kotlin.random.Random
 
@@ -56,13 +57,13 @@ val operators = listOf("+", "-", "x", "/")
 @RequiresApi(Build.VERSION_CODES.O)
 
 @Composable
-fun OperationGame(content: () -> Unit) {
+fun OperationGame(content: (boolean:Boolean) -> Unit) {
 
     var isGameOver by remember { mutableStateOf(false) }
     var isAlert by remember { mutableStateOf(false) }
 
     var timeLeft by remember { mutableStateOf(20L) }
-
+    var isTimeUp by remember { mutableStateOf(false) }
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
 //        generateOptions()
@@ -79,177 +80,194 @@ fun OperationGame(content: () -> Unit) {
             }
 
             override fun onFinish() {
-                isGameOver = true
+                isTimeUp = true
             }
         }.start()
     }
 
 
     if (isGameOver) {
-        content()
+        content(true)
     }
 
-    var equation by remember { mutableStateOf(generateEquation()) }
-    var selectedOperator by remember { mutableStateOf("") }
-    var allCounter by remember { mutableStateOf(0) }
-    var accurateCounter by remember { mutableStateOf(0) }
 
-    var isShaking by remember { mutableStateOf(false) }
-    val offset = remember { Animatable(0f) }
+    if (isTimeUp) {
 
-    var selectedButtonIndex by remember { mutableStateOf(-1) }
-    val context = LocalContext.current
-    val vibrator = context.getSystemService(Vibrator::class.java)
+        TimeUpDialogCompose() { i ->
+            if (i) {
+                isGameOver = true
 
-    LaunchedEffect(isShaking) {
-        if (isShaking) {
-
-            vibrator?.let { v ->
-                v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE))
-                // Delay for the vibration duration
-                kotlinx.coroutines.delay(500)
-                // Stop the vibration
-                isShaking = false
-                v.cancel()
+            } else {
+                content(false)
             }
-        } else {
-            offset.snapTo(0f)
-            offset.stop()
         }
-    }
+
+
+    }else{
+        var equation by remember { mutableStateOf(generateEquation()) }
+        var selectedOperator by remember { mutableStateOf("") }
+        var allCounter by remember { mutableStateOf(0) }
+        var accurateCounter by remember { mutableStateOf(0) }
+
+        var isShaking by remember { mutableStateOf(false) }
+        val offset = remember { Animatable(0f) }
+
+        var selectedButtonIndex by remember { mutableStateOf(-1) }
+        val context = LocalContext.current
+        val vibrator = context.getSystemService(Vibrator::class.java)
+
+        LaunchedEffect(isShaking) {
+            if (isShaking) {
+
+                vibrator?.let { v ->
+                    v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE))
+                    // Delay for the vibration duration
+                    kotlinx.coroutines.delay(500)
+                    // Stop the vibration
+                    isShaking = false
+                    v.cancel()
+                }
+            } else {
+                offset.snapTo(0f)
+                offset.stop()
+            }
+        }
 
 
 
-Box(
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
                 .background(color = Color(0xFFE1E1E1)),
         ) {
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-             ,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                ,
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
 
-        Column(
-            modifier = Modifier
-                .wrapContentSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-
-            Text(
-                text = equation
-                    .replaceFirst("x", "[ ]")
-                    .replaceFirst("+", "[ ]")
-                    .replaceFirst("-", "[ ]")
-                    .replaceFirst("/", "[ ]"),
-                style = MaterialTheme.typography.headlineLarge,
-                modifier = Modifier.padding(bottom = 26.dp),
-                fontWeight = FontWeight.ExtraBold,
-                color = Color.Black,
-                fontSize = 36.sp,
-            )
-            /*    Text(
-                    text = "Accurate: $accurateCounter \n WrongAnswer: $allCounter",
-                    style = MaterialTheme.typography.headlineSmall,
-                    modifier = Modifier.padding(top = 16.dp),
-                    color = Color.White
-                )*/
-
-        }
-        Box(
-            modifier = Modifier.wrapContentSize(), contentAlignment = Alignment.Center
-        ) {
-            var counter1 = 0
-            var counter2 = 0
-            var indexer = 0
-            operators.shuffled().forEachIndexed { index, operator ->
-
-                Box(
+                Column(
                     modifier = Modifier
-
-                        .padding(2.dp)
-
-                        .offset {
-                            IntOffset(
-                                if ((indexer) % 2 == 0) {
-                                    if (indexer >= 4) {
-                                        indexer = 0
-                                    }
-                                    indexer++
-                                    Log.d("TAG", "GameScreen:$indexer ")
-                                    counter1 += 260
-                                    counter1 - 390
-                                } else {
-                                    if (indexer >= 4) {
-                                        indexer = 0
-                                    }
-                                    indexer++
-                                    Log.d("TAG", "GameScreen:$indexer ")
-                                    counter1 - 390
-                                }, if ((indexer) % 2 != 0) {
-                                    counter2 = 0
-                                    counter2 += counter2
-                                    counter2
-                                } else {
-                                    0 + 260
-                                }
-                            )
-                        }
-                        .size(83.dp)
-                        .clip(RoundedCornerShape((5.dp)))
-                        .background(Color.White)
-                        .clickable {
-                            selectedButtonIndex = index
-                            allCounter++
-
-                            selectedOperator = operator
-                            if (selectedOperator == equation.split(" ")[1]) {
-                                equation = generateEquation()
-                                accurateCounter++
-                            } else {
-                                if (index == selectedButtonIndex) {
-                                    isShaking = true
-                                }
-                            }
-                            indexer = 0
-
-                        },
-                    contentAlignment = Alignment.Center,
-
-
-                    ) {
-
+                        .wrapContentSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
 
                     Text(
-                        modifier = Modifier.wrapContentSize(),
-                        color = BirdColor4,
-                        text = operator,
+                        text = equation
+                            .replaceFirst("x", "[ ]")
+                            .replaceFirst("+", "[ ]")
+                            .replaceFirst("-", "[ ]")
+                            .replaceFirst("/", "[ ]"),
+                        style = MaterialTheme.typography.headlineLarge,
+                        modifier = Modifier.padding(bottom = 26.dp),
                         fontWeight = FontWeight.ExtraBold,
-
-                        fontSize = 53.sp
+                        color = Color.Black,
+                        fontSize = 36.sp,
                     )
-                }
+                    /*    Text(
+                            text = "Accurate: $accurateCounter \n WrongAnswer: $allCounter",
+                            style = MaterialTheme.typography.headlineSmall,
+                            modifier = Modifier.padding(top = 16.dp),
+                            color = Color.White
+                        )*/
 
+                }
+                Box(
+                    modifier = Modifier.wrapContentSize(), contentAlignment = Alignment.Center
+                ) {
+                    var counter1 = 0
+                    var counter2 = 0
+                    var indexer = 0
+                    operators.shuffled().forEachIndexed { index, operator ->
+
+                        Box(
+                            modifier = Modifier
+
+                                .padding(2.dp)
+
+                                .offset {
+                                    IntOffset(
+                                        if ((indexer) % 2 == 0) {
+                                            if (indexer >= 4) {
+                                                indexer = 0
+                                            }
+                                            indexer++
+                                            Log.d("TAG", "GameScreen:$indexer ")
+                                            counter1 += 260
+                                            counter1 - 390
+                                        } else {
+                                            if (indexer >= 4) {
+                                                indexer = 0
+                                            }
+                                            indexer++
+                                            Log.d("TAG", "GameScreen:$indexer ")
+                                            counter1 - 390
+                                        }, if ((indexer) % 2 != 0) {
+                                            counter2 = 0
+                                            counter2 += counter2
+                                            counter2
+                                        } else {
+                                            0 + 260
+                                        }
+                                    )
+                                }
+                                .size(83.dp)
+                                .clip(RoundedCornerShape((5.dp)))
+                                .background(Color.White)
+                                .clickable {
+                                    selectedButtonIndex = index
+                                    allCounter++
+
+                                    selectedOperator = operator
+                                    if (selectedOperator == equation.split(" ")[1]) {
+                                        equation = generateEquation()
+                                        accurateCounter++
+                                    } else {
+                                        if (index == selectedButtonIndex) {
+                                            isShaking = true
+                                        }
+                                    }
+                                    indexer = 0
+
+                                },
+                            contentAlignment = Alignment.Center,
+
+
+                            ) {
+
+
+                            Text(
+                                modifier = Modifier.wrapContentSize(),
+                                color = BirdColor4,
+                                text = operator,
+                                fontWeight = FontWeight.ExtraBold,
+
+                                fontSize = 53.sp
+                            )
+                        }
+
+                    }
+                }
             }
-        }
-    }
-  Image(
+            Image(
                 modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight(),
                 painter = painterResource(id = R.drawable.iconbg),
                 contentDescription = "bg"
             )
-    if (isAlert) {
-        GameAlertingTime()
-    }
+            if (isAlert) {
+                GameAlertingTime()
+            }
         }
+    }
+
+
 
 }
 
