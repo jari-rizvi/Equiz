@@ -145,7 +145,7 @@ class ForgotPassFragment : BaseFragment<FragmentForgotPassBinding, ForgotPassVie
                                 loadingDialog.dismiss()
 
                                 it.data?.let { data ->
-                                    findNavController().navigate(R.id.action_forgotPassFragment2_to_verifyOtpForgotFragment2)
+                                    findNavController().navigate(R.id.action_forgotPassFragment2_to_verifyOtpForgotFragment2,arguments,options)
                                 }
                             }
 

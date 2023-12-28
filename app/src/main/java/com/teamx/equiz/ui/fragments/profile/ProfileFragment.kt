@@ -92,13 +92,13 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
 
 
         mViewDataBinding.btnEditProfile.setOnClickListener {
-            findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment)
+            findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment,arguments,options)
         }
         mViewDataBinding.btnOrder.setOnClickListener {
-            findNavController().navigate(R.id.action_profileFragment_to_ordersFragment)
+            findNavController().navigate(R.id.action_profileFragment_to_ordersFragment,arguments,options)
         }
         mViewDataBinding.btnChance.setOnClickListener {
-            findNavController().navigate(R.id.action_profileFragment_to_chancesFragment)
+            findNavController().navigate(R.id.action_profileFragment_to_chancesFragment,arguments,options)
         }
 
 

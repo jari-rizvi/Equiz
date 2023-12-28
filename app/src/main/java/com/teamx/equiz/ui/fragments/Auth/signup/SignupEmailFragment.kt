@@ -56,7 +56,7 @@ class SignupEmailFragment : BaseFragment<FragmentSignupEmailBinding, SignupViewM
         }
         mViewDataBinding.btnLogin.setOnClickListener {
 
-            findNavController().navigate(R.id.action_signupEmailFragment_to_logInEmailFragment)
+            findNavController().navigate(R.id.action_signupEmailFragment_to_logInEmailFragment,arguments,options)
 
         }
 
@@ -104,7 +104,7 @@ class SignupEmailFragment : BaseFragment<FragmentSignupEmailBinding, SignupViewM
 
                             it.data?.let { data ->
 
-                                findNavController().navigate(R.id.action_signupEmailFragment_to_otpEmailFragment)
+                                findNavController().navigate(R.id.action_signupEmailFragment_to_otpEmailFragment,arguments,options)
 
 
                             }

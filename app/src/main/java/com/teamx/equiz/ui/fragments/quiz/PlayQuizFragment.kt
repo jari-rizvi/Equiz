@@ -58,7 +58,7 @@ class PlayQuizFragment : BaseFragment<PlayQuizLayoutBinding, WishlistViewModel>(
        val id=  bundle?.getString("modelQuizId")
         mViewDataBinding.textView465454.setOnClickListener {
 
-            findNavController().navigate(R.id.singleQuizFragment,arguments)
+            findNavController().navigate(R.id.singleQuizFragment,arguments,options)
 
         }
 

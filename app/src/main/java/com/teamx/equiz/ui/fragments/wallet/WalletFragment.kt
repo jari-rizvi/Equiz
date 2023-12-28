@@ -52,11 +52,11 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
 
         mViewDataBinding.textView9.setOnClickListener {
-            findNavController().navigate(R.id.action_walletFragment_to_referralFragment)
+            findNavController().navigate(R.id.action_walletFragment_to_referralFragment,arguments,options)
         }
 
         mViewDataBinding.btnTopUp.setOnClickListener {
-            findNavController().navigate(R.id.action_walletFragment_to_topupFragment)
+            findNavController().navigate(R.id.action_walletFragment_to_topupFragment,arguments,options)
 
         }
 

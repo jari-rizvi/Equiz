@@ -1440,7 +1440,7 @@ class ResultComposeFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMode
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
          super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            findNavController().navigate(R.id.dashboardFragment, arguments)
+            findNavController().navigate(R.id.dashboardFragment, arguments,options)
         }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
@@ -1480,12 +1480,12 @@ class ResultComposeFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMode
                     }
 
                     2 -> {
-                        navController.navigate(R.id.dashboardFragment,arguments)
+                        navController.navigate(R.id.dashboardFragment,arguments,options)
                     }
                     3 -> {
 
                     }
-                    else -> {  navController.navigate(R.id.dashboardFragment,arguments)}
+                    else -> {  navController.navigate(R.id.dashboardFragment,arguments,options)}
                 }
 
             }
@@ -3406,7 +3406,7 @@ class StartUpGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
             }
 
             GamesUID2.GuessTheFlag.name -> {
-                findNavController().navigate(R.id.guessTheFlagGameFrag, arguments)
+                findNavController().navigate(R.id.guessTheFlagGameFrag, arguments,options)
 
             }
 

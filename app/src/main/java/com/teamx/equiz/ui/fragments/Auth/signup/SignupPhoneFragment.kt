@@ -55,7 +55,7 @@ class SignupPhoneFragment : BaseFragment<FragmentSignupPhoneBinding, SignupViewM
 
         mViewDataBinding.btnLogin.setOnClickListener {
 
-            findNavController().navigate(R.id.action_signupPhoneFragment_to_logInFragment)
+            findNavController().navigate(R.id.action_signupPhoneFragment_to_logInFragment,arguments,options)
 
 
         }
@@ -104,7 +104,7 @@ class SignupPhoneFragment : BaseFragment<FragmentSignupPhoneBinding, SignupViewM
 
                             it.data?.let { data ->
 
-                                findNavController().navigate(R.id.action_signupPhoneFragment_to_otpPhoneFragment)
+                                findNavController().navigate(R.id.action_signupPhoneFragment_to_otpPhoneFragment,arguments,options)
                                 Log.d("TAG", "otpVale: ${it.data.otp}")
 
 

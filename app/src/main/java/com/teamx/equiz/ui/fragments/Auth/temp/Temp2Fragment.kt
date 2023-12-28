@@ -49,13 +49,13 @@ class Temp2Fragment : BaseFragment<FragmentTemp2Binding, TempViewModel>() {
         }
 
         mViewDataBinding.btnEmail.setOnClickListener {
-            findNavController().navigate(R.id.action_temp2Fragment_to_logInEmailFragment)
+            findNavController().navigate(R.id.action_temp2Fragment_to_logInEmailFragment,arguments,options)
 
 
         }
 
         mViewDataBinding.btnPhone.setOnClickListener {
-            findNavController().navigate(R.id.action_temp2Fragment_to_logInFragment)
+            findNavController().navigate(R.id.action_temp2Fragment_to_logInFragment,arguments,options)
 
         }
 

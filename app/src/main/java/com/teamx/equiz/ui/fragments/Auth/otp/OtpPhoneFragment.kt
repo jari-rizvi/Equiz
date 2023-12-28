@@ -72,7 +72,7 @@ class OtpPhoneFragment : BaseFragment<FragmentOtpPhoneBinding, OtpViewModel>() {
                         Resource.Status.SUCCESS -> {
                             loadingDialog.dismiss()
                             it.data?.let { data ->
-                                findNavController().navigate(R.id.action_otpPhoneFragment_to_successFragment)
+                                findNavController().navigate(R.id.action_otpPhoneFragment_to_successFragment,arguments,options)
 
 
                             }

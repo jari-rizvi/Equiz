@@ -96,7 +96,7 @@ class CreateNewPassFragment :
                 Resource.Status.SUCCESS -> {
                     loadingDialog.dismiss()
                     it.data?.let { data ->
-                        findNavController().navigate(R.id.action_createNewPassFragment2_to_passChangeSuccessFragment)
+                        findNavController().navigate(R.id.action_createNewPassFragment2_to_passChangeSuccessFragment,arguments,options)
                     }
                 }
 

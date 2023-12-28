@@ -77,7 +77,7 @@ class VerifyOtpForgotFragment : BaseFragment<FragmentOtpEmailBinding, OtpViewMod
                             val bundle = Bundle()
                             bundle.putString("newuniquId",it.data.newUniqueID)
 
-                            findNavController().navigate(R.id.action_verifyOtpForgotFragment_to_createNewPassFragment2,bundle)
+                            findNavController().navigate(R.id.action_verifyOtpForgotFragment_to_createNewPassFragment2,bundle,options)
 
                         }
                     }

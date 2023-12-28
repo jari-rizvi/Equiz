@@ -5,16 +5,16 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.activity.addCallback
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatCheckedTextView
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.teamx.equiz.BR
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
-import com.teamx.equiz.constants.NetworkCallPoints
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentSingleQuizBinding
 import com.teamx.equiz.ui.fragments.singlequize.model.Data
@@ -24,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import androidx.activity.addCallback
+
 @AndroidEntryPoint
 class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuizesViewModel>() {
 
@@ -112,7 +112,7 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
 
 
         mViewDataBinding.textView4654.setOnClickListener {
-            findNavController().navigate(R.id.action_quizesFragment_to_quizResultFragment)
+            findNavController().navigate(R.id.action_quizesFragment_to_quizResultFragment,arguments,options)
         }
 
 

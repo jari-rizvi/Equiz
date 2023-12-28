@@ -48,7 +48,7 @@ class SuccessFragment : BaseFragment<FragmentSuccessBinding, SignupViewModel>() 
         }
 
         mViewDataBinding.btnVerify.setOnClickListener {
-            findNavController().navigate(R.id.action_successFragment_to_dashboardFragment)
+            findNavController().navigate(R.id.action_successFragment_to_dashboardFragment,arguments,options)
         }
 
 

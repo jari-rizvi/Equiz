@@ -63,7 +63,7 @@ class OtpEmailFragment : BaseFragment<FragmentOtpEmailBinding, OtpViewModel>() {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
 
-                            findNavController().navigate(R.id.action_otpEmailFragment_to_successFragment)
+                            findNavController().navigate(R.id.action_otpEmailFragment_to_successFragment,arguments,options)
 
                         }
                     }

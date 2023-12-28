@@ -76,11 +76,11 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
 
 
         mViewDataBinding.btnForgot.setOnClickListener {
-            findNavController().navigate(R.id.action_logInFragment_to_forgotPassFragment2)
+            findNavController().navigate(R.id.action_logInFragment_to_forgotPassFragment2,arguments,options)
         }
 
         mViewDataBinding.btnSignup.setOnClickListener {
-            findNavController().navigate(R.id.action_logInFragment_to_signupPhoneFragment)
+            findNavController().navigate(R.id.action_logInFragment_to_signupPhoneFragment,arguments,options)
         }
 
         mViewDataBinding.btnLogin.setOnClickListener {
@@ -122,7 +122,7 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
                             loadingDialog.dismiss()
                             mViewDataBinding.root.snackbar(it.message!!)
                             Handler().postDelayed({
-                                findNavController().navigate(R.id.action_logInFragment_to_otpPhoneFragment)
+                                findNavController().navigate(R.id.action_logInFragment_to_otpPhoneFragment,arguments,options)
                             }, 1000)
 
 //                            onToOtpPage()
@@ -135,7 +135,7 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
                                 lifecycleScope.launch(Dispatchers.IO) {
                                     dataStoreProvider.saveUserToken(data.token)
                                 }
-                                findNavController().navigate(R.id.action_logInFragment_to_dashboardFragment)
+                                findNavController().navigate(R.id.action_logInFragment_to_dashboardFragment,arguments,options)
                             }
                         }
 

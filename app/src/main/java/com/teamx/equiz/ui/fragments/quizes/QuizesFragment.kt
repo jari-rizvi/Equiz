@@ -153,7 +153,7 @@ class QuizesFragment : BaseFragment<FragmentQuizesBinding, QuizesViewModel>(), Q
         val modelQuiz = strArrayList[position]
         val bundle = arguments
         bundle?.putString("modelQuizId", modelQuiz._id)
-        findNavController().navigate(R.id.playQuizFragment, bundle)
+        findNavController().navigate(R.id.playQuizFragment, bundle,options)
     }
 
     /*   override fun quizeItem() {

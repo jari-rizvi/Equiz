@@ -79,12 +79,12 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
         mViewDataBinding.textView155.setOnClickListener {
             findNavController().navigate(
-                R.id.quizesFragment, arguments
+                R.id.quizesFragment, arguments,options
             )
         }
         mViewDataBinding.seeAllGames.setOnClickListener {
             findNavController().navigate(
-                R.id.gamesFragment, arguments
+                R.id.gamesFragment, arguments,options
             )
         }
 
@@ -562,7 +562,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
     }
 
     override fun quizeItem(position: Int) {
-        findNavController().navigate(R.id.playQuizFragment, arguments)
+        findNavController().navigate(R.id.playQuizFragment, arguments,options)
     }
 
     override fun onClickGame(position: Int) {
@@ -575,130 +575,130 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             bundle = Bundle()
         }
         bundle?.putString("gameName", strname)
-        findNavController().navigate(R.id.startUpGameFrag, bundle)
+        findNavController().navigate(R.id.startUpGameFrag, bundle,options)
       /*  when (gameStrArrayList[position].name) {
 
             GamesUID2.AdditionAddiction.name -> {
 
-                findNavController().navigate(R.id.additionAddictionGameFrag, arguments)
+                findNavController().navigate(R.id.additionAddictionGameFrag, arguments,options)
 
 
             }
 
             GamesUID2.BirdWatching.name -> {
-                findNavController().navigate(R.id.birdWatchingGameFrag, arguments)
+                findNavController().navigate(R.id.birdWatchingGameFrag, arguments,options)
 
             }
 
 //            GamesUID2.BreakTheBlock.name -> {
-//                findNavController().navigate(R.id.breakTheBlockGameFrag, arguments)
+//                findNavController().navigate(R.id.breakTheBlockGameFrag, arguments,options)
 //
 //            }
 
             GamesUID2.ColorDeception.name -> {
-                findNavController().navigate(R.id.colorOfDecepGameFrag, arguments)
+                findNavController().navigate(R.id.colorOfDecepGameFrag, arguments,options)
 
             }
 
             GamesUID2.Tetris.name -> {
-                findNavController().navigate(R.id.tetrisGameFrag, arguments)
+                findNavController().navigate(R.id.tetrisGameFrag, arguments,options)
 
             }
 
             GamesUID2.Concentration.name -> {
 
-                findNavController().navigate(R.id.concentrationGameFrag, arguments)
+                findNavController().navigate(R.id.concentrationGameFrag, arguments,options)
             }
 
             GamesUID2.CardCalculation.name -> {
-                findNavController().navigate(R.id.cardCalculationGameFrag, arguments)
+                findNavController().navigate(R.id.cardCalculationGameFrag, arguments,options)
 
             }
 
             GamesUID2.Flick.name -> {
-                findNavController().navigate(R.id.flickGameFrag, arguments)
+                findNavController().navigate(R.id.flickGameFrag, arguments,options)
 
             }
 
             GamesUID2.FollowTheLeader.name -> {
-                findNavController().navigate(R.id.followTheLeaderGameFrag, arguments)
+                findNavController().navigate(R.id.followTheLeaderGameFrag, arguments,options)
 
             }
 
             GamesUID2.UnfollowTheLeader.name -> {
-                findNavController().navigate(R.id.unfollowTheLeaderGameFrag, arguments)
+                findNavController().navigate(R.id.unfollowTheLeaderGameFrag, arguments,options)
 
             }
 
             GamesUID2.GuessTheFlag.name -> {
-//                findNavController().navigate(R.id,arguments)
+//                findNavController().navigate(R.id,arguments,options)
 
             }
 
             GamesUID2.HighLow.name -> {
-                findNavController().navigate(R.id.highLowGameFrag, arguments)
+                findNavController().navigate(R.id.highLowGameFrag, arguments,options)
 
             }
 
             GamesUID2.MakeTen.name -> {
-                findNavController().navigate(R.id.make10GameFrag, arguments)
+                findNavController().navigate(R.id.make10GameFrag, arguments,options)
 
             }
 
             GamesUID2.MissingPiece.name -> {
-                findNavController().navigate(R.id.missingPieceGameFrag, arguments)
+                findNavController().navigate(R.id.missingPieceGameFrag, arguments,options)
 
             }
 
 
             GamesUID2.QuickEye.name -> {
-                findNavController().navigate(R.id.quickEyeGameFrag, arguments)
+                findNavController().navigate(R.id.quickEyeGameFrag, arguments,options)
 
             }
 
             GamesUID2.RainFall.name -> {
-                findNavController().navigate(R.id.rainFallGameFrag, arguments)
+                findNavController().navigate(R.id.rainFallGameFrag, arguments,options)
 
             }
 
             GamesUID2.RapidSorting.name -> {
-                findNavController().navigate(R.id.rapidSortingGameFrag, arguments)
+                findNavController().navigate(R.id.rapidSortingGameFrag, arguments,options)
 
             }
 
             GamesUID2.ReverseRps.name -> {
-                findNavController().navigate(R.id.reverseRPSFrag, arguments)
+                findNavController().navigate(R.id.reverseRPSFrag, arguments,options)
 
             }
 
             GamesUID2.Simplicity.name -> {
-                findNavController().navigate(R.id.simplicityGameFrag, arguments)
+                findNavController().navigate(R.id.simplicityGameFrag, arguments,options)
 
             }
             GamesUID2.SpinningBlock.name -> {
-                findNavController().navigate(R.id.spinningBlockGameFrag, arguments)
+                findNavController().navigate(R.id.spinningBlockGameFrag, arguments,options)
 
             }
             GamesUID2.ShapeDeception.name -> {
-                findNavController().navigate(R.id.shapeDeceptionGameFrag, arguments)
+                findNavController().navigate(R.id.shapeDeceptionGameFrag, arguments,options)
             }
             GamesUID2.TapTheColor.name -> {
-                findNavController().navigate(R.id.tapTheColorGameFrag, arguments)
+                findNavController().navigate(R.id.tapTheColorGameFrag, arguments,options)
 
             }
 
             GamesUID2.TouchTheNum.name -> {
-                findNavController().navigate(R.id.touchTheNumGameFrag, arguments)
+                findNavController().navigate(R.id.touchTheNumGameFrag, arguments,options)
 
             }
 
             GamesUID2.TouchTheNumPlus.name -> {
-                findNavController().navigate(R.id.touchTheNumPlusGameFrag, arguments)
+                findNavController().navigate(R.id.touchTheNumPlusGameFrag, arguments,options)
 
             }
 
             GamesUID2.WeatherCast.name -> {
-                findNavController().navigate(R.id.weatherCastGameFrag, arguments)
+                findNavController().navigate(R.id.weatherCastGameFrag, arguments,options)
 
             }
 

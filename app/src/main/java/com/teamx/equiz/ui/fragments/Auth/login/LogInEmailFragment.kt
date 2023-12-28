@@ -74,11 +74,11 @@ class LogInEmailFragment : BaseFragment<FragmentLoginEmailBinding, LoginViewMode
 
         })
         mViewDataBinding.btnSignup.setOnClickListener {
-            findNavController().navigate(R.id.action_logInEmailFragment_to_signupEmailFragment)
+            findNavController().navigate(R.id.action_logInEmailFragment_to_signupEmailFragment,arguments,options)
         }
 
         mViewDataBinding.btnForgot.setOnClickListener {
-            findNavController().navigate(R.id.action_logInEmailFragment_to_forgotPassFragment2)
+            findNavController().navigate(R.id.action_logInEmailFragment_to_forgotPassFragment2,arguments,options)
         }
 
         mViewDataBinding.btnLogin.setOnClickListener {
@@ -120,7 +120,7 @@ class LogInEmailFragment : BaseFragment<FragmentLoginEmailBinding, LoginViewMode
                             loadingDialog.dismiss()
                             mViewDataBinding.root.snackbar(it.message!!)
                             Handler().postDelayed({
-                                findNavController().navigate(R.id.action_logInEmailFragment_to_otpEmailFragment)
+                                findNavController().navigate(R.id.action_logInEmailFragment_to_otpEmailFragment,arguments,options)
                             }, 1000)
 
                         }
@@ -133,7 +133,7 @@ class LogInEmailFragment : BaseFragment<FragmentLoginEmailBinding, LoginViewMode
                                 lifecycleScope.launch(Dispatchers.IO) {
                                     dataStoreProvider.saveUserToken(data.token)
                                 }
-                                findNavController().navigate(R.id.action_logInEmailFragment_to_dashboardFragment)
+                                findNavController().navigate(R.id.action_logInEmailFragment_to_dashboardFragment,arguments,options)
                             }
                         }
 

@@ -50,7 +50,7 @@ class PassChangeSuccessFragment :
         }
 
         mViewDataBinding.btnVerify.setOnClickListener {
-            findNavController().navigate(R.id.action_passChangeSuccessFragment_to_logInFragment)
+            findNavController().navigate(R.id.action_passChangeSuccessFragment_to_logInFragment,arguments,options)
 
         }
 

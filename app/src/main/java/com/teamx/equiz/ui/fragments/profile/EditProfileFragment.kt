@@ -146,7 +146,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                                    }*/
 
 
-                            findNavController().navigate(R.id.action_editProfileFragment_to_dashboardFragment)
+                            findNavController().navigate(R.id.action_editProfileFragment_to_dashboardFragment,arguments,options)
 
 
                         }
