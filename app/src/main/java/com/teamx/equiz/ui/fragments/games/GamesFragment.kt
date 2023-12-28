@@ -17,7 +17,7 @@ import com.teamx.equiz.ui.fragments.dashboard.DashboardFragment.Companion.return
 import com.teamx.equiz.ui.fragments.dashboard.GamesModel
 import com.teamx.equiz.ui.fragments.dashboard.GamesUID2
 import dagger.hilt.android.AndroidEntryPoint
-
+import androidx.activity.addCallback
 @AndroidEntryPoint
 class GamesFragment : BaseFragment<FragmentGamesBinding, GamesViewModel>(), AllGameInterface {
 
@@ -33,7 +33,10 @@ class GamesFragment : BaseFragment<FragmentGamesBinding, GamesViewModel>(), AllG
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {

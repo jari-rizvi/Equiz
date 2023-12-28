@@ -27,7 +27,7 @@ import androidx.navigation.fragment.findNavController
 import com.teamx.equiz.constants.NetworkCallPoints.Companion.TOKENER
 import kotlinx.coroutines.delay
 import timber.log.Timber
-
+import androidx.activity.addCallback
 
 @AndroidEntryPoint
 class TempFragment : BaseFragment<FragmentTempBinding, TempViewModel>() {
@@ -43,7 +43,10 @@ class TempFragment : BaseFragment<FragmentTempBinding, TempViewModel>() {
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
 
         options = navOptions {
             anim {

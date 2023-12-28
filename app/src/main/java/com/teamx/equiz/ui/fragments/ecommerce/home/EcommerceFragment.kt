@@ -24,7 +24,7 @@ import com.teamx.equiz.databinding.FragmentEcommerceBinding
 import com.teamx.equiz.ui.activity.mainActivity.MainActivity
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
-
+import androidx.activity.addCallback
 @AndroidEntryPoint
 class
 EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewModel>(),
@@ -47,12 +47,15 @@ EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewModel>()
     lateinit var productArrayList: ArrayList<com.teamx.equiz.data.models.getProducts.Data>
 
     lateinit var featureProductAdapter: ProductBannersAdapter
-    lateinit var featureProductArrayList: ArrayList<com.teamx.equiz.data.models.bannerData.Data>
+    lateinit var featureProductArrayList: ArrayList<com.teamx.equiz.data.models.bannerData.news_banner.New>
     private var tabLayoutMediator: TabLayoutMediator? = null
     private lateinit var handler: Handler
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {
@@ -92,7 +95,7 @@ EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewModel>()
                         loadingDialog.dismiss()
                         it.data?.let { data ->
 
-                            data.data?.forEach {
+                            data.news.forEach {
                                 if (it != null) {
                                     featureProductArrayList.add(it)
                                 }
@@ -170,7 +173,7 @@ EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewModel>()
                             data.data.forEach {
                                 categoriesArrayList2.add(it)
                             }
-
+                            Log.d("123123", "onViewCreated:${categoriesArrayList2.size} ")
                             categoriesAdapter.notifyDataSetChanged()
 
                         }

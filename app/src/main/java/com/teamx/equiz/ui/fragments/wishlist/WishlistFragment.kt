@@ -17,7 +17,7 @@ import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentWishlistBinding
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
-
+import androidx.activity.addCallback
 @AndroidEntryPoint
 class WishlistFragment : BaseFragment<FragmentWishlistBinding, WishlistViewModel>() {
 
@@ -36,7 +36,10 @@ class WishlistFragment : BaseFragment<FragmentWishlistBinding, WishlistViewModel
     lateinit var favouriteArrayList: ArrayList<Product>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {

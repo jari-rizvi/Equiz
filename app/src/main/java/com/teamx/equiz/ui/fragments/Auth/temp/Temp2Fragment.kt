@@ -19,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-
+import androidx.activity.addCallback
 @AndroidEntryPoint
 class Temp2Fragment : BaseFragment<FragmentTemp2Binding, TempViewModel>() {
 
@@ -34,7 +34,10 @@ class Temp2Fragment : BaseFragment<FragmentTemp2Binding, TempViewModel>() {
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
 
         options = navOptions {
             anim {

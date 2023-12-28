@@ -24,7 +24,7 @@ import com.teamx.equiz.ui.fragments.ecommerce.home.CategoriesAdapter
 import com.teamx.equiz.ui.fragments.ecommerce.home.EcommerceViewModel
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
-
+import androidx.activity.addCallback
 @AndroidEntryPoint
 class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel>(),
     OnCartListener {
@@ -41,7 +41,10 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
     lateinit var cartArrayList2: ArrayList<com.teamx.equiz.data.models.getcart.Data>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {

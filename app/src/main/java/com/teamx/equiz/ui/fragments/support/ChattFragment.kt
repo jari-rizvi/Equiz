@@ -23,7 +23,7 @@ import com.teamx.equiz.ui.fragments.Auth.login.LoginViewModel
 import com.teamx.equiz.ui.fragments.referral.ReferralViewModel
 import com.teamx.equiz.ui.fragments.subscription.SubscriptionViewModel
 import dagger.hilt.android.AndroidEntryPoint
-
+import androidx.activity.addCallback
 @AndroidEntryPoint
 class ChattFragment : BaseFragment<FragmentChatBinding, SubscriptionViewModel>() {
 
@@ -40,7 +40,10 @@ class ChattFragment : BaseFragment<FragmentChatBinding, SubscriptionViewModel>()
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {

@@ -24,6 +24,8 @@ import com.teamx.equiz.ui.fragments.quizes.adapter.QuizesAdapter
 import com.teamx.equiz.ui.fragments.quizes.adapter.QuizesTitleAdapter
 import com.teamx.equiz.ui.fragments.singlequize.SingleQuizesViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import androidx.activity.addCallback
+import androidx.navigation.fragment.findNavController
 
 @AndroidEntryPoint
 class QuizResultFragment : BaseFragment<FragmentQuizResultBinding, SingleQuizesViewModel>() {
@@ -40,7 +42,10 @@ class QuizResultFragment : BaseFragment<FragmentQuizResultBinding, SingleQuizesV
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {

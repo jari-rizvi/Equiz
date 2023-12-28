@@ -13,7 +13,7 @@ import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentOtpEmailBinding
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
-
+import androidx.activity.addCallback
 @AndroidEntryPoint
 class VerifyOtpForgotFragment : BaseFragment<FragmentOtpEmailBinding, OtpViewModel>() {
 
@@ -28,7 +28,10 @@ class VerifyOtpForgotFragment : BaseFragment<FragmentOtpEmailBinding, OtpViewMod
     private  var userCred : String? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
 
         options = navOptions {
             anim {

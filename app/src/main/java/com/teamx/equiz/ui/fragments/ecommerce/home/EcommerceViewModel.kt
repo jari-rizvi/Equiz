@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.teamx.equiz.baseclasses.BaseViewModel
 import com.teamx.equiz.data.models.bannerData.BannerData
+import com.teamx.equiz.data.models.bannerData.news_banner.NewsBanner
 import com.teamx.equiz.data.models.categoriesData.GetAllCategoriesData
 import com.teamx.equiz.data.models.getProducts.GetProductData
 import com.teamx.equiz.data.remote.Resource
@@ -28,8 +29,8 @@ class EcommerceViewModel @Inject constructor(
     val getcategoriesResponse: LiveData<Resource<GetAllCategoriesData>>
         get() = _getcategoriesResponse
 
-    private val _getBannerResponse = MutableLiveData<Resource<BannerData>>()
-    val getBannerResponse: LiveData<Resource<BannerData>>
+    private val _getBannerResponse = MutableLiveData<Resource<NewsBanner>>()
+    val getBannerResponse: LiveData<Resource<NewsBanner>>
         get() = _getBannerResponse
 
 private val _getProductsResponse = MutableLiveData<Resource<GetProductData>>()
@@ -78,7 +79,7 @@ private val _getProductsResponse = MutableLiveData<Resource<GetProductData>>()
                 try {
                     Timber.tag("87878787887").d("starta")
 
-                    mainRepository.getBanners().let {
+                    mainRepository.getBanners(/*true*/).let {
                         if (it.isSuccessful) {
                             _getBannerResponse.postValue(Resource.success(it.body()!!))
                             Timber.tag("87878787887").d(it.body()!!.toString())

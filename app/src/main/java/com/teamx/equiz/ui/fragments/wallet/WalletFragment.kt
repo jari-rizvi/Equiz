@@ -19,7 +19,7 @@ import com.teamx.equiz.ui.fragments.Auth.login.LoginViewModel
 import com.teamx.equiz.ui.fragments.wishlist.FavouriteAdapter
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
-
+import androidx.activity.addCallback
 @AndroidEntryPoint
 class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
 
@@ -35,7 +35,10 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
     private lateinit var options: NavOptions
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {

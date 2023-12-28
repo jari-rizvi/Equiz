@@ -26,7 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.json.JSONException
-
+import androidx.activity.addCallback
 @AndroidEntryPoint
 class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewModel>() {
 
@@ -43,7 +43,10 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
     private lateinit var fcmToken: String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {

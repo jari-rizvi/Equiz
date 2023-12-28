@@ -17,7 +17,7 @@ import com.teamx.equiz.ui.fragments.quizes.adapter.QuizesAdapter
 import com.teamx.equiz.ui.fragments.quizes.adapter.QuizesTitleAdapter
 import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
-
+import androidx.activity.addCallback
 @AndroidEntryPoint
 class QuizesFragment : BaseFragment<FragmentQuizesBinding, QuizesViewModel>(), QuizesInterface {
 
@@ -37,7 +37,10 @@ class QuizesFragment : BaseFragment<FragmentQuizesBinding, QuizesViewModel>(), Q
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {

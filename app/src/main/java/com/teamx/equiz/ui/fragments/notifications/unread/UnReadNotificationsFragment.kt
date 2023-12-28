@@ -31,7 +31,10 @@ class UnReadNotificationsFragment : BaseFragment<FragmentCanclledBinding, UnRead
     lateinit var productArrayList: ArrayList<String>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {

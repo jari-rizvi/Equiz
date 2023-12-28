@@ -7,6 +7,7 @@ import com.teamx.equiz.constants.NetworkCallPoints.Companion.TOKENER
 import com.teamx.equiz.data.models.addtocart.AddtoCartData
 import com.teamx.equiz.data.models.addtowishlist.AddToWishlistData
 import com.teamx.equiz.data.models.bannerData.BannerData
+import com.teamx.equiz.data.models.bannerData.news_banner.NewsBanner
 import com.teamx.equiz.data.models.categoriesData.GetAllCategoriesData
 import com.teamx.equiz.data.models.coupons.CouponsData
 import com.teamx.equiz.data.models.editProfile.EditProfileData
@@ -53,7 +54,15 @@ interface ApiService {
     suspend fun getWishlist(@Header("token") basicCredentials: String = "$TOKENER"): Response<WishlistData>
 
     @GET(NetworkCallPoints.BANNERS_DATA)
-    suspend fun getBanners(@Header("token") basicCredentials: String = "$TOKENER"): Response<BannerData>
+    suspend fun getBanners(
+        @Query("isActive") isActive: Boolean,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<NewsBanner>
+    @GET(NetworkCallPoints.BANNERS_DATA2)
+    suspend fun getBanners(
+
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<NewsBanner>
 
     @GET(NetworkCallPoints.GET_PRODUCTS)
     suspend fun getProducts(@Header("token") basicCredentials: String = "$TOKENER"): Response<GetProductData>

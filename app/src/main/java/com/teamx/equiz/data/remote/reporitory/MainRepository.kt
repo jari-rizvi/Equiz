@@ -17,7 +17,8 @@ class MainRepository @Inject constructor(
 
 
     suspend fun getWishlist() = apiService.getWishlist()
-    suspend fun getBanners() = apiService.getBanners()
+    suspend fun getBanners(isActive:Boolean) = apiService.getBanners(isActive)
+    suspend fun getBanners() = apiService.getBanners(/*isActive*/)
     suspend fun getProducts() = apiService.getProducts()
     suspend fun getCart() = apiService.getCart()
     suspend fun getWallet() = apiService.getWallet()

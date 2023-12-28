@@ -22,7 +22,7 @@ import com.teamx.equiz.ui.fragments.orders.processing.ProcessingAdapter
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
-
+import androidx.activity.addCallback
 @AndroidEntryPoint
 class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding, OrderDetailsViewModel>() {
 
@@ -43,7 +43,10 @@ class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding, OrderDeta
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {

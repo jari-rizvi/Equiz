@@ -25,7 +25,7 @@ import com.teamx.equiz.utils.LocationPermission
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.IOException
 import java.util.Locale
-
+import androidx.activity.addCallback
 @AndroidEntryPoint
 class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>() {
 
@@ -41,7 +41,10 @@ class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>()
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {

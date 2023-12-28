@@ -57,10 +57,12 @@ val operators = listOf("+", "-", "x", "/")
 @RequiresApi(Build.VERSION_CODES.O)
 
 @Composable
-fun OperationGame(content: (boolean:Boolean) -> Unit) {
+fun OperationGame(content: (boolean:Boolean, rightAnswer:Int, totalAnswer:Int) -> Unit) {
 
     var isGameOver by remember { mutableStateOf(false) }
-    var isAlert by remember { mutableStateOf(false) }
+        var isAlert by remember { mutableStateOf(false) }
+ rightGameAnswers = 1
+ wrongGameAnswers = 1
 
     var timeLeft by remember { mutableStateOf(20L) }
     var isTimeUp by remember { mutableStateOf(false) }
@@ -87,7 +89,7 @@ fun OperationGame(content: (boolean:Boolean) -> Unit) {
 
 
     if (isGameOver) {
-        content(true)
+        content(true, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
     }
 
 
@@ -98,7 +100,7 @@ fun OperationGame(content: (boolean:Boolean) -> Unit) {
                 isGameOver = true
 
             } else {
-                content(false)
+                content(false, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
             }
         }
 
@@ -301,7 +303,7 @@ fun evaluateEquation(equation: String): Int {
 @Composable
 fun ShowBar2() {
     MaterialTheme {
-        OperationGame {}
+        OperationGame {bool,rightAnswer,total ->}
     }
 
 

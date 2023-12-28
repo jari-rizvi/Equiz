@@ -114,7 +114,7 @@ fun PreviewMake10GameScreen() {
 class SelectedCard(var index: Int, var cardValue: Int)
 
 @Composable
-fun Make10GameScreen(content: (bool: Boolean) -> Unit = {}) {
+fun Make10GameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit = { bool, rightAnswer, total -> }) {
     var availableCards = remember { mutableStateOf(generateArray()) }
     val selectedCards = remember { mutableStateListOf<Int>() }
     val selectedCardstr = remember { mutableStateListOf<String>() }
@@ -123,6 +123,8 @@ fun Make10GameScreen(content: (bool: Boolean) -> Unit = {}) {
     var counter by remember { mutableStateOf(0) }
     var isGameOver by remember { mutableStateOf(false) }
     var isAlert by remember { mutableStateOf(false) }
+    var rightGameAnswers = 0
+    var wrongGameAnswers = 0
 
     var timeLeft by remember { mutableStateOf(20L) }
     var isTimeUp by remember { mutableStateOf(false) }
@@ -147,7 +149,7 @@ fun Make10GameScreen(content: (bool: Boolean) -> Unit = {}) {
         }.start()
     }
     if (isGameOver) {
-        content(true)
+        content(true, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
     }
     if (isTimeUp) {
 
@@ -156,7 +158,7 @@ fun Make10GameScreen(content: (bool: Boolean) -> Unit = {}) {
                 isGameOver = true
 
             } else {
-                content(false)
+                content(false, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
             }
         }
 
@@ -306,7 +308,7 @@ fun Make10GameScreen(content: (bool: Boolean) -> Unit = {}) {
 @Preview
 @Composable
 fun PreviewMake10GameScreen() {
-    Make10GameScreen() {}
+    Make10GameScreen() { bool, rightAnswer, total -> }
 }
 //make 10
 

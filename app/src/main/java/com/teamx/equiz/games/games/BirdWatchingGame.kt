@@ -55,11 +55,14 @@ import java.util.LinkedList
 import kotlin.random.Random
 
 
+var rightGameAnswersBird = 1
+var wrongGameAnswersBird = 1
 @Composable
-fun BirdWatchingGame(content: (boo: Boolean) -> Unit) {
+fun BirdWatchingGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit) {
     var isGameOver by remember { mutableStateOf(false) }
     var isAlert by remember { mutableStateOf(false) }
     var isTimeUp by remember { mutableStateOf(false) }
+
 
     var timeLeft by remember { mutableStateOf(20L) }
 
@@ -70,7 +73,7 @@ fun BirdWatchingGame(content: (boo: Boolean) -> Unit) {
         // Start the timer
         object : CountDownTimer(timeLeft * 1000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                  if (timerRunning) {
+                if (timerRunning) {
                     timeLeft = millisUntilFinished / 1000
                 }
 
@@ -89,7 +92,7 @@ fun BirdWatchingGame(content: (boo: Boolean) -> Unit) {
     if (isGameOver) {
 
 
-        content(true)
+        content(true, rightGameAnswersBird, (rightGameAnswersBird + wrongGameAnswersBird))
 
     }
 
@@ -100,7 +103,7 @@ fun BirdWatchingGame(content: (boo: Boolean) -> Unit) {
                 isGameOver = true
 
             } else {
-                content(false)
+                content(false, rightGameAnswersBird, (rightGameAnswersBird + wrongGameAnswersBird))
             }
         }
 
@@ -123,7 +126,7 @@ fun BirdWatchingGame(content: (boo: Boolean) -> Unit) {
                         contentDescription = "BackButton",
                         tint = Color.White,
                         modifier = Modifier.clickable(true) {
-                            content(false)
+                            content(false, rightGameAnswersBird, (rightGameAnswersBird + wrongGameAnswersBird))
                         }
 
                     )
@@ -248,7 +251,9 @@ fun BirdAscendingObjects() {
                     restart = true
                     iteration++
 
-
+                    rightGameAnswersBird++
+                } else {
+                    wrongGameAnswersBird++
                 }
 //                Log.d("123123", "AscendingObjects:birdLinkListAdded $it")
                 Log.d(

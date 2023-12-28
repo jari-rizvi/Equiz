@@ -16,7 +16,7 @@ import com.teamx.equiz.databinding.FragmentSuccessBinding
 import com.teamx.equiz.ui.fragments.Auth.login.LoginViewModel
 import com.teamx.equiz.ui.fragments.Auth.signup.SignupViewModel
 import dagger.hilt.android.AndroidEntryPoint
-
+import androidx.activity.addCallback
 @AndroidEntryPoint
 class SuccessFragment : BaseFragment<FragmentSuccessBinding, SignupViewModel>() {
 
@@ -32,7 +32,10 @@ class SuccessFragment : BaseFragment<FragmentSuccessBinding, SignupViewModel>() 
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {

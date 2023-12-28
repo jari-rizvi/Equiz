@@ -4,6 +4,7 @@ package com.teamx.equiz.ui.fragments.profile
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.activity.addCallback
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
@@ -32,7 +33,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {

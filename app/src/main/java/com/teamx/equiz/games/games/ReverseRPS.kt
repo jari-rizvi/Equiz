@@ -285,7 +285,7 @@ fun PreviewReverseRockPaperScissorsGameScreen() {
 
 
 @Composable
-fun rpsCastGamePlot(content: (bool:Boolean) -> Unit={}) {
+fun rpsCastGamePlot(content: (bool:Boolean, rightAnswer:Int, totalAnswer:Int) -> Unit={bool,rightAnswer,total ->}) {
     val leftItems = (0..(2)).map {
         rpsListItem(
             height = 70.dp, id = it, gamesUID = GamesUID.values()[it], color = if (it % 5 == 0) {
@@ -306,7 +306,9 @@ fun rpsCastGamePlot(content: (bool:Boolean) -> Unit={}) {
 
 
     var isGameOver by remember { mutableStateOf(false) }
-    var isAlert by remember { mutableStateOf(false) }
+        var isAlert by remember { mutableStateOf(false) }
+ rightGameAnswers = 1
+ wrongGameAnswers = 1
     var isTimeUp by remember { mutableStateOf(false) }
 
     var timeLeft by remember { mutableStateOf(20L) }
@@ -336,7 +338,7 @@ fun rpsCastGamePlot(content: (bool:Boolean) -> Unit={}) {
     if (isGameOver) {
 
 
-        content(true)
+        content(true, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
 
     }
 
@@ -347,7 +349,7 @@ fun rpsCastGamePlot(content: (bool:Boolean) -> Unit={}) {
                 isGameOver = true
 
             } else {
-                content(false)
+                content(false, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
             }
         }
 
@@ -540,7 +542,7 @@ enum class EnumRPS {
 @Composable
 fun previewRPSCastGame() {
     MaterialTheme {
-        rpsCastGamePlot(){}
+        rpsCastGamePlot(){bool,rightAnswer,total ->}
     }
 }
 
@@ -561,7 +563,7 @@ fun ReverseRockPaperScissorsGameScreen(content: @Composable () -> Unit) {
         )
 
     }
-    rpsCastGamePlot(){}
+    rpsCastGamePlot(){bool,rightAnswer,total ->}
 }
 
 //Rock paper scissor

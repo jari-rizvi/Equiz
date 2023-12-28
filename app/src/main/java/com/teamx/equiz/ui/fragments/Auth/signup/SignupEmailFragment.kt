@@ -21,7 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.json.JSONException
-
+import androidx.activity.addCallback
 @AndroidEntryPoint
 class SignupEmailFragment : BaseFragment<FragmentSignupEmailBinding, SignupViewModel>() {
 
@@ -40,7 +40,10 @@ class SignupEmailFragment : BaseFragment<FragmentSignupEmailBinding, SignupViewM
     private var password: String? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {

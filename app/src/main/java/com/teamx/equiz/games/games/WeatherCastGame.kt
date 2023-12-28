@@ -42,6 +42,7 @@ import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
 import com.teamx.equiz.games.GamesUID
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
+import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -49,11 +50,14 @@ import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 @Composable
-fun WeatherCastGame(content: () -> Unit) {
+fun WeatherCastGame(content: (bool:Boolean, rightAnswer:Int, totalAnswer:Int) -> Unit) {
 
 
     var isGameOver by remember { mutableStateOf(false) }
-    var isAlert by remember { mutableStateOf(false) }
+        var isAlert by remember { mutableStateOf(false) }
+ rightGameAnswers = 1
+ wrongGameAnswers = 1
+    var isTimeUp by remember { mutableStateOf(false) }
 
     var timeLeft by remember { mutableStateOf(20L) }
 
@@ -73,62 +77,78 @@ fun WeatherCastGame(content: () -> Unit) {
             }
 
             override fun onFinish() {
-                isGameOver = true
+                isTimeUp = true
             }
         }.start()
     }
 
 
     if (isGameOver) {
-        content()
+        content(true, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
     }
 
-    MaterialTheme {
+    if (isTimeUp) {
+
+        TimeUpDialogCompose() { i ->
+            if (i) {
+                isGameOver = true
+
+            } else {
+                content(false, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
+            }
+        }
 
 
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
-                .background(color = Color(0xFFE1E1E1)),
-        ) {
-            Image(
+    }else{
+        MaterialTheme {
+
+
+            Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight(),
-                painter = painterResource(id = R.drawable.iconbg),
-                contentDescription = "bg"
-            )
-            if (isAlert) {
-                GameAlertingTime()
-            }
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(color = Color.Transparent)
+                    .fillMaxHeight()
+                    .background(color = Color(0xFFE1E1E1)),
             ) {
-                Row(modifier = Modifier.background(color = Color(0xFF9F81CA))) {
+                Image(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(),
+                    painter = painterResource(id = R.drawable.iconbg),
+                    contentDescription = "bg"
+                )
+                if (isAlert) {
+                    GameAlertingTime()
+                }
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(color = Color.Transparent)
+                ) {
+                    Row(modifier = Modifier.background(color = Color(0xFF9F81CA))) {
 
-                    BackButton(onClick = {}/*onContinueClicked*/)
-                    Text(
-                        text = "Training",
-                        modifier = Modifier
-                            .fillMaxWidth()
+                        BackButton(onClick = {}/*onContinueClicked*/)
+                        Text(
+                            text = "Training",
+                            modifier = Modifier
+                                .fillMaxWidth()
 
-                            .align(alignment = Alignment.CenterVertically),
-                        textAlign = TextAlign.Center,
-                        color = Color.White,
-                        fontSize = 17.sp
-                    )
+                                .align(alignment = Alignment.CenterVertically),
+                            textAlign = TextAlign.Center,
+                            color = Color.White,
+                            fontSize = 17.sp
+                        )
 
+                    }
+
+                    weatherCastGamePlot()
                 }
 
-                weatherCastGamePlot()
+
             }
-
-
         }
     }
+
+
 
 
 
@@ -279,7 +299,7 @@ fun weatherCastGamePlot() {
 @Composable
 fun previewWeatherCastGame() {
     MaterialTheme {
-        WeatherCastGame() {}
+        WeatherCastGame() {bool,rightAnswer,total ->}
     }
 }
 

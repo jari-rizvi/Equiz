@@ -25,9 +25,7 @@ import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentAddressBinding
 import com.teamx.equiz.games.games.AdditionAddictionGameMethod
 import com.teamx.equiz.games.games.BirdWatchingGame
-import com.teamx.equiz.games.games.BreakTheBlockGame
 import com.teamx.equiz.games.games.CardCalculationGameScreen
-import com.teamx.equiz.games.games.ColorSwitchGameScreen
 import com.teamx.equiz.games.games.ConcentrationGame
 import com.teamx.equiz.games.games.FlickGameScreen
 import com.teamx.equiz.games.games.FollowTheLeaderGame
@@ -58,7 +56,7 @@ import com.teamx.equiz.ui.fragments.dashboard.GamesUID2
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONException
-
+import androidx.activity.addCallback
 @AndroidEntryPoint
 class AdditionAddictionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
 
@@ -83,7 +81,10 @@ class AdditionAddictionGameFrag : BaseFragment<FragmentAddressBinding, GameFrags
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         var bundle = arguments
@@ -105,8 +106,15 @@ class AdditionAddictionGameFrag : BaseFragment<FragmentAddressBinding, GameFrags
         }
         composeView.setContent {
 
-            AdditionAddictionGameMethod(content = {
-                if (it) {
+            AdditionAddictionGameMethod(content = { bool, rightAnswer, total ->
+                if (bool) {
+                    var argumentBundle = arguments
+                    if (argumentBundle == null) {
+                        argumentBundle = Bundle()
+                    }
+                    argumentBundle.putInt("rightAnswer", rightAnswer)
+                    argumentBundle.putInt("total", total)
+
                     findNavController().navigate(R.id.resultComposeFrag, arguments, options)
                 } else {
                     navController.popBackStack()
@@ -161,8 +169,14 @@ class BirdWatchingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
 //                ToolbarCompose(title = "Training", onClick = {
                 navController.popBackStack()
 //                })
-                BirdWatchingGame() { bool ->
+                BirdWatchingGame() { bool, rightAnswer, total ->
                     if (bool) {
+                        var argumentBundle = arguments
+                        if (argumentBundle == null) {
+                            argumentBundle = Bundle()
+                        }
+                        argumentBundle.putInt("rightAnswer", rightAnswer)
+                        argumentBundle.putInt("total", total)
                         findNavController().navigate(R.id.resultComposeFrag, arguments, options)
                     } else {
                         findNavController().popBackStack()
@@ -180,7 +194,7 @@ class BirdWatchingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
     }
 }
 
-@AndroidEntryPoint
+/*@AndroidEntryPoint
 class BreakTheBlockGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
 
     override val layoutId: Int
@@ -204,7 +218,10 @@ class BreakTheBlockGameFrag : BaseFragment<FragmentAddressBinding, GameFragsView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {
@@ -225,7 +242,7 @@ class BreakTheBlockGameFrag : BaseFragment<FragmentAddressBinding, GameFragsView
 
 
     }
-}
+}*/
 
 @AndroidEntryPoint
 class CardCalculationGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
@@ -251,7 +268,10 @@ class CardCalculationGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {
@@ -263,9 +283,20 @@ class CardCalculationGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
             }
         }
         composeView.setContent {
-            CardCalculationGameScreen(content = {
+            CardCalculationGameScreen(content = { bool, rightAnswer, total ->
+//                navController.popBackStack()
+                if (bool) {
+                    var argumentBundle = arguments
+                    if (argumentBundle == null) {
+                        argumentBundle = Bundle()
+                    }
+                    argumentBundle.putInt("rightAnswer", rightAnswer)
+                    argumentBundle.putInt("total", total)
+                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                } else {
+                    findNavController().popBackStack()
 
-                navController.popBackStack()
+                }
 
             })
         }
@@ -298,7 +329,10 @@ class ColorOfDecepGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {
@@ -310,14 +344,27 @@ class ColorOfDecepGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
             }
         }
         composeView.setContent {
-            TouchTheColorGameScreen({})
+            TouchTheColorGameScreen { bool, rightAnswer, total ->
+                if (bool) {
+                    var argumentBundle = arguments
+                    if (argumentBundle == null) {
+                        argumentBundle = Bundle()
+                    }
+                    argumentBundle.putInt("rightAnswer", rightAnswer)
+                    argumentBundle.putInt("total", total)
+                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                } else {
+                    findNavController().popBackStack()
+
+                }
+            }
         }
 
 
     }
 }
 
-@AndroidEntryPoint
+/*@AndroidEntryPoint
 class ColorSwitchGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
 
     override val layoutId: Int
@@ -341,7 +388,10 @@ class ColorSwitchGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {
@@ -354,15 +404,16 @@ class ColorSwitchGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
         }
         composeView.setContent {
             ColorSwitchGameScreen(content = {
+
 //                ToolbarCompose(title = "Training", onClick = {
-                navController.popBackStack()
+//                navController.popBackStack()
 //                })
             })
         }
 
 
     }
-}
+}*/
 
 @AndroidEntryPoint
 class ConcentrationGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
@@ -388,7 +439,10 @@ class ConcentrationGameFrag : BaseFragment<FragmentAddressBinding, GameFragsView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {
@@ -400,9 +454,20 @@ class ConcentrationGameFrag : BaseFragment<FragmentAddressBinding, GameFragsView
             }
         }
         composeView.setContent {
-            ConcentrationGame(content = {
+            ConcentrationGame(content = { bool, rightAnswer, total ->
+                if (bool) {
+                    var argumentBundle = arguments
+                    if (argumentBundle == null) {
+                        argumentBundle = Bundle()
+                    }
+                    argumentBundle.putInt("rightAnswer", rightAnswer)
+                    argumentBundle.putInt("total", total)
+                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                } else {
+                    findNavController().popBackStack()
 
-                navController.popBackStack()
+                }
+//                navController.popBackStack()
 
             })
         }
@@ -435,7 +500,10 @@ class FlickGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {
@@ -447,9 +515,21 @@ class FlickGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>()
             }
         }
         composeView.setContent {
-            FlickGameScreen(content = {
+            FlickGameScreen(content = { bool, rightAnswer, total ->
+                if (bool) {
+                    var argumentBundle = arguments
+                    if (argumentBundle == null) {
+                        argumentBundle = Bundle()
+                    }
+                    argumentBundle.putInt("rightAnswer", rightAnswer)
+                    argumentBundle.putInt("total", total)
+                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                } else {
+                    findNavController().popBackStack()
 
-                navController.popBackStack()
+                }
+
+//                navController.popBackStack()
 
 
             })
@@ -483,7 +563,10 @@ class FollowTheLeaderGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {
@@ -495,9 +578,21 @@ class FollowTheLeaderGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
             }
         }
         composeView.setContent {
-            FollowTheLeaderGame(content = {
+            FollowTheLeaderGame(content = { bool, rightAnswer, total ->
+                if (bool) {
+                    var argumentBundle = arguments
+                    if (argumentBundle == null) {
+                        argumentBundle = Bundle()
+                    }
+                    argumentBundle.putInt("rightAnswer", rightAnswer)
+                    argumentBundle.putInt("total", total)
+                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                } else {
+                    findNavController().popBackStack()
 
-                navController.popBackStack()
+                }
+
+//                navController.popBackStack()
 
             })
         }
@@ -530,7 +625,10 @@ class GuessTheFlagGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {
@@ -542,11 +640,20 @@ class GuessTheFlagGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
             }
         }
         composeView.setContent {
-            GuessTheFlagGame(content = {
-//               /* ToolbarCompose(title = "Training", onClick = {
-                navController.popBackStack()
-//                })*/
-                findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+            GuessTheFlagGame(content = { bool, rightAnswer, total ->
+                if (bool) {
+                    var argumentBundle = arguments
+                    if (argumentBundle == null) {
+                        argumentBundle = Bundle()
+                    }
+                    argumentBundle.putInt("rightAnswer", rightAnswer)
+                    argumentBundle.putInt("total", total)
+                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                } else {
+                    findNavController().popBackStack()
+
+                }
+
             })
         }
 
@@ -579,7 +686,10 @@ class HighLowGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {
@@ -591,9 +701,21 @@ class HighLowGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
             }
         }
         composeView.setContent {
-            HighLowComponent(content = {
+            HighLowComponent(content = { bool, rightAnswer, total ->
+                if (bool) {
+                    var argumentBundle = arguments
+                    if (argumentBundle == null) {
+                        argumentBundle = Bundle()
+                    }
+                    argumentBundle.putInt("rightAnswer", rightAnswer)
+                    argumentBundle.putInt("total", total)
+                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                } else {
+                    findNavController().popBackStack()
 
-                navController.popBackStack()
+                }
+
+//                navController.popBackStack()
 
             })
         }
@@ -627,7 +749,10 @@ class LearningThingFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMode
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
@@ -675,7 +800,10 @@ class Make10GameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {
@@ -687,9 +815,21 @@ class Make10GameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
             }
         }
         composeView.setContent {
-            Make10GameScreen(content = {
+            Make10GameScreen(content = { bool, rightAnswer, total ->
+                if (bool) {
+                    var argumentBundle = arguments
+                    if (argumentBundle == null) {
+                        argumentBundle = Bundle()
+                    }
+                    argumentBundle.putInt("rightAnswer", rightAnswer)
+                    argumentBundle.putInt("total", total)
+                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                } else {
+                    findNavController().popBackStack()
 
-                navController.popBackStack()
+                }
+
+//                navController.popBackStack()
 
             })
         }
@@ -723,7 +863,10 @@ class MatchingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {
@@ -735,9 +878,21 @@ class MatchingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
             }
         }
         composeView.setContent {
-            MatchingStepGame(Modifier, content = {
+            MatchingStepGame(Modifier, content = { bool, rightAnswer, total ->
+                if (bool) {
+                    var argumentBundle = arguments
+                    if (argumentBundle == null) {
+                        argumentBundle = Bundle()
+                    }
+                    argumentBundle.putInt("rightAnswer", rightAnswer)
+                    argumentBundle.putInt("total", total)
+                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                } else {
+                    findNavController().popBackStack()
 
-                navController.popBackStack()
+                }
+
+//                navController.popBackStack()
 
             })
         }
@@ -770,7 +925,10 @@ class MenuScreenFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
@@ -817,7 +975,10 @@ class MissingPieceGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {
@@ -829,9 +990,21 @@ class MissingPieceGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
             }
         }
         composeView.setContent {
-            MissingPieceGameScreen(content = {
+            MissingPieceGameScreen(content = { bool, rightAnswer, total ->
+                if (bool) {
+                    var argumentBundle = arguments
+                    if (argumentBundle == null) {
+                        argumentBundle = Bundle()
+                    }
+                    argumentBundle.putInt("rightAnswer", rightAnswer)
+                    argumentBundle.putInt("total", total)
+                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                } else {
+                    findNavController().popBackStack()
 
-                navController.popBackStack()
+                }
+
+//                navController.popBackStack()
 
             })
         }
@@ -866,7 +1039,10 @@ class OperationsGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {
@@ -878,9 +1054,21 @@ class OperationsGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
             }
         }
         composeView.setContent {
-            OperationGame(content = {
+            OperationGame(content = { bool, rightAnswer, total ->
+                if (bool) {
+                    var argumentBundle = arguments
+                    if (argumentBundle == null) {
+                        argumentBundle = Bundle()
+                    }
+                    argumentBundle.putInt("rightAnswer", rightAnswer)
+                    argumentBundle.putInt("total", total)
+                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                } else {
+                    findNavController().popBackStack()
 
-                navController.popBackStack()
+                }
+
+//                navController.popBackStack()
 
             })
         }
@@ -913,7 +1101,10 @@ class PathToSaftyGFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
@@ -960,7 +1151,10 @@ class ProfileScreenFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMode
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
@@ -1007,7 +1201,10 @@ class QuickEyeGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {
@@ -1019,9 +1216,21 @@ class QuickEyeGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
             }
         }
         composeView.setContent {
-            QuickEyeGame(content = {
+            QuickEyeGame(content = { bool, rightAnswer, total ->
+                if (bool) {
+                    var argumentBundle = arguments
+                    if (argumentBundle == null) {
+                        argumentBundle = Bundle()
+                    }
+                    argumentBundle.putInt("rightAnswer", rightAnswer)
+                    argumentBundle.putInt("total", total)
+                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                } else {
+                    findNavController().popBackStack()
 
-                navController.popBackStack()
+                }
+
+//                navController.popBackStack()
 
             })
         }
@@ -1054,7 +1263,10 @@ class RainFallGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {
@@ -1066,9 +1278,21 @@ class RainFallGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
             }
         }
         composeView.setContent {
-            RainFallGame(content = {
+            RainFallGame(content = { bool, rightAnswer, total ->
+                if (bool) {
+                    var argumentBundle = arguments
+                    if (argumentBundle == null) {
+                        argumentBundle = Bundle()
+                    }
+                    argumentBundle.putInt("rightAnswer", rightAnswer)
+                    argumentBundle.putInt("total", total)
+                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                } else {
+                    findNavController().popBackStack()
 
-                navController.popBackStack()
+                }
+
+//                navController.popBackStack()
 
             })
         }
@@ -1101,7 +1325,10 @@ class RapidSortingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {
@@ -1113,9 +1340,21 @@ class RapidSortingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
             }
         }
         composeView.setContent {
-            RapidSortingGame(content = {
+            RapidSortingGame(content = { bool, rightAnswer, total ->
+                if (bool) {
+                    var argumentBundle = arguments
+                    if (argumentBundle == null) {
+                        argumentBundle = Bundle()
+                    }
+                    argumentBundle.putInt("rightAnswer", rightAnswer)
+                    argumentBundle.putInt("total", total)
+                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                } else {
+                    findNavController().popBackStack()
+
+                }
 //                ToolbarCompose(title = "Training", onClick = {
-                navController.popBackStack()
+//                navController.popBackStack()
 //                })
             })
         }
@@ -1148,7 +1387,10 @@ class ReflectionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {
@@ -1195,7 +1437,10 @@ class ResultComposeFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMode
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
 
@@ -1205,6 +1450,8 @@ class ResultComposeFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMode
         }
         val gameName = bundle.getString("gameName")
 
+        val rightAnswer = bundle.getInt("rightAnswer", 0)
+        val total = bundle.getInt("total", 0)
 
         Log.d("123123", "onViewCreated: $gameName ")
 
@@ -1216,11 +1463,13 @@ class ResultComposeFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMode
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+
+
         composeView.setContent {
             ResultScreen(
-                10,
-                7,
-                30,
+                total,
+                rightAnswer,
+                20,
                 returnGameName(gameName.toString()),
                 returnGameIcon(gameName.toString())
             ) { i ->
@@ -1241,15 +1490,11 @@ class ResultComposeFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMode
             }
         }
 
-        resultGame(10, 7)
+        resultGame(total, rightAnswer)
     }
 
-     private fun resultGame(total: Int, right: Int, time: Int = 30) {
+     private fun resultGame(total: Int, right: Int, time: Int = 20) {
 
-         var bundle = arguments
-         if (bundle == null) {
-             bundle = Bundle()
-         }
 
 
          val params = JsonObject()
@@ -1597,7 +1842,10 @@ class ReverseRPSFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {
@@ -1609,9 +1857,21 @@ class ReverseRPSFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
             }
         }
         composeView.setContent {
-            rpsCastGamePlot(content = {
+            rpsCastGamePlot(content = { bool, rightAnswer, total ->
+                if (bool) {
+                    var argumentBundle = arguments
+                    if (argumentBundle == null) {
+                        argumentBundle = Bundle()
+                    }
+                    argumentBundle.putInt("rightAnswer", rightAnswer)
+                    argumentBundle.putInt("total", total)
+                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                } else {
+                    findNavController().popBackStack()
+
+                }
 //                ToolbarCompose(title = "Training", onClick = {
-                navController.popBackStack()
+//                navController.popBackStack()
 //                })
             })
         }
@@ -1644,7 +1904,10 @@ class SimplicityGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
         options = navOptions {
             anim {
@@ -1655,9 +1918,21 @@ class SimplicityGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
             }
         }
         composeView.setContent {
-            ImplicityGameScreen(content = {
+            ImplicityGameScreen(content = { bool, rightAnswer, total ->
+                if (bool) {
+                    var argumentBundle = arguments
+                    if (argumentBundle == null) {
+                        argumentBundle = Bundle()
+                    }
+                    argumentBundle.putInt("rightAnswer", rightAnswer)
+                    argumentBundle.putInt("total", total)
+                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                } else {
+                    findNavController().popBackStack()
+
+                }
 //                ToolbarCompose(title = "Training", onClick = {
-                navController.popBackStack()
+//                navController.popBackStack()
 //                })
             })
         }
@@ -1691,7 +1966,10 @@ class SpinningBlockGameFrag : BaseFragment<FragmentAddressBinding, GameFragsView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
         options = navOptions {
             anim {
@@ -1702,9 +1980,21 @@ class SpinningBlockGameFrag : BaseFragment<FragmentAddressBinding, GameFragsView
             }
         }
         composeView.setContent {
-            SpinningBlockGame(content = {
+            SpinningBlockGame(content = { bool, rightAnswer, total ->
+                if (bool) {
+                    var argumentBundle = arguments
+                    if (argumentBundle == null) {
+                        argumentBundle = Bundle()
+                    }
+                    argumentBundle.putInt("rightAnswer", rightAnswer)
+                    argumentBundle.putInt("total", total)
+                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                } else {
+                    findNavController().popBackStack()
+
+                }
 //                ToolbarCompose(title = "Training", onClick = {
-                navController.popBackStack()
+//                navController.popBackStack()
 //                })
             })
         }
@@ -1738,7 +2028,10 @@ class SpinningLotteryGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
         options = navOptions {
             anim {
@@ -1749,9 +2042,21 @@ class SpinningLotteryGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
             }
         }
         composeView.setContent {
-            SpinningBlockGame(content = {
+            SpinningBlockGame(content = { bool, rightAnswer, total ->
+                if (bool) {
+                    var argumentBundle = arguments
+                    if (argumentBundle == null) {
+                        argumentBundle = Bundle()
+                    }
+                    argumentBundle.putInt("rightAnswer", rightAnswer)
+                    argumentBundle.putInt("total", total)
+                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                } else {
+                    findNavController().popBackStack()
+
+                }
 //                ToolbarCompose(title = "Training", onClick = {
-                navController.popBackStack()
+//                navController.popBackStack()
 //                })
             })
         }
@@ -1786,7 +2091,10 @@ class TapTheColorGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
         options = navOptions {
             anim {
@@ -1797,9 +2105,21 @@ class TapTheColorGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
             }
         }
         composeView.setContent {
-            TapTheColorGame(content = {
+            TapTheColorGame(content = { bool, rightAnswer, total ->
+                if (bool) {
+                    var argumentBundle = arguments
+                    if (argumentBundle == null) {
+                        argumentBundle = Bundle()
+                    }
+                    argumentBundle.putInt("rightAnswer", rightAnswer)
+                    argumentBundle.putInt("total", total)
+                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                } else {
+                    findNavController().popBackStack()
+
+                }
 //                ToolbarCompose(title = "Training", onClick = {
-                navController.popBackStack()
+//                navController.popBackStack()
 //                })
             })
         }
@@ -1833,7 +2153,10 @@ class TenSecondFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
@@ -1880,7 +2203,10 @@ class testiFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
@@ -1927,7 +2253,10 @@ class TestingFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
@@ -1974,7 +2303,10 @@ class TetrisGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
         options = navOptions {
             anim {
@@ -1985,9 +2317,21 @@ class TetrisGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
             }
         }
         composeView.setContent {
-            TetrisGame(content = {
+            TetrisGame(content = { bool, rightAnswer, total ->
+                if (bool) {
+                    var argumentBundle = arguments
+                    if (argumentBundle == null) {
+                        argumentBundle = Bundle()
+                    }
+                    argumentBundle.putInt("rightAnswer", rightAnswer)
+                    argumentBundle.putInt("total", total)
+                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                } else {
+                    findNavController().popBackStack()
+
+                }
 //                ToolbarCompose(title = "Training", onClick = {
-                navController.popBackStack()
+//                navController.popBackStack()
 //                })
             })
         }
@@ -2021,7 +2365,10 @@ class ToolbarFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         composeView.setContent {
@@ -2069,7 +2416,10 @@ class TouchTheNumGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
         options = navOptions {
             anim {
@@ -2080,9 +2430,21 @@ class TouchTheNumGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
             }
         }
         composeView.setContent {
-            TouchTheNumGamePlus(content = {
+            TouchTheNumGamePlus(content = { bool, rightAnswer, total ->
+                if (bool) {
+                    var argumentBundle = arguments
+                    if (argumentBundle == null) {
+                        argumentBundle = Bundle()
+                    }
+                    argumentBundle.putInt("rightAnswer", rightAnswer)
+                    argumentBundle.putInt("total", total)
+                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                } else {
+                    findNavController().popBackStack()
+
+                }
 //                ToolbarCompose(title = "Training", onClick = {
-                navController.popBackStack()
+//                navController.popBackStack()
 //                })
             })
         }
@@ -2116,7 +2478,10 @@ class TouchTheNumPlusGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
         options = navOptions {
             anim {
@@ -2127,9 +2492,21 @@ class TouchTheNumPlusGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
             }
         }
         composeView.setContent {
-            TouchTheNumPlusGame(content = {
+            TouchTheNumPlusGame(content = { bool, rightAnswer, total ->
+                if (bool) {
+                    var argumentBundle = arguments
+                    if (argumentBundle == null) {
+                        argumentBundle = Bundle()
+                    }
+                    argumentBundle.putInt("rightAnswer", rightAnswer)
+                    argumentBundle.putInt("total", total)
+                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                } else {
+                    findNavController().popBackStack()
+
+                }
 //                ToolbarCompose(title = "Training", onClick = {
-                navController.popBackStack()
+//                navController.popBackStack()
 //                })
             })
         }
@@ -2163,7 +2540,10 @@ class UnfollowTheLeaderGameFrag : BaseFragment<FragmentAddressBinding, GameFrags
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
         options = navOptions {
             anim {
@@ -2174,9 +2554,21 @@ class UnfollowTheLeaderGameFrag : BaseFragment<FragmentAddressBinding, GameFrags
             }
         }
         composeView.setContent {
-            UnfollowTheLeaderGame(content = {
+            UnfollowTheLeaderGame(content = { bool, rightAnswer, total ->
+                if (bool) {
+                    var argumentBundle = arguments
+                    if (argumentBundle == null) {
+                        argumentBundle = Bundle()
+                    }
+                    argumentBundle.putInt("rightAnswer", rightAnswer)
+                    argumentBundle.putInt("total", total)
+                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                } else {
+                    findNavController().popBackStack()
+
+                }
 //                ToolbarCompose(title = "Training", onClick = {
-                navController.popBackStack()
+//                navController.popBackStack()
 //                })
             })
         }
@@ -2210,7 +2602,10 @@ class WeatherCastGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
         options = navOptions {
             anim {
@@ -2221,11 +2616,20 @@ class WeatherCastGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
             }
         }
         composeView.setContent {
-            WeatherCastGame(content = {
-//              /*  ToolbarCompose(title = "Training", onClick = {
-                navController.popBackStack()
-//                })*/
-                findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+            WeatherCastGame(content = { bool, rightAnswer, total ->
+                if (bool) {
+                    var argumentBundle = arguments
+                    if (argumentBundle == null) {
+                        argumentBundle = Bundle()
+                    }
+                    argumentBundle.putInt("rightAnswer", rightAnswer)
+                    argumentBundle.putInt("total", total)
+                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                } else {
+                    findNavController().popBackStack()
+
+                }
+
             })
         }
 
@@ -2257,7 +2661,10 @@ class ShapeDeceptionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVie
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
         options = navOptions {
             anim {
@@ -2268,11 +2675,20 @@ class ShapeDeceptionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVie
             }
         }
         composeView.setContent {
-            TouchTheShapesGameScreen(content = {
-//              /*  ToolbarCompose(title = "Training", onClick = {
-                navController.popBackStack()
-//                })*/
-                findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+            TouchTheShapesGameScreen(content = { bool, rightAnswer, total ->
+                if (bool) {
+                    var argumentBundle = arguments
+                    if (argumentBundle == null) {
+                        argumentBundle = Bundle()
+                    }
+                    argumentBundle.putInt("rightAnswer", rightAnswer)
+                    argumentBundle.putInt("total", total)
+                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                } else {
+                    findNavController().popBackStack()
+
+                }
+
             })
         }
 
@@ -2305,7 +2721,10 @@ class StartUpGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
         options = navOptions {
             anim {

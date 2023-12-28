@@ -17,7 +17,7 @@ import com.teamx.equiz.ui.fragments.dashboard.adapter.TopWinnersAdapter
 import com.teamx.equiz.ui.fragments.loaderboard.adapter.LoaderMultiViewAdapter
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
-
+import androidx.activity.addCallback
 @AndroidEntryPoint
 class LoaderBoardFragment : BaseFragment<FragmentLoaderBoardBinding, LoaderBoardViewModel>() {
 
@@ -36,7 +36,10 @@ class LoaderBoardFragment : BaseFragment<FragmentLoaderBoardBinding, LoaderBoard
 
     private var isOdd = false
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {

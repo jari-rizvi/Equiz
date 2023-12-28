@@ -20,7 +20,7 @@ import com.teamx.equiz.utils.DialogHelperClass
 import com.teamx.equiz.utils.PrefHelper
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
-
+import androidx.activity.addCallback
 @AndroidEntryPoint
 class PaymentMethodsFragment : BaseFragment<FragmentPaymentMethodsBinding, PaymentMethodsViewModel>() {
 
@@ -36,7 +36,10 @@ class PaymentMethodsFragment : BaseFragment<FragmentPaymentMethodsBinding, Payme
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {

@@ -44,13 +44,16 @@ import kotlinx.coroutines.delay
 import java.util.LinkedList
 import kotlin.random.Random
 
+var rightGameAnswers = 1
+var wrongGameAnswers = 1
 
 @Composable
-fun AdditionAddictionGameMethod(content: (boolean: Boolean) -> Unit) {
+fun AdditionAddictionGameMethod(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit) {
 
 
     var isGameOver by remember { mutableStateOf(false) }
     var isAlert by remember { mutableStateOf(false) }
+
     var isTimeUp by remember { mutableStateOf(false) }
 
     var timeLeft by remember { mutableStateOf(20L) }
@@ -80,7 +83,7 @@ fun AdditionAddictionGameMethod(content: (boolean: Boolean) -> Unit) {
     if (isGameOver) {
 
 
-        content(true)
+        content(true, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
 
     }
 
@@ -91,7 +94,7 @@ fun AdditionAddictionGameMethod(content: (boolean: Boolean) -> Unit) {
                 isGameOver = true
 
             } else {
-                content(false)
+                content(false, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
             }
         }
 
@@ -130,7 +133,7 @@ var linkListAddict67Checker = LinkedList<Int>()
 @Composable
 fun ViewAddictionGame() {
     MaterialTheme {
-        AdditionAddictionGameMethod() {}
+        AdditionAddictionGameMethod() { bool, rightAnswer, total -> }
     }
 }
 
@@ -335,8 +338,10 @@ fun AddictObject67(
 
 //                            colorStateTxt = BirdColor3
 //                            colorState = Color.White
+                            rightGameAnswers++
                             true
                         } else {
+                            wrongGameAnswers++
                             Log.d("123123", "AddictGame:Wrong ${linkListAddict67Checker.sum()}")
                             false
                         }
@@ -357,8 +362,10 @@ fun AddictObject67(
 
 //                            colorStateTxt = BirdColor3
 //                            colorState = Color.White
+                            rightGameAnswers++
                             true
                         } else {
+                            wrongGameAnswers++
                             Log.d("123123", "AddictGame:Wrong ${linkListAddict67Checker.sum()}")
                             false
                         }

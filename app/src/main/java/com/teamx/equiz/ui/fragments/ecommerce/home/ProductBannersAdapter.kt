@@ -4,15 +4,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
-import com.teamx.equiz.data.models.bannerData.Data
 import com.teamx.equiz.databinding.ItemProductsImagesBinding
 
 
-class ProductBannersAdapter(private val arrayList : ArrayList<Data>):RecyclerView.Adapter<FeatureProductViewHolder>() {
+class ProductBannersAdapter(private val arrayList: ArrayList<com.teamx.equiz.data.models.bannerData.news_banner.New>) :
+    RecyclerView.Adapter<FeatureProductViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeatureProductViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val itemFeatureProductBinding = ItemProductsImagesBinding.inflate(inflater,parent,false)
+        val itemFeatureProductBinding = ItemProductsImagesBinding.inflate(inflater, parent, false)
         return FeatureProductViewHolder(itemFeatureProductBinding)
     }
 

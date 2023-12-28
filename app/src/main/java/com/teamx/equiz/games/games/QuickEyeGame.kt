@@ -33,14 +33,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
+import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import kotlin.random.Random
 
 @Preview
 @Composable
-fun QuickEyeGame(content:  (bool:Boolean) -> Unit = {}) {
+fun QuickEyeGame(content:  (bool:Boolean, rightAnswer:Int, totalAnswer:Int) -> Unit = {bool,rightAnswer,total ->}) {
     var isGameOver by remember { mutableStateOf(false) }
-    var isAlert by remember { mutableStateOf(false) }
+        var isAlert by remember { mutableStateOf(false) }
+ rightGameAnswers = 1
+ wrongGameAnswers = 1
 
     var timeLeft by remember { mutableStateOf(20L) }
     var isTimeUp by remember { mutableStateOf(false) }
@@ -67,7 +70,7 @@ fun QuickEyeGame(content:  (bool:Boolean) -> Unit = {}) {
 
 
     if (isGameOver) {
-        content(true)
+        content(true, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
     }
 
     if (isTimeUp) {
@@ -77,7 +80,7 @@ fun QuickEyeGame(content:  (bool:Boolean) -> Unit = {}) {
                 isGameOver = true
 
             } else {
-                content(false)
+                content(false, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
             }
         }
 
@@ -110,14 +113,19 @@ fun QuickEyeGame(content:  (bool:Boolean) -> Unit = {}) {
 
              }
 
-                 Image(
-                     modifier = Modifier
-                         .fillMaxWidth()
-                         .fillMaxHeight(),
-                     painter = painterResource(id = R.drawable.iconbg),
-                     contentDescription = "bg"
-                 )*/
+                 */
+
             QuickCardCalculationGameScreen() { /*content() */ }
+            Image(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(),
+                painter = painterResource(id = R.drawable.iconbg),
+                contentDescription = "bg"
+            )
+            if (isAlert) {
+                GameAlertingTime()
+            }
         }
     }
 

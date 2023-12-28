@@ -33,7 +33,7 @@ import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
-
+import androidx.activity.addCallback
 @AndroidEntryPoint
 class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfileViewModel>() {
 
@@ -58,7 +58,10 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
     var userPhone = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {

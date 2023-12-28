@@ -16,7 +16,7 @@ import com.teamx.equiz.databinding.FragmentReferralBinding
 import com.teamx.equiz.ui.fragments.Auth.login.LoginViewModel
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
-
+import androidx.activity.addCallback
 @AndroidEntryPoint
 class ReferralFragment : BaseFragment<FragmentReferralBinding, ReferralViewModel>(),
     DialogHelperClass.Companion.DialogInviteAnotherCallBack {
@@ -33,7 +33,10 @@ class ReferralFragment : BaseFragment<FragmentReferralBinding, ReferralViewModel
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {

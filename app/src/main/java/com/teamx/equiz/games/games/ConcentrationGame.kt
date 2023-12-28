@@ -46,10 +46,11 @@ import kotlinx.coroutines.delay
 
 @Preview
 @Composable
-fun ConcentrationGame(content: (bool: Boolean) -> Unit = {}) {
+fun ConcentrationGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit = { bool, rightAnswer, total -> }) {
     var isGameOver by remember { mutableStateOf(false) }
     var isAlert by remember { mutableStateOf(false) }
-
+     rightGameAnswers = 1
+     wrongGameAnswers = 1
     var timeLeft by remember { mutableStateOf(20L) }
     var isTimeUp by remember { mutableStateOf(false) }
     var timerRunning by remember { mutableStateOf(true) }
@@ -59,10 +60,10 @@ fun ConcentrationGame(content: (bool: Boolean) -> Unit = {}) {
         // Start the timer
         object : CountDownTimer(timeLeft * 1000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                  if (timerRunning) {
+                if (timerRunning) {
                     timeLeft = millisUntilFinished / 1000
                 }
-                if (timeLeft<5){
+                if (timeLeft < 5) {
                     isAlert = true
                 }
             }
@@ -75,7 +76,7 @@ fun ConcentrationGame(content: (bool: Boolean) -> Unit = {}) {
 
 
     if (isGameOver) {
-        content(true)
+        content(true, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
     }
 
     if (isTimeUp) {
@@ -85,7 +86,7 @@ fun ConcentrationGame(content: (bool: Boolean) -> Unit = {}) {
                 isGameOver = true
 
             } else {
-                content(false)
+                content(false, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
             }
         }
 

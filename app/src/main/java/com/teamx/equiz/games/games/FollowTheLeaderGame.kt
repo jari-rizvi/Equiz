@@ -49,9 +49,11 @@ import kotlinx.coroutines.delay
 import java.util.LinkedList
 import kotlin.random.Random
 @Composable
-fun FollowTheLeaderGame(content: (boolean:Boolean) -> Unit) {
+fun FollowTheLeaderGame(content: (boolean:Boolean, rightAnswer:Int, totalAnswer:Int) -> Unit) {
     var isGameOver by remember { mutableStateOf(false) }
-    var isAlert by remember { mutableStateOf(false) }
+        var isAlert by remember { mutableStateOf(false) }
+ rightGameAnswers = 1
+ wrongGameAnswers = 1
     var isTimeUp by remember { mutableStateOf(false) }
     var timeLeft by remember { mutableStateOf(20L) }
 
@@ -82,7 +84,7 @@ fun FollowTheLeaderGame(content: (boolean:Boolean) -> Unit) {
     if (isGameOver) {
 
 
-        content(true)
+        content(true, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
 
     }
     if (isTimeUp) {
@@ -92,7 +94,7 @@ fun FollowTheLeaderGame(content: (boolean:Boolean) -> Unit) {
                 isGameOver = true
 
             } else {
-                content(false)
+                content(false, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
             }
         }
 

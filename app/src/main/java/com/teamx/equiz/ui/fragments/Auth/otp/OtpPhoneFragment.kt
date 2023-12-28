@@ -17,7 +17,7 @@ import com.teamx.equiz.databinding.FragmentOtpPhoneBinding
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONException
-
+import androidx.activity.addCallback
 @AndroidEntryPoint
 class OtpPhoneFragment : BaseFragment<FragmentOtpPhoneBinding, OtpViewModel>() {
 
@@ -33,7 +33,10 @@ class OtpPhoneFragment : BaseFragment<FragmentOtpPhoneBinding, OtpViewModel>() {
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
 
         options = navOptions {
             anim {

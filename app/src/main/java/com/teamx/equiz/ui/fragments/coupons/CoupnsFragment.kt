@@ -19,7 +19,7 @@ import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentCouponsBinding
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
-
+import androidx.activity.addCallback
 @AndroidEntryPoint
 class CoupnsFragment : BaseFragment<FragmentCouponsBinding, CouponsViewModel>(),CouponsAdapter.CallBackCoupon  {
 
@@ -35,7 +35,10 @@ class CoupnsFragment : BaseFragment<FragmentCouponsBinding, CouponsViewModel>(),
     private lateinit var options: NavOptions
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {

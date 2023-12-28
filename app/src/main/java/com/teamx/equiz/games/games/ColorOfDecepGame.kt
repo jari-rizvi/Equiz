@@ -48,9 +48,11 @@ enum class ColorBundle {
 
 
 @Composable
-fun TouchTheColorGameScreen(content: (bool:Boolean) -> Unit) {
+fun TouchTheColorGameScreen(content: (bool:Boolean, rightAnswer:Int, totalAnswer:Int) -> Unit) {
     var isGameOver by remember { mutableStateOf(false) }
-    var isAlert by remember { mutableStateOf(false) }
+        var isAlert by remember { mutableStateOf(false) }
+ rightGameAnswers = 1
+ wrongGameAnswers = 1
     var isTimeUp by remember { mutableStateOf(false) }
 
     var timeLeft by remember { mutableStateOf(20L) }
@@ -78,7 +80,7 @@ fun TouchTheColorGameScreen(content: (bool:Boolean) -> Unit) {
 
 
     if (isGameOver) {
-        content(true)
+        content(true, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
     }
     var score by remember { mutableStateOf(0) }
     var spanCount by remember { mutableStateOf(2) }
@@ -89,7 +91,7 @@ fun TouchTheColorGameScreen(content: (bool:Boolean) -> Unit) {
     if (isGameOver) {
 
 
-        content(true)
+        content(true, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
 
     }
     if (isTimeUp) {
@@ -99,7 +101,7 @@ fun TouchTheColorGameScreen(content: (bool:Boolean) -> Unit) {
                 isGameOver = true
 
             } else {
-                content(false)
+                content(false, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
             }
         }
 
@@ -318,5 +320,5 @@ private fun updateScore(
 @Preview
 @Composable
 fun PreviewTouchTheColorGameScreen() {
-    TouchTheColorGameScreen() {}
+    TouchTheColorGameScreen() {bool,rightAnswer,total ->}
 }

@@ -22,7 +22,7 @@ import com.teamx.equiz.databinding.FragmentProductProfileBinding
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONException
-
+import androidx.activity.addCallback
 @AndroidEntryPoint
 class ProductProfileFragment :
     BaseFragment<FragmentProductProfileBinding, ProductProfileViewModel>() {
@@ -46,7 +46,10 @@ class ProductProfileFragment :
     private var tabLayoutMediator: TabLayoutMediator? = null
     private lateinit var handler: Handler
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }

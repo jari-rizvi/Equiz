@@ -19,7 +19,7 @@ import com.teamx.equiz.utils.DialogHelperClass
 import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONException
-
+import androidx.activity.addCallback
 @AndroidEntryPoint
 class SignupPhoneFragment : BaseFragment<FragmentSignupPhoneBinding, SignupViewModel>() {
 
@@ -38,7 +38,10 @@ class SignupPhoneFragment : BaseFragment<FragmentSignupPhoneBinding, SignupViewM
     private var password: String? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {

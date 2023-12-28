@@ -20,7 +20,7 @@ import com.teamx.equiz.databinding.FragmentNewsBinding
 import com.teamx.equiz.databinding.FragmentNewsDetailBinding
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
-
+import androidx.activity.addCallback
 @AndroidEntryPoint
 class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding, NewsViewModel>() {
 
@@ -37,7 +37,10 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding, NewsViewModel
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {

@@ -19,7 +19,7 @@ import com.teamx.equiz.ui.fragments.orders.OrderListener
 import com.teamx.equiz.ui.fragments.orders.processing.ProcessingAdapter
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
-
+import androidx.activity.addCallback
 @AndroidEntryPoint
 class CancelledFragment : BaseFragment<FragmentCanclledBinding, CancelledViewModel>(),
     OrderListener {
@@ -38,7 +38,10 @@ class CancelledFragment : BaseFragment<FragmentCanclledBinding, CancelledViewMod
     lateinit var cancelOrderArrayList: ArrayList<Data>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {

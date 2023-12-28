@@ -24,7 +24,7 @@ import java.io.File
 import java.io.FileOutputStream
 import java.util.Calendar
 import java.util.Date
-
+import androidx.activity.addCallback
 
 @AndroidEntryPoint
 class RecieptFragment : BaseFragment<FragmentRecieptBinding, WishlistViewModel>() {
@@ -45,7 +45,10 @@ class RecieptFragment : BaseFragment<FragmentRecieptBinding, WishlistViewModel>(
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {

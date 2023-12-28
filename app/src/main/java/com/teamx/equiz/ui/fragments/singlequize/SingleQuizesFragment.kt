@@ -24,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-
+import androidx.activity.addCallback
 @AndroidEntryPoint
 class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuizesViewModel>() {
 
@@ -46,7 +46,10 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {

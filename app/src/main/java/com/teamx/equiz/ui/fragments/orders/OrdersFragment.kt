@@ -15,7 +15,7 @@ import com.teamx.equiz.databinding.FragmentOrdersBinding
 import com.teamx.equiz.databinding.FragmentProfileBinding
 import com.teamx.equiz.ui.fragments.Auth.login.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
-
+import androidx.activity.addCallback
 @AndroidEntryPoint
 class OrdersFragment : BaseFragment<FragmentOrdersBinding, LoginViewModel>() {
 
@@ -31,7 +31,10 @@ class OrdersFragment : BaseFragment<FragmentOrdersBinding, LoginViewModel>() {
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {

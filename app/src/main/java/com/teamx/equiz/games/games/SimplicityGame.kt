@@ -51,7 +51,7 @@ data class Question(val equation: String, val choices: List<Int>, val correctAns
 
 @Preview
 @Composable
-fun ImplicityGameScreen(content: (bool: Boolean) -> Unit = {}) {
+fun ImplicityGameScreen(content: (bool: Boolean, rightAnswer:Int, totalAnswer:Int) -> Unit = {bool,rightAnswer,total ->}) {
     var score by remember { mutableStateOf(0) }
     var questionIndex by remember { mutableStateOf(0) }
     var gameState by remember { mutableStateOf(true) }
@@ -70,7 +70,9 @@ fun ImplicityGameScreen(content: (bool: Boolean) -> Unit = {}) {
 
 
         var isGameOver by remember { mutableStateOf(false) }
-        var isAlert by remember { mutableStateOf(false) }
+            var isAlert by remember { mutableStateOf(false) }
+ rightGameAnswers = 1
+ wrongGameAnswers = 1
         var isTimeUp by remember { mutableStateOf(false) }
 
         var timeLeft by remember { mutableStateOf(20L) }
@@ -97,7 +99,7 @@ fun ImplicityGameScreen(content: (bool: Boolean) -> Unit = {}) {
         if (isGameOver) {
 
 
-            content(true)
+            content(true, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
 
         }
 
@@ -108,7 +110,7 @@ fun ImplicityGameScreen(content: (bool: Boolean) -> Unit = {}) {
                     isGameOver = true
 
                 } else {
-                    content(false)
+                    content(false, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
                 }
             }
 

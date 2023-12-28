@@ -47,9 +47,11 @@ enum class Shape {
 }
 
 @Composable
-fun MissingPieceGameScreen(content: (bool:Boolean) -> Unit) {
+fun MissingPieceGameScreen(content: (bool:Boolean, rightAnswer:Int, totalAnswer:Int) -> Unit) {
     var isGameOver by remember { mutableStateOf(false) }
-    var isAlert by remember { mutableStateOf(false) }
+        var isAlert by remember { mutableStateOf(false) }
+ rightGameAnswers = 1
+ wrongGameAnswers = 1
 
     var timeLeft by remember { mutableStateOf(20L) }
 
@@ -76,7 +78,7 @@ fun MissingPieceGameScreen(content: (bool:Boolean) -> Unit) {
 
 
     if (isGameOver) {
-        content(true)
+        content(true, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
     }
     var score by remember { mutableStateOf(0) }
     var currentShapes by remember { mutableStateOf(generateShapes()) }
@@ -90,7 +92,7 @@ fun MissingPieceGameScreen(content: (bool:Boolean) -> Unit) {
                 isGameOver = true
 
             } else {
-                content(false)
+                content(false, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
             }
         }
 

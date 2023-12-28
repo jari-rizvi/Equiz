@@ -18,7 +18,7 @@ import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONException
 import java.util.regex.Pattern
-
+import androidx.activity.addCallback
 @AndroidEntryPoint
 class ForgotPassFragment : BaseFragment<FragmentForgotPassBinding, ForgotPassViewModel>() {
 
@@ -35,7 +35,10 @@ class ForgotPassFragment : BaseFragment<FragmentForgotPassBinding, ForgotPassVie
     private var UserCredentials: String? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {

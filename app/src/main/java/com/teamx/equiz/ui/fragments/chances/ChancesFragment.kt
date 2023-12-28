@@ -12,7 +12,7 @@ import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.databinding.FragmentChancesBinding
 import com.teamx.equiz.ui.fragments.Auth.login.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
-
+import androidx.activity.addCallback
 @AndroidEntryPoint
 class ChancesFragment : BaseFragment<FragmentChancesBinding, ChancesViewModel>() {
 
@@ -28,7 +28,10 @@ class ChancesFragment : BaseFragment<FragmentChancesBinding, ChancesViewModel>()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {

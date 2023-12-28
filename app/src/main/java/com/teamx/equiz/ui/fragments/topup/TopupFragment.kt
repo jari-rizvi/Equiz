@@ -15,7 +15,7 @@ import com.teamx.equiz.databinding.FragmentTopUpBinding
 import com.teamx.equiz.ui.fragments.ecommerce.paymentMethods.OnTopSellerListener
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
-
+import androidx.activity.addCallback
 @AndroidEntryPoint
 class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTopSellerListener,
     DialogHelperClass.Companion.DialogInviteAnotherCallBack {
@@ -34,7 +34,10 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
     var amount = "0"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {

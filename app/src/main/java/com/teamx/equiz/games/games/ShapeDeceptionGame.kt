@@ -60,9 +60,11 @@ enum class ShapeBundle {
 
 
 @Composable
-fun TouchTheShapesGameScreen(content: (boolean: Boolean) -> Unit) {
+fun TouchTheShapesGameScreen(content: (boolean: Boolean, rightAnswer:Int, totalAnswer:Int) -> Unit) {
     var isGameOver by remember { mutableStateOf(false) }
-    var isAlert by remember { mutableStateOf(false) }
+        var isAlert by remember { mutableStateOf(false) }
+ rightGameAnswers = 1
+ wrongGameAnswers = 1
 
     var timeLeft by remember { mutableStateOf(20L) }
     var isTimeUp by remember { mutableStateOf(false) }
@@ -89,7 +91,7 @@ fun TouchTheShapesGameScreen(content: (boolean: Boolean) -> Unit) {
 
 
     if (isGameOver) {
-        content(true)
+        content(true, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
     }
 
     if (isTimeUp) {
@@ -99,7 +101,7 @@ fun TouchTheShapesGameScreen(content: (boolean: Boolean) -> Unit) {
                 isGameOver = true
 
             } else {
-                content(false)
+                content(false, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
             }
         }
 
@@ -471,7 +473,7 @@ private fun updateScore(
 @Preview
 @Composable
 fun PreviewTouchTheShapesGameScreen() {
-    TouchTheShapesGameScreen {}
+    TouchTheShapesGameScreen {bool,rightAnswer,total -> }
 }
 
 

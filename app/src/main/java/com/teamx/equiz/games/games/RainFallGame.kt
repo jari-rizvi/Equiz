@@ -57,10 +57,12 @@ fun LazyListState.isScrolledToEnd() =
     layoutInfo.visibleItemsInfo.lastOrNull()?.index == layoutInfo.totalItemsCount - 1
 
 @Composable
-fun RainFallGame(content:  (boolean:Boolean) -> Unit) {
+fun RainFallGame(content:  (boolean:Boolean, rightAnswer:Int, totalAnswer:Int) -> Unit) {
 
     var isGameOver by remember { mutableStateOf(false) }
-    var isAlert by remember { mutableStateOf(false) }
+        var isAlert by remember { mutableStateOf(false) }
+ rightGameAnswers = 1
+ wrongGameAnswers = 1
 
     var timeLeft by remember { mutableStateOf(20L) }
     var isTimeUp by remember { mutableStateOf(false) }
@@ -87,7 +89,7 @@ fun RainFallGame(content:  (boolean:Boolean) -> Unit) {
 
 
     if (isGameOver) {
-        content(true)
+        content(true, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
     }
 
 
@@ -98,7 +100,7 @@ fun RainFallGame(content:  (boolean:Boolean) -> Unit) {
                 isGameOver = true
 
             } else {
-                content(false)
+                content(false, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
             }
         }
 
@@ -498,7 +500,7 @@ fun checkDrawableRain(bool: Boolean): Int {
 @Preview
 @Composable
 fun previewRainGame() {
-    RainFallGame {
+    RainFallGame {bool,rightAnswer,total ->
 
     }
 }

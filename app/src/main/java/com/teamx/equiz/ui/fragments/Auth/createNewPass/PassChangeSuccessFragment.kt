@@ -3,6 +3,7 @@ package com.teamx.equiz.ui.fragments.Auth.createNewPass
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.addCallback
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
@@ -33,7 +34,10 @@ class PassChangeSuccessFragment :
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {

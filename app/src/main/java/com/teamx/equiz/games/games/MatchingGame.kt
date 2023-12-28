@@ -35,10 +35,12 @@ var arr = arrayListOf<MemoryItem>()
 @RequiresApi(Build.VERSION_CODES.O)
 @Preview
 @Composable
-fun MatchingStepGame(modifier: Modifier=Modifier, content:   (boolean:Boolean) -> Unit={}) {
+fun MatchingStepGame(modifier: Modifier=Modifier, content:   (boolean:Boolean, rightAnswer:Int, totalAnswer:Int) -> Unit={bool,rightAnswer,total ->}) {
 
     var isGameOver by remember { mutableStateOf(false) }
-    var isAlert by remember { mutableStateOf(false) }
+        var isAlert by remember { mutableStateOf(false) }
+ rightGameAnswers = 1
+ wrongGameAnswers = 1
     var isTimeUp by remember { mutableStateOf(false) }
     var timeLeft by remember { mutableStateOf(20L) }
 
@@ -75,7 +77,7 @@ fun MatchingStepGame(modifier: Modifier=Modifier, content:   (boolean:Boolean) -
         }.start()
     }
     if (isGameOver) {
-        content(true)
+        content(true, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
     }
 
     if (isTimeUp) {
@@ -85,7 +87,7 @@ fun MatchingStepGame(modifier: Modifier=Modifier, content:   (boolean:Boolean) -
                 isGameOver = true
 
             } else {
-                content(false)
+                content(false, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
             }
         }
 

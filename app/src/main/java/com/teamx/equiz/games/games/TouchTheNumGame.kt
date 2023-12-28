@@ -293,7 +293,7 @@ private fun updateScore(boxes: List<NumberBox>, box: NumberBox, index: Int, onCl
 
 @Composable
 fun PreviewTouchTheNumbersGameScreen() {
-    TouchTheNumGamePlus {}
+    TouchTheNumGamePlus {bool,rightAnswer,total ->}
 }
 
 
@@ -302,10 +302,12 @@ fun PreviewTouchTheNumbersGameScreen() {
 
 @Preview
 @Composable
-fun TouchTheNumGamePlus(content:  (bool:Boolean) -> Unit = {}) {
+fun TouchTheNumGamePlus(content:  (bool:Boolean, rightAnswer:Int, totalAnswer:Int) -> Unit = {bool,rightAnswer,total ->}) {
 
     var isGameOver by remember { mutableStateOf(false) }
-    var isAlert by remember { mutableStateOf(false) }
+        var isAlert by remember { mutableStateOf(false) }
+ rightGameAnswers = 1
+ wrongGameAnswers = 1
     var isTimeUp by remember { mutableStateOf(false) }
 
     var timeLeft by remember { mutableStateOf(20L) }
@@ -335,7 +337,7 @@ fun TouchTheNumGamePlus(content:  (bool:Boolean) -> Unit = {}) {
     if (isGameOver) {
 
 
-        content(true)
+        content(true, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
 
     }
 
@@ -346,7 +348,7 @@ fun TouchTheNumGamePlus(content:  (bool:Boolean) -> Unit = {}) {
                 isGameOver = true
 
             } else {
-                content(false)
+                content(false, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
             }
         }
 

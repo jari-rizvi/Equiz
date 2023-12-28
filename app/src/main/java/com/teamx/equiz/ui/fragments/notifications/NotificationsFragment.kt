@@ -23,6 +23,8 @@ import com.teamx.equiz.ui.fragments.coupons.CouponsAdapter
 import com.teamx.equiz.ui.fragments.orders.ViewPagerAdapter
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
+import androidx.activity.addCallback
+import androidx.navigation.fragment.findNavController
 
 @AndroidEntryPoint
 class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, NotificaitonsViewModel>() {
@@ -40,7 +42,10 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
     lateinit var notificationArrayList: ArrayList<NewNotification>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {

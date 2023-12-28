@@ -152,7 +152,9 @@ fun GridList() {
                     restart = true
                     iteration++
 
-
+                rightGameAnswers++
+                }else{
+                    wrongGameAnswers++
                 }
 //                Log.d("123123", "AscendingObjects:items $it")
                 Log.d("123123",

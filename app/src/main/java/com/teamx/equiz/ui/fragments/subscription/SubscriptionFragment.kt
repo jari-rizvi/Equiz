@@ -14,7 +14,7 @@ import com.teamx.equiz.databinding.FragmentSubscriptionBinding
 import com.teamx.equiz.ui.fragments.Auth.login.LoginViewModel
 import com.teamx.equiz.ui.fragments.referral.ReferralViewModel
 import dagger.hilt.android.AndroidEntryPoint
-
+import androidx.activity.addCallback
 @AndroidEntryPoint
 class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, SubscriptionViewModel>() {
 
@@ -30,7 +30,10 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {

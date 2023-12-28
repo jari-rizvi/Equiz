@@ -54,10 +54,12 @@ import kotlin.random.Random
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
-fun TapTheColorGame(content: (bool:Boolean) -> Unit) {
+fun TapTheColorGame(content: (bool:Boolean, rightAnswer:Int, totalAnswer:Int) -> Unit) {
 
     var isGameOver by remember { mutableStateOf(false) }
-    var isAlert by remember { mutableStateOf(false) }
+        var isAlert by remember { mutableStateOf(false) }
+ rightGameAnswers = 1
+ wrongGameAnswers = 1
     var isTimeUp by remember { mutableStateOf(false) }
 
     var timeLeft by remember { mutableStateOf(20L) }
@@ -87,7 +89,7 @@ fun TapTheColorGame(content: (bool:Boolean) -> Unit) {
     if (isGameOver) {
 
 
-        content(true)
+        content(true, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
 
     }
 
@@ -98,7 +100,7 @@ fun TapTheColorGame(content: (bool:Boolean) -> Unit) {
                 isGameOver = true
 
             } else {
-                content(false)
+                content(false, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
             }
         }
 

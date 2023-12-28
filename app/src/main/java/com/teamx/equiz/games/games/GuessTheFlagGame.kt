@@ -2,6 +2,7 @@ package com.teamx.equiz.games.games
 
 
 import android.os.CountDownTimer
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -14,12 +15,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowRight
-import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -35,14 +32,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Dialog
 import com.teamx.equiz.R
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 
+var rightGameAnswersGuess = 1
+var wrongGameAnswersGuess = 1
 
 @Composable
-fun GuessTheFlagGame(content:  (boo:Boolean) -> Unit={}) {
+fun GuessTheFlagGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit = { bool, rightAnswer, total -> }) {
     var score by remember { mutableStateOf(0) }
     var currentFlagIndex by remember { mutableStateOf(0) }
     var guessedCountry by remember { mutableStateOf(TextFieldValue()) }
@@ -50,6 +48,7 @@ fun GuessTheFlagGame(content:  (boo:Boolean) -> Unit={}) {
     var isOptionSelected by remember { mutableStateOf(false) }
     var isGameOver by remember { mutableStateOf(false) }
     var isAlert by remember { mutableStateOf(false) }
+
 
     var timeLeft by remember { mutableStateOf(20L) }
     var timerRunning by remember { mutableStateOf(true) }
@@ -59,6 +58,7 @@ fun GuessTheFlagGame(content:  (boo:Boolean) -> Unit={}) {
     val flags = listOf(
         R.drawable.usa_flag,
         R.drawable.uk_flag,
+        R.drawable.uk_flag,
         R.drawable.france_flag
         // Add more flags as needed
     )
@@ -67,7 +67,7 @@ fun GuessTheFlagGame(content:  (boo:Boolean) -> Unit={}) {
         val correctCountry = getCountryName(currentFlagIndex)
         val tempList = mutableListOf(correctCountry)
 
-        while (tempList.size < 3) {
+        while (tempList.size < 4) {
             val randomCountry = getCountryName((0 until flags.size).random())
             if (!tempList.contains(randomCountry)) {
                 tempList.add(randomCountry)
@@ -79,7 +79,10 @@ fun GuessTheFlagGame(content:  (boo:Boolean) -> Unit={}) {
 
     fun checkAnswer() {
         if (guessedCountry.text.equals(getCountryName(currentFlagIndex), ignoreCase = true)) {
+            rightGameAnswersGuess++
             score++
+        } else {
+            wrongGameAnswersGuess++
         }
         currentFlagIndex++
         if (currentFlagIndex >= flags.size) {
@@ -118,7 +121,11 @@ fun GuessTheFlagGame(content:  (boo:Boolean) -> Unit={}) {
                 isGameOver = true
 
             } else {
-                content(false)
+                content(
+                    false,
+                    rightGameAnswersGuess,
+                    (rightGameAnswersGuess + wrongGameAnswersGuess)
+                )
             }
         }
 
@@ -144,36 +151,89 @@ fun GuessTheFlagGame(content:  (boo:Boolean) -> Unit={}) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Image(
-            painter = painterResource(id = flags[currentFlagIndex]),
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .size(200.dp)
-                .padding(16.dp)
-        )
+        /* Image(
+             painter = painterResource(id = flags[currentFlagIndex]),
+             contentDescription = null,
+             contentScale = ContentScale.Crop,
+             modifier = Modifier
+                 .size(200.dp)
+                 .padding(16.dp)
+         )*/
+        Text(text = getCountryName(currentFlagIndex))
 
-        options.forEach { country ->
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp)
-                    .clickable {
-                        guessedCountry = TextFieldValue(country)
-                        isOptionSelected = true
+        /* options.forEach { country ->
+             Row(
+                 modifier = Modifier
+                     .fillMaxWidth()
+                     .padding(8.dp)
+                     .clickable {
+                         guessedCountry = TextFieldValue(country)
+                         isOptionSelected = true
+                     }
+             ) {
+                 RadioButton(
+                     selected = guessedCountry.text.equals(country, ignoreCase = true),
+                     onClick = null,
+                     modifier = Modifier
+                         .padding(end = 8.dp)
+                 )
+                 Text(text = country)
+             }
+         }*/
+
+        Column(
+            modifier = Modifier
+                .wrapContentSize()
+                .padding(6.dp),
+            verticalArrangement = Arrangement.Center
+
+        ) {
+            repeat(2) { row ->
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    repeat(2) { column ->
+                        val index = row * 2 + column
+                        if (options.isNotEmpty()) {
+                            val country = options.get(index)
+                            Log.d("123123", "AddictGame:$index ")/*counter*/
+                            /*   RadioButton(
+                                   selected = guessedCountry.text.equals(country, ignoreCase = true),
+                                   onClick = null,
+                                   modifier = Modifier
+                                       .padding(end = 8.dp).clickable {
+                                           guessedCountry = TextFieldValue(country)
+                                           isOptionSelected = true
+                                       }
+                               )
+                               Text(text = country)*/
+                            Image(
+                                painter = painterResource(id = flags[index]),
+                                contentDescription = null,
+                                contentScale = ContentScale.Crop,
+                                modifier = Modifier
+                                    .size(80.dp)
+                                    .padding(6.dp)
+                                    .clickable {
+                                        guessedCountry = TextFieldValue(country)
+                                        isOptionSelected = true
+                                    }
+                            )
+                        }
+
                     }
-            ) {
-                RadioButton(
-                    selected = guessedCountry.text.equals(country, ignoreCase = true),
-                    onClick = null,
-                    modifier = Modifier
-                        .padding(end = 8.dp)
-                )
-                Text(text = country)
+                }
             }
+            /*LaunchedEffect(Unit) {
+                delay(1300)
+//                gameStarted = false
+//                changable = true
+            }*/
         }
 
-        Button(
+
+        /*Button(
             onClick = { checkAnswer() },
             modifier = Modifier.padding(16.dp)
         ) {
@@ -181,12 +241,12 @@ fun GuessTheFlagGame(content:  (boo:Boolean) -> Unit={}) {
                 Text("Next Flag")
                 Icon(imageVector = Icons.Default.ArrowRight, contentDescription = null)
             }
-        }
+        }*/
 
         Text("Score: $score", style = MaterialTheme.typography.bodySmall)
 
         if (isGameOver) {
-            content(true)
+            content(true, rightGameAnswersGuess, (rightGameAnswersGuess + wrongGameAnswersGuess))
          /*   Dialog(
                 onDismissRequest = { isGameOver = false },
 
@@ -227,14 +287,125 @@ fun getCountryName(index: Int): String {
     return when (index) {
         0 -> "United States"
         1 -> "United Kingdom"
-        2 -> "France"
+        2 -> "United Kingdom2"
+        3 -> "France"
         // Add more country names as needed
         else -> ""
     }
 }
 
-@Preview(showBackground = true)
+fun getCountryName2(index: Int): String {
+    return when (index) {
+        0 -> "Brazil"
+        1 -> "Canada"
+        2 -> "China"
+        3 -> "Colombia"
+        4 -> "Denmark"
+        5 -> "Egypt"
+        6 -> "Finland"
+        7 -> "France"
+        8 -> "Georgia"
+        9 -> "Germany"
+        10 -> "Greece"
+        11 -> "Iceland"
+        12 -> "India"
+        13 -> "Indonesia"
+        14 -> "Iran"
+        15 -> "Iraq"
+        16 -> "Ireland"
+        17 -> "Japan"
+        18 -> "Kuwait"
+        19 -> "Malaysia"
+        20 -> "Mexico"
+        21 -> "Morocco"
+        22 -> "Netherlands"
+        23 -> "New Zealand"
+        24 -> "Nigeria"
+        25 -> "Norway"
+        26 -> "Oman"
+        27 -> "Pakistan"
+        28 -> "Portugal"
+        29 -> "Qatar"
+        30 -> "Saudi Arabia"
+        31 -> "Singapore"
+        32 -> "South Africa"
+        33 -> "Spain"
+        34 -> "Sri Lanka"
+        35 -> "Sweden"
+        36 -> "Switzerland"
+        37 -> "Syria"
+        38 -> "Thailand"
+        39 -> "Turkey"
+        40 -> "United Arab Emirates"
+        41 -> "United Kingdom"
+        42 -> "United States"
+        43 -> "Zimbabwe"
+        44 -> "Argentina"
+        45 -> "Australia"
+        46 -> "Bangladesh"
+        47 -> "Belgium"
+        // Add more country names as needed
+        else -> ""
+    }
+}
+
+@Preview
 @Composable
 fun FlagGamePreview() {
-    GuessTheFlagGame()
+    GuessTheFlagGame() { _, _, _ -> }
 }
+
+
+val flags = listOf(
+    R.drawable.brazil_31,
+    R.drawable.canada_08,
+    R.drawable.china_17,
+    R.drawable.colombia_39,
+    R.drawable.denmark_30,
+    R.drawable.egypt_48,
+    R.drawable.finland_37,
+    R.drawable.france_23,
+    R.drawable.georgia_44,
+    R.drawable.germany_16,
+    R.drawable.greece_47,
+    R.drawable.iceland_50,
+    R.drawable.india_24,
+    R.drawable.indonesia_33,
+    R.drawable.iran_34,
+    R.drawable.iraq_35,
+    R.drawable.ireland_38,
+    R.drawable.japan_25,
+    R.drawable.kuwait_36,
+    R.drawable.malaysia_41,
+    R.drawable.mexico_42,
+    R.drawable.morocco_22,
+    R.drawable.netherland_20,
+    R.drawable.new_zealand_11,
+    R.drawable.nigeria_49,
+    R.drawable.norway_10,
+    R.drawable.oman_18,
+    R.drawable.pakistan_02,
+    R.drawable.portugal_46,
+    R.drawable.qatar_09,
+    R.drawable.saudi_arabia_28,
+    R.drawable.singapore_27,
+    R.drawable.south_africa_19,
+    R.drawable.spain_21,
+    R.drawable.srilanka_06,
+    R.drawable.sweden_12,
+    R.drawable.switzerland_13,
+    R.drawable.syria_14,
+    R.drawable.thailand_43,
+    R.drawable.turkey_07,
+    R.drawable.uae_04,
+    R.drawable.uk_05,
+    R.drawable.usa_03,
+    R.drawable.zimbabwe_26,
+    R.drawable.argentina_32,
+    R.drawable.australia_29,
+    R.drawable.bangladesh_15,
+    R.drawable.belgium_45
+
+)
+
+

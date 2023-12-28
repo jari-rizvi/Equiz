@@ -4,6 +4,7 @@ package com.teamx.equiz.ui.fragments.dashboard
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.activity.addCallback
 import androidx.annotation.Keep
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
@@ -27,6 +28,7 @@ import com.teamx.equiz.ui.fragments.quizes.adapter.QuizesAdapter
 import com.teamx.equiz.ui.fragments.quizes.adapter.QuizesTitleAdapter
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.system.exitProcess
 
 @AndroidEntryPoint
 class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewModel>(),
@@ -49,7 +51,13 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
     lateinit var quizAdapter: QuizesAdapter
     lateinit var quizArrayList: ArrayList<Data>
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
+
+        
+
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {
