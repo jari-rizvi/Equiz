@@ -38,6 +38,8 @@ class NetworkCallPoints {
         const val GET_TOP_WINNERS ="api/game/all"
         const val GET_QUIZ_TITLE ="api/quiz/tile"
         const val GET_NOTIFICATION ="api/notification/find"
+        const val GET_PLAN ="api/payment/getPlan"
+
 
 
         const val UPLOAD_IMGS = "api/users/upload"

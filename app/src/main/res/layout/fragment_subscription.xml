@@ -9,6 +9,31 @@
         android:layout_height="match_parent"
         android:background="@drawable/bgg">
 
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/main_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:elevation="@dimen/_5sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <include
+                android:id="@+id/bottomSheetLayout"
+                layout="@layout/bottom_sheet_stripe" />
+
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+
+
+
         <ImageView
             android:id="@+id/btnback"
             android:layout_width="wrap_content"
@@ -446,12 +471,12 @@
 
 
                 <TextView
-                    android:id="@+id/btnSignup"
+                    android:id="@+id/btnBuy"
                     style="@style/popins_regular"
                     android:layout_width="286dp"
                     android:layout_height="@dimen/_40sdp"
                     android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginVertical="@dimen/_15sdp"
                     android:background="@drawable/card_background_border"
                     android:backgroundTint="@color/white"
                     android:gravity="center"
@@ -465,6 +490,8 @@
 
 
         </ScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         <!--        <androidx.recyclerview.widget.RecyclerView-->

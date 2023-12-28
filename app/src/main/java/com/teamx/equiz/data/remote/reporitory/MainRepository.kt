@@ -78,6 +78,7 @@ class MainRepository @Inject constructor(
     ) = apiService.getOrders(orderStatus)
 
     suspend fun getNotifications() = apiService.getNotifications()
+    suspend fun getPlan() = apiService.getPlan()
 
     suspend fun getQuizTitle(
         @Query("country") country: String,

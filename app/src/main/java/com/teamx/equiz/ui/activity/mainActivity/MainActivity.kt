@@ -9,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseActivity
@@ -215,7 +216,13 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
     override fun OkClick() {
 
     }
+    companion object {
+        private const val STATE_SAVE_STATE = "save_state"
+        private const val STATE_KEEP_FRAGS = "keep_frags"
+        private const val STATE_HELPER = "helper"
+        var bottomNav: BottomNavigationView? = null
 
+    }
 
     private fun setBottomNavigationWithNavController(savedInstanceState: Bundle?) {
 

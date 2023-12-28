@@ -12,6 +12,7 @@ import com.teamx.equiz.data.models.categoriesData.GetAllCategoriesData
 import com.teamx.equiz.data.models.coupons.CouponsData
 import com.teamx.equiz.data.models.editProfile.EditProfileData
 import com.teamx.equiz.data.models.forgotpassData.ForgotPassData
+import com.teamx.equiz.data.models.getPlan.GerPlanData
 import com.teamx.equiz.data.models.getProductById.GetProductByIdData
 import com.teamx.equiz.data.models.getProducts.GetProductData
 import com.teamx.equiz.data.models.getcart.GetCartData
@@ -210,6 +211,10 @@ interface ApiService {
     suspend fun getNotifications(
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<NotificationData>
+   @GET(NetworkCallPoints.GET_PLAN)
+    suspend fun getPlan(
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<GerPlanData>
 
     @GET(NetworkCallPoints.GET_QUIZ_TITLE)
     suspend fun getQuizTitle(
