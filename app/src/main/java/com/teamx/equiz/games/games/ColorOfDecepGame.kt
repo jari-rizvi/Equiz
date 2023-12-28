@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
@@ -48,7 +47,6 @@ import com.teamx.equiz.games.ui.theme.DeceptionYellow
 import kotlin.random.Random
 
 
-
 data class ColorBox(val colorName: ColorBundle, val color: Color)
 
 enum class ColorBundle {
@@ -56,12 +54,13 @@ enum class ColorBundle {
 }
 
 
+var rightGameAnswersColor = 1
+var totalGameAnswersColor = 1
+
 @Composable
-fun TouchTheColorGameScreen(content: (bool:Boolean, rightAnswer:Int, totalAnswer:Int) -> Unit) {
+fun TouchTheColorGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit) {
     var isGameOver by remember { mutableStateOf(false) }
-        var isAlert by remember { mutableStateOf(false) }
- rightGameAnswers = 1
- wrongGameAnswers = 1
+    var isAlert by remember { mutableStateOf(false) }
     var isTimeUp by remember { mutableStateOf(false) }
 
     var timeLeft by remember { mutableStateOf(10L) }
@@ -89,7 +88,7 @@ fun TouchTheColorGameScreen(content: (bool:Boolean, rightAnswer:Int, totalAnswer
 
 
     if (isGameOver) {
-        content(true, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
+        content(true, rightGameAnswersColor, totalGameAnswersColor)
     }
     var score by remember { mutableStateOf(0) }
     var spanCount by remember { mutableStateOf(2) }
@@ -100,7 +99,7 @@ fun TouchTheColorGameScreen(content: (bool:Boolean, rightAnswer:Int, totalAnswer
     if (isGameOver) {
 
 
-        content(true, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
+        content(true, rightGameAnswersColor, (totalGameAnswersColor))
 
     }
     if (isTimeUp) {
@@ -110,7 +109,7 @@ fun TouchTheColorGameScreen(content: (bool:Boolean, rightAnswer:Int, totalAnswer
                 isGameOver = true
 
             } else {
-                content(false, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
+                content(false, rightGameAnswersColor, (totalGameAnswersColor))
             }
         }
 
@@ -177,7 +176,9 @@ fun TouchTheColorGameScreen(content: (bool:Boolean, rightAnswer:Int, totalAnswer
 
 
                                 .clickable {
+                                    totalGameAnswersColor++
                                     updateScore(boxes, box, index) { i, bool ->
+                                        rightGameAnswersColor++
                                         score++
                                         restart = true
                                         val arr = ArrayList<ColorBox>()

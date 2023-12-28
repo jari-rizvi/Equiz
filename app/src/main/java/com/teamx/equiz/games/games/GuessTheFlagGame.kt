@@ -3,6 +3,13 @@ package com.teamx.equiz.games.games
 
 import android.os.CountDownTimer
 import android.util.Log
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -175,6 +182,11 @@ fun GuessTheFlagGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
     }
 
     if (isTimeUp) {
+       /* AnimatedVisibility(
+            visible = isTimeUp,
+            enter = slideInHorizontally(),
+            exit = slideOutHorizontally(animationSpec = tween(durationMillis = 500))
+        ) {*/
 
         TimeUpDialogCompose() { i ->
             if (i) {
@@ -188,6 +200,7 @@ fun GuessTheFlagGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
                 )
             }
         }
+    /*}*/
 
 
     } else {
@@ -324,7 +337,7 @@ fun GuessTheFlagGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
                     }
                 }*/
 
-                Text("Score: $score", style = MaterialTheme.typography.bodySmall)
+//                Text("Score: $score", style = MaterialTheme.typography.bodySmall)
 
                 if (isGameOver) {
                     content(

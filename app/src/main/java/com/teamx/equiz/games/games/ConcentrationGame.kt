@@ -48,13 +48,15 @@ import com.teamx.equiz.games.ui.theme.BirdColor4
 import com.teamx.equiz.games.ui.theme.DeceptionBlack
 import kotlinx.coroutines.delay
 
+var rightGameAnswersConcen = 1
+var totalGameAnswersConcen = 1
+
 @Preview
 @Composable
 fun ConcentrationGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit = { bool, rightAnswer, total -> }) {
     var isGameOver by remember { mutableStateOf(false) }
     var isAlert by remember { mutableStateOf(false) }
-     rightGameAnswers = 1
-     wrongGameAnswers = 1
+
     var timeLeft by remember { mutableStateOf(10L) }
     var isTimeUp by remember { mutableStateOf(false) }
     var timerRunning by remember { mutableStateOf(true) }
@@ -80,7 +82,7 @@ fun ConcentrationGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: In
 
 
     if (isGameOver) {
-        content(true, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
+        content(true, rightGameAnswersConcen, (totalGameAnswersConcen))
     }
 
     if (isTimeUp) {
@@ -90,7 +92,7 @@ fun ConcentrationGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: In
                 isGameOver = true
 
             } else {
-                content(false, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
+                content(false, rightGameAnswersConcen, (totalGameAnswersConcen))
             }
         }
 

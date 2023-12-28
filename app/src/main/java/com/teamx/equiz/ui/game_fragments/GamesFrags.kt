@@ -1439,7 +1439,7 @@ class ResultComposeFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMode
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
          super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            findNavController().popBackStack()
+            navController.navigate(R.id.dashboardFragment,arguments)
         }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 

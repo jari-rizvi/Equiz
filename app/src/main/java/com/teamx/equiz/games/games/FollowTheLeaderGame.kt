@@ -366,7 +366,7 @@ fun AnimatedObject(number: Int, itemCompared: Int, onClick: (Item: Int) -> Unit)
     ) {
 
         Text(
-            text = number.toString(),
+            text = /*number.toString()*/"",
             style = MaterialTheme.typography.bodySmall,
             color = Color.White,
             fontSize = 20.sp,

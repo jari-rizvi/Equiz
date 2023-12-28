@@ -54,16 +54,17 @@ import com.teamx.equiz.games.ui.theme.Pink80
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlin.math.roundToInt
 import kotlin.random.Random
+
+var rightGameAnswersFlick = 1
+var totalGameAnswersFlick = 1
 
 @Preview
 @Composable
-fun FlickGameScreen(content: (bool:Boolean, rightAnswer:Int, totalAnswer:Int) -> Unit = {bool,rightAnswer,total ->}) {
+fun FlickGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit = { bool, rightAnswer, total -> }) {
     var isGameOver by remember { mutableStateOf(false) }
-        var isAlert by remember { mutableStateOf(false) }
- rightGameAnswers = 1
- wrongGameAnswers = 1
+    var isAlert by remember { mutableStateOf(false) }
+
     var isTimeUp by remember { mutableStateOf(false) }
 
     var timeLeft by remember { mutableStateOf(10L) }
@@ -91,7 +92,7 @@ fun FlickGameScreen(content: (bool:Boolean, rightAnswer:Int, totalAnswer:Int) ->
 
 
     if (isGameOver) {
-        content(true, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
+        content(true, rightGameAnswersFlick, totalGameAnswersFlick)
     }
 
 
@@ -102,7 +103,7 @@ fun FlickGameScreen(content: (bool:Boolean, rightAnswer:Int, totalAnswer:Int) ->
                 isGameOver = true
 
             } else {
-                content(false, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
+                content(false, rightGameAnswersFlick, totalGameAnswersFlick)
             }
         }
 
@@ -173,16 +174,18 @@ fun FlickComponent() {
     }
     val transition = updateTransition(transitionState, "cardTransition")
 
-    val offsetTransitionY by transition.animateFloat(label = "cardOffsetTransition",
-        transitionSpec = { tween(durationMillis = 300) },
-        targetValueByState = { if (swipeStateX) valuesTranslation else 0f })
-    val offsetTransitionX by transition.animateFloat(label = "cardOffsetTransition",
-        transitionSpec = { tween(durationMillis = 300) },
-        targetValueByState = { if (swipeStateX) valuesTranslation else 0f })
+    /*  val offsetTransitionY by transition.animateFloat(label = "cardOffsetTransition",
+          transitionSpec = { tween(durationMillis = 300) },
+          targetValueByState = { if (swipeStateX) valuesTranslation else 0f })
+      val offsetTransitionX by transition.animateFloat(label = "cardOffsetTransition",
+          transitionSpec = { tween(durationMillis = 300) },
+          targetValueByState = { if (swipeStateX) valuesTranslation else 0f })*/
 
-    wapsiState = transition.isRunning
+    wapsiState = !swipeStateX
+//    wapsiState = transition.isRunning
 
-    LaunchedEffect(key1 = !wapsiState) {
+    LaunchedEffect(key1 = !swipeStateX) {
+
         randomInt = Random.nextInt(0, 4)
     }
     if (!wapsiState) {
@@ -194,27 +197,27 @@ fun FlickComponent() {
     when (randomInt) {
 
         0 -> {
-            intOffset = IntOffset(x = -offsetTransitionX.roundToInt(), y = 0)
+//            intOffset = IntOffset(x = -offsetTransitionX.roundToInt(), y = 0)
             bimap = R.drawable.right
         }
 
         1 -> {
-            intOffset = IntOffset(x = offsetTransitionX.roundToInt(), y = 0)
+//            intOffset = IntOffset(x = offsetTransitionX.roundToInt(), y = 0)
             bimap = R.drawable.left
         }
 
         2 -> {
-            intOffset = IntOffset(y = -offsetTransitionY.roundToInt(), x = 0)
+//            intOffset = IntOffset(y = -offsetTransitionY.roundToInt(), x = 0)
             bimap = R.drawable.up
         }
 
         3 -> {
-            intOffset = IntOffset(y = offsetTransitionY.roundToInt(), x = 0)
+//            intOffset = IntOffset(y = offsetTransitionY.roundToInt(), x = 0)
             bimap = R.drawable.down
         }
 
         else -> {
-            intOffset = IntOffset(y = -offsetTransitionY.roundToInt(), x = 0)
+//            intOffset = IntOffset(y = -offsetTransitionY.roundToInt(), x = 0)
             bimap = R.drawable.left
         }
 
@@ -236,13 +239,16 @@ fun FlickComponent() {
                 }
                 .pointerInput(Unit) {
                     detectDragGestures { change, dragAmount ->
-
+                        if (dragAmount.y > 26 || dragAmount.x > 26) {
+                            totalGameAnswersFlick++
+                        }
                         when {
                             dragAmount.x >= 26 && randomInt == 0 -> {
 
                                 Log.d("123123", "MyCardRight: ")
                                 swipeStateX = true
                                 restart = true
+                                rightGameAnswersFlick++
                             }
 
                             dragAmount.x < -26 && randomInt == 1 -> {
@@ -250,6 +256,7 @@ fun FlickComponent() {
                                 Log.d("123123", "MyCardLeft: ")
                                 swipeStateX = true
                                 restart = true
+                                rightGameAnswersFlick++
                             }
 
                             dragAmount.y >= 26 && randomInt == 3 -> {
@@ -257,6 +264,7 @@ fun FlickComponent() {
                                 Log.d("123123", "MyCardDOWN: ")
                                 swipeStateX = true
                                 restart = true
+                                rightGameAnswersFlick++
                             }
 
                             dragAmount.y < -26 && randomInt == 2 -> {
@@ -264,7 +272,9 @@ fun FlickComponent() {
                                 Log.d("123123", "MyCardUP: ")
                                 swipeStateX = true
                                 restart = true
+                                rightGameAnswersFlick++
                             }
+
                         }
                     }
 

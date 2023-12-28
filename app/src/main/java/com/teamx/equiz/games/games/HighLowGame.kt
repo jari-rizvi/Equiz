@@ -12,6 +12,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.detectVerticalDragGestures
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -165,13 +166,16 @@ var i23 = 1
 var dragged = true
 
 
+var rightGameAnswersHigh = 1
+var totalGameAnswersHigh = 1
+
+
 @Composable
 fun HighLowComponent(content: (boo:Boolean, rightAnswer:Int, totalAnswer:Int) -> Unit) {
 
     var isGameOver by remember { mutableStateOf(false) }
         var isAlert by remember { mutableStateOf(false) }
- rightGameAnswers = 1
- wrongGameAnswers = 1
+
     var isTimeUp by remember { mutableStateOf(false) }
     var timeLeft by remember { mutableStateOf(10L) }
 
@@ -196,7 +200,7 @@ fun HighLowComponent(content: (boo:Boolean, rightAnswer:Int, totalAnswer:Int) ->
         }.start()
     }
     if (isGameOver) {
-        content(true, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
+        content(true, rightGameAnswersHigh, totalGameAnswersHigh)
     }
     if (isTimeUp) {
 
@@ -205,7 +209,7 @@ fun HighLowComponent(content: (boo:Boolean, rightAnswer:Int, totalAnswer:Int) ->
                 isGameOver = true
 
             } else {
-                content(false, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
+                content(false, rightGameAnswersHigh, totalGameAnswersHigh)
             }
         }
 
@@ -253,6 +257,22 @@ fun HighLowComponent(content: (boo:Boolean, rightAnswer:Int, totalAnswer:Int) ->
                 .fillMaxHeight()
                 .background(color = Color.White),
         ) {
+            Row(modifier = Modifier.background(color = Color(0xFF9F81CA))) {
+
+                BackButton(onClick = { content(false, 0, 0) }
+                )
+                Text(
+                    text = "Training",
+                    modifier = Modifier
+                        .fillMaxWidth()
+
+                        .align(alignment = Alignment.CenterVertically),
+                    textAlign = TextAlign.Center,
+                    color = Color.White,
+                    fontSize = 17.sp
+                )
+
+            }
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
 
 

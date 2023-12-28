@@ -734,7 +734,7 @@ fun TimeUpDialogCompose(
     onClick: (bool: Boolean) -> Unit = {}
 ) {
     LaunchedEffect(Unit) {
-        delay(1000)
+        delay(200)
         onClick(true)
     }
     Box(
