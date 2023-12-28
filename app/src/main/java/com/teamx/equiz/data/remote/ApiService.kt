@@ -6,9 +6,7 @@ import com.teamx.equiz.constants.NetworkCallPoints
 import com.teamx.equiz.constants.NetworkCallPoints.Companion.TOKENER
 import com.teamx.equiz.data.models.addtocart.AddtoCartData
 import com.teamx.equiz.data.models.addtowishlist.AddToWishlistData
-import com.teamx.equiz.data.models.bannerData.BannerData
 import com.teamx.equiz.data.models.bannerData.news_banner.NewsBanner
-import com.teamx.equiz.data.models.categoriesData.GetAllCategoriesData
 import com.teamx.equiz.data.models.coupons.CouponsData
 import com.teamx.equiz.data.models.editProfile.EditProfileData
 import com.teamx.equiz.data.models.forgotpassData.ForgotPassData
@@ -28,11 +26,12 @@ import com.teamx.equiz.data.models.orderDetailData.OrderDetailData
 import com.teamx.equiz.data.models.otpForgotData.OtpforgotData
 import com.teamx.equiz.data.models.quizTitleData.QuizTitleData
 import com.teamx.equiz.data.models.signupData.SignupData
-
 import com.teamx.equiz.data.models.sucessData.SuccessData
 import com.teamx.equiz.data.models.sucessData.gamesuccess.GameObj
 import com.teamx.equiz.data.models.topWinnerData.TopWinnerData
 import com.teamx.equiz.data.models.wishlistdata.WishlistData
+import com.teamx.equiz.ui.fragments.address.dataclasses.AddressOrderCreate
+import com.teamx.equiz.ui.fragments.ecommerce.data.CategoryEcomData
 import com.teamx.equiz.ui.fragments.ecommerce.paymentMethods.model.StripeModel
 import com.teamx.equiz.ui.fragments.singlequize.model.SingleQuizData
 import okhttp3.MultipartBody
@@ -59,14 +58,35 @@ interface ApiService {
         @Query("isActive") isActive: Boolean,
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<NewsBanner>
+
     @GET(NetworkCallPoints.BANNERS_DATA2)
     suspend fun getBanners(
 
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<NewsBanner>
 
+
     @GET(NetworkCallPoints.GET_PRODUCTS)
     suspend fun getProducts(@Header("token") basicCredentials: String = "$TOKENER"): Response<GetProductData>
+
+    @GET(NetworkCallPoints.GET_PRODUCTS)
+    suspend fun getProducts(
+        @Query("keyword") keyword: String,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<GetProductData>
+
+    @GET(NetworkCallPoints.GET_PRODUCTS)
+    suspend fun getProductsCat(
+        @Query("category") category: String,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<GetProductData>
+
+    @GET(NetworkCallPoints.GET_PRODUCTS)
+    suspend fun getProducts(
+        @Query("keyword") keyword: String,
+        @Query("category") category: String,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<GetProductData>
 
     @GET(NetworkCallPoints.GET_CART)
     suspend fun getCart(@Header("token") basicCredentials: String = "$TOKENER"): Response<GetCartData>
@@ -115,7 +135,7 @@ interface ApiService {
     ): Response<GetProductByIdData>
 
     @GET(NetworkCallPoints.GET_ALL_CATEGORIES)
-    suspend fun getCategories(@Header("token") basicCredentials: String = "$TOKENER"): Response<GetAllCategoriesData>
+    suspend fun getCategories(@Header("token") basicCredentials: String = "$TOKENER"): Response<CategoryEcomData>
 
     @POST(NetworkCallPoints.LOGIN_PHONE)
     suspend fun loginPhone(@Body params: JsonObject?): Response<LoginData>
@@ -137,6 +157,13 @@ interface ApiService {
         @Body params: JsonObject?,
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<AddToWishlistData>
+
+
+    @POST(NetworkCallPoints.CREATE_ORDER)
+    suspend fun createOrder(
+        @Body params: JsonObject?,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<AddressOrderCreate>
 
     @POST(NetworkCallPoints.RESET_PASSWORD)
     suspend fun resetPass(@Body params: JsonObject?): Response<SuccessData>

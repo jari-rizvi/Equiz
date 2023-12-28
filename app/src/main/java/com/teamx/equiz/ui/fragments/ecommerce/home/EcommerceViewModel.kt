@@ -4,13 +4,14 @@ package com.teamx.equiz.ui.fragments.ecommerce.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.google.gson.JsonObject
 import com.teamx.equiz.baseclasses.BaseViewModel
-import com.teamx.equiz.data.models.bannerData.BannerData
+import com.teamx.equiz.data.models.addtowishlist.AddToWishlistData
 import com.teamx.equiz.data.models.bannerData.news_banner.NewsBanner
-import com.teamx.equiz.data.models.categoriesData.GetAllCategoriesData
 import com.teamx.equiz.data.models.getProducts.GetProductData
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.data.remote.reporitory.MainRepository
+import com.teamx.equiz.ui.fragments.ecommerce.data.CategoryEcomData
 import com.teamx.equiz.utils.NetworkHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -25,15 +26,15 @@ class EcommerceViewModel @Inject constructor(
 ) : BaseViewModel() {
 
 
-    private val _getcategoriesResponse = MutableLiveData<Resource<GetAllCategoriesData>>()
-    val getcategoriesResponse: LiveData<Resource<GetAllCategoriesData>>
+    private val _getcategoriesResponse = MutableLiveData<Resource<CategoryEcomData>>()
+    val getcategoriesResponse: LiveData<Resource<CategoryEcomData>>
         get() = _getcategoriesResponse
 
     private val _getBannerResponse = MutableLiveData<Resource<NewsBanner>>()
     val getBannerResponse: LiveData<Resource<NewsBanner>>
         get() = _getBannerResponse
 
-private val _getProductsResponse = MutableLiveData<Resource<GetProductData>>()
+    private val _getProductsResponse = MutableLiveData<Resource<GetProductData>>()
     val getProductsResponse: LiveData<Resource<GetProductData>>
         get() = _getProductsResponse
 
@@ -106,13 +107,174 @@ private val _getProductsResponse = MutableLiveData<Resource<GetProductData>>()
             } else _getBannerResponse.postValue(Resource.error("No internet connection", null))
         }
     }
-    fun getProducts() {
+
+    private val _addtowishlistResponse = MutableLiveData<Resource<AddToWishlistData>>()
+    val addtowishlistResponse: LiveData<Resource<AddToWishlistData>>
+        get() = _addtowishlistResponse
+
+    fun addtowishlist(param: JsonObject) {
+        viewModelScope.launch {
+            _addtowishlistResponse.postValue(Resource.loading(null))
+            if (networkHelper.isNetworkConnected()) {
+                try {
+                    mainRepository.AddToWishList(param).let {
+                        if (it.isSuccessful) {
+                            _addtowishlistResponse.postValue(Resource.success(it.body()!!))
+                        } else if (it.code() == 401) {
+//                            unAuthorizedCallback.onToSignUpPage()
+                            _addtowishlistResponse.postValue(Resource.error(it.message(), null))
+                        } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
+//                            _addtowishlistResponse.postValue(Resource.error(it.message(), null))
+                            val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
+                            _addtowishlistResponse.postValue(Resource.error(jsonObj.getString("message")))
+                        } else {
+                            _addtowishlistResponse.postValue(
+                                Resource.error(
+                                    "Some thing went wrong",
+                                    null
+                                )
+                            )
+                        }
+                    }
+                } catch (e: Exception) {
+                    _addtowishlistResponse.postValue(Resource.error("${e.message}", null))
+                }
+            } else _addtowishlistResponse.postValue(Resource.error("No internet connection", null))
+        }
+    }
+
+    fun getProducts(category: String = "", keyword: String = "") {
         viewModelScope.launch {
             _getProductsResponse.postValue(Resource.loading(null))
             if (networkHelper.isNetworkConnected()) {
                 try {
                     Timber.tag("87878787887").d("starta")
 
+                    if (category.isNullOrEmpty() && keyword.isNullOrEmpty()) {
+
+
+                        mainRepository.getProducts().let {
+                            if (it.isSuccessful) {
+                                _getProductsResponse.postValue(Resource.success(it.body()!!))
+                                Timber.tag("87878787887").d(it.body()!!.toString())
+                            } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
+                                Timber.tag("87878787887").d("secoonnddd")
+
+//                            _getProductsResponse.postValue(Resource.error(it.message(), null))
+                                val jsonObj =
+                                    JSONObject(it.errorBody()!!.charStream().readText())
+                                _getProductsResponse.postValue(
+                                    Resource.error(
+                                        jsonObj.getString(
+                                            "message"
+                                        )
+                                    )
+                                )
+                            } else {
+                                _getProductsResponse.postValue(
+                                    Resource.error(
+                                        "Some thing went wrong",
+                                        null
+                                    )
+                                )
+                                Timber.tag("87878787887").d("third")
+
+                            }
+                        }
+
+
+                    } else if (category.isNotEmpty() && keyword.isNullOrEmpty()) {
+
+                        mainRepository.getProductsCat(category).let {
+                            if (it.isSuccessful) {
+                                _getProductsResponse.postValue(Resource.success(it.body()!!))
+                                Timber.tag("87878787887").d(it.body()!!.toString())
+                            } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
+                                Timber.tag("87878787887").d("secoonnddd")
+
+//                            _getProductsResponse.postValue(Resource.error(it.message(), null))
+                                val jsonObj =
+                                    JSONObject(it.errorBody()!!.charStream().readText())
+                                _getProductsResponse.postValue(
+                                    Resource.error(
+                                        jsonObj.getString(
+                                            "message"
+                                        )
+                                    )
+                                )
+                            } else {
+                                _getProductsResponse.postValue(
+                                    Resource.error(
+                                        "Some thing went wrong",
+                                        null
+                                    )
+                                )
+                                Timber.tag("87878787887").d("third")
+
+                            }
+                        }
+                    } else if (category.isNullOrEmpty() && keyword.isNotEmpty()) {
+
+                        mainRepository.getProducts(keyword).let {
+                            if (it.isSuccessful) {
+                                _getProductsResponse.postValue(Resource.success(it.body()!!))
+                                Timber.tag("87878787887").d(it.body()!!.toString())
+                            } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
+                                Timber.tag("87878787887").d("secoonnddd")
+
+//                            _getProductsResponse.postValue(Resource.error(it.message(), null))
+                                val jsonObj =
+                                    JSONObject(it.errorBody()!!.charStream().readText())
+                                _getProductsResponse.postValue(
+                                    Resource.error(
+                                        jsonObj.getString(
+                                            "message"
+                                        )
+                                    )
+                                )
+                            } else {
+                                _getProductsResponse.postValue(
+                                    Resource.error(
+                                        "Some thing went wrong",
+                                        null
+                                    )
+                                )
+                                Timber.tag("87878787887").d("third")
+
+                            }
+                        }
+                    } else {
+
+                        mainRepository.getProducts(keyword, category).let {
+                            if (it.isSuccessful) {
+                                _getProductsResponse.postValue(Resource.success(it.body()!!))
+                                Timber.tag("87878787887").d(it.body()!!.toString())
+                            } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
+                                Timber.tag("87878787887").d("secoonnddd")
+
+//                            _getProductsResponse.postValue(Resource.error(it.message(), null))
+                                val jsonObj =
+                                    JSONObject(it.errorBody()!!.charStream().readText())
+                                _getProductsResponse.postValue(
+                                    Resource.error(
+                                        jsonObj.getString(
+                                            "message"
+                                        )
+                                    )
+                                )
+                            } else {
+                                _getProductsResponse.postValue(
+                                    Resource.error(
+                                        "Some thing went wrong",
+                                        null
+                                    )
+                                )
+                                Timber.tag("87878787887").d("third")
+
+                            }
+                        }
+
+                    }
                     mainRepository.getProducts().let {
                         if (it.isSuccessful) {
                             _getProductsResponse.postValue(Resource.success(it.body()!!))
@@ -121,8 +283,15 @@ private val _getProductsResponse = MutableLiveData<Resource<GetProductData>>()
                             Timber.tag("87878787887").d("secoonnddd")
 
 //                            _getProductsResponse.postValue(Resource.error(it.message(), null))
-                            val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
-                            _getProductsResponse.postValue(Resource.error(jsonObj.getString("message")))
+                            val jsonObj =
+                                JSONObject(it.errorBody()!!.charStream().readText())
+                            _getProductsResponse.postValue(
+                                Resource.error(
+                                    jsonObj.getString(
+                                        "message"
+                                    )
+                                )
+                            )
                         } else {
                             _getProductsResponse.postValue(
                                 Resource.error(

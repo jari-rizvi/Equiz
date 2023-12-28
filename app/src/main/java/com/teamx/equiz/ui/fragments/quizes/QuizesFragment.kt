@@ -2,11 +2,11 @@ package com.teamx.equiz.ui.fragments.quizes
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.addCallback
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.squareup.picasso.Picasso
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
@@ -17,7 +17,7 @@ import com.teamx.equiz.ui.fragments.quizes.adapter.QuizesAdapter
 import com.teamx.equiz.ui.fragments.quizes.adapter.QuizesTitleAdapter
 import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import androidx.activity.addCallback
+
 @AndroidEntryPoint
 class QuizesFragment : BaseFragment<FragmentQuizesBinding, QuizesViewModel>(), QuizesInterface {
 
@@ -103,8 +103,8 @@ class QuizesFragment : BaseFragment<FragmentQuizesBinding, QuizesViewModel>(), Q
         strArrayList = ArrayList()
         strTitleArrayList = ArrayList()
         strTitleArrayList.add(TitleData("World", true))
-        strTitleArrayList.add(TitleData("World", false))
-        strTitleArrayList.add(TitleData("World", false))
+        strTitleArrayList.add(TitleData("Pakistan", false))
+        strTitleArrayList.add(TitleData("Premium", false))
 
         val layoutManager1 =
             LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
@@ -122,11 +122,31 @@ class QuizesFragment : BaseFragment<FragmentQuizesBinding, QuizesViewModel>(), Q
         mViewDataBinding.recQuizes.adapter = quizesAdapter
     }
 
-    override fun quizTitle(position: Int) {
-        strTitleArrayList.forEach { it.isSelected = false }
-        strTitleArrayList[position].isSelected = true
-        quizesTitleAdapter.notifyDataSetChanged()
-        mViewModel.quizTitle("World", null, "normal")
+    override fun quizTitle(position: Int, previPos: Int) {
+
+        val tick = strTitleArrayList.get(position).value
+
+        val topic = if (tick.equals("World", true)) {
+            "General Knowledge"
+        } else {
+            "Pak Quiz"
+        }
+        mViewModel.quizTitle("$tick", "$topic", "")
+//        strArrayList.forEach{
+//            if (it.isSelected)
+//            it.isSelected = false
+//        }
+
+        strTitleArrayList.get(previPos).isSelected = false
+        strTitleArrayList.get(position).isSelected = true
+        mViewDataBinding.recCategories.adapter?.notifyItemChanged(previPos)
+        mViewDataBinding.recCategories.adapter?.notifyItemChanged(position)
+
+
+//        strTitleArrayList.forEach { it.isSelected = false }
+//        strTitleArrayList[position].isSelected = true
+//        quizesTitleAdapter.notifyDataSetChanged()
+//        mViewModel.quizTitle("World", null, "normal")
     }
 
     override fun quizeItem(position: Int) {
@@ -143,7 +163,7 @@ class QuizesFragment : BaseFragment<FragmentQuizesBinding, QuizesViewModel>(), Q
 }
 
 interface QuizesInterface {
-    fun quizTitle(position: Int)
+    fun quizTitle(position: Int, previPos: Int)
     fun quizeItem(position: Int)
 }
 

@@ -17,9 +17,16 @@ class MainRepository @Inject constructor(
 
 
     suspend fun getWishlist() = apiService.getWishlist()
-    suspend fun getBanners(isActive:Boolean) = apiService.getBanners(isActive)
+    suspend fun getBanners(isActive: Boolean) = apiService.getBanners(isActive)
     suspend fun getBanners() = apiService.getBanners(/*isActive*/)
     suspend fun getProducts() = apiService.getProducts()
+
+    suspend fun getProducts(keyword: String) = apiService.getProducts(keyword=keyword)
+    suspend fun getProductsCat(category: String) = apiService.getProductsCat(category=category)
+
+    suspend fun getProducts(keyword: String, category: String) =
+        apiService.getProducts(keyword = keyword, category = category)
+
     suspend fun getCart() = apiService.getCart()
     suspend fun getWallet() = apiService.getWallet()
     suspend fun getUpcomingNews(
@@ -43,6 +50,7 @@ class MainRepository @Inject constructor(
     suspend fun Signup(@Body param: JsonObject) = apiService.Signup(param)
     suspend fun AddToCart(@Body param: JsonObject) = apiService.AddToCart(param)
     suspend fun AddToWishList(@Body param: JsonObject) = apiService.AddToWishList(param)
+    suspend fun createOrder(@Body param: JsonObject) = apiService.createOrder(param)
     suspend fun resetPass(@Body param: JsonObject) = apiService.resetPass(param)
     suspend fun resultGame(@Body param: JsonObject) = apiService.resultGame(param)
     suspend fun otpVerify(@Path("uniqueID") uniqueID: String) = apiService.otpVerify(uniqueID)

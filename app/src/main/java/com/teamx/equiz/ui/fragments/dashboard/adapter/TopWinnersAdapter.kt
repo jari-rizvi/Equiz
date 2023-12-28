@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.teamx.equiz.data.models.topWinnerData.Game
-import com.teamx.equiz.data.models.topWinnerData.UserRank
 import com.teamx.equiz.databinding.ItemWinnerBinding
 
 class TopWinnersAdapter(
@@ -28,8 +27,12 @@ class TopWinnersAdapter(
         try {
 
             holder.bind.name.text = winners.name
-            Picasso.get().load(winners.image).into(holder.binding.profilePicture)
+
+            if (winners.image.isNotEmpty()) {
+                Picasso.get().load(winners.image).into(holder.binding.profilePicture)
+            }
         } catch (e: Exception) {
+            e.printStackTrace()
         }
 
         holder.itemView.setOnClickListener {

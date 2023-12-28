@@ -23,7 +23,7 @@ class NetworkCallPoints {
         const val ADD_WISHLIST ="api/wishlist/add"
         const val BANNERS_DATA ="api/news/"
         const val BANNERS_DATA2 ="api/news"
-        const val GET_PRODUCTS ="api/products"
+        const val GET_PRODUCTS ="api/products/"
         const val GET_PRODUCT_BY_ID ="api/products/find/{id}"
         const val ADD_TO_CART ="api/carts/add"
         const val GET_CART ="api/carts/find"
@@ -39,6 +39,7 @@ class NetworkCallPoints {
         const val GET_QUIZ_TITLE ="api/quiz/tile"
         const val GET_NOTIFICATION ="api/notification/find"
         const val GET_PLAN ="api/payment/getPlan"
+        const val CREATE_ORDER ="api/orders/add"
 
 
 

@@ -12,6 +12,7 @@
         android:layout_margin="@dimen/_5sdp"
         android:layout_height="@dimen/_30sdp"
         android:background="@drawable/border_button"
+        android:layout_marginHorizontal="@dimen/_5sdp"
         android:elevation="@dimen/_1sdp">
 
         <CheckedTextView
@@ -19,7 +20,7 @@
             style="@style/popins_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_5sdp"
+
             android:background="@drawable/checked_item"
             android:checked="false"
             android:elevation="@dimen/_4sdp"

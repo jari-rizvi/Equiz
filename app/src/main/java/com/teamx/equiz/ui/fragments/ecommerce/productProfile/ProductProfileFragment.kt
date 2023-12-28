@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import androidx.activity.addCallback
 import androidx.lifecycle.Observer
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
@@ -22,7 +23,7 @@ import com.teamx.equiz.databinding.FragmentProductProfileBinding
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONException
-import androidx.activity.addCallback
+
 @AndroidEntryPoint
 class ProductProfileFragment :
     BaseFragment<FragmentProductProfileBinding, ProductProfileViewModel>() {
@@ -114,6 +115,7 @@ class ProductProfileFragment :
                             mViewDataBinding.productName.text = it.data.data.title
                             mViewDataBinding.productPrice.text = it.data.data.price.toString()
                             mViewDataBinding.desc.text = it.data.data.description
+                            mViewDataBinding.btnWish.isChecked = it.data.data.isFavorite
 
 
                             /*       it.data.data.images.forEach {
@@ -219,6 +221,7 @@ class ProductProfileFragment :
                             it.data?.let { data ->
 
                                 showToast("Added to Wishlist")
+                                mViewDataBinding.btnWish.isChecked = true
 
                             }
                         }

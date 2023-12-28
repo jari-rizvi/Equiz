@@ -320,18 +320,12 @@
         android:id="@+id/additionAddictionGameFrag"
         android:name="com.teamx.equiz.ui.game_fragments.AdditionAddictionGameFrag"
         android:label="AdditionAddictionGameFrag" />
-    <fragment
-        android:id="@+id/breakTheBlockGameFrag"
-        android:name="com.teamx.equiz.ui.game_fragments.BreakTheBlockGameFrag"
-        android:label="BreakTheBlockGameFrag" />
+
     <fragment
         android:id="@+id/colorOfDecepGameFrag"
         android:name="com.teamx.equiz.ui.game_fragments.ColorOfDecepGameFrag"
         android:label="ColorOfDecepGameFrag" />
-    <fragment
-        android:id="@+id/colorSwitchGameFrag"
-        android:name="com.teamx.equiz.ui.game_fragments.ColorSwitchGameFrag"
-        android:label="ColorSwitchGameFrag" />
+
     <fragment
         android:id="@+id/concentrationGameFrag"
         android:name="com.teamx.equiz.ui.game_fragments.ConcentrationGameFrag"

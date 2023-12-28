@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
@@ -56,7 +57,7 @@ import com.teamx.equiz.ui.fragments.dashboard.GamesUID2
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONException
-import androidx.activity.addCallback
+
 @AndroidEntryPoint
 class AdditionAddictionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
 
@@ -1439,7 +1440,7 @@ class ResultComposeFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMode
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
          super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            navController.navigate(R.id.dashboardFragment,arguments)
+            findNavController().navigate(R.id.dashboardFragment, arguments)
         }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
@@ -3006,7 +3007,7 @@ class StartUpGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
             }
 
             GamesUID2.SpinningBlock.name -> {
-                painterResource(R.drawable.howtoplay_spin)
+                painterResource(R.drawable.howtoplay_simplicity)
 
             }
 
@@ -3025,7 +3026,7 @@ class StartUpGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
             }
 
             GamesUID2.TouchTheNumPlus.name -> {
-                painterResource(R.drawable.howtoplay_touchthenumber)
+                painterResource(R.drawable.howtoplay_touch)
 
             }
 

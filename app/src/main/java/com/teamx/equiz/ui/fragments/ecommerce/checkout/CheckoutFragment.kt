@@ -1,11 +1,9 @@
 package com.teamx.equiz.ui.fragments.ecommerce.checkout
 
 
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.activity.addCallback
 import androidx.lifecycle.Observer
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
@@ -15,16 +13,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
-import com.teamx.equiz.data.models.categoriesData.Data
-import com.teamx.equiz.data.models.wishlistdata.Product
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentCheckoutBinding
-import com.teamx.equiz.databinding.FragmentEcommerceBinding
-import com.teamx.equiz.ui.fragments.ecommerce.home.CategoriesAdapter
-import com.teamx.equiz.ui.fragments.ecommerce.home.EcommerceViewModel
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
-import androidx.activity.addCallback
+
 @AndroidEntryPoint
 class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel>(),
     OnCartListener {
@@ -56,6 +49,7 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
             }
         }
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
+
 
         mViewModel.getCart()
         if (!mViewModel.getcartResponse.hasActiveObservers()) {
@@ -102,7 +96,12 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
             })
         }
         cartRecyclerview()
-
+        mViewDataBinding.btnProceed.setOnClickListener {
+            if (cartArrayList2.isNotEmpty()){
+            findNavController().navigate(R.id.addressFragment,arguments,options) } else{
+                showToast("Cart is Empty")
+            }
+            }
     }
 
 

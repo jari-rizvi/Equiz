@@ -88,7 +88,6 @@
                 app:ss_defaultIconColor="@color/white"
                 app:ss_iconTextColor="@color/white"
                 app:ss_iconTextSize="12sp"
-
                 app:ss_rippleColor="#2f424242"
                 app:ss_selectedIconColor="@color/white"
                 app:ss_selectedIconTextColor="@color/white"

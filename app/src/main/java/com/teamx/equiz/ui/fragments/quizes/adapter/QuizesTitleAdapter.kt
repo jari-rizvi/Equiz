@@ -13,6 +13,7 @@ class QuizesTitleAdapter(
 ) :
     RecyclerView.Adapter<QuizesTitleAdapterViewHolder>() {
 
+    var previous = 1
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -26,12 +27,15 @@ class QuizesTitleAdapter(
     override fun onBindViewHolder(holder: QuizesTitleAdapterViewHolder, position: Int) {
 
         val arrayData = addressArrayList[position]
+        if (arrayData.isSelected) {
+            previous = position
+        }
         holder.bind.txtTitle.text = arrayData.value
 
         holder.bind.txtTitle.isChecked = arrayData.isSelected
 
         holder.itemView.setOnClickListener {
-            quizesInterface.quizTitle(position)
+            quizesInterface.quizTitle(position, previous)
         }
 
     }

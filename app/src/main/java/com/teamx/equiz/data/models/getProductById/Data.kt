@@ -15,6 +15,7 @@ data class Data(
     val quantity: Int,
     val ratings: List<Any>,
     val slug: String,
+    val isFavorite: Boolean,
     val sold: Int,
     val title: String,
     val totalrating: String,

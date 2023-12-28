@@ -11,6 +11,7 @@ data class Data(
     val facilities: List<String>,
     val images: List<String>,
     val isActive: Boolean,
+    var isFavorite: Boolean,
     val point: Int,
     val price: Double,
     val product_type: String,

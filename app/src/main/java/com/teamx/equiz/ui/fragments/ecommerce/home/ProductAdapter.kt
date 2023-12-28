@@ -29,6 +29,7 @@ class ProductAdapter(
         holder.binding.productName.text = product.title
 
         holder.binding.productPrice.text = "${product.price} AED"
+        holder.binding.wishListAddBtn.isChecked = product.isFavorite
 
 //       val quanti = product.qty ?: 1
   /*      if ( product.qty < 1) {

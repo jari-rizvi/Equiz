@@ -3,31 +3,32 @@ package com.teamx.equiz.ui.fragments.ecommerce.home
 
 import android.os.Bundle
 import android.os.Handler
-import android.os.Looper
 import android.util.Log
+import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import androidx.activity.addCallback
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.gson.JsonObject
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
-import com.teamx.equiz.data.models.categoriesData.Data
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentEcommerceBinding
 import com.teamx.equiz.ui.activity.mainActivity.MainActivity
+import com.teamx.equiz.ui.fragments.ecommerce.data.Category
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
-import androidx.activity.addCallback
+import org.json.JSONException
+
 @AndroidEntryPoint
-class
-EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewModel>(),
+class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewModel>(),
     OnTopCategoriesListener, OnProductListener {
 
     override val layoutId: Int
@@ -39,7 +40,7 @@ EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewModel>()
 
 
     lateinit var categoriesAdapter: CategoriesAdapter
-    lateinit var categoriesArrayList2: ArrayList<Data>
+    lateinit var categoriesArrayList2: ArrayList<Category>
 
     private lateinit var options: NavOptions
 
@@ -79,44 +80,43 @@ EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewModel>()
         }
 
 
+        /* mViewModel.getBanners()
 
-        mViewModel.getBanners()
+         if (!mViewModel.getBannerResponse.hasActiveObservers()) {
+             mViewModel.getBannerResponse.observe(requireActivity()) {
+                 when (it.status) {
+                     Resource.Status.LOADING -> {
+                         loadingDialog.show()
+                     }
+                     Resource.Status.NOTVERIFY -> {
+                         loadingDialog.dismiss()
+                     }
+                     Resource.Status.SUCCESS -> {
+                         loadingDialog.dismiss()
+                         it.data?.let { data ->
 
-        if (!mViewModel.getBannerResponse.hasActiveObservers()) {
-            mViewModel.getBannerResponse.observe(requireActivity()) {
-                when (it.status) {
-                    Resource.Status.LOADING -> {
-                        loadingDialog.show()
-                    }
-                    Resource.Status.NOTVERIFY -> {
-                        loadingDialog.dismiss()
-                    }
-                    Resource.Status.SUCCESS -> {
-                        loadingDialog.dismiss()
-                        it.data?.let { data ->
+                             data.news.forEach {
+                                 if (it != null) {
+                                     featureProductArrayList.add(it)
+                                 }
 
-                            data.news.forEach {
-                                if (it != null) {
-                                    featureProductArrayList.add(it)
-                                }
-
-                            }
-                            featureProductAdapter.notifyDataSetChanged()
+                             }
+                             featureProductAdapter.notifyDataSetChanged()
 
 
-                        }
-                    }
+                         }
+                     }
 
-                    Resource.Status.ERROR -> {
-                        loadingDialog.dismiss()
-                        DialogHelperClass.errorDialog(requireContext(), it.message!!)
-                    }
-                }
-                if (isAdded) {
-                    mViewModel.getBannerResponse.removeObservers(viewLifecycleOwner)
-                }
-            }
-        }
+                     Resource.Status.ERROR -> {
+                         loadingDialog.dismiss()
+                         DialogHelperClass.errorDialog(requireContext(), it.message!!)
+                     }
+                 }
+                 if (isAdded) {
+                     mViewModel.getBannerResponse.removeObservers(viewLifecycleOwner)
+                 }
+             }
+         }*/
 
 
         mViewModel.getProducts()
@@ -132,16 +132,17 @@ EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewModel>()
                     }
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
+                        productArrayList.clear()
                         it.data?.let { data ->
                             data.data.forEach {
-                                    productArrayList.add(it)
+                                productArrayList.add(it)
                                 Log.d("TAG", "onViewCreated1212121212: $it")
 
                             }
-                            productAdapter.notifyDataSetChanged()
 
 
                         }
+                        mViewDataBinding.popularRecycler.adapter?.notifyDataSetChanged()
                     }
 
                     Resource.Status.ERROR -> {
@@ -156,7 +157,7 @@ EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewModel>()
         }
 
 
-//        mViewModel.getCategories()
+        mViewModel.getCategories()
 
         if (!mViewModel.getcategoriesResponse.hasActiveObservers()) {
             mViewModel.getcategoriesResponse.observe(requireActivity()) {
@@ -170,7 +171,7 @@ EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewModel>()
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
-                            data.data.forEach {
+                            data.category.forEach {
                                 categoriesArrayList2.add(it)
                             }
                             Log.d("123123", "onViewCreated:${categoriesArrayList2.size} ")
@@ -194,57 +195,109 @@ EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewModel>()
                 }
             }
         }
+
+
+
+
+        if (!mViewModel.addtowishlistResponse.hasActiveObservers()) {
+            mViewModel.addtowishlistResponse.observe(requireActivity()) {
+                when (it.status) {
+                    Resource.Status.LOADING -> {
+                        loadingDialog.show()
+                    }
+
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
+                    }
+
+                    Resource.Status.SUCCESS -> {
+                        loadingDialog.dismiss()
+                        it.data?.let { data ->
+                            showToast("Added To Wishlist")
+                        }
+                    }
+
+                    Resource.Status.ERROR -> {
+                        loadingDialog.dismiss()
+                        DialogHelperClass.errorDialog(
+                            requireContext(),
+                            it.message!!
+                        )
+                    }
+                }
+                if (isAdded) {
+                    mViewModel.addtowishlistResponse.removeObservers(
+                        viewLifecycleOwner
+                    )
+                }
+            }
+        }
         productRecyclerview()
-        initializeFeatureProducts()
+//        initializeFeatureProducts()
 
         categoriesRecyclerview()
-
+//        addingSliderAdapter()
+        performSearch()
     }
 
-    private val runnable = Runnable {
-        mViewDataBinding.screenViewpager.currentItem =
-            mViewDataBinding.screenViewpager.currentItem + 1
-    }
-
-    private fun initializeFeatureProducts() {
-
-        featureProductArrayList = ArrayList()
-
-        featureProductAdapter = ProductBannersAdapter(featureProductArrayList)
-        mViewDataBinding.screenViewpager.adapter = featureProductAdapter
-
-        TabLayoutMediator(
-            mViewDataBinding.tabIndicator, mViewDataBinding.screenViewpager
-        ) { tab, position ->
-            tab.text = featureProductArrayList[position].toString()
-        }.attach()
-
-        tabLayoutMediator = TabLayoutMediator(
-            mViewDataBinding.tabIndicator, mViewDataBinding.screenViewpager
-        ) { tab: TabLayout.Tab, position: Int ->
-            mViewDataBinding.screenViewpager.setCurrentItem(tab.position, true)
-        }
-        tabLayoutMediator!!.attach()
-
-        mViewDataBinding.screenViewpager.offscreenPageLimit = 3
-        mViewDataBinding.screenViewpager.clipToPadding = false
-        mViewDataBinding.screenViewpager.clipChildren = false
-        mViewDataBinding.screenViewpager.getChildAt(0).overScrollMode =
-            RecyclerView.OVER_SCROLL_NEVER
-
-        handler = Handler(Looper.myLooper()!!)
-
-        mViewDataBinding.screenViewpager.registerOnPageChangeCallback(object :
-            ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                handler.removeCallbacks(runnable)
-                handler.postDelayed(runnable, 2000)
+    private fun performSearch() {
+        mViewDataBinding.editSearch.setOnEditorActionListener { _, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH || (event != null && event.action == KeyEvent.ACTION_DOWN && event.keyCode == KeyEvent.KEYCODE_ENTER)) {
+                mViewModel.getProducts(
+                    category = "",
+                    keyword = "${mViewDataBinding.editSearch.text.toString()}"
+                )
+                return@setOnEditorActionListener true
             }
-        })
-
-
+            false
+        }
     }
+
+
+//    private val runnable = Runnable {
+//        mViewDataBinding.screenViewpager.currentItem =
+//            mViewDataBinding.screenViewpager.currentItem + 1
+//    }
+
+//    private fun initializeFeatureProducts() {
+//
+//        featureProductArrayList = ArrayList()
+//
+//        featureProductAdapter = ProductBannersAdapter(featureProductArrayList)
+//        mViewDataBinding.screenViewpager.adapter = featureProductAdapter
+//
+//        TabLayoutMediator(
+//            mViewDataBinding.tabIndicator, mViewDataBinding.screenViewpager
+//        ) { tab, position ->
+//            tab.text = featureProductArrayList[position].toString()
+//        }.attach()
+//
+//        tabLayoutMediator = TabLayoutMediator(
+//            mViewDataBinding.tabIndicator, mViewDataBinding.screenViewpager
+//        ) { tab: TabLayout.Tab, position: Int ->
+//            mViewDataBinding.screenViewpager.setCurrentItem(tab.position, true)
+//        }
+//        tabLayoutMediator!!.attach()
+//
+//        mViewDataBinding.screenViewpager.offscreenPageLimit = 3
+//        mViewDataBinding.screenViewpager.clipToPadding = false
+//        mViewDataBinding.screenViewpager.clipChildren = false
+//        mViewDataBinding.screenViewpager.getChildAt(0).overScrollMode =
+//            RecyclerView.OVER_SCROLL_NEVER
+//
+//        handler = Handler(Looper.myLooper()!!)
+//
+//        mViewDataBinding.screenViewpager.registerOnPageChangeCallback(object :
+//            ViewPager2.OnPageChangeCallback() {
+//            override fun onPageSelected(position: Int) {
+//                super.onPageSelected(position)
+//                handler.removeCallbacks(runnable)
+//                handler.postDelayed(runnable, 2000)
+//            }
+//        })
+//
+//
+//    }
 
     private fun categoriesRecyclerview() {
         categoriesArrayList2 = ArrayList()
@@ -267,8 +320,23 @@ EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewModel>()
 
     }
 
-    override fun onTopSellerClick(position: Int) {
+    override fun onTopSellerClick(position: Int, PrePos: Int) {
+        val tick = categoriesArrayList2.get(position)
 
+        var catId = tick._id
+
+        Log.d("123123", "onTopSellerClick:$catId ")
+        mViewModel.getProducts(category = catId, keyword = "")
+//        strArrayList.forEach{
+//            if (it.isSelected)
+//            it.isSelected = false
+//        }
+        if (PrePos != -1) {
+            categoriesArrayList2.get(PrePos).isChecked = false
+            mViewDataBinding.categoriesRecycler.adapter?.notifyItemChanged(PrePos)
+        }
+        categoriesArrayList2.get(position).isChecked = true
+        mViewDataBinding.categoriesRecycler.adapter?.notifyItemChanged(position)
     }
 
     override fun onproductClick(position: Int) {
@@ -285,6 +353,88 @@ EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewModel>()
     }
 
     override fun onAddFavClick(position: Int, isFav: Boolean) {
+
+
+        val tick = productArrayList.get(position)
+
+        var catId = tick._id
+
+        Log.d("123123", "onTopSellerClick:$catId ")
+        val params = JsonObject()
+        try {
+            params.addProperty("productId", catId)
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+        mViewModel.addtowishlist(params)
+//        strArrayList.forEach{
+//            if (it.isSelected)
+//            it.isSelected = false
+//        }
+
+        productArrayList.get(position).isFavorite = true
+        mViewDataBinding.popularRecycler.adapter?.notifyItemChanged(position)
+
+
     }
+
+/////////////
+
+//this can be used to open the slider at anytime in the dev phase
+
+    /*    private fun addingSliderAdapter() {
+
+
+            val imageList = listOf(
+                R.drawable.argentina_32,
+                R.drawable.brazil_31,
+                R.drawable.pakistan_02,
+                R.drawable.uae_04,
+                R.drawable.usa_03,
+                R.drawable.uk_05
+                // Add more images as needed
+            )
+
+            val adapter = ImageSliderAdapter(imageList)
+            mViewDataBinding.viewPager.adapter = adapter
+
+            addDots(imageList.size)
+            mViewDataBinding.viewPager.registerOnPageChangeCallback(object :
+                ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    updateDots(position)
+                }
+            })
+        }
+
+
+        private fun addDots(count: Int) {
+            for (i in 0 until count) {
+                val dot = ImageView(requireContext())
+                dot.setImageResource(R.drawable.dot_unselected)
+                val params = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                )
+                params.setMargins(8, 0, 8, 0)
+                mViewDataBinding.dotsContainer.addView(dot, params)
+            }
+            updateDots(0)
+        }
+
+        private fun updateDots(selectedPosition: Int) {
+            val childCount = mViewDataBinding.dotsContainer.childCount
+            for (i in 0 until childCount) {
+                val dot = mViewDataBinding.dotsContainer.getChildAt(i) as ImageView
+                if (i == selectedPosition) {
+                    dot.setImageResource(R.drawable.dot_selected_dash)
+                } else {
+                    dot.setImageResource(R.drawable.dot_unselected)
+                }
+            }
+        }*/
+
+//////////////
+
 
 }

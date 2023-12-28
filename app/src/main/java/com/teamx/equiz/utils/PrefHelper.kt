@@ -111,12 +111,12 @@ class PrefHelper private constructor() {
         }*/
     }
 
-    val checkEnableNotificaion: Boolean?
+    val checkEnableNotification: Boolean?
         get() = sharedPreferences.getBoolean(
             NOTIFICATION_ENABLE, false
         )
 
-    fun enableNotificaion(redeem: Boolean) {
+    fun enableNotification(redeem: Boolean) {
         sharedPreferences.edit().putBoolean(NOTIFICATION_ENABLE, redeem).apply()
     }
 

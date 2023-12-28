@@ -4,12 +4,15 @@ package com.teamx.equiz.ui.fragments.dashboard
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.activity.addCallback
 import androidx.annotation.Keep
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager2.widget.ViewPager2
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
@@ -20,6 +23,7 @@ import com.teamx.equiz.databinding.FragmentDashboardBinding
 import com.teamx.equiz.ui.activity.mainActivity.MainActivity
 import com.teamx.equiz.ui.fragments.dashboard.adapter.AllGameInterface
 import com.teamx.equiz.ui.fragments.dashboard.adapter.AllGamesAdapter
+import com.teamx.equiz.ui.fragments.dashboard.adapter.ImageSliderAdapter
 import com.teamx.equiz.ui.fragments.dashboard.adapter.TopWinnerInterface
 import com.teamx.equiz.ui.fragments.dashboard.adapter.TopWinnersAdapter
 import com.teamx.equiz.ui.fragments.quizes.QuizesInterface
@@ -28,7 +32,6 @@ import com.teamx.equiz.ui.fragments.quizes.adapter.QuizesAdapter
 import com.teamx.equiz.ui.fragments.quizes.adapter.QuizesTitleAdapter
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.system.exitProcess
 
 @AndroidEntryPoint
 class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewModel>(),
@@ -225,6 +228,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         initializeGameAdapter()
         initializeWinnerAdapter()
         initializeQuizesAdapter()
+        addingSliderAdapter()
     }
 
     private lateinit var strArrayList: ArrayList<TitleData>
@@ -238,16 +242,17 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         strArrayList = ArrayList()
 
         strArrayList.add(TitleData("World", true))
-        strArrayList.add(TitleData("National", false))
-        strArrayList.add(TitleData("City", false))
+        strArrayList.add(TitleData("Pakistan", false))
+        strArrayList.add(TitleData("Premium", false))
 
-        val layoutManager1 = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
+        val layoutManager1 =
+            LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
         mViewDataBinding.recCategories.layoutManager = layoutManager1
 
         quizesTitleAdapter = QuizesTitleAdapter(strArrayList, this)
         mViewDataBinding.recCategories.adapter = quizesTitleAdapter
 
-        mViewModel.getquizTitile("", "", "")
+        mViewModel.getquizTitile("World", "General Knowledge", "")
 
     }
 
@@ -534,13 +539,30 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
 
     }
-    override fun quizTitle(position: Int) {
-        mViewModel.getquizTitile("", "", "")
+
+    override fun quizTitle(position: Int, previousNumber: Int) {
+        val tick = strArrayList.get(position).value
+
+        val topic = if (tick.equals("World", true)) {
+            "General Knowledge"
+        } else {
+            "Pak Quiz"
+        }
+        mViewModel.getquizTitile("$tick", "$topic", "")
+//        strArrayList.forEach{
+//            if (it.isSelected)
+//            it.isSelected = false
+//        }
+
+        strArrayList.get(previousNumber).isSelected = false
+        strArrayList.get(position).isSelected = true
+        mViewDataBinding.recCategories.adapter?.notifyItemChanged(previousNumber)
+        mViewDataBinding.recCategories.adapter?.notifyItemChanged(position)
 
     }
 
     override fun quizeItem(position: Int) {
-        findNavController().navigate(R.id.playQuizFragment,arguments)
+        findNavController().navigate(R.id.playQuizFragment, arguments)
     }
 
     override fun onClickGame(position: Int) {
@@ -687,6 +709,66 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
     override fun onWinnerClick(position: Int) {
         Log.d("123", "onWinnerClick: ")
     }
+
+
+/////////////
+
+
+    private fun addingSliderAdapter() {
+
+
+        val imageList = listOf(
+            R.drawable.argentina_32,
+            R.drawable.brazil_31,
+            R.drawable.pakistan_02,
+            R.drawable.uae_04,
+            R.drawable.usa_03,
+            R.drawable.uk_05
+            // Add more images as needed
+        )
+
+        val adapter = ImageSliderAdapter(imageList)
+        mViewDataBinding.viewPager.adapter = adapter
+
+        addDots(imageList.size)
+        mViewDataBinding.viewPager.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                updateDots(position)
+            }
+        })
+    }
+
+
+    private fun addDots(count: Int) {
+        for (i in 0 until count) {
+            val dot = ImageView(requireContext())
+            dot.setImageResource(R.drawable.dot_unselected)
+            val params = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+            params.setMargins(8, 0, 8, 0)
+            mViewDataBinding.dotsContainer.addView(dot, params)
+        }
+        updateDots(0)
+    }
+
+    private fun updateDots(selectedPosition: Int) {
+        val childCount = mViewDataBinding.dotsContainer.childCount
+        for (i in 0 until childCount) {
+            val dot = mViewDataBinding.dotsContainer.getChildAt(i) as ImageView
+            if (i == selectedPosition) {
+                dot.setImageResource(R.drawable.dot_selected_dash)
+            } else {
+                dot.setImageResource(R.drawable.dot_unselected)
+            }
+        }
+    }
+
+//////////////
+
+
 }
 
 @Keep

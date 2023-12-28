@@ -2,30 +2,35 @@ package com.teamx.equiz.ui.fragments.address
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
-import androidx.core.app.ActivityCompat
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
+import com.google.gson.Gson
+import com.google.gson.JsonObject
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
+import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentAddressBinding
+import com.teamx.equiz.ui.fragments.address.dataclasses.ShippingInfo
+import com.teamx.equiz.utils.DialogHelperClass
 import com.teamx.equiz.utils.LocationPermission
 import dagger.hilt.android.AndroidEntryPoint
+import org.json.JSONException
 import java.io.IOException
 import java.util.Locale
-import androidx.activity.addCallback
+
 @AndroidEntryPoint
 class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>() {
 
@@ -69,6 +74,92 @@ class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>()
             )
 
 
+        }
+        mViewDataBinding.btnProceed.setOnClickListener {
+
+
+            val country = mViewDataBinding.country.text.toString()
+            val city = mViewDataBinding.city.text.toString()
+            val etPostal = mViewDataBinding.etPostal.text.toString()
+            val etState = mViewDataBinding.etState.text.toString()
+            val etName = mViewDataBinding.etName.text.toString()
+            val etPhone = mViewDataBinding.etPhone.text.toString()
+            val address = mViewDataBinding.editAddress1.text.toString()
+
+            val params = JsonObject()
+            try {
+
+
+                params.add(
+                    "shippingInfo", Gson().toJsonTree(
+                        ShippingInfo(
+                            address = address,
+                            phoneNumber = etPhone,
+                            postalCode = etPostal,
+                            city = city,
+                            state = etState,
+                            country = country,
+                        )
+                    )
+                )
+
+//                params.addProperty("couponCode", "EXTRA69-365-448-1043")
+
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
+            if (address.isNullOrEmpty()) {
+                showToast("Please add Address")
+            } else {
+                mViewModel.createOrder(params)
+            }
+        }
+
+
+        if (!mViewModel.createOrderResponse.hasActiveObservers()) {
+            mViewModel.createOrderResponse.observe(requireActivity()) {
+                when (it.status) {
+                    Resource.Status.LOADING -> {
+                        loadingDialog.show()
+                    }
+
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
+                    }
+
+                    Resource.Status.SUCCESS -> {
+                        loadingDialog.dismiss()
+                        it.data?.let { data ->
+
+                            var bundle = arguments
+                            if (bundle == null) {
+                                bundle = Bundle()
+                            }
+                            bundle.putString("order_id", data.data._id)
+
+
+                            findNavController().navigate(
+                                R.id.paymentMethodsFragment,
+                                bundle,
+                                options
+                            )
+                        }
+                    }
+
+                    Resource.Status.ERROR -> {
+                        loadingDialog.dismiss()
+                        DialogHelperClass.errorDialog(
+                            requireContext(),
+                            it.message!!
+                        )
+                    }
+                }
+                if (isAdded) {
+                    mViewModel.createOrderResponse.removeObservers(
+                        viewLifecycleOwner
+                    )
+                }
+            }
         }
 
 

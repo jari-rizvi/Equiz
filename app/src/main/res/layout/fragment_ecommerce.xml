@@ -81,6 +81,9 @@
                 style="@style/popins_regular"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:singleLine="true"
                 android:textSize="@dimen/_12ssp"
                 android:layout_marginHorizontal="@dimen/_7sdp"
                 android:background="@android:color/transparent"
@@ -123,7 +126,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_100sdp"
+            android:layout_height="@dimen/_1sdp"
             android:background="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -133,7 +136,7 @@
             app:layout_constraintTop_toBottomOf="@+id/categoriesRecycler">
 
 
-            <androidx.viewpager2.widget.ViewPager2
+          <!--  <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/screen_viewpager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -144,6 +147,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0">
+
+
 
 
             </androidx.viewpager2.widget.ViewPager2>
@@ -164,6 +169,34 @@
                 app:tabIndicatorHeight="0dp">
 
             </com.google.android.material.tabs.TabLayout>
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:paddingVertical="@dimen/_5sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                >
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <LinearLayout
+                    android:id="@+id/dotsContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="16dp"
+                    android:orientation="horizontal" />
+
+            </RelativeLayout>-->
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
