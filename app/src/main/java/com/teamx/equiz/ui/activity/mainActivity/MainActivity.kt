@@ -46,7 +46,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
 
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
-        mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+       /* mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
         mViewDataBinding.drawerLayoutMain.btneccomernce.setOnClickListener {
             mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
@@ -119,7 +119,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
         mViewDataBinding.drawerLayoutMain.btnSubscribe.setOnClickListener {
             mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
             navController!!.navigate(R.id.subscriptionFragment)
-        }
+        }*/
 
 
         setBottomNavigationWithNavController(savedInstanceState)
@@ -133,24 +133,27 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
                 R.id.dashboardFragment -> {
                      mViewDataBinding.bottomNavigationq?.visibility = View.VISIBLE
                 }
+                R.id.settingsFragment -> {
+                     mViewDataBinding.bottomNavigationq?.visibility = View.VISIBLE
+                }
 
                 R.id.gamesFragment -> {
 
                      mViewDataBinding.bottomNavigationq?.visibility = View.VISIBLE
                 }
 
-                R.id.profileFragment -> {
+                /*R.id.profileFragment -> {
 
                      mViewDataBinding.bottomNavigationq?.visibility = View.VISIBLE
-                }
+                }*/
 
-                R.id.quizesFragment -> {
+              /*  R.id.quizesFragment -> {
                      mViewDataBinding.bottomNavigationq?.visibility = View.VISIBLE
-                }
+                }*/
 
-                R.id.editProfileFragment -> {
-                     mViewDataBinding.bottomNavigationq?.visibility = View.VISIBLE
-                }
+//                R.id.editProfileFragment -> {
+//                     mViewDataBinding.bottomNavigationq?.visibility = View.VISIBLE
+//                }
 
             /*    R.id.qr -> {
                      mViewDataBinding.bottomNavigationq?.visibility = View.VISIBLE
@@ -257,7 +260,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
             ),
             com.teamx.equiz.games.nav_custom.custombottomnav.Model(
                 R.drawable.setting_dash,
-                R.id.editProfileFragment,
+                R.id.settingsFragment,
                 2,/*R.string.title_chat*/
                 R.string.profile,
                 R.string.empty_value

@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.teamx.equiz.baseclasses.BaseViewModel
+import com.teamx.equiz.data.models.meModel.MeModel
 import com.teamx.equiz.data.models.quizTitleData.QuizTitleData
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.data.remote.reporitory.MainRepository
@@ -21,43 +22,36 @@ class SettingsViewModel @Inject constructor(
 ) : BaseViewModel() {
 
 
-    private val _quizTitleResponse = MutableLiveData<Resource<QuizTitleData>>()
-    val quizTitleResponse: LiveData<Resource<QuizTitleData>>
-        get() = _quizTitleResponse
 
-    fun quizTitle(country: String,
-                  topic: String?,
-                  type: String,) {
+
+    private val _meResponse = MutableLiveData<Resource<MeModel>>()
+    val meResponse: LiveData<Resource<MeModel>>
+        get() = _meResponse
+    fun me() {
         viewModelScope.launch {
-            _quizTitleResponse.postValue(Resource.loading(null))
+            _meResponse.postValue(Resource.loading(null))
             if (networkHelper.isNetworkConnected()) {
                 try {
-                    mainRepository.quizTitle(country, topic, type).let {
+                    mainRepository.me().let {
                         if (it.isSuccessful) {
-                            _quizTitleResponse.postValue(Resource.success(it.body()!!))
-                        } else if (it.code() == 500 || it.code() == 404 || it.code() == 400 || it.code() == 422) {
-                            val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
-                            _quizTitleResponse.postValue(Resource.error(jsonObj.getString("message")))
-                            Log.d("uploadReviewImg", "jsonObj ${it.code()}: ${jsonObj.getString("message")}")
+                            _meResponse.postValue(Resource.success(it.body()!!))
                         }
-                        /*else if (it.code() == 401) {
-                            _quizTitleResponse.postValue(Resource.auth("", null))
-                        } */
-                        else {
+                        /*  else if (it.code() == 401) {
+                              _meResponse.postValue(Resource.unAuth("", null))
+                          }*/else if (it.code() == 500 || it.code() == 404 || it.code() == 400 || it.code() == 422) {
                             val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
-                            _quizTitleResponse.postValue(Resource.error(jsonObj.getString("message")))
-                            Log.d("uploadReviewImg", "jsonObj: ${jsonObj.getString("message")}")
+                            _meResponse.postValue(Resource.error(jsonObj.getString("message")))
+                        } else {
+                            val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
+                            _meResponse.postValue(Resource.error(jsonObj.getString("message")))
+//                            _meResponse.postValue(Resource.error(it.message(), null))
                         }
                     }
                 } catch (e: Exception) {
-                    Log.d("uploadReviewImg", "Exception: ${e.message}")
-                    _quizTitleResponse.postValue(Resource.error("${e.message}", null))
+                    _meResponse.postValue(Resource.error("${e.message}", null))
                 }
-            } else{
-                _quizTitleResponse.postValue(Resource.error("No internet connection", null))
-            }
+            } else _meResponse.postValue(Resource.error("No internet connection", null))
         }
     }
-
 
 }

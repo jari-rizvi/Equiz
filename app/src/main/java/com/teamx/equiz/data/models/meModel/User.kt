@@ -24,7 +24,7 @@ data class User(
     val registrationDate: String,
     val resetTokenExpiration: String,
     val roles: String,
-    val score: Any,
+    val score: Double,
     val street: String,
     val uniqueID: String,
     val updatedAt: String,

@@ -132,6 +132,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                             mViewDataBinding.userName.setText(data.user.name)
                             mViewDataBinding.phone.setText(data.user.phone)
                             mViewDataBinding.email.setText(data.user.email)
+
                             /*  val userData = PrefHelper.getInstance(requireActivity()).getUserData()
                               userData!!.name = data.name
                               userData!!.profileImage = data.profileImage

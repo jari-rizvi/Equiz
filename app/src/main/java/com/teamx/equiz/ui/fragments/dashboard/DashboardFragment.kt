@@ -20,7 +20,6 @@ import com.teamx.equiz.data.models.quizTitleData.Data
 import com.teamx.equiz.data.models.topWinnerData.Game
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentDashboardBinding
-import com.teamx.equiz.ui.activity.mainActivity.MainActivity
 import com.teamx.equiz.ui.fragments.dashboard.adapter.AllGameInterface
 import com.teamx.equiz.ui.fragments.dashboard.adapter.AllGamesAdapter
 import com.teamx.equiz.ui.fragments.dashboard.adapter.ImageSliderAdapter
@@ -73,8 +72,11 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         }
 
         mViewDataBinding.btnback.setOnClickListener {
-            val activity = requireActivity() as MainActivity
-            activity.openDrawer()
+//            val activity = requireActivity() as MainActivity
+//            activity.openDrawer()
+            findNavController().navigate(
+                R.id.settingsFragment, arguments, options
+            )
         }
 
         mViewDataBinding.textView155.setOnClickListener {

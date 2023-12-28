@@ -69,12 +69,14 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
 
                                 mViewDataBinding.textView3.setText(data.user.name)
                                 mViewDataBinding.textView4.setText(data.user.email)
+                                mViewDataBinding.textView52.setText(data.user.chances.toString())
+                                mViewDataBinding.textView51.setText(data.user.score.toString())
 
                                 Picasso.get().load(data.user.image).resize(500, 500)
                                     .into(mViewDataBinding.profilePicture)
 
                             } catch (e: Exception) {
-
+                                e.printStackTrace()
                             }
                         }
                     }
@@ -92,13 +94,32 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
 
 
         mViewDataBinding.btnEditProfile.setOnClickListener {
-            findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment,arguments,options)
+            findNavController().navigate(
+                R.id.action_profileFragment_to_editProfileFragment,
+                arguments,
+                options
+            )
         }
         mViewDataBinding.btnOrder.setOnClickListener {
-            findNavController().navigate(R.id.action_profileFragment_to_ordersFragment,arguments,options)
+            findNavController().navigate(
+                R.id.action_profileFragment_to_ordersFragment,
+                arguments,
+                options
+            )
         }
         mViewDataBinding.btnChance.setOnClickListener {
-            findNavController().navigate(R.id.action_profileFragment_to_chancesFragment,arguments,options)
+            findNavController().navigate(
+                R.id.action_profileFragment_to_chancesFragment,
+                arguments,
+                options
+            )
+        }
+        mViewDataBinding.btnleaderboard.setOnClickListener {
+            findNavController().navigate(R.id.loaderBoardFragment, arguments, options)
+        }
+        mViewDataBinding.btnSecurity.setOnClickListener {
+//            findNavController().navigate(R.id.loaderBoardFragment, arguments, options)
+            showToast("Privacy Policy")
         }
 
 

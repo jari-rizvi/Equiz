@@ -372,8 +372,13 @@ class SSCustomBottomNavigation : FrameLayout {
         builder.setPopUpTo(findStartDestination(navController.graph).id, false)
         val options = builder.build()
         try {
+            val navBackStackEntry = navController.currentBackStackEntry
             navController.popBackStack()
-            navController.navigate(itemCbn.destinationId, null, options)
+
+// Retrieve the arguments
+            val arguments = navBackStackEntry?.arguments
+
+            navController.navigate(itemCbn.destinationId, arguments, options)
         } catch (e: IllegalArgumentException) {
             Log.w("TAG", "unable to navigate!", e)
         }
