@@ -123,8 +123,11 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
+                            if (data.user.image.isNotEmpty()){
+
                             Picasso.get().load(data.user.image).resize(500, 500)
                                 .into(mViewDataBinding.profilePicture)
+                            }
 
                             mViewDataBinding.userName.setText(data.user.name)
                             mViewDataBinding.phone.setText(data.user.phone)

@@ -29,9 +29,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
@@ -55,12 +57,63 @@ fun GuessTheFlagGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
     var isTimeUp by remember { mutableStateOf(false) }
 
 
-    val flags = listOf(
+    /*val flags = listOf(
         R.drawable.usa_flag,
         R.drawable.uk_flag,
         R.drawable.uk_flag,
         R.drawable.france_flag
         // Add more flags as needed
+    )*/
+    val flags = listOf(
+        R.drawable.brazil_31,
+        R.drawable.canada_08,
+        R.drawable.china_17,
+        R.drawable.colombia_39,
+        R.drawable.denmark_30,
+        R.drawable.egypt_48,
+        R.drawable.finland_37,
+        R.drawable.france_23,
+        R.drawable.georgia_44,
+        R.drawable.germany_16,
+        R.drawable.greece_47,
+        R.drawable.iceland_50,
+        R.drawable.india_24,
+        R.drawable.indonesia_33,
+        R.drawable.iran_34,
+        R.drawable.iraq_35,
+        R.drawable.ireland_38,
+        R.drawable.japan_25,
+        R.drawable.kuwait_36,
+        R.drawable.malaysia_41,
+        R.drawable.mexico_42,
+        R.drawable.morocco_22,
+        R.drawable.netherland_20,
+        R.drawable.new_zealand_11,
+        R.drawable.nigeria_49,
+        R.drawable.norway_10,
+        R.drawable.oman_18,
+        R.drawable.pakistan_02,
+        R.drawable.portugal_46,
+        R.drawable.qatar_09,
+        R.drawable.saudi_arabia_28,
+        R.drawable.singapore_27,
+        R.drawable.south_africa_19,
+        R.drawable.spain_21,
+        R.drawable.srilanka_06,
+        R.drawable.sweden_12,
+        R.drawable.switzerland_13,
+        R.drawable.syria_14,
+        R.drawable.thailand_43,
+        R.drawable.turkey_07,
+        R.drawable.uae_04,
+        R.drawable.uk_05,
+        R.drawable.usa_03,
+        R.drawable.zimbabwe_26,
+        R.drawable.argentina_32,
+        R.drawable.australia_29,
+        R.drawable.bangladesh_15,
+        R.drawable.belgium_45
+
     )
 
     fun generateOptions() {
@@ -159,7 +212,10 @@ fun GuessTheFlagGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
                  .size(200.dp)
                  .padding(16.dp)
          )*/
-        Text(text = getCountryName(currentFlagIndex))
+        Text(
+            text = getCountryName(currentFlagIndex), fontWeight = FontWeight.ExtraBold,
+            fontSize = 23.sp
+        )
 
         /* options.forEach { country ->
              Row(
@@ -283,7 +339,7 @@ fun GuessTheFlagGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
         }
 }
 
-fun getCountryName(index: Int): String {
+/*fun getCountryName(index: Int): String {
     return when (index) {
         0 -> "United States"
         1 -> "United Kingdom"
@@ -292,9 +348,9 @@ fun getCountryName(index: Int): String {
         // Add more country names as needed
         else -> ""
     }
-}
+}*/
 
-fun getCountryName2(index: Int): String {
+fun getCountryName(index: Int): String {
     return when (index) {
         0 -> "Brazil"
         1 -> "Canada"
