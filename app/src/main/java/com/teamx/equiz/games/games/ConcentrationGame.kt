@@ -9,6 +9,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,6 +19,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -33,8 +35,10 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
@@ -51,7 +55,7 @@ fun ConcentrationGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: In
     var isAlert by remember { mutableStateOf(false) }
      rightGameAnswers = 1
      wrongGameAnswers = 1
-    var timeLeft by remember { mutableStateOf(20L) }
+    var timeLeft by remember { mutableStateOf(10L) }
     var isTimeUp by remember { mutableStateOf(false) }
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
@@ -98,6 +102,22 @@ fun ConcentrationGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: In
                 .fillMaxHeight()
                 .background(color = Color.White),
         ) {
+            Row(modifier = Modifier.background(color = Color(0xFF9F81CA))) {
+
+                BackButton(onClick = { content(false,0,0) }
+                )
+                Text(
+                    text = "Training",
+                    modifier = Modifier
+                        .fillMaxWidth()
+
+                        .align(alignment = Alignment.CenterVertically),
+                    textAlign = TextAlign.Center,
+                    color = Color.White,
+                    fontSize = 17.sp
+                )
+
+            }
 
             ConcentrationObjects()
 

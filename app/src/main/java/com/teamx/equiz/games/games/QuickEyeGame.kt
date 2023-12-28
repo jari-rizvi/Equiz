@@ -45,7 +45,7 @@ fun QuickEyeGame(content:  (bool:Boolean, rightAnswer:Int, totalAnswer:Int) -> U
  rightGameAnswers = 1
  wrongGameAnswers = 1
 
-    var timeLeft by remember { mutableStateOf(20L) }
+    var timeLeft by remember { mutableStateOf(10L) }
     var isTimeUp by remember { mutableStateOf(false) }
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
@@ -96,8 +96,24 @@ fun QuickEyeGame(content:  (bool:Boolean, rightAnswer:Int, totalAnswer:Int) -> U
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
-                .background(color = Color.White),
+                .background(color = Color(0xFFE1E1E1)),
         ) {
+            Row(modifier = Modifier.background(color = Color(0xFF9F81CA))) {
+
+                BackButton(onClick = { content(false,0,0) }
+                )
+                Text(
+                    text = "Training",
+                    modifier = Modifier
+                        .fillMaxWidth()
+
+                        .align(alignment = Alignment.CenterVertically),
+                    textAlign = TextAlign.Center,
+                    color = Color.White,
+                    fontSize = 17.sp
+                )
+
+            }
             /* Box(
                  modifier = Modifier
                      .padding(16.dp)
@@ -222,7 +238,7 @@ fun QuickCardCalculationGameScreen(content: () -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight()
-            .background(color = Color(0xFFE1E1E1)),
+            ,
     ) {
 
         Column(

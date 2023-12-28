@@ -88,7 +88,7 @@ fun CardCalculationGameScreen(content: (boolean:Boolean, rightAnswer:Int, totalA
  wrongGameAnswers = 1
     var isTimeUp by remember { mutableStateOf(false) }
 
-    var timeLeft by remember { mutableStateOf(20L) }
+    var timeLeft by remember { mutableStateOf(10L) }
 
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
@@ -131,79 +131,88 @@ fun CardCalculationGameScreen(content: (boolean:Boolean, rightAnswer:Int, totalA
         }
 
 
-    }
+    }else{
+        var changeable by remember { mutableStateOf(true) }
+        var gameStarted by remember { mutableStateOf(false) }
+        if (changeable) {
+
+            cards = generateCards(Random.nextInt(2, 4))
+            selectedCards.clear()
 
 
+            cards.forEach { card ->
 
-
-
-
-    var changeable by remember { mutableStateOf(true) }
-    var gameStarted by remember { mutableStateOf(false) }
-    if (changeable) {
-
-        cards = generateCards(Random.nextInt(2, 4))
-        selectedCards.clear()
-
-
-        cards.forEach { card ->
-
-            if (card.color == CardColor.GREEN) {
-                selectedCards.add(card.value)
-            } else if (card.color == CardColor.RED) {
-                selectedCards.add(-card.value)
+                if (card.color == CardColor.GREEN) {
+                    selectedCards.add(card.value)
+                } else if (card.color == CardColor.RED) {
+                    selectedCards.add(-card.value)
+                }
             }
+            answer = selectedCards.sum()
+            optionCards = generateCardsOption(answer)
+
         }
-        answer = selectedCards.sum()
-        optionCards = generateCardsOption(answer)
-
-    }
 
 
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight()
-            .background(color = Color(0xFFE1E1E1)),
-    ) {
-
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .background(color = Color(0xFFE1E1E1)),
         ) {
-            if (!gameStarted) {
+            Row(modifier = Modifier.background(color = Color(0xFF9F81CA))) {
+
+                BackButton(onClick = { content(false,0,0) }
+                )
+                Text(
+                    text = "Training",
+                    modifier = Modifier
+                        .fillMaxWidth()
+
+                        .align(alignment = Alignment.CenterVertically),
+                    textAlign = TextAlign.Center,
+                    color = Color.White,
+                    fontSize = 17.sp
+                )
+
+            }
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                if (!gameStarted) {
 
 
-                Row(
-                    modifier = Modifier.padding(horizontal = 16.dp),
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
+                    Row(
+                        modifier = Modifier.padding(horizontal = 16.dp),
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
 
 
-                    cards.forEach { card ->
+                        cards.forEach { card ->
 
-                        Box(
-                            modifier = Modifier
-                                .padding(8.dp)
-                                .width(70.dp)
-                                .height(100.dp),
-                            contentAlignment = Alignment.Center
-                        ) {
+                            Box(
+                                modifier = Modifier
+                                    .padding(8.dp)
+                                    .width(70.dp)
+                                    .height(100.dp),
+                                contentAlignment = Alignment.Center
+                            ) {
 
-                            Image(
-                                painter = painterResource(id = if (card.color == CardColor.GREEN) R.drawable.cardbule_cardcal else R.drawable.cardred_cardcal),
-                                contentDescription = ""
-                            )
-                            Text(
-                                text = card.value.toString(), color = Color.White,
-                                fontWeight = FontWeight.ExtraBold, fontSize = 36.sp
-                            )
+                                Image(
+                                    painter = painterResource(id = if (card.color == CardColor.GREEN) R.drawable.cardbule_cardcal else R.drawable.cardred_cardcal),
+                                    contentDescription = ""
+                                )
+                                Text(
+                                    text = card.value.toString(), color = Color.White,
+                                    fontWeight = FontWeight.ExtraBold, fontSize = 36.sp
+                                )
 
-                            /*  Button(
-                                  onClick = {
-                                      *//*if (card.color == CardColor.GREEN) {
+                                /*  Button(
+                                      onClick = {
+                                          *//*if (card.color == CardColor.GREEN) {
                                         selectedCards.add(card.value)
                                     } else if (card.color == CardColor.RED) {
                                         selectedCards.add(-card.value)
@@ -220,172 +229,180 @@ fun CardCalculationGameScreen(content: (boolean:Boolean, rightAnswer:Int, totalA
                             ) {
 
                             }*/
+                            }
                         }
                     }
-                }
 
 
 
 
-                Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(16.dp))
 
-                Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(16.dp))
 
-                Button(
-                    onClick = { /*resetGame()*/
-                        changeable = false
-                        gameStarted = true
-                    }, modifier = Modifier
-                        .padding(8.dp)
-                        .width(120.dp)
-                        .height(35.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFF9F81CA)/*if (card.color == CardColor.GREEN) neoGreen else neoRed*/
-                    )
-                ) {
-                    Text(text = "Memorized")
-                }
-                /* Text(
-                     text = "Selected Cards: ${selectedCards.joinToString(", ")}",
-                     style = MaterialTheme.typography.bodyLarge
-                 )*/
+                    Button(
+                        onClick = { /*resetGame()*/
+                            changeable = false
+                            gameStarted = true
+                        }, modifier = Modifier
+                            .padding(8.dp)
+                            .width(120.dp)
+                            .height(35.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color(0xFF9F81CA)/*if (card.color == CardColor.GREEN) neoGreen else neoRed*/
+                        )
+                    ) {
+                        Text(text = "Memorized")
+                    }
+                    /* Text(
+                         text = "Selected Cards: ${selectedCards.joinToString(", ")}",
+                         style = MaterialTheme.typography.bodyLarge
+                     )*/
 
-                Log.d("123123", "CardCalculationGameScreen: ")
+                    Log.d("123123", "CardCalculationGameScreen: ")
 
 
-            } else {
-                /*  Text(
-                      text = "Selected Cards: ${selectedCards.joinToString(", ")}",
-                      style = MaterialTheme.typography.bodyLarge
-                  )*/
+                } else {
+                    /*  Text(
+                          text = "Selected Cards: ${selectedCards.joinToString(", ")}",
+                          style = MaterialTheme.typography.bodyLarge
+                      )*/
 
-                Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(16.dp))
 
-                /* Text(
-                     text = "Choose the correct answer:", style = MaterialTheme.typography.bodyLarge
-                 )*/
+                    /* Text(
+                         text = "Choose the correct answer:", style = MaterialTheme.typography.bodyLarge
+                     )*/
 
-                if (optionCards.size == 4) {
-                    Column {
-                        repeat(2) { column ->
-                            Row(
-                                modifier = Modifier.padding(horizontal = 16.dp),
-                                horizontalArrangement = Arrangement.Center,
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                repeat(2) { row ->
-                                    val index = row * 2 + column
-                                    val it = optionCards[index]
+                    if (optionCards.size == 4) {
+                        Column {
+                            repeat(2) { column ->
+                                Row(
+                                    modifier = Modifier.padding(horizontal = 16.dp),
+                                    horizontalArrangement = Arrangement.Center,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    repeat(2) { row ->
+                                        val index = row * 2 + column
+                                        val it = optionCards[index]
 //                                    optionCards.forEach { it ->
-                                    Box(
-                                        modifier = Modifier
-                                            .padding(8.dp)
-                                            .width(70.dp)
-                                            .height(130.dp)
-                                            .clickable(enabled = true) {
+                                        Box(
+                                            modifier = Modifier
+                                                .padding(8.dp)
+                                                .width(70.dp)
+                                                .height(130.dp)
+                                                .clickable(enabled = true) {
 
-                                                if (checkAnswer(answer, it.value)) {
-                                                    changeable = true
-                                                    gameStarted = false
-                                                }
+                                                    if (checkAnswer(answer, it.value)) {
+                                                        changeable = true
+                                                        gameStarted = false
+                                                    }
 
-                                            },
-                                        contentAlignment = Alignment.Center
-                                    ) {
+                                                },
+                                            contentAlignment = Alignment.Center
+                                        ) {
 
-                                        Image(
-                                            painter = painterResource(id = R.drawable.cardshow_cardcal),
-                                            contentDescription = ""
-                                        )
-                                        Text(
-                                            modifier = Modifier.fillMaxWidth(),
+                                            Image(
+                                                painter = painterResource(id = R.drawable.cardshow_cardcal),
+                                                contentDescription = ""
+                                            )
+                                            Text(
+                                                modifier = Modifier.fillMaxWidth(),
 
-                                            text = it.value.toString(),
-                                            color = Color(0xff9F81CA),
-                                            fontWeight = FontWeight.ExtraBold,
-                                            fontSize = 26.sp,
-                                            textAlign = TextAlign.Center
-                                        )
+                                                text = it.value.toString(),
+                                                color = Color(0xff9F81CA),
+                                                fontWeight = FontWeight.ExtraBold,
+                                                fontSize = 26.sp,
+                                                textAlign = TextAlign.Center
+                                            )
+
+                                        }
+
 
                                     }
-
-
                                 }
                             }
                         }
-                    }
 //                    }
 
-                } else {
+                    } else {
 
 
-                    Row(
-                        modifier = Modifier.padding(horizontal = 16.dp),
-                        horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        optionCards.forEach { it ->
-                            Box(
-                                modifier = Modifier
-                                    .padding(8.dp)
-                                    .width(70.dp)
-                                    .height(130.dp)
-                                    .clickable(enabled = true) {
+                        Row(
+                            modifier = Modifier.padding(horizontal = 16.dp),
+                            horizontalArrangement = Arrangement.Center,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            optionCards.forEach { it ->
+                                Box(
+                                    modifier = Modifier
+                                        .padding(8.dp)
+                                        .width(70.dp)
+                                        .height(130.dp)
+                                        .clickable(enabled = true) {
 
-                                        if (checkAnswer(answer, it.value)) {
-                                            changeable = true
-                                            gameStarted = false
-                                        }
+                                            if (checkAnswer(answer, it.value)) {
+                                                changeable = true
+                                                gameStarted = false
+                                            }
 
-                                    },
-                                contentAlignment = Alignment.Center
-                            ) {
+                                        },
+                                    contentAlignment = Alignment.Center
+                                ) {
 
-                                Image(modifier = Modifier.fillMaxHeight(),
-                                    painter = painterResource(id = R.drawable.cardshow_cardcal),
-                                    contentDescription = ""
-                                )
-                                Text(
-                                    modifier = Modifier.fillMaxWidth(),
+                                    Image(modifier = Modifier.fillMaxHeight(),
+                                        painter = painterResource(id = R.drawable.cardshow_cardcal),
+                                        contentDescription = ""
+                                    )
+                                    Text(
+                                        modifier = Modifier.fillMaxWidth(),
 
-                                    text = it.value.toString(),
-                                    color = Color(0xff9F81CA), fontWeight = FontWeight.ExtraBold,
-                                    fontSize = 26.sp, textAlign = TextAlign.Center
-                                )
-                                /*   Button(
-                                       onClick = {
-                                           if (checkAnswer(answer, it.value)) {
-                                               changeable = true
-                                               gameStarted = false
-                                           }
-                                       },
-                                       modifier = Modifier,
-                                       colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-                                       shape = RoundedCornerShape(8.dp),
-       //                                border = BorderStroke(1.dp, Color.Black)
-                                   ) {
+                                        text = it.value.toString(),
+                                        color = Color(0xff9F81CA), fontWeight = FontWeight.ExtraBold,
+                                        fontSize = 26.sp, textAlign = TextAlign.Center
+                                    )
+                                    /*   Button(
+                                           onClick = {
+                                               if (checkAnswer(answer, it.value)) {
+                                                   changeable = true
+                                                   gameStarted = false
+                                               }
+                                           },
+                                           modifier = Modifier,
+                                           colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+                                           shape = RoundedCornerShape(8.dp),
+           //                                border = BorderStroke(1.dp, Color.Black)
+                                       ) {
 
-                                   }*/
+                                       }*/
+                                }
+
+
                             }
-
-
                         }
                     }
                 }
-            }
 
-        }
-      Image(
+            }
+            Image(
                 modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight(),
                 painter = painterResource(id = R.drawable.iconbg),
                 contentDescription = "bg"
             )
-        if (isAlert) {
-            GameAlertingTime()
+            if (isAlert) {
+                GameAlertingTime()
+            }
         }
-        }
+    }
+
+
+
+
+
+
+
 }
 
 data class CardModel(val value: Int, val color: CardColor)

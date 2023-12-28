@@ -173,7 +173,7 @@ fun HighLowComponent(content: (boo:Boolean, rightAnswer:Int, totalAnswer:Int) ->
  rightGameAnswers = 1
  wrongGameAnswers = 1
     var isTimeUp by remember { mutableStateOf(false) }
-    var timeLeft by remember { mutableStateOf(20L) }
+    var timeLeft by remember { mutableStateOf(10L) }
 
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
@@ -195,7 +195,9 @@ fun HighLowComponent(content: (boo:Boolean, rightAnswer:Int, totalAnswer:Int) ->
             }
         }.start()
     }
-
+    if (isGameOver) {
+        content(true, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
+    }
     if (isTimeUp) {
 
         TimeUpDialogCompose() { i ->
@@ -208,190 +210,185 @@ fun HighLowComponent(content: (boo:Boolean, rightAnswer:Int, totalAnswer:Int) ->
         }
 
 
-    }
-    if (isGameOver) {
-        content(true, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
-    }
+    }else{
+        var swipeStateX by remember { mutableStateOf(false) }
+
+        var previousNumber by remember { mutableStateOf(Random.nextInt(0, 100)) }
+        var showNumber by remember { mutableStateOf(Random.nextInt(0, 100)) }
+        var valuesTranslation by remember {
+            mutableStateOf(
+                590f
+            )
+        }
+        var randomInt by remember { mutableStateOf(1) }
+        randomInt = if (previousNumber > showNumber) {
+            1
+        } else {
+            2
+        }
+        var fadeValue by remember { mutableStateOf(0f) }
+        var bimap by remember { mutableStateOf(R.drawable.down) }
+
+        val transitionState = remember { MutableTransitionState(false) }
+        val transition = updateTransition(transitionState, "cardTransition")
 
 
-    var swipeStateX by remember { mutableStateOf(false) }
+        val offsetTransitionY by transition.animateFloat(label = "cardOffsetTransition",
+            transitionSpec = { tween(durationMillis = 500) },
 
-    var previousNumber by remember { mutableStateOf(Random.nextInt(0, 100)) }
-    var showNumber by remember { mutableStateOf(Random.nextInt(0, 100)) }
-    var valuesTranslation by remember {
-        mutableStateOf(
-            590f
-        )
-    }
-    var randomInt by remember { mutableStateOf(1) }
-    randomInt = if (previousNumber > showNumber) {
-        1
-    } else {
-        2
-    }
-    var fadeValue by remember { mutableStateOf(0f) }
-    var bimap by remember { mutableStateOf(R.drawable.down) }
-
-    val transitionState = remember { MutableTransitionState(false) }
-    val transition = updateTransition(transitionState, "cardTransition")
-
-
-    val offsetTransitionY by transition.animateFloat(label = "cardOffsetTransition",
-        transitionSpec = { tween(durationMillis = 500) },
-
-        targetValueByState = {
-            if (it) {
-                valuesTranslation
-            } else {
-                0f
-            }
-        })
+            targetValueByState = {
+                if (it) {
+                    valuesTranslation
+                } else {
+                    0f
+                }
+            })
 
 
 
 
-    Box(
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
                 .background(color = Color.White),
         ) {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
 
 
-        Card(
+                Card(
 
-            modifier = Modifier
-                .testTag("DraggableCard")
+                    modifier = Modifier
+                        .testTag("DraggableCard")
 //            .width(165.dp)
-                .wrapContentSize()
+                        .wrapContentSize()
 //            .height(165.dp)
 
-                .padding(horizontal = 4.dp, vertical = 1.dp)
-                .offset(
-                    x = if (!transitionState.targetState) {
-                        if (randomInt == 1) {
-                            offsetTransitionY.dp
-                        } else {
-                            -offsetTransitionY.dp
-                        }
-                    } else {
-                        0.dp
-                    }, y = if (transitionState.targetState) {
-                        if (randomInt == 1) {
-                            offsetTransitionY.dp
-                        } else {
-                            -offsetTransitionY.dp
-                        }
-                    } else {
-                        0.dp
-                    }
-
-
-                )
-                .pointerInput(Unit) {
-                    detectDragGestures { change, dragAmount ->
-
-                        when {
-
-                            previousNumber <= showNumber && (dragAmount.y <= -2.0 && dragAmount.y < 0) && randomInt == 2 -> {
-
-                                if (dragged) {
-                                    dragged = false
-                                    Log.d("123123", "MyCardUP: ${dragAmount.y} $swipeStateX")
-                                    transitionState.targetState = true
-                                    i23 = 1
-
-                                    GlobalScope.launch {
-                                        delay(800)
-                                        dragged = true
-                                    }
+                        .padding(horizontal = 4.dp, vertical = 1.dp)
+                        .offset(
+                            x = if (!transitionState.targetState) {
+                                if (randomInt == 1) {
+                                    offsetTransitionY.dp
+                                } else {
+                                    -offsetTransitionY.dp
                                 }
-                            }
-
-                            previousNumber > showNumber && (dragAmount.y >= 2.0 && dragAmount.y > 0) && randomInt == 1 -> {
-
-                                if (dragged) {
-                                    dragged = false
-                                    Log.d("123123", "MyCardDOWN:${dragAmount.y} $swipeStateX")
-                                    transitionState.targetState = true
-                                    i23 = 1
-                                    GlobalScope.launch {
-                                        delay(800)
-                                        dragged = true
-                                    }
+                            } else {
+                                0.dp
+                            }, y = if (transitionState.targetState) {
+                                if (randomInt == 1) {
+                                    offsetTransitionY.dp
+                                } else {
+                                    -offsetTransitionY.dp
                                 }
+                            } else {
+                                0.dp
                             }
 
 
+                        )
+                        .pointerInput(Unit) {
+                            detectDragGestures { change, dragAmount ->
+
+                                when {
+
+                                    previousNumber <= showNumber && (dragAmount.y <= -2.0 && dragAmount.y < 0) && randomInt == 2 -> {
+
+                                        if (dragged) {
+                                            dragged = false
+                                            Log.d("123123", "MyCardUP: ${dragAmount.y} $swipeStateX")
+                                            transitionState.targetState = true
+                                            i23 = 1
+
+                                            GlobalScope.launch {
+                                                delay(800)
+                                                dragged = true
+                                            }
+                                        }
+                                    }
+
+                                    previousNumber > showNumber && (dragAmount.y >= 2.0 && dragAmount.y > 0) && randomInt == 1 -> {
+
+                                        if (dragged) {
+                                            dragged = false
+                                            Log.d("123123", "MyCardDOWN:${dragAmount.y} $swipeStateX")
+                                            transitionState.targetState = true
+                                            i23 = 1
+                                            GlobalScope.launch {
+                                                delay(800)
+                                                dragged = true
+                                            }
+                                        }
+                                    }
+
+
+                                }
+                            }
+
+
                         }
-                    }
-
-
-                }
-                .graphicsLayer {
+                        .graphicsLayer {
 
 //                if (transition.currentState) {
-                    if (i23 < 2) {
-                        if (transition.isRunning) {
-                            Log.d("123123", "MyCard2222: ${i23++}")
-                            GlobalScope.launch {
+                            if (i23 < 2) {
+                                if (transition.isRunning) {
+                                    Log.d("123123", "MyCard2222: ${i23++}")
+                                    GlobalScope.launch {
 
-                                for (i in 0..10) {
-                                    delay(25)
-                                    fadeValue = 1 - i * 0.1f
-                                }
-
-
-                                delay(700)
-                                transitionState.targetState = false
+                                        for (i in 0..10) {
+                                            delay(25)
+                                            fadeValue = 1 - i * 0.1f
+                                        }
 
 
-                                previousNumber = showNumber
-                                showNumber = Random.nextInt(0, 100)
-                                randomInt = if (previousNumber > showNumber) {
-                                    1
-                                } else {
-                                    2
-                                }
+                                        delay(700)
+                                        transitionState.targetState = false
 
-                                when (randomInt) {
-                                    2 -> {
-                                        bimap = R.drawable.up
+
+                                        previousNumber = showNumber
+                                        showNumber = Random.nextInt(0, 100)
+                                        randomInt = if (previousNumber > showNumber) {
+                                            1
+                                        } else {
+                                            2
+                                        }
+
+                                        when (randomInt) {
+                                            2 -> {
+                                                bimap = R.drawable.up
+                                            }
+
+                                            1 -> {
+                                                bimap = R.drawable.down
+                                            }
+
+                                        }
+
+
+                                        for (i in 0..10) {
+                                            delay(25)
+                                            fadeValue = 1 - i * 0.1f
+                                        }
                                     }
+                                }
 
-                                    1 -> {
-                                        bimap = R.drawable.down
+                            }
+                        },
+
+                    ) {
+                    Box(
+                        modifier = Modifier
+                            .size(165.dp)
+                            .background(
+                                color = Pink80.copy(
+                                    alpha = if (transitionState.targetState) {
+                                        fadeValue
+                                    } else {
+                                        1 - fadeValue
                                     }
-
-                                }
-
-
-                                for (i in 0..10) {
-                                    delay(25)
-                                    fadeValue = 1 - i * 0.1f
-                                }
-                            }
-                        }
-
-                    }
-                },
-
-            ) {
-            Box(
-                modifier = Modifier
-                    .size(165.dp)
-                    .background(
-                        color = Pink80.copy(
-                            alpha = if (transitionState.targetState) {
-                                fadeValue
-                            } else {
-                                1 - fadeValue
-                            }
-                        )
-                    )
-                    .clip(RoundedCornerShape(12.dp)), contentAlignment = Alignment.Center
-            ) {
+                                )
+                            )
+                            .clip(RoundedCornerShape(12.dp)), contentAlignment = Alignment.Center
+                    ) {
 
 //                Image(
 //                    painter = painterResource(id = bimap),
@@ -409,8 +406,8 @@ fun HighLowComponent(content: (boo:Boolean, rightAnswer:Int, totalAnswer:Int) ->
 //                        )
 //                )
 
-                Text(
-                    modifier = Modifier.wrapContentSize()
+                        Text(
+                            modifier = Modifier.wrapContentSize()
 
 //                        .background(
 //                            color = Pink80.copy(
@@ -422,29 +419,34 @@ fun HighLowComponent(content: (boo:Boolean, rightAnswer:Int, totalAnswer:Int) ->
 //                            )
 //                        )
 //                        .clip(RoundedCornerShape(12.dp))
-                    ,
-                    textAlign = TextAlign.Center,
-                    fontFamily = FontFamily.Monospace,
-                    fontSize = 40.sp,
+                            ,
+                            textAlign = TextAlign.Center,
+                            fontFamily = FontFamily.Monospace,
+                            fontSize = 40.sp,
 //                    gravity = Alignment.Center,
-                    text = "$showNumber"
-                )
+                            text = "$showNumber"
+                        )
+                    }
+                }
+
             }
-        }
 
-    }
-
-      Image(
+            Image(
                 modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight(),
                 painter = painterResource(id = R.drawable.iconbg),
                 contentDescription = "bg"
             )
-        if (isAlert) {
-            GameAlertingTime()
+            if (isAlert) {
+                GameAlertingTime()
+            }
         }
-        }
+    }
+
+
+
+
 }
 
 

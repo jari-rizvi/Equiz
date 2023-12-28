@@ -33,7 +33,7 @@ fun TouchTheNumPlusGame(content:   (bool:Boolean, rightAnswer:Int, totalAnswer:I
  wrongGameAnswers = 1
     var isTimeUp by remember { mutableStateOf(false) }
 
-    var timeLeft by remember { mutableStateOf(20L) }
+    var timeLeft by remember { mutableStateOf(10L) }
 
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
@@ -82,7 +82,8 @@ fun TouchTheNumPlusGame(content:   (bool:Boolean, rightAnswer:Int, totalAnswer:I
                 .fillMaxWidth()
                 .fillMaxHeight()
                 .background(color = Color(0xFFE1E1E1)),
-        ) { Row(modifier = Modifier.background(color = Color(0xFF9F81CA))) {
+        ) {
+            Row(modifier = Modifier.background(color = Color(0xFF9F81CA))) {
 
             BackButton(onClick = {}/*onContinueClicked*/)
             Text(

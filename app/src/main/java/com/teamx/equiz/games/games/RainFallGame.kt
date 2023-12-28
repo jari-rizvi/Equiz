@@ -64,7 +64,7 @@ fun RainFallGame(content:  (boolean:Boolean, rightAnswer:Int, totalAnswer:Int) -
  rightGameAnswers = 1
  wrongGameAnswers = 1
 
-    var timeLeft by remember { mutableStateOf(20L) }
+    var timeLeft by remember { mutableStateOf(10L) }
     var isTimeUp by remember { mutableStateOf(false) }
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
@@ -247,7 +247,7 @@ fun rainFallDrops() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Gray),
+             ,
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Bottom
 
@@ -429,7 +429,7 @@ fun rainFallDrops() {
             }
         }
 
-        Text(text = "$score")
+//        Text(text = "$score")
     }/* LaunchedEffect(endOfListReached) {
          // do your stuff
      }*/

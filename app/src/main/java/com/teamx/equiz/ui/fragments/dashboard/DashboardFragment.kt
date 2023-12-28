@@ -300,7 +300,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                     return R.drawable.follow_the_leder
                 }
                 GamesUID2.GuessTheFlag.name -> {
-                    return R.drawable.spinthewheel_icon
+                    return R.drawable.guestheflag_icon
                 }
                 GamesUID2.HighLow.name -> {
                     return R.drawable.highorlow_icon
@@ -333,11 +333,11 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                     return R.drawable.simplicity_icon
                 }
                 GamesUID2.SpinningBlock.name -> {
-                    return R.drawable.simplicity_icon
+                    return R.drawable.spinthewheel_icon
                 }
 
                 GamesUID2.ShapeDeception.name -> {
-                    return R.drawable.simplicity_icon
+                    return R.drawable.howtoplay_shape
                 }
 
                 GamesUID2.TapTheColor.name -> {

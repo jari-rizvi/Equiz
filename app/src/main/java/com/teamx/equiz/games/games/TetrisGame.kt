@@ -4,11 +4,14 @@ import android.os.CountDownTimer
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -16,11 +19,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -108,8 +115,25 @@ fun TetrisGame(content:  (bool:Boolean, rightAnswer:Int, totalAnswer:Int) -> Uni
 
                     .background(color = Color(0xFFE1E1E1)),
             ) {
+
+                Row(modifier = Modifier.background(color = Color(0xFF9F81CA))) {
+
+                    BackButton(onClick = { content(false,0,0) }
+                    )
+                    Text(
+                        text = "Training",
+                        modifier = Modifier
+                            .fillMaxWidth()
+
+                            .align(alignment = Alignment.CenterVertically),
+                        textAlign = TextAlign.Center,
+                        color = Color.White,
+                        fontSize = 17.sp
+                    )
+
+                }
                 // A surface container using the 'background' color from the theme
-                Surface( modifier = Modifier.fillMaxSize(),color = MaterialTheme.colorScheme.background) {
+                Surface( modifier = Modifier.padding(top = 50.dp).fillMaxSize()) {
 
                     val viewModel = viewModel<GameViewModel>()
                     val viewState = viewModel.viewState.value

@@ -13,6 +13,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -40,6 +41,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
@@ -64,7 +66,7 @@ fun OperationGame(content: (boolean:Boolean, rightAnswer:Int, totalAnswer:Int) -
  rightGameAnswers = 1
  wrongGameAnswers = 1
 
-    var timeLeft by remember { mutableStateOf(20L) }
+    var timeLeft by remember { mutableStateOf(10L) }
     var isTimeUp by remember { mutableStateOf(false) }
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
@@ -143,7 +145,22 @@ fun OperationGame(content: (boolean:Boolean, rightAnswer:Int, totalAnswer:Int) -
                 .fillMaxHeight()
                 .background(color = Color(0xFFE1E1E1)),
         ) {
+            Row(modifier = Modifier.background(color = Color(0xFF9F81CA))) {
 
+                BackButton(onClick = { content(false,0,0) }
+                )
+                Text(
+                    text = "Training",
+                    modifier = Modifier
+                        .fillMaxWidth()
+
+                        .align(alignment = Alignment.CenterVertically),
+                    textAlign = TextAlign.Center,
+                    color = Color.White,
+                    fontSize = 17.sp
+                )
+
+            }
             Column(
                 modifier = Modifier
                     .fillMaxSize()

@@ -31,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -126,7 +127,7 @@ fun Make10GameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int
     var rightGameAnswers = 0
     var wrongGameAnswers = 0
 
-    var timeLeft by remember { mutableStateOf(20L) }
+    var timeLeft by remember { mutableStateOf(10L) }
     var isTimeUp by remember { mutableStateOf(false) }
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
@@ -183,10 +184,26 @@ fun Make10GameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int
                 .fillMaxHeight()
                 .background(color = Color.White),
         ) {
+            Row(modifier = Modifier.background(color = Color(0xFF9F81CA))) {
+
+                BackButton(onClick = { content(false,0,0) }
+                )
+                Text(
+                    text = "Training",
+                    modifier = Modifier
+                        .fillMaxWidth()
+
+                        .align(alignment = Alignment.CenterVertically),
+                    textAlign = TextAlign.Center,
+                    color = Color.White,
+                    fontSize = 17.sp
+                )
+
+            }
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(BirdColor4),
+                     ,
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -283,11 +300,11 @@ fun Make10GameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                Button(
+               /* Button(
                     onClick = { selectedCards.clear() }, modifier = Modifier.padding(8.dp)
                 ) {
                     Text(text = "Clear", color = Color.White)
-                }
+                }*/
             }
             Image(
                 modifier = Modifier

@@ -2,16 +2,21 @@ package com.teamx.equiz.games.games
 
 import android.os.CountDownTimer
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
@@ -28,10 +33,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.teamx.equiz.R
+import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
-import com.teamx.equiz.games.ui.theme.BirdColor3
 import com.teamx.equiz.games.ui.theme.DeceptionBlack
 import com.teamx.equiz.games.ui.theme.DeceptionPink
 import com.teamx.equiz.games.ui.theme.DeceptionPurple
@@ -43,7 +52,7 @@ import kotlin.random.Random
 data class ColorBox(val colorName: ColorBundle, val color: Color)
 
 enum class ColorBundle {
-    YELLOW, WHITE, BLACK, PURPLE/*, PINK*/
+    YELLOW, BLUE, BLACK, PURPLE/*, PINK*/
 }
 
 
@@ -55,7 +64,7 @@ fun TouchTheColorGameScreen(content: (bool:Boolean, rightAnswer:Int, totalAnswer
  wrongGameAnswers = 1
     var isTimeUp by remember { mutableStateOf(false) }
 
-    var timeLeft by remember { mutableStateOf(20L) }
+    var timeLeft by remember { mutableStateOf(10L) }
 
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
@@ -107,96 +116,136 @@ fun TouchTheColorGameScreen(content: (bool:Boolean, rightAnswer:Int, totalAnswer
 
 
     }else{
-        Column(
-            modifier = Modifier.fillMaxSize().background(
-                BirdColor3
-            ),
-
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .background(color = Color(0xFFE1E1E1)),
         ) {
-            Text(
-                text = "Colors Deception",
-                style = MaterialTheme.typography.headlineSmall,
-                modifier = Modifier.padding(bottom = 16.dp)
-            )
-            LazyVerticalGrid(
-                modifier = Modifier.width(250.dp),
-                verticalArrangement = Arrangement.Center,
-                columns = asGridCells,
-            ) {
 
+            Row(modifier = Modifier.background(color = Color(0xFF9F81CA))) {
 
-                itemsIndexed(boxes) { index, box ->
+                BackButton(onClick = { content(false,0,0) }
+                )
+                Text(
+                    text = "Training",
+                    modifier = Modifier
+                        .fillMaxWidth()
 
-
-                    Box(
-                        modifier = Modifier
-                            .padding(horizontal = 10.dp, vertical = 5.dp)
-                            .clip(
-                                RoundedCornerShape(19.dp)
-                            )
-                            .height(80.dp)
-                            .width(67.dp)
-                            .background(color = box.color)
-                            .border(BorderStroke(1.dp, Color.Transparent))
-
-
-                            .clickable {
-                                updateScore(boxes, box, index) { i, bool ->
-                                    score++
-                                    restart = true
-                                    val arr = ArrayList<ColorBox>()
-                                    boxes.forEach {
-                                        if (i != it.colorName) {
-                                            arr.add(it)
-                                        }
-                                    }
-                                    boxes = arr
-                                    if (bool) {
-                                        restart = false
-                                    }
-
-                                }
-                                if (!restart) {
-                                    boxes = generateBoxes()
-                                    restart = true
-                                }
-                            },
-
-
-                        ) {
-
-                        Text(
-
-                            modifier = Modifier.align(Alignment.Center),
-                            color = if (box.colorName.toString()
-                                    .equals(ColorBundle.WHITE.toString()) && box.color == Color.White
-                            ) {
-                                DeceptionBlack
-                            } else if (box.color == Color.White) {
-                                DeceptionBlack
-                            } else {
-
-                                Color.White
-                            },
-                            text = box.colorName.toString(),
-                            style = MaterialTheme.typography.bodyLarge,
-                        )
-                        /*}*/
-                    }
-                }
+                        .align(alignment = Alignment.CenterVertically),
+                    textAlign = TextAlign.Center,
+                    color = Color.White,
+                    fontSize = 17.sp
+                )
 
             }
 
+            Column(
+                modifier = Modifier.fillMaxSize(),
+
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+
+            ) {
 
 
-            Text(
-                text = "Score: $score",
-                style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.padding(top = 16.dp)
+                Text(
+                    text = "Colors Deception",
+                    style = MaterialTheme.typography.headlineSmall,
+                    modifier = Modifier.padding(bottom = 16.dp)
+                )
+                LazyVerticalGrid(
+                    modifier = Modifier.width(250.dp),
+                    verticalArrangement = Arrangement.Center,
+                    columns = asGridCells,
+                ) {
+
+
+                    itemsIndexed(boxes) { index, box ->
+
+
+                        Box(
+                            modifier = Modifier
+                                .padding(horizontal = 10.dp, vertical = 5.dp)
+                                .clip(
+                                    RoundedCornerShape(19.dp)
+                                )
+                                .height(80.dp)
+                                .width(67.dp)
+                                .background(color = box.color)
+                                .border(BorderStroke(1.dp, Color.Transparent))
+
+
+                                .clickable {
+                                    updateScore(boxes, box, index) { i, bool ->
+                                        score++
+                                        restart = true
+                                        val arr = ArrayList<ColorBox>()
+                                        boxes.forEach {
+                                            if (i != it.colorName) {
+                                                arr.add(it)
+                                            }
+                                        }
+                                        boxes = arr
+                                        if (bool) {
+                                            restart = false
+                                        }
+
+                                    }
+                                    if (!restart) {
+                                        boxes = generateBoxes()
+                                        restart = true
+                                    }
+                                },
+
+
+                            ) {
+
+                            Text(
+
+                                modifier = Modifier.align(Alignment.Center),
+                                color = if (box.colorName.toString()
+                                        .equals(ColorBundle.BLUE.toString()) && box.color == Color.White
+                                ) {
+                                    DeceptionBlack
+                                } else if (box.color == Color.White) {
+                                    DeceptionBlack
+                                } else {
+
+                                    Color.White
+                                },
+                                text = box.colorName.toString(),
+                                style = MaterialTheme.typography.bodyLarge,
+                            )
+                            /*}*/
+                        }
+                    }
+
+                }
+
+
+
+                /*Text(
+                    text = "Score: $score",
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.padding(top = 16.dp)
+                )*/
+            }
+            Image(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(),
+                painter = painterResource(id = R.drawable.iconbg),
+                contentDescription = "bg"
             )
+            if (isAlert) {
+                GameAlertingTime()
+            }
         }
+
+
+
+
     }
 
 
@@ -214,7 +263,7 @@ private fun generateBoxes(): List<ColorBox> {
 
     val deceptionNumber = Random.nextInt(1, 3)
 
-    var colorBox = Color.White
+    var colorBox = Color.Blue
     val colors = mutableListOf<Color>()
     for (i in numbers.indices) {
         if (deceptionNumber == i) {
@@ -225,7 +274,7 @@ private fun generateBoxes(): List<ColorBox> {
                     DeceptionBlack
                 }
 
-                ColorBundle.WHITE -> {
+                ColorBundle.BLUE -> {
                     DeceptionYellow
                 }
 
@@ -253,8 +302,8 @@ private fun generateBoxes(): List<ColorBox> {
                     DeceptionYellow
                 }
 
-                ColorBundle.WHITE -> {
-                    Color.White
+                ColorBundle.BLUE -> {
+                    Color.Blue
                 }
 
                 ColorBundle.BLACK -> {

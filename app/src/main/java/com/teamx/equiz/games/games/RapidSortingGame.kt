@@ -61,7 +61,7 @@ fun RapidSortingGame(content: (boolean: Boolean,rightAnswer:Int, totalAnswer:Int
  wrongGameAnswers = 1
     var isTimeUp by remember { mutableStateOf(false) }
 
-    var timeLeft by remember { mutableStateOf(20L) }
+    var timeLeft by remember { mutableStateOf(10L) }
 
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
@@ -116,7 +116,8 @@ fun RapidSortingGame(content: (boolean: Boolean,rightAnswer:Int, totalAnswer:Int
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Row(modifier = Modifier.background(color = Color(0xFF9F81CA))) {
 
-                    BackButton(onClick = {}/*onContinueClicked*/)
+                    BackButton(onClick = { content(false,0,0) }
+                    )
                     Text(
                         text = "Training",
                         modifier = Modifier

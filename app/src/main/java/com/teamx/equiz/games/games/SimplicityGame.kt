@@ -8,6 +8,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -35,6 +36,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -48,7 +50,8 @@ class SimplicityGame {}
 
 //Simplicity
 data class Question(val equation: String, val choices: List<Int>, val correctAnswer: Int)
-
+var rightGameAnswersSimple = 1
+var wrongGameAnswersSimple = 1
 @Preview
 @Composable
 fun ImplicityGameScreen(content: (bool: Boolean, rightAnswer:Int, totalAnswer:Int) -> Unit = {bool,rightAnswer,total ->}) {
@@ -71,11 +74,10 @@ fun ImplicityGameScreen(content: (bool: Boolean, rightAnswer:Int, totalAnswer:In
 
         var isGameOver by remember { mutableStateOf(false) }
             var isAlert by remember { mutableStateOf(false) }
- rightGameAnswers = 1
- wrongGameAnswers = 1
+
         var isTimeUp by remember { mutableStateOf(false) }
 
-        var timeLeft by remember { mutableStateOf(20L) }
+        var timeLeft by remember { mutableStateOf(10L) }
 
         var timerRunning by remember { mutableStateOf(true) }
         LaunchedEffect(true) {
@@ -86,6 +88,9 @@ fun ImplicityGameScreen(content: (bool: Boolean, rightAnswer:Int, totalAnswer:In
                 override fun onTick(millisUntilFinished: Long) {
                     if (timerRunning) {
                         timeLeft = millisUntilFinished / 1000
+                    }
+                    if (timeLeft<5){
+                        isAlert = true
                     }
                 }
 
@@ -99,7 +104,7 @@ fun ImplicityGameScreen(content: (bool: Boolean, rightAnswer:Int, totalAnswer:In
         if (isGameOver) {
 
 
-            content(true, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
+            content(true, rightGameAnswersSimple, (rightGameAnswersSimple + wrongGameAnswersSimple))
 
         }
 
@@ -110,7 +115,7 @@ fun ImplicityGameScreen(content: (bool: Boolean, rightAnswer:Int, totalAnswer:In
                     isGameOver = true
 
                 } else {
-                    content(false, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
+                    content(false, rightGameAnswersSimple, (rightGameAnswersSimple + wrongGameAnswersSimple))
                 }
             }
 
@@ -122,7 +127,22 @@ fun ImplicityGameScreen(content: (bool: Boolean, rightAnswer:Int, totalAnswer:In
                     .fillMaxHeight()
                     .background(color = Color(0xFFE1E1E1)),
             ) {
+                Row(modifier = Modifier.background(color = Color(0xFF9F81CA))) {
 
+                    BackButton(onClick = { content(false,0,0) }
+                    )
+                    Text(
+                        text = "Training",
+                        modifier = Modifier
+                            .fillMaxWidth()
+
+                            .align(alignment = Alignment.CenterVertically),
+                        textAlign = TextAlign.Center,
+                        color = Color.White,
+                        fontSize = 17.sp
+                    )
+
+                }
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
@@ -154,6 +174,9 @@ fun ImplicityGameScreen(content: (bool: Boolean, rightAnswer:Int, totalAnswer:In
 
                                             if (choice == currentQuestion.correctAnswer) {
                                                 score++
+                                                rightGameAnswersSimple++
+                                            }else{
+                                                wrongGameAnswersSimple++
                                             }
 //                        nextQuestion(questions.size)
                                             questionIndex++
@@ -226,7 +249,7 @@ fun ImplicityGameScreen(content: (bool: Boolean, rightAnswer:Int, totalAnswer:In
 private fun generateQuestions(): ArrayList<Question> {
     val operators = listOf("+", "-", "*", "/")
     var list = ArrayList<Question>()
-    for (i in 1..10) {
+    for (i in 1..200) {
         val firstNumber = Random.nextInt(1, 10)
         val secondNumber = Random.nextInt(1, 10)
         val selectOperation = Random.nextInt(1, 4)

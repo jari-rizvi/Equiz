@@ -49,17 +49,19 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
+var rightGameAnswersWeather = 1
+var wrongGameAnswersWeather = 1
+
 @Composable
-fun WeatherCastGame(content: (bool:Boolean, rightAnswer:Int, totalAnswer:Int) -> Unit) {
+fun WeatherCastGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit) {
 
 
     var isGameOver by remember { mutableStateOf(false) }
-        var isAlert by remember { mutableStateOf(false) }
- rightGameAnswers = 1
- wrongGameAnswers = 1
+    var isAlert by remember { mutableStateOf(false) }
+
     var isTimeUp by remember { mutableStateOf(false) }
 
-    var timeLeft by remember { mutableStateOf(20L) }
+    var timeLeft by remember { mutableStateOf(10L) }
 
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
@@ -84,7 +86,7 @@ fun WeatherCastGame(content: (bool:Boolean, rightAnswer:Int, totalAnswer:Int) ->
 
 
     if (isGameOver) {
-        content(true, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
+        content(true, rightGameAnswersWeather, (rightGameAnswersWeather + wrongGameAnswersWeather))
     }
 
     if (isTimeUp) {
@@ -94,7 +96,11 @@ fun WeatherCastGame(content: (bool:Boolean, rightAnswer:Int, totalAnswer:Int) ->
                 isGameOver = true
 
             } else {
-                content(false, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
+                content(
+                    false,
+                    rightGameAnswersWeather,
+                    (rightGameAnswersWeather + wrongGameAnswersWeather)
+                )
             }
         }
 
@@ -271,14 +277,17 @@ fun weatherCastGamePlot() {
                         gameRand = Random.nextInt(0, 9)
                         imageCheckObj = EnumWeather.values()[gameRand]
                         counter++
-                    } else if (!imageCheckObj.name.contains(it.gameObject.name) && imageCheckObj.name.contains(
-                            "_"
-                        )
-                    ) {
+                        rightGameAnswersWeather++
+                    } else if (!imageCheckObj.name.contains(it.gameObject.name) && imageCheckObj.name.contains("_")) {
                         gameRand = Random.nextInt(0, 9)
                         imageCheckObj = EnumWeather.values()[gameRand]
                         counter++
-                    }   /*else if (imageCheckObj.name == it.gameObject.name) {
+                        rightGameAnswersWeather++
+                    }else{
+                        wrongGameAnswersWeather++
+                    }
+
+                /*else if (imageCheckObj.name == it.gameObject.name) {
 //                        imageCheckObj = it.gameObject
                         gameRand = Random.nextInt(0, 9)
                         imageCheckObj = EnumWeather.values()[gameRand]

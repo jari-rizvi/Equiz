@@ -56,7 +56,7 @@ fun AdditionAddictionGameMethod(content: (boolean: Boolean, rightAnswer: Int, to
 
     var isTimeUp by remember { mutableStateOf(false) }
 
-    var timeLeft by remember { mutableStateOf(20L) }
+    var timeLeft by remember { mutableStateOf(10L) }
 
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
@@ -107,6 +107,23 @@ fun AdditionAddictionGameMethod(content: (boolean: Boolean, rightAnswer: Int, to
                 .fillMaxHeight()
                 .background(color = Color(0xFFE1E1E1)),
         ) {
+            Row(modifier = Modifier.background(color = Color(0xFF9F81CA))) {
+
+                BackButton(onClick = { content(false,0,0) }
+                )
+                Text(
+                    text = "Training",
+                    modifier = Modifier
+                        .fillMaxWidth()
+
+                        .align(alignment = Alignment.CenterVertically),
+                    textAlign = TextAlign.Center,
+                    color = Color.White,
+                    fontSize = 17.sp
+                )
+
+            }
+
             AddictGame()
 
             Image(
@@ -239,6 +256,9 @@ fun AddictGame() {
             .padding(16.dp)
             .fillMaxSize(), contentAlignment = Alignment.Center
     ) {
+
+
+
         Column(
             modifier = Modifier
                 .wrapContentSize()

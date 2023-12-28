@@ -53,7 +53,7 @@ fun MissingPieceGameScreen(content: (bool:Boolean, rightAnswer:Int, totalAnswer:
  rightGameAnswers = 1
  wrongGameAnswers = 1
 
-    var timeLeft by remember { mutableStateOf(20L) }
+    var timeLeft by remember { mutableStateOf(10L) }
 
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
@@ -104,7 +104,22 @@ fun MissingPieceGameScreen(content: (bool:Boolean, rightAnswer:Int, totalAnswer:
                 .fillMaxHeight()
                 .background(color = Color(0xFFE1E1E1)),
         ) {
+            Row(modifier = Modifier.background(color = Color(0xFF9F81CA))) {
 
+                BackButton(onClick = { content(false,0,0) }
+                )
+                Text(
+                    text = "Training",
+                    modifier = Modifier
+                        .fillMaxWidth()
+
+                        .align(alignment = Alignment.CenterVertically),
+                    textAlign = TextAlign.Center,
+                    color = Color.White,
+                    fontSize = 17.sp
+                )
+
+            }
             Column(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Center,
