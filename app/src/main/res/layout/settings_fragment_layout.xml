@@ -29,6 +29,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0"
+            android:layout_marginBottom="@dimen/_42sdp"
             tools:layout_editor_absoluteX="0dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -40,14 +41,14 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/profilePicture"
-                    android:layout_width="@dimen/_60sdp"
-                    android:layout_height="@dimen/_60sdp"
+                    android:layout_width="@dimen/_79sdp"
+                    android:layout_height="@dimen/_79sdp"
                     android:layout_centerInParent="true"
                     android:background="@drawable/border_background"
                     android:backgroundTint="@color/red"
                     android:elevation="@dimen/_5sdp"
                     android:padding="@dimen/_2sdp"
-                    android:src="@drawable/successmark"
+                    android:src="@drawable/account_icon"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -89,7 +90,7 @@
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_65sdp"
                     android:layout_marginHorizontal="@dimen/_6sdp"
-                    android:background="@drawable/bg_circle_square"
+                    android:background="@drawable/card_back_less_rad"
                     android:elevation="@dimen/_1sdp"
                     android:paddingVertical="@dimen/_10sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -256,7 +257,7 @@
                         <LinearLayout
                             android:id="@+id/btnHome"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_40sdp"
+                            android:layout_height="@dimen/_38sdp"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="5dp"
                             android:layout_marginTop="5dp"
@@ -295,17 +296,17 @@
 
                         </LinearLayout>
 
-                        <View
+                        <!--<View
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
                             android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
-                            android:background="@color/textSecondaryColor" />
+                            android:background="@color/textSecondaryColor" />-->
 
                         <LinearLayout
                             android:id="@+id/btneccomernce"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_40sdp"
+                            android:layout_height="@dimen/_38sdp"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="5dp"
                             android:layout_marginTop="5dp"
@@ -343,17 +344,17 @@
 
                         </LinearLayout>
 
-                        <View
+                        <!--<View
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
                             android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
-                            android:background="@color/textSecondaryColor" />
+                            android:background="@color/textSecondaryColor" />-->
 
                         <LinearLayout
                             android:id="@+id/btnquiz"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_40sdp"
+                            android:layout_height="@dimen/_38sdp"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="5dp"
                             android:layout_marginTop="5dp"
@@ -401,17 +402,17 @@
 
                         </LinearLayout>
 
-                        <View
+                        <!--<View
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
                             android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
-                            android:background="@color/textSecondaryColor" />
+                            android:background="@color/textSecondaryColor" />-->
 
                         <LinearLayout
                             android:id="@+id/btnWallet"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_40sdp"
+                            android:layout_height="@dimen/_38sdp"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="5dp"
                             android:layout_marginTop="5dp"
@@ -449,17 +450,17 @@
 
                         </LinearLayout>
 
-                        <View
+                        <!--<View
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
                             android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
-                            android:background="@color/textSecondaryColor" />
+                            android:background="@color/textSecondaryColor" />-->
 
                         <LinearLayout
                             android:id="@+id/btnleaderboard"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_40sdp"
+                            android:layout_height="@dimen/_38sdp"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="5dp"
                             android:layout_marginTop="5dp"
@@ -497,17 +498,17 @@
 
                         </LinearLayout>
 
-                        <View
+                        <!--<View
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
                             android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
-                            android:background="@color/textSecondaryColor" />
+                            android:background="@color/textSecondaryColor" />-->
 
                         <LinearLayout
                             android:id="@+id/btnReffeal"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_40sdp"
+                            android:layout_height="@dimen/_38sdp"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="5dp"
                             android:layout_marginTop="5dp"
@@ -526,7 +527,7 @@
                                 android:layout_marginStart="5dp"
                                 android:layout_marginEnd="5dp"
                                 android:src="@drawable/raferral_icon"
-                                app:tint="@color/black" />
+                                app:tint="@color/gray" />
 
                             <TextView
                                 style="@style/popins_regular"
@@ -545,17 +546,17 @@
 
                         </LinearLayout>
 
-                        <View
+                        <!--<View
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
                             android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
-                            android:background="@color/textSecondaryColor" />
+                            android:background="@color/textSecondaryColor" />-->
 
                         <LinearLayout
                             android:id="@+id/btnProfile"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_40sdp"
+                            android:layout_height="@dimen/_38sdp"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="5dp"
                             android:layout_marginTop="5dp"
@@ -574,7 +575,7 @@
                                 android:layout_marginStart="5dp"
                                 android:layout_marginEnd="5dp"
                                 android:src="@drawable/account_icon"
-                                app:tint="@color/black" />
+                                app:tint="@color/gray" />
 
                             <TextView
                                 style="@style/popins_regular"
@@ -593,17 +594,17 @@
 
                         </LinearLayout>
 
-                        <View
+                        <!--<View
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
                             android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
-                            android:background="@color/textSecondaryColor" />
+                            android:background="@color/textSecondaryColor" />-->
 
                         <LinearLayout
                             android:id="@+id/btnCollectPrize"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_40sdp"
+                            android:layout_height="@dimen/_38sdp"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="5dp"
                             android:layout_marginTop="5dp"
@@ -622,7 +623,7 @@
                                 android:layout_marginStart="5dp"
                                 android:layout_marginEnd="5dp"
                                 android:src="@drawable/premium_icon"
-                                app:tint="@color/black" />
+                                app:tint="@color/gray" />
 
                             <TextView
                                 style="@style/popins_regular"
@@ -652,7 +653,7 @@
                         <!--                    <LinearLayout-->
                         <!--                        android:id="@+id/btnContctUs"-->
                         <!--                        android:layout_width="match_parent"-->
-                        <!--                        android:layout_height="@dimen/_40sdp"-->
+                        <!--                        android:layout_height="@dimen/_38sdp"-->
                         <!--                        android:layout_gravity="center_vertical"-->
                         <!--                        android:layout_marginStart="5dp"-->
                         <!--                        android:layout_marginTop="5dp"-->
@@ -697,7 +698,7 @@
                         <!--                    <LinearLayout-->
                         <!--                        android:id="@+id/btnMessages"-->
                         <!--                        android:layout_width="match_parent"-->
-                        <!--                        android:layout_height="@dimen/_40sdp"-->
+                        <!--                        android:layout_height="@dimen/_38sdp"-->
                         <!--                        android:layout_gravity="center_vertical"-->
                         <!--                        android:layout_marginStart="5dp"-->
                         <!--                        android:layout_marginTop="5dp"-->
@@ -731,17 +732,17 @@
 
                         <!--                    </LinearLayout>-->
 
-                        <View
+                        <!--<View
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
                             android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
-                            android:background="@color/textSecondaryColor" />
+                            android:background="@color/textSecondaryColor" />-->
 
                         <LinearLayout
                             android:id="@+id/btnNotification"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_40sdp"
+                            android:layout_height="@dimen/_38sdp"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="5dp"
                             android:layout_marginTop="5dp"
@@ -779,11 +780,17 @@
 
                         </LinearLayout>
 
+                        <!--<View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@color/textSecondaryColor" />-->
 
                         <LinearLayout
                             android:id="@+id/btnCoupon"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_40sdp"
+                            android:layout_height="@dimen/_38sdp"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="5dp"
                             android:layout_marginTop="5dp"
@@ -822,17 +829,17 @@
 
                         </LinearLayout>
 
-                        <View
+                        <!--<View
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
                             android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
-                            android:background="@color/textSecondaryColor" />
+                            android:background="@color/textSecondaryColor" />-->
 
                         <LinearLayout
                             android:id="@+id/btnNews"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_40sdp"
+                            android:layout_height="@dimen/_38sdp"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="5dp"
                             android:layout_marginTop="5dp"
@@ -870,18 +877,18 @@
 
                         </LinearLayout>
 
-                        <View
+                        <!--<View
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
                             android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
-                            android:background="@color/textSecondaryColor" />
+                            android:background="@color/textSecondaryColor" />-->
 
 
                         <LinearLayout
                             android:id="@+id/btnSupport"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_40sdp"
+                            android:layout_height="@dimen/_38sdp"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="5dp"
                             android:layout_marginTop="5dp"
@@ -919,18 +926,18 @@
 
                         </LinearLayout>
 
-                        <View
+                        <!--<View
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
                             android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
-                            android:background="@color/textSecondaryColor" />
+                            android:background="@color/textSecondaryColor" />-->
 
 
                         <LinearLayout
                             android:id="@+id/btnTermsAndCondition"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_40sdp"
+                            android:layout_height="@dimen/_38sdp"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="5dp"
                             android:layout_marginTop="5dp"
@@ -968,18 +975,18 @@
 
                         </LinearLayout>
 
-                        <View
+                        <!--<View
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
                             android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
-                            android:background="@color/textSecondaryColor" />
+                            android:background="@color/textSecondaryColor" />-->
 
 
                         <LinearLayout
                             android:id="@+id/btnSetting"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_40sdp"
+                            android:layout_height="@dimen/_38sdp"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="5dp"
                             android:layout_marginTop="5dp"
@@ -1029,7 +1036,7 @@
                         <LinearLayout
                             android:id="@+id/btnLogout"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_40sdp"
+                            android:layout_height="@dimen/_38sdp"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="5dp"
                             android:layout_marginTop="5dp"
@@ -1072,6 +1079,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_80sdp"
                             android:layout_gravity="center_vertical"
+                            android:layout_marginBottom="@dimen/_10sdp"
                             android:layout_margin="@dimen/_8sdp"
                             android:background="@drawable/bg_circle_square"
                             android:elevation="@dimen/_5sdp"
@@ -1080,8 +1088,8 @@
                             <androidx.constraintlayout.widget.ConstraintLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/_80sdp"
-                                android:background="@drawable/card_background_border_theme"
-                                android:backgroundTint="@color/theme_color"
+                                android:background="@drawable/card_back_less_rad"
+
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent">
 

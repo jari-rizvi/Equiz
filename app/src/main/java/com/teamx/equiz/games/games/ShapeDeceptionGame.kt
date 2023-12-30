@@ -55,6 +55,9 @@ import com.teamx.equiz.games.ui.theme.DeceptionYellow
 import kotlin.random.Random
 
 
+import androidx.annotation.Keep
+
+@Keep
 data class ShapeBox(val colorName: ShapeBundle, val color: Color)
 
 enum class ShapeBundle {

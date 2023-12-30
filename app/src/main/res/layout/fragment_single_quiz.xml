@@ -1,37 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/consRoot"
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorAccent">
 
-        <ImageView
-            android:id="@+id/btnback"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.05"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.05"
-            app:srcCompat="@drawable/arrow_left"
-            app:tint="@color/black" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/consRoot"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/iconbg">
 
-        <ImageView
-            android:id="@+id/btnback121"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            <ImageView
+                android:id="@+id/btnback"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.05"
+                app:srcCompat="@drawable/arrow_left"
+                app:tint="@color/black" />
+
+            <ImageView
+                android:id="@+id/btnback121"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.95"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -59,7 +64,7 @@
             android:background="@drawable/button_radius_corner"
             android:backgroundTint="@color/white"
             android:elevation="@dimen/_3sdp"
-            app:layout_constraintBottom_toTopOf="@+id/textView4654"
+            app:layout_constraintBottom_toTopOf="@+id/backToHomeBtn"
             app:layout_constraintEnd_toEndOf="@+id/btnback121"
             app:layout_constraintStart_toStartOf="@+id/btnback"
             app:layout_constraintTop_toBottomOf="@+id/textView"
@@ -79,7 +84,7 @@
                 app:tint="#CDCDCD" />
 
             <TextView
-                android:id="@+id/textView465454"
+                android:id="@+id/playAgainBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#CDCDCD"
@@ -113,7 +118,7 @@
                 android:textSize="@dimen/_13ssp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView465454" />
+                app:layout_constraintTop_toBottomOf="@+id/playAgainBtn" />
 
             <TextView
                 android:id="@+id/textView4654545454"
@@ -204,7 +209,7 @@
 
 
         <TextView
-            android:id="@+id/textView4654"
+            android:id="@+id/backToHomeBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/button_radius_green"
@@ -222,19 +227,20 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.95" />
 
-        <!--        <TextView-->
-        <!--            android:id="@+id/textView212"-->
-        <!--            style="@style/popins_bold"-->
-        <!--            android:layout_width="0dp"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            app:layout_constraintStart_toStartOf="@+id/btnback"-->
-        <!--            android:text="What year was the very first model of the iPhone released?"-->
-        <!--            android:textColor="@color/black"-->
-        <!--            android:textSize="@dimen/_14ssp"-->
-        <!--            app:layout_constraintEnd_toEndOf="@+id/btnback121"-->
-        <!--            app:layout_constraintTop_toBottomOf="@+id/textView"/>-->
+            <!--        <TextView-->
+            <!--            android:id="@+id/textView212"-->
+            <!--            style="@style/popins_bold"-->
+            <!--            android:layout_width="0dp"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            app:layout_constraintStart_toStartOf="@+id/btnback"-->
+            <!--            android:text="What year was the very first model of the iPhone released?"-->
+            <!--            android:textColor="@color/black"-->
+            <!--            android:textSize="@dimen/_14ssp"-->
+            <!--            app:layout_constraintEnd_toEndOf="@+id/btnback121"-->
+            <!--            app:layout_constraintTop_toBottomOf="@+id/textView"/>-->
 
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

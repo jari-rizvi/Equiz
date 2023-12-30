@@ -2,6 +2,7 @@ package com.teamx.equiz.games.games
 
 import android.os.CountDownTimer
 import android.util.Log
+import androidx.annotation.Keep
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.repeatable
 import androidx.compose.animation.core.tween
@@ -397,6 +398,7 @@ fun LeaderGrids(item: LeaderListItem, counter: Int, onClick: (Item: Int) -> Unit
 //    }
 }
 
+@Keep
 data class LeaderListItem(
     var name: Int,
     var height: Dp,

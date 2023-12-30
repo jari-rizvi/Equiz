@@ -1,6 +1,8 @@
 package com.teamx.equiz.ui.fragments.profile
 
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -8,6 +10,7 @@ import androidx.activity.addCallback
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
+import com.bumptech.glide.Glide
 import com.squareup.picasso.Picasso
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
@@ -72,8 +75,19 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
                                 mViewDataBinding.textView52.setText(data.user.chances.toString())
                                 mViewDataBinding.textView51.setText(data.user.score.toString())
 
-                                Picasso.get().load(data.user.image).resize(500, 500)
-                                    .into(mViewDataBinding.profilePicture)
+                                if (!data.user.image.isNullOrEmpty()) {
+//                                    Picasso.get().load(data.user.image).resize(500, 500)
+//                                        .into(mViewDataBinding.profilePicture)
+
+                                    Glide.with(mViewDataBinding.profilePicture.context).load(data.user.image).into(mViewDataBinding.profilePicture)
+                                }
+
+                                if (data.user.isPremium) {
+                                    mViewDataBinding.btnUnSubscribe.visibility = View.VISIBLE
+                                } else {
+                                    mViewDataBinding.btnUnSubscribe.visibility = View.GONE
+
+                                }
 
                             } catch (e: Exception) {
                                 e.printStackTrace()
@@ -83,7 +97,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
 
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
-                        mViewDataBinding.root.snackbar(it.message!!)
+                        if (isAdded) {
+                            mViewDataBinding.root.snackbar(it.message!!)
+                        }
                         Log.d("TAG", "eeeeeeeeeee: ${it.message}")
                     }
                 }
@@ -107,6 +123,13 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
                 options
             )
         }
+        mViewDataBinding.btnWishList.setOnClickListener {
+            findNavController().navigate(
+                R.id.wishlistFragment,
+                arguments,
+                options
+            )
+        }
         mViewDataBinding.btnChance.setOnClickListener {
             findNavController().navigate(
                 R.id.action_profileFragment_to_chancesFragment,
@@ -119,7 +142,13 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
         }
         mViewDataBinding.btnSecurity.setOnClickListener {
 //            findNavController().navigate(R.id.loaderBoardFragment, arguments, options)
-            showToast("Privacy Policy")
+
+            val uri: Uri =
+                Uri.parse("https://sites.google.com/view/equiz-privacy-policy?usp=sharing") // missing 'http://' will cause crashed
+
+
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            startActivity(intent)
         }
 
 

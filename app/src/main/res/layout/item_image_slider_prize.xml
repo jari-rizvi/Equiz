@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="@drawable/card_background"
+    android:backgroundTint="@android:color/transparent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:clipToOutline="true"
+        android:scaleType="centerInside" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_14sdp"
+        android:layout_marginHorizontal="@dimen/_14sdp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+
+        <TextView
+            android:id="@+id/imgTxtSup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clipToOutline="true"
+
+            android:gravity="center"
+            android:scaleType="fitXY"
+            android:text="Congratulation"
+            android:textStyle="bold"
+            android:textColor="#020A53"
+            android:textSize="@dimen/_20ssp"
+
+            app:tint="@color/white" />
+
+        <TextView
+            android:id="@+id/imgTxtSup2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/_5sdp"
+            android:clipToOutline="true"
+
+            android:gravity="center"
+            android:scaleType="fitXY"
+            android:text="Congratulation"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10ssp"
+
+            app:tint="@color/white" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

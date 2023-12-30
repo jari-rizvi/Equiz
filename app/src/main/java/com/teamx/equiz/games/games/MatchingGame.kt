@@ -1,9 +1,9 @@
 package com.teamx.equiz.games.games
-
 import android.os.Build
 import android.os.CountDownTimer
 import android.os.VibrationEffect
 import android.os.Vibrator
+import androidx.annotation.Keep
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Image
@@ -489,6 +489,9 @@ fun SwipeGestureExample() {
 }*/
 
 
+
+
+@Keep
 data class MemoryItem(
     var name: String = "",
     var color: Color = Color.LightGray,

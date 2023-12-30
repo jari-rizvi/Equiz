@@ -37,9 +37,11 @@
             android:layout_margin="@dimen/_20sdp"
             android:background="@drawable/card_background_border"
             android:gravity="center"
+
+            android:backgroundTint="@color/theme_color"
             android:text="@string/register"
             app:layout_constraintVertical_bias="0.07"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="@dimen/_14ssp"
             style="@style/popins_regular"
             android:textStyle="bold"

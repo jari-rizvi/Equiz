@@ -1,12 +1,17 @@
 package com.teamx.equiz.ui.fragments.settings
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.addCallback
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
+import com.bumptech.glide.Glide
 import com.squareup.picasso.Picasso
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
@@ -17,8 +22,11 @@ import com.teamx.equiz.databinding.SettingsFragmentLayoutBinding
 import com.teamx.equiz.ui.fragments.quizes.TitleData
 import com.teamx.equiz.ui.fragments.quizes.adapter.QuizesAdapter
 import com.teamx.equiz.ui.fragments.quizes.adapter.QuizesTitleAdapter
+import com.teamx.equiz.utils.PrefHelper
 import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsViewModel>() {
@@ -38,6 +46,7 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
     private lateinit var quizesAdapter: QuizesAdapter
 
 
+    var referralCode = ""
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
          super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
@@ -113,14 +122,22 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
 
                             try {
 
-
+                                referralCode = data.user.referralCode
                                 mViewDataBinding.textView3.setText(data.user.name)
                                 mViewDataBinding.textView4.setText(data.user.email)
                                 mViewDataBinding.textView52.setText(data.user.chances.toString())
                                 mViewDataBinding.textView51.setText(data.user.score.toString())
 
-                                Picasso.get().load(data.user.image).resize(500, 500)
-                                    .into(mViewDataBinding.profilePicture)
+//                                Picasso.get().load(data.user.image).resize(500, 500).into(mViewDataBinding.profilePicture)
+                                Glide.with(mViewDataBinding.profilePicture.context).load(data.user.image).into(mViewDataBinding.profilePicture)
+
+                                if (!data.user.isPremium) {
+                                    mViewDataBinding.btnSubscribe.visibility = View.VISIBLE
+                                } else {
+                                    mViewDataBinding.btnSubscribe.visibility = View.GONE
+
+                                }
+
 
                             } catch (e: Exception) {
 
@@ -130,16 +147,47 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
 
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
-                        mViewDataBinding.root.snackbar(it.message!!)
+                        if (isAdded) {
+                            mViewDataBinding.root.snackbar(it.message!!)
+                        }
                         Log.d("TAG", "eeeeeeeeeee: ${it.message}")
                     }
                 }
             }
         }
         addListeners()
+
+
     }
 
     private fun addListeners() {
+        var bundle = arguments
+
+        if (bundle == null) {
+            bundle = Bundle()
+        }
+        bundle.putString("referralCode", referralCode)
+        mViewDataBinding.btnLogout.setOnClickListener {
+
+
+//            mViewModel.logOutUser()
+            lifecycleScope.launch(Dispatchers.IO) {
+                dataStoreProvider.removeAll()
+
+            }
+            PrefHelper.getInstance(requireContext())
+                .setFavouriteShop(listOf<String>())
+            PrefHelper.getInstance(requireContext()).clearAll()
+
+            navController = Navigation.findNavController(
+                requireActivity(), R.id.nav_host_fragment
+            )
+
+            findNavController().popBackStack(R.id.settingsFragment, true)
+            findNavController().navigate(R.id.logInFragment, arguments, null)
+
+
+        }
         mViewDataBinding.btneccomernce.setOnClickListener {
             findNavController().navigate(R.id.ecommerceFragment, arguments, options)
         }
@@ -150,11 +198,16 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
             findNavController().navigate(R.id.quizesFragment, arguments, options)
         }
         mViewDataBinding.btnWallet.setOnClickListener {
-            findNavController().navigate(R.id.walletFragment, arguments, options)
+            findNavController().navigate(R.id.walletFragment, bundle, options)
         }
 
         mViewDataBinding.btnReffeal.setOnClickListener {
-            findNavController().navigate(R.id.referralFragment, arguments, options)
+
+
+
+
+            findNavController().navigate(R.id.referralFragment, bundle, options)
+
         }
 
         mViewDataBinding.btnProfile.setOnClickListener {
@@ -179,10 +232,18 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
 
         mViewDataBinding.btnTermsAndCondition.setOnClickListener {
 //           findNavController().navigate(R.id.wishlistFragment, arguments, options)
+
+            val uri: Uri =
+                Uri.parse("https://sites.google.com/view/equiz-terms-and-conditions?usp=sharing") // missing 'http://' will cause crashed
+
+
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            startActivity(intent)
+
         }
 
         mViewDataBinding.btnCollectPrize.setOnClickListener {
-            findNavController().navigate(R.id.profileFragment, arguments, options)
+            findNavController().navigate(R.id.collectPriceFragment, arguments, options)
         }
 
         mViewDataBinding.btnCoupon.setOnClickListener {

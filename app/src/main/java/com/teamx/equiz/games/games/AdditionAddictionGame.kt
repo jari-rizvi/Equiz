@@ -2,6 +2,7 @@ package com.teamx.equiz.games.games
 
 
 import android.util.Log
+import androidx.annotation.Keep
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandHorizontally
@@ -256,6 +257,8 @@ fun AnimatedAddingObject(number: Int, itemCompared: Int, onClick: (Item: Int) ->
 }
 
 
+
+@Keep
 data class LeaderAddingListItem(
     var name: Int,
     var height: Dp,

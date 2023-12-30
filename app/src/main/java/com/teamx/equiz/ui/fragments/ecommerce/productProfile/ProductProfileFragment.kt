@@ -21,6 +21,7 @@ import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentProductProfileBinding
 import com.teamx.equiz.utils.DialogHelperClass
+import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONException
 
@@ -172,8 +173,15 @@ class ProductProfileFragment :
                             loadingDialog.dismiss()
 
                             it.data?.let { data ->
+                                if (isAdded) {
+                                    mViewDataBinding.root.snackbar("Cart Updated")
+                                    findNavController().navigate(
+                                        R.id.checkoutFragment,
+                                        arguments,
+                                        options
+                                    )
+                                }
 
-                                showToast("Cart Updated")
 
                             }
                         }
@@ -203,8 +211,11 @@ class ProductProfileFragment :
                 e.printStackTrace()
             }
 
-
-            mViewModel.addtowishlist(params)
+            if (mViewDataBinding.btnWish.isChecked) {
+                mViewModel.deleteToWishlist(params)
+            } else {
+                mViewModel.addtowishlist(params)
+            }
 
             if (!mViewModel.addtowishlistResponse.hasActiveObservers()) {
                 mViewModel.addtowishlistResponse.observe(requireActivity()) {
@@ -212,6 +223,7 @@ class ProductProfileFragment :
                         Resource.Status.LOADING -> {
                             loadingDialog.show()
                         }
+
                         Resource.Status.NOTVERIFY -> {
                             loadingDialog.dismiss()
                         }
@@ -233,6 +245,38 @@ class ProductProfileFragment :
                     }
                     if (isAdded) {
                         mViewModel.addtowishlistResponse.removeObservers(viewLifecycleOwner)
+                    }
+                }
+            }
+            if (!mViewModel.deleteToWishlistResponse.hasActiveObservers()) {
+                mViewModel.deleteToWishlistResponse.observe(requireActivity()) {
+                    when (it.status) {
+                        Resource.Status.LOADING -> {
+                            loadingDialog.show()
+                        }
+
+                        Resource.Status.NOTVERIFY -> {
+                            loadingDialog.dismiss()
+                        }
+
+                        Resource.Status.SUCCESS -> {
+                            loadingDialog.dismiss()
+
+                            it.data?.let { data ->
+
+                                showToast("Deleted From Wishlist")
+                                mViewDataBinding.btnWish.isChecked = false
+
+                            }
+                        }
+
+                        Resource.Status.ERROR -> {
+                            loadingDialog.dismiss()
+                            DialogHelperClass.errorDialog(requireContext(), it.message!!)
+                        }
+                    }
+                    if (isAdded) {
+                        mViewModel.deleteToWishlistResponse.removeObservers(viewLifecycleOwner)
                     }
                 }
             }

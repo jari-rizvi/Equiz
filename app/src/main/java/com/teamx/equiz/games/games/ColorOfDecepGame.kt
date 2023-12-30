@@ -47,6 +47,9 @@ import com.teamx.equiz.games.ui.theme.DeceptionYellow
 import kotlin.random.Random
 
 
+import androidx.annotation.Keep
+
+@Keep
 data class ColorBox(val colorName: ColorBundle, val color: Color)
 
 enum class ColorBundle {

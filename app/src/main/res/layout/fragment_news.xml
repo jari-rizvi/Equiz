@@ -62,10 +62,11 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recylertodaysnews"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_130sdp"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:orientation="horizontal"
+                android:maxHeight="@dimen/_130sdp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -74,6 +75,7 @@
                 app:layout_constraintVertical_bias="0"
                 tools:itemCount="3"
                 tools:listitem="@layout/item_news" />
+
 
             <TextView
                 android:id="@+id/textView12"
@@ -95,10 +97,11 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recylerupcomingnews"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_130sdp"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:orientation="horizontal"
+                android:maxHeight="@dimen/_130sdp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -126,10 +129,11 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recylerrecentnews"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_130sdp"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:orientation="horizontal"
+                android:maxHeight="@dimen/_130sdp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

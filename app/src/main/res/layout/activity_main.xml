@@ -42,12 +42,13 @@
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
+        android:background="@color/colorAccent"
         android:layout_height="match_parent">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:background="@color/BirdColor4"
+            android:background="@color/colorAccent"
             android:layout_height="match_parent">
 
             <fragment
@@ -56,6 +57,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/_30sdp"
+
                 app:defaultNavHost="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -80,14 +82,16 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:ss_backgroundBottomColor="#9F81CA"
-                app:ss_circleColor="#ffffff"
-                app:ss_countBackgroundColor="#ffffff"
-                app:ss_countTextColor="#ffffff"
+
+                app:ss_circleColor="#00FFFFFF"
+                app:ss_countBackgroundColor="#00FFFFFF"
+                app:ss_countTextColor="#00FFFFFF"
+
               android:elevation="@dimen/_5sdp"
                 app:ss_defaultIconColor="@color/white"
                 app:ss_iconTextColor="@color/white"
-                app:ss_iconTextSize="12sp"
+
+                app:ss_iconTextSize="2sp"
                 app:ss_rippleColor="#2f424242"
                 app:ss_selectedIconColor="@color/white"
                 app:ss_selectedIconTextColor="@color/white"

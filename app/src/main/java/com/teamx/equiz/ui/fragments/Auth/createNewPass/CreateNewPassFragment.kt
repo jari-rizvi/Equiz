@@ -20,8 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONException
 
 @AndroidEntryPoint
-class CreateNewPassFragment :
-    BaseFragment<FragmentCreatePasswordBinding, CreateNewPassViewModel>() {
+class CreateNewPassFragment : BaseFragment<FragmentCreatePasswordBinding, CreateNewPassViewModel>() {
 
     override val layoutId: Int
         get() = R.layout.fragment_create_password
@@ -110,25 +109,35 @@ class CreateNewPassFragment :
 
     fun validate(): Boolean {
         if (mViewDataBinding.etNewPass.text.toString().trim().isEmpty()) {
+              if(isAdded){
             mViewDataBinding.root.snackbar(getString(R.string.enter_Password))
+             }
             return false
         }
         if (mViewDataBinding.etNewPass.text.toString().trim().length < 8) {
+              if(isAdded){
             mViewDataBinding.root.snackbar(getString(R.string.password_8_character))
+             }
             return false
         }
         if (mViewDataBinding.etCnfrmPass.text.toString().trim().isEmpty()) {
+              if(isAdded){
             mViewDataBinding.root.snackbar(getString(R.string.enter_Password))
+             }
             return false
         }
         if (mViewDataBinding.etCnfrmPass.text.toString().trim().length < 7) {
+              if(isAdded){
             mViewDataBinding.root.snackbar(getString(R.string.password_8_character))
+             }
             return false
         }
         if (!mViewDataBinding.etNewPass.text.toString().trim()
                 .equals(mViewDataBinding.etCnfrmPass.text.toString().trim())
         ) {
+              if(isAdded){
             mViewDataBinding.root.snackbar(getString(R.string.password_does_not_match))
+             }
             return false
         }
         resetPassCall()

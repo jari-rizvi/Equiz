@@ -138,6 +138,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="@+id/editAddress1"
+            android:layout_marginEnd="@dimen/_5sdp"
             app:layout_constraintBottom_toBottomOf="@+id/editAddress1"
             app:layout_constraintEnd_toEndOf="@+id/editAddress1"
             android:src="@drawable/baseline_my_location"/>
@@ -202,6 +203,7 @@
             android:layout_height="@dimen/_30sdp"
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_5sdp"
+            android:inputType="phone"
             android:background="@drawable/contact_input_background"
             android:minHeight="@dimen/_35sdp"
             android:paddingStart="@dimen/_10sdp"
@@ -321,6 +323,7 @@
             android:layout_height="@dimen/_30sdp"
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_5sdp"
+            android:inputType="phone"
             android:background="@drawable/contact_input_background"
             android:minHeight="@dimen/_35sdp"
             android:paddingStart="@dimen/_10sdp"

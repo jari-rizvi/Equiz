@@ -119,7 +119,7 @@ class CoupnsFragment : BaseFragment<FragmentCouponsBinding, CouponsViewModel>(),
     override fun onClickCoupon(pos: Int, str: String) {
         val clipboard: ClipboardManager? =
             requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager?
-        val clip = ClipData.newPlainText("io", "$str")
+        val clip = ClipData.newPlainText("io", str)
         clipboard!!.setPrimaryClip(clip)
     }
 

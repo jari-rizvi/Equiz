@@ -18,6 +18,8 @@ import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONException
 import androidx.activity.addCallback
+import com.teamx.equiz.constants.NetworkCallPoints
+
 @AndroidEntryPoint
 class OtpPhoneFragment : BaseFragment<FragmentOtpPhoneBinding, OtpViewModel>() {
 
@@ -58,8 +60,7 @@ class OtpPhoneFragment : BaseFragment<FragmentOtpPhoneBinding, OtpViewModel>() {
     fun verifyotpForgot() {
 
         val code = mViewDataBinding.pinView.text.toString()
-
-            mViewModel.otpVerify(code)
+         mViewModel.otpVerify(code)
             if (!mViewModel.otpVerifyResponse.hasActiveObservers()) {
                 mViewModel.otpVerifyResponse.observe(requireActivity(), Observer {
                     when (it.status) {
@@ -72,6 +73,14 @@ class OtpPhoneFragment : BaseFragment<FragmentOtpPhoneBinding, OtpViewModel>() {
                         Resource.Status.SUCCESS -> {
                             loadingDialog.dismiss()
                             it.data?.let { data ->
+
+                                var bundle = arguments
+
+                                if (bundle == null) {
+                                    bundle = Bundle()
+                                }
+                                 bundle.putString("token_id",data.token)
+                                NetworkCallPoints.TOKENER = data.token
                                 findNavController().navigate(R.id.action_otpPhoneFragment_to_successFragment,arguments,options)
 
 

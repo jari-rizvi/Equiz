@@ -11,8 +11,8 @@
         android:layout_width="@dimen/_90sdp"
         android:layout_height="@dimen/_100sdp"
         android:background="@drawable/card_background_border"
-        android:layout_marginHorizontal="@dimen/_3sdp"
-        android:layout_marginVertical="@dimen/_5sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:layout_marginVertical="@dimen/_10sdp"
         android:elevation="@dimen/_1sdp">
 
         <ImageView
@@ -31,7 +31,7 @@
             android:layout_height="@dimen/_30sdp"
             app:layout_constraintVertical_bias="1"
             android:background="@drawable/shape_bottom_round_grey"
-            android:backgroundTint="@color/theme_color"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">

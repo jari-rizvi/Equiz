@@ -3,6 +3,7 @@ package com.teamx.equiz.ui.fragments.quizes
 import android.os.Bundle
 import android.view.View
 import androidx.activity.addCallback
+import androidx.annotation.Keep
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
@@ -59,9 +60,9 @@ class QuizesFragment : BaseFragment<FragmentQuizesBinding, QuizesViewModel>(), Q
         mViewDataBinding.btnback.setOnClickListener {
             findNavController().popBackStack()
         }
-
+        mViewModel.quizTitle("World", null, "")
         if (!mViewModel.quizTitleResponse.hasActiveObservers()) {
-            mViewModel.quizTitle("World", null, "normal")
+
             mViewModel.quizTitleResponse.observe(requireActivity()) {
                 when (it.status) {
                     Resource.Status.LOADING -> {
@@ -77,22 +78,31 @@ class QuizesFragment : BaseFragment<FragmentQuizesBinding, QuizesViewModel>(), Q
                         mViewDataBinding.shimmerLayout.stopShimmer()
                         mViewDataBinding.shimmerLayout.visibility = View.GONE
                         mViewDataBinding.mainLayout.visibility = View.VISIBLE
-                        it.data?.let { data ->
                             strArrayList.clear()
+                        it.data?.let { data ->
                             strArrayList.addAll(data.data)
-                            quizesAdapter.notifyDataSetChanged()
                         }
+                        mViewDataBinding.recQuizes.adapter?.notifyDataSetChanged()
                     }
 
                     Resource.Status.ERROR -> {
 //                        loadingDialog.dismiss()
                         mViewDataBinding.shimmerLayout.stopShimmer()
                         mViewDataBinding.shimmerLayout.visibility = View.GONE
+                        mViewDataBinding.mainLayout.visibility = View.VISIBLE
                         if (isAdded) {
+                            strArrayList.clear()
+                            mViewDataBinding.recQuizes.adapter?.notifyDataSetChanged()
                             mViewDataBinding.root.snackbar(it.message!!)
                         }
                     }
                 }
+                if (isAdded) {
+                    mViewModel.quizTitleResponse.removeObservers(
+                        viewLifecycleOwner
+                    )
+                }
+
             }
         }
 
@@ -129,7 +139,7 @@ class QuizesFragment : BaseFragment<FragmentQuizesBinding, QuizesViewModel>(), Q
         val topic = if (tick.equals("World", true)) {
             "General Knowledge"
         } else {
-            "Pak Quiz"
+            ""
         }
         mViewModel.quizTitle("$tick", "$topic", "")
 //        strArrayList.forEach{
@@ -151,8 +161,16 @@ class QuizesFragment : BaseFragment<FragmentQuizesBinding, QuizesViewModel>(), Q
 
     override fun quizeItem(position: Int) {
         val modelQuiz = strArrayList[position]
-        val bundle = arguments
+        var bundle = arguments
         bundle?.putString("modelQuizId", modelQuiz._id)
+
+        if (bundle == null) {
+            bundle = Bundle()
+        }
+
+        bundle.putString("quiz_id","${modelQuiz._id}")
+
+
         findNavController().navigate(R.id.playQuizFragment, bundle,options)
     }
 
@@ -167,6 +185,7 @@ interface QuizesInterface {
     fun quizeItem(position: Int)
 }
 
+@Keep
 data class TitleData(
     val value: String,
     var isSelected: Boolean

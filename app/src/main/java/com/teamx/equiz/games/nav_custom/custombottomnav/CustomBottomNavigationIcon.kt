@@ -116,7 +116,7 @@ class CustomBottomNavigationIcon : RelativeLayout {
             }
         }
 
-    private var iconSize = dip(context, 48)
+    private var iconSize = dip(context, 67)
         set(value) {
             field = value
             if (allowDraw) {

@@ -2,6 +2,7 @@ package com.teamx.equiz.games.games
 
 import android.os.CountDownTimer
 import android.util.Log
+import androidx.annotation.Keep
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -405,7 +406,11 @@ fun CardCalculationGameScreen(content: (boolean:Boolean, rightAnswer:Int, totalA
 
 }
 
+@Keep
 data class CardModel(val value: Int, val color: CardColor)
+
+
+@Keep
 data class OptionCards(val value: Int, val rightAnswer: Int)
 
 //@Composable

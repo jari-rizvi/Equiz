@@ -1,6 +1,7 @@
 package com.teamx.equiz.games.games
 
 import android.os.CountDownTimer
+import androidx.annotation.Keep
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -542,6 +543,7 @@ fun rpsCheckStringReturnDrawable(str: EnumRPS): Int {
     }
 }
 
+@Keep
 data class rpsListItem(
     var id: Int,
     var height: Dp,

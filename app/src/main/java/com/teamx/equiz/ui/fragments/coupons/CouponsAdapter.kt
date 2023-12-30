@@ -17,18 +17,18 @@ class CouponsAdapter(
     }
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CouponsAdapter.CouponViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):  CouponViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val itemCouponBinding = ItemCouponBinding.inflate(inflater, parent, false)
-        return CouponsAdapter.CouponViewHolder(itemCouponBinding)
+        return  CouponViewHolder(itemCouponBinding)
 
     }
 
-    override fun onBindViewHolder(holder: CouponsAdapter.CouponViewHolder, position: Int) {
+    override fun onBindViewHolder(holder:  CouponViewHolder, position: Int) {
 
         val coupon: Data = arrayList[position]
 
-        holder.binding.textView46.text = coupon.amount.toString()+"% off"
+        holder.binding.textView46.text = coupon.amount.toString()+" AED"
 
 
         val o = coupon.createdAt.toString().replaceAfter('T', "").replace("T", "")

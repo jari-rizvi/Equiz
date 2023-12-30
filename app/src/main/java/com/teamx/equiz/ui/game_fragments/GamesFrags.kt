@@ -1415,24 +1415,24 @@ class ReflectionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
 }
 
  @AndroidEntryPoint
-class ResultComposeFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
+ class ResultComposeFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(){
 
-    override val layoutId: Int
-        get() = R.layout.fragment_address
-    override val viewModel: Class<GameFragsViewModel>
-        get() = GameFragsViewModel::class.java
-    override val bindingVariable: Int
-        get() = BR.viewModel
+     override val layoutId: Int
+         get() = R.layout.fragment_address
+     override val viewModel: Class<GameFragsViewModel>
+         get() = GameFragsViewModel::class.java
+     override val bindingVariable: Int
+         get() = BR.viewModel
 
 
-    private lateinit var options: NavOptions
-    private lateinit var composeView: ComposeView
+     private lateinit var options: NavOptions
+     private lateinit var composeView: ComposeView
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        mViewDataBinding = FragmentAddressBinding.inflate(inflater)
-        return ComposeView(requireContext()).also {
+     override fun onCreateView(
+         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+     ): View? {
+         mViewDataBinding = FragmentAddressBinding.inflate(inflater)
+         return ComposeView(requireContext()).also {
             composeView = it
         }
     }
@@ -1480,12 +1480,26 @@ class ResultComposeFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMode
                     }
 
                     2 -> {
-                        navController.navigate(R.id.dashboardFragment,arguments,options)
+                        findNavController().navigate(R.id.dashboardFragment, arguments, options)
                     }
-                    3 -> {
 
+                    3 -> {
+                        DialogHelperClass.shareGameResultDialog(
+                            requireContext(),
+                            object : DialogHelperClass.Companion.DialogInviteAnotherCallBack {
+                                override fun InviteClicked() {
+
+                                }
+
+                            },
+                            true,
+                            "priceAddTopUp".toString()
+                        )
                     }
-                    else -> {  navController.navigate(R.id.dashboardFragment,arguments,options)}
+
+                    else -> {
+                        findNavController().navigate(R.id.dashboardFragment, arguments, options)
+                    }
                 }
 
             }

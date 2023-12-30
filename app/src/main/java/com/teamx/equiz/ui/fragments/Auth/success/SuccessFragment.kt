@@ -3,20 +3,18 @@ package com.teamx.equiz.ui.fragments.Auth.success
 
 import android.os.Bundle
 import android.view.View
-import androidx.navigation.NavController
+import androidx.activity.addCallback
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
-import com.teamx.equiz.databinding.FragmentLoginEmailBinding
-import com.teamx.equiz.databinding.FragmentSignupEmailBinding
+import com.teamx.equiz.constants.NetworkCallPoints
 import com.teamx.equiz.databinding.FragmentSuccessBinding
-import com.teamx.equiz.ui.fragments.Auth.login.LoginViewModel
 import com.teamx.equiz.ui.fragments.Auth.signup.SignupViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import androidx.activity.addCallback
+
 @AndroidEntryPoint
 class SuccessFragment : BaseFragment<FragmentSuccessBinding, SignupViewModel>() {
 
@@ -48,7 +46,20 @@ class SuccessFragment : BaseFragment<FragmentSuccessBinding, SignupViewModel>() 
         }
 
         mViewDataBinding.btnVerify.setOnClickListener {
-            findNavController().navigate(R.id.action_successFragment_to_dashboardFragment,arguments,options)
+
+            var bundle = arguments
+
+            if (bundle == null) {
+                bundle = Bundle()
+            }
+            val token_id = bundle.getString("token_id")
+            NetworkCallPoints.TOKENER = token_id
+
+            findNavController().navigate(
+                R.id.action_successFragment_to_dashboardFragment,
+                bundle,
+                options
+            )
         }
 
 

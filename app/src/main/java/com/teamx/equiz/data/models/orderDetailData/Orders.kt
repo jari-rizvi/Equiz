@@ -1,5 +1,8 @@
 package com.teamx.equiz.data.models.orderDetailData
 
+import androidx.annotation.Keep
+
+@Keep
 data class Orders(
     val __v: Int,
     val _id: String,
@@ -11,6 +14,6 @@ data class Orders(
     val paymentIntent: String,
     val shippingInfo: ShippingInfo,
     val totalPoints: Any,
-    val totalPrice: Any,
+    val totalPrice: Double,
     val user: User
 )

@@ -3,6 +3,7 @@ package com.teamx.equiz.games.games
 import android.os.Build
 import android.os.CountDownTimer
 import android.util.Log
+import androidx.annotation.Keep
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.repeatable
@@ -353,6 +354,7 @@ fun AnimatedObjectTap(number: Int, itemCompared: Int, onClick: (Item: Int) -> Un
     }
 }
 
+@Keep
 data class LeaderListItemTap(
     var name: Int,
     var height: Dp,
@@ -388,6 +390,8 @@ fun LeaderColorBox(item: LeaderListItemTap, onClick: (gamesUID: LeaderEnum) -> U
 }
 
 //tap the color
+
+@Keep
 data class NumberBoxTap(val number: Int, val color: Color, var boolCheck: Boolean = false)
 
 @RequiresApi(Build.VERSION_CODES.N)

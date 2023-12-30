@@ -1,7 +1,10 @@
 package com.teamx.equiz.data.models.getcart
 
+import androidx.annotation.Keep
+
+@Keep
 data class Data(
     val product: Product,
-    val quantity: Int,
-    val totalPrice: Any
+    var quantity: Int,
+    val totalPrice: Double
 )

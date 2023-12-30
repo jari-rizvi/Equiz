@@ -8,9 +8,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bottomHolder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_5sdp"
+        android:layout_width="@dimen/_85sdp"
+        android:layout_height="@dimen/_85sdp"
+        android:layout_margin="@dimen/_11sdp"
         android:background="@drawable/rounded_dialog_background"
         android:elevation="@dimen/_2sdp"
         android:minWidth="@dimen/_88sdp"
@@ -21,26 +21,28 @@
 
         <ImageView
             android:id="@+id/profilePicture"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/_41sdp"
+            android:layout_height="@dimen/_41sdp"
             android:layout_centerInParent="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.4" />
+            app:layout_constraintVertical_bias="0.2" />
 
         <TextView
             android:id="@+id/titleGame"
             style="@style/popins_regular"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:gravity="center"
-            android:text="example a"
-            android:paddingVertical="@dimen/_4sdp"
+            android:text="example asdfasfasfasdfasdfasdfasfasasdfasdfasdfasdfasdfasdfdfa"
+             android:layout_marginHorizontal="@dimen/_3sdp"
+            android:maxLines="3"
+            android:ellipsize="end"
             app:layout_constraintVertical_bias="1"
             android:textColor="@color/theme_color"
-            android:textSize="@dimen/_10ssp"
+            android:textSize="@dimen/_8ssp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

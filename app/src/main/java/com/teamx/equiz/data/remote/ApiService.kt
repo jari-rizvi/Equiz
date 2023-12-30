@@ -6,8 +6,10 @@ import com.teamx.equiz.constants.NetworkCallPoints
 import com.teamx.equiz.constants.NetworkCallPoints.Companion.TOKENER
 import com.teamx.equiz.data.models.addtocart.AddtoCartData
 import com.teamx.equiz.data.models.addtowishlist.AddToWishlistData
+import com.teamx.equiz.data.models.bannerData.bannews.BanNews
 import com.teamx.equiz.data.models.bannerData.news_banner.NewsBanner
 import com.teamx.equiz.data.models.coupons.CouponsData
+import com.teamx.equiz.data.models.delete_wishlist.DeleteWishListData
 import com.teamx.equiz.data.models.editProfile.EditProfileData
 import com.teamx.equiz.data.models.forgotpassData.ForgotPassData
 import com.teamx.equiz.data.models.getPlan.GerPlanData
@@ -31,9 +33,13 @@ import com.teamx.equiz.data.models.sucessData.gamesuccess.GameObj
 import com.teamx.equiz.data.models.topWinnerData.TopWinnerData
 import com.teamx.equiz.data.models.wishlistdata.WishlistData
 import com.teamx.equiz.ui.fragments.address.dataclasses.AddressOrderCreate
+import com.teamx.equiz.ui.fragments.chances.data.ChancesModelData
+import com.teamx.equiz.ui.fragments.collectPrice.data.CollectDataModel
 import com.teamx.equiz.ui.fragments.ecommerce.data.CategoryEcomData
-import com.teamx.equiz.ui.fragments.ecommerce.paymentMethods.model.StripeModel
+import com.teamx.equiz.ui.fragments.ecommerce.paymentMethods.model.stripeanother.StripeCheckoutModelData
+import com.teamx.equiz.ui.fragments.quizresult.data.QuizScoreData
 import com.teamx.equiz.ui.fragments.singlequize.model.SingleQuizData
+import com.teamx.equiz.ui.fragments.topup.data.TopUpModelData
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.Body
@@ -61,13 +67,16 @@ interface ApiService {
 
     @GET(NetworkCallPoints.BANNERS_DATA2)
     suspend fun getBanners(
-
         @Header("token") basicCredentials: String = "$TOKENER"
-    ): Response<NewsBanner>
+    ): Response<BanNews>
 
 
     @GET(NetworkCallPoints.GET_PRODUCTS)
     suspend fun getProducts(@Header("token") basicCredentials: String = "$TOKENER"): Response<GetProductData>
+
+
+    @GET(NetworkCallPoints.GET_CHANCES)
+    suspend fun getChances(@Header("token") basicCredentials: String = "$TOKENER"): Response<ChancesModelData>
 
     @GET(NetworkCallPoints.GET_PRODUCTS)
     suspend fun getProducts(
@@ -126,7 +135,7 @@ interface ApiService {
     suspend fun stripeDataMethod(
         @Body params: JsonObject?,
         @Header("token") basicCredentials: String = "$TOKENER"
-    ): Response<StripeModel>
+    ): Response<StripeCheckoutModelData>
 
     @GET(NetworkCallPoints.GET_PRODUCT_BY_ID)
     suspend fun getProductById(
@@ -153,11 +162,19 @@ interface ApiService {
     ): Response<AddtoCartData>
 
     @POST(NetworkCallPoints.ADD_WISHLIST)
-    suspend fun AddToWishList(
+    suspend fun addToWishList(
         @Body params: JsonObject?,
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<AddToWishlistData>
 
+
+    //    @HTTP(method = "DELETE",path=NetworkCallPoints.DELETE_WISHLIST)
+//    @DELETE(NetworkCallPoints.DELETE_WISHLIST)
+    @HTTP(method = "DELETE", path = NetworkCallPoints.DELETE_WISHLIST, hasBody = true)
+    suspend fun deleteToWishList(
+        @Body params: JsonObject?,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<DeleteWishListData>
 
     @POST(NetworkCallPoints.CREATE_ORDER)
     suspend fun createOrder(
@@ -165,8 +182,18 @@ interface ApiService {
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<AddressOrderCreate>
 
+
+    @POST(NetworkCallPoints.ADD_TOPUP)
+    suspend fun addTopUp(
+        @Body params: JsonObject?,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<TopUpModelData>
+
     @POST(NetworkCallPoints.RESET_PASSWORD)
     suspend fun resetPass(@Body params: JsonObject?): Response<SuccessData>
+
+    @POST(NetworkCallPoints.CHANGE_PASSWORD)
+    suspend fun changePass(@Body params: JsonObject?): Response<SuccessData>
 
 
     @PUT(NetworkCallPoints.RESULT_GAME)
@@ -193,6 +220,12 @@ interface ApiService {
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<SuccessData>
 
+    @PUT(NetworkCallPoints.UPDATE_CART)
+    suspend fun updateCart(
+        @Body params: JsonObject?,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<SuccessData>
+
 
     @GET(NetworkCallPoints.OTP_VERIFY_FORGOT)
     suspend fun otpVerifyForgot(
@@ -203,6 +236,11 @@ interface ApiService {
     suspend fun me(
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<MeModel>
+
+    @GET(NetworkCallPoints.COLLECT_PRIZE)
+    suspend fun collectPrizeRaffal(
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<CollectDataModel>
 
     @PUT(NetworkCallPoints.UPDATE_PROFILE)
     suspend fun updateProfile(
@@ -221,14 +259,18 @@ interface ApiService {
 
     @GET(NetworkCallPoints.QUIZ_FIND)
     suspend fun quizFind(
-        @Query("country") country: String,
-        @Query("topic") topic: String?,
-        @Query("type") type: String?,
+        @Query("") type: String?,
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<SingleQuizData>
 
+    @POST(NetworkCallPoints.QUIZ_RESULT)
+    suspend fun quizResult(
+        @Body params: JsonObject,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<QuizScoreData>
 
-    @GET(NetworkCallPoints.GET_ORDERS)
+
+    @GET(NetworkCallPoints.GET_ORDERS2)
     suspend fun getOrders(
         @Query("orderStatus") orderStatus: String,
         @Header("token") basicCredentials: String = "$TOKENER"
@@ -238,7 +280,8 @@ interface ApiService {
     suspend fun getNotifications(
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<NotificationData>
-   @GET(NetworkCallPoints.GET_PLAN)
+
+    @GET(NetworkCallPoints.GET_PLAN)
     suspend fun getPlan(
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<GerPlanData>

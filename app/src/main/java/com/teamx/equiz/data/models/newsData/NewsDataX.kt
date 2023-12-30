@@ -1,5 +1,8 @@
 package com.teamx.equiz.data.models.newsData
 
+import androidx.annotation.Keep
+
+@Keep
 data class NewsDataX(
     val __v: Int,
     val _id: String,

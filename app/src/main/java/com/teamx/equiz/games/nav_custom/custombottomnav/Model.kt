@@ -5,6 +5,9 @@ import androidx.annotation.IdRes
 import androidx.annotation.StringRes
 import com.teamx.equiz.R
 
+import androidx.annotation.Keep
+
+@Keep
 data class Model(
     @DrawableRes
     val icon: Int = 0,

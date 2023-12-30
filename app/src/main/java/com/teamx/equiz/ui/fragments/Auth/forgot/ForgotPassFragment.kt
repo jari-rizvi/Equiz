@@ -167,7 +167,9 @@ class ForgotPassFragment : BaseFragment<FragmentForgotPassBinding, ForgotPassVie
 
     private fun isValidate(): Boolean {
         if (mViewDataBinding.etCred.text.toString().trim().isEmpty()) {
+              if(isAdded){
             mViewDataBinding.root.snackbar(getString(R.string.enter_your_email_or_number))
+             }
             return false
         }
 

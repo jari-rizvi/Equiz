@@ -70,8 +70,16 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
 
 
         mViewDataBinding.btnmenu.setOnClickListener {
-            val activity = requireActivity() as MainActivity
-            activity.openDrawer()
+
+            findNavController().navigate(
+                R.id.settingsFragment, arguments, options
+            )
+        }
+        mViewDataBinding.textView155.setOnClickListener {
+
+            findNavController().navigate(
+                R.id.allProductEcommerceFragment, arguments, options
+            )
         }
         mViewDataBinding.btnCart.setOnClickListener {
             findNavController().navigate(
@@ -132,16 +140,18 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
                     }
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
-                        productArrayList.clear()
+                        productAdapter.arrayList.clear()
                         it.data?.let { data ->
                             data.data.forEach {
-                                productArrayList.add(it)
+                                productAdapter.arrayList.add(it)
                                 Log.d("TAG", "onViewCreated1212121212: $it")
 
                             }
 
 
                         }
+
+                        mViewDataBinding.popularRecycler.adapter=productAdapter
                         mViewDataBinding.popularRecycler.adapter?.notifyDataSetChanged()
                     }
 
@@ -232,6 +242,41 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
                 }
             }
         }
+
+        if (!mViewModel.deleteToWishlistResponse.hasActiveObservers()) {
+            mViewModel.deleteToWishlistResponse.observe(requireActivity()) {
+                when (it.status) {
+                    Resource.Status.LOADING -> {
+                        loadingDialog.show()
+                    }
+
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
+                    }
+
+                    Resource.Status.SUCCESS -> {
+                        loadingDialog.dismiss()
+
+                        it.data?.let { data ->
+
+                            showToast("Deleted From Wishlist")
+
+                        }
+                    }
+
+                    Resource.Status.ERROR -> {
+                        loadingDialog.dismiss()
+                        DialogHelperClass.errorDialog(requireContext(), it.message!!)
+                    }
+                }
+                if (isAdded) {
+                    mViewModel.deleteToWishlistResponse.removeObservers(viewLifecycleOwner)
+                }
+            }
+        }
+
+
+
         productRecyclerview()
 //        initializeFeatureProducts()
 
@@ -366,13 +411,19 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
         } catch (e: JSONException) {
             e.printStackTrace()
         }
-        mViewModel.addtowishlist(params)
+        if (productArrayList.get(position).isFavorite) {
+            mViewModel.deleteToWishlist(params)
+            productArrayList.get(position).isFavorite = false
+        } else {
+            mViewModel.addtowishlist(params)
+            productArrayList.get(position).isFavorite = true
+        }
+//        mViewModel.addtowishlist(params)
 //        strArrayList.forEach{
 //            if (it.isSelected)
 //            it.isSelected = false
 //        }
 
-        productArrayList.get(position).isFavorite = true
         mViewDataBinding.popularRecycler.adapter?.notifyItemChanged(position)
 
 

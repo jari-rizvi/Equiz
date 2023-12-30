@@ -2,19 +2,28 @@ package com.teamx.equiz.ui.fragments.chances
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import androidx.activity.addCallback
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
+import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentChancesBinding
-import com.teamx.equiz.ui.fragments.Auth.login.LoginViewModel
+import com.teamx.equiz.ui.fragments.chances.adapter.ChancesAdapter
+import com.teamx.equiz.ui.fragments.chances.adapter.OnChanceListener
+import com.teamx.equiz.ui.fragments.chances.data.ChancesTransaction
+import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
-import androidx.activity.addCallback
+
 @AndroidEntryPoint
-class ChancesFragment : BaseFragment<FragmentChancesBinding, ChancesViewModel>() {
+class ChancesFragment : BaseFragment<FragmentChancesBinding, ChancesViewModel>(), OnChanceListener {
 
     override val layoutId: Int
         get() = R.layout.fragment_chances
@@ -46,5 +55,71 @@ class ChancesFragment : BaseFragment<FragmentChancesBinding, ChancesViewModel>()
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
 
 
+
+
+
+        mViewModel.getChances()
+
+        if (!mViewModel.getChancesResponse.hasActiveObservers()) {
+            mViewModel.getChancesResponse.observe(requireActivity()) {
+                when (it.status) {
+                    Resource.Status.LOADING -> {
+                        loadingDialog.show()
+                    }
+
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
+                    }
+
+                    Resource.Status.SUCCESS -> {
+                        loadingDialog.dismiss()
+                        chancesAdapter.arrayList.clear()
+                        it.data?.let { data ->
+                            data.chancesTransaction.forEach {
+                                chancesAdapter.arrayList.add(it)
+                                Log.d("TAG", "onViewCreated1212121212: $it")
+
+                            }
+
+
+                        }
+
+                        mViewDataBinding.recyclerView.adapter = chancesAdapter
+                        mViewDataBinding.recyclerView.adapter?.notifyDataSetChanged()
+                    }
+
+                    Resource.Status.ERROR -> {
+                        loadingDialog.dismiss()
+                        DialogHelperClass.errorDialog(requireContext(), it.message!!)
+                    }
+                }
+                if (isAdded) {
+                    mViewModel.getChancesResponse.removeObservers(viewLifecycleOwner)
+                }
+            }
+        }
+
+        chancesRec()
     }
+
+
+    lateinit var chancesAdapter: ChancesAdapter
+    lateinit var chancesModelData: ArrayList<ChancesTransaction>
+
+    private fun chancesRec() {
+        chancesModelData = ArrayList()
+
+        val linearLayoutManager = LinearLayoutManager(context,  RecyclerView.VERTICAL, false)
+        mViewDataBinding.recyclerView.layoutManager = linearLayoutManager
+
+        chancesAdapter = ChancesAdapter(chancesModelData, this)
+        mViewDataBinding.recyclerView.adapter = chancesAdapter
+
+    }
+
+    override fun onChanceClick(position: Int) {
+
+
+    }
+
 }

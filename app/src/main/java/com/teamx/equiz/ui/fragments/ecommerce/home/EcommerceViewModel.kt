@@ -7,7 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.google.gson.JsonObject
 import com.teamx.equiz.baseclasses.BaseViewModel
 import com.teamx.equiz.data.models.addtowishlist.AddToWishlistData
-import com.teamx.equiz.data.models.bannerData.news_banner.NewsBanner
+import com.teamx.equiz.data.models.bannerData.bannews.BanNews
+import com.teamx.equiz.data.models.delete_wishlist.DeleteWishListData
 import com.teamx.equiz.data.models.getProducts.GetProductData
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.data.remote.reporitory.MainRepository
@@ -30,8 +31,8 @@ class EcommerceViewModel @Inject constructor(
     val getcategoriesResponse: LiveData<Resource<CategoryEcomData>>
         get() = _getcategoriesResponse
 
-    private val _getBannerResponse = MutableLiveData<Resource<NewsBanner>>()
-    val getBannerResponse: LiveData<Resource<NewsBanner>>
+    private val _getBannerResponse = MutableLiveData<Resource<BanNews>>()
+    val getBannerResponse: LiveData<Resource<BanNews>>
         get() = _getBannerResponse
 
     private val _getProductsResponse = MutableLiveData<Resource<GetProductData>>()
@@ -142,6 +143,51 @@ class EcommerceViewModel @Inject constructor(
             } else _addtowishlistResponse.postValue(Resource.error("No internet connection", null))
         }
     }
+    private val _deleteToWishlistResponse = MutableLiveData<Resource<DeleteWishListData>>()
+    val deleteToWishlistResponse: LiveData<Resource<DeleteWishListData>>
+        get() = _deleteToWishlistResponse
+
+    fun deleteToWishlist(param: JsonObject) {
+        viewModelScope.launch {
+            _deleteToWishlistResponse.postValue(Resource.loading(null))
+            if (networkHelper.isNetworkConnected()) {
+                try {
+                    mainRepository.deleteToWishList(param).let {
+                        if (it.isSuccessful) {
+                            _deleteToWishlistResponse.postValue(Resource.success(it.body()!!))
+                        } else if (it.code() == 401) {
+//                            unAuthorizedCallback.onToSignUpPage()
+                            _deleteToWishlistResponse.postValue(Resource.error(it.message(), null))
+                        } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
+//                            _deleteToWishlistResponse.postValue(Resource.error(it.message(), null))
+                            val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
+                            _deleteToWishlistResponse.postValue(Resource.error(jsonObj.getString("message")))
+                        } else {
+                            _deleteToWishlistResponse.postValue(
+                                Resource.error(
+                                    "Some thing went wrong",
+                                    null
+                                )
+                            )
+                        }
+                    }
+                } catch (e: Exception) {
+                    _deleteToWishlistResponse.postValue(Resource.error("${e.message}", null))
+                }
+            } else _deleteToWishlistResponse.postValue(
+                Resource.error(
+                    "No internet connection",
+                    null
+                )
+            )
+        }
+    }
+
+
+
+
+
+
 
     fun getProducts(category: String = "", keyword: String = "") {
         viewModelScope.launch {
@@ -161,8 +207,7 @@ class EcommerceViewModel @Inject constructor(
                                 Timber.tag("87878787887").d("secoonnddd")
 
 //                            _getProductsResponse.postValue(Resource.error(it.message(), null))
-                                val jsonObj =
-                                    JSONObject(it.errorBody()!!.charStream().readText())
+                                val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
                                 _getProductsResponse.postValue(
                                     Resource.error(
                                         jsonObj.getString(
@@ -193,8 +238,7 @@ class EcommerceViewModel @Inject constructor(
                                 Timber.tag("87878787887").d("secoonnddd")
 
 //                            _getProductsResponse.postValue(Resource.error(it.message(), null))
-                                val jsonObj =
-                                    JSONObject(it.errorBody()!!.charStream().readText())
+                                val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
                                 _getProductsResponse.postValue(
                                     Resource.error(
                                         jsonObj.getString(
@@ -223,8 +267,7 @@ class EcommerceViewModel @Inject constructor(
                                 Timber.tag("87878787887").d("secoonnddd")
 
 //                            _getProductsResponse.postValue(Resource.error(it.message(), null))
-                                val jsonObj =
-                                    JSONObject(it.errorBody()!!.charStream().readText())
+                                val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
                                 _getProductsResponse.postValue(
                                     Resource.error(
                                         jsonObj.getString(
@@ -253,8 +296,7 @@ class EcommerceViewModel @Inject constructor(
                                 Timber.tag("87878787887").d("secoonnddd")
 
 //                            _getProductsResponse.postValue(Resource.error(it.message(), null))
-                                val jsonObj =
-                                    JSONObject(it.errorBody()!!.charStream().readText())
+                                val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
                                 _getProductsResponse.postValue(
                                     Resource.error(
                                         jsonObj.getString(
@@ -275,7 +317,7 @@ class EcommerceViewModel @Inject constructor(
                         }
 
                     }
-                    mainRepository.getProducts().let {
+                  /*  mainRepository.getProducts().let {
                         if (it.isSuccessful) {
                             _getProductsResponse.postValue(Resource.success(it.body()!!))
                             Timber.tag("87878787887").d(it.body()!!.toString())
@@ -302,7 +344,7 @@ class EcommerceViewModel @Inject constructor(
                             Timber.tag("87878787887").d("third")
 
                         }
-                    }
+                    }*/
                 } catch (e: Exception) {
                     _getProductsResponse.postValue(Resource.error("${e.message}", null))
                 }

@@ -1,5 +1,8 @@
 package com.teamx.equiz.data.models.forgotpassData
 
+import androidx.annotation.Keep
+
+@Keep
 data class UpdatedData(
     val __v: Int,
     val _id: String,

@@ -30,6 +30,7 @@ import com.teamx.equiz.ui.fragments.quizes.TitleData
 import com.teamx.equiz.ui.fragments.quizes.adapter.QuizesAdapter
 import com.teamx.equiz.ui.fragments.quizes.adapter.QuizesTitleAdapter
 import com.teamx.equiz.utils.DialogHelperClass
+import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -76,6 +77,12 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 //            activity.openDrawer()
             findNavController().navigate(
                 R.id.settingsFragment, arguments, options
+            )
+        }
+        mViewDataBinding.tvCoins.setOnClickListener {
+
+            findNavController().navigate(
+                R.id.topupFragment, arguments, options
             )
         }
 
@@ -133,7 +140,59 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
 
         mViewModel.getTopWinners()
+        mViewModel.getBanners()
 
+
+        if (!mViewModel.getBannerResponse.hasActiveObservers()) {
+            mViewModel.getBannerResponse.observe(requireActivity()) {
+                when (it.status) {
+                    Resource.Status.LOADING -> {
+//                        loadingDialog.show()
+                        mViewDataBinding.shimmerLayout.startShimmer()
+                        mViewDataBinding.shimmerLayout.visibility = View.VISIBLE
+                    }
+
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
+                    }
+
+                    Resource.Status.SUCCESS -> {
+//                        loadingDialog.dismiss()
+//                        mViewDataBinding.shimmerLayout.stopShimmer()
+//                        mViewDataBinding.shimmerLayout.visibility = View.GONE
+//                        mViewDataBinding.mainLayout.visibility = View.VISIBLE
+                        imageList2.clear()
+                        it.data?.let { data ->
+//                            data.game.forEach {
+//                                winnerArrayList.add(it)
+//                            }
+                            data.newsData.forEach {
+                                imageList2.add(it.image)
+                            }
+//                            winnerAdapter.notifyDataSetChanged()
+
+
+                        }
+                        mViewDataBinding.viewPager.adapter?.notifyDataSetChanged()
+
+                    }
+
+                    Resource.Status.ERROR -> {
+//                        loadingDialog.dismiss()
+                        mViewDataBinding.shimmerLayout.stopShimmer()
+                        mViewDataBinding.shimmerLayout.visibility = View.GONE
+                        DialogHelperClass.errorDialog(
+                            requireContext(), it.message!!
+                        )
+                    }
+                }
+                if (isAdded) {
+                    mViewModel.getBannerResponse.removeObservers(
+                        viewLifecycleOwner
+                    )
+                }
+            }
+        }
         if (!mViewModel.getTopWinnersResponse.hasActiveObservers()) {
             mViewModel.getTopWinnersResponse.observe(requireActivity()) {
                 when (it.status) {
@@ -142,9 +201,11 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                         mViewDataBinding.shimmerLayout.startShimmer()
                         mViewDataBinding.shimmerLayout.visibility = View.VISIBLE
                     }
+
                     Resource.Status.NOTVERIFY -> {
                         loadingDialog.dismiss()
                     }
+
                     Resource.Status.SUCCESS -> {
 //                        loadingDialog.dismiss()
                         mViewDataBinding.shimmerLayout.stopShimmer()
@@ -197,6 +258,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                         mViewDataBinding.shimmerLayout.stopShimmer()
                         mViewDataBinding.shimmerLayout.visibility = View.GONE
                         mViewDataBinding.mainLayout.visibility = View.VISIBLE
+                        mViewDataBinding.recQuizes.visibility = View.VISIBLE
                         it.data?.let { data ->
                             data.data.forEach {
                                 quizArrayList.add(it)
@@ -210,9 +272,13 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 //                        loadingDialog.dismiss()
                         mViewDataBinding.shimmerLayout.stopShimmer()
                         mViewDataBinding.shimmerLayout.visibility = View.GONE
-                        DialogHelperClass.errorDialog(
-                            requireContext(), it.message!!
-                        )
+                        mViewDataBinding.recQuizes.visibility = View.GONE
+                        /*  DialogHelperClass.errorDialog(
+                              requireContext(), it.message!!
+                          )*/
+                        if (isAdded) {
+                            mViewDataBinding.root.snackbar(it.message!!)
+                        }
                     }
                 }
                 if (isAdded) {
@@ -548,7 +614,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         val topic = if (tick.equals("World", true)) {
             "General Knowledge"
         } else {
-            "Pak Quiz"
+            ""
         }
         mViewModel.getquizTitile("$tick", "$topic", "")
 //        strArrayList.forEach{
@@ -564,7 +630,15 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
     }
 
     override fun quizeItem(position: Int) {
-        findNavController().navigate(R.id.playQuizFragment, arguments,options)
+        var bundle = arguments
+        if (bundle == null) {
+            bundle = Bundle()
+        }
+
+        bundle.putString("quiz_id", "${quizArrayList.get(position)._id}")
+
+
+        findNavController().navigate(R.id.playQuizFragment, bundle, options)
     }
 
     override fun onClickGame(position: Int) {
@@ -715,7 +789,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
 /////////////
 
-
+    private val imageList2 = arrayListOf<String>()
     private fun addingSliderAdapter() {
 
 
@@ -729,7 +803,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             // Add more images as needed
         )
 
-        val adapter = ImageSliderAdapter(imageList)
+        val adapter = ImageSliderAdapter(imageList2)
         mViewDataBinding.viewPager.adapter = adapter
 
         addDots(imageList.size)
@@ -772,6 +846,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
 
 }
+
 
 @Keep
 data class GamesModel(

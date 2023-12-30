@@ -5,6 +5,9 @@ import kotlin.math.absoluteValue
 import kotlin.random.Random
 
 
+import androidx.annotation.Keep
+
+@Keep
 data class Spirit(
     val shape: List<Offset> = emptyList(),
     val offset: Offset = Offset(0, 0),

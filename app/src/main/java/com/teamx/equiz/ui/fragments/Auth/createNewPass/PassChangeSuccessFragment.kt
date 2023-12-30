@@ -19,8 +19,7 @@ import com.teamx.equiz.ui.fragments.Auth.login.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PassChangeSuccessFragment :
-    BaseFragment<FragmentPassChangeSuccessBinding, CreateNewPassViewModel>() {
+class PassChangeSuccessFragment : BaseFragment<FragmentPassChangeSuccessBinding, CreateNewPassViewModel>() {
 
     override val layoutId: Int
         get() = R.layout.fragment_pass_change_success

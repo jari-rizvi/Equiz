@@ -1,31 +1,23 @@
 package com.teamx.equiz.ui.fragments.quizresult
 
-import android.annotation.SuppressLint
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import androidx.activity.addCallback
 import androidx.annotation.RequiresApi
-import androidx.appcompat.widget.AppCompatCheckedTextView
 import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.JsonObject
 import com.teamx.equiz.BR
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.res.ResourcesCompat
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
+import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentQuizResultBinding
-import com.teamx.equiz.databinding.FragmentQuizesBinding
-import com.teamx.equiz.databinding.FragmentSingleQuizBinding
-import com.teamx.equiz.ui.fragments.quizes.QuizesInterface
-import com.teamx.equiz.ui.fragments.quizes.QuizesViewModel
-import com.teamx.equiz.ui.fragments.quizes.adapter.QuizesAdapter
-import com.teamx.equiz.ui.fragments.quizes.adapter.QuizesTitleAdapter
 import com.teamx.equiz.ui.fragments.singlequize.SingleQuizesViewModel
+import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import androidx.activity.addCallback
-import androidx.navigation.fragment.findNavController
+import org.json.JSONException
 
 @AndroidEntryPoint
 class QuizResultFragment : BaseFragment<FragmentQuizResultBinding, SingleQuizesViewModel>() {
@@ -58,9 +50,77 @@ class QuizResultFragment : BaseFragment<FragmentQuizResultBinding, SingleQuizesV
         }
 
 
+        mViewDataBinding.btnback.setOnClickListener {
+
+            findNavController().popBackStack()
+        }
+        mViewDataBinding.playAgainBtn.setOnClickListener {
+
+            findNavController().popBackStack()
+        }
+        mViewDataBinding.backToHomeBtn.setOnClickListener {
+
+            findNavController().navigate(R.id.dashboardFragment, arguments, options)
+        }
+
+        resultQuizFragment()
 
 
 
+        if (!mViewModel.quizResultResponse.hasActiveObservers()) {
+            mViewModel.quizResultResponse.observe(requireActivity()) {
+                when (it.status) {
+                    Resource.Status.LOADING -> {
+                        loadingDialog.show()
+                    }
+
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
+                    }
+
+                    Resource.Status.SUCCESS -> {
+                        loadingDialog.dismiss()
+                        it.data?.let { data ->
+                            mViewDataBinding.chancesTxt.text= data.quizId
+                            mViewDataBinding.supportResultTxt.text="You answered ${data.score}% questions correctly"
+
+                        }
+                    }
+
+                    Resource.Status.ERROR -> {
+                        loadingDialog.dismiss()
+                        if (isAdded) {
+                            mViewDataBinding.root.snackbar(it.message!!)
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+
+    private fun resultQuizFragment() {
+        var bundle2 = arguments
+        if (bundle2 == null) {
+            bundle2 = Bundle()
+        }
+
+        val strId = bundle2.getString("quiz_id")
+        val rightAnswer = bundle2.getInt("rightAnswer")
+        val totalAnswer = bundle2.getInt("totalAnswer")
+
+        val params = JsonObject()
+        try {
+            params.addProperty("total", totalAnswer)
+            params.addProperty("correct", rightAnswer)
+            params.addProperty("quizId", "$strId")
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+
+
+        mViewModel.quizResult(params)
 
 
     }

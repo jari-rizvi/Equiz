@@ -2,6 +2,7 @@ package com.teamx.equiz.games.games
 
 import android.os.CountDownTimer
 import android.util.Log
+import androidx.annotation.Keep
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.repeatable
 import androidx.compose.animation.core.tween
@@ -421,6 +422,7 @@ fun BirdAnimatedObject2(
     }
 }
 
+@Keep
 data class BirdListItem(
     var name: Int,
     var valueColor: Int,

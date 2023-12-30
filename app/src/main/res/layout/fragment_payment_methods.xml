@@ -89,9 +89,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView49" />
 
             <RadioButton
+
+                android:buttonTint="@color/BirdColor4"
                 android:id="@+id/radioWallet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:clickable="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.95"
@@ -127,8 +130,11 @@
 
 
             <RadioButton
+                android:buttonTint="@color/BirdColor4"
+
                 android:id="@+id/radioPaypal"
                 android:layout_width="wrap_content"
+                android:clickable="false"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -165,6 +171,8 @@
 
 
             <RadioButton
+                android:buttonTint="@color/BirdColor4"
+                android:clickable="false"
                 android:id="@+id/radioVisa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -203,6 +211,8 @@
 
 
             <RadioButton
+                android:buttonTint="@color/BirdColor4"
+                android:clickable="false"
                 android:id="@+id/radiomaster"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -241,6 +251,8 @@
 
 
             <RadioButton
+                android:buttonTint="@color/BirdColor4"
+                android:clickable="false"
                 android:id="@+id/radiogoogle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -254,14 +266,14 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/textView57"
-            android:layout_width="@dimen/_80sdp"
-            android:layout_height="@dimen/_20sdp"
-            android:background="@drawable/card_background"
+            android:id="@+id/paynoW"
+            android:layout_width="@dimen/_145sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:background="@drawable/rounded_dialog_background"
             android:backgroundTint="@color/theme_color"
             android:gravity="center"
             app:layout_constraintVertical_bias="0.2"
-            android:text="Add Card"
+            android:text="Proceed To Pay"
             android:textColor="@color/white"
             android:textSize="@dimen/_12ssp"
             app:layout_constraintBottom_toBottomOf="parent"

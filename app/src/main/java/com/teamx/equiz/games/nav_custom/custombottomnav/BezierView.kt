@@ -3,9 +3,12 @@ package com.teamx.equiz.games.nav_custom.custombottomnav
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.LinearGradient
 import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.PointF
+import android.graphics.Shader
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
@@ -26,8 +29,20 @@ class BezierView : View {
     private var bezierOuterHeight = 0f
     private var bezierInnerWidth = 0f
     private var bezierInnerHeight = 0f
-    private val shadowHeight = dipf(context, 35)   // this height will change bottomnavigation bg height
-    private val reverseCurveHeight = dipf(context, 10)   // this will change bottomnavigation bg height reverse
+    private val shadowHeight =
+        dipf(context, 35)   // this height will change bottomnavigation bg height
+    private val reverseCurveHeight =
+        dipf(context, 10)   // this will change bottomnavigation bg height reverse
+
+
+    //
+    var waveGradient: LinearGradient? = null
+
+
+
+
+    //
+
 
     var color = 0
         set(value) {
@@ -128,6 +143,13 @@ class BezierView : View {
             isAntiAlias = true
             style = Paint.Style.STROKE
             color = this@BezierView.color
+
+            val waveGradient = LinearGradient(
+                0f, 0f, 0f, height.toFloat(),
+                intArrayOf(Color.parseColor("#C62E27"), Color.parseColor("#9F81CA")),
+                null, Shader.TileMode.REPEAT
+            )
+            shader = waveGradient
         }
 
         shadowPaint = Paint(Paint.ANTI_ALIAS_FLAG)
@@ -140,6 +162,8 @@ class BezierView : View {
         shadowColor = shadowColor
 
         setLayerType(LAYER_TYPE_SOFTWARE, shadowPaint)
+
+
     }
 
     @SuppressLint("DrawAllocation")

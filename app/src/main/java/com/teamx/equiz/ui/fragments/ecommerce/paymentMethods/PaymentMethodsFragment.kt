@@ -29,7 +29,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
-class PaymentMethodsFragment : BaseFragment<FragmentPaymentMethodsBinding, PaymentMethodsViewModel>() {
+class PaymentMethodsFragment :
+    BaseFragment<FragmentPaymentMethodsBinding, PaymentMethodsViewModel>(),
+    DialogHelperClass.Companion.OrderCompleteCallBack {
 
     override val layoutId: Int
         get() = R.layout.fragment_payment_methods
@@ -41,7 +43,7 @@ class PaymentMethodsFragment : BaseFragment<FragmentPaymentMethodsBinding, Payme
 
     private lateinit var options: NavOptions
 
-
+    var orderId: String? = ""
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
@@ -53,7 +55,7 @@ class PaymentMethodsFragment : BaseFragment<FragmentPaymentMethodsBinding, Payme
             bundle = Bundle()
         }
 
-        val orderId = bundle.getString("order_id")
+        orderId = bundle.getString("order_id")
 
 
         options = navOptions {
@@ -66,10 +68,19 @@ class PaymentMethodsFragment : BaseFragment<FragmentPaymentMethodsBinding, Payme
         }
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
 
-//        TOKENER = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTJlNWEyYTE2YTU5OGNjYzRhNmIwZGUiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3MDI2NDQwODQsImV4cCI6MTcwMjczMDQ4NH0.bLVjA-x-AUf7jRKZT8bSxcGA-tEZIioIfZsTFQ7MzCM"
 
-        mViewDataBinding.btnmaster.setOnClickListener {
-            presentPaymentSheet("657c49d67cf8073363b445af")
+        /* mViewDataBinding.btnmaster.setOnClickListener {
+             presentPaymentSheet("657c49d67cf8073363b445af")
+         } */
+
+
+        mViewDataBinding.paynoW.setOnClickListener {
+            if (mViewDataBinding.radioWallet.isChecked || mViewDataBinding.radioPaypal.isChecked || mViewDataBinding.radioVisa.isChecked || mViewDataBinding.radiomaster.isChecked || mViewDataBinding.radiogoogle.isChecked) {
+
+                presentPaymentSheet("$orderId",paymentOption.toString())
+            } else {
+                showToast("Please select payment method")
+            }
         }
 
         if (isAdded) {
@@ -81,11 +92,60 @@ class PaymentMethodsFragment : BaseFragment<FragmentPaymentMethodsBinding, Payme
         if (isAdded) {
             PaymentConfiguration.init(
                 this.requireContext(),
-                "pk_test_51O8NjlCdPClG3QS3SDNlxW3kc6gMOnOHEltPuemomvaxK4et8h2UIKG2VUg1TWK2tHrx6LcVcfCaLcbpPw9JCRti00bpYxyqll"
+                "pk_test_51L1UVCGn3F7BuM88wH1PSuNgc9bX7tq0MkIMB2HU2BbScX3i7VgZw4V8nimfe1zUEF8uQ3Q6PFbzrMacvH5PfA7900PaBHO20E"
             )
             presentInit()
 
         }
+
+
+        ///
+
+        mViewDataBinding.btnpaypal.setOnClickListener {
+            mViewDataBinding.radioPaypal.isChecked = true
+            mViewDataBinding.radioVisa.isChecked = false
+            mViewDataBinding.radiomaster.isChecked = false
+            mViewDataBinding.radiogoogle.isChecked = false
+            mViewDataBinding.radioWallet.isChecked = false
+            paymentOption = "paypal"
+        }
+        mViewDataBinding.wallet.setOnClickListener {
+            mViewDataBinding.radioWallet.isChecked = true
+            mViewDataBinding.radioPaypal.isChecked = false
+            mViewDataBinding.radioVisa.isChecked = false
+            mViewDataBinding.radiomaster.isChecked = false
+            mViewDataBinding.radiogoogle.isChecked = false
+            paymentOption = "wallet"
+        }
+
+        mViewDataBinding.btnvisa.setOnClickListener {
+            mViewDataBinding.radioWallet.isChecked = false
+            mViewDataBinding.radioPaypal.isChecked = false
+            mViewDataBinding.radioVisa.isChecked = true
+            mViewDataBinding.radiomaster.isChecked = false
+            mViewDataBinding.radiogoogle.isChecked = false
+            paymentOption = "stripe"
+        }
+
+        mViewDataBinding.btnmaster.setOnClickListener {
+            mViewDataBinding.radioWallet.isChecked = false
+            mViewDataBinding.radioPaypal.isChecked = false
+            mViewDataBinding.radioVisa.isChecked = false
+            mViewDataBinding.radiomaster.isChecked = true
+            mViewDataBinding.radiogoogle.isChecked = false
+            paymentOption = "stripe"
+        }
+
+        mViewDataBinding.btnGoogle.setOnClickListener {
+            mViewDataBinding.radioWallet.isChecked = false
+            mViewDataBinding.radioPaypal.isChecked = false
+            mViewDataBinding.radioVisa.isChecked = false
+            mViewDataBinding.radiomaster.isChecked = false
+            mViewDataBinding.radiogoogle.isChecked = true
+            paymentOption = "stripe"
+        }
+
+        ///
 
 
     }
@@ -96,11 +156,11 @@ class PaymentMethodsFragment : BaseFragment<FragmentPaymentMethodsBinding, Payme
     var googlePayLauncher: GooglePayLauncher? = null
     private lateinit var paymentsClient: PaymentsClient
     lateinit var paymentSheet: PaymentSheet
-
-    private fun presentPaymentSheet(shopId: String) {
+    var paymentOption: String? = ""
+    private fun presentPaymentSheet(orderId: String,paymentOptions: String) {
         val params = JsonObject()
-        params.addProperty("id", shopId)
-        params.addProperty("paymentMethod", "stripe")
+        params.addProperty("id", orderId)
+        params.addProperty("paymentMethod", "$paymentOptions")
         mViewModel.stripeDataMethod(params)
 
         if (!mViewModel.stripeData.hasActiveObservers()) {
@@ -110,57 +170,72 @@ class PaymentMethodsFragment : BaseFragment<FragmentPaymentMethodsBinding, Payme
                     Resource.Status.LOADING -> {
                         loadingDialog.show()
                     }
+
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let {
-                            paymentIntentClientSecret = it.client_secret ?: ""
-                            stripPublicKey = "pk_test_51L1UVCGn3F7BuM88wH1PSuNgc9bX7tq0MkIMB2HU2BbScX3i7VgZw4V8nimfe1zUEF8uQ3Q6PFbzrMacvH5PfA7900PaBHO20E"
-                            if (selectionStr.contains("google", true)) {
-                                PrefHelper.getInstance(requireContext())
-                                    .savaStripe("pk_test_51L1UVCGn3F7BuM88wH1PSuNgc9bX7tq0MkIMB2HU2BbScX3i7VgZw4V8nimfe1zUEF8uQ3Q6PFbzrMacvH5PfA7900PaBHO20E")
-
-                                presentGooglePaySheetIN(stripPublicKey, paymentIntentClientSecret)
-
-                            } else {
 
 
-                                paymentIntentClientSecret = it.client_secret ?: ""
-                                stripPublicKey = "pk_test_51L1UVCGn3F7BuM88wH1PSuNgc9bX7tq0MkIMB2HU2BbScX3i7VgZw4V8nimfe1zUEF8uQ3Q6PFbzrMacvH5PfA7900PaBHO20E"
-                                PaymentConfiguration.init(
-                                    requireActivity().applicationContext,
-                                    stripPublicKey
-                                )
-                                val googlePayConfiguration = PaymentSheet.GooglePayConfiguration(
-                                    environment = PaymentSheet.GooglePayConfiguration.Environment.Test,
-                                    countryCode = "AE",
-                                    currencyCode = "AED" // Required for Setup Intents, optional for Payment Intents
-                                )
-                                PrefHelper.getInstance(requireContext())
-                                    .savaStripe("pk_test_51L1UVCGn3F7BuM88wH1PSuNgc9bX7tq0MkIMB2HU2BbScX3i7VgZw4V8nimfe1zUEF8uQ3Q6PFbzrMacvH5PfA7900PaBHO20E")
+                            if (!paymentOptions.equals("wallet",true)){
+                                paymentIntentClientSecret = it.checkout.data.client_secret ?: ""
 
-                                val configuration = PaymentSheet.Configuration(
-                                    merchantDisplayName = "getString(R.string.raseef_str)",
-                                    allowsDelayedPaymentMethods = false,
-                                    googlePay = googlePayConfiguration
-                                )
+                                Log.d("21123", "presentPaymentSheet:$paymentIntentClientSecret ")
+                                stripPublicKey =
+                                    "pk_test_51L1UVCGn3F7BuM88wH1PSuNgc9bX7tq0MkIMB2HU2BbScX3i7VgZw4V8nimfe1zUEF8uQ3Q6PFbzrMacvH5PfA7900PaBHO20E"
+                                if (selectionStr.contains("google", true)) {
+                                    PrefHelper.getInstance(requireContext())
+                                        .savaStripe("pk_test_51L1UVCGn3F7BuM88wH1PSuNgc9bX7tq0MkIMB2HU2BbScX3i7VgZw4V8nimfe1zUEF8uQ3Q6PFbzrMacvH5PfA7900PaBHO20E")
+
+                                    presentGooglePaySheetIN(stripPublicKey, paymentIntentClientSecret)
+
+                                } else {
+
+
+                                    paymentIntentClientSecret = it.checkout.data.client_secret ?: ""
+                                    stripPublicKey =
+                                        "pk_test_51L1UVCGn3F7BuM88wH1PSuNgc9bX7tq0MkIMB2HU2BbScX3i7VgZw4V8nimfe1zUEF8uQ3Q6PFbzrMacvH5PfA7900PaBHO20E"
+                                    PaymentConfiguration.init(
+                                        requireActivity().applicationContext,
+                                        stripPublicKey
+                                    )
+                                    val googlePayConfiguration = PaymentSheet.GooglePayConfiguration(
+                                        environment = PaymentSheet.GooglePayConfiguration.Environment.Test,
+                                        countryCode = "AE",
+                                        currencyCode = "AED" // Required for Setup Intents, optional for Payment Intents
+                                    )
+                                    PrefHelper.getInstance(requireContext())
+                                        .savaStripe("pk_test_51L1UVCGn3F7BuM88wH1PSuNgc9bX7tq0MkIMB2HU2BbScX3i7VgZw4V8nimfe1zUEF8uQ3Q6PFbzrMacvH5PfA7900PaBHO20E")
+
+                                    val configuration = PaymentSheet.Configuration(
+                                        merchantDisplayName = "EQuiz",
+                                        allowsDelayedPaymentMethods = false,
+                                        googlePay = googlePayConfiguration
+                                    )
 
 //
-                                //abhi comment karaha hu
-                                paymentSheet.presentWithPaymentIntent(
-                                    paymentIntentClientSecret, configuration
+                                    //abhi comment karaha hu
+                                    paymentSheet.presentWithPaymentIntent(
+                                        paymentIntentClientSecret, configuration
+                                    )
+
+
+
+                                    Log.d("TAG", "presentPaymentSheetstripPublicKey: $stripPublicKey")
+                                    Log.d(
+                                        "TAG",
+                                        "presentPaymentSheetstripPublicKey: $paymentIntentClientSecret"
+                                    )
+                                    Log.d("TAG", "presentPaymentSheet: ")
+
+
+                                }
+                            }else{
+                                DialogHelperClass.orderCompleteDialog(
+                                    requireContext(), this, true, "$orderId".toString()
                                 )
-
-
-
-                                Log.d("TAG", "presentPaymentSheetstripPublicKey: $stripPublicKey")
-                                Log.d(
-                                    "TAG",
-                                    "presentPaymentSheetstripPublicKey: $paymentIntentClientSecret"
-                                )
-                                Log.d("TAG", "presentPaymentSheet: ")
-
 
                             }
+
                             mViewModel.stripeData.removeObservers(viewLifecycleOwner)
                         }
                     }
@@ -197,6 +272,11 @@ class PaymentMethodsFragment : BaseFragment<FragmentPaymentMethodsBinding, Payme
             }
 
             is PaymentSheetResult.Completed -> {
+
+                DialogHelperClass.orderCompleteDialog(
+                    requireContext(), this, true, "$orderId".toString()
+                )
+
 //                print("Completed")
 //                Timber.tag("Completed").d("hello there___${verifyCheckout?.amount}")
 //                checkoutOrder(createCheckOutJson(verifyCheckout!!))
@@ -227,7 +307,7 @@ class PaymentMethodsFragment : BaseFragment<FragmentPaymentMethodsBinding, Payme
         boolGooglePay = isReady
         if (!isReady) {
             var counter = 0
-
+            mViewDataBinding.btnGoogle.visibility = View.GONE
 //            paymentAdapter.arrayList = paymentAdapter.arrayList.filter {
 //                counter++
 //                it.paymentName != "GOOGLE PAY"
@@ -240,6 +320,7 @@ class PaymentMethodsFragment : BaseFragment<FragmentPaymentMethodsBinding, Payme
 //            mViewDataBinding.paymentMethodRecyclerview.adapter = paymentAdapter
 
         } else {
+            mViewDataBinding.btnGoogle.visibility = View.VISIBLE
 //            showSnackBar("Ready")
         }
 
@@ -269,6 +350,11 @@ class PaymentMethodsFragment : BaseFragment<FragmentPaymentMethodsBinding, Payme
 //                print("Completed")
 //                Timber.tag("Completed").d("hello there___${verifyCheckout?.amount}")
 //                checkoutOrder(createCheckOutJson(verifyCheckout!!))
+
+                DialogHelperClass.orderCompleteDialog(
+                    requireContext(), this, true, "$orderId"
+                )
+
             }
 
             GooglePayLauncher.Result.Canceled -> {
@@ -283,12 +369,16 @@ class PaymentMethodsFragment : BaseFragment<FragmentPaymentMethodsBinding, Payme
                 // Operation failed; inspect `result.error` for the exception
                 print("Error: ")
                 Timber.tag("Error").d("hello there")
-                showSnackBar("Error",mViewDataBinding.root)
+                showSnackBar("Error", mViewDataBinding.root)
                 // Operation failed; inspect `result.error` for the exception
             }
         }
 
 
+    }
+
+    override fun InviteClicked() {
+        findNavController().navigate(R.id.dashboardFragment, arguments, options)
     }
 
 }

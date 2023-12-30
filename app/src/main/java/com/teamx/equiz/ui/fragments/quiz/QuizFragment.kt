@@ -109,7 +109,7 @@ class QuizFragment : BaseFragment<FragmentWishlistBinding, WishlistViewModel>() 
         val linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         mViewDataBinding.recyclerView.layoutManager = linearLayoutManager
 
-        favouriteAdapter = FavouriteAdapter(favouriteArrayList)
+//        favouriteAdapter = FavouriteAdapter(favouriteArrayList,this)
         mViewDataBinding.recyclerView.adapter = favouriteAdapter
 
     }

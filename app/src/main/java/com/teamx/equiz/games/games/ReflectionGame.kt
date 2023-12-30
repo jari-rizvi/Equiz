@@ -1,5 +1,6 @@
 package com.teamx.equiz.games.games
 
+import androidx.annotation.Keep
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -43,6 +44,7 @@ fun ReflectionGame(content: @Composable () -> Unit={}) {
     }
 }
 
+@Keep
 data class ReflectionListItem(
     val name: String,
     val height: Dp,

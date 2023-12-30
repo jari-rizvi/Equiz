@@ -6,7 +6,6 @@ import android.content.SharedPreferences
 import androidx.annotation.Keep
 import com.google.android.gms.maps.model.LatLng
 import com.google.gson.Gson
-import com.teamx.equiz.constants.AppConstants
 
 class PrefHelper private constructor() {
 
@@ -241,6 +240,7 @@ class PrefHelper private constructor() {
 
     @Keep
     data class CarDetails(var carPlate: String, var carImg: String)
+
 
     @Keep
     data class UserCredential(var email: String, var Password: String)

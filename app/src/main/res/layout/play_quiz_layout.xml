@@ -102,7 +102,7 @@
 
 
             <TextView
-                android:id="@+id/textView465454"
+                android:id="@+id/playAgainBtn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_50sdp"

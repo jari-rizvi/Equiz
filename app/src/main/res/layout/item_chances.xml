@@ -9,7 +9,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_55sdp"
+        android:layout_height="@dimen/_65sdp"
         android:layout_margin="@dimen/_5sdp"
         android:background="@drawable/card_background"
         android:elevation="@dimen/_2sdp">
@@ -31,9 +31,10 @@
 
         <TextView
             android:id="@+id/textView54"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Order in Preparation"
+            android:layout_marginStart="@dimen/_5sdp"
             android:textColor="@color/black"
             app:layout_constraintHorizontal_bias="0.05"
             android:textSize="@dimen/_12ssp"
@@ -47,7 +48,7 @@
 
         <TextView
             android:id="@+id/textView55"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:maxLines="1"
             android:text="We are preparing your order #2525."
@@ -58,6 +59,19 @@
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="@+id/textView54"
             app:layout_constraintTop_toBottomOf="@+id/textView54" />
+        <TextView
+            android:id="@+id/textView551"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:text="We are preparing your order #2525."
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintVertical_bias="0.1"
+            app:layout_constraintBottom_toTopOf="@+id/textView13"
+            app:layout_constraintEnd_toEndOf="@+id/textView55"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="@+id/textView55"
+            app:layout_constraintTop_toBottomOf="@+id/textView55" />
 
         <TextView
             android:id="@+id/textView56"

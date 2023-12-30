@@ -7,10 +7,12 @@ import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.TextView
+import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
+import com.bumptech.glide.Glide
 import com.google.gson.JsonObject
 import com.squareup.picasso.Picasso
 import com.teamx.equiz.BR
@@ -33,7 +35,7 @@ import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
-import androidx.activity.addCallback
+
 @AndroidEntryPoint
 class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfileViewModel>() {
 
@@ -73,6 +75,12 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
             }
         }
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
+        mViewDataBinding.btnChangePass.setOnClickListener {
+
+
+            findNavController().navigate(R.id.changePassFragment, arguments, options)
+
+        }
 
         mViewDataBinding.btnAddPicture.setOnClickListener {
             fetchImageFromGallery()
@@ -125,8 +133,9 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                         it.data?.let { data ->
                             if (data.user.image.isNotEmpty()){
 
-                            Picasso.get().load(data.user.image).resize(500, 500)
-                                .into(mViewDataBinding.profilePicture)
+//                            Picasso.get().load(data.user.image).resize(500, 500)
+//                                .into(mViewDataBinding.profilePicture)
+                            Glide.with(mViewDataBinding.profilePicture.context).load(data.user.image).into(mViewDataBinding.profilePicture)
                             }
 
                             mViewDataBinding.userName.setText(data.user.name)
@@ -137,8 +146,9 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                               userData!!.name = data.name
                               userData!!.profileImage = data.profileImage
                               PrefHelper.getInstance(requireActivity()).setUserData(userData)*/
-                            mViewDataBinding.root.snackbar("Profile updated")
-
+                            if (isAdded) {
+                                mViewDataBinding.root.snackbar("Profile updated")
+                            }
 
                             /*       val bundle = arguments
                                    if (bundle != null) {
@@ -156,7 +166,9 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                     Resource.Status.ERROR -> {
 
                         loadingDialog.dismiss()
-                        mViewDataBinding.root.snackbar(it.message!!)
+                        if (isAdded) {
+                            mViewDataBinding.root.snackbar(it.message!!)
+                        }
                     }
                 }
             }
@@ -189,8 +201,11 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                                 mViewDataBinding.email.setText(data.user.email)
 //                            mViewDataBinding.dob.setText(data.user.dateOfBirth.toString())
 
-                                Picasso.get().load(data.user.image).resize(500, 500)
-                                    .into(mViewDataBinding.profilePicture)
+//                                Picasso.get().load(data.user.image).resize(500, 500)
+//                                    .into(mViewDataBinding.profilePicture)
+                                Glide.with(mViewDataBinding.profilePicture.context).load(data.user.image).into(mViewDataBinding.profilePicture)
+
+
                             }
                             catch (e: Exception) {
 
@@ -201,7 +216,9 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
 
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
-                        mViewDataBinding.root.snackbar(it.message!!)
+                        if (isAdded) {
+                            mViewDataBinding.root.snackbar(it.message!!)
+                        }
                     }
                 }
             }
@@ -221,8 +238,10 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                         loadingDialog.dismiss()
                         it.data?.let { data ->
                             try {
-                                Picasso.get().load(imageUrl).resize(500, 500)
-                                    .into(mViewDataBinding.profilePicture)
+//                                Picasso.get().load(imageUrl).resize(500, 500)
+//                                    .into(mViewDataBinding.profilePicture)
+                                Glide.with(mViewDataBinding.profilePicture.context).load(imageUrl).into(mViewDataBinding.profilePicture)
+
                             }
                             catch (e: Exception) {
 
@@ -233,7 +252,9 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
                         Log.d("uploadReviewIm", "onViewCreated: ${it.message}")
-                        mViewDataBinding.root.snackbar(it.message!!)
+                        if (isAdded) {
+                            mViewDataBinding.root.snackbar(it.message!!)
+                        }
                     }
                 }
             }

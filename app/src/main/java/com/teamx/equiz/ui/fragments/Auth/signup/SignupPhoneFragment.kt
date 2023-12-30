@@ -127,20 +127,28 @@ class SignupPhoneFragment : BaseFragment<FragmentSignupPhoneBinding, SignupViewM
 
     fun isValidate(): Boolean {
         if (mViewDataBinding.etPhone.text.toString().trim().isEmpty()) {
+              if(isAdded){
             mViewDataBinding.root.snackbar(getString(R.string.enter_phone))
+             }
             return false
         }
         if (mViewDataBinding.etName.text.toString().trim().isEmpty()) {
+              if(isAdded){
             mViewDataBinding.root.snackbar(getString(R.string.enter_name))
+             }
             return false
         }
 
         if (mViewDataBinding.etPass.text.toString().trim().isEmpty()) {
+              if(isAdded){
             mViewDataBinding.root.snackbar(getString(R.string.enter_your_password))
+             }
             return false
         }
         if (mViewDataBinding.etPass.text.toString().trim().length < 8) {
+              if(isAdded){
             mViewDataBinding.root.snackbar(getString(R.string.password_8_character))
+             }
             return false
         }
         ApiCall()

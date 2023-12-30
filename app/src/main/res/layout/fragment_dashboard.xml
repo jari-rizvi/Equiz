@@ -16,8 +16,8 @@
 
             <ImageView
                 android:id="@+id/btnback"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.05"
@@ -33,14 +33,14 @@
                 android:layout_height="wrap_content"
                 android:text="Emirates Q"
                 android:textColor="@color/red"
-                android:textSize="@dimen/_14ssp"
+                android:textSize="@dimen/_19ssp"
                 style="@style/popins_bold"
                 app:layout_constraintBottom_toBottomOf="@+id/btnback"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/btnback"
-                app:layout_constraintVertical_bias="0.05" />
+                  />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/topCoinContainer"
@@ -59,8 +59,8 @@
                 <ImageView
                     android:id="@+id/coinImg"
                     style="@style/popins_bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/_45sdp"
+                    android:layout_height="@dimen/_45sdp"
                     android:elevation="@dimen/_5sdp"
                     android:src="@drawable/coin"
                     android:text="Emirates Q"
@@ -76,24 +76,26 @@
                 <TextView
                     android:id="@+id/tv_coins"
                     style="@style/popins_bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="@dimen/_25sdp"
                     android:layout_marginStart="@dimen/_15sdp"
                     android:background="@drawable/rounded_dialog_background"
                     android:backgroundTint="#9F81C9"
                     android:gravity="center"
-                    android:paddingStart="@dimen/_25sdp"
-                    android:paddingEnd="@dimen/_15sdp"
-                    android:text="2500"
+                    android:paddingStart="@dimen/_28sdp"
+                    android:paddingEnd="@dimen/_5sdp"
+                    android:text="250000000000"
+                    android:ellipsize="marquee"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_14ssp"
+                    android:textSize="@dimen/_10ssp"
                     app:drawableRightCompat="@drawable/plus_dash"
-                    android:drawablePadding="@dimen/_5sdp"
+                    android:drawablePadding="@dimen/_1sdp"
                     app:layout_constraintBottom_toBottomOf="@+id/coinImg"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.2"
                     app:layout_constraintStart_toStartOf="@+id/coinImg"
-                    app:layout_constraintTop_toTopOf="@+id/coinImg" />
+                    app:layout_constraintTop_toTopOf="@+id/coinImg"
+                    android:singleLine="true" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -102,8 +104,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout4"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/_100sdp"
-                android:layout_margin="@dimen/_10sdp"
+                android:layout_height="@dimen/_150sdp"
+                android:layout_margin="@dimen/_5sdp"
                 android:background="@drawable/card_background"
                 android:elevation="@dimen/_2sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -131,7 +133,7 @@
                     android:layout_height="match_parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:paddingVertical="@dimen/_5sdp"
+                    android:background="@drawable/card_background"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     >
@@ -139,6 +141,7 @@
                     <androidx.viewpager2.widget.ViewPager2
                         android:id="@+id/viewPager"
                         android:layout_width="match_parent"
+                        android:background="@drawable/card_background"
                         android:layout_height="match_parent" />
 
                     <LinearLayout
@@ -146,6 +149,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
+                        android:visibility="invisible"
                         android:layout_centerHorizontal="true"
                         android:layout_marginBottom="16dp"
                         android:orientation="horizontal" />
@@ -160,6 +164,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/constraintLayout4"
                 app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginBottom="@dimen/_20sdp"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout4"
                 app:layout_constraintVertical_bias="0.05">
 
@@ -218,7 +223,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/quizzes"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_12ssp"
+                        android:textSize="@dimen/_15ssp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -279,6 +284,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
+                        android:layout_marginHorizontal="@dimen/_14sdp"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -290,9 +296,12 @@
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recQuizes"
+
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/_270sdp"
-                        android:maxHeight="@dimen/_70sdp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginBottom="@dimen/_24sdp"
+                        android:maxHeight="@dimen/_270sdp"
                         android:layout_marginTop="@dimen/_10sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -308,8 +317,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/top_winners"
+
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_12ssp"
+                        android:textSize="@dimen/_15ssp"
                         android:textStyle="bold"
                         android:layout_marginTop="@dimen/_5sdp"
                         app:layout_constraintBottom_toBottomOf="parent"

@@ -9,6 +9,7 @@ import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
+import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.util.AttributeSet
 import android.util.LayoutDirection
@@ -247,6 +248,14 @@ class SSCustomBottomNavigation : FrameLayout {
             orientation = LinearLayout.HORIZONTAL
             clipChildren = false
             clipToPadding = false
+
+          /*  // Add a gradient background to the BezierView
+            val gradientDrawable = GradientDrawable(
+                GradientDrawable.Orientation.LEFT_RIGHT,
+                intArrayOf(Color.RED, Color.BLUE) // Replace with your desired gradient colors
+            )
+            gradientDrawable.cornerRadius = 0f // Set corner radius as needed
+            background = gradientDrawable*/
         }
 
         bezierView = BezierView(context)
@@ -255,9 +264,15 @@ class SSCustomBottomNavigation : FrameLayout {
             color = backgroundBottomColor
             shadowColor = this@SSCustomBottomNavigation.shadowColor
             isReverseCurve = this@SSCustomBottomNavigation.isReverseCurve
+          /*  // Add a gradient background to the BezierView
+            val gradientDrawable = GradientDrawable(
+                GradientDrawable.Orientation.LEFT_RIGHT,
+                intArrayOf(Color.BLACK, Color.BLUE) // Replace with your desired gradient colors
+            )
+            gradientDrawable.cornerRadius = 0f // Set corner radius as needed
+            background = gradientDrawable*/
         }
         bezierView.waveHeight = waveHeight
-
         addView(bezierView)
         addView(ll_cells)
         allowDraw = true
@@ -373,7 +388,9 @@ class SSCustomBottomNavigation : FrameLayout {
         val options = builder.build()
         try {
             val navBackStackEntry = navController.currentBackStackEntry
-            navController.popBackStack()
+
+            //this is done by me to test the issue
+            /*navController.popBackStack()*/
 
 // Retrieve the arguments
             val arguments = navBackStackEntry?.arguments
@@ -532,6 +549,14 @@ class SSCustomBottomNavigation : FrameLayout {
                 menuItemClickListener?.invoke(cbnMenuItems[i], i)
                 anim(cell, id, enableAnimation)
                 cell.enableCell()
+                // Set wave gradient for the selected item
+//                bezierView.setWaveGradient(
+//                    intArrayOf(
+//                        cell.defaultIconColor,
+//                        cell.selectedIconColor
+//                    )
+//                )
+
             } else {
                 cell.disableCell()
             }

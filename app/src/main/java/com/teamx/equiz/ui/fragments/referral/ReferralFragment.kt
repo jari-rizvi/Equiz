@@ -4,8 +4,10 @@ import android.app.Dialog
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.addCallback
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
@@ -13,10 +15,10 @@ import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.databinding.FragmentReferralBinding
-import com.teamx.equiz.ui.fragments.Auth.login.LoginViewModel
 import com.teamx.equiz.utils.DialogHelperClass
+import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import androidx.activity.addCallback
+
 @AndroidEntryPoint
 class ReferralFragment : BaseFragment<FragmentReferralBinding, ReferralViewModel>(),
     DialogHelperClass.Companion.DialogInviteAnotherCallBack {
@@ -50,13 +52,47 @@ class ReferralFragment : BaseFragment<FragmentReferralBinding, ReferralViewModel
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
 
         mViewDataBinding.btnInvite.setOnClickListener {
-            DialogHelperClass.InviteDialog(
-                requireContext(), this, true
-            )
+
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(
+                    Intent.EXTRA_TEXT,
+                    "I found this cool app called E-Quiz and thought you'd like it too. \uD83D\uDE0A\n" +
+                            "\n" +
+                            "Use my code REF_546799AL when you sign up, and we both get [a bonus/discount/etc.]!\n" +
+                            "\n" +
+                            "1. Download E-Quiz.\n" +
+                            "\n" +
+                            "2. Sign up with code: REF_546799AL.\n" +
+                            "\n" +
+                            "Enjoy! \uD83D\uDE80"
+                )
+                type = "text/plain"
+            }
+
+            val shareIntent = Intent.createChooser(sendIntent, null)
+            startActivity(shareIntent)
+
+
+//
+//            DialogHelperClass.InviteDialog(
+//                requireContext(), this, true
+//            )
+            //
         }
 
         mViewDataBinding.textView8.setOnClickListener {
             onClickCoupon(mViewDataBinding.code.text.toString())
+            if (isAdded) {
+                mViewDataBinding.root.snackbar("Copied")
+            }
+        }
+
+        var bundle = arguments
+
+        if (bundle != null) {
+            val rCode = bundle.getString("referralCode")
+            mViewDataBinding.code.text = rCode.toString()
         }
 
     }
@@ -66,7 +102,7 @@ class ReferralFragment : BaseFragment<FragmentReferralBinding, ReferralViewModel
         dialog.dismiss()
     }
 
-    fun onClickCoupon(str: String) {
+    private fun onClickCoupon(str: String) {
         val clipboard: ClipboardManager? =
             requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager?
         val clip = ClipData.newPlainText("io", "$str")

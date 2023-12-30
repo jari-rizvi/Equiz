@@ -1,5 +1,8 @@
 package com.teamx.equiz.ui.fragments.ecommerce.data
 
+import androidx.annotation.Keep
+
+@Keep
 data class Category(
     val __v: Int,
     val _id: String,

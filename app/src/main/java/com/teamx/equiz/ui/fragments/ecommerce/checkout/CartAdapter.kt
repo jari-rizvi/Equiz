@@ -3,6 +3,7 @@ package com.teamx.equiz.ui.fragments.ecommerce.checkout
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.squareup.picasso.Picasso
 import com.teamx.equiz.data.models.getcart.Data
 import com.teamx.equiz.databinding.ItemCartBinding
@@ -36,6 +37,11 @@ class CartAdapter(var arrayList: ArrayList<Data>, val onCartListener: OnCartList
         } catch (e: Exception) {
             ""
         }
+        holder.binding.quantity.text = try {
+            "${cart.quantity}"
+        } catch (e: Exception) {
+            ""
+        }
         holder.binding.productprice.text = try {
             "${cart.product.price.toString()}"
         } catch (e: Exception) {
@@ -44,14 +50,22 @@ class CartAdapter(var arrayList: ArrayList<Data>, val onCartListener: OnCartList
 
         try {
 
-            Picasso.get().load(cart.product.images[0].toString()).into(holder.binding.img)
+//            Picasso.get().load(cart.product.images[0].toString()).into(holder.binding.img)
+
+            Glide.with(holder.binding.img.context).load(cart.product.images.get(0).toString()).into(holder.binding.img)
         } catch (e: Exception) {
 
         }
 
-            holder.binding.btnDelete.setOnClickListener {
-                onCartListener?.onRemoveToCartListener(position)
-            }
+        holder.binding.btnDelete.setOnClickListener {
+            onCartListener?.onRemoveToCartListener(position)
+        }
+        holder.binding.btnadd.setOnClickListener {
+            onCartListener?.onAddClickListener(position)
+        }
+        holder.binding.btnremove.setOnClickListener {
+            onCartListener?.onSubClickListener(position)
+        }
     }
 
     override fun getItemCount(): Int {

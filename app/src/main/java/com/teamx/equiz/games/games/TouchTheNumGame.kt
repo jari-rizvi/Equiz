@@ -51,10 +51,13 @@ import kotlinx.coroutines.delay
 import java.util.LinkedList
 import kotlin.random.Random
 
+import androidx.annotation.Keep
 class TouchTheNumGame {}
 //Touch The Number
 
 
+
+@Keep
 data class NumberBox(val number: Int, val color: Color)
 
 @RequiresApi(Build.VERSION_CODES.N)

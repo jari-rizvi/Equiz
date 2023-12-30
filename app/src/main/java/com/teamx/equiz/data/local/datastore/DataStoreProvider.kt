@@ -50,4 +50,18 @@ class DataStoreProvider(context: Context) {
         it[IS_LOCALIZATION_KEY] ?: false
     }
 
+
+    suspend fun removeAll() {
+        context.dataStore.edit {
+            it.remove(TOKEN)
+//            it.remove(DETAILS)
+//            it.remove(AVATAR)
+//            it.remove(NAME)
+//            it.remove(PAYTYPE)
+//            it.remove((USER_ID))
+//            it.remove((NUMBER))
+        }
+
+    }
+
 }

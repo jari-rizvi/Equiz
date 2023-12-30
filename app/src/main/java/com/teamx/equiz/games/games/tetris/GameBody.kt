@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import com.teamx.equiz.R
 import com.teamx.equiz.games.games.tetris.logic.Direction
 
+import androidx.annotation.Keep
 var runGame = true
 @Composable
 fun GameBody(
@@ -313,6 +314,8 @@ fun DrawScope.drawScreenBorder(
 }
 
 
+
+@Keep
 data class Clickable constructor(
     val onMove: (Direction) -> Unit,
     val onRotate: () -> Unit,

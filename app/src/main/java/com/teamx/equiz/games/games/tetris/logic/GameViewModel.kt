@@ -1,5 +1,6 @@
 package com.teamx.equiz.games.games.tetris.logic
 
+import androidx.annotation.Keep
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -239,6 +240,8 @@ class GameViewModel : ViewModel() {
         return Triple(bricks, clearing, cleared) to clearLines.size
     }
 
+
+    @Keep
     data class ViewState(
         val bricks: List<Brick> = emptyList(),
         val spirit: Spirit = Empty,
@@ -265,6 +268,9 @@ class GameViewModel : ViewModel() {
 }
 
 sealed interface Action {
+
+
+    @Keep
     data class Move(val direction: Direction) : Action
     object Reset : Action
     object Pause : Action

@@ -2,24 +2,28 @@ package com.teamx.equiz.ui.fragments.wishlist
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import androidx.activity.addCallback
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.JsonObject
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.data.models.wishlistdata.Product
-import com.teamx.equiz.data.models.wishlistdata.WishlistData
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentWishlistBinding
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
-import androidx.activity.addCallback
+import org.json.JSONException
+
 @AndroidEntryPoint
-class WishlistFragment : BaseFragment<FragmentWishlistBinding, WishlistViewModel>() {
+class WishlistFragment : BaseFragment<FragmentWishlistBinding, WishlistViewModel>(),
+    WishListListener {
 
     override val layoutId: Int
         get() = R.layout.fragment_wishlist
@@ -66,10 +70,11 @@ class WishlistFragment : BaseFragment<FragmentWishlistBinding, WishlistViewModel
 
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
+                        favouriteArrayList.clear()
                         it.data?.let { data ->
 
                             mViewDataBinding.shimmerLayout.visibility = View.GONE
-                            mViewDataBinding.root.visibility = View.VISIBLE
+                            mViewDataBinding.mainLayout.visibility = View.VISIBLE
 
                             data.data.forEach {
                                 favouriteArrayList.add(it.product)
@@ -82,6 +87,8 @@ class WishlistFragment : BaseFragment<FragmentWishlistBinding, WishlistViewModel
                     }
 
                     Resource.Status.ERROR -> {
+                        mViewDataBinding.shimmerLayout.visibility = View.GONE
+                        mViewDataBinding.mainLayout.visibility = View.VISIBLE
                         loadingDialog.dismiss()
                         DialogHelperClass.errorDialog(
                             requireContext(),
@@ -99,14 +106,64 @@ class WishlistFragment : BaseFragment<FragmentWishlistBinding, WishlistViewModel
 
         favRecyclerview()
     }
+
     private fun favRecyclerview() {
         favouriteArrayList = ArrayList()
 
         val linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         mViewDataBinding.recyclerView.layoutManager = linearLayoutManager
 
-        favouriteAdapter = FavouriteAdapter(favouriteArrayList)
+        favouriteAdapter = FavouriteAdapter(favouriteArrayList, this)
         mViewDataBinding.recyclerView.adapter = favouriteAdapter
+
+    }
+
+    override fun onClickItem(position: Int) {
+        val favItem = favouriteArrayList.get(position)
+        var catId = favItem._id
+
+        Log.d("123123", "onTopSellerClick:$catId ")
+        val params = JsonObject()
+        try {
+            params.addProperty("productId", catId)
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+
+        mViewModel.deleteToWishlist(params)
+        if (!mViewModel.deleteToWishlistResponse.hasActiveObservers()) {
+            mViewModel.deleteToWishlistResponse.observe(requireActivity()) {
+                when (it.status) {
+                    Resource.Status.LOADING -> {
+                        loadingDialog.show()
+                    }
+
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
+                    }
+
+                    Resource.Status.SUCCESS -> {
+                        loadingDialog.dismiss()
+
+                        it.data?.let { data ->
+
+                            showToast("Deleted From Wishlist")
+                            mViewModel.getWishlist()
+
+                        }
+                    }
+
+                    Resource.Status.ERROR -> {
+                        loadingDialog.dismiss()
+                        DialogHelperClass.errorDialog(requireContext(), it.message!!)
+                    }
+                }
+                if (isAdded) {
+                    mViewModel.deleteToWishlistResponse.removeObservers(viewLifecycleOwner)
+                }
+            }
+        }
+
 
     }
 }

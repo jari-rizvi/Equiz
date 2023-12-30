@@ -84,12 +84,21 @@
     <string name="Games">Games</string>
     <string name="personal_information">Personal Information</string>
     <string name="profile">Profile</string>
+    <string name="profile2"></string>
     <string name="dashboard">Dashboard</string>
 
 
     <string name="_1st">1<sup>st</sup></string>
     <string name="_2nd">2<sup>nd</sup></string>
     <string name="_3rd">3<sup>rd</sup></string>
+    <string name="back">Back</string>
+    <string name="language">Language</string>
+    <string name="english">English</string>
+    <string name="arabic">Arabic</string>
+    <string name="collect_raffal_prize">Collect Raffal Prize</string>
+    <string name="all_products">All Products</string>
+    <string name="old_password">Old Password</string>
+    <string name="change_password">Change Password</string>
 
 
 </resources>

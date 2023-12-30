@@ -3,6 +3,7 @@ package com.teamx.equiz.ui.fragments.news
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.addCallback
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
@@ -14,12 +15,16 @@ import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.data.models.newsData.NewsDataX
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentNewsBinding
+import com.teamx.equiz.ui.fragments.news.adapter.OnRecentNewsListener
+import com.teamx.equiz.ui.fragments.news.adapter.OnUpNewsListener
+import com.teamx.equiz.ui.fragments.news.adapter.RecentNewsAdapter
+import com.teamx.equiz.ui.fragments.news.adapter.UpComingNewsAdapter
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
-import java.text.FieldPosition
-import androidx.activity.addCallback
+
 @AndroidEntryPoint
-class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(),onNewslistner {
+class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(), onNewslistner,
+    OnUpNewsListener, OnRecentNewsListener {
 
     override val layoutId: Int
         get() = R.layout.fragment_news
@@ -28,14 +33,14 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(),onNewsli
     override val bindingVariable: Int
         get() = BR.viewModel
 
-    lateinit var newsAdapterupcoming: NewsAdapter
+    lateinit var newsAdapterupcoming: UpComingNewsAdapter
     lateinit var newsArrayListupcoming: ArrayList<NewsDataX>
 
     lateinit var newsAdaptercurrent: NewsAdapter
     lateinit var newsArrayListcurrent: ArrayList<NewsDataX>
 
 
-    lateinit var newsAdapterrecents: NewsAdapter
+    lateinit var newsAdapterrecents: RecentNewsAdapter
     lateinit var newsArrayListrecents: ArrayList<NewsDataX>
 
     private lateinit var options: NavOptions
@@ -95,10 +100,14 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(),onNewsli
                             mViewDataBinding.shimmerLayout.visibility = View.GONE
                             mViewDataBinding.mainLayout.visibility = View.VISIBLE
 
+                            newsArrayListcurrent.clear()
                             newsArrayListcurrent.addAll(data.newsData)
 
                             newsAdaptercurrent.notifyDataSetChanged()
-
+                            if (newsArrayListcurrent.isEmpty()) {
+//                                mViewDataBinding.textView1.visibility = View.GONE
+//                                mViewDataBinding.recylertodaysnews.visibility = View.GONE
+                            }
 
                         }
                     }
@@ -135,10 +144,15 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(),onNewsli
                         loadingDialog.dismiss()
                         it.data?.let { data ->
 
+                            newsArrayListupcoming.clear()
                             newsArrayListupcoming.addAll(data.newsData)
 
                             newsAdapterupcoming.notifyDataSetChanged()
 
+                            if (newsArrayListupcoming.isEmpty()) {
+//                                mViewDataBinding.textView12.visibility = View.GONE
+//                                mViewDataBinding.recylerupcomingnews.visibility = View.GONE
+                            }
 
                         }
                     }
@@ -173,10 +187,14 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(),onNewsli
                         loadingDialog.dismiss()
                         it.data?.let { data ->
 
+                            newsArrayListrecents.clear()
                             newsArrayListrecents.addAll(data.newsData)
 
                             newsAdapterrecents.notifyDataSetChanged()
-
+                            if (newsArrayListrecents.isEmpty()) {
+//                                mViewDataBinding.textView122.visibility = View.GONE
+//                                mViewDataBinding.recylerrecentnews.visibility = View.GONE
+                            }
 
                         }
                     }
@@ -204,7 +222,7 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(),onNewsli
         val linearLayoutManager1 = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
         mViewDataBinding.recylerrecentnews.layoutManager = linearLayoutManager1
 
-        newsAdapterrecents = NewsAdapter(newsArrayListrecents,this)
+        newsAdapterrecents = RecentNewsAdapter(newsArrayListrecents, this)
         mViewDataBinding.recylerrecentnews.adapter = newsAdapterrecents
 
     }
@@ -226,20 +244,60 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(),onNewsli
         val linearLayoutManager2 = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
         mViewDataBinding.recylerupcomingnews.layoutManager = linearLayoutManager2
 
-        newsAdapterupcoming = NewsAdapter(newsArrayListupcoming,this)
+        newsAdapterupcoming = UpComingNewsAdapter(newsArrayListupcoming, this)
         mViewDataBinding.recylerupcomingnews.adapter = newsAdapterupcoming
 
     }
 
     override fun newsclick(position: Int) {
-        var id = newsArrayListupcoming[position]._id
-        var bundle = arguments
-        if (bundle == null) {
-            bundle = Bundle()
-        }
-        bundle.putString("id", id)
+        if (newsArrayListcurrent.isNotEmpty()) {
 
-//        findNavController().navigate(R.id.action_newsFragment_to_newsDetailFragment,bundle,options)
+            var id = newsArrayListcurrent[position]._id
+            var bundle = arguments
+            if (bundle == null) {
+                bundle = Bundle()
+            }
+            bundle.putString("id", id)
+            findNavController().navigate(
+                R.id.action_newsFragment_to_newsDetailFragment,
+                bundle,
+                options
+            )
+        }
+    }
+
+    override fun newsClick(position: Int) {
+        if (newsArrayListrecents.isNotEmpty()) {
+
+            var id = newsArrayListrecents[position]._id
+            var bundle = arguments
+            if (bundle == null) {
+                bundle = Bundle()
+            }
+            bundle.putString("id", id)
+            findNavController().navigate(
+                R.id.action_newsFragment_to_newsDetailFragment,
+                bundle,
+                options
+            )
+        }
+    }
+
+    override fun newsUpClick(position: Int) {
+        if (newsArrayListupcoming.isNotEmpty()) {
+
+            var id = newsArrayListupcoming[position]._id
+            var bundle = arguments
+            if (bundle == null) {
+                bundle = Bundle()
+            }
+            bundle.putString("id", id)
+            findNavController().navigate(
+                R.id.action_newsFragment_to_newsDetailFragment,
+                bundle,
+                options
+            )
+        }
     }
 
 }

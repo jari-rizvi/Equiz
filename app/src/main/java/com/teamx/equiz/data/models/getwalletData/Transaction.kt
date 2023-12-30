@@ -1,5 +1,8 @@
 package com.teamx.equiz.data.models.getwalletData
 
+import androidx.annotation.Keep
+
+@Keep
 data class Transaction(
     val __v: Int,
     val _id: String,

@@ -248,21 +248,21 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
                 icon = R.drawable.home_dash,
                 destinationId = R.id.dashboardFragment,
                 id = 0,
-                text = /*R.string.title_home*/R.string.dashboard,
+                text = /*R.string.title_home*/R.string.profile2,
                 count = R.string.empty_value
             ),
             com.teamx.equiz.games.nav_custom.custombottomnav.Model(
                 R.drawable.game_dash,
                 R.id.gamesFragment,
                 id = 1,
-                R.string.Games/*R.string.title_favorite*/,
+                R.string.profile2/*R.string.title_favorite*/,
                 R.string.empty_value
             ),
             com.teamx.equiz.games.nav_custom.custombottomnav.Model(
                 R.drawable.setting_dash,
                 R.id.settingsFragment,
                 2,/*R.string.title_chat*/
-                R.string.profile,
+                R.string.profile2,
                 R.string.empty_value
             ),
 

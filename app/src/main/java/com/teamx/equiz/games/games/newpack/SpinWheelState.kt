@@ -13,6 +13,9 @@ import androidx.compose.runtime.setValue
 import kotlinx.coroutines.delay
 import java.util.Random
 
+import androidx.annotation.Keep
+
+@Keep
 data class SpinWheelState(
     internal val pieCount: Int,
     private val durationMillis: Int,

@@ -20,6 +20,7 @@ class MainRepository @Inject constructor(
     suspend fun getBanners(isActive: Boolean) = apiService.getBanners(isActive)
     suspend fun getBanners() = apiService.getBanners(/*isActive*/)
     suspend fun getProducts() = apiService.getProducts()
+    suspend fun getChances() = apiService.getChances()
 
     suspend fun getProducts(keyword: String) = apiService.getProducts(keyword=keyword)
     suspend fun getProductsCat(category: String) = apiService.getProductsCat(category=category)
@@ -49,14 +50,19 @@ class MainRepository @Inject constructor(
     suspend fun forgotpass(@Body param: JsonObject) = apiService.forgotpass(param)
     suspend fun Signup(@Body param: JsonObject) = apiService.Signup(param)
     suspend fun AddToCart(@Body param: JsonObject) = apiService.AddToCart(param)
-    suspend fun AddToWishList(@Body param: JsonObject) = apiService.AddToWishList(param)
+    suspend fun AddToWishList(@Body param: JsonObject) = apiService.addToWishList(param)
+    suspend fun deleteToWishList(@Body param: JsonObject) = apiService.deleteToWishList(param)
     suspend fun createOrder(@Body param: JsonObject) = apiService.createOrder(param)
+    suspend fun addTopUp(@Body param: JsonObject) = apiService.addTopUp(param)
     suspend fun resetPass(@Body param: JsonObject) = apiService.resetPass(param)
+    suspend fun changePass(@Body param: JsonObject) = apiService.changePass(param)
     suspend fun resultGame(@Body param: JsonObject) = apiService.resultGame(param)
     suspend fun otpVerify(@Path("uniqueID") uniqueID: String) = apiService.otpVerify(uniqueID)
     suspend fun getNewsById(@Path("id") id: String) = apiService.getNewsById(id)
     suspend fun deleteCart(@Path("deleteCart") deleteCart: String) =
         apiService.deleteCart(deleteCart)
+
+    suspend fun updateCart(@Body updateCart: JsonObject) = apiService.updateCart(updateCart)
 
     suspend fun otpVerifyForgot(@Path("uniqueID") uniqueID: String) =
         apiService.otpVerifyForgot(uniqueID)
@@ -75,11 +81,8 @@ class MainRepository @Inject constructor(
         @Query("type") type: String,
     ) = apiService.quizTitle(country, topic, type)
 
-    suspend fun quizFind(
-        @Query("country") country: String,
-        @Query("topic") topic: String?,
-        @Query("type") type: String?,
-    ) = apiService.quizFind(country, topic, type)
+    suspend fun quizFind(id: String? ) = apiService.quizFind(id)
+    suspend fun quizResult(@Body resultQuiz: JsonObject ) = apiService.quizResult(resultQuiz)
 
     suspend fun getOrders(
         @Query("orderStatus") orderStatus: String,
@@ -101,6 +104,7 @@ class MainRepository @Inject constructor(
     suspend fun getTopWinners() = apiService.getTopWinners()
 
     suspend fun me() = apiService.me()
+    suspend fun collectPrizeRaffal() = apiService.collectPrizeRaffal()
 
 
 }

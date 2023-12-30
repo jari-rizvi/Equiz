@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.squareup.picasso.Picasso
 import com.teamx.equiz.MainApplication
 import com.teamx.equiz.R
@@ -37,8 +38,8 @@ class ProductsAdapter(
         holder.binding.textView54.text =product.product.title
         holder.binding.textView54.text =product.totalPrice.toString()
         holder.binding.textView55.text =product.quantity.toString()
-        Picasso.get().load(arrayList[position].product.images[0]).into(holder.binding.img)
-
+//        Picasso.get().load(arrayList[position].product.images[0]).into(holder.binding.img)
+        Glide.with(holder.binding.img.context).load(arrayList[position].product.images[0]).into(holder.binding.img)
         holder.itemView.setOnClickListener {
         }
 

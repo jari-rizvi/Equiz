@@ -2,6 +2,7 @@ package com.teamx.equiz.games.games
 
 import android.os.CountDownTimer
 import android.util.Log
+import androidx.annotation.Keep
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -448,8 +449,14 @@ fun QuickCardCalculationGameScreen(content: () -> Unit) {
 }
 
 
-private data class QuickCardModel(val value: String, val color: QuickCardColor)
-private data class QuickOptionCards(val value: String, val rightquickAnswer: String)
+
+
+@Keep
+data class QuickCardModel(val value: String, val color: QuickCardColor)
+
+
+@Keep
+data class QuickOptionCards(val value: String, val rightquickAnswer: String)
 
 //@Composable
 private fun checkQuickAnswer(actualQuickAnswer: String, comparedQuickAnswer: String): Boolean {

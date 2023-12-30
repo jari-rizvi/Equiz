@@ -27,6 +27,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.json.JSONException
 import androidx.activity.addCallback
+import com.teamx.equiz.constants.NetworkCallPoints
+
 @AndroidEntryPoint
 class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewModel>() {
 
@@ -120,7 +122,9 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
                         }
                         Resource.Status.NOTVERIFY -> {
                             loadingDialog.dismiss()
+                              if(isAdded){
                             mViewDataBinding.root.snackbar(it.message!!)
+                             }
                             Handler().postDelayed({
                                 findNavController().navigate(R.id.action_logInFragment_to_otpPhoneFragment,arguments,options)
                             }, 1000)
@@ -134,6 +138,7 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
 
                                 lifecycleScope.launch(Dispatchers.IO) {
                                     dataStoreProvider.saveUserToken(data.token)
+                                    NetworkCallPoints.TOKENER = data.token
                                 }
                                 findNavController().navigate(R.id.action_logInFragment_to_dashboardFragment,arguments,options)
                             }
@@ -155,16 +160,22 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
 
     fun isValidate(): Boolean {
         if (mViewDataBinding.etEMail.text.toString().trim().isEmpty()) {
+              if(isAdded){
             mViewDataBinding.root.snackbar(getString(R.string.enter_phone))
+             }
             return false
         }
 
         if (mViewDataBinding.etPass.text.toString().trim().isEmpty()) {
+              if(isAdded){
             mViewDataBinding.root.snackbar(getString(R.string.enter_your_password))
+             }
             return false
         }
         if (mViewDataBinding.etPass.text.toString().trim().length < 8) {
+              if(isAdded){
             mViewDataBinding.root.snackbar(getString(R.string.password_8_character))
+             }
             return false
         }
         ApiCall()

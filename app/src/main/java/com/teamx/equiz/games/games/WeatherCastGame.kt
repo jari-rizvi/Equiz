@@ -2,6 +2,7 @@ package com.teamx.equiz.games.games
 
 import android.os.Build
 import android.os.CountDownTimer
+import androidx.annotation.Keep
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -399,6 +400,7 @@ fun checkStringReturnDrawable(str: String): Int {
     }
 }
 
+@Keep
 data class WeatherListItem(
     var id: Int,
     var height: Dp,

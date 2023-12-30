@@ -111,7 +111,18 @@ class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>()
             if (address.isNullOrEmpty()) {
                 showToast("Please add Address")
             } else {
-                mViewModel.createOrder(params)
+                if (country.isNotEmpty()
+                    && city.isNotEmpty()
+                    && etPostal.isNotEmpty()
+                    && etState.isNotEmpty()
+                    && etPhone.isNotEmpty()
+                    && address.isNotEmpty()
+                ) {
+
+                    mViewModel.createOrder(params)
+                }else{
+                    showToast("Please add Details")
+                }
             }
         }
 

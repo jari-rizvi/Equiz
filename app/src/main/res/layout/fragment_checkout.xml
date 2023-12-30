@@ -72,7 +72,7 @@
                 style="@style/popins_regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Date"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="@dimen/_10ssp"
                 app:layout_constraintBottom_toTopOf="@+id/textView19"
@@ -89,7 +89,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:text="Oder No :"
+                android:text="Sub total"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_10ssp"
                 app:layout_constraintBottom_toTopOf="@+id/textView20"
@@ -104,7 +104,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:text="Oder Qty :"
+                android:text="Discount"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_10ssp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -117,7 +117,7 @@
                 style="@style/popins_regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
+                android:text="123"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_10ssp"
                 app:layout_constraintBottom_toTopOf="@+id/orderno"
@@ -134,7 +134,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:text=""
+                android:text="0.0"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_10ssp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -148,7 +148,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:text=""
+                android:text="0.0"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_10ssp"
                 app:layout_constraintBottom_toTopOf="@+id/qty"
@@ -236,7 +236,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
+           <!-- <TextView
                 android:id="@+id/btnApply"
                 style="@style/popins_regular"
                 android:layout_width="@dimen/_90sdp"
@@ -251,7 +251,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/constraintLayout7"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/constraintLayout7"
-                app:layout_constraintTop_toTopOf="@+id/constraintLayout7" />
+                app:layout_constraintTop_toTopOf="@+id/constraintLayout7" />-->
 
 
             <TextView

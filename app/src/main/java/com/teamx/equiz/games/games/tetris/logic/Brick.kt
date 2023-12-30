@@ -3,6 +3,9 @@ package com.teamx.equiz.games.games.tetris.logic
 import androidx.compose.ui.geometry.Offset
 
 
+import androidx.annotation.Keep
+
+@Keep
 data class Brick(val location: Offset = Offset(0, 0)) {
     companion object {
         fun of(offsetList: List<Offset>) = offsetList.map { Brick(it) }

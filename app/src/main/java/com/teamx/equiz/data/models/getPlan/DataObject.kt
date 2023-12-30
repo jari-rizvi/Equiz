@@ -1,5 +1,8 @@
 package com.teamx.equiz.data.models.getPlan
 
+import androidx.annotation.Keep
+
+@Keep
 data class DataObject(
     val amount: Int,
     val currency: String,

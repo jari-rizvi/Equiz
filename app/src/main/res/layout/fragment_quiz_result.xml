@@ -86,7 +86,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/guideline12" />
 
             <TextView
-                android:id="@+id/textView465454545454"
+                android:id="@+id/chancesTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
@@ -100,7 +100,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView4654545454" />
 
             <TextView
-                android:id="@+id/textView46545544545454"
+                android:id="@+id/supportResultTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
@@ -111,11 +111,11 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView465454545454" />
+                app:layout_constraintTop_toBottomOf="@+id/chancesTxt" />
 
 
             <TextView
-                android:id="@+id/textView465454"
+                android:id="@+id/playAgainBtn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_50sdp"
@@ -129,7 +129,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/constraintLayout9"
                 app:layout_constraintStart_toStartOf="@+id/constraintLayout9"
-                app:layout_constraintTop_toBottomOf="@+id/textView46545544545454" />
+                app:layout_constraintTop_toBottomOf="@+id/supportResultTxt" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -148,7 +148,7 @@
 
 
         <TextView
-            android:id="@+id/textView4654"
+            android:id="@+id/backToHomeBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingVertical="@dimen/_5sdp"

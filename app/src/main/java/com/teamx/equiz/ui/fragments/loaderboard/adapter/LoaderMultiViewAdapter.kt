@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatCheckedTextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.squareup.picasso.Picasso
 import com.teamx.equiz.R
 import com.teamx.equiz.data.models.topWinnerData.Game
@@ -73,7 +74,9 @@ class LoaderMultiViewAdapter(
 
                 try {
 
-                    Picasso.get().load(data.image).into(holderClass2.hatlyIcon5454)
+//                    Picasso.get().load(data.image).into(holderClass2.hatlyIcon5454)
+                    Glide.with(holderClass2.hatlyIcon5454.context).load(data.image)
+                        .into(holderClass2.hatlyIcon5454)
                 }
                 catch (e:Exception){
 
@@ -102,7 +105,9 @@ class LoaderMultiViewAdapter(
                 holderClass1.name.text = data.name.toString()
                 try {
 
-                    Picasso.get().load(data.image).into(holderClass1.hatlyIcon5454)
+//                    Picasso.get().load(data.image).into(holderClass1.hatlyIcon5454)
+                    Glide.with(holderClass1.hatlyIcon5454.context).load(data.image)
+                        .into(holderClass1.hatlyIcon5454)
                 }
                 catch (e:Exception){
 

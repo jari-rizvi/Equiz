@@ -9,6 +9,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingBottom="@dimen/_25sdp"
             android:background="@color/colorAccent">
 
 
@@ -87,6 +88,8 @@
                 android:hint="Enter Amount"
                 android:padding="@dimen/_5sdp"
                 android:paddingStart="@dimen/_10sdp"
+                android:digits="1234567890"
+                android:inputType="number"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12ssp"
                 android:textStyle="bold"
@@ -291,13 +294,14 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <RadioButton
+                    android:buttonTint="@color/BirdColor4"
+
                     android:id="@+id/radioPaypal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:clickable="false"
-                    android:buttonTint="#C62E27"
                     app:layout_constraintHorizontal_bias="0.95"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -330,13 +334,14 @@
 
 
                 <RadioButton
+                    android:buttonTint="@color/BirdColor4"
+
                     android:id="@+id/radioVisa"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.95"
-                    android:buttonTint="#C62E27"
                     android:clickable="false"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -370,13 +375,14 @@
 
 
                 <RadioButton
+                    android:buttonTint="@color/BirdColor4"
+
                     android:id="@+id/radiomaster"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:clickable="false"
-                    android:buttonTint="#C62E27"
                     app:layout_constraintHorizontal_bias="0.95"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -410,12 +416,13 @@
 
 
                 <RadioButton
+                    android:buttonTint="@color/BirdColor4"
+                    android:clickable="false"
                     android:id="@+id/radiogoogle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    android:buttonTint="#C62E27"
-                    android:clickable="false"
+
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.95"
                     app:layout_constraintStart_toStartOf="parent"
@@ -424,7 +431,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/textView445"
+                android:id="@+id/payNowBtn"
                 style="@style/popins_regular"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

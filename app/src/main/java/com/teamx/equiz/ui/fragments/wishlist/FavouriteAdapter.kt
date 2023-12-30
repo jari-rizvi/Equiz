@@ -3,13 +3,14 @@ package com.teamx.equiz.ui.fragments.wishlist
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.squareup.picasso.Picasso
 import com.teamx.equiz.data.models.wishlistdata.Product
 import com.teamx.equiz.databinding.ItemWishlistBinding
 
 
 class FavouriteAdapter(
-    val arrayList: ArrayList<Product>
+    val arrayList: ArrayList<Product>, var wishlistListener: WishListListener
 ) : RecyclerView.Adapter<FavouriteAdapter.WishListViewHolder>() {
 
 
@@ -24,15 +25,19 @@ class FavouriteAdapter(
 
         val list: Product = arrayList[position]
 
-        holder.binding.productName.text = list.slug
+        holder.binding.productName.text = list.title
 
-        holder.binding.qty.text = list.quantity.toString()
+        holder.binding.qty.text =  "${ list.quantity.toString() } Qty"
 
-        holder.binding.price.text = list.price.toString()
+        holder.binding.price.text = "${ list.price.toString() } AED"
+        if (!list.images.isNullOrEmpty()) {
+//            Picasso.get().load(list.images.get(0)).into(holder.binding.productImage)
+            Glide.with(holder.binding.productImage.context).load(list.images.get(0)).into(holder.binding.productImage)
+        }
 
-        Picasso.get().load(list.icon).into(holder.binding.productImage)
-
-        holder.itemView.setOnClickListener {}
+        holder.itemView.setOnClickListener {
+            wishlistListener.onClickItem(position)
+        }
 
 
     }
@@ -46,4 +51,8 @@ class FavouriteAdapter(
         val binding = itemWishListBinding
 
     }
+}
+
+interface WishListListener {
+    fun onClickItem(position: Int)
 }

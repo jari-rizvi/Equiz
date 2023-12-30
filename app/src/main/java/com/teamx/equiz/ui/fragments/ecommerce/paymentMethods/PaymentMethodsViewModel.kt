@@ -10,6 +10,7 @@ import com.teamx.equiz.baseclasses.BaseViewModel
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.data.remote.reporitory.MainRepository
 import com.teamx.equiz.ui.fragments.ecommerce.paymentMethods.model.StripeModel
+import com.teamx.equiz.ui.fragments.ecommerce.paymentMethods.model.stripeanother.StripeCheckoutModelData
 import com.teamx.equiz.utils.NetworkHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -24,8 +25,8 @@ class PaymentMethodsViewModel @Inject constructor(
 ) : BaseViewModel() {
 
 
-    private val _stripeData = MutableLiveData<Resource<StripeModel>>()
-    val stripeData: LiveData<Resource<StripeModel>>
+    private val _stripeData = MutableLiveData<Resource<StripeCheckoutModelData>>()
+    val stripeData: LiveData<Resource<StripeCheckoutModelData>>
         get() = _stripeData
 
     fun stripeDataMethod(param: JsonObject) {

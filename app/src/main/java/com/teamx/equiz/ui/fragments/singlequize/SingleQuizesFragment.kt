@@ -8,6 +8,7 @@ import android.view.View
 import androidx.activity.addCallback
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatCheckedTextView
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
@@ -39,15 +40,21 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
 
     private lateinit var quizArrayList: ArrayList<Data>
 
-    private var quesNo = 0
+    private var quesNo: MutableLiveData<Int> = MutableLiveData(0)
 
     private var rightAnswer = -1
+    private var rightAnswers = 0
+    private var totalAnswers = 0
     private var selectAnswer = -1
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
+
+        mViewDataBinding.btnback.setOnClickListener {
             findNavController().popBackStack()
         }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
@@ -111,24 +118,45 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
         }
 
 
-        mViewDataBinding.textView4654.setOnClickListener {
-            findNavController().navigate(R.id.action_quizesFragment_to_quizResultFragment,arguments,options)
+        mViewDataBinding.backToHomeBtn.setOnClickListener {
+
+            var bundle = arguments
+            if (bundle == null) {
+                bundle = Bundle()
+            }
+            bundle?.putInt("rightAnswer", rightAnswers)
+            bundle?.putInt("totalAnswer", totalAnswers)
+
+
+            findNavController().navigate(
+                R.id.action_quizesFragment_to_quizResultFragment,
+                arguments,
+                options
+            )
+        }
+        var bundle2 = arguments
+        if (bundle2 == null) {
+            bundle2 = Bundle()
         }
 
+        val strId = bundle2.getString("quiz_id")
 
         if (!mViewModel.quizFindResponse.hasActiveObservers()) {
-            mViewModel.quizFind("World", "General Knowledge", null)
+            mViewModel.quizFind("$strId", "", null)
             mViewModel.quizFindResponse.observe(requireActivity()) {
                 when (it.status) {
                     Resource.Status.LOADING -> {
                         loadingDialog.show()
                     }
+
                     Resource.Status.NOTVERIFY -> {
                         loadingDialog.dismiss()
                     }
+
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
+                            timerStart()
                             changeIndex(data)
                         }
                     }
@@ -148,7 +176,8 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
 
     @RequiresApi(Build.VERSION_CODES.M)
     fun selectorDisable() {
-        job.cancel()
+        totalAnswers++
+        job?.cancel()
 
 
         lifecycleScope.launch {
@@ -196,13 +225,17 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
                         selectedQuize(mViewDataBinding.txtLogin1154542, true, false)
                     }
                 }
+            }else{
+                rightAnswers++
             }
 
-            delay(1000)
+            delay(10)
+
 
             changeObserver()
 
 
+//            quesNo.value = quesNo.value?.plus(1)
         }
 
 
@@ -215,10 +248,10 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
 
             it.data.let {
                 if (it != null) {
-                    if (quesNo == it.data.size) {
+                    if (quesNo.value == it.data.get(0).question.size) {
                         if (job != null) {
-                            job.cancel()
-                            mViewDataBinding.textView4654.visibility = View.VISIBLE
+                            job?.cancel()
+                            mViewDataBinding.backToHomeBtn.visibility = View.VISIBLE
                         }
                         return@observe
                     }
@@ -230,6 +263,9 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun changeIndex(data: SingleQuizData) {
+        timerStart()
+//        quesNo.observe(viewLifecycleOwner) {
+
 
         mViewDataBinding.txtLogin1.isEnabled = true
         mViewDataBinding.txtLogin112.isEnabled = true
@@ -241,51 +277,54 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
         selectedQuize(mViewDataBinding.txtLogin11542, false, false)
         selectedQuize(mViewDataBinding.txtLogin1154542, false, false)
 
-        timerStart()
+
 
         Log.d("changeIndex", "changeIndex: ${quesNo}/${data.data.size}")
-        mViewDataBinding.textView465454.text = try {
-            "${quesNo + 1}/${data.data.size}"
+        mViewDataBinding.playAgainBtn.text = try {
+            "${quesNo.value!! + 1}/${data.data.get(0).question.size}"
         } catch (e: Exception) {
             ""
         }
 
         val modelQuiz = data.data[0]
 
-        rightAnswer = modelQuiz.question[quesNo].isCorrectIndex
+
+
+        rightAnswer = modelQuiz.question[quesNo.value!!].isCorrectIndex
 
         mViewDataBinding.textView4654545454.text = try {
-            "${modelQuiz.question[quesNo].questionText}"
+            "${modelQuiz.question[quesNo.value!!].questionText}"
         } catch (e: Exception) {
             ""
         }
 
         mViewDataBinding.txtLogin1.text = try {
-            "${modelQuiz.question[quesNo].options[0]}"
+            "${modelQuiz.question[quesNo.value!!].options[0]}"
         } catch (e: Exception) {
             ""
         }
 
         mViewDataBinding.txtLogin112.text = try {
-            "${modelQuiz.question[quesNo].options[1]}"
+            "${modelQuiz.question[quesNo.value!!].options[1]}"
         } catch (e: Exception) {
             ""
         }
 
         mViewDataBinding.txtLogin11542.text = try {
-            "${modelQuiz.question[quesNo].options[2]}"
+            "${modelQuiz.question[quesNo.value!!].options[2]}"
         } catch (e: Exception) {
             ""
         }
 
         mViewDataBinding.txtLogin1154542.text = try {
-            "${modelQuiz.question[quesNo].options[3]}"
+            "${modelQuiz.question[quesNo.value!!].options[3]}"
         } catch (e: Exception) {
             ""
         }
 
+//        }
 
-        quesNo++
+        quesNo.value = quesNo.value?.plus(1)
     }
 
     fun quizResult(select: Int, rightAnswer: Int) {
@@ -311,7 +350,7 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
         }
     }
 
-    private lateinit var job: Job
+    private var job: Job? = null
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun timerStart() {

@@ -71,7 +71,7 @@ import com.teamx.equiz.games.ui.theme.GameEquizApplicationTheme
 import com.teamx.equiz.ui.theme.toolbarUnique
 import kotlinx.coroutines.launch
 import java.util.Locale
-
+import androidx.annotation.Keep
 
 @Composable
 fun ChartScreen() {
@@ -242,7 +242,7 @@ fun BottomButtons(onContinueClicked: (int: Int) -> Unit) {
         }
         Button(
             shape = RoundedCornerShape(26.dp),
-            onClick = { },
+            onClick = { onContinueClicked(3) },
             modifier = Modifier,
             colors = ButtonDefaults.buttonColors(Color(0xFF9F81CA))
 
@@ -503,6 +503,7 @@ fun DisplayLegend(color: Color, legend: String) {
     }
 }
 
+
 /*
 @Preview
 @Composable
@@ -555,6 +556,9 @@ fun PieChart() {
         }
     }
 }*/
+
+
+@Keep
 data class ChartSlice(val value: Float, val color: Color)
 
 @Composable

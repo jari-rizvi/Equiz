@@ -23,6 +23,9 @@ import androidx.navigation.NavController
 import com.teamx.equiz.games.GamesUID
 
 
+import androidx.annotation.Keep
+
+@Keep
 data class ListItem(
     val name: String,
     val height: Dp,

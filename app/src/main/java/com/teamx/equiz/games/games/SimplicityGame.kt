@@ -46,9 +46,12 @@ import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import com.teamx.equiz.games.ui.theme.BirdColor4
 import kotlin.random.Random
 
-class SimplicityGame {}
+//class SimplicityGame {}
 
 //Simplicity
+import androidx.annotation.Keep
+
+@Keep
 data class Question(val equation: String, val choices: List<Int>, val correctAnswer: Int)
 var rightGameAnswersSimple = 1
 var wrongGameAnswersSimple = 1

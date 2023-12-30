@@ -18,6 +18,8 @@ import com.teamx.equiz.ui.fragments.loaderboard.adapter.LoaderMultiViewAdapter
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.activity.addCallback
+import com.bumptech.glide.Glide
+
 @AndroidEntryPoint
 class LoaderBoardFragment : BaseFragment<FragmentLoaderBoardBinding, LoaderBoardViewModel>() {
 
@@ -78,12 +80,19 @@ class LoaderBoardFragment : BaseFragment<FragmentLoaderBoardBinding, LoaderBoard
                             loaderMultiViewAdapter.notifyDataSetChanged()
 
                             try {
-                                Picasso.get().load(data.game[0].image)
-                                    .into(mViewDataBinding.hatlyIcon)
-                                Picasso.get().load(data.game[1].image)
-                                    .into(mViewDataBinding.hatlyIcon5454)
-                                Picasso.get().load(data.game[2].image)
-                                    .into(mViewDataBinding.hatlyIcon54)
+//                                Picasso.get().load(data.game[0].image)
+//                                    .into(mViewDataBinding.hatlyIcon)
+//
+//                                Picasso.get().load(data.game[1].image)
+//                                    .into(mViewDataBinding.hatlyIcon5454)
+//
+//                                Picasso.get().load(data.game[2].image)
+//                                    .into(mViewDataBinding.hatlyIcon54)
+
+                                Glide.with(mViewDataBinding.hatlyIcon.context).load(data.game[0].image).into(mViewDataBinding.hatlyIcon)
+                                Glide.with(mViewDataBinding.hatlyIcon5454.context).load(data.game[1].image).into(mViewDataBinding.hatlyIcon5454)
+                                Glide.with(mViewDataBinding.hatlyIcon54.context).load(data.game[2].image).into(mViewDataBinding.hatlyIcon54)
+
                                 mViewDataBinding.textView545.text = data.game[0].name
                                 mViewDataBinding.textView545455.text =
                                     data.game[0].wallet.toString()
