@@ -3,9 +3,7 @@ package com.teamx.equiz.ui.activity.mainActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
@@ -13,7 +11,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseActivity
-import com.teamx.equiz.constants.NetworkCallPoints
 import com.teamx.equiz.databinding.ActivityMainBinding
 import com.teamx.equiz.games.games.tetris.logic.SoundUtil
 import com.teamx.equiz.games.games.tetris.logic.StatusBarUtil
@@ -131,14 +128,18 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
             when (destination.id) {
 
                 R.id.dashboardFragment -> {
-                     mViewDataBinding.bottomNavigationq?.visibility = View.VISIBLE
+                    mViewDataBinding.bottomNavigationq.setSelectedIndex(0)
+                    mViewDataBinding.bottomNavigationq?.visibility = View.VISIBLE
+
                 }
                 R.id.settingsFragment -> {
+                    mViewDataBinding.bottomNavigationq.setSelectedIndex(2)
                      mViewDataBinding.bottomNavigationq?.visibility = View.VISIBLE
                 }
 
                 R.id.gamesFragment -> {
 
+                    mViewDataBinding.bottomNavigationq.setSelectedIndex(1)
                      mViewDataBinding.bottomNavigationq?.visibility = View.VISIBLE
                 }
 
