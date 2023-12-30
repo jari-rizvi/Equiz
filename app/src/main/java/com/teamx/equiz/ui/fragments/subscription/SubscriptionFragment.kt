@@ -3,21 +3,31 @@ package com.teamx.equiz.ui.fragments.subscription
 
 import android.os.Bundle
 import android.view.View
+import android.widget.ProgressBar
+import androidx.activity.addCallback
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.stripe.android.model.PaymentMethodCreateParams
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
-import com.teamx.equiz.databinding.FragmentSubscriptionBinding
-import dagger.hilt.android.AndroidEntryPoint
-import androidx.activity.addCallback
-import androidx.constraintlayout.widget.ConstraintLayout
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.teamx.equiz.data.remote.Resource
+import com.teamx.equiz.databinding.FragmentSubscriptionBinding
 import com.teamx.equiz.ui.activity.mainActivity.MainActivity
 import com.teamx.equiz.utils.DialogHelperClass
-
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import com.stripe.android.PaymentConfiguration
+import com.stripe.android.Stripe
+import com.stripe.android.model.Card
+import com.stripe.android.model.CardParams
+import com.stripe.android.model.PaymentMethod
 @AndroidEntryPoint
 class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, SubscriptionViewModel>() {
 
@@ -53,8 +63,8 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
 
 
         mViewDataBinding.btnBuy.setOnClickListener {
-                bottomSheetBehavior =
-                    BottomSheetBehavior.from(mViewDataBinding.bottomSheetLayout.bottomSheetStripe)
+            bottomSheetBehavior =
+                BottomSheetBehavior.from(mViewDataBinding.bottomSheetLayout.bottomSheetStripe)
 
                 bottomSheetBehavior.addBottomSheetCallback(object :
                     BottomSheetBehavior.BottomSheetCallback() {
@@ -75,11 +85,16 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
                     }
                 })
 
-                val state =
-                    if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) BottomSheetBehavior.STATE_COLLAPSED
-                    else BottomSheetBehavior.STATE_EXPANDED
-                bottomSheetBehavior.state = state
+            val state =
+                if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) BottomSheetBehavior.STATE_COLLAPSED
+                else BottomSheetBehavior.STATE_EXPANDED
+            bottomSheetBehavior.state = state
 
+
+        }
+
+        //new work
+        mViewDataBinding.bottomSheetLayout.buttonCreatePaymentMethod.setOnClickListener {
 
         }
 
@@ -129,4 +144,79 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
 
 
     }
+
+
+//    private fun createPaymentMethod() {
+//        // Get card details from EditText widgets
+//        val cardNumber = mViewDataBinding.bottomSheetLayout.editTextCardNumber.text.toString()
+//        val expiryDate = mViewDataBinding.bottomSheetLayout.editTextExpiryDate.text.toString()
+//        val cvc = mViewDataBinding.bottomSheetLayout.editTextCvc.text.toString()
+//
+//        // Create a Card instance with card details
+//        val card = Card.create(
+//            cardNumber,
+//            expiryDate.substring(0, 2).toInt(),
+//            expiryDate.substring(3).toInt(),
+//            cvc
+//        )
+//
+//        // Create a PaymentMethod instance using the Card
+//        val paymentMethod = PaymentMethodCreateParams.create(
+//            PaymentMethodCreateParams.create(
+//                card?.toPaymentMethodParamsCard(),
+//                null
+//            )
+//        )
+//
+//        // Optionally, attach the PaymentMethod to a customer
+//        val customerId = "your_customer_id" // Replace with your actual customer ID
+//        paymentMethod?.let {
+//            it.attach(
+//                PaymentMethod.BillingDetails.Builder()
+//                    .setEmail("customer@example.com") // Replace with the customer's email
+//                    .build(),
+//                customerId
+//            )
+//        }
+//
+//        // Show loading indicator
+//        mViewDataBinding.bottomSheetLayout.progressBar.visibility = ProgressBar.VISIBLE
+//
+//        // Perform the operation in a coroutine to avoid blocking the UI thread
+//        GlobalScope.launch(Dispatchers.IO) {
+//            // Simulate network delay (replace this with your actual network call)
+//            Thread.sleep(2000)
+//
+//            // Get the PaymentMethod ID
+//            val paymentMethodId = paymentMethod?.id
+//
+//            // Update UI on the main thread
+//            launch(Dispatchers.Main) {
+//                // Hide loading indicator
+//                mViewDataBinding.bottomSheetLayout.progressBar.visibility = ProgressBar.INVISIBLE
+//
+//                // Update result TextView
+//                if (paymentMethodId != null) {
+//                    mViewDataBinding.bottomSheetLayout.textViewResult.text =
+//                        "PaymentMethod ID: $paymentMethodId"
+//                    mViewDataBinding.bottomSheetLayout.textViewResult.setTextColor(
+//                        ContextCompat.getColor(
+//                            requireContext(),
+//                            android.R.color.holo_green_dark
+//                        )
+//                    )
+//                } else {
+//                    mViewDataBinding.bottomSheetLayout.textViewResult.text =
+//                        "PaymentMethod creation failed"
+//                    mViewDataBinding.bottomSheetLayout.textViewResult.setTextColor(
+//                        ContextCompat.getColor(
+//                            requireContext(),
+//                            android.R.color.holo_red_dark
+//                        )
+//                    )
+//                }
+//            }
+//        }
+//    }
+
 }
