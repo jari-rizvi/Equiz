@@ -1,6 +1,8 @@
 package com.teamx.equiz.ui.fragments.topup
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import androidx.activity.addCallback
@@ -74,8 +76,8 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
             mViewDataBinding.pts3.isChecked = false
             mViewDataBinding.pts4.isChecked = false
             mViewDataBinding.pts5.isChecked = false
-            priceAddTopUp = 100
             amount = "100"
+            priceAddTopUp = amount.toInt()
             mViewDataBinding.img.text = amount
         }
 
@@ -88,8 +90,8 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
             mViewDataBinding.pts5.isChecked = false
 
             amount = "200"
+            priceAddTopUp = amount.toInt()
             mViewDataBinding.img.text = amount
-            priceAddTopUp = 200
         }
 
         mViewDataBinding.pts3.setOnClickListener {
@@ -99,8 +101,8 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
             mViewDataBinding.pts3.isChecked = true
             mViewDataBinding.pts4.isChecked = false
             mViewDataBinding.pts5.isChecked = false
-            priceAddTopUp = 300
             amount = "300"
+            priceAddTopUp = amount.toInt()
             mViewDataBinding.img.text = amount
         }
 
@@ -111,8 +113,8 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
             mViewDataBinding.pts3.isChecked = false
             mViewDataBinding.pts4.isChecked = true
             mViewDataBinding.pts5.isChecked = false
-            priceAddTopUp = 400
             amount = "400"
+            priceAddTopUp = amount.toInt()
             mViewDataBinding.img.text = amount
         }
         mViewDataBinding.pts5.setOnClickListener {
@@ -122,8 +124,8 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
             mViewDataBinding.pts3.isChecked = false
             mViewDataBinding.pts4.isChecked = false
             mViewDataBinding.pts5.isChecked = true
-            priceAddTopUp = 500
             amount = "500"
+            priceAddTopUp = amount.toInt()
             mViewDataBinding.img.text = amount
         }
         mViewDataBinding.pts6.setOnClickListener {
@@ -133,14 +135,52 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
             mViewDataBinding.pts3.isChecked = false
             mViewDataBinding.pts4.isChecked = false
             mViewDataBinding.pts5.isChecked = false
-            priceAddTopUp = 600
             amount = "600"
+            priceAddTopUp = amount.toInt()
             mViewDataBinding.img.text = amount
         }
 
         mViewDataBinding.payNowBtn.setOnClickListener {
-            presentPaymentSheet(priceAddTopUp)
+//            presentPaymentSheet(priceAddTopUp)
+            if (mViewDataBinding.radioPaypal.isChecked
+                || mViewDataBinding.radioVisa.isChecked
+                || mViewDataBinding.radiomaster.isChecked
+                || mViewDataBinding.radiogoogle.isChecked
+            ) {
+                /* if (mViewDataBinding.editText.text.toString().isNotEmpty()) {
+                     priceAddTopUp = mViewDataBinding.editText.text.toString().toInt()
+                     presentPaymentSheet(priceAddTopUp)
+                 } else if (mViewDataBinding.editText.text.toString()
+                         .isEmpty() && priceAddTopUp == 0
+                 ) {
+                     mViewDataBinding.pts6.isChecked = false
+                     mViewDataBinding.pts1.isChecked = false
+                     mViewDataBinding.pts2.isChecked = false
+                     mViewDataBinding.pts3.isChecked = false
+                     mViewDataBinding.pts4.isChecked = false
+                     mViewDataBinding.pts5.isChecked = false
+                     showToast("Please Add Amount")
+                 } else if (mViewDataBinding.editText.text.toString()
+                         .isEmpty() && (!mViewDataBinding.pts6.isChecked
+                             && !mViewDataBinding.pts4.isChecked
+                             && !mViewDataBinding.pts5.isChecked
+                             && !mViewDataBinding.pts1.isChecked
+                             && !mViewDataBinding.pts2.isChecked
+                             && !mViewDataBinding.pts3.isChecked)
+                 ) {
+                     priceAddTopUp = 0
+                     showToast("Please Add Amount")
+                 } else {*/
+                if (priceAddTopUp != 0) {
+                    presentPaymentSheet(priceAddTopUp)
+                } else {
+                    showToast("Please Add Amount")
+                }
+                /* }*/
+            } else {
 
+                showToast("Please select payment method")
+            }
 
         }
 
@@ -178,8 +218,39 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
 
         //
 
-
+        mViewDataBinding.editText.addTextChangedListener(textWatcher)
     }
+
+    private val textWatcher = object : TextWatcher {
+
+        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+
+        }
+
+
+        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+            mViewDataBinding.pts6.isChecked = false
+            mViewDataBinding.pts1.isChecked = false
+            mViewDataBinding.pts2.isChecked = false
+            mViewDataBinding.pts3.isChecked = false
+            mViewDataBinding.pts4.isChecked = false
+            mViewDataBinding.pts5.isChecked = false
+            if (mViewDataBinding.editText.text.toString().isEmpty()) {
+
+                priceAddTopUp = 0
+                mViewDataBinding.img.text = "0".toString()
+            } else {
+                mViewDataBinding.img.text = mViewDataBinding.editText.text.toString()
+                priceAddTopUp = mViewDataBinding.editText.text.toString().toInt()
+            }
+        }
+
+
+        override fun afterTextChanged(s: Editable) {
+
+        }
+    }
+
 
     private fun paymentAdapter() {
         paymentArrayList = ArrayList()

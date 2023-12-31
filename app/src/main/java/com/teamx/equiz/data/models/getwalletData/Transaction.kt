@@ -9,6 +9,8 @@ data class Transaction(
     val expiresAt: String,
     val points: Int,
     val timestamp: String,
+    val pointType: String,
+    val transactionType: Boolean,
     val type: String,
     val userId: String
 )

@@ -75,6 +75,7 @@ class DialogHelperClass {
             dialog.window!!.setLayout(
                 WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT
             )
+            dialog.setCancelable(false)
 
 
             val removeBtn = dialog.findViewById<TextView>(R.id.btnInvite)

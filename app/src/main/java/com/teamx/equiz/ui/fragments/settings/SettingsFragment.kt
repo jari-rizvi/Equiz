@@ -198,6 +198,7 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
             findNavController().navigate(R.id.quizesFragment, arguments, options)
         }
         mViewDataBinding.btnWallet.setOnClickListener {
+            bundle.putString("referralCode", referralCode)
             findNavController().navigate(R.id.walletFragment, bundle, options)
         }
 
@@ -205,7 +206,7 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
 
 
 
-
+            bundle.putString("referralCode", referralCode)
             findNavController().navigate(R.id.referralFragment, bundle, options)
 
         }

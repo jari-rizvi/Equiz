@@ -3,11 +3,8 @@ package com.teamx.equiz.ui.fragments.wallet
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.Picasso
 import com.teamx.equiz.data.models.getwalletData.Transaction
-import com.teamx.equiz.data.models.wishlistdata.Product
 import com.teamx.equiz.databinding.ItemWalletBinding
-import com.teamx.equiz.databinding.ItemWishlistBinding
 
 
 class WalletAdapter(
@@ -28,9 +25,11 @@ class WalletAdapter(
 
         holder.binding.textView54.text = "You Earned Points"
 
-        holder.binding.textView55.text = "You won points by participating in a quiz"
+//        holder.binding.textView55.text = "You won points by participating in a quiz"
+        holder.binding.textView55.text = "${ wallet.pointType}"
 
         holder.binding.textView13.text = wallet.timestamp.dropLast(18)
+        holder.binding.textView56.text = wallet.points.toString()+" Pts"
 
 
         holder.itemView.setOnClickListener {}
