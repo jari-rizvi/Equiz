@@ -283,7 +283,7 @@ fun ResultScreen(
     onContinueClicked: (i: Int) -> Unit
 ) {
 
-
+    var IsShareDialogTrue by remember { mutableStateOf(false) }
     var percentage = ((right.toDouble() / total)).toFloat()
 //    val accurateCount: Float = 33f
 //    val inaccurateCount: Float = 67f
@@ -296,6 +296,7 @@ fun ResultScreen(
     val accuracyPercentage: Float = percentage/*(accurateCount / totalCount).toFloat()*/
 
     var shouldShowOnboarding2 by rememberSaveable { mutableStateOf(true) }
+
     if (shouldShowOnboarding2) {
         Box(
             modifier = Modifier
@@ -365,11 +366,21 @@ fun ResultScreen(
                         }
                     }
                     BottomButtons { i ->
+                        if (i == 3) {
+                            IsShareDialogTrue = true
+                        } else {
                         shouldShowOnboarding2 = false
-                        onContinueClicked(i)
+                            IsShareDialogTrue=false
+                            onContinueClicked(i)
+                        }
                     }
                 }
             }
+
+            if (IsShareDialogTrue) {
+                dialogShareGame(total, right, time, gameName, painter, {})
+            }
+
 
             Image(
                 modifier = Modifier
@@ -888,15 +899,15 @@ fun foody() {
         Text(text = "Score:$scoring")
     }
 }*/
-
+@Preview
 @Composable
 fun dialogShareGame(
-    total: Int,
-    right: Int,
-    time: Int,
-    gameName: String,
-    painter: Painter,
-    onContinueClicked: (i: Int) -> Unit
+    total: Int=1,
+    right: Int=1,
+    time: Int=0,
+    gameName: String="",
+    painter: Painter= painterResource(id = R.drawable.iconbg),
+    onContinueClicked: (i: Int) -> Unit={}
 ) {
 
 
@@ -911,18 +922,17 @@ fun dialogShareGame(
 //    val accuracyPercentage: Float = (accurateCount / totalCount).toFloat()
     val accuracyPercentage: Float = percentage/*(accurateCount / totalCount).toFloat()*/
 
-    Box {
+    Box(
+        modifier=Modifier.padding(horizontal=12.dp).fillMaxSize(),contentAlignment= Alignment.Center
+    ) {
         TitleHeader(
             painter = painter, title = gameName
         )
 
-
-
-
         Column(
             modifier = Modifier
-                .padding(top = 32.dp)
-                .fillMaxHeight()
+
+                .wrapContentSize().background(color=Color.White,shape= RoundedCornerShape(12.dp)).padding(vertical=12.dp)
                 .fillMaxWidth(),
             Arrangement.SpaceEvenly,
         ) {
@@ -946,14 +956,14 @@ fun dialogShareGame(
                     .fillMaxWidth(), Arrangement.SpaceAround
             ) {
                 BottomResult()
-                BottomResult2() { at ->
+              /*  BottomResult2() { at ->
                     onContinueClicked(at)
-                }
+                }*/
             }
-            BottomButtons { i ->
+           /* BottomButtons { i ->
                
                 onContinueClicked(i)
-            }
+            }*/
         }
 
     }

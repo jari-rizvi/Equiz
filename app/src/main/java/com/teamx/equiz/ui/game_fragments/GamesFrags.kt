@@ -1484,7 +1484,7 @@ class ReflectionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
                     }
 
                     3 -> {
-                        DialogHelperClass.shareGameResultDialog(
+                       /* DialogHelperClass.shareGameResultDialog(
                             requireContext(),
                             object : DialogHelperClass.Companion.DialogInviteAnotherCallBack {
                                 override fun InviteClicked() {
@@ -1493,8 +1493,14 @@ class ReflectionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
 
                             },
                             true,
-                            "priceAddTopUp".toString()
-                        )
+                            "priceAddTopUp".toString(), total,
+                            rightAnswer,
+                            20,
+                            gameName.toString()
+                        ) {
+
+
+                        }*/
                     }
 
                     else -> {

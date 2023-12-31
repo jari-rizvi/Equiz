@@ -139,14 +139,14 @@ fun BirdWatchingGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
                         .padding(10.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Icon(imageVector = Icons.Default.ArrowBackIos,
+                   /* Icon(imageVector = Icons.Default.ArrowBackIos,
                         contentDescription = "BackButton",
                         tint = Color.White,
                         modifier = Modifier.clickable(true) {
                             content(false, rightGameAnswersBird, (rightGameAnswersBird + wrongGameAnswersBird))
                         }
 
-                    )
+                    )*/
                     Text(
                         modifier = Modifier.wrapContentSize(),
                         text = "Bird Watching",
