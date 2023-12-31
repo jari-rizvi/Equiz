@@ -174,16 +174,16 @@ fun AscendingObjectsU2() {
     linkListAddedU2.forEach {
         link.push(it)
     }
-    Log.d("123123", "AscendingObjects:linkListAddedabb $linkListAdded")
+    Log.d("123123", "AscendingObjects:linkListAddedabb $linkListAddedU2")
     linkListAddedU2.clear()
     Log.d("123123", "AscendingObjects:linkListAddedabb $link")
     if (link.size >= 1) {
-        Log.d("123123", "AscendingObjects:1212 $linkListAdded")
+        Log.d("123123", "AscendingObjects:1212 $linkListAddedU2")
         for (i in link) {
             linkListAddedU2.push(i)
         }
     } else {
-        Log.d("123123", "AscendingObjects:12 $linkListAdded")
+        Log.d("123123", "AscendingObjects:12 $linkListAddedU2")
         for (i in 0..maxCount) {
             if (Random.nextBoolean()) {
                 linkListAddedU2.push(i)
@@ -193,7 +193,7 @@ fun AscendingObjectsU2() {
     /*  } else if (currentCount <= 1) {
           linkListAddedU2.push(0)
       }*/
-    Log.d("123123", "AscendingObjects:linkListAddedabbbbbb $linkListAdded")
+    Log.d("123123", "AscendingObjects:linkListAddedabbbbbb $linkListAddedU2")
 //    val randInt = Random.nextInt(1, 3)
     /*    val items2 = (0 until currentCount).map {
             LeaderListItem(
@@ -264,13 +264,13 @@ fun AscendingObjectsU2() {
                  bool = false
              }*/
 
-            var temp = linkListAdded
+            var temp = linkListAddedU2
             Log.d("123123", "AscendingObjects:temp ${temp.first}")
-            AnimatedObject(i, temp.first/*, colorStateList[i]*/) {
+            AnimatedObjectU2(i, temp.first/*, colorStateList[i]*/) {
 
                 temp.pop()
-                linkListAdded = temp
-                Log.d("123123", "AscendingObjects:linkListAdded $linkListAdded")/*  if (listAdded[it] == i) {
+                linkListAddedU2 = temp
+                Log.d("123123", "AscendingObjects:linkListAdded $linkListAddedU2")/*  if (listAdded[it] == i) {
 
                       } else {
 
@@ -337,14 +337,14 @@ fun AnimatedObjectU2(number: Int, itemCompared: Int, onClick: (Item: Int) -> Uni
 
     ) {
 
-        Text(
+    /*    Text(
             text = number.toString(),
             style = MaterialTheme.typography.bodySmall,
             color = Color.White,
             fontSize = 20.sp,
             textAlign = TextAlign.Center,
             fontFamily = FontFamily.Cursive
-        )
+        )*/
 
 
     }

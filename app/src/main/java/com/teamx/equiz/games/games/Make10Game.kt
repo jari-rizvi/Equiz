@@ -1,36 +1,35 @@
 package com.teamx.equiz.games.games
 
 import android.os.CountDownTimer
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -38,9 +37,8 @@ import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
-import com.teamx.equiz.games.ui.theme.BirdColor1
-import com.teamx.equiz.games.ui.theme.BirdColor3
-import com.teamx.equiz.games.ui.theme.BirdColor4
+import kotlinx.coroutines.delay
+import java.util.LinkedList
 import kotlin.random.Random
 
 
@@ -150,7 +148,7 @@ fun Make10GameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int
         }.start()
     }
     if (isGameOver) {
-        content(true, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
+        content(true, rightGameAnswers10, (rightGameAnswers10 + totalGameAnswers10))
     }
     if (isTimeUp) {
 
@@ -159,7 +157,7 @@ fun Make10GameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int
                 isGameOver = true
 
             } else {
-                content(false, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
+                content(false, rightGameAnswers10, (rightGameAnswers10 + totalGameAnswers10))
             }
         }
 
@@ -200,7 +198,9 @@ fun Make10GameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int
                 )
 
             }
-            Column(
+
+            making10Game()
+            /*Column(
                 modifier = Modifier
                     .fillMaxSize()
                      ,
@@ -270,9 +270,9 @@ fun Make10GameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int
 //                            if (selectedCards.contains(card)) {
 
 //                                    if (selectedCards2[selectedCards.indexOf(card)].index == index) {
-                                    BirdColor3/*} else {
+                                    BirdColor3*//*} else {
                                     BirdColor1
-                                }*/
+                                }*//*
 
                                 } else {
                                     BirdColor1
@@ -300,12 +300,12 @@ fun Make10GameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-               /* Button(
+               *//* Button(
                     onClick = { selectedCards.clear() }, modifier = Modifier.padding(8.dp)
                 ) {
                     Text(text = "Clear", color = Color.White)
-                }*/
-            }
+                }*//*
+            }*/
             Image(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -443,7 +443,7 @@ println(i.joinToString(", "))
  * */
 
 fun generateArray(): Array<Array<Int>> {
-    val size = 15
+    val size = 25
     val array = Array(size) { Array(3) { 0 } }
 
     var count = 0
@@ -478,3 +478,221 @@ fun main() {
         println(i.joinToString(", "))
     }
 }
+
+var linkListAddictmake1067 = LinkedList<Int>()
+var linkListAddictmake1067Checker = LinkedList<Int>()
+
+@Preview
+@Composable
+fun making10Game() {
+    val scrollState = LazyListState()
+    var columnValue by remember {
+        mutableIntStateOf(7)
+    }
+    var indexValueForArr by remember {
+        mutableIntStateOf(0)
+    }
+    var randNumber by remember { mutableStateOf(10) }
+    var availableCards by remember { mutableStateOf(generateArray()) }
+    var addingValue by remember {
+        mutableStateOf(false)
+    }
+    var changeable by remember {
+        mutableStateOf(false)
+    }
+    LaunchedEffect(changeable) {
+        availableCards = generateArray()
+        delay(100)
+        indexValueForArr++
+        addingValue = false
+    }
+
+    Box(
+        modifier = Modifier
+            .padding(top = 20.dp)
+            .fillMaxSize(), contentAlignment = Alignment.Center
+    ) {
+
+        LazyColumn(
+            state = scrollState,
+            reverseLayout = false,
+            modifier = Modifier.wrapContentSize()
+        ) {
+            items(columnValue) { item ->
+                Row(
+                    modifier = Modifier.offset(y = (-(item) * 40).dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    repeat(3) { row ->
+                        val index = item
+                        val indexer = row * columnValue + item
+                        Box(modifier = Modifier, contentAlignment = Alignment.Center) {
+                            var addingValue2 by remember { mutableStateOf(false) }
+                            Image(
+                                modifier = Modifier
+
+                                    .size((120).dp)
+                                    .padding(horizontal = (40 - (index + 2) * 2).dp)
+                                    .padding(top = ((40 - (index + 2) * 2)).dp)
+                                    .clickable(item == (columnValue - 1)) {
+                                        addingValue2 = !addingValue2
+
+                                        if (linkListAddictmake1067Checker.contains(
+                                                availableCards
+                                                    .get(indexValueForArr + item)
+                                                    .get(row)
+                                            ) && !addingValue2
+                                        ) {
+
+                                            linkListAddictmake1067Checker.push(
+                                                availableCards
+                                                    .get(indexValueForArr + item)
+                                                    .get(row)
+                                            )
+                                            val too =
+                                                if (/*linkListAddictmake1067Checker.size <= linkListAddictmake1067.size &&*/ randNumber == linkListAddictmake1067Checker.sum()) {
+                                                    Log.d(
+                                                        "123123",
+                                                        "AddictGame:Right ${linkListAddictmake1067Checker.sum()}"
+                                                    )
+                                                    changeable = !changeable
+                                                    linkListAddictmake1067Checker.clear()
+
+                                                    rightGameAnswers10++
+                                                    true
+                                                } else {
+                                                    totalGameAnswers10++
+                                                    Log.d(
+                                                        "123123",
+                                                        "AddictGame:Wrong ${linkListAddictmake1067Checker.sum()}"
+                                                    )
+                                                    false
+                                                }
+
+
+
+                                            Log.d(
+                                                "123123",
+                                                "AnimatedObject2:$availableCards.value.get(item).get(row) ::$availableCards.value.get(item).get(row) "
+                                            )
+                                            return@clickable
+                                        } else if (!linkListAddictmake1067Checker.contains(
+                                                availableCards
+                                                    .get(indexValueForArr + item)
+                                                    .get(row)
+                                            )
+                                        ) {
+
+                                            linkListAddictmake1067Checker.push(
+                                                availableCards
+                                                    .get(indexValueForArr + item)
+                                                    .get(row)
+                                            )
+                                            val too =
+                                                if (/*linkListAddictmake1067Checker.size <= linkListAddictmake1067.size &&*/ randNumber == linkListAddictmake1067Checker.sum()) {
+                                                    Log.d(
+                                                        "123123",
+                                                        "AddictGame:Right ${linkListAddictmake1067Checker.sum()}"
+                                                    )
+                                                    changeable = !changeable
+                                                    linkListAddictmake1067Checker.clear()
+
+                                                    rightGameAnswers10++
+                                                    true
+                                                } else {
+                                                    totalGameAnswers10++
+                                                    Log.d(
+                                                        "123123",
+                                                        "AddictGame:Wrong ${linkListAddictmake1067Checker.sum()}"
+                                                    )
+                                                    false
+                                                }
+
+
+
+                                            Log.d(
+                                                "123123",
+                                                "AnimatedObject2:$availableCards.value.get(item).get(row) ::$availableCards.value.get(item).get(row) "
+                                            )
+                                            return@clickable
+                                        } else if (linkListAddictmake1067Checker.contains(
+                                                availableCards
+                                                    .get(indexValueForArr + item)
+                                                    .get(row)
+                                            ) && addingValue2
+                                        ) {
+
+                                            linkListAddictmake1067Checker.remove(
+                                                availableCards
+                                                    .get(indexValueForArr + item)
+                                                    .get(row)
+                                            )
+
+                                            val too =
+                                                if (/*linkListAddictmake1067Checker.size <= linkListAddictmake1067.size
+                                                        && */randNumber == linkListAddictmake1067Checker.sum()
+                                                ) {
+                                                    linkListAddictmake1067Checker.clear()
+                                                    changeable = !changeable
+                                                    Log.d(
+                                                        "123123",
+                                                        "AddictGame:Right ${linkListAddictmake1067Checker.sum()}"
+                                                    )
+
+                                                    rightGameAnswers10++
+                                                    true
+                                                } else {
+                                                    totalGameAnswers10++
+                                                    Log.d(
+                                                        "123123",
+                                                        "AddictGame:Wrong ${linkListAddictmake1067Checker.sum()}"
+                                                    )
+                                                    false
+                                                }
+
+
+                                        } else {
+
+                                        }
+
+
+                                    },
+                                painter = painterResource(
+                                    if (linkListAddictmake1067Checker.isNotEmpty() && addingValue2) {
+                                        R.drawable.purple_card
+                                    } else {
+                                        addingValue2 = false
+                                        R.drawable.white_card
+                                    }
+                                ),
+                                contentDescription = ""
+                            )
+                            Text(
+                                modifier = Modifier
+
+                                    .wrapContentSize(),
+                                text = "${
+                                    availableCards.get(indexValueForArr + item).get(row)
+                                }",
+                                color = if (linkListAddictmake1067Checker.isNotEmpty() && addingValue2) {
+                                    Color.White
+                                } else {
+
+                                    Color.Black
+                                },
+                                textAlign = TextAlign.Center, fontWeight = FontWeight.ExtraBold,
+                                fontSize = 36.sp
+                            )
+                        }
+                    }
+                }
+
+            }
+        }
+
+    }
+
+}
+
+var rightGameAnswers10: Int = 0
+var totalGameAnswers10: Int = 0

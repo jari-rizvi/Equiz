@@ -1,5 +1,6 @@
 package com.teamx.equiz.games.games
 
+import androidx.annotation.Keep
 import androidx.annotation.StringRes
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
@@ -71,7 +72,6 @@ import com.teamx.equiz.games.ui.theme.GameEquizApplicationTheme
 import com.teamx.equiz.ui.theme.toolbarUnique
 import kotlinx.coroutines.launch
 import java.util.Locale
-import androidx.annotation.Keep
 
 @Composable
 fun ChartScreen() {
@@ -202,7 +202,7 @@ fun BottomResult2(onClick: (int: Int) -> Unit) {
 
         Image(
             modifier = Modifier.clickable(enabled = true) {
-                onClick(3)
+                onClick(4)
             },
             painter = painterResource(id = R.drawable.padlockrain), contentDescription = null
         )
@@ -330,11 +330,7 @@ fun ResultScreen(
                     painter = painter, title = gameName
                 )
 
-                /* PieChart(
-                     listOf(
-                         ChartSlice(4f, CyanGreen), ChartSlice(1f, Pinky)
-                     )
-                 )*/
+
 
 
                 Column(
@@ -892,3 +888,73 @@ fun foody() {
         Text(text = "Score:$scoring")
     }
 }*/
+
+@Composable
+fun dialogShareGame(
+    total: Int,
+    right: Int,
+    time: Int,
+    gameName: String,
+    painter: Painter,
+    onContinueClicked: (i: Int) -> Unit
+) {
+
+
+    var percentage = ((right.toDouble() / total)).toFloat()
+//    val accurateCount: Float = 33f
+//    val inaccurateCount: Float = 67f
+    val accurateCount: Float = percentage
+    val inaccurateCount: Float = 100f - percentage
+
+    val totalCount = accurateCount + inaccurateCount
+
+//    val accuracyPercentage: Float = (accurateCount / totalCount).toFloat()
+    val accuracyPercentage: Float = percentage/*(accurateCount / totalCount).toFloat()*/
+
+    Box {
+        TitleHeader(
+            painter = painter, title = gameName
+        )
+
+
+
+
+        Column(
+            modifier = Modifier
+                .padding(top = 32.dp)
+                .fillMaxHeight()
+                .fillMaxWidth(),
+            Arrangement.SpaceEvenly,
+        ) {
+            DualColorCircularProgressBar2(accuracyPercentage)
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp),
+                Arrangement.SpaceEvenly,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                ShowScoring("Correct", Color(0xFF9F81CA), "${right.toInt()}")
+                ShowScoring("Incorrect", Color(0xFFC62E27), "${(total - right).toInt()}")
+
+            }
+            ShowMeantime("Mean Time", " ${time / right}s")
+
+            Row(
+                modifier = Modifier
+                    .padding(top = 32.dp)
+                    .fillMaxWidth(), Arrangement.SpaceAround
+            ) {
+                BottomResult()
+                BottomResult2() { at ->
+                    onContinueClicked(at)
+                }
+            }
+            BottomButtons { i ->
+               
+                onContinueClicked(i)
+            }
+        }
+
+    }
+}

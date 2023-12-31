@@ -1498,7 +1498,7 @@ class ReflectionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
                     }
 
                     else -> {
-                        findNavController().navigate(R.id.dashboardFragment, arguments, options)
+                        findNavController().navigate(R.id.subscriptionFragment, arguments, options)
                     }
                 }
 
