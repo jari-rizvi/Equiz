@@ -1,5 +1,6 @@
 package com.teamx.equiz.games.games.tetris
 
+import androidx.annotation.Keep
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,6 +14,10 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -24,15 +29,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.teamx.equiz.R
 import com.teamx.equiz.games.games.tetris.logic.Direction
+import com.teamx.equiz.games.games.ui_components.StartUpDialogCompose
+import com.teamx.equiz.games.games.ui_components.StartUpDialogCompose2
 
-import androidx.annotation.Keep
 var runGame = true
 @Composable
 fun GameBody(
     clickable: Clickable = combinedClickable(),
     screen: @Composable () -> Unit
 ) {
-
+    var hideStartup by remember { mutableStateOf(true) }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -54,6 +60,7 @@ fun GameBody(
                     .wrapContentSize()
                     .align(Alignment.CenterHorizontally)
             ) {
+
 
 
                 /*  Box(
@@ -106,6 +113,21 @@ fun GameBody(
                             .background(Color.White)
                     ) {
                         screen()
+                    }
+                }
+
+                if (hideStartup) {
+
+                    Box {
+                        StartUpDialogCompose2(
+                            "Tetris",
+                            "",
+                            onClick = {
+                                hideStartup = false
+                                clickable.onRestart()
+                            },
+                            painterResource(R.drawable.howtoplay_tetris)
+                        )
                     }
                 }
             }
@@ -192,15 +214,18 @@ fun GameBody(
                     horizontalArrangement = Arrangement.SpaceEvenly,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    GameButton(
-//                    Modifier.align(Alignment.TopCenter),
-                        onClick = {
-                            clickable.onRestart()
-                        },
-                        autoInvokeWhenPressed = false,
-                        size = DirectionButtonSize,
-                        painter = painterResource(R.drawable.tetris_icon)
-                    )
+                    /* GameButton(
+ //                    Modifier.align(Alignment.TopCenter),
+                         onClick = {
+                             clickable.onRestart()
+                         },
+                         autoInvokeWhenPressed = false,
+                         size = DirectionButtonSize,
+                         painter = painterResource(R.drawable.tetris_icon)
+                     )*/
+
+
+
                     GameButton(
 //                    Modifier.align(Alignment.CenterEnd),
                         onClick = {

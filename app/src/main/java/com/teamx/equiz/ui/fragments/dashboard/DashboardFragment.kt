@@ -651,7 +651,13 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             bundle = Bundle()
         }
         bundle?.putString("gameName", strname)
-        findNavController().navigate(R.id.startUpGameFrag, bundle,options)
+        if (strname.equals("Tetris", true)) {
+
+            findNavController().navigate(R.id.tetrisGameFrag, bundle, options)
+        } else {
+
+            findNavController().navigate(R.id.startUpGameFrag, bundle, options)
+        }
       /*  when (gameStrArrayList[position].name) {
 
             GamesUID2.AdditionAddiction.name -> {

@@ -293,31 +293,31 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
         rightAnswer = modelQuiz.question[quesNo.value!!].isCorrectIndex
 
         mViewDataBinding.textView4654545454.text = try {
-            "${modelQuiz.question[quesNo.value!!].questionText}"
+            modelQuiz.question[quesNo.value!!].questionText
         } catch (e: Exception) {
             ""
         }
 
         mViewDataBinding.txtLogin1.text = try {
-            "${modelQuiz.question[quesNo.value!!].options[0]}"
+            modelQuiz.question[quesNo.value!!].options[0]
         } catch (e: Exception) {
             ""
         }
 
         mViewDataBinding.txtLogin112.text = try {
-            "${modelQuiz.question[quesNo.value!!].options[1]}"
+            modelQuiz.question[quesNo.value!!].options[1]
         } catch (e: Exception) {
             ""
         }
 
         mViewDataBinding.txtLogin11542.text = try {
-            "${modelQuiz.question[quesNo.value!!].options[2]}"
+            modelQuiz.question[quesNo.value!!].options[2]
         } catch (e: Exception) {
             ""
         }
 
         mViewDataBinding.txtLogin1154542.text = try {
-            "${modelQuiz.question[quesNo.value!!].options[3]}"
+            modelQuiz.question[quesNo.value!!].options[3]
         } catch (e: Exception) {
             ""
         }

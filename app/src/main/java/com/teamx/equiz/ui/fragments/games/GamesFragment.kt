@@ -4,6 +4,7 @@ package com.teamx.equiz.ui.fragments.games
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.activity.addCallback
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
@@ -17,7 +18,7 @@ import com.teamx.equiz.ui.fragments.dashboard.DashboardFragment.Companion.return
 import com.teamx.equiz.ui.fragments.dashboard.GamesModel
 import com.teamx.equiz.ui.fragments.dashboard.GamesUID2
 import dagger.hilt.android.AndroidEntryPoint
-import androidx.activity.addCallback
+
 @AndroidEntryPoint
 class GamesFragment : BaseFragment<FragmentGamesBinding, GamesViewModel>(), AllGameInterface {
 
@@ -229,7 +230,13 @@ class GamesFragment : BaseFragment<FragmentGamesBinding, GamesViewModel>(), AllG
             bundle = Bundle()
         }
         bundle?.putString("gameName", strname)
-        findNavController().navigate(R.id.startUpGameFrag, bundle,options)
+        if (strname.equals("Tetris", true)) {
+
+            findNavController().navigate(R.id.tetrisGameFrag, bundle, options)
+        } else {
+
+            findNavController().navigate(R.id.startUpGameFrag, bundle, options)
+        }
 
         /*when (strname) {
 

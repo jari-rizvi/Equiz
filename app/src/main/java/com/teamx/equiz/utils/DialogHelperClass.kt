@@ -316,7 +316,7 @@ class DialogHelperClass {
 
 
         @Composable
-        private fun returnGameIcon(enumNumberEnum: String): Painter {
+         fun returnGameIcon(enumNumberEnum: String): Painter {
 
 
             return when (enumNumberEnum) {
@@ -452,7 +452,7 @@ class DialogHelperClass {
 
         }
 
-        private fun returnGameName(enumNumberEnum: String): String {
+          fun returnGameName(enumNumberEnum: String): String {
 
 
             return when (enumNumberEnum) {

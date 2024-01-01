@@ -726,6 +726,132 @@ fun StartUpDialogCompose(
         )
     }
 }
+@Preview
+@Composable
+fun StartUpDialogCompose2(
+    title: String = "Concentration",
+    exampleTxt: String = "Same Shape: Swipe the same direction Different Shape: Opposite direction",
+    onClick: () -> Unit = {},
+    painter: Painter = painterResource(id = R.drawable.concentration_instruction_c)
+) {
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+            .background(color = Color.White),
+    ) {
+
+        Column(
+            modifier = Modifier
+
+                .fillMaxWidth()
+                .fillMaxHeight(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+
+
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(448.dp)
+                    .padding(20.dp)
+                    .background(color = Color.White)
+                    .border(BorderStroke(6.dp, Color.Red), shape = RoundedCornerShape(14.dp))
+                    .background(color = Color.White, shape = RoundedCornerShape(14.dp)),
+            ) {
+                Box(
+                    Modifier
+                        .fillMaxWidth()
+                        .height(448.dp)
+                        .border(BorderStroke(6.dp, Color.Red), shape = RoundedCornerShape(14.dp))
+                        .background(color = Color.White, shape = RoundedCornerShape(14.dp))
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(10.dp),
+                        verticalArrangement = Arrangement.SpaceEvenly,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            modifier = Modifier
+                                .wrapContentSize()
+                                .padding(top = 12.dp),
+                            text = title,
+                            color = toolbarUnique,
+                            fontWeight = FontWeight.ExtraBold,
+                            fontSize = 18.sp,
+                            textAlign = TextAlign.Center
+                        )
+                        Image(painter = painter/*Icons.Default.ArrowBackIos*/,
+                            contentDescription = "BackButton",
+
+                            modifier = Modifier
+                                .padding(top = 12.dp)
+                                .clickable(true) {
+                                    onClick()
+                                }
+
+                        )
+                        Text(
+                            modifier = Modifier
+                                .wrapContentSize()
+                                .padding(top = 12.dp),
+                            text = exampleTxt,
+                            color = Color(0xFF323232),
+                            fontSize = 16.sp,
+                            textAlign = TextAlign.Center
+                        )
+                    }
+
+                }
+
+                Image(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(),
+                    painter = painterResource(id = R.drawable.iconbg),
+                    contentDescription = "bg"
+                )
+            }
+
+            Box(
+                modifier = Modifier
+                    .padding(10.dp)
+
+                    .height(40.dp)
+                    .width(140.dp)
+                    .clip(RoundedCornerShape(18.dp))
+                    .background(toolbarUnique)
+                    .clickable(enabled = true) {
+                        onClick()
+                    }, contentAlignment = Alignment.Center
+
+            ) {
+                Text(
+                    modifier = Modifier.wrapContentSize(),
+                    textAlign = TextAlign.Center,
+                    fontWeight = FontWeight.ExtraBold,
+                    text = "Start",
+                    color = Color.White,
+
+                    style = MaterialTheme.typography.bodyMedium
+                )
+
+            }
+
+        }
+        Image(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(),
+            painter = painterResource(id = R.drawable.iconbg),
+            contentDescription = "bg"
+        )
+    }
+}
 
 @Preview
 @Composable
