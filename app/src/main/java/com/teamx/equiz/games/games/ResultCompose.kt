@@ -931,7 +931,6 @@ fun dialogShareGame(
 
         Column(
             modifier = Modifier
-
                 .wrapContentSize().background(color=Color.White,shape= RoundedCornerShape(12.dp)).padding(vertical=12.dp)
                 .fillMaxWidth(),
             Arrangement.SpaceEvenly,

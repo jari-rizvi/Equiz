@@ -1,5 +1,8 @@
 package com.teamx.equiz.data.models.bannerData.bannews
 
+import androidx.annotation.Keep
+
+@Keep
 data class NewsData(
     val __v: Int,
     val _id: String,

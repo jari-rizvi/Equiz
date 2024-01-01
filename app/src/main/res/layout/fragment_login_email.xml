@@ -30,6 +30,7 @@
             app:boxBackgroundMode="none"
             app:boxStrokeWidth="0dp"
             app:hintEnabled="false"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +48,8 @@
                 android:hint="Enter your Email or Number"
                 android:imeOptions="actionNext"
                 android:inputType="text"
-                android:paddingStart="@dimen/_15sdp"
+
+              android:paddingHorizontal="@dimen/_29sdp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/light_gray"
                 android:textSize="@dimen/_11ssp" />
@@ -62,6 +64,7 @@
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:textColorHint="@color/light_gray"
             app:boxBackgroundMode="none"
+
             app:boxStrokeWidth="0dp"
             app:hintEnabled="false"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -84,7 +87,7 @@
                 android:hint="Enter your Password"
                 android:imeOptions="actionNext"
                 android:inputType="textPassword"
-                android:paddingStart="@dimen/_15sdp"
+              android:paddingHorizontal="@dimen/_10sdp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/light_gray"
                 android:textSize="@dimen/_11ssp" />
