@@ -119,7 +119,9 @@ class ForgotPassFragment : BaseFragment<FragmentForgotPassBinding, ForgotPassVie
                                     )
                                 }
                             }
-
+                            Resource.Status.AUTH -> { loadingDialog.dismiss()
+                                onToSignUpPage()
+                            }
                             Resource.Status.ERROR -> {
                                 loadingDialog.dismiss()
                                 DialogHelperClass.errorDialog(requireContext(), it.message!!)
@@ -148,7 +150,9 @@ class ForgotPassFragment : BaseFragment<FragmentForgotPassBinding, ForgotPassVie
                                     findNavController().navigate(R.id.action_forgotPassFragment2_to_verifyOtpForgotFragment2,arguments,options)
                                 }
                             }
-
+                            Resource.Status.AUTH -> { loadingDialog.dismiss()
+                                onToSignUpPage()
+                            }
                             Resource.Status.ERROR -> {
                                 loadingDialog.dismiss()
                                 DialogHelperClass.errorDialog(requireContext(), it.message!!)

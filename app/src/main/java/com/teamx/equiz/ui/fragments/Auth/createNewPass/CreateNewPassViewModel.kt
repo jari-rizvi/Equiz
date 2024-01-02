@@ -37,6 +37,8 @@ class CreateNewPassViewModel @Inject constructor(
                         } else if (it.code() == 401) {
 //                            unAuthorizedCallback.onToSignUpPage()
                             _resetPasswordResponse.postValue(Resource.error(it.message(), null))
+                        } else if (it.code() == 401) {
+                            _resetPasswordResponse.postValue(Resource.unAuth("", null))
                         } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
 //                            _resetPasswordResponse.postValue(Resource.error(it.message(), null))
                             val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
@@ -73,6 +75,8 @@ class CreateNewPassViewModel @Inject constructor(
                         } else if (it.code() == 401) {
 //                            unAuthorizedCallback.onToSignUpPage()
                             _changePasswordResponse.postValue(Resource.error(it.message(), null))
+                        } else if (it.code() == 401) {
+                            _changePasswordResponse.postValue(Resource.unAuth("", null))
                         } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
 //                            _changePasswordResponse.postValue(Resource.error(it.message(), null))
                             val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())

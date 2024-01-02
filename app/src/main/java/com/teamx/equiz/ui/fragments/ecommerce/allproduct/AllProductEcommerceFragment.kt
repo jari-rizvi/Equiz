@@ -99,7 +99,9 @@ class AllProductEcommerceFragment :
                         mViewDataBinding.popularRecycler.adapter = productAdapter
                         mViewDataBinding.popularRecycler.adapter?.notifyDataSetChanged()
                     }
-
+                    Resource.Status.AUTH -> { loadingDialog.dismiss()
+                        onToSignUpPage()
+                    }
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
                         DialogHelperClass.errorDialog(requireContext(), it.message!!)
@@ -134,7 +136,9 @@ class AllProductEcommerceFragment :
                             showToast("Added To Wishlist")
                         }
                     }
-
+                    Resource.Status.AUTH -> { loadingDialog.dismiss()
+                        onToSignUpPage()
+                    }
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
                         DialogHelperClass.errorDialog(
@@ -171,7 +175,9 @@ class AllProductEcommerceFragment :
 
                         }
                     }
-
+                    Resource.Status.AUTH -> { loadingDialog.dismiss()
+                        onToSignUpPage()
+                    }
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
                         DialogHelperClass.errorDialog(requireContext(), it.message!!)

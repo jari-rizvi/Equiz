@@ -98,7 +98,9 @@ class CollectPriceFragment() : BaseFragment<FragmentCollectPriceBinding, Collect
                         }
                         mViewDataBinding.viewPager.adapter?.notifyDataSetChanged()
                     }
-
+                    Resource.Status.AUTH -> { loadingDialog.dismiss()
+                        onToSignUpPage()
+                    }
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
                         if (isAdded) {

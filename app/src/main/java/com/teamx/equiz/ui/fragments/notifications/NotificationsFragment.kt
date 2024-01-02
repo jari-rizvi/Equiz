@@ -90,7 +90,9 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
 
                         }
                     }
-
+                    Resource.Status.AUTH -> { loadingDialog.dismiss()
+                        onToSignUpPage()
+                    }
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
                         DialogHelperClass.errorDialog(

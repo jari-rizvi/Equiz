@@ -107,8 +107,10 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/btnpaypal"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_40sdp"
+            android:layout_height="@dimen/_1sdp"
+            android:visibility="invisible"
             android:layout_marginHorizontal="@dimen/_10sdp"
+
             android:background="@drawable/card_background"
             android:elevation="@dimen/_1sdp"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -95,7 +95,10 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
 
                         }
                     }
-
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+                        onToSignUpPage()
+                    }
                     Resource.Status.ERROR -> {
 //                        loadingDialog.dismiss()
                         mViewDataBinding.shimmerLayout.stopShimmer()
@@ -145,7 +148,9 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
                             cartAdapter?.notifyDataSetChanged()
                         }
                     }
-
+                    Resource.Status.AUTH -> { loadingDialog.dismiss()
+                        onToSignUpPage()
+                    }
                     Resource.Status.ERROR -> {
 //                        loadingDialog.dismiss()
                         mViewDataBinding.shimmerLayout.stopShimmer()
@@ -205,7 +210,9 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
                             cartAdapter?.notifyDataSetChanged()
                         }
                     }
-
+                    Resource.Status.AUTH -> { loadingDialog.dismiss()
+                        onToSignUpPage()
+                    }
                     Resource.Status.ERROR -> {
 //                        loadingDialog.dismiss()
                         mViewDataBinding.shimmerLayout.stopShimmer()

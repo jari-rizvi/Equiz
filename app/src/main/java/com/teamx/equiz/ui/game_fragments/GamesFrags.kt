@@ -1543,9 +1543,14 @@ class ReflectionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
                  Resource.Status.SUCCESS -> {
                      loadingDialog.dismiss()
                      it.data?.let { data ->
-                         showToast("Toast")
+//                         showToast("Toast")
 //                         findNavController().navigate(R.id.resultComposeFrag)
                      }
+                 }
+
+                 Resource.Status.AUTH -> {
+                     loadingDialog.dismiss()
+                     onToSignUpPage()
                  }
 
                  Resource.Status.ERROR -> {
@@ -1662,7 +1667,7 @@ class ReflectionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
              }
 
              GamesUID2.ShapeDeception.name -> {
-                 painterResource(R.drawable.colorofdeception_icon)
+                 painterResource(R.drawable.shapedeception_icon)
              }
 
              GamesUID2.TapTheColor.name -> {
@@ -1676,7 +1681,7 @@ class ReflectionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
              }
 
              GamesUID2.TouchTheNumPlus.name -> {
-                 painterResource(R.drawable.touchthenumbers_icon_plus)
+                 painterResource(R.drawable.touchthenumbers_icon)
 
              }
 
@@ -1751,7 +1756,7 @@ class ReflectionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
              }
 
              GamesUID2.UnfollowTheLeader.name -> {
-                 "Un Follow The Leader"
+                 "Unfollow The Leader"
 
              }
 
@@ -1815,7 +1820,7 @@ class ReflectionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
              }
 
              GamesUID2.TouchTheNum.name -> {
-                 "Touch The Num"
+                 "Touch The Number"
 
              }
 
@@ -2895,7 +2900,7 @@ class StartUpGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
             }
 
             GamesUID2.ShapeDeception.name -> {
-                painterResource(R.drawable.colorofdeception_icon)
+                painterResource(R.drawable.shapedeception_icon)
             }
 
             GamesUID2.TapTheColor.name -> {
@@ -2909,7 +2914,7 @@ class StartUpGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
             }
 
             GamesUID2.TouchTheNumPlus.name -> {
-                painterResource(R.drawable.touchthenumbers_icon_plus)
+                painterResource(R.drawable.touchthenumbers_icon)
 
             }
 
@@ -2943,6 +2948,11 @@ class StartUpGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
             GamesUID2.BirdWatching.name -> {
                 painterResource(R.drawable.howtoplay_bird)
 
+            }
+
+            GamesUID2.Operations.name -> {
+
+                painterResource(R.drawable.howtoplay_operation_icon)
             }
 
 
@@ -3243,7 +3253,7 @@ class StartUpGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
             }
 
             GamesUID2.ColorDeception.name -> {
-                "ColorDeception"
+                "Color Deception"
 
             }
 
@@ -3274,7 +3284,7 @@ class StartUpGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
             }
 
             GamesUID2.UnfollowTheLeader.name -> {
-                "Un Follow The Leader"
+                "Unfollow The Leader"
 
             }
 
@@ -3338,7 +3348,7 @@ class StartUpGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
             }
 
             GamesUID2.TouchTheNum.name -> {
-                "Touch The Num"
+                "Touch The Number"
 
             }
 

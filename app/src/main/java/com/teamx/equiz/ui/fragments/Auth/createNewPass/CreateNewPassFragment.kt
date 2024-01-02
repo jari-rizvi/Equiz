@@ -98,7 +98,9 @@ class CreateNewPassFragment : BaseFragment<FragmentCreatePasswordBinding, Create
                         findNavController().navigate(R.id.action_createNewPassFragment2_to_passChangeSuccessFragment,arguments,options)
                     }
                 }
-
+                Resource.Status.AUTH -> { loadingDialog.dismiss()
+                    onToSignUpPage()
+                }
                 Resource.Status.ERROR -> {
                     loadingDialog.dismiss()
                     DialogHelperClass.errorDialog(requireContext(), it.message!!)

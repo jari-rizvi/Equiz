@@ -4,11 +4,15 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.ComposeShader
 import android.graphics.LinearGradient
+import android.graphics.Matrix
 import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.PointF
+import android.graphics.PorterDuff
 import android.graphics.Shader
+import android.graphics.SweepGradient
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
@@ -136,6 +140,13 @@ class BezierView : View {
         outerArray = Array(11) { PointF() }
         innerArray = Array(11) { PointF() }
         progressArray = Array(11) { PointF() }
+        val centerX = width.toFloat() / 2
+        val centerY = height.toFloat() / 2
+//        val radius = width.coerceAtLeast(height).toFloat() / 2
+        val waveGradient =  SweepGradient(1110f, 0f,
+        intArrayOf(Color.parseColor("#C62E27"),Color.parseColor("#9F81CA"), Color.parseColor("#C62E27")),
+        null
+        )
 
         mainPaint = Paint(Paint.ANTI_ALIAS_FLAG)
         mainPaint?.apply {
@@ -144,11 +155,24 @@ class BezierView : View {
             style = Paint.Style.STROKE
             color = this@BezierView.color
 
-            val waveGradient = LinearGradient(
-                0f, 0f, 0f, height.toFloat(),
-                intArrayOf(Color.parseColor("#C62E27"), Color.parseColor("#9F81CA")),
+            /*val waveGradient = LinearGradient(
+                height.toFloat()/2, height.toFloat()/2, height.toFloat(), height.toFloat(),
+                intArrayOf(Color.parseColor("#9F81CA"),Color.parseColor("#C62E27")),
                 null, Shader.TileMode.REPEAT
+            )*/
+            /*val waveGradient = LinearGradient(
+                0f, 0f, 0f, height.toFloat(),
+                intArrayOf(Color.parseColor("#9F81CA"), Color.parseColor("#C62E27"), Color.parseColor("#C62E27")),
+                null, Shader.TileMode.CLAMP
+            )*/
+            val waveGradient = LinearGradient(
+                510f, height.toFloat() / 2, width.toFloat(), height.toFloat() / 2,
+                intArrayOf( Color.parseColor("#C62E27"), Color.parseColor("#9F81CA")),
+                null, Shader.TileMode.CLAMP
             )
+            val matrix = Matrix()
+            matrix.setRotate(90f, width.toFloat() / 2, height.toFloat() / 2)
+            waveGradient.setLocalMatrix(matrix)
             shader = waveGradient
         }
 

@@ -99,6 +99,9 @@ class SignupPhoneFragment : BaseFragment<FragmentSignupPhoneBinding, SignupViewM
                         Resource.Status.NOTVERIFY -> {
                             loadingDialog.dismiss()
                         }
+                        Resource.Status.AUTH -> { loadingDialog.dismiss()
+                            onToSignUpPage()
+                        }
                         Resource.Status.SUCCESS -> {
                             loadingDialog.dismiss()
 

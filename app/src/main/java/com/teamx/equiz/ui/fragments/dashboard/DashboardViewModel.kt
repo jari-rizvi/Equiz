@@ -1,21 +1,18 @@
 package com.teamx.equiz.ui.fragments.dashboard
 
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.google.gson.JsonObject
 import com.teamx.equiz.baseclasses.BaseViewModel
 import com.teamx.equiz.data.models.bannerData.bannews.BanNews
-import com.teamx.equiz.data.models.bannerData.news_banner.NewsBanner
-import com.teamx.equiz.data.models.getorderData.GetOrdersData
 import com.teamx.equiz.data.models.getwalletData.GetWalletData
 import com.teamx.equiz.data.models.quizTitleData.QuizTitleData
 import com.teamx.equiz.data.models.topWinnerData.TopWinnerData
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.data.remote.reporitory.MainRepository
 import com.teamx.equiz.utils.NetworkHelper
+import com.teamx.equiz.utils.UnAuthorizedCallback
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.json.JSONObject
@@ -33,7 +30,10 @@ class DashboardViewModel @Inject constructor(
     val getquizTitileResponse: LiveData<Resource<QuizTitleData>>
         get() = _getquizTitileResponse
 
-    fun getquizTitile(country: String, topic: String, type: String) {
+    fun getquizTitile(
+        country: String, topic: String, type: String,
+        unAuthorizedCallback: UnAuthorizedCallback
+    ) {
         viewModelScope.launch {
             _getquizTitileResponse.postValue(Resource.loading(null))
             if (networkHelper.isNetworkConnected()) {
@@ -75,7 +75,9 @@ class DashboardViewModel @Inject constructor(
     val getwalletResponse: LiveData<Resource<GetWalletData>>
         get() = _getwalletResponse
 
-    fun getWallet() {
+    fun getWallet(
+        unAuthorizedCallback: UnAuthorizedCallback
+    ) {
         viewModelScope.launch {
             _getwalletResponse.postValue(Resource.loading(null))
             if (networkHelper.isNetworkConnected()) {
@@ -86,6 +88,8 @@ class DashboardViewModel @Inject constructor(
                         if (it.isSuccessful) {
                             _getwalletResponse.postValue(Resource.success(it.body()!!))
                             Timber.tag("87878787887").d(it.body()!!.toString())
+                        } else if (it.code() == 401) {
+                            _getwalletResponse.postValue(Resource.unAuth("", null))
                         } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
                             Timber.tag("87878787887").d("secoonnddd")
 
@@ -115,7 +119,9 @@ class DashboardViewModel @Inject constructor(
     val getTopWinnersResponse: LiveData<Resource<TopWinnerData>>
         get() = _getTopWinnersResponse
 
-    fun getTopWinners() {
+    fun getTopWinners(
+        unAuthorizedCallback: UnAuthorizedCallback
+    ) {
         viewModelScope.launch {
             _getTopWinnersResponse.postValue(Resource.loading(null))
             if (networkHelper.isNetworkConnected()) {
@@ -155,7 +161,10 @@ class DashboardViewModel @Inject constructor(
     private val _getBannerResponse = MutableLiveData<Resource<BanNews>>()
     val getBannerResponse: LiveData<Resource<BanNews>>
         get() = _getBannerResponse
-    fun getBanners() {
+
+    fun getBanners(
+        unAuthorizedCallback: UnAuthorizedCallback
+    ) {
         viewModelScope.launch {
             _getBannerResponse.postValue(Resource.loading(null))
             if (networkHelper.isNetworkConnected()) {
@@ -166,6 +175,8 @@ class DashboardViewModel @Inject constructor(
                         if (it.isSuccessful) {
                             _getBannerResponse.postValue(Resource.success(it.body()!!))
                             Timber.tag("87878787887").d(it.body()!!.toString())
+                        } else if (it.code() == 401) {
+                            _getBannerResponse.postValue(Resource.unAuth("", null))
                         } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
                             Timber.tag("87878787887").d("secoonnddd")
 

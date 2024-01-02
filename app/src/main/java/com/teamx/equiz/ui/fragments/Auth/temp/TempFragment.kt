@@ -1,33 +1,23 @@
 package com.teamx.equiz.ui.fragments.Auth.temp
 
 
-import android.Manifest
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.util.Log
 import android.view.View
-import android.view.animation.AnimationUtils
-import android.widget.ImageView
-import androidx.core.app.ActivityCompat
-import androidx.lifecycle.viewModelScope
+import androidx.activity.addCallback
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
-import com.teamx.equiz.R
 import com.teamx.equiz.BR
+import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
+import com.teamx.equiz.constants.NetworkCallPoints.Companion.TOKENER
 import com.teamx.equiz.databinding.FragmentTempBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import androidx.navigation.fragment.findNavController
-import com.teamx.equiz.constants.NetworkCallPoints.Companion.TOKENER
-import kotlinx.coroutines.delay
 import timber.log.Timber
-import androidx.activity.addCallback
 
 @AndroidEntryPoint
 class TempFragment : BaseFragment<FragmentTempBinding, TempViewModel>() {

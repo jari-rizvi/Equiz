@@ -76,7 +76,7 @@
             app:layout_constraintVertical_bias="0.2">
 
             <ImageView
-                android:id="@+id/hatlyIcon"
+                android:id="@+id/equizIcon"
                 android:layout_width="@dimen/_80sdp"
                 android:layout_height="@dimen/_80sdp"
                 android:background="@drawable/bg_circle"
@@ -92,7 +92,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/hatlyIcon564564"
+            android:id="@+id/equizIcon564564"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_circle_new"
@@ -147,7 +147,7 @@
             app:layout_constraintTop_toTopOf="@+id/constraintLayout10">
 
             <ImageView
-                android:id="@+id/hatlyIcon5454"
+                android:id="@+id/equizIcon5454"
                 android:layout_width="@dimen/_60sdp"
                 android:layout_height="@dimen/_60sdp"
                 android:background="@drawable/bg_circle"
@@ -162,7 +162,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/hatlyIcon56545454564"
+            android:id="@+id/equizIcon56545454564"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_circle_new"
@@ -216,7 +216,7 @@
             app:layout_constraintTop_toTopOf="@+id/constraintLayout10">
 
             <ImageView
-                android:id="@+id/hatlyIcon54"
+                android:id="@+id/equizIcon54"
                 android:layout_width="@dimen/_60sdp"
                 android:layout_height="@dimen/_60sdp"
                 android:background="@drawable/bg_circle"
@@ -231,7 +231,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/hatlyIcon56454564"
+            android:id="@+id/equizIcon56454564"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_circle_new"

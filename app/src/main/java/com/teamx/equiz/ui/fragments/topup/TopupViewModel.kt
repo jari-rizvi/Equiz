@@ -37,6 +37,8 @@ class TopupViewModel @Inject constructor(
                         if (it.isSuccessful) {
                             Timber.tag("1235").d("StripeData:2 ")
                             _stripeData.postValue(Resource.success(it.body()!!))
+                        } else if (it.code() == 401) {
+                            _addressUpdateResponse.postValue(Resource.unAuth("", null))
                         } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
                             Timber.tag("1235").d("StripeData:2.3")
                             Timber.tag("1235").d("StripeData:2.3${it.errorBody().toString()}")
@@ -86,6 +88,8 @@ class TopupViewModel @Inject constructor(
                         } else if (it.code() == 401) {
 //                            unAuthorizedCallback.onToSignUpPage()
                             _addTopResponse.postValue(Resource.error(it.message(), null))
+                        } else if (it.code() == 401) {
+                            _addTopResponse.postValue(Resource.unAuth("", null))
                         } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
 //                            _addTopResponse.postValue(Resource.error(it.message(), null))
                             val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())

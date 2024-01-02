@@ -70,6 +70,10 @@ class VerifyOtpForgotFragment : BaseFragment<FragmentOtpEmailBinding, OtpViewMod
                     Resource.Status.NOTVERIFY -> {
                         loadingDialog.dismiss()
                     }
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+//                        onToSignUpPage()
+                    }
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->

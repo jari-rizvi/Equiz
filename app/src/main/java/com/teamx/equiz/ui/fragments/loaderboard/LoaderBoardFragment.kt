@@ -2,23 +2,21 @@ package com.teamx.equiz.ui.fragments.loaderboard
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.addCallback
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.data.models.topWinnerData.Game
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentLoaderBoardBinding
-import com.teamx.equiz.ui.fragments.dashboard.adapter.TopWinnersAdapter
 import com.teamx.equiz.ui.fragments.loaderboard.adapter.LoaderMultiViewAdapter
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
-import androidx.activity.addCallback
-import com.bumptech.glide.Glide
 
 @AndroidEntryPoint
 class LoaderBoardFragment : BaseFragment<FragmentLoaderBoardBinding, LoaderBoardViewModel>() {
@@ -81,17 +79,20 @@ class LoaderBoardFragment : BaseFragment<FragmentLoaderBoardBinding, LoaderBoard
 
                             try {
 //                                Picasso.get().load(data.game[0].image)
-//                                    .into(mViewDataBinding.hatlyIcon)
+//                                    .into(mViewDataBinding.equizIcon)
 //
 //                                Picasso.get().load(data.game[1].image)
-//                                    .into(mViewDataBinding.hatlyIcon5454)
+//                                    .into(mViewDataBinding.equizIcon5454)
 //
 //                                Picasso.get().load(data.game[2].image)
-//                                    .into(mViewDataBinding.hatlyIcon54)
+//                                    .into(mViewDataBinding.equizIcon54)
 
-                                Glide.with(mViewDataBinding.hatlyIcon.context).load(data.game[0].image).into(mViewDataBinding.hatlyIcon)
-                                Glide.with(mViewDataBinding.hatlyIcon5454.context).load(data.game[1].image).into(mViewDataBinding.hatlyIcon5454)
-                                Glide.with(mViewDataBinding.hatlyIcon54.context).load(data.game[2].image).into(mViewDataBinding.hatlyIcon54)
+                                Glide.with(mViewDataBinding.equizIcon.context)
+                                    .load(data.game[0].image).into(mViewDataBinding.equizIcon)
+                                Glide.with(mViewDataBinding.equizIcon5454.context)
+                                    .load(data.game[1].image).into(mViewDataBinding.equizIcon5454)
+                                Glide.with(mViewDataBinding.equizIcon54.context)
+                                    .load(data.game[2].image).into(mViewDataBinding.equizIcon54)
 
                                 mViewDataBinding.textView545.text = data.game[0].name
                                 mViewDataBinding.textView545455.text =
@@ -108,6 +109,11 @@ class LoaderBoardFragment : BaseFragment<FragmentLoaderBoardBinding, LoaderBoard
                             } catch (e: Exception) {
                             }
                         }
+                    }
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+                        onToSignUpPage()
                     }
 
                     Resource.Status.ERROR -> {

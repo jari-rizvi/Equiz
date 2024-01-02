@@ -37,6 +37,8 @@ class SignupViewModel @Inject constructor(
                         } else if (it.code() == 401) {
 //                            unAuthorizedCallback.onToSignUpPage()
                             _signupResponse.postValue(Resource.error(it.message(), null))
+                        } else if (it.code() == 401) {
+                            _signupResponse.postValue(Resource.unAuth("", null))
                         } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
 //                            _signupResponse.postValue(Resource.error(it.message(), null))
                             val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())

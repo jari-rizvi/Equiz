@@ -120,6 +120,7 @@
             android:layout_marginBottom="@dimen/_5sdp"
             android:background="@drawable/home_bg_svg"
             android:checked="true"
+            android:visibility="gone"
             android:elevation="@dimen/_2sdp"
             android:padding="@dimen/_5sdp"
             app:layout_constraintBottom_toBottomOf="@+id/score"

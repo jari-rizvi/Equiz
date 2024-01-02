@@ -140,9 +140,14 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
 
 
                             } catch (e: Exception) {
-
+                                e.printStackTrace()
                             }
                         }
+                    }
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+                        onToSignUpPage()
                     }
 
                     Resource.Status.ERROR -> {

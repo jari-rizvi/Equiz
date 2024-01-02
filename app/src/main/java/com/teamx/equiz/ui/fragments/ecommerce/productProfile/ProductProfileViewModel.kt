@@ -41,6 +41,8 @@ class ProductProfileViewModel @Inject constructor(
                         if (it.isSuccessful) {
                             _productbyidResponse.postValue(Resource.success(it.body()!!))
                             Timber.tag("87878787887").d(it.body()!!.toString())
+                        } else if (it.code() == 401) {
+                            _productbyidResponse.postValue(Resource.unAuth("", null))
                         } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
                             Timber.tag("87878787887").d("secoonnddd")
 
@@ -81,6 +83,8 @@ class ProductProfileViewModel @Inject constructor(
                         } else if (it.code() == 401) {
 //                            unAuthorizedCallback.onToSignUpPage()
                             _addtocartResponse.postValue(Resource.error(it.message(), null))
+                        } else if (it.code() == 401) {
+                            _addtocartResponse.postValue(Resource.unAuth("", null))
                         } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
 //                            _addtocartResponse.postValue(Resource.error(it.message(), null))
                             val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
@@ -117,6 +121,8 @@ class ProductProfileViewModel @Inject constructor(
                         } else if (it.code() == 401) {
 //                            unAuthorizedCallback.onToSignUpPage()
                             _addtowishlistResponse.postValue(Resource.error(it.message(), null))
+                        } else if (it.code() == 401) {
+                            _addtowishlistResponse.postValue(Resource.unAuth("", null))
                         } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
 //                            _addtowishlistResponse.postValue(Resource.error(it.message(), null))
                             val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
@@ -152,6 +158,8 @@ class ProductProfileViewModel @Inject constructor(
                         } else if (it.code() == 401) {
 //                            unAuthorizedCallback.onToSignUpPage()
                             _deleteToWishlistResponse.postValue(Resource.error(it.message(), null))
+                        } else if (it.code() == 401) {
+                            _deleteToWishlistResponse.postValue(Resource.unAuth("", null))
                         } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
 //                            _deleteToWishlistResponse.postValue(Resource.error(it.message(), null))
                             val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())

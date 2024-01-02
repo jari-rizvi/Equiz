@@ -7,7 +7,7 @@ object NotificationHelper {
        /* val builder = NotificationCompat.Builder(
             context!!, "MainActivity.Channel_ID"
         )
-            .setSmallIcon(R.drawable.ic_raseef)
+
             .setContentTitle(title)
             .setContentText(description)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)

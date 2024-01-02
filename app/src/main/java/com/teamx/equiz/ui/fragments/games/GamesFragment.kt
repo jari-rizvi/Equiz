@@ -135,7 +135,7 @@ class GamesFragment : BaseFragment<FragmentGamesBinding, GamesViewModel>(), AllG
             }
 
             GamesUID2.UnfollowTheLeader.name -> {
-                "Un Follow The Leader"
+                "Unfollow The Leader"
 
             }
 
@@ -199,7 +199,7 @@ class GamesFragment : BaseFragment<FragmentGamesBinding, GamesViewModel>(), AllG
             }
 
             GamesUID2.TouchTheNum.name -> {
-                "Touch The Num"
+                "Touch The Number"
 
             }
 

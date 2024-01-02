@@ -162,7 +162,9 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
 
                         }
                     }
-
+                    Resource.Status.AUTH -> { loadingDialog.dismiss()
+                        onToSignUpPage()
+                    }
                     Resource.Status.ERROR -> {
 
                         loadingDialog.dismiss()
@@ -213,7 +215,9 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
 
                         }
                     }
-
+                    Resource.Status.AUTH -> { loadingDialog.dismiss()
+                        onToSignUpPage()
+                    }
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
                         if (isAdded) {
@@ -248,7 +252,9 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                             }
                         }
                     }
-
+                    Resource.Status.AUTH -> { loadingDialog.dismiss()
+                        onToSignUpPage()
+                    }
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
                         Log.d("uploadReviewIm", "onViewCreated: ${it.message}")

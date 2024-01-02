@@ -156,7 +156,9 @@ class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>()
                             )
                         }
                     }
-
+                    Resource.Status.AUTH -> { loadingDialog.dismiss()
+                        onToSignUpPage()
+                    }
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
                         DialogHelperClass.errorDialog(

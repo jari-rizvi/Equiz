@@ -39,6 +39,8 @@ class EditProfileViewModel @Inject constructor(
                     mainRepository.updateProfile(params).let {
                         if (it.isSuccessful) {
                             _updateProfileResponse.postValue(Resource.success(it.body()!!))
+                        } else if (it.code() == 401) {
+                            _updateProfileResponse.postValue(Resource.unAuth("", null))
                         } else if (it.code() == 500 || it.code() == 404 || it.code() == 400 || it.code() == 422) {
                             val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
                             _updateProfileResponse.postValue(Resource.error(jsonObj.getString("message")))
@@ -106,6 +108,8 @@ class EditProfileViewModel @Inject constructor(
                     mainRepository.uploadReviewImg(imageParts).let {
                         if (it.isSuccessful) {
                             _uploadReviewImgResponse.postValue(Resource.success(it.body()!!))
+                        } else if (it.code() == 401) {
+                            _uploadReviewImgResponse.postValue(Resource.unAuth("", null))
                         } else if (it.code() == 500 || it.code() == 404 || it.code() == 400 || it.code() == 422) {
                             val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
                             _uploadReviewImgResponse.postValue(Resource.error(jsonObj.getString("message")))

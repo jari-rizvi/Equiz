@@ -40,6 +40,8 @@ class QuizesViewModel @Inject constructor(
                     mainRepository.quizTitle(country, topic, type).let {
                         if (it.isSuccessful) {
                             _quizTitleResponse.postValue(Resource.success(it.body()!!))
+                        } else if (it.code() == 401) {
+                            _quizTitleResponse.postValue(Resource.unAuth("", null))
                         } else if (it.code() == 500 || it.code() == 404 || it.code() == 400 || it.code() == 422) {
                             val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
                             _quizTitleResponse.postValue(Resource.error(jsonObj.getString("message")))

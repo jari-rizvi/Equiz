@@ -82,7 +82,9 @@ class QuizFragment : BaseFragment<FragmentWishlistBinding, WishlistViewModel>() 
                             favouriteAdapter.notifyDataSetChanged()
                         }
                     }
-
+                    Resource.Status.AUTH -> { loadingDialog.dismiss()
+                        onToSignUpPage()
+                    }
                     Resource.Status.ERROR -> {
 //                        loadingDialog.dismiss()
                         mViewDataBinding.shimmerLayout.stopShimmer()

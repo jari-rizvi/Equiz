@@ -36,6 +36,8 @@ class ForgotPassViewModel @Inject constructor(
                         } else if (it.code() == 401) {
 
                             _forgotPassResponse.postValue(Resource.error(it.message(), null))
+                        } else if (it.code() == 401) {
+                            _forgotPassResponse.postValue(Resource.unAuth("", null))
                         } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
                             val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
                             _forgotPassResponse.postValue(Resource.error(jsonObj.getString("message")))
@@ -60,6 +62,8 @@ class ForgotPassViewModel @Inject constructor(
                         } else if (it.code() == 401) {
 
                             _forgotPassResponse.postValue(Resource.error(it.message(), null))
+                        } else if (it.code() == 401) {
+                            _forgotPassResponse.postValue(Resource.unAuth("", null))
                         } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
                             val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
                             _forgotPassResponse.postValue(Resource.error(jsonObj.getString("message")))

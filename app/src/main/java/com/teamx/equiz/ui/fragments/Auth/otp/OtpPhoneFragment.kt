@@ -86,7 +86,9 @@ class OtpPhoneFragment : BaseFragment<FragmentOtpPhoneBinding, OtpViewModel>() {
 
                             }
                         }
-
+                        Resource.Status.AUTH -> { loadingDialog.dismiss()
+//                            onToSignUpPage()
+                        }
                         Resource.Status.ERROR -> {
                             loadingDialog.dismiss()
                             DialogHelperClass.errorDialog(requireContext(), it.message!!)

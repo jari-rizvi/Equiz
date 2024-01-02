@@ -90,7 +90,9 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
 
                         }
                     }
-
+                    Resource.Status.AUTH -> { loadingDialog.dismiss()
+                        onToSignUpPage()
+                    }
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
                         DialogHelperClass.errorDialog(

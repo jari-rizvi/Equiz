@@ -29,7 +29,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0"
-            android:layout_marginBottom="@dimen/_42sdp"
+            android:layout_marginBottom="@dimen/_52sdp"
             tools:layout_editor_absoluteX="0dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -45,8 +45,8 @@
                     android:layout_height="@dimen/_79sdp"
                     android:layout_centerInParent="true"
                     android:background="@drawable/border_background"
-                    android:backgroundTint="@color/red"
-                    android:elevation="@dimen/_5sdp"
+
+
                     android:padding="@dimen/_2sdp"
                     android:src="@drawable/account_icon"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -526,7 +526,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginStart="5dp"
                                 android:layout_marginEnd="5dp"
-                                android:src="@drawable/raferral_icon"
+                                android:src="@drawable/reffer_icon"
                                 app:tint="@color/gray" />
 
                             <TextView
@@ -574,7 +574,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginStart="5dp"
                                 android:layout_marginEnd="5dp"
-                                android:src="@drawable/account_icon"
+                                android:src="@drawable/account_uu"
                                 app:tint="@color/gray" />
 
                             <TextView
@@ -622,7 +622,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginStart="5dp"
                                 android:layout_marginEnd="5dp"
-                                android:src="@drawable/premium_icon"
+                                android:src="@drawable/collect_prize_icon"
                                 app:tint="@color/gray" />
 
                             <TextView
@@ -635,7 +635,7 @@
                                 android:gravity="center_vertical"
                                 android:paddingStart="@dimen/_7sdp"
                                 android:paddingEnd="@dimen/_7sdp"
-                                android:text="Collect Prize"
+                                android:text="Collect Raffle Prize"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_11ssp"
                                 android:textStyle="bold" />

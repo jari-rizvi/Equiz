@@ -41,6 +41,8 @@ class SingleQuizesViewModel @Inject constructor(
                     mainRepository.quizFind(id).let {
                         if (it.isSuccessful) {
                             _quizFindResponse.postValue(Resource.success(it.body()!!))
+                        } else if (it.code() == 401) {
+                            _quizFindResponse.postValue(Resource.unAuth("", null))
                         } else if (it.code() == 500 || it.code() == 404 || it.code() == 400 || it.code() == 422) {
                             val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
                             _quizFindResponse.postValue(Resource.error(jsonObj.getString("message")))
@@ -80,6 +82,8 @@ class SingleQuizesViewModel @Inject constructor(
                     mainRepository.quizResult(jsonObject).let {
                         if (it.isSuccessful) {
                             _quizResultResponse.postValue(Resource.success(it.body()!!))
+                        } else if (it.code() == 401) {
+                            _quizResultResponse.postValue(Resource.unAuth("", null))
                         } else if (it.code() == 500 || it.code() == 404 || it.code() == 400 || it.code() == 422) {
                             val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
                             _quizResultResponse.postValue(Resource.error(jsonObj.getString("message")))

@@ -109,7 +109,9 @@ class SignupEmailFragment : BaseFragment<FragmentSignupEmailBinding, SignupViewM
 
                             }
                         }
-
+                        Resource.Status.AUTH -> { loadingDialog.dismiss()
+//                            onToSignUpPage()
+                        }
                         Resource.Status.ERROR -> {
                             loadingDialog.dismiss()
                             DialogHelperClass.errorDialog(requireContext(), it.message!!)

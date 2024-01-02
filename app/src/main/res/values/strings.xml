@@ -99,6 +99,7 @@
     <string name="all_products">All Products</string>
     <string name="old_password">Old Password</string>
     <string name="change_password">Change Password</string>
+    <string name="sign_up">Sign Up</string>
 
 
 </resources>

@@ -2,18 +2,19 @@ package com.teamx.equiz.ui.fragments.Auth.otp
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.addCallback
 import androidx.lifecycle.Observer
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
-import com.teamx.equiz.R
 import com.teamx.equiz.BR
+import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentOtpEmailBinding
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
-import androidx.activity.addCallback
+
 @AndroidEntryPoint
 class OtpEmailFragment : BaseFragment<FragmentOtpEmailBinding, OtpViewModel>() {
 
@@ -59,13 +60,23 @@ class OtpEmailFragment : BaseFragment<FragmentOtpEmailBinding, OtpViewModel>() {
                     Resource.Status.NOTVERIFY -> {
                         loadingDialog.dismiss()
                     }
+
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
 
-                            findNavController().navigate(R.id.action_otpEmailFragment_to_successFragment,arguments,options)
+                            findNavController().navigate(
+                                R.id.action_otpEmailFragment_to_successFragment,
+                                arguments,
+                                options
+                            )
 
                         }
+                    }
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+                        onToSignUpPage()
                     }
 
                     Resource.Status.ERROR -> {

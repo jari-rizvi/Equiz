@@ -38,6 +38,8 @@ class AddressViewModel @Inject constructor(
                         } else if (it.code() == 401) {
 //                            unAuthorizedCallback.onToSignUpPage()
                             _createOrderResponse.postValue(Resource.error(it.message(), null))
+                        } else if (it.code() == 401) {
+                            _createOrderResponse.postValue(Resource.unAuth("", null))
                         } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
 //                            _createOrderResponse.postValue(Resource.error(it.message(), null))
                             val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())

@@ -86,7 +86,9 @@ class QuizResultFragment : BaseFragment<FragmentQuizResultBinding, SingleQuizesV
 
                         }
                     }
-
+                    Resource.Status.AUTH -> { loadingDialog.dismiss()
+                        onToSignUpPage()
+                    }
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
                         if (isAdded) {

@@ -82,7 +82,9 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding, NewsViewModel
 
                         }
                     }
-
+                    Resource.Status.AUTH -> { loadingDialog.dismiss()
+                        onToSignUpPage()
+                    }
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
                         DialogHelperClass.errorDialog(requireContext(), it.message!!)

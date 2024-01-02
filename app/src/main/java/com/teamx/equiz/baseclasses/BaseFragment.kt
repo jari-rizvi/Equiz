@@ -17,15 +17,15 @@ import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import com.teamx.equiz.R
 import com.teamx.equiz.SharedViewModel
-import com.teamx.equiz.baseclasses.BaseActivity
-import com.teamx.equiz.baseclasses.BaseViewModel
 import com.teamx.equiz.data.local.datastore.DataStoreProvider
 import com.teamx.equiz.ui.activity.mainActivity.MainActivity
 import com.teamx.equiz.utils.DialogHelperClass
-import com.teamx.equiz.utils.VeriffyOtp
+import com.teamx.equiz.utils.UnAuthorizedCallback
 import kotlinx.coroutines.launch
 
-abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : androidx.fragment.app.Fragment(){
+abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> :
+    androidx.fragment.app.Fragment(),
+    UnAuthorizedCallback, DialogHelperClass.Companion.DialogCallBackSignIn {
 
     lateinit var sharedViewModel: SharedViewModel
     lateinit var navController: NavController
@@ -41,6 +41,7 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : androidx.f
     abstract val bindingVariable: Int
 
     protected lateinit var loadingDialog: Dialog
+    protected lateinit var dialogSignUp: Dialog
     var lang = "en"
 
 
@@ -162,18 +163,54 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : androidx.f
         }
     }
 */
+var dialog: Dialog? = null
+    override fun onToSignUpPage() {
+        if (isAdded) {
+            Log.d("123123", "onToSignUpPage: ")
 
 
+            if (dialogSignUp == null) {
+                dialog = DialogHelperClass.signUpLoginDialog(requireContext(), this@BaseFragment)
 
-
-/*    override fun onOtpClick() {
-        mViewModel.viewModelScope.launch {
-//            dataStoreProvider.saveUserToken("")
-            navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
-            navController.navigate(R.id.otpEmailFragment, null)
+                dialog?.show()
+                dialog?.setOnDismissListener {
+                    dialog = null
+                }
+            } else {
+                dialog?.dismiss()
+                dialog = null
+            }
 
         }
-    }*/
+    }
+
+    override fun onSignInClick1() {
+        mViewModel.viewModelScope.launch {
+            dataStoreProvider.saveUserToken("")
+            navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
+            navController.navigate(R.id.logInFragment, null)
+
+        }
+    }
+
+    override fun onSignUpClick1() {
+        mViewModel.viewModelScope.launch {
+            dataStoreProvider.saveUserToken("")
+            navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
+            navController.navigate(R.id.temp2Fragment, null)
+
+        }
+    }
+
+
+    /*    override fun onOtpClick() {
+            mViewModel.viewModelScope.launch {
+    //            dataStoreProvider.saveUserToken("")
+                navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
+                navController.navigate(R.id.otpEmailFragment, null)
+
+            }
+        }*/
 
 
 }

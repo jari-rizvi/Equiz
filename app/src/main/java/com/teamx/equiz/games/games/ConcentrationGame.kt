@@ -7,7 +7,9 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,6 +17,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
@@ -22,7 +25,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -45,7 +47,6 @@ import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import com.teamx.equiz.games.ui.theme.BirdColor3
 import com.teamx.equiz.games.ui.theme.BirdColor4
 import com.teamx.equiz.games.ui.theme.DeceptionBlack
-import kotlinx.coroutines.delay
 
 var rightGameAnswersConcen = 1
 var totalGameAnswersConcen = 1
@@ -56,9 +57,71 @@ fun ConcentrationGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: In
     var isGameOver by remember { mutableStateOf(false) }
     var isAlert by remember { mutableStateOf(false) }
 
-    var timeLeft by remember { mutableStateOf(200L) }
+    var timeLeft by remember { mutableStateOf(10L) }
     var isTimeUp by remember { mutableStateOf(false) }
     var timerRunning by remember { mutableStateOf(true) }
+    var startMemorized by remember { mutableStateOf(false) }
+    var startMemorized2 by remember { mutableStateOf(false) }
+
+
+    val concentrationModels:/*by remember { mutableStateOf<*/ArrayList<ConcentrationModel>/*>(*/ = arrayListOf() /*)}*/
+    val concentrationModels3 by remember {
+        mutableStateOf<ArrayList<ArrayList<ConcentrationModel>>>(
+            arrayListOf()
+        )
+    }
+
+    /*val concentrationModels2 *//*by remember {
+        mutableStateOf<ArrayList<Int>>(*/
+    val concentrationModels2 = arrayListOf(0, 1, 2, 3, 4, 5)
+    /* )
+ }*/
+//    startMemorized2 = true
+    concentrationModels.clear()
+
+
+    for (count in concentrationModels2) {
+
+        concentrationModels.add(
+            ConcentrationModel(
+                count.toString(),
+                count.toString(),
+                count.toString(),
+                EnumConcentration.values()[count % 3]
+            )
+        )
+    }
+
+    var checker by remember { mutableStateOf(0) }
+
+    for (counter in 0..12) {
+//        concentrationModels.shuffle()
+        concentrationModels3.add(concentrationModels)
+    }
+
+    LaunchedEffect(startMemorized2) {
+//        checker++
+        Log.d("123123", "ConcentrationGame11111$checker ")
+//        concentrationModels.clear()
+        concentrationModels3.shuffle()
+        /*  for (count in concentrationModels2) {
+
+              concentrationModels.add(
+                  ConcentrationModel(
+                      count.toString(),
+                      count.toString(),
+                      count.toString(),
+                      EnumConcentration.values()[count % 3]
+                  )
+              )
+          }*/
+//        concentrationModels3.get(checker).shuffle()
+
+        concentrationModels3.get(checker).forEach {
+            it.IsFlipped = false
+        }
+    }
+
     LaunchedEffect(true) {
 //        generateOptions()
 
@@ -119,8 +182,18 @@ fun ConcentrationGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: In
                 )
 
             }
+            if (startMemorized) {
+                ConcentrationObjects(concentrationModels3.get(checker)) {
+                    rightGameAnswersConcen++
+                    startMemorized = false
+                    startMemorized2 = !startMemorized2
+                }
+            } else {
+                ConcentrationObjects2(concentrationModels3.get(checker)) {
+                    startMemorized = true
+                }
 
-            ConcentrationObjects()
+            }
 
             Image(
                 modifier = Modifier
@@ -143,24 +216,24 @@ var checkListAns = ArrayList<EnumConcentration>()
 
 @Preview
 @Composable
-fun ConcentrationObjects() {
-    val maxCount = 5
-    val concentrationModels by remember { mutableStateOf<ArrayList<ConcentrationModel>>(arrayListOf()) }
+fun ConcentrationObjects(
+    arr: ArrayList<ConcentrationModel> = arrayListOf(),
+    onClick: () -> Unit = {}
+) {
+    /* val maxCount = 5*/
+    val concentrationModels by remember { mutableStateOf<ArrayList<ConcentrationModel>>(arr) }
 
 
-    for (count in 0..maxCount) {
+    var startAgain by remember { mutableStateOf(true) }
+//
+    LaunchedEffect(startAgain) {
 
+        checkListAns.clear()
+        removed.clear()
 
-        concentrationModels.add(
-            ConcentrationModel(
-                count.toString(),
-                count.toString(),
-                count.toString(),
-                EnumConcentration.values()[count % 3]
-            )
-        )
+        Log.d("123123", "ConcentrationObjects:$concentrationModels ")
+
     }
-
 
 
     Box(
@@ -169,18 +242,117 @@ fun ConcentrationObjects() {
             .fillMaxSize(), contentAlignment = Alignment.Center
     ) {
 
-        for (i in 0..maxCount) {
+
+        concentrationModels.forEachIndexed { i, item ->
 
             ConcentrationObject(
                 i, concentrationModels[i]
             ) {
-
+                onClick()
+                startAgain = !startAgain
                 Log.d("123123", "ConcentrationObjects:linkListAdded2 $concentLinkListAdded2")
             }
-
-
         }
     }
+}
+
+@Preview
+@Composable
+fun ConcentrationObjects2(
+    arr: ArrayList<ConcentrationModel> = arrayListOf(),
+    onClick: () -> Unit = {}
+) {
+    val maxCount = 5
+    val concentrationModels by remember { mutableStateOf<ArrayList<ConcentrationModel>>(arr) }
+//    val concentrationModels2 by remember {
+//        mutableStateOf<ArrayList<Int>>(
+//            arrayListOf(
+//                0,
+//                1,
+//                2,
+//                3,
+//                4,
+//                5
+//            )
+//        )
+//    }
+
+
+    var startAgain by remember { mutableStateOf(true) }
+//    concentrationModels.clear()
+//    for (count in concentrationModels2) {
+//
+//
+//        concentrationModels.add(
+//            ConcentrationModel(
+//                count.toString(),
+//                count.toString(),
+//                count.toString(),
+//                EnumConcentration.values()[count % 3]
+//            )
+//        )
+//    }
+//
+    LaunchedEffect(startAgain) {
+
+        checkListAns.clear()
+        removed.clear()
+
+        Log.d("123123", "ConcentrationObjects:$concentrationModels ")
+
+    }
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Box(
+            modifier = Modifier
+                .padding(16.dp)
+                .size(270.dp), contentAlignment = Alignment.Center
+        ) {
+
+
+            concentrationModels.forEachIndexed { i, item ->
+
+                ConcentrationObject2(
+                    i, concentrationModels[i]
+                ) {
+                    startAgain = !startAgain
+//                    onClick()
+                    Log.d("123123", "ConcentrationObjects:linkListAdded2 $concentLinkListAdded2")
+                }
+            }
+        }
+        Box(
+            modifier = Modifier
+                .height(45.dp)
+                .width(200.dp)
+                .background(shape = RoundedCornerShape(12.dp), color = BirdColor4)
+                .clickable {
+                    onClick()
+                }, contentAlignment = Alignment.Center
+        ) {
+            Text(text = "Memorized", color = Color.White)
+        }
+    }
+//    for (count in 0..maxCount) {
+    /* for (count in 0..maxCount) {
+
+
+             concentrationModels.add(
+                 ConcentrationModel(
+                     count.toString(),
+                     count.toString(),
+                     count.toString(),
+                     EnumConcentration.values()[count % 3]
+                 )
+             )
+         }*/
+
+
 }
 
 @Composable
@@ -258,9 +430,88 @@ fun ConcentrationObject(
     }
 }
 
+@Composable
+fun ConcentrationObject2(
+    number: Int, concentrationModels: ConcentrationModel,
+    onClick: (Item: ConcentrationModel) -> Unit
+) {
+    var colorState by remember { mutableStateOf<Color>(DeceptionBlack) }
+
+
+    Surface(
+        color = if (concentLinkListAdded2.contains(
+                ConcentrationModel(
+                    number.toString(), number.toString(), number.toString(),
+
+                    EnumConcentration.values()[number % 3]
+                )
+            )/* % 2 == 0*/) {
+            colorState
+        } else {
+            colorState
+        }, shape = RectangleShape, modifier = Modifier
+            .height(85.dp)
+            .width(70.dp)
+            .offset(
+                y = if (number > 1) {
+                    (-(number % 2) * 90).dp
+                } else {
+                    (-number * 90).dp
+                }, x = if (number in 2..3) {
+                    (0 * 90).dp
+                } else if (number > 3) {
+                    (1 * 90).dp
+                } else {
+                    (-1 * 90).dp
+                }
+            )
+            .clip(RoundedCornerShape(6.dp))
+
+            .clickable(
+                enabled = concentLinkListAdded2.contains(
+                    ConcentrationModel(
+                        number.toString(),
+                        number.toString(),
+                        number.toString(),
+                        EnumConcentration.values()[number % 3]
+                    )
+                )
+            ) {
+                if (colorState == Color.Transparent && false) {
+                    Log.d("123123", "ConcentrationObjectWrong2:$number ::$/itemCompared ")
+                    return@clickable
+                } else if (ConcentrationModel(
+                        number.toString(),
+                        number.toString(),
+                        number.toString(),
+                        EnumConcentration.values()[number % 3]
+                    ) == concentLinkListAdded2.get(0)
+                ) {
+                    colorState
+//                onClick(itemCompared)
+//                Log.d("123123", "ConcentrationObjectWrong1:$number ::$itemCompared ")
+                } else {
+//                Log.d("123123", "ConcentrationObjectWrong2:$number ::$itemCompared ")
+                }
+            }
+//            .graphicsLayer(alpha = 1f - number * 0.2f)
+
+    ) {
+
+        SpinningBox2(concentrationModels.asdEnum, concentrationModels) {
+            onClick(it)
+        }
+
+    }
+}
+
 @Keep
 data class ConcentrationModel(
-    var name: String, var key: String, var value: String, var asdEnum: EnumConcentration
+    var name: String,
+    var key: String,
+    var value: String,
+    var asdEnum: EnumConcentration,
+    var IsFlipped: Boolean = false
 )
 
 
@@ -356,7 +607,7 @@ fun RotatableImage(rotationZ: Float) {
 }
 
 var isFlippy = false
-
+var removed = ArrayList<ConcentrationModel>()
 @Composable
 fun SpinningBox(
     asdEnum: EnumConcentration = EnumConcentration.DIAMOND, concentrationModels: ConcentrationModel,
@@ -370,17 +621,109 @@ fun SpinningBox(
 //            iterations = 1, animation = tween(10)
 //        )
 //    )
-    var isFlipped by remember { mutableStateOf(true) }
-    var startAgain by remember { mutableStateOf(true) }
-    var removed = remember { mutableStateListOf<ConcentrationModel>() }
 
-    LaunchedEffect(startAgain) {
+    var isFlipped by remember { mutableStateOf(concentrationModels.IsFlipped) }
+
+    LaunchedEffect(Unit) {
 //        repeat(180) { count ->
-        delay(5000L)
+//        delay(5000L)
+
+    }
+
+
+//    val imageRes = if (isFlipped) R.drawable.your_flipped_image else R.drawable.your_unflipped_image
+//    val imageBitmap = painterResource(id = imageRes).value.asImageBitmap()
+
+    val rotationY: Float by animateFloatAsState(targetValue = if (isFlipped) 180f else 0f)
+    Surface(
+        color = BirdColor4,
+        modifier = Modifier
+            .padding(2.dp)
+            .fillMaxSize()
+            .graphicsLayer(rotationY = rotationY)
+    ) {
+        // Content of the spinning box (optional)
+//        RotatableImage(rotation)
+//        FlippableImage(asdEnum)
+        Image(painter = painterResource(
+            id = if ((isFlipped && checkListAns.isNotEmpty()) || (isFlipped && removed.isEmpty())) {
+                concentrationCheckStringReturnDrawable(asdEnum)
+            } else {
+                concentrationCheckStringReturnDrawable(EnumConcentration.BACK)
+            }
+        ),
+            contentDescription = null,
+            contentScale = ContentScale.Fit,
+            modifier = Modifier
+                .fillMaxSize()
+                .paint(
+                    painterResource(id = concentrationCheckStringReturnDrawable(EnumConcentration.FRONT)),
+                    contentScale = ContentScale.FillBounds
+                )
+                .clickable(
+                    enabled = (!isFlipped && !removed.contains(concentrationModels))
+                ) {
+
+                    if (checkListAns.isEmpty()) {
+                        Log.d("123123", "SpinningBox: ")
+                        checkListAns.add(asdEnum)
+                        isFlipped = !isFlipped
+                    } else if (checkListAns.contains(asdEnum) && (checkListAns.get(checkListAns.size - 1) == asdEnum)) {
+                        Log.d("123123", "SpinningBox2: ")
+                        checkListAns.add(asdEnum)
+                        removed.add(concentrationModels)
+                        if (checkListAns.size == 6) {
+
+
+//                            startAgain = !startAgain
+//                            isFlipped = false
+                            checkListAns.clear()
+                            onClick(concentrationModels)
+                        } else {
+                            isFlipped = !isFlipped
+                        }
+                    } else if (checkListAns.size % 2 == 0 && (checkListAns.get(checkListAns.size - 1) != asdEnum)) {
+                        Log.d("123123", "SpinningBox3: ")
+                        checkListAns.add(asdEnum)
+                        isFlipped = !isFlipped
+                    } else {
+                        Log.d("123123", "SpinningBox4: ")
+//                        checkListAns.clear()
+//                        isFlipped = false
+                        totalGameAnswersConcen++
+                    }
+
+//                    onClick(concentrationModels)
+                })
+//                .graphicsLayer(rotationY = rotationY))
+    }
+
+}
+
+@Composable
+fun SpinningBox2(
+    asdEnum: EnumConcentration = EnumConcentration.DIAMOND, concentrationModels: ConcentrationModel,
+    onClick: (Item: ConcentrationModel) -> Unit
+) {
+//    var rotationState by remember { mutableStateOf(0f) }
+    var alphaValue by remember { mutableStateOf(0f) }
+    // Animate the rotationState from 0f to 360f repeatedly
+//    val rotation by animateFloatAsState(
+//        targetValue = rotationState, animationSpec = repeatable(
+//            iterations = 1, animation = tween(10)
+//        )
+//    )
+    var isFlipped by remember { mutableStateOf(true) }
+
+//    var startAgain by remember { mutableStateOf(true) }
+
+    LaunchedEffect(Unit) {
+//        repeat(180) { count ->
+//        delay(5000L)
 //            colorStateList.add(colorState)
 //            rotationState = rotationState + 1
 
-        isFlipped = false
+//        isFlipped = false
 //        }
     }
 
@@ -400,10 +743,11 @@ fun SpinningBox(
 //        RotatableImage(rotation)
 //        FlippableImage(asdEnum)
         Image(painter = painterResource(
-            id = if (isFlipped) {
+            id = if ((isFlipped && checkListAns.isNotEmpty()) || (isFlipped && removed.isEmpty())) {
                 concentrationCheckStringReturnDrawable(asdEnum)
             } else {
-                concentrationCheckStringReturnDrawable(EnumConcentration.BACK)
+                concentrationCheckStringReturnDrawable(asdEnum)
+//                concentrationCheckStringReturnDrawable(EnumConcentration.BACK)
             }
         ),
             contentDescription = null,
@@ -414,30 +758,43 @@ fun SpinningBox(
                     painterResource(id = concentrationCheckStringReturnDrawable(EnumConcentration.FRONT)),
                     contentScale = ContentScale.FillBounds
                 )
-                .clickable(enabled = (!isFlipped && !removed.contains(concentrationModels))) {
+                .clickable(
+                    enabled = if ((!isFlipped && !removed.contains(concentrationModels)) && false) {
+                        true
+                    } else {
+                        false
+                    }
+                ) {
 
                     if (checkListAns.isEmpty()) {
+                        Log.d("123123", "SpinningBox: ")
                         checkListAns.add(asdEnum)
                         isFlipped = !isFlipped
                     } else if (checkListAns.contains(asdEnum) && (checkListAns.get(checkListAns.size - 1) == asdEnum)) {
+                        Log.d("123123", "SpinningBox2: ")
                         checkListAns.add(asdEnum)
-                        isFlipped = !isFlipped
                         removed.add(concentrationModels)
                         if (checkListAns.size == 6) {
 
+
+//                            startAgain = !startAgain
+//                            isFlipped = false
                             checkListAns.clear()
-                            startAgain = true
-                            isFlipped = false
+                            onClick(concentrationModels)
+                        } else {
+                            isFlipped = !isFlipped
                         }
                     } else if (checkListAns.size % 2 == 0 && (checkListAns.get(checkListAns.size - 1) != asdEnum)) {
+                        Log.d("123123", "SpinningBox3: ")
                         checkListAns.add(asdEnum)
                         isFlipped = !isFlipped
                     } else {
-                        checkListAns.clear()
+                        Log.d("123123", "SpinningBox4: ")
+//                        checkListAns.clear()
 //                        isFlipped = false
                     }
 
-                    onClick(concentrationModels)
+//                    onClick(concentrationModels)
                 })
 //                .graphicsLayer(rotationY = rotationY))
     }

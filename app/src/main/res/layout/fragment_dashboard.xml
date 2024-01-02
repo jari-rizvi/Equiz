@@ -85,7 +85,7 @@
                     android:paddingStart="@dimen/_28sdp"
                     android:paddingEnd="@dimen/_5sdp"
                     android:text="250000000000"
-                    android:ellipsize="marquee"
+                    android:ellipsize="start"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_10ssp"
                     app:drawableRightCompat="@drawable/plus_dash"

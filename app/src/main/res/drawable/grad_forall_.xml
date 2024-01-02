@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/rotated_gradient.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Background shape with a rotated gradient -->
+    <item>
+        <rotate
+            android:fromDegrees="90"
+            android:pivotX="50%"
+            android:pivotY="50%">
+            <shape>
+                <corners android:radius="@dimen/_10sdp" />
+                <gradient
+                    android:startColor="#C62E27"
+                    android:endColor="#9F81CA"
+                    android:type="linear"
+                    android:angle="0"/>
+            </shape>
+        </rotate>
+    </item>
+
+    <!-- Add other items as needed -->
+
+</layer-list>

@@ -111,7 +111,9 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(), onNewsl
 
                         }
                     }
-
+                    Resource.Status.AUTH -> { loadingDialog.dismiss()
+                        onToSignUpPage()
+                    }
                     Resource.Status.ERROR -> {
 //                        loadingDialog.dismiss()
                         mViewDataBinding.shimmerLayout.stopShimmer()
@@ -156,7 +158,9 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(), onNewsl
 
                         }
                     }
-
+                    Resource.Status.AUTH -> { loadingDialog.dismiss()
+                        onToSignUpPage()
+                    }
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
                         DialogHelperClass.errorDialog(
@@ -198,7 +202,9 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(), onNewsl
 
                         }
                     }
-
+                    Resource.Status.AUTH -> { loadingDialog.dismiss()
+                        onToSignUpPage()
+                    }
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
                         DialogHelperClass.errorDialog(

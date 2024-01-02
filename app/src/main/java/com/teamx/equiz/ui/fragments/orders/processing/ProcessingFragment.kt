@@ -91,7 +91,9 @@ class ProcessingFragment : BaseFragment<FragmentProcessingBinding, ProcessingVie
 
                         }
                     }
-
+                    Resource.Status.AUTH -> { loadingDialog.dismiss()
+                        onToSignUpPage()
+                    }
                     Resource.Status.ERROR -> {
 //                        loadingDialog.dismiss()
                         mViewDataBinding.shimmerLayout.stopShimmer()

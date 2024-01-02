@@ -10,6 +10,7 @@ data class Resource<out T>(val status: Status, val data: T?, val message: String
     enum class Status {
         SUCCESS,
         ERROR,
+        AUTH,
         NOTVERIFY,
         LOADING
     }
@@ -21,6 +22,10 @@ data class Resource<out T>(val status: Status, val data: T?, val message: String
 
         fun <T> error(message: String, data: T? = null): Resource<T> {
             return Resource(Status.ERROR, data, message)
+        }
+
+        fun <T> unAuth(message: String, data: T? = null): Resource<T> {
+            return Resource(Status.AUTH, data, message)
         }
 
         fun <T> notVerify(message: String, data: T? = null): Resource<T> {

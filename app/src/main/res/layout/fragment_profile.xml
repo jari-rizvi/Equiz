@@ -251,7 +251,7 @@
                             android:layout_marginEnd="5dp"
                             android:layout_weight="0"
                             app:tint="@color/gray"
-                            android:src="@drawable/baseline_person" />
+                            android:src="@drawable/account_uu" />
 
                         <TextView
                             style="@style/popins_regular"
@@ -298,7 +298,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="5dp"
                             android:layout_marginEnd="5dp"
-                            android:src="@drawable/ic_baseline_shopping_cart_24"
+                            android:src="@drawable/shopping_cart_icon"
                             app:tint="@color/gray" />
 
                         <TextView
@@ -445,7 +445,7 @@
                             android:layout_marginStart="5dp"
                             android:layout_marginEnd="5dp"
                             android:src="@drawable/wishlist_icon"
-                            app:tint="@color/gray" />
+                            app:tint="#ACABAB" />
 
                         <TextView
                             style="@style/popins_regular"
@@ -540,7 +540,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="5dp"
                             android:layout_marginEnd="5dp"
-                            android:src="@drawable/premium_subscription"
+                            android:src="@drawable/unsub_icon"
                             app:tint="@color/gray" />
 
                         <TextView
@@ -587,7 +587,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="5dp"
                         android:layout_marginEnd="5dp"
-                        android:src="@drawable/delete"
+                        android:src="@drawable/delete_icon_user"
                         app:tint="@color/gray" />
 
                     <TextView

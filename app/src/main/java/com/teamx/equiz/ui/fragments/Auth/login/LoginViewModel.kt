@@ -37,6 +37,8 @@ class LoginViewModel @Inject constructor(
                             _loginResponse.postValue(Resource.success(it.body()!!))
                         }  else if (it.code() == 302) {
                             _loginResponse.postValue(Resource.notVerify("", null))
+                        } else if (it.code() == 401) {
+                            _loginResponse.postValue(Resource.unAuth("", null))
                         } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400 || it.code() == 401) {
 //                            _loginResponse.postValue(Resource.error(it.message(), null))
                             val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())

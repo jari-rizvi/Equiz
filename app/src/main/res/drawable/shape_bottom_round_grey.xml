@@ -5,14 +5,13 @@
         android:bottomLeftRadius="@dimen/_10sdp"
         android:bottomRightRadius="@dimen/_10sdp"/>
     <gradient
-        android:type="linear"
-        android:startX="0"
-        android:startY="0"
+        android:angle="30"
+        android:endColor="#BD436E"
         android:endX="0"
         android:endY="100"
-        android:angle="190"
         android:startColor="#9F81CA"
-        android:endColor="#C62E27"
-        />
+        android:startX="0"
+        android:startY="0"
+        android:type="linear" />
 <!--    <solid android:color="#A1A1A1"/>-->
 </shape>

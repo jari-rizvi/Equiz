@@ -9,7 +9,6 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatCheckedTextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.squareup.picasso.Picasso
 import com.teamx.equiz.R
 import com.teamx.equiz.data.models.topWinnerData.Game
 
@@ -75,8 +74,8 @@ class LoaderMultiViewAdapter(
                 try {
 
 //                    Picasso.get().load(data.image).into(holderClass2.hatlyIcon5454)
-                    Glide.with(holderClass2.hatlyIcon5454.context).load(data.image)
-                        .into(holderClass2.hatlyIcon5454)
+                    Glide.with(holderClass2.equizIcon5454.context).load(data.image)
+                        .into(holderClass2.equizIcon5454)
                 }
                 catch (e:Exception){
 
@@ -98,7 +97,7 @@ class LoaderMultiViewAdapter(
                     holderClass1.textView16.visibility = View.VISIBLE
                 }
 
-                holderClass1.hatlyIcon54545454.isChecked = false
+                holderClass1.equizIcon54545454.isChecked = false
 
                 holderClass1.textView16.text = "${position + 1}"
                 holderClass1.score.text = data.score.toString()
@@ -106,8 +105,8 @@ class LoaderMultiViewAdapter(
                 try {
 
 //                    Picasso.get().load(data.image).into(holderClass1.hatlyIcon5454)
-                    Glide.with(holderClass1.hatlyIcon5454.context).load(data.image)
-                        .into(holderClass1.hatlyIcon5454)
+                    Glide.with(holderClass1.equizIcon5454.context).load(data.image)
+                        .into(holderClass1.equizIcon5454)
                 }
                 catch (e:Exception){
 
@@ -136,8 +135,8 @@ class LoaderMultiViewAdapter(
     internal class RequiredViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
         val textView15456: ImageView
-        val hatlyIcon5454: ImageView
-        val hatlyIcon54545454: AppCompatCheckedTextView
+        val equizIcon5454: ImageView
+        val equizIcon54545454: AppCompatCheckedTextView
         val textView16: TextView
         val name: TextView
         val score: TextView
@@ -145,8 +144,8 @@ class LoaderMultiViewAdapter(
 
         init {
             textView15456 = itemView.findViewById(R.id.textView15456)
-            hatlyIcon54545454 = itemView.findViewById(R.id.hatlyIcon54545454)
-            hatlyIcon5454 = itemView.findViewById(R.id.hatlyIcon5454)
+            equizIcon54545454 = itemView.findViewById(R.id.hatlyIcon54545454)
+            equizIcon5454 = itemView.findViewById(R.id.hatlyIcon5454)
             textView16 = itemView.findViewById(R.id.textView16)
             name = itemView.findViewById(R.id.textViewName)
             score = itemView.findViewById(R.id.score)
@@ -157,8 +156,8 @@ class LoaderMultiViewAdapter(
 
     internal class OptionalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textView15456: ImageView
-        val hatlyIcon5454: ImageView
-        val hatlyIcon54545454: AppCompatCheckedTextView
+        val equizIcon5454: ImageView
+        val equizIcon54545454: AppCompatCheckedTextView
         val textView16: TextView
         val name: TextView
         val score: TextView
@@ -167,8 +166,8 @@ class LoaderMultiViewAdapter(
 
         init {
             textView15456 = itemView.findViewById(R.id.textView15456)
-            hatlyIcon5454 = itemView.findViewById(R.id.hatlyIcon5454)
-            hatlyIcon54545454 = itemView.findViewById(R.id.hatlyIcon54545454)
+            equizIcon5454 = itemView.findViewById(R.id.hatlyIcon5454)
+            equizIcon54545454 = itemView.findViewById(R.id.hatlyIcon54545454)
             textView16 = itemView.findViewById(R.id.textView16)
             name = itemView.findViewById(R.id.textViewName)
             score = itemView.findViewById(R.id.score)

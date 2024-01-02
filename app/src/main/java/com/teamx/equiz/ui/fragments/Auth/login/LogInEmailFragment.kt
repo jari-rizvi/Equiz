@@ -142,7 +142,9 @@ class LogInEmailFragment : BaseFragment<FragmentLoginEmailBinding, LoginViewMode
                                 findNavController().navigate(R.id.action_logInEmailFragment_to_dashboardFragment,arguments,options)
                             }
                         }
-
+                        Resource.Status.AUTH -> { loadingDialog.dismiss()
+                            onToSignUpPage()
+                        }
                         Resource.Status.ERROR -> {
                             loadingDialog.dismiss()
                             DialogHelperClass.errorDialog(requireContext(), it.message!!)

@@ -97,7 +97,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             )
         }
 
-        mViewModel.getWallet()
+        mViewModel.getWallet(this)
 
         if (!mViewModel.getwalletResponse.hasActiveObservers()) {
             mViewModel.getwalletResponse.observe(requireActivity()) {
@@ -120,7 +120,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                             mViewDataBinding.tvCoins.text = data.data.toString()
                         }
                     }
-
+                    Resource.Status.AUTH -> { loadingDialog.dismiss()
+                        onToSignUpPage()
+                    }
                     Resource.Status.ERROR -> {
 //                        loadingDialog.dismiss()
                         mViewDataBinding.shimmerLayout.stopShimmer()
@@ -131,16 +133,16 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                     }
                 }
                 if (isAdded) {
-                    mViewModel.getwalletResponse.removeObservers(
-                        viewLifecycleOwner
-                    )
+//                    mViewModel.getwalletResponse.removeObservers(
+//                        viewLifecycleOwner
+//                    )
                 }
             }
         }
 
 
-        mViewModel.getTopWinners()
-        mViewModel.getBanners()
+        mViewModel.getTopWinners(this)
+        mViewModel.getBanners(this)
 
 
         if (!mViewModel.getBannerResponse.hasActiveObservers()) {
@@ -176,7 +178,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                         mViewDataBinding.viewPager.adapter?.notifyDataSetChanged()
 
                     }
-
+                    Resource.Status.AUTH -> { loadingDialog.dismiss()
+                        onToSignUpPage()
+                    }
                     Resource.Status.ERROR -> {
 //                        loadingDialog.dismiss()
                         mViewDataBinding.shimmerLayout.stopShimmer()
@@ -187,9 +191,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                     }
                 }
                 if (isAdded) {
-                    mViewModel.getBannerResponse.removeObservers(
-                        viewLifecycleOwner
-                    )
+//                    mViewModel.getBannerResponse.removeObservers(
+//                        viewLifecycleOwner
+//                    )
                 }
             }
         }
@@ -221,7 +225,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
                         }
                     }
-
+                    Resource.Status.AUTH -> { loadingDialog.dismiss()
+                        onToSignUpPage()
+                    }
                     Resource.Status.ERROR -> {
 //                        loadingDialog.dismiss()
                         mViewDataBinding.shimmerLayout.stopShimmer()
@@ -232,9 +238,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                     }
                 }
                 if (isAdded) {
-                    mViewModel.getTopWinnersResponse.removeObservers(
-                        viewLifecycleOwner
-                    )
+//                    mViewModel.getTopWinnersResponse.removeObservers(
+//                        viewLifecycleOwner
+//                    )
                 }
             }
         }
@@ -267,7 +273,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                         }
 
                     }
-
+                    Resource.Status.AUTH -> { loadingDialog.dismiss()
+                        onToSignUpPage()
+                    }
                     Resource.Status.ERROR -> {
 //                        loadingDialog.dismiss()
                         mViewDataBinding.shimmerLayout.stopShimmer()
@@ -282,9 +290,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                     }
                 }
                 if (isAdded) {
-                    mViewModel.getquizTitileResponse.removeObservers(
-                        viewLifecycleOwner
-                    )
+//                    mViewModel.getquizTitileResponse.removeObservers(
+//                        viewLifecycleOwner
+//                    )
                 }
             }
         }
@@ -320,7 +328,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         quizesTitleAdapter = QuizesTitleAdapter(strArrayList, this)
         mViewDataBinding.recCategories.adapter = quizesTitleAdapter
 
-        mViewModel.getquizTitile("World", "General Knowledge", "")
+        mViewModel.getquizTitile("World", "General Knowledge", "",this)
 
     }
 
@@ -410,7 +418,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                 }
 
                 GamesUID2.ShapeDeception.name -> {
-                    return R.drawable.howtoplay_shape
+                    return R.drawable.shapedeception_icon
                 }
 
                 GamesUID2.TapTheColor.name -> {
@@ -422,7 +430,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                 }
 
                 GamesUID2.TouchTheNumPlus.name -> {
-                    return R.drawable.touchthenumbers_icon_plus
+                    return R.drawable.touchthenumbers_icon
                 }
 
                 GamesUID2.UnfollowTheLeader.name -> {
@@ -585,7 +593,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             }
 
             GamesUID2.TouchTheNum.name -> {
-                "Touch The Num"
+                "Touch The Number"
 
             }
 
@@ -616,7 +624,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         } else {
             ""
         }
-        mViewModel.getquizTitile("$tick", "$topic", "")
+        mViewModel.getquizTitile("$tick", "$topic", "",this)
 //        strArrayList.forEach{
 //            if (it.isSelected)
 //            it.isSelected = false

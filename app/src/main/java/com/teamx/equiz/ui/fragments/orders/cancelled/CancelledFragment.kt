@@ -89,7 +89,9 @@ class CancelledFragment : BaseFragment<FragmentCanclledBinding, CancelledViewMod
 
                         }
                     }
-
+                    Resource.Status.AUTH -> { loadingDialog.dismiss()
+                        onToSignUpPage()
+                    }
                     Resource.Status.ERROR -> {
 //                        loadingDialog.dismiss()
                         mViewDataBinding.shimmerLayout.stopShimmer()
