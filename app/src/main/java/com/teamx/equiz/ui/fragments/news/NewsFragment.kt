@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.JsonObject
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
@@ -21,6 +22,7 @@ import com.teamx.equiz.ui.fragments.news.adapter.RecentNewsAdapter
 import com.teamx.equiz.ui.fragments.news.adapter.UpComingNewsAdapter
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
+import org.json.JSONException
 
 @AndroidEntryPoint
 class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(), onNewslistner,
@@ -66,10 +68,23 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(), onNewsl
             findNavController().popBackStack()
         }
 
-        mViewModel.getCurrentNews(true)
-        mViewModel.getRecentsNews(true)
-        mViewModel.getUpcomingNews(true)
+        var bundle = arguments
+        if (bundle == null) {
+            bundle = Bundle()
+        }
+        val userId = bundle.getString("userId")
 
+        val params = JsonObject()
+        try {
+            params.addProperty("userId", "$userId")
+
+
+            mViewModel.getCurrentNews(params, true)
+            mViewModel.getRecentsNews(params, true)
+            mViewModel.getUpcomingNews(params, true)
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
 
 
         recentsRecyclerview()

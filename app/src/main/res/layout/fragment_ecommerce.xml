@@ -224,7 +224,7 @@
             android:id="@+id/textView155"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="See all"
+            android:text="@string/see_all"
             android:drawableEnd="@drawable/right"
             android:drawableTint="@color/theme_color"
             android:gravity="center"

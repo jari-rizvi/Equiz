@@ -76,14 +76,14 @@ class EcommerceViewModel @Inject constructor(
         }
     }
 
-    fun getBanners() {
+    fun getBanners(params: JsonObject) {
         viewModelScope.launch {
             _getBannerResponse.postValue(Resource.loading(null))
             if (networkHelper.isNetworkConnected()) {
                 try {
                     Timber.tag("87878787887").d("starta")
 
-                    mainRepository.getBanners(/*true*/).let {
+                    mainRepository.getBanners(params/*true*/).let {
                         if (it.isSuccessful) {
                             _getBannerResponse.postValue(Resource.success(it.body()!!))
                             Timber.tag("87878787887").d(it.body()!!.toString())

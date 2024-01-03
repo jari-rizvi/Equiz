@@ -68,7 +68,7 @@
             android:layout_height="@dimen/_100sdp"
             android:layout_marginHorizontal="@dimen/_10sdp"
             android:background="@drawable/card_background"
-            android:backgroundTint="@color/colorAccent"
+            android:backgroundTint="@color/colorAccent_indeed"
             android:elevation="@dimen/_1sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btnback"

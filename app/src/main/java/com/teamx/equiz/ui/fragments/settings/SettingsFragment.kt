@@ -12,7 +12,6 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.bumptech.glide.Glide
-import com.squareup.picasso.Picasso
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
@@ -22,6 +21,7 @@ import com.teamx.equiz.databinding.SettingsFragmentLayoutBinding
 import com.teamx.equiz.ui.fragments.quizes.TitleData
 import com.teamx.equiz.ui.fragments.quizes.adapter.QuizesAdapter
 import com.teamx.equiz.ui.fragments.quizes.adapter.QuizesTitleAdapter
+import com.teamx.equiz.utils.DialogHelperClass
 import com.teamx.equiz.utils.PrefHelper
 import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -189,7 +189,7 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
             )
 
             findNavController().popBackStack(R.id.settingsFragment, true)
-            findNavController().navigate(R.id.logInFragment, arguments, null)
+            findNavController().navigate(R.id.temp2Fragment, arguments, null)
 
 
         }
@@ -217,7 +217,10 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
         }
 
         mViewDataBinding.btnProfile.setOnClickListener {
-            findNavController().navigate(R.id.profileFragment, arguments, options)
+
+
+            bundle.putString("rankUser", mViewDataBinding.textView50.text.toString())
+            findNavController().navigate(R.id.profileFragment, bundle, options)
         }
 
         mViewDataBinding.btnNotification.setOnClickListener {
@@ -262,7 +265,58 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
         mViewDataBinding.btnSubscribe.setOnClickListener {
             findNavController().navigate(R.id.subscriptionFragment, arguments, options)
         }
+        addLeaderBoard()
+    }
 
+    fun addLeaderBoard() {
+        mViewModel.getTopWinners()
+
+        if (!mViewModel.getTopWinnersResponse.hasActiveObservers()) {
+            mViewModel.getTopWinnersResponse.observe(requireActivity()) {
+                when (it.status) {
+                    Resource.Status.LOADING -> {
+                        loadingDialog.show()
+                    }
+
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
+                    }
+
+                    Resource.Status.SUCCESS -> {
+                        loadingDialog.dismiss()
+                        it.data?.let { data ->
+
+
+                            try {
+                                data.userRank.forEach {
+                                    mViewDataBinding.textView50.text = it.rank.toString()
+                                }
+
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
+                    }
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+                        onToSignUpPage()
+                    }
+
+                    Resource.Status.ERROR -> {
+                        loadingDialog.dismiss()
+                        DialogHelperClass.errorDialog(
+                            requireContext(), it.message!!
+                        )
+                    }
+                }
+                if (isAdded) {
+                    mViewModel.getTopWinnersResponse.removeObservers(
+                        viewLifecycleOwner
+                    )
+                }
+            }
+        }
     }
 
     private fun initializeCategoriesAdapter() {

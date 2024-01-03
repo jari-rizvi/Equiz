@@ -10,6 +10,8 @@ import com.teamx.equiz.data.models.loginData.LoginData
 import com.teamx.equiz.data.models.meModel.MeModel
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.data.remote.reporitory.MainRepository
+import com.teamx.equiz.ui.fragments.ecommerce.productProfile.unsub_data.UNSUBDataModel
+import com.teamx.equiz.ui.fragments.profile.data.DELETEUSERModel
 import com.teamx.equiz.utils.NetworkHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -83,6 +85,68 @@ class LoginViewModel @Inject constructor(
                     _meResponse.postValue(Resource.error("${e.message}", null))
                 }
             } else _meResponse.postValue(Resource.error("No internet connection", null))
+        }
+    }
+
+    private val _unsubResponse = MutableLiveData<Resource<UNSUBDataModel>>()
+    val unsubResponse: LiveData<Resource<UNSUBDataModel>>
+        get() = _unsubResponse
+
+    fun unsub() {
+        viewModelScope.launch {
+            _unsubResponse.postValue(Resource.loading(null))
+            if (networkHelper.isNetworkConnected()) {
+                try {
+                    mainRepository.unsub().let {
+                        if (it.isSuccessful) {
+                            _unsubResponse.postValue(Resource.success(it.body()!!))
+                        }
+                        /*  else if (it.code() == 401) {
+                              _unsubResponse.postValue(Resource.unAuth("", null))
+                          }*/ else if (it.code() == 500 || it.code() == 404 || it.code() == 400 || it.code() == 422) {
+                            val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
+                            _unsubResponse.postValue(Resource.error(jsonObj.getString("message")))
+                        } else {
+                            val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
+                            _unsubResponse.postValue(Resource.error(jsonObj.getString("message")))
+//                            _meResponse.postValue(Resource.error(it.message(), null))
+                        }
+                    }
+                } catch (e: Exception) {
+                    _unsubResponse.postValue(Resource.error("${e.message}", null))
+                }
+            } else _unsubResponse.postValue(Resource.error("No internet connection", null))
+        }
+    }
+
+    private val _deleteUserResponse = MutableLiveData<Resource<DELETEUSERModel>>()
+    val deleteUserResponse: LiveData<Resource<DELETEUSERModel>>
+        get() = _deleteUserResponse
+
+    fun deleteUser() {
+        viewModelScope.launch {
+            _deleteUserResponse.postValue(Resource.loading(null))
+            if (networkHelper.isNetworkConnected()) {
+                try {
+                    mainRepository.deleteUser().let {
+                        if (it.isSuccessful) {
+                            _deleteUserResponse.postValue(Resource.success(it.body()!!))
+                        }
+                        /*  else if (it.code() == 401) {
+                              _deleteUserResponse.postValue(Resource.unAuth("", null))
+                          }*/ else if (it.code() == 500 || it.code() == 404 || it.code() == 400 || it.code() == 422) {
+                            val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
+                            _deleteUserResponse.postValue(Resource.error(jsonObj.getString("message")))
+                        } else {
+                            val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
+                            _deleteUserResponse.postValue(Resource.error(jsonObj.getString("message")))
+//                            _meResponse.postValue(Resource.error(it.message(), null))
+                        }
+                    }
+                } catch (e: Exception) {
+                    _deleteUserResponse.postValue(Resource.error("${e.message}", null))
+                }
+            } else _deleteUserResponse.postValue(Resource.error("No internet connection", null))
         }
     }
 

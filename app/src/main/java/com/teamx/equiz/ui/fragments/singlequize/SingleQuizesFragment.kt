@@ -51,11 +51,15 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            findNavController().popBackStack()
+            findNavController().popBackStack(R.id.dashboardFragment, true);
+            findNavController().navigate(R.id.dashboardFragment, arguments, options)
+//            findNavController().popBackStack()
         }
 
         mViewDataBinding.btnback.setOnClickListener {
-            findNavController().popBackStack()
+            findNavController().popBackStack(R.id.dashboardFragment, true);
+            findNavController().navigate(R.id.dashboardFragment, arguments, options)
+//            findNavController().popBackStack()
         }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
@@ -231,7 +235,7 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
                 rightAnswers++
             }
 
-            delay(10)
+            delay(500)
 
 
             changeObserver()

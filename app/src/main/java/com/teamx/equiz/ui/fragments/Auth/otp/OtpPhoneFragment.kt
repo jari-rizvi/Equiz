@@ -81,7 +81,7 @@ class OtpPhoneFragment : BaseFragment<FragmentOtpPhoneBinding, OtpViewModel>() {
                                 }
                                  bundle.putString("token_id",data.token)
                                 NetworkCallPoints.TOKENER = data.token
-                                findNavController().navigate(R.id.action_otpPhoneFragment_to_successFragment,arguments,options)
+                                findNavController().navigate(R.id.action_otpPhoneFragment_to_successFragment,bundle,options)
 
 
                             }

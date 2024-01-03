@@ -11,13 +11,13 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.bumptech.glide.Glide
-import com.squareup.picasso.Picasso
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentProfileBinding
 import com.teamx.equiz.ui.fragments.Auth.login.LoginViewModel
+import com.teamx.equiz.utils.DialogHelperClass
 import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -50,6 +50,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+        val bundle = arguments
+
+        val strRank = bundle?.getString("rankUser", "")
+
+        mViewDataBinding.textView50.setText(strRank)
 
         mViewModel.me()
         if (!mViewModel.meResponse.hasActiveObservers()) {
@@ -79,7 +84,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
 //                                    Picasso.get().load(data.user.image).resize(500, 500)
 //                                        .into(mViewDataBinding.profilePicture)
 
-                                    Glide.with(mViewDataBinding.profilePicture.context).load(data.user.image).into(mViewDataBinding.profilePicture)
+                                    Glide.with(mViewDataBinding.profilePicture.context)
+                                        .load(data.user.image).into(mViewDataBinding.profilePicture)
                                 }
 
                                 if (data.user.isPremium) {
@@ -94,9 +100,105 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
                             }
                         }
                     }
-                    Resource.Status.AUTH -> { loadingDialog.dismiss()
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
                         onToSignUpPage()
                     }
+
+                    Resource.Status.ERROR -> {
+                        loadingDialog.dismiss()
+                        if (isAdded) {
+                            mViewDataBinding.root.snackbar(it.message!!)
+                        }
+                        Log.d("TAG", "eeeeeeeeeee: ${it.message}")
+                    }
+                }
+            }
+        }
+
+
+
+        if (!mViewModel.unsubResponse.hasActiveObservers()) {
+            mViewModel.unsubResponse.observe(requireActivity()) {
+                when (it.status) {
+                    Resource.Status.LOADING -> {
+                        loadingDialog.show()
+                    }
+
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
+                    }
+
+                    Resource.Status.SUCCESS -> {
+                        loadingDialog.dismiss()
+                        it.data?.let { data ->
+
+                            try {
+
+
+//                                mViewDataBinding.root.snackbar(data)
+                                if (isAdded) {
+                                    if (data.subscription.plan.active) {
+                                        mViewDataBinding.root.snackbar("Subcription will end at the end of the Month")
+                                    }
+                                }
+
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
+                    }
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+                        onToSignUpPage()
+                    }
+
+                    Resource.Status.ERROR -> {
+                        loadingDialog.dismiss()
+                        if (isAdded) {
+                            mViewDataBinding.root.snackbar(it.message!!)
+                        }
+                        Log.d("TAG", "eeeeeeeeeee: ${it.message}")
+                    }
+                }
+            }
+        }
+        if (!mViewModel.deleteUserResponse.hasActiveObservers()) {
+            mViewModel.deleteUserResponse.observe(requireActivity()) {
+                when (it.status) {
+                    Resource.Status.LOADING -> {
+                        loadingDialog.show()
+                    }
+
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
+                    }
+
+                    Resource.Status.SUCCESS -> {
+                        loadingDialog.dismiss()
+                        it.data?.let { data ->
+
+                            try {
+                                if (isAdded) {
+                                    mViewDataBinding.root.snackbar(data.message.toString())
+                                }
+
+                                findNavController().popBackStack(R.id.logInFragment, true)
+                                findNavController().navigate(R.id.logInFragment, arguments, options)
+
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
+                    }
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+                        onToSignUpPage()
+                    }
+
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
                         if (isAdded) {
@@ -131,6 +233,40 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
                 arguments,
                 options
             )
+        }
+        mViewDataBinding.btnDeleteAcc.setOnClickListener {
+
+            DialogHelperClass.deleteUserDialog(requireContext(),
+                object : DialogHelperClass.Companion.DeleteUserDialogCallBack {
+                    override fun onSignInClick1() {
+
+                    }
+
+                    override fun onSignUpClick1() {
+                        mViewModel.deleteUser()
+
+                    }
+
+                }).show()
+
+        }
+
+        mViewDataBinding.btnUnSubscribe.setOnClickListener {
+
+            DialogHelperClass.unsubUserDialog(requireContext(),
+                object : DialogHelperClass.Companion.DeleteUserDialogCallBack {
+                    override fun onSignInClick1() {
+
+                    }
+
+                    override fun onSignUpClick1() {
+                        mViewModel.unsub()
+
+                    }
+
+                }).show()
+
+
         }
         mViewDataBinding.btnChance.setOnClickListener {
             findNavController().navigate(

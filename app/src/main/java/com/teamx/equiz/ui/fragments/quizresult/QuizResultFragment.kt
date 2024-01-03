@@ -36,7 +36,8 @@ class QuizResultFragment : BaseFragment<FragmentQuizResultBinding, SingleQuizesV
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
          super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            findNavController().popBackStack()
+            findNavController().popBackStack(R.id.dashboardFragment, true)
+            findNavController().navigate(R.id.playQuizFragment, arguments, options)
         }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
@@ -52,11 +53,16 @@ class QuizResultFragment : BaseFragment<FragmentQuizResultBinding, SingleQuizesV
 
         mViewDataBinding.btnback.setOnClickListener {
 
-            findNavController().popBackStack()
+//            findNavController().popBackStack()
+//            findNavController().navigate(R.id.dashboardFragment, arguments, options)
+            findNavController().popBackStack(R.id.dashboardFragment, true);
+            findNavController().navigate(R.id.playQuizFragment, arguments, options)
         }
         mViewDataBinding.playAgainBtn.setOnClickListener {
-
-            findNavController().popBackStack()
+            findNavController().popBackStack(R.id.dashboardFragment, true);
+            findNavController().navigate(R.id.playQuizFragment, arguments, options)
+//            findNavController().navigate(R.id.singleQuizFragment, arguments, options)
+//            findNavController().popBackStack()
         }
         mViewDataBinding.backToHomeBtn.setOnClickListener {
 
@@ -81,8 +87,8 @@ class QuizResultFragment : BaseFragment<FragmentQuizResultBinding, SingleQuizesV
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
-                            mViewDataBinding.chancesTxt.text= data.quizId
-                            mViewDataBinding.supportResultTxt.text="You answered ${data.score}% questions correctly"
+                            mViewDataBinding.chancesTxt.text= data.chances.toString()
+                            mViewDataBinding.supportResultTxt.text="You answered ${String.format("%.3f", data.populatedQuizScoreData.score).toDouble()}% questions correctly"
 
                         }
                     }

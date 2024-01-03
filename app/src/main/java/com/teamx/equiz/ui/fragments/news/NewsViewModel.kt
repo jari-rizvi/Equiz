@@ -3,16 +3,15 @@ package com.teamx.equiz.ui.fragments.news
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.google.gson.JsonObject
 import com.teamx.equiz.baseclasses.BaseViewModel
 import com.teamx.equiz.data.models.newsData.NewsData
 import com.teamx.equiz.data.models.newsbyId.GetNewsByIdData
-import com.teamx.equiz.data.models.sucessData.SuccessData
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.data.remote.reporitory.MainRepository
 import com.teamx.equiz.utils.NetworkHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import org.checkerframework.checker.units.qual.Current
 import org.json.JSONObject
 import timber.log.Timber
 import javax.inject.Inject
@@ -73,14 +72,14 @@ class NewsViewModel @Inject constructor(
     val getCurrentNewsResponse: LiveData<Resource<NewsData>>
         get() = _getCurrentNewsResponse
 
-    fun getCurrentNews(current: Boolean) {
+    fun getCurrentNews(params: JsonObject, current: Boolean) {
         viewModelScope.launch {
             _getCurrentNewsResponse.postValue(Resource.loading(null))
             if (networkHelper.isNetworkConnected()) {
                 try {
                     Timber.tag("87878787887").d("starta")
 
-                    mainRepository.getCurrentNews(current).let {
+                    mainRepository.getCurrentNews(params, current).let {
                         if (it.isSuccessful) {
                             _getCurrentNewsResponse.postValue(Resource.success(it.body()!!))
                             Timber.tag("87878787887").d(it.body()!!.toString())
@@ -115,14 +114,14 @@ class NewsViewModel @Inject constructor(
     val getUpcomingnewsResponse: LiveData<Resource<NewsData>>
         get() = _getUpcomingnewsResponse
 
-    fun getUpcomingNews(upcoming: Boolean) {
+    fun getUpcomingNews(params: JsonObject, upcoming: Boolean) {
         viewModelScope.launch {
             _getUpcomingnewsResponse.postValue(Resource.loading(null))
             if (networkHelper.isNetworkConnected()) {
                 try {
                     Timber.tag("87878787887").d("starta")
 
-                    mainRepository.getUpcomingNews(upcoming).let {
+                    mainRepository.getUpcomingNews(params, upcoming).let {
                         if (it.isSuccessful) {
                             _getUpcomingnewsResponse.postValue(Resource.success(it.body()!!))
                             Timber.tag("87878787887").d(it.body()!!.toString())
@@ -162,14 +161,14 @@ class NewsViewModel @Inject constructor(
     val getRecentNewsResponse: LiveData<Resource<NewsData>>
         get() = _getRecentNewsResponse
 
-    fun getRecentsNews(recents: Boolean) {
+    fun getRecentsNews(params: JsonObject, recents: Boolean) {
         viewModelScope.launch {
             _getRecentNewsResponse.postValue(Resource.loading(null))
             if (networkHelper.isNetworkConnected()) {
                 try {
                     Timber.tag("87878787887").d("starta")
 
-                    mainRepository.getRecentNews(recents).let {
+                    mainRepository.getRecentNews(params, recents).let {
                         if (it.isSuccessful) {
                             _getRecentNewsResponse.postValue(Resource.success(it.body()!!))
                             Timber.tag("87878787887").d(it.body()!!.toString())

@@ -107,7 +107,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="Ranking"
+                        android:text="@string/ranking"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_11ssp"
                         android:textStyle="bold"
@@ -152,7 +152,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="Total Points"
+                        android:text="@string/total_points"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_11ssp"
                         android:textStyle="bold"
@@ -196,7 +196,7 @@
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:gravity="center"
-                        android:text="Total Chances"
+                        android:text="@string/total_chances"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_11ssp"
                         android:textStyle="bold"
@@ -289,7 +289,7 @@
                                 android:gravity="center_vertical"
                                 android:paddingStart="@dimen/_7sdp"
                                 android:paddingEnd="@dimen/_7sdp"
-                                android:text="Home"
+                                android:text="@string/home_"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_11ssp"
                                 android:textStyle="bold" />
@@ -337,7 +337,7 @@
                                 android:gravity="center_vertical"
                                 android:paddingStart="@dimen/_7sdp"
                                 android:paddingEnd="@dimen/_7sdp"
-                                android:text="Ecommerce"
+                                android:text="@string/ecommerce"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_11ssp"
                                 android:textStyle="bold" />
@@ -384,7 +384,7 @@
                                 android:gravity="center_vertical"
                                 android:paddingStart="@dimen/_7sdp"
                                 android:paddingEnd="@dimen/_7sdp"
-                                android:text="Quiz"
+                                android:text="@string/quiz"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_11ssp"
                                 android:textStyle="bold" />
@@ -443,7 +443,7 @@
                                 android:gravity="center_vertical"
                                 android:paddingStart="@dimen/_7sdp"
                                 android:paddingEnd="@dimen/_7sdp"
-                                android:text="Wallet"
+                                android:text="@string/wallet_"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_11ssp"
                                 android:textStyle="bold" />
@@ -491,7 +491,7 @@
                                 android:gravity="center_vertical"
                                 android:paddingStart="@dimen/_7sdp"
                                 android:paddingEnd="@dimen/_7sdp"
-                                android:text="Leaderboard"
+                                android:text="@string/leaderboard"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_11ssp"
                                 android:textStyle="bold" />
@@ -539,7 +539,7 @@
                                 android:gravity="center_vertical"
                                 android:paddingStart="@dimen/_7sdp"
                                 android:paddingEnd="@dimen/_7sdp"
-                                android:text="Refferal"
+                                android:text="@string/referral"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_11ssp"
                                 android:textStyle="bold" />
@@ -587,7 +587,7 @@
                                 android:gravity="center_vertical"
                                 android:paddingStart="@dimen/_7sdp"
                                 android:paddingEnd="@dimen/_7sdp"
-                                android:text="Profile"
+                                android:text="@string/profile"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_11ssp"
                                 android:textStyle="bold" />
@@ -635,7 +635,7 @@
                                 android:gravity="center_vertical"
                                 android:paddingStart="@dimen/_7sdp"
                                 android:paddingEnd="@dimen/_7sdp"
-                                android:text="Collect Raffle Prize"
+                                android:text="@string/collect_raffle_prize"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_11ssp"
                                 android:textStyle="bold" />
@@ -773,7 +773,7 @@
                                 android:gravity="center_vertical"
                                 android:paddingStart="@dimen/_7sdp"
                                 android:paddingEnd="@dimen/_7sdp"
-                                android:text="Notification"
+                                android:text="@string/notification"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_11ssp"
                                 android:textStyle="bold" />
@@ -822,7 +822,7 @@
                                 android:gravity="center_vertical"
                                 android:paddingStart="@dimen/_7sdp"
                                 android:paddingEnd="@dimen/_7sdp"
-                                android:text="Coupon"
+                                android:text="@string/coupon_"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_11ssp"
                                 android:textStyle="bold" />

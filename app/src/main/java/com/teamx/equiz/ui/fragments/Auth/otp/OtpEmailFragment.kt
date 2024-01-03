@@ -10,6 +10,7 @@ import androidx.navigation.navOptions
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
+import com.teamx.equiz.constants.NetworkCallPoints
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentOtpEmailBinding
 import com.teamx.equiz.utils.DialogHelperClass
@@ -65,9 +66,16 @@ class OtpEmailFragment : BaseFragment<FragmentOtpEmailBinding, OtpViewModel>() {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
 
+                            var bundle = arguments
+
+                            if (bundle == null) {
+                                bundle = Bundle()
+                            }
+                            bundle.putString("token_id",data.token)
+                            NetworkCallPoints.TOKENER = data.token
                             findNavController().navigate(
                                 R.id.action_otpEmailFragment_to_successFragment,
-                                arguments,
+                                bundle,
                                 options
                             )
 

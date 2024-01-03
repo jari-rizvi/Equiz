@@ -8,7 +8,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:background="@color/colorAccent"
+        android:background="@color/colorAccent_indeed"
         android:layout_height="match_parent">
 
 
@@ -40,7 +40,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-
+            <ImageView
+                android:id="@+id/btnback"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.05"
+                app:srcCompat="@drawable/arrow_left"
+                app:tint="@color/white" />
             <androidx.coordinatorlayout.widget.CoordinatorLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -54,6 +66,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fitsSystemWindows="true"
+                    android:background="@color/white"
                     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
                     <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -61,6 +74,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fitsSystemWindows="true"
+                        android:background="@color/white"
                         app:layout_scrollFlags="scroll|snap|exitUntilCollapsed">
 
 
@@ -78,7 +92,7 @@
                                 android:id="@+id/screen_viewpager"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:background="@color/colorAccent"
+                                android:background="@color/colorAccent_indeed"
                                 app:layout_constraintBottom_toTopOf="@+id/tab_indicator"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintHorizontal_bias="1.0"
@@ -106,19 +120,7 @@
 
                             </com.google.android.material.tabs.TabLayout>
 
-                            <ImageView
-                                android:id="@+id/btnback"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:visibility="gone"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_bias="0.05"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintVertical_bias="0.05"
-                                app:srcCompat="@drawable/arrow_left"
-                                app:tint="@color/white" />
+
 
                             <TextView
                                 android:id="@+id/textView"
@@ -128,11 +130,11 @@
                                 android:text="Details"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/_14ssp"
-                                app:layout_constraintBottom_toBottomOf="@+id/btnback"
+
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintHorizontal_bias="0.2"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="@+id/btnback"
+                                app:layout_constraintTop_toTopOf="parent"
                                 app:layout_constraintVertical_bias="0.05" />
 
                         </androidx.constraintlayout.widget.ConstraintLayout>

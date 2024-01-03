@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
+import com.google.gson.JsonObject
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
@@ -32,6 +33,7 @@ import com.teamx.equiz.ui.fragments.quizes.adapter.QuizesTitleAdapter
 import com.teamx.equiz.utils.DialogHelperClass
 import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import org.json.JSONException
 
 @AndroidEntryPoint
 class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewModel>(),
@@ -75,9 +77,13 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         mViewDataBinding.btnback.setOnClickListener {
 //            val activity = requireActivity() as MainActivity
 //            activity.openDrawer()
-            findNavController().navigate(
-                R.id.settingsFragment, arguments, options
-            )
+            var bundle = arguments
+            if (bundle == null) {
+                bundle = Bundle()
+            }
+            bundle.putString("userId", userId)
+
+            findNavController().navigate(R.id.settingsFragment, bundle, options)
         }
         mViewDataBinding.tvCoins.setOnClickListener {
 
@@ -110,6 +116,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                     Resource.Status.NOTVERIFY -> {
                         loadingDialog.dismiss()
                     }
+
                     Resource.Status.SUCCESS -> {
 //                        loadingDialog.dismiss()
                         mViewDataBinding.shimmerLayout.stopShimmer()
@@ -120,9 +127,12 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                             mViewDataBinding.tvCoins.text = data.data.toString()
                         }
                     }
-                    Resource.Status.AUTH -> { loadingDialog.dismiss()
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
                         onToSignUpPage()
                     }
+
                     Resource.Status.ERROR -> {
 //                        loadingDialog.dismiss()
                         mViewDataBinding.shimmerLayout.stopShimmer()
@@ -142,7 +152,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
 
         mViewModel.getTopWinners(this)
-        mViewModel.getBanners(this)
+
+
 
 
         if (!mViewModel.getBannerResponse.hasActiveObservers()) {
@@ -298,7 +309,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         }
 
 
-
+        getMeApi()
 
         initializeCategoriesAdapter()
         initializeGameAdapter()
@@ -852,6 +863,59 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                 dot.setImageResource(R.drawable.dot_selected_dash)
             } else {
                 dot.setImageResource(R.drawable.dot_unselected)
+            }
+        }
+    }
+
+    var userId = ""
+    fun getMeApi() {
+        mViewModel.me()
+        if (!mViewModel.meResponse.hasActiveObservers()) {
+            mViewModel.meResponse.observe(requireActivity()) {
+                when (it.status) {
+                    Resource.Status.LOADING -> {
+                        loadingDialog.show()
+                    }
+
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
+                    }
+
+                    Resource.Status.SUCCESS -> {
+                        loadingDialog.dismiss()
+                        it.data?.let { data ->
+
+                            try {
+
+                                userId = data.user._id
+
+                                val params = JsonObject()
+                                try {
+                                    params.addProperty("userId", "$userId")
+                                    mViewModel.getBanners(params)
+                                } catch (e: JSONException) {
+                                    e.printStackTrace()
+                                }
+
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
+                    }
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+                        onToSignUpPage()
+                    }
+
+                    Resource.Status.ERROR -> {
+                        loadingDialog.dismiss()
+                        if (isAdded) {
+                            mViewDataBinding.root.snackbar(it.message!!)
+                        }
+                        Log.d("TAG", "eeeeeeeeeee: ${it.message}")
+                    }
+                }
             }
         }
     }

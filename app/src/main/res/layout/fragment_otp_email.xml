@@ -63,7 +63,7 @@
             android:layout_gravity="center_horizontal"
             android:cursorVisible="true"
             android:inputType="number"
-            android:itemBackground="@color/colorAccent"
+            android:itemBackground="@color/colorAccent_indeed"
             app:cursorColor="@color/black"
             app:hideLineWhenFilled="false"
             app:itemCount="6"

@@ -18,7 +18,7 @@ class MainRepository @Inject constructor(
 
     suspend fun getWishlist() = apiService.getWishlist()
     suspend fun getBanners(isActive: Boolean) = apiService.getBanners(isActive)
-    suspend fun getBanners() = apiService.getBanners(/*isActive*/)
+    suspend fun getBanners(params: JsonObject) = apiService.getBanners(params/*isActive*/)
     suspend fun getProducts() = apiService.getProducts()
     suspend fun getChances() = apiService.getChances()
 
@@ -31,16 +31,19 @@ class MainRepository @Inject constructor(
     suspend fun getCart() = apiService.getCart()
     suspend fun getWallet() = apiService.getWallet()
     suspend fun getUpcomingNews(
+        @Body params: JsonObject,
         @Query("upcoming") upcoming: Boolean
-    ) = apiService.getUpcomingNews(upcoming)
+    ) = apiService.getUpcomingNews(params, upcoming)
 
     suspend fun getCurrentNews(
+        @Body params: JsonObject,
         @Query("current") current: Boolean
-    ) = apiService.getCurrentNews(current)
+    ) = apiService.getCurrentNews(params, current)
 
     suspend fun getRecentNews(
+        @Body params: JsonObject,
         @Query("recent") recent: Boolean
-    ) = apiService.getRecentNews(recent)
+    ) = apiService.getRecentNews(params, recent)
 
     suspend fun getCoupons() = apiService.getCoupons()
     suspend fun stripeDataMethod(@Body params: JsonObject?) = apiService.stripeDataMethod(params)
@@ -90,6 +93,7 @@ class MainRepository @Inject constructor(
 
     suspend fun getNotifications() = apiService.getNotifications()
     suspend fun getPlan() = apiService.getPlan()
+    suspend fun subPlan(@Body updateCart: JsonObject) = apiService.subPlan(updateCart)
 
     suspend fun getQuizTitle(
         @Query("country") country: String,
@@ -104,6 +108,8 @@ class MainRepository @Inject constructor(
     suspend fun getTopWinners() = apiService.getTopWinners()
 
     suspend fun me() = apiService.me()
+    suspend fun unsub() = apiService.unsub()
+    suspend fun deleteUser() = apiService.deleteUser()
     suspend fun collectPrizeRaffal() = apiService.collectPrizeRaffal()
 
 

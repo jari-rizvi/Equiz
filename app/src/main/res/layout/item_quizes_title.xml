@@ -14,7 +14,7 @@
 
         <androidx.appcompat.widget.AppCompatCheckedTextView
             android:id="@+id/txtTitle"
-            android:layout_width="@dimen/_100sdp"
+            android:layout_width="@dimen/_90sdp"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textAlignment="center"

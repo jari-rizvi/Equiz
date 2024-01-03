@@ -20,7 +20,10 @@
     <color name="colorPrimary">#DA243A</color>
     <color name="colorPrimaryDark">#DA243A</color>
     <color name="colorPrimaryDarkLight">#DD4D5F</color>
-    <color name="colorAccent">#F1F1F1</color>
+
+    <color name="colorAccent_indeed">#F1F1F1</color>
+    <color name="colorAccent">#ff926BFA</color>
+
     <color name="colorBlack">#000000</color>
 
 

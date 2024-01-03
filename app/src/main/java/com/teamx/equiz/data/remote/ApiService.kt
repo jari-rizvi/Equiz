@@ -37,8 +37,12 @@ import com.teamx.equiz.ui.fragments.chances.data.ChancesModelData
 import com.teamx.equiz.ui.fragments.collectPrice.data.CollectDataModel
 import com.teamx.equiz.ui.fragments.ecommerce.data.CategoryEcomData
 import com.teamx.equiz.ui.fragments.ecommerce.paymentMethods.model.stripeanother.StripeCheckoutModelData
+import com.teamx.equiz.ui.fragments.ecommerce.productProfile.unsub_data.UNSUBDataModel
+import com.teamx.equiz.ui.fragments.profile.data.DELETEUSERModel
+import com.teamx.equiz.ui.fragments.quizresult.data.QuizResultDataModel
 import com.teamx.equiz.ui.fragments.quizresult.data.QuizScoreData
 import com.teamx.equiz.ui.fragments.singlequize.model.SingleQuizData
+import com.teamx.equiz.ui.fragments.subscription.data.SubData
 import com.teamx.equiz.ui.fragments.topup.data.TopUpModelData
 import okhttp3.MultipartBody
 import retrofit2.Response
@@ -65,8 +69,9 @@ interface ApiService {
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<NewsBanner>
 
-    @GET(NetworkCallPoints.BANNERS_DATA2)
+    @POST(NetworkCallPoints.BANNERS_DATA2)
     suspend fun getBanners(
+        @Body params: JsonObject,
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<BanNews>
 
@@ -103,8 +108,9 @@ interface ApiService {
     @GET(NetworkCallPoints.GET_WALLET)
     suspend fun getWallet(@Header("token") basicCredentials: String = "$TOKENER"): Response<GetWalletData>
 
-    @GET(NetworkCallPoints.GET_NEWS)
+    @POST(NetworkCallPoints.GET_NEWS)
     suspend fun getUpcomingNews(
+        @Body params: JsonObject,
         @Query("upcoming") upcoming: Boolean,
         @Header("token") basicCredentials: String = "$TOKENER",
     ): Response<NewsData>
@@ -115,14 +121,16 @@ interface ApiService {
         @Header("token") basicCredentials: String = "$TOKENER",
     ): Response<GetNewsByIdData>
 
-    @GET(NetworkCallPoints.GET_NEWS)
+    @POST(NetworkCallPoints.GET_NEWS)
     suspend fun getCurrentNews(
+        @Body params: JsonObject,
         @Query("current") current: Boolean,
         @Header("token") basicCredentials: String = "$TOKENER",
     ): Response<NewsData>
 
-    @GET(NetworkCallPoints.GET_NEWS)
+    @POST(NetworkCallPoints.GET_NEWS)
     suspend fun getRecentNews(
+        @Body params: JsonObject,
         @Query("recent") recent: Boolean,
         @Header("token") basicCredentials: String = "$TOKENER",
     ): Response<NewsData>
@@ -237,6 +245,16 @@ interface ApiService {
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<MeModel>
 
+    @GET(NetworkCallPoints.UNSUB)
+    suspend fun unsub(
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<UNSUBDataModel>
+
+    @GET(NetworkCallPoints.DELETE_USER)
+    suspend fun deleteUser(
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<DELETEUSERModel>
+
     @GET(NetworkCallPoints.COLLECT_PRIZE)
     suspend fun collectPrizeRaffal(
         @Header("token") basicCredentials: String = "$TOKENER"
@@ -267,7 +285,7 @@ interface ApiService {
     suspend fun quizResult(
         @Body params: JsonObject,
         @Header("token") basicCredentials: String = "$TOKENER"
-    ): Response<QuizScoreData>
+    ): Response<QuizResultDataModel>
 
 
     @GET(NetworkCallPoints.GET_ORDERS2)
@@ -285,6 +303,12 @@ interface ApiService {
     suspend fun getPlan(
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<GerPlanData>
+
+    @POST(NetworkCallPoints.SUB_PLAN)
+    suspend fun subPlan(
+        @Body params: JsonObject,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<SubData>
 
     @GET(NetworkCallPoints.GET_QUIZ_TITLE)
     suspend fun getQuizTitle(

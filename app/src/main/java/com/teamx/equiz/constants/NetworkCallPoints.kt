@@ -9,6 +9,8 @@ class NetworkCallPoints {
         const val OTP_VERIFY ="api/auth/verifyOtp/{uniqueID}"
         const val OTP_VERIFY_FORGOT ="api/auth/otpReset/{uniqueID}"
         const val ME = "api/users/find"
+        const val UNSUB = "api/users/find"
+        const val DELETE_USER = "api/users/remove"
         const val UPDATE_PROFILE = "api/users/update"
 
 
@@ -42,7 +44,7 @@ class NetworkCallPoints {
 
 
         const val GET_WALLET = "api/wallet/getWallet"
-        const val GET_NEWS = "api/news"
+        const val GET_NEWS = "api/news/"
         const val GET_NEWS_BY_ID = "api/news/find/{id}"
         const val GET_COUPONS ="api/coupon/find"
         const val ORDERS_CHECKOUT ="api/orders/checkout"
@@ -56,6 +58,7 @@ class NetworkCallPoints {
         const val GET_QUIZ_TITLE ="api/quiz/tile"
         const val GET_NOTIFICATION ="api/notification/find"
         const val GET_PLAN ="api/payment/getPlan"
+        const val SUB_PLAN ="api/payment/subscription"
         const val CREATE_ORDER ="api/orders/add"
 
 

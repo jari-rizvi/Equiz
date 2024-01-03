@@ -10,7 +10,7 @@ import com.google.gson.JsonObject
 import com.teamx.equiz.baseclasses.BaseViewModel
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.data.remote.reporitory.MainRepository
-import com.teamx.equiz.ui.fragments.quizresult.data.QuizScoreData
+import com.teamx.equiz.ui.fragments.quizresult.data.QuizResultDataModel
 import com.teamx.equiz.ui.fragments.singlequize.model.SingleQuizData
 import com.teamx.equiz.utils.NetworkHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -70,8 +70,8 @@ class SingleQuizesViewModel @Inject constructor(
         }
     }
 
-    private val _quizResultResponse = MutableLiveData<Resource<QuizScoreData>>()
-    val quizResultResponse: LiveData<Resource<QuizScoreData>>
+    private val _quizResultResponse = MutableLiveData<Resource<QuizResultDataModel>>()
+    val quizResultResponse: LiveData<Resource<QuizResultDataModel>>
         get() = _quizResultResponse
 
     fun quizResult(jsonObject: JsonObject) {

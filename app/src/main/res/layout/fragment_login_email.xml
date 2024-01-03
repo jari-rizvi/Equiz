@@ -49,7 +49,7 @@
                 android:imeOptions="actionNext"
                 android:inputType="text"
 
-              android:paddingHorizontal="@dimen/_29sdp"
+              android:paddingHorizontal="@dimen/_10sdp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/light_gray"
                 android:textSize="@dimen/_11ssp" />

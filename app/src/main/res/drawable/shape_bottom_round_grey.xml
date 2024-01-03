@@ -5,11 +5,11 @@
         android:bottomLeftRadius="@dimen/_10sdp"
         android:bottomRightRadius="@dimen/_10sdp"/>
     <gradient
-        android:angle="30"
-        android:endColor="#BD436E"
+        android:angle="90"
+        android:endColor="#9F81CA"
         android:endX="0"
         android:endY="100"
-        android:startColor="#9F81CA"
+        android:startColor="#BD436E"
         android:startX="0"
         android:startY="0"
         android:type="linear" />

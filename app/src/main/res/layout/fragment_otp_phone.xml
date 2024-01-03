@@ -63,7 +63,7 @@
             android:inputType="number"
             app:cursorColor="@color/black"
             app:hideLineWhenFilled="false"
-            android:itemBackground="@color/colorAccent"
+            android:itemBackground="@color/colorAccent_indeed"
             app:itemCount="6"
             app:itemHeight="50dp"
             app:itemRadius="8dp"

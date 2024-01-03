@@ -355,7 +355,7 @@ fun ResultScreen(
                     }
                     ShowMeantime("Mean Time", " ${time / right}s")
 
-                    Row(
+                   /* Row(
                         modifier = Modifier
                             .padding(top = 32.dp)
                             .fillMaxWidth(), Arrangement.SpaceAround
@@ -364,7 +364,7 @@ fun ResultScreen(
                         BottomResult2(){at->
                             onContinueClicked(at)
                         }
-                    }
+                    }*/
                     BottomButtons { i ->
                         if (i == 3) {
                             IsShareDialogTrue = true
@@ -936,6 +936,7 @@ fun dialogShareGame(
             Arrangement.SpaceEvenly,
         ) {
             DualColorCircularProgressBar2(accuracyPercentage)
+            ShowMeantime("Mean Time", " ${time / right}s")
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -947,18 +948,18 @@ fun dialogShareGame(
                 ShowScoring("Incorrect", Color(0xFFC62E27), "${(total - right).toInt()}")
 
             }
-            ShowMeantime("Mean Time", " ${time / right}s")
 
-            Row(
+
+            /*Row(
                 modifier = Modifier
                     .padding(top = 32.dp)
                     .fillMaxWidth(), Arrangement.SpaceAround
             ) {
                 BottomResult()
-              /*  BottomResult2() { at ->
+              *//*  BottomResult2() { at ->
                     onContinueClicked(at)
-                }*/
-            }
+                }*//*
+            }*/
            /* BottomButtons { i ->
                
                 onContinueClicked(i)

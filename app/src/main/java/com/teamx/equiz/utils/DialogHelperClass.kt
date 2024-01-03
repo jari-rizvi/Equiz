@@ -594,17 +594,15 @@ class DialogHelperClass {
             }
 
 
-        }
-
-
-
-
-
-
-
+          }
 
 
         interface DialogCallBackSignIn {
+            fun onSignInClick1()
+            fun onSignUpClick1()
+        }
+
+        interface DeleteUserDialogCallBack {
             fun onSignInClick1()
             fun onSignUpClick1()
         }
@@ -625,6 +623,55 @@ class DialogHelperClass {
             }
             signIn.setOnClickListener {
                 dialogCallBack.onSignInClick1()
+                dialog.dismiss()
+            }
+
+            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+            return dialog
+        }
+
+
+        fun deleteUserDialog(context: Context, dialogCallBack: DeleteUserDialogCallBack): Dialog {
+            val dialog = Dialog(context)
+            dialog.setContentView(R.layout.delete_user_layout)
+            dialog.window!!.setLayout(
+                WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT
+            )
+            dialog.setCancelable(false)
+            val cancelBtn = dialog.findViewById<TextView>(R.id.cancelBtn)
+            val signUp = dialog.findViewById<TextView>(R.id.signUp)
+
+            signUp.setOnClickListener {
+                dialogCallBack.onSignUpClick1()
+                dialog.dismiss()
+            }
+            cancelBtn.setOnClickListener {
+
+                dialog.dismiss()
+            }
+
+            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+            return dialog
+        }
+
+        fun unsubUserDialog(context: Context, dialogCallBack: DeleteUserDialogCallBack): Dialog {
+            val dialog = Dialog(context)
+            dialog.setContentView(R.layout.delete_user_layout)
+            dialog.window!!.setLayout(
+                WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT
+            )
+            dialog.setCancelable(false)
+            val cancelBtn = dialog.findViewById<TextView>(R.id.cancelBtn)
+            val signUp = dialog.findViewById<TextView>(R.id.signUp)
+
+            signUp.setOnClickListener {
+                dialogCallBack.onSignUpClick1()
+                dialog.dismiss()
+            }
+            cancelBtn.setOnClickListener {
+
                 dialog.dismiss()
             }
 

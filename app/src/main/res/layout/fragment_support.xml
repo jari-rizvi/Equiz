@@ -5,7 +5,7 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent" android:background="@color/colorAccent"
+        android:layout_width="match_parent" android:background="@color/colorAccent_indeed"
         android:layout_height="match_parent">
 
         <ImageView

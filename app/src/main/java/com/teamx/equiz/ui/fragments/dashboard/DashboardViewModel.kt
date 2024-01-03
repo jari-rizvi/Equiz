@@ -4,9 +4,11 @@ package com.teamx.equiz.ui.fragments.dashboard
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.google.gson.JsonObject
 import com.teamx.equiz.baseclasses.BaseViewModel
 import com.teamx.equiz.data.models.bannerData.bannews.BanNews
 import com.teamx.equiz.data.models.getwalletData.GetWalletData
+import com.teamx.equiz.data.models.meModel.MeModel
 import com.teamx.equiz.data.models.quizTitleData.QuizTitleData
 import com.teamx.equiz.data.models.topWinnerData.TopWinnerData
 import com.teamx.equiz.data.remote.Resource
@@ -163,7 +165,7 @@ class DashboardViewModel @Inject constructor(
         get() = _getBannerResponse
 
     fun getBanners(
-        unAuthorizedCallback: UnAuthorizedCallback
+        params: JsonObject,
     ) {
         viewModelScope.launch {
             _getBannerResponse.postValue(Resource.loading(null))
@@ -171,7 +173,7 @@ class DashboardViewModel @Inject constructor(
                 try {
                     Timber.tag("87878787887").d("starta")
 
-                    mainRepository.getBanners(/*true*/).let {
+                    mainRepository.getBanners(params/*true*/).let {
                         if (it.isSuccessful) {
                             _getBannerResponse.postValue(Resource.success(it.body()!!))
                             Timber.tag("87878787887").d(it.body()!!.toString())
@@ -198,6 +200,36 @@ class DashboardViewModel @Inject constructor(
                     _getBannerResponse.postValue(Resource.error("${e.message}", null))
                 }
             } else _getBannerResponse.postValue(Resource.error("No internet connection", null))
+        }
+    }
+
+    private val _meResponse = MutableLiveData<Resource<MeModel>>()
+    val meResponse: LiveData<Resource<MeModel>>
+        get() = _meResponse
+    fun me() {
+        viewModelScope.launch {
+            _meResponse.postValue(Resource.loading(null))
+            if (networkHelper.isNetworkConnected()) {
+                try {
+                    mainRepository.me().let {
+                        if (it.isSuccessful) {
+                            _meResponse.postValue(Resource.success(it.body()!!))
+                        }
+                        /*  else if (it.code() == 401) {
+                              _meResponse.postValue(Resource.unAuth("", null))
+                          }*/else if (it.code() == 500 || it.code() == 404 || it.code() == 400 || it.code() == 422) {
+                            val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
+                            _meResponse.postValue(Resource.error(jsonObj.getString("message")))
+                        } else {
+                            val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
+                            _meResponse.postValue(Resource.error(jsonObj.getString("message")))
+//                            _meResponse.postValue(Resource.error(it.message(), null))
+                        }
+                    }
+                } catch (e: Exception) {
+                    _meResponse.postValue(Resource.error("${e.message}", null))
+                }
+            } else _meResponse.postValue(Resource.error("No internet connection", null))
         }
     }
 

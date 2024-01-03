@@ -7,7 +7,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorAccent">
+        android:background="@color/colorAccent_indeed">
 
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -77,7 +77,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Ranking"
+                android:text="@string/ranking"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_13ssp"
                 app:layout_constraintBottom_toBottomOf="@+id/view1"
@@ -120,7 +120,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Total Points"
+                android:text="@string/total_points"
                 android:textColor="@color/white"
 
                 android:textSize="@dimen/_13ssp"
@@ -163,7 +163,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Total Chances"
+                android:text="@string/total_chances"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_13ssp"
                 app:layout_constraintBottom_toBottomOf="@+id/btnPast"
@@ -263,7 +263,7 @@
                             android:gravity="center_vertical"
                             android:paddingStart="@dimen/_7sdp"
                             android:paddingEnd="@dimen/_7sdp"
-                            android:text="Edit Profile"
+                            android:text="@string/edit_profile"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_11ssp"
                             android:textStyle="bold" />
@@ -311,7 +311,7 @@
                             android:gravity="center_vertical"
                             android:paddingStart="@dimen/_7sdp"
                             android:paddingEnd="@dimen/_7sdp"
-                            android:text="Order Manage"
+                            android:text="@string/order_manage"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_11ssp"
                             android:textStyle="bold" />
@@ -358,7 +358,7 @@
                             android:gravity="center_vertical"
                             android:paddingStart="@dimen/_7sdp"
                             android:paddingEnd="@dimen/_7sdp"
-                            android:text="Chances"
+                            android:text="@string/chances"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_11ssp"
                             android:textStyle="bold" />
@@ -417,7 +417,7 @@
                             android:gravity="center_vertical"
                             android:paddingStart="@dimen/_7sdp"
                             android:paddingEnd="@dimen/_7sdp"
-                            android:text="Leaderboard"
+                            android:text="@string/leaderboard"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_11ssp"
                             android:textStyle="bold" />
@@ -457,7 +457,7 @@
                             android:gravity="center_vertical"
                             android:paddingStart="@dimen/_7sdp"
                             android:paddingEnd="@dimen/_7sdp"
-                            android:text="Wishlist"
+                            android:text="@string/wishlist"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_11ssp"
                             android:textStyle="bold" />
@@ -505,7 +505,7 @@
                             android:gravity="center_vertical"
                             android:paddingStart="@dimen/_7sdp"
                             android:paddingEnd="@dimen/_7sdp"
-                            android:text="Security Policy"
+                            android:text="@string/security_policy"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_11ssp"
                             android:textStyle="bold" />
@@ -553,7 +553,7 @@
                             android:gravity="center_vertical"
                             android:paddingStart="@dimen/_7sdp"
                             android:paddingEnd="@dimen/_7sdp"
-                            android:text="UnSubscribe"
+                            android:text="@string/unsubscribe"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_11ssp"
                             android:textStyle="bold" />
@@ -600,7 +600,7 @@
                         android:gravity="center_vertical"
                         android:paddingStart="@dimen/_7sdp"
                         android:paddingEnd="@dimen/_7sdp"
-                        android:text="Delete Account"
+                        android:text="@string/delete_account"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_11ssp"
                         android:textStyle="bold" />

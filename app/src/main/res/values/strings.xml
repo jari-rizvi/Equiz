@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">EQuizApp</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="app_name">Emirates Q</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search_artist">Search artist</string>
 
@@ -100,6 +99,57 @@
     <string name="old_password">Old Password</string>
     <string name="change_password">Change Password</string>
     <string name="sign_up">Sign Up</string>
+    <string name="you_need_to_login_or_signup_to_nmove_further">You need to login or signup to\nmove further</string>
+    <string name="order_completed">Order Completed</string>
+    <string name="emirates_q">Emirates Q</string>
+    <string name="see_all">See all</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="user_name">User Name</string>
+    <string name="email_">Email</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="date_of_birth">Date of birth</string>
+    <string name="password_">Password</string>
+    <string name="save">Save</string>
+    <string name="change_password_">Change Password</string>
+    <string name="change_phone_number">Change Phone Number</string>
+    <string name="games_leaderboard">Games leaderboard</string>
+    <string name="ranked">#Ranked</string>
+    <string name="name_">Name</string>
+    <string name="score">Score</string>
+    <string name="password_change">Password Change</string>
+    <string name="ranking">Ranking</string>
+    <string name="total_points">Total Points</string>
+    <string name="total_chances">Total Chances</string>
+    <string name="order_manage">Order Manage</string>
+    <string name="chances">Chances</string>
+    <string name="leaderboard">Leaderboard</string>
+    <string name="wishlist">Wishlist</string>
+    <string name="security_policy">Security Policy</string>
+    <string name="unsubscribe">UnSubscribe</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="referral_">Referral</string>
+    <string name="refer_your_friends_earn_gifts">Refer Your Friends, Earn Gifts</string>
+    <string name="copy">Copy</string>
+    <string name="register_to_get_started">Register to get Started</string>
+    <string name="have_a_referral_code">Have a referral code?</string>
+    <string name="already_registered">Already Registered?</string>
+    <string name="women_dress">Women Dress</string>
+    <string name="home_">Home</string>
+    <string name="ecommerce">Ecommerce</string>
+    <string name="quiz">Quiz</string>
+    <string name="wallet_">Wallet</string>
+    <string name="collect_raffle_prize">Collect Raffle Prize</string>
+    <string name="notification">Notification</string>
+    <string name="coupon_">Coupon</string>
+    <string name="add_to_cart_">Add to cart</string>
+    <string name="date">Date</string>
+    <string name="oder_no">Oder No :</string>
+    <string name="oder_qty">Oder Qty :</string>
+    <string name="total_amount">Total Amount</string>
+    <string name="you_need_to_be_verify">You need to be verify</string>
+    <string name="cancel">Cancel</string>
+    <string name="are_you_sure_you_want_to_delete">are you sure you want to delete</string>
+    <string name="are_you_sure_you_want_to_unsubscribe">Are you sure you want to unsubscribe?</string>
 
 
 </resources>
