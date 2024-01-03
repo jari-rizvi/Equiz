@@ -171,8 +171,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
                     Resource.Status.SUCCESS -> {
 //                        loadingDialog.dismiss()
-//                        mViewDataBinding.shimmerLayout.stopShimmer()
-//                        mViewDataBinding.shimmerLayout.visibility = View.GONE
+                        mViewDataBinding.shimmerLayout.stopShimmer()
+                        mViewDataBinding.shimmerLayout.visibility = View.GONE
 //                        mViewDataBinding.mainLayout.visibility = View.VISIBLE
                         imageList2.clear()
                         it.data?.let { data ->

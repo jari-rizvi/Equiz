@@ -1,6 +1,7 @@
 package com.teamx.equiz.ui.fragments.quizes.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.teamx.equiz.data.models.quizTitleData.Data
@@ -27,12 +28,21 @@ class QuizesAdapter(
 
         val quizData = quizArrayList[position]
 
+
         holder.bind.textView2754.text = quizData.topic
         holder.bind.textView27.text = quizData.type
 
         holder.itemView.setOnClickListener {
             quizesInterface.quizeItem(position)
         }
+        if (quizData.isRush) {
+            holder.bind.rushBtn.visibility = View.VISIBLE
+        } else {
+            holder.bind.rushBtn.visibility = View.INVISIBLE
+
+        }
+        holder.bind.root.isClickable = !quizData.played
+
 
     }
 
