@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
+import com.teamx.equiz.constants.NetworkCallPoints.Companion.TOKENER
 import com.teamx.equiz.data.models.quizTitleData.Data
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.SettingsFragmentLayoutBinding
@@ -52,6 +53,9 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
+
+
+
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {
@@ -172,6 +176,16 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
             bundle = Bundle()
         }
         bundle.putString("referralCode", referralCode)
+
+        mViewDataBinding.btnLogout.setOnClickListener {}
+
+        if (TOKENER.isNullOrEmpty() || TOKENER.equals("null", true)) {
+            mViewDataBinding.btnLogout.visibility = View.GONE
+
+        }
+
+
+
         mViewDataBinding.btnLogout.setOnClickListener {
 
 
@@ -194,21 +208,33 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
 
         }
         mViewDataBinding.btneccomernce.setOnClickListener {
+
             findNavController().navigate(R.id.ecommerceFragment, arguments, options)
         }
         mViewDataBinding.btnHome.setOnClickListener {
             findNavController().navigate(R.id.dashboardFragment, arguments, options)
         }
         mViewDataBinding.btnquiz.setOnClickListener {
+            if (TOKENER.isNullOrEmpty() || TOKENER.equals("null", true)) {
+                DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
+                return@setOnClickListener
+            }
             findNavController().navigate(R.id.quizesFragment, arguments, options)
         }
         mViewDataBinding.btnWallet.setOnClickListener {
+            if (TOKENER.isNullOrEmpty() || TOKENER.equals("null", true)) {
+                DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
+                return@setOnClickListener
+            }
             bundle.putString("referralCode", referralCode)
             findNavController().navigate(R.id.walletFragment, bundle, options)
         }
 
         mViewDataBinding.btnReffeal.setOnClickListener {
-
+            if (TOKENER.isNullOrEmpty() || TOKENER.equals("null", true)) {
+                DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
+                return@setOnClickListener
+            }
 
 
             bundle.putString("referralCode", referralCode)
@@ -217,17 +243,28 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
         }
 
         mViewDataBinding.btnProfile.setOnClickListener {
-
+            if (TOKENER.isNullOrEmpty() || TOKENER.equals("null", true)) {
+                DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
+                return@setOnClickListener
+            }
 
             bundle.putString("rankUser", mViewDataBinding.textView50.text.toString())
             findNavController().navigate(R.id.profileFragment, bundle, options)
         }
 
         mViewDataBinding.btnNotification.setOnClickListener {
+            if (TOKENER.isNullOrEmpty() || TOKENER.equals("null", true)) {
+                DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
+                return@setOnClickListener
+            }
             findNavController().navigate(R.id.notificationsFragment, arguments, options)
         }
 
         mViewDataBinding.btnNews.setOnClickListener {
+            if (TOKENER.isNullOrEmpty() || TOKENER.equals("null", true)) {
+                DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
+                return@setOnClickListener
+            }
             findNavController().navigate(R.id.newsFragment, arguments, options)
         }
 
@@ -252,17 +289,33 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
         }
 
         mViewDataBinding.btnCollectPrize.setOnClickListener {
+            if (TOKENER.isNullOrEmpty() || TOKENER.equals("null", true)) {
+                DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
+                return@setOnClickListener
+            }
             findNavController().navigate(R.id.collectPriceFragment, arguments, options)
         }
 
         mViewDataBinding.btnCoupon.setOnClickListener {
+            if (TOKENER.isNullOrEmpty() || TOKENER.equals("null", true)) {
+                DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
+                return@setOnClickListener
+            }
             findNavController().navigate(R.id.coupnsFragment, arguments, options)
         }
 
         mViewDataBinding.btnleaderboard.setOnClickListener {
+            if (TOKENER.isNullOrEmpty() || TOKENER.equals("null", true)) {
+                DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
+                return@setOnClickListener
+            }
             findNavController().navigate(R.id.loaderBoardFragment, arguments, options)
         }
         mViewDataBinding.btnSubscribe.setOnClickListener {
+            if (TOKENER.isNullOrEmpty() || TOKENER.equals("null", true)) {
+                DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
+                return@setOnClickListener
+            }
             findNavController().navigate(R.id.subscriptionFragment, arguments, options)
         }
         addLeaderBoard()

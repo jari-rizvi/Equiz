@@ -65,7 +65,12 @@
             app:layout_constraintTop_toTopOf="@+id/textView2754"
             app:tint="@color/white" />
 
-
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/isPlayed"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/input_field_second"
+            android:elevation="@dimen/_5sdp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

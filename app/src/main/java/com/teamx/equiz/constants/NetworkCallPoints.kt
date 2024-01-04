@@ -28,6 +28,7 @@ class NetworkCallPoints {
         const val ADD_WISHLIST = "api/wishlist/add"
         const val DELETE_WISHLIST = "api/wishlist/delete"
 
+        const val NOTIFY_FCM = "api/notification/add/"
         const val BANNERS_DATA = "api/news/"
         const val BANNERS_DATA2 = "api/news/"
 

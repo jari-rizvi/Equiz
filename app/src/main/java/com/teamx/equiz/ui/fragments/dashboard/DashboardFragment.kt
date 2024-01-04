@@ -1,22 +1,33 @@
 package com.teamx.equiz.ui.fragments.dashboard
 
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.activity.addCallback
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.Keep
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.FirebaseApp
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.ktx.initialize
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.gson.JsonObject
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
+import com.teamx.equiz.constants.NetworkCallPoints
 import com.teamx.equiz.data.models.quizTitleData.Data
 import com.teamx.equiz.data.models.topWinnerData.Game
 import com.teamx.equiz.data.remote.Resource
@@ -34,6 +45,7 @@ import com.teamx.equiz.utils.DialogHelperClass
 import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONException
+import timber.log.Timber
 
 @AndroidEntryPoint
 class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewModel>(),
@@ -86,13 +98,20 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             findNavController().navigate(R.id.settingsFragment, bundle, options)
         }
         mViewDataBinding.tvCoins.setOnClickListener {
-
+            if (NetworkCallPoints.TOKENER.isNullOrEmpty() || NetworkCallPoints.TOKENER.equals("null", true)) {
+                DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
+                return@setOnClickListener
+            }
             findNavController().navigate(
                 R.id.topupFragment, arguments, options
             )
         }
 
         mViewDataBinding.textView155.setOnClickListener {
+            if (NetworkCallPoints.TOKENER.isNullOrEmpty() || NetworkCallPoints.TOKENER.equals("null", true)) {
+                DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
+                return@setOnClickListener
+            }
             findNavController().navigate(
                 R.id.quizesFragment, arguments,options
             )
@@ -130,6 +149,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
                     Resource.Status.AUTH -> {
                         loadingDialog.dismiss()
+                        mViewDataBinding.mainLayout.visibility = View.VISIBLE
+                        mViewDataBinding.shimmerLayout.stopShimmer()
+                        mViewDataBinding.shimmerLayout.visibility = View.GONE
                         onToSignUpPage()
                     }
 
@@ -189,9 +211,15 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                         mViewDataBinding.viewPager.adapter?.notifyDataSetChanged()
 
                     }
-                    Resource.Status.AUTH -> { loadingDialog.dismiss()
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+                        mViewDataBinding.mainLayout.visibility = View.VISIBLE
+                        mViewDataBinding.shimmerLayout.stopShimmer()
+                        mViewDataBinding.shimmerLayout.visibility = View.GONE
                         onToSignUpPage()
                     }
+
                     Resource.Status.ERROR -> {
 //                        loadingDialog.dismiss()
                         mViewDataBinding.shimmerLayout.stopShimmer()
@@ -236,9 +264,15 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
                         }
                     }
-                    Resource.Status.AUTH -> { loadingDialog.dismiss()
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+                        mViewDataBinding.mainLayout.visibility = View.VISIBLE
+                        mViewDataBinding.shimmerLayout.stopShimmer()
+                        mViewDataBinding.shimmerLayout.visibility = View.GONE
                         onToSignUpPage()
                     }
+
                     Resource.Status.ERROR -> {
 //                        loadingDialog.dismiss()
                         mViewDataBinding.shimmerLayout.stopShimmer()
@@ -284,9 +318,15 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                         }
 
                     }
-                    Resource.Status.AUTH -> { loadingDialog.dismiss()
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+                        mViewDataBinding.mainLayout.visibility = View.VISIBLE
+                        mViewDataBinding.shimmerLayout.stopShimmer()
+                        mViewDataBinding.shimmerLayout.visibility = View.GONE
                         onToSignUpPage()
                     }
+
                     Resource.Status.ERROR -> {
 //                        loadingDialog.dismiss()
                         mViewDataBinding.shimmerLayout.stopShimmer()
@@ -307,6 +347,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                 }
             }
         }
+        FirebaseApp.initializeApp(requireContext())
+        Firebase.initialize(requireContext())
 
 
         getMeApi()
@@ -316,6 +358,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         initializeWinnerAdapter()
         initializeQuizesAdapter()
         addingSliderAdapter()
+
+
     }
 
     private lateinit var strArrayList: ArrayList<TitleData>
@@ -893,6 +937,12 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                                 try {
                                     params.addProperty("userId", "$userId")
                                     mViewModel.getBanners(params)
+
+
+
+
+
+
                                 } catch (e: JSONException) {
                                     e.printStackTrace()
                                 }
@@ -905,6 +955,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
                     Resource.Status.AUTH -> {
                         loadingDialog.dismiss()
+                        mViewDataBinding.mainLayout.visibility = View.VISIBLE
+                        mViewDataBinding.shimmerLayout.stopShimmer()
+                        mViewDataBinding.shimmerLayout.visibility = View.GONE
                         onToSignUpPage()
                     }
 
@@ -920,18 +973,59 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         }
     }
 
-//////////////
+    //////////////
 
 
+
+////
+
+//    private fun askNotificationPermission() {
+//        // This is only necessary for API level >= 33 (TIRAMISU)
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            if (ContextCompat.checkSelfPermission(
+//                    requireContext(), Manifest.permission.POST_NOTIFICATIONS
+//                ) == PackageManager.PERMISSION_GRANTED
+//            ) {
+//
+//
+//                FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+//                    if (!task.isSuccessful) {
+//                        Log.w("123123", "Fetching FCM registration token failed", task.exception)
+//                        return@OnCompleteListener
+//                    }
+//
+//                    // Get new FCM registration token
+//                    val token = task.result
+//                    val params = JsonObject()
+//                    params.addProperty("fcmToken", token)
+//
+//                    mViewModel.notifyFcms(params)
+//                    // Log and toast
+////                val msg = getString(R.string.about_us, token)
+//                    Timber.tag("123123").d(token.toString())
+//                    Timber.tag("123123").d(token.toString())
+////                Log.d("TAG", msg)
+//                })
+//                // FCM SDK (and your app) can post notifications.
+//            } else if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
+//
+//            } else {
+//                // Directly ask for t
+//                //
+//                //
+//                // he permission
+//                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+//            }
+//        }
+//    }
 }
-
 
 @Keep
 data class GamesModel(
     val name: String, val image: Int
 )
 
-
+@Keep
 enum class GamesUID2 {
-    AdditionAddiction, BirdWatching,  ColorDeception, Tetris, Concentration, CardCalculation, Flick, FollowTheLeader, GuessTheFlag, HighLow,  MakeTen, Matching, MissingPiece, Operations, QuickEye, RainFall, RapidSorting, ReverseRps, SpinningBlock,Simplicity, ShapeDeception, TapTheColor, TouchTheNum,TouchTheNumPlus,  UnfollowTheLeader, WeatherCast
+    AdditionAddiction, BirdWatching, ColorDeception, Tetris, Concentration, CardCalculation, Flick, FollowTheLeader, GuessTheFlag, HighLow, MakeTen, Matching, MissingPiece, Operations, QuickEye, RainFall, RapidSorting, ReverseRps, SpinningBlock, Simplicity, ShapeDeception, TapTheColor, TouchTheNum, TouchTheNumPlus, UnfollowTheLeader, WeatherCast
 }

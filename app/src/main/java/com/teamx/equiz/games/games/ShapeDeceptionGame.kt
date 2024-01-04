@@ -1,6 +1,8 @@
 package com.teamx.equiz.games.games
 
+
 import android.os.CountDownTimer
+import androidx.annotation.Keep
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
@@ -54,9 +56,6 @@ import com.teamx.equiz.games.ui.theme.DeceptionPurple
 import com.teamx.equiz.games.ui.theme.DeceptionYellow
 import kotlin.random.Random
 
-
-import androidx.annotation.Keep
-
 @Keep
 data class ShapeBox(val colorName: ShapeBundle, val color: Color)
 
@@ -64,13 +63,15 @@ enum class ShapeBundle {
     YELLOW_HEXAGON, WHITE_TRIANGLE, BLACK_SQUARE, PURPLE_CIRCLE/*, PINK*/
 }
 
+var rightGameAnswersDecep = 0
+var totalGameAnswersDecep = 0
 
 @Composable
-fun TouchTheShapesGameScreen(content: (boolean: Boolean, rightAnswer:Int, totalAnswer:Int) -> Unit) {
+fun TouchTheShapesGameScreen(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit) {
     var isGameOver by remember { mutableStateOf(false) }
-        var isAlert by remember { mutableStateOf(false) }
- rightGameAnswers = 1
- wrongGameAnswers = 1
+    var isAlert by remember { mutableStateOf(false) }
+    rightGameAnswers = 1
+    wrongGameAnswers = 1
 
     var timeLeft by remember { mutableStateOf(10L) }
     var isTimeUp by remember { mutableStateOf(false) }
@@ -97,7 +98,7 @@ fun TouchTheShapesGameScreen(content: (boolean: Boolean, rightAnswer:Int, totalA
 
 
     if (isGameOver) {
-        content(true, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
+        content(true, rightGameAnswersDecep, totalGameAnswersDecep)
     }
 
     if (isTimeUp) {
@@ -107,7 +108,7 @@ fun TouchTheShapesGameScreen(content: (boolean: Boolean, rightAnswer:Int, totalA
                 isGameOver = true
 
             } else {
-                content(false, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
+                content(false, rightGameAnswersDecep, totalGameAnswersDecep)
             }
         }
 
@@ -181,7 +182,9 @@ fun TouchTheShapesGameScreen(content: (boolean: Boolean, rightAnswer:Int, totalA
 
 
                                 .clickable {
+                                    totalGameAnswersDecep++
                                     updateScore(boxes, box, index) { i, bool ->
+                                    rightGameAnswersDecep++
                                         score++
                                         restart = true
                                         val arr = ArrayList<ShapeBox>()

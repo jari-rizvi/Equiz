@@ -18,6 +18,7 @@ import com.google.gson.JsonObject
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
+import com.teamx.equiz.constants.NetworkCallPoints
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentProductProfileBinding
 import com.teamx.equiz.utils.DialogHelperClass
@@ -67,6 +68,10 @@ class ProductProfileFragment :
         }
 
         mViewDataBinding.btnWish.setOnClickListener {
+            if (NetworkCallPoints.TOKENER.isNullOrEmpty() || NetworkCallPoints.TOKENER.equals("null", true)) {
+                DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
+                return@setOnClickListener
+            }
             AddToWishList()
         }
 
@@ -87,6 +92,11 @@ class ProductProfileFragment :
 
 
         mViewDataBinding.btnCheckout.setOnClickListener {
+            if (NetworkCallPoints.TOKENER.isNullOrEmpty() || NetworkCallPoints.TOKENER.equals("null", true)) {
+                DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
+                return@setOnClickListener
+            }
+
             AddToCart()
         }
 

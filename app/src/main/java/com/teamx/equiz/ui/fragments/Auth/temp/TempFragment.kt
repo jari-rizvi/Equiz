@@ -60,7 +60,7 @@ class TempFragment : BaseFragment<FragmentTempBinding, TempViewModel>() {
 //token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTJlNWEyYTE2YTU5OGNjYzRhNmIwZGUiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3MDI5ODk4NjQsImV4cCI6MTcwMzA3NjI2NH0.vgKdhrZQqSc_x-0kB_EHgRmVi4zoI6LzDMbCzGLTtXQ"
                 TOKENER = it.toString()
 
-                if (it.isNullOrBlank()) {
+                if (it.isNullOrBlank()&&false) {
 
 
                 } else {

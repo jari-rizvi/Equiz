@@ -1,11 +1,18 @@
 package com.teamx.equiz.ui.fragments.Auth.login
 
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.View
+import androidx.activity.addCallback
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
@@ -18,6 +25,7 @@ import com.google.gson.JsonObject
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
+import com.teamx.equiz.constants.NetworkCallPoints
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentLoginPhoneBinding
 import com.teamx.equiz.utils.DialogHelperClass
@@ -25,9 +33,11 @@ import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import org.json.JSONException
-import androidx.activity.addCallback
-import com.teamx.equiz.constants.NetworkCallPoints
+import org.json.JSONObject
+import timber.log.Timber
 
 @AndroidEntryPoint
 class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewModel>() {
@@ -43,13 +53,17 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
     private var password: String? = null
     private lateinit var options: NavOptions
     private lateinit var fcmToken: String
+    var country: String = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
+
+
+        addClientCountry()
 
         options = navOptions {
             anim {
@@ -89,7 +103,7 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
             isValidate()
         }
 
-
+        askNotificationPermission()
     }
 
     private fun initialization() {
@@ -108,6 +122,7 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
                 params.addProperty("phone", userPhone)
                 params.addProperty("password", password)
                 params.addProperty("fcmToken", fcmToken)
+                params.addProperty("country", country)
             } catch (e: JSONException) {
                 e.printStackTrace()
             }
@@ -175,12 +190,122 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
             return false
         }
         if (mViewDataBinding.etPass.text.toString().trim().length < 8) {
-              if(isAdded){
-            mViewDataBinding.root.snackbar(getString(R.string.password_8_character))
-             }
+            if (isAdded) {
+                mViewDataBinding.root.snackbar(getString(R.string.password_8_character))
+            }
             return false
         }
         ApiCall()
         return true
+    }
+
+
+    var tokenFcmString = ""
+    private fun askNotificationPermission() {
+        // This is only necessary for API level >= 33 (TIRAMISU)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (ContextCompat.checkSelfPermission(
+                    requireContext(), Manifest.permission.POST_NOTIFICATIONS
+                ) == PackageManager.PERMISSION_GRANTED
+            ) {
+
+
+                FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+                    if (!task.isSuccessful) {
+                        Log.w("123123", "Fetching FCM registration token failed", task.exception)
+                        return@OnCompleteListener
+                    }
+
+                    // Get new FCM registration token
+                    val token = task.result
+                    tokenFcmString = task.result
+                    val params = JsonObject()
+//                    params.addProperty("title", token)
+//                    params.addProperty("body", token)
+
+//                    mViewModel.notifyFcms(params)
+                    // Log and toast
+//                val msg = getString(R.string.about_us, token)
+                    Timber.tag("123123").d(token.toString())
+                    Timber.tag("123123").d(token.toString())
+//                Log.d("TAG", msg)
+                })
+                // FCM SDK (and your app) can post notifications.
+            } else if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
+
+            } else {
+                // Directly ask for t
+                //
+                //
+                // he permission
+                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+            }
+        }
+    }
+
+
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            // FCM SDK (and your app) can post notifications.
+            Firebase.initialize(requireContext())
+            FirebaseApp.initializeApp(requireContext())
+            FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    Log.w("123123", "Fetching FCM registration token failed", task.exception)
+                    return@OnCompleteListener
+                }
+
+                // Get new FCM registration token
+
+                val token = task.result
+                tokenFcmString = task.result
+
+                val params = JsonObject()
+
+//                params.addProperty("title", token)
+//                params.addProperty("body", token)
+//
+//                mViewModel.notifyFcms(params)
+
+                // Log and toast
+//                val msg = getString(R.string.about_us, token)
+                Log.d("123123111", token.toString())
+                Log.d("123123111", token.toString())
+//                Log.d("TAG", msg)
+            })
+
+        } else {
+//             Inform user that that your app will not show notifications.
+        }
+
+
+    }
+
+
+   private fun addClientCountry() {
+        mViewModel.viewModelScope.launch(Dispatchers.IO) {
+            val client = OkHttpClient()
+            val request = Request.Builder()
+                .url("https://ipwho.is/")
+                .build()
+            val response = client.newCall(request).execute()
+            var responseCode = 0;
+            if (response.code.also { responseCode = it } == 200) {
+                // Get response
+                val jsonData: String = response!!.body!!.string()
+
+                // Transform reponse to JSon Object
+                val json = JSONObject(jsonData)
+
+                // Use the JSon Object
+                var ip = json.getString("ip")
+                var country2 = json.getString("country")
+
+                country = country2
+            }
+            Log.d("123123", "addClientCountry: ${response}")
+        }
     }
 }

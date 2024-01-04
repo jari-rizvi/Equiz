@@ -301,7 +301,8 @@ fun PreviewTouchTheNumbersGameScreen() {
 
 
 //Touch The Number
-
+var rightGameAnswersTheNum = 1
+var totalGameAnswersTheNum = 1
 
 @Preview
 @Composable
@@ -309,8 +310,7 @@ fun TouchTheNumGamePlus(content:  (bool:Boolean, rightAnswer:Int, totalAnswer:In
 
     var isGameOver by remember { mutableStateOf(false) }
         var isAlert by remember { mutableStateOf(false) }
- rightGameAnswers = 1
- wrongGameAnswers = 1
+
     var isTimeUp by remember { mutableStateOf(false) }
 
     var timeLeft by remember { mutableStateOf(10L) }
@@ -340,7 +340,7 @@ fun TouchTheNumGamePlus(content:  (bool:Boolean, rightAnswer:Int, totalAnswer:In
     if (isGameOver) {
 
 
-        content(true, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
+        content(true, rightGameAnswersTheNum, totalGameAnswersTheNum)
 
     }
 
@@ -351,7 +351,7 @@ fun TouchTheNumGamePlus(content:  (bool:Boolean, rightAnswer:Int, totalAnswer:In
                 isGameOver = true
 
             } else {
-                content(false, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
+                content(false, rightGameAnswersTheNum, totalGameAnswersTheNum)
             }
         }
 

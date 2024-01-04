@@ -19,6 +19,7 @@ class MainRepository @Inject constructor(
     suspend fun getWishlist() = apiService.getWishlist()
     suspend fun getBanners(isActive: Boolean) = apiService.getBanners(isActive)
     suspend fun getBanners(params: JsonObject) = apiService.getBanners(params/*isActive*/)
+    suspend fun notifyFcm(params: JsonObject) = apiService.notifyFcm(params/*isActive*/)
     suspend fun getProducts() = apiService.getProducts()
     suspend fun getChances() = apiService.getChances()
 

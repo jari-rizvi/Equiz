@@ -13,6 +13,7 @@ import com.teamx.equiz.data.models.quizTitleData.QuizTitleData
 import com.teamx.equiz.data.models.topWinnerData.TopWinnerData
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.data.remote.reporitory.MainRepository
+import com.teamx.equiz.ui.fragments.Auth.datanotify.DataFCMModel
 import com.teamx.equiz.utils.NetworkHelper
 import com.teamx.equiz.utils.UnAuthorizedCallback
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -46,9 +47,9 @@ class DashboardViewModel @Inject constructor(
                         if (it.isSuccessful) {
                             _getquizTitileResponse.postValue(Resource.success(it.body()!!))
                             Timber.tag("87878787887").d(it.body()!!.toString())
-                        } /*else if (it.code() == 401) {
+                        } else if (it.code() == 401) {
                             _getquizTitileResponse.postValue(Resource.unAuth("", null))
-                        }*/ else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
+                        } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
                             Timber.tag("87878787887").d("secoonnddd")
 
 //                            _getquizTitileResponse.postValue(Resource.error(it.message(), null))
@@ -134,9 +135,9 @@ class DashboardViewModel @Inject constructor(
                         if (it.isSuccessful) {
                             _getTopWinnersResponse.postValue(Resource.success(it.body()!!))
                             Timber.tag("87878787887").d(it.body()!!.toString())
-                        } /*else if (it.code() == 401) {
+                        } else if (it.code() == 401) {
                             _getTopWinnersResponse.postValue(Resource.unAuth("", null))
-                        }*/ else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
+                        } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
                             Timber.tag("87878787887").d("secoonnddd")
 
 //                            _getTopWinnersResponse.postValue(Resource.error(it.message(), null))
@@ -159,6 +160,10 @@ class DashboardViewModel @Inject constructor(
             } else _getTopWinnersResponse.postValue(Resource.error("No internet connection", null))
         }
     }
+
+
+
+
 
     private val _getBannerResponse = MutableLiveData<Resource<BanNews>>()
     val getBannerResponse: LiveData<Resource<BanNews>>
@@ -203,6 +208,56 @@ class DashboardViewModel @Inject constructor(
         }
     }
 
+
+
+  /*  private val _notifyfcmResponse = MutableLiveData<Resource<DataFCMModel>>()
+    val notifyFcmResponse: LiveData<Resource<DataFCMModel>>
+        get() = _notifyfcmResponse
+
+    fun notifyFcms(
+        params: JsonObject,
+    ) {
+        viewModelScope.launch {
+            _notifyfcmResponse.postValue(Resource.loading(null))
+            if (networkHelper.isNetworkConnected()) {
+                try {
+                    Timber.tag("87878787887").d("starta")
+
+                    mainRepository.notifyFcm(params*//*true*//*).let {
+                        if (it.isSuccessful) {
+                            _notifyfcmResponse.postValue(Resource.success(it.body()!!))
+                            Timber.tag("87878787887").d(it.body()!!.toString())
+                        } else if (it.code() == 401) {
+                            _notifyfcmResponse.postValue(Resource.unAuth("", null))
+                        } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
+                            Timber.tag("87878787887").d("secoonnddd")
+
+//                            _notifyfcmResponse.postValue(Resource.error(it.message(), null))
+                            val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
+                            _notifyfcmResponse.postValue(Resource.error(jsonObj.getString("message")))
+                        } else {
+                            _notifyfcmResponse.postValue(
+                                Resource.error(
+                                    "Some thing went wrong",
+                                    null
+                                )
+                            )
+                            Timber.tag("87878787887").d("third")
+
+                        }
+                    }
+                } catch (e: Exception) {
+                    _notifyfcmResponse.postValue(Resource.error("${e.message}", null))
+                }
+            } else _notifyfcmResponse.postValue(Resource.error("No internet connection", null))
+        }
+    }*/
+
+
+
+
+
+
     private val _meResponse = MutableLiveData<Resource<MeModel>>()
     val meResponse: LiveData<Resource<MeModel>>
         get() = _meResponse
@@ -215,9 +270,9 @@ class DashboardViewModel @Inject constructor(
                         if (it.isSuccessful) {
                             _meResponse.postValue(Resource.success(it.body()!!))
                         }
-                        /*  else if (it.code() == 401) {
+                          else if (it.code() == 401) {
                               _meResponse.postValue(Resource.unAuth("", null))
-                          }*/else if (it.code() == 500 || it.code() == 404 || it.code() == 400 || it.code() == 422) {
+                          }else if (it.code() == 500 || it.code() == 404 || it.code() == 400 || it.code() == 422) {
                             val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
                             _meResponse.postValue(Resource.error(jsonObj.getString("message")))
                         } else {

@@ -14,7 +14,7 @@
         android:id="@+id/textView37"
         android:layout_width="@dimen/_65sdp"
         android:layout_height="@dimen/_65sdp"
-        android:src="@drawable/unauthorized"
+        android:src="@drawable/error_mark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -40,35 +40,37 @@
         android:id="@+id/signIn"
         android:layout_width="@dimen/_100sdp"
         android:layout_height="@dimen/_35sdp"
-        android:background="@drawable/card_background"
-        android:backgroundTint="@color/BirdColor4"
-        android:elevation="@dimen/_7sdp"
+
+
+        android:elevation="@dimen/_2sdp"
         android:gravity="center"
         android:text="@string/login"
+        android:background="@drawable/card_background_border"
+        android:backgroundTint="@color/theme_color"
         android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/signUp"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView38" />
+        app:layout_constraintStart_toEndOf="@+id/signUp"
+        app:layout_constraintTop_toBottomOf="@+id/textView38"
+        app:layout_constraintVertical_bias="0.589" />
 
     <TextView
         android:id="@+id/signUp"
         android:layout_width="@dimen/_100sdp"
         android:layout_height="@dimen/_35sdp"
-        android:background="@drawable/card_background"
-        android:backgroundTint="@color/BirdColor4"
+
         android:elevation="@dimen/_7sdp"
         android:gravity="center"
-        android:text="@string/sign_up"
-        android:textColor="@color/white"
+        android:text="@string/cancel"
+        android:textColor="@color/theme_color"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/signIn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/signIn"
-        app:layout_constraintTop_toTopOf="@+id/signIn" />
+        app:layout_constraintHorizontal_bias="0.147"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/signIn"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

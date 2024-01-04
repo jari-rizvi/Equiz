@@ -188,18 +188,18 @@ var dialog: Dialog? = null
         mViewModel.viewModelScope.launch {
             dataStoreProvider.saveUserToken("")
             navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
-            navController.navigate(R.id.logInFragment, null)
+            navController.navigate(R.id.temp2Fragment, null)
 
         }
     }
 
     override fun onSignUpClick1() {
-        mViewModel.viewModelScope.launch {
+       /* mViewModel.viewModelScope.launch {
             dataStoreProvider.saveUserToken("")
             navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
             navController.navigate(R.id.temp2Fragment, null)
 
-        }
+        }*/
     }
 
 

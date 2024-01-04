@@ -49,13 +49,15 @@ import kotlinx.coroutines.delay
 import java.util.LinkedList
 import kotlin.random.Random
 
+var rightGameAnswersunFollow = 1
+var gameAnswersTotalunFollow = 1
+
 @Composable
-fun UnfollowTheLeaderGame(content:  (bool:Boolean, rightAnswer:Int, totalAnswer:Int) -> Unit) {
+fun UnfollowTheLeaderGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit) {
 
     var isGameOver by remember { mutableStateOf(false) }
-        var isAlert by remember { mutableStateOf(false) }
- rightGameAnswers = 1
- wrongGameAnswers = 1
+    var isAlert by remember { mutableStateOf(false) }
+
     var isTimeUp by remember { mutableStateOf(false) }
 
     var timeLeft by remember { mutableStateOf(10L) }
@@ -85,7 +87,7 @@ fun UnfollowTheLeaderGame(content:  (bool:Boolean, rightAnswer:Int, totalAnswer:
     if (isGameOver) {
 
 
-        content(true, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
+        content(true, rightGameAnswersunFollow, gameAnswersTotalunFollow)
 
     }
 
@@ -96,7 +98,7 @@ fun UnfollowTheLeaderGame(content:  (bool:Boolean, rightAnswer:Int, totalAnswer:
                 isGameOver = true
 
             } else {
-                content(false, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
+                content(false, rightGameAnswersunFollow, gameAnswersTotalunFollow)
             }
         }
 
@@ -322,12 +324,14 @@ fun AnimatedObjectU2(number: Int, itemCompared: Int, onClick: (Item: Int) -> Uni
                     false
                 }
             ) {
+                gameAnswersTotalunFollow++
                 if (colorState == Color.Transparent) {
                     Log.d("123123", "AnimatedObjectWrong2:$number ::$itemCompared ")
                     return@clickable
                 } else if (number == linkListAddedU2.first) {
                     colorState = Color.Transparent
                     onClick(itemCompared)
+                    rightGameAnswersunFollow++
                     Log.d("123123", "AnimatedObjectWrong1:$number ::$itemCompared ")
                 } else {
                     Log.d("123123", "AnimatedObjectWrong2:$number ::$itemCompared ")

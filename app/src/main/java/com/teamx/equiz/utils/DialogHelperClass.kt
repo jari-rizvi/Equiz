@@ -32,6 +32,9 @@ class DialogHelperClass {
             dialog.setContentView(R.layout.dialog_layout_error)
             val errorTextMessage = dialog.findViewById<TextView>(R.id.tv_error_message)
             errorTextMessage.setText(errorMessage)
+            if (errorMessage.contains("job was cancelled", true)) {
+                return
+            }
             dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             dialog.show()
         }
@@ -607,28 +610,38 @@ class DialogHelperClass {
             fun onSignUpClick1()
         }
 
+        var dialog: Dialog? = null
         fun signUpLoginDialog(context: Context, dialogCallBack: DialogCallBackSignIn): Dialog {
-            val dialog = Dialog(context)
-            dialog.setContentView(R.layout.signup_signin_dialog_equiz)
-            dialog.window!!.setLayout(
+            if (dialog == null) {
+
+                dialog = Dialog(context)
+            } else {
+                if (dialog!!.isShowing) {
+                    dialog?.dismiss()
+                    dialog!!.show()
+                }
+
+            }
+            dialog?.setContentView(R.layout.signup_signin_dialog_equiz)
+            dialog?.window!!.setLayout(
                 WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT
             )
-            dialog.setCancelable(false)
-            val signIn = dialog.findViewById<TextView>(R.id.signIn)
-            val signUp = dialog.findViewById<TextView>(R.id.signUp)
+//            dialog.setCancelable(false)
+            val signIn = dialog?.findViewById<TextView>(R.id.signIn)
+            val signUp = dialog?.findViewById<TextView>(R.id.signUp)
 
-            signUp.setOnClickListener {
+            signUp?.setOnClickListener {
                 dialogCallBack.onSignUpClick1()
-                dialog.dismiss()
+                dialog?.dismiss()
             }
-            signIn.setOnClickListener {
+            signIn?.setOnClickListener {
                 dialogCallBack.onSignInClick1()
-                dialog.dismiss()
+                dialog?.dismiss()
             }
 
-            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog?.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-            return dialog
+            return dialog!!
         }
 
 

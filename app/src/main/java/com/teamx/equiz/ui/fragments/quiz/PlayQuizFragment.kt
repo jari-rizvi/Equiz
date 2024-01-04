@@ -39,7 +39,8 @@ class PlayQuizFragment : BaseFragment<PlayQuizLayoutBinding, WishlistViewModel>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
          super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            findNavController().popBackStack()
+            findNavController().popBackStack(R.id.dashboardFragment, true)
+            findNavController().navigate(R.id.dashboardFragment, arguments, options)
         }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
@@ -52,7 +53,8 @@ class PlayQuizFragment : BaseFragment<PlayQuizLayoutBinding, WishlistViewModel>(
             }
         }
         mViewDataBinding.btnback.setOnClickListener {
-            findNavController().popBackStack()
+            findNavController().popBackStack(R.id.dashboardFragment, true)
+            findNavController().navigate(R.id.dashboardFragment, arguments, options)
         }
         val bundle = arguments
        val id=  bundle?.getString("modelQuizId")

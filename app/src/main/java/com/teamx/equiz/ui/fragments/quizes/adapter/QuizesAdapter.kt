@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.teamx.equiz.data.models.quizTitleData.Data
 import com.teamx.equiz.databinding.ItemQuziesBinding
 import com.teamx.equiz.ui.fragments.quizes.QuizesInterface
+import com.teamx.equiz.utils.snackbar
 
 class QuizesAdapter(
     private val quizArrayList: ArrayList<Data>,
@@ -33,7 +34,15 @@ class QuizesAdapter(
         holder.bind.textView27.text = quizData.type
 
         holder.itemView.setOnClickListener {
-            quizesInterface.quizeItem(position)
+            if (quizData.played) {
+                try {
+                    holder.bind.root.snackbar("Already Played This Quiz, Become a Premium User")
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            } else {
+                quizesInterface.quizeItem(position)
+            }
         }
         if (quizData.isRush) {
             holder.bind.rushBtn.visibility = View.VISIBLE
@@ -41,7 +50,14 @@ class QuizesAdapter(
             holder.bind.rushBtn.visibility = View.INVISIBLE
 
         }
-        holder.bind.root.isClickable = !quizData.played
+
+        if (quizData.played) {
+//            holder.bind.root.isClickable = false
+            holder.bind.isPlayed.visibility = View.VISIBLE
+        } else {
+            holder.bind.isPlayed.visibility = View.GONE
+//            holder.bind.root.isClickable = true
+        }
 
 
     }
