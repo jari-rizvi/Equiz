@@ -72,6 +72,9 @@ class LogInEmailFragment : BaseFragment<FragmentLoginEmailBinding, LoginViewMode
             }
         }
 
+
+
+
         FirebaseApp.initializeApp(requireContext())
         Firebase.initialize(requireContext())
         mViewModel.viewModelScope.launch {
@@ -89,17 +92,27 @@ class LogInEmailFragment : BaseFragment<FragmentLoginEmailBinding, LoginViewMode
 
         })
         mViewDataBinding.btnSignup.setOnClickListener {
+            var bundle = arguments
+            if (bundle == null) {
+                bundle = Bundle()
+            }
+            bundle?.putString("country", country)
             findNavController().navigate(
                 R.id.action_logInEmailFragment_to_signupEmailFragment,
-                arguments,
+                bundle,
                 options
             )
         }
 
         mViewDataBinding.btnForgot.setOnClickListener {
+            var bundle = arguments
+            if (bundle == null) {
+                bundle = Bundle()
+            }
+            bundle?.putString("country", country)
             findNavController().navigate(
                 R.id.action_logInEmailFragment_to_forgotPassFragment2,
-                arguments,
+                bundle,
                 options
             )
         }
@@ -150,7 +163,16 @@ class LogInEmailFragment : BaseFragment<FragmentLoginEmailBinding, LoginViewMode
                              }
 
                             Handler().postDelayed({
-                                findNavController().navigate(R.id.action_logInEmailFragment_to_otpEmailFragment,arguments,options)
+                                var bundle = arguments
+                                if (bundle == null) {
+                                    bundle = Bundle()
+                                }
+                                bundle?.putString("country", country)
+                                findNavController().navigate(
+                                    R.id.action_logInEmailFragment_to_otpEmailFragment,
+                                    bundle,
+                                    options
+                                )
                             }, 1000)
 
                         }
@@ -164,7 +186,17 @@ class LogInEmailFragment : BaseFragment<FragmentLoginEmailBinding, LoginViewMode
                                     dataStoreProvider.saveUserToken(data.token)
                                     TOKENER = data.token
                                 }
-                                findNavController().navigate(R.id.action_logInEmailFragment_to_dashboardFragment,arguments,options)
+                                var bundle = arguments
+                                if (bundle == null) {
+                                    bundle = Bundle()
+                                }
+                                bundle?.putString("country", country)
+
+                                findNavController().navigate(
+                                    R.id.action_logInEmailFragment_to_dashboardFragment,
+                                    bundle,
+                                    options
+                                )
                             }
                         }
                         Resource.Status.AUTH -> { loadingDialog.dismiss()

@@ -37,6 +37,7 @@ import com.teamx.equiz.ui.fragments.address.dataclasses.AddressOrderCreate
 import com.teamx.equiz.ui.fragments.chances.data.ChancesModelData
 import com.teamx.equiz.ui.fragments.collectPrice.data.CollectDataModel
 import com.teamx.equiz.ui.fragments.ecommerce.data.CategoryEcomData
+import com.teamx.equiz.ui.fragments.ecommerce.home.datanews.NewsImagesDataModel
 import com.teamx.equiz.ui.fragments.ecommerce.paymentMethods.model.stripeanother.StripeCheckoutModelData
 import com.teamx.equiz.ui.fragments.ecommerce.productProfile.unsub_data.UNSUBDataModel
 import com.teamx.equiz.ui.fragments.profile.data.DELETEUSERModel
@@ -68,6 +69,19 @@ interface ApiService {
         @Query("isActive") isActive: Boolean,
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<NewsBanner>
+
+    @GET(NetworkCallPoints.BANNERS_DATA)
+    suspend fun getBannersDashboard(
+        @Query("country") country: String="",
+        @Header("type") type: String="home",
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<NewsImagesDataModel>
+    @GET(NetworkCallPoints.BANNERS_DATA)
+    suspend fun getBannersEco(
+        @Query("country") country: String="",
+        @Header("type") type: String="shop",
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<NewsImagesDataModel>
 
     @POST(NetworkCallPoints.BANNERS_DATA2)
     suspend fun getBanners(
@@ -223,9 +237,9 @@ interface ApiService {
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<ModelUploadImage>
 
-    @GET(NetworkCallPoints.OTP_VERIFY)
+    @POST(NetworkCallPoints.OTP_VERIFY)
     suspend fun otpVerify(
-        @Path("uniqueID") uniqueID: String
+        @Body params: JsonObject?
     ): Response<LoginData>
 
     @HTTP(method = "DELETE", path = NetworkCallPoints.DELETE_CART)

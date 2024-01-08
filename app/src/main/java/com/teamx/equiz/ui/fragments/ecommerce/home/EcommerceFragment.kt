@@ -24,10 +24,10 @@ import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentEcommerceBinding
-import com.teamx.equiz.ui.activity.mainActivity.MainActivity
 import com.teamx.equiz.ui.fragments.dashboard.adapter.ImageSliderAdapter
 import com.teamx.equiz.ui.fragments.ecommerce.data.Category
 import com.teamx.equiz.utils.DialogHelperClass
+import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONException
 
@@ -287,6 +287,65 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
             }
         }
 
+        if (!mViewModel.getBannerResponse.hasActiveObservers()) {
+            mViewModel.getBannerResponse.observe(requireActivity()) {
+                when (it.status) {
+                    Resource.Status.LOADING -> {
+                        loadingDialog.show()
+//                        mViewDataBinding.shimmerLayout.startShimmer()
+//                        mViewDataBinding.shimmerLayout.visibility = View.VISIBLE
+                    }
+
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
+                    }
+
+                    Resource.Status.SUCCESS -> {
+                        loadingDialog.dismiss()
+//                        mViewDataBinding.shimmerLayout.stopShimmer()
+//                        mViewDataBinding.shimmerLayout.visibility = View.GONE
+//                        mViewDataBinding.mainLayout.visibility = View.VISIBLE
+                        imageList2.clear()
+                        it.data?.let { data ->
+//                            data.game.forEach {
+//                                winnerArrayList.add(it)
+//                            }
+                            data.newsData.forEach {
+                                imageList2.add(it.image)
+                            }
+//                            winnerAdapter.notifyDataSetChanged()
+
+
+                        }
+                        mViewDataBinding.viewPager.adapter?.notifyDataSetChanged()
+
+                    }
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+//                        mViewDataBinding.mainLayout.visibility = View.VISIBLE
+//                        mViewDataBinding.shimmerLayout.stopShimmer()
+//                        mViewDataBinding.shimmerLayout.visibility = View.GONE
+                        onToSignUpPage()
+                    }
+
+                    Resource.Status.ERROR -> {
+                        loadingDialog.dismiss()
+//                        mViewDataBinding.shimmerLayout.stopShimmer()
+//                        mViewDataBinding.shimmerLayout.visibility = View.GONE
+                        DialogHelperClass.errorDialog(
+                            requireContext(), it.message!!
+                        )
+                    }
+                }
+                if (isAdded) {
+//                    mViewModel.getBannerResponse.removeObservers(
+//                        viewLifecycleOwner
+//                    )
+                }
+            }
+        }
+
 
 
         productRecyclerview()
@@ -296,6 +355,9 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
 //        addingSliderAdapter()
         performSearch()
         addingSliderAdapter()
+
+//        getMeApi()
+        addNewBanners()
     }
 
     private fun performSearch() {
@@ -552,6 +614,128 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
         }*/
 
 //////////////
+
+    var userId = ""
+    fun getMeApi() {
+        mViewModel.me()
+        if (!mViewModel.meResponse.hasActiveObservers()) {
+            mViewModel.meResponse.observe(requireActivity()) {
+                when (it.status) {
+                    Resource.Status.LOADING -> {
+                        loadingDialog.show()
+                    }
+
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
+                    }
+
+                    Resource.Status.SUCCESS -> {
+                        loadingDialog.dismiss()
+                        it.data?.let { data ->
+
+                            try {
+
+                                userId = data.user._id
+
+                                val params = JsonObject()
+                                try {
+                                    params.addProperty("userId", "$userId")
+                                    mViewModel.getBanners(params)
+
+
+                                } catch (e: JSONException) {
+                                    e.printStackTrace()
+                                }
+
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
+                    }
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+
+                        onToSignUpPage()
+                    }
+
+                    Resource.Status.ERROR -> {
+                        loadingDialog.dismiss()
+                        if (isAdded) {
+                            mViewDataBinding.root.snackbar(it.message!!)
+                        }
+                        Log.d("TAG", "eeeeeeeeeee: ${it.message}")
+                    }
+                }
+            }
+        }
+    }
+
+
+    fun addNewBanners() {
+        var bundle = arguments
+        if (bundle == null) {
+            bundle = Bundle()
+        }
+        val country = bundle?.getString("country")
+
+        if (country.isNullOrEmpty()) {
+            mViewModel.getBanners2("World")
+        } else {
+            mViewModel.getBanners2("$country")
+
+        }
+//        mViewModel.getBanners2("World")
+        if (!mViewModel.getBannerResponse2.hasActiveObservers()) {
+            mViewModel.getBannerResponse2.observe(requireActivity()) {
+                when (it.status) {
+                    Resource.Status.LOADING -> {
+                        loadingDialog.show()
+                    }
+
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
+                    }
+
+                    Resource.Status.SUCCESS -> {
+                        loadingDialog.dismiss()
+                        it.data?.let { data ->
+
+                            try {
+
+                                imageList2.clear()
+                                it.data?.let { data ->
+
+                                    data.data.forEach {
+                                        imageList2.add(it.image)
+                                    }
+
+
+                                }
+                                mViewDataBinding.viewPager.adapter?.notifyDataSetChanged()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
+                    }
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+
+                        onToSignUpPage()
+                    }
+
+                    Resource.Status.ERROR -> {
+                        loadingDialog.dismiss()
+                        if (isAdded) {
+                            mViewDataBinding.root.snackbar(it.message!!)
+                        }
+                        Log.d("TAG", "eeeeeeeeeee: ${it.message}")
+                    }
+                }
+            }
+        }
+    }
 
 
 }

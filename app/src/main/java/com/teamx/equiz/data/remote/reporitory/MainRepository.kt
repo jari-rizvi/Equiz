@@ -18,13 +18,15 @@ class MainRepository @Inject constructor(
 
     suspend fun getWishlist() = apiService.getWishlist()
     suspend fun getBanners(isActive: Boolean) = apiService.getBanners(isActive)
+    suspend fun getBannersDashboard(country: String) = apiService.getBannersDashboard(country)
+    suspend fun getBannersEco(country: String) = apiService.getBannersEco(country)
     suspend fun getBanners(params: JsonObject) = apiService.getBanners(params/*isActive*/)
     suspend fun notifyFcm(params: JsonObject) = apiService.notifyFcm(params/*isActive*/)
     suspend fun getProducts() = apiService.getProducts()
     suspend fun getChances() = apiService.getChances()
 
-    suspend fun getProducts(keyword: String) = apiService.getProducts(keyword=keyword)
-    suspend fun getProductsCat(category: String) = apiService.getProductsCat(category=category)
+    suspend fun getProducts(keyword: String) = apiService.getProducts(keyword = keyword)
+    suspend fun getProductsCat(category: String) = apiService.getProductsCat(category = category)
 
     suspend fun getProducts(keyword: String, category: String) =
         apiService.getProducts(keyword = keyword, category = category)
@@ -61,7 +63,7 @@ class MainRepository @Inject constructor(
     suspend fun resetPass(@Body param: JsonObject) = apiService.resetPass(param)
     suspend fun changePass(@Body param: JsonObject) = apiService.changePass(param)
     suspend fun resultGame(@Body param: JsonObject) = apiService.resultGame(param)
-    suspend fun otpVerify(@Path("uniqueID") uniqueID: String) = apiService.otpVerify(uniqueID)
+    suspend fun otpVerify(@Body params: JsonObject?) = apiService.otpVerify(params)
     suspend fun getNewsById(@Path("id") id: String) = apiService.getNewsById(id)
     suspend fun deleteCart(@Path("deleteCart") deleteCart: String) =
         apiService.deleteCart(deleteCart)

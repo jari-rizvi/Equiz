@@ -5,6 +5,7 @@ package com.teamx.equiz.ui.fragments.Auth.otp
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.google.gson.JsonObject
 import com.teamx.equiz.baseclasses.BaseViewModel
 import com.teamx.equiz.data.models.loginData.LoginData
 import com.teamx.equiz.data.models.otpForgotData.OtpforgotData
@@ -34,7 +35,7 @@ class OtpViewModel @Inject constructor(
         get() = _otpVerifyResponse
 
 
-    fun otpVerify(uniqueID: String) {
+    fun otpVerify(uniqueID: JsonObject) {
         viewModelScope.launch {
             _otpVerifyResponse.postValue(Resource.loading(null))
             if (networkHelper.isNetworkConnected()) {

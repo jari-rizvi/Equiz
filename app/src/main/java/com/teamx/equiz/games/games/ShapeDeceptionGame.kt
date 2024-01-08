@@ -73,7 +73,7 @@ fun TouchTheShapesGameScreen(content: (boolean: Boolean, rightAnswer: Int, total
     rightGameAnswers = 1
     wrongGameAnswers = 1
 
-    var timeLeft by remember { mutableStateOf(10L) }
+    var timeLeft by remember { mutableStateOf(20L) }
     var isTimeUp by remember { mutableStateOf(false) }
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {

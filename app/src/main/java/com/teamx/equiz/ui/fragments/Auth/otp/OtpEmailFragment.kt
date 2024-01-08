@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
+import com.google.gson.JsonObject
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
@@ -15,6 +16,7 @@ import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentOtpEmailBinding
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
+import org.json.JSONException
 
 @AndroidEntryPoint
 class OtpEmailFragment : BaseFragment<FragmentOtpEmailBinding, OtpViewModel>() {
@@ -50,8 +52,17 @@ class OtpEmailFragment : BaseFragment<FragmentOtpEmailBinding, OtpViewModel>() {
     fun verifyotpForgot() {
 
         val code = mViewDataBinding.pinView.text.toString()
+        val params = JsonObject()
+        try {
+            params.addProperty("uniqueID", code)
+//            params.addProperty("phone", "")
 
-        mViewModel.otpVerify(code)
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+
+
+        mViewModel.otpVerify(params)
         if (!mViewModel.otpVerifyResponse.hasActiveObservers()) {
             mViewModel.otpVerifyResponse.observe(requireActivity(), Observer {
                 when (it.status) {

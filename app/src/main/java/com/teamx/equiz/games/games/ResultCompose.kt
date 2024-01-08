@@ -313,7 +313,7 @@ fun ResultScreen(
 
                 Row(modifier = Modifier.background(color = Color(0xFF9F81CA))) {
 
-                    BackButton(onClick = { onContinueClicked(1) }
+                    BackButton(onClick = { onContinueClicked(2) }
                     )
                     Text(
                         text = "Training",

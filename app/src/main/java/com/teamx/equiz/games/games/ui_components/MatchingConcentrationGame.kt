@@ -57,7 +57,7 @@ fun MatchConcentrationGame(content: (bool: Boolean, rightAnswer: Int, totalAnswe
     var isGameOver by remember { mutableStateOf(false) }
     var isAlert by remember { mutableStateOf(false) }
 
-    var timeLeft by remember { mutableStateOf(10L) }
+    var timeLeft by remember { mutableStateOf(20L) }
     var isTimeUp by remember { mutableStateOf(false) }
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {

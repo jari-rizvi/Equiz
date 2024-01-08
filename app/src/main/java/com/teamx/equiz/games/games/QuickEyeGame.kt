@@ -38,15 +38,18 @@ import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import kotlin.random.Random
 
+
+var rightGameAnswersQuickEye = 1
+var totalGameAnswersQuickEye = 1
+
 @Preview
 @Composable
-fun QuickEyeGame(content:  (bool:Boolean, rightAnswer:Int, totalAnswer:Int) -> Unit = {bool,rightAnswer,total ->}) {
+fun QuickEyeGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit = { bool, rightAnswer, total -> }) {
     var isGameOver by remember { mutableStateOf(false) }
-        var isAlert by remember { mutableStateOf(false) }
- rightGameAnswers = 1
- wrongGameAnswers = 1
+    var isAlert by remember { mutableStateOf(false) }
 
-    var timeLeft by remember { mutableStateOf(10L) }
+
+    var timeLeft by remember { mutableStateOf(20L) }
     var isTimeUp by remember { mutableStateOf(false) }
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
@@ -71,7 +74,7 @@ fun QuickEyeGame(content:  (bool:Boolean, rightAnswer:Int, totalAnswer:Int) -> U
 
 
     if (isGameOver) {
-        content(true, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
+        content(true, rightGameAnswersQuickEye, totalGameAnswersQuickEye)
     }
 
     if (isTimeUp) {
@@ -81,7 +84,7 @@ fun QuickEyeGame(content:  (bool:Boolean, rightAnswer:Int, totalAnswer:Int) -> U
                 isGameOver = true
 
             } else {
-                content(false, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
+                content(false, rightGameAnswersQuickEye, totalGameAnswersQuickEye)
             }
         }
 
@@ -326,12 +329,13 @@ fun QuickCardCalculationGameScreen(content: () -> Unit) {
                                         .width(70.dp)
                                         .height(110.dp)
                                         .clickable(enabled = true) {
-
+                                            totalGameAnswersQuickEye++
                                             if (checkQuickAnswer(
                                                     quickAnswer.toString(),
                                                     it.value.toString()
                                                 )
                                             ) {
+                                                rightGameAnswersQuickEye++
                                                 changeable = true
                                                 gameStarted = false
                                             }

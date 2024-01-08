@@ -53,6 +53,7 @@ import com.teamx.equiz.games.games.UnfollowTheLeaderGame
 import com.teamx.equiz.games.games.WeatherCastGame
 import com.teamx.equiz.games.games.rpsCastGamePlot
 import com.teamx.equiz.games.games.ui_components.StartUpDialogCompose
+import com.teamx.equiz.ui.activity.mainActivity.MainActivity
 import com.teamx.equiz.ui.fragments.dashboard.GamesUID2
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
@@ -118,7 +119,7 @@ class AdditionAddictionGameFrag : BaseFragment<FragmentAddressBinding, GameFrags
 
                     findNavController().navigate(R.id.resultComposeFrag, arguments, options)
                 } else {
-                    navController.popBackStack()
+                    findNavController().popBackStack()
                 }
 //                })
             })
@@ -1440,7 +1441,16 @@ class ReflectionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
          super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            findNavController().navigate(R.id.dashboardFragment, arguments,options)
+            var bundle = arguments
+            if (bundle == null) {
+                bundle = Bundle()
+            }
+            val route = bundle?.getString("route")
+            if (route.equals("dash", true)) {
+                findNavController().navigate(R.id.dashboardFragment, arguments, options)
+            } else {
+                findNavController().navigate(R.id.gamesFragment, arguments, options)
+            }
         }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
@@ -1449,10 +1459,10 @@ class ReflectionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
         if (bundle == null) {
             bundle = Bundle()
         }
-        val gameName = bundle.getString("gameName")
+        val gameName = bundle!!.getString("gameName")
 
-        val rightAnswer = bundle.getInt("rightAnswer", 0)
-        val total = bundle.getInt("total", 0)
+        val rightAnswer = bundle!!.getInt("rightAnswer", 0)
+        val total = bundle!!.getInt("total", 0)
 
         Log.d("123123", "onViewCreated: $gameName ")
 
@@ -1480,7 +1490,16 @@ class ReflectionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
                     }
 
                     2 -> {
-                        findNavController().navigate(R.id.dashboardFragment, arguments, options)
+                        var bundle = arguments
+                        if (bundle == null) {
+                            bundle = Bundle()
+                        }
+                        val route = bundle?.getString("route")
+                        if (route.equals("dash", true)) {
+                            findNavController().navigate(R.id.dashboardFragment, arguments, options)
+                        } else {
+                            findNavController().navigate(R.id.gamesFragment, arguments, options)
+                        }
                     }
 
                     3 -> {
@@ -1543,7 +1562,13 @@ class ReflectionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
                  Resource.Status.SUCCESS -> {
                      loadingDialog.dismiss()
                      it.data?.let { data ->
-//                         showToast("Toast")
+
+                         val score = data.game.score
+
+                         MainActivity.service?.showNotification1(
+                             "Score",
+                             "$score"
+                         )
 //                         findNavController().navigate(R.id.resultComposeFrag)
                      }
                  }

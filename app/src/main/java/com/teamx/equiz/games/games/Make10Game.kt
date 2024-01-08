@@ -125,7 +125,7 @@ fun Make10GameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int
     var rightGameAnswers = 0
     var wrongGameAnswers = 0
 
-    var timeLeft by remember { mutableStateOf(10L) }
+    var timeLeft by remember { mutableStateOf(20L) }
     var isTimeUp by remember { mutableStateOf(false) }
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {

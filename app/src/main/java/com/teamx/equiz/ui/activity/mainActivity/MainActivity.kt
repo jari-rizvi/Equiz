@@ -14,6 +14,7 @@ import com.teamx.equiz.baseclasses.BaseActivity
 import com.teamx.equiz.databinding.ActivityMainBinding
 import com.teamx.equiz.games.games.tetris.logic.SoundUtil
 import com.teamx.equiz.games.games.tetris.logic.StatusBarUtil
+import com.teamx.equiz.utils.CounterNotificationService
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -43,6 +44,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
 
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
+
+        service = CounterNotificationService(applicationContext)
        /* mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
         mViewDataBinding.drawerLayoutMain.btneccomernce.setOnClickListener {
@@ -225,6 +228,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
         private const val STATE_KEEP_FRAGS = "keep_frags"
         private const val STATE_HELPER = "helper"
         var bottomNav: BottomNavigationView? = null
+        var service: CounterNotificationService? = null
 
     }
 

@@ -13,7 +13,7 @@ import com.teamx.equiz.data.models.quizTitleData.QuizTitleData
 import com.teamx.equiz.data.models.topWinnerData.TopWinnerData
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.data.remote.reporitory.MainRepository
-import com.teamx.equiz.ui.fragments.Auth.datanotify.DataFCMModel
+import com.teamx.equiz.ui.fragments.ecommerce.home.datanews.NewsImagesDataModel
 import com.teamx.equiz.utils.NetworkHelper
 import com.teamx.equiz.utils.UnAuthorizedCallback
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -285,6 +285,49 @@ class DashboardViewModel @Inject constructor(
                     _meResponse.postValue(Resource.error("${e.message}", null))
                 }
             } else _meResponse.postValue(Resource.error("No internet connection", null))
+        }
+    }
+
+
+    private val _getBannerResponse2 = MutableLiveData<Resource<NewsImagesDataModel>>()
+    val getBannerResponse2: LiveData<Resource<NewsImagesDataModel>>
+        get() = _getBannerResponse2
+
+
+    fun getBanners2(country: String) {
+        viewModelScope.launch {
+            _getBannerResponse2.postValue(Resource.loading(null))
+            if (networkHelper.isNetworkConnected()) {
+                try {
+                    Timber.tag("87878787887").d("starta")
+
+                    mainRepository.getBannersDashboard(country/*true*/).let {
+                        if (it.isSuccessful) {
+                            _getBannerResponse2.postValue(Resource.success(it.body()!!))
+                            Timber.tag("87878787887").d(it.body()!!.toString())
+                        } else if (it.code() == 401) {
+                            _getBannerResponse2.postValue(Resource.unAuth("", null))
+                        } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
+                            Timber.tag("87878787887").d("secoonnddd")
+
+//                            _getBannerResponse2.postValue(Resource.error(it.message(), null))
+                            val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
+                            _getBannerResponse2.postValue(Resource.error(jsonObj.getString("message")))
+                        } else {
+                            _getBannerResponse2.postValue(
+                                Resource.error(
+                                    "Some thing went wrong",
+                                    null
+                                )
+                            )
+                            Timber.tag("87878787887").d("third")
+
+                        }
+                    }
+                } catch (e: Exception) {
+                    _getBannerResponse2.postValue(Resource.error("${e.message}", null))
+                }
+            } else _getBannerResponse2.postValue(Resource.error("No internet connection", null))
         }
     }
 

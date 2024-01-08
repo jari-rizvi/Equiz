@@ -65,7 +65,7 @@ fun BirdWatchingGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
     var isTimeUp by remember { mutableStateOf(false) }
 
 
-    var timeLeft by remember { mutableStateOf(10L) }
+    var timeLeft by remember { mutableStateOf(20L) }
 
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {

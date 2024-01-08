@@ -137,11 +137,22 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
                         }
                         Resource.Status.NOTVERIFY -> {
                             loadingDialog.dismiss()
-                              if(isAdded){
-                            mViewDataBinding.root.snackbar(it.message!!)
-                             }
+                            if (isAdded) {
+                                mViewDataBinding.root.snackbar(it.message!!)
+                            }
+
+                            var bundle = arguments
+
+                            if (bundle == null) {
+                                bundle = Bundle()
+                            }
+                            bundle?.putString("phoneNumber", userPhone)
                             Handler().postDelayed({
-                                findNavController().navigate(R.id.action_logInFragment_to_otpPhoneFragment,arguments,options)
+                                findNavController().navigate(
+                                    R.id.action_logInFragment_to_otpPhoneFragment,
+                                    bundle,
+                                    options
+                                )
                             }, 1000)
 
 //                            onToOtpPage()

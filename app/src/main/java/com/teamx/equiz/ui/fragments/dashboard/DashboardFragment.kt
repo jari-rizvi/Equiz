@@ -1,28 +1,21 @@
 package com.teamx.equiz.ui.fragments.dashboard
 
 
-import android.Manifest
-import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.activity.addCallback
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.Keep
-import androidx.core.content.ContextCompat
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.FirebaseApp
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.ktx.initialize
-import com.google.firebase.messaging.FirebaseMessaging
 import com.google.gson.JsonObject
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
@@ -45,7 +38,6 @@ import com.teamx.equiz.utils.DialogHelperClass
 import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONException
-import timber.log.Timber
 
 @AndroidEntryPoint
 class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewModel>(),
@@ -351,7 +343,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         Firebase.initialize(requireContext())
 
 
-        getMeApi()
+//        getMeApi()
+        addNewBanners()
 
         initializeCategoriesAdapter()
         initializeGameAdapter()
@@ -714,6 +707,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             bundle = Bundle()
         }
         bundle?.putString("gameName", strname)
+        bundle?.putString("route", "dash")
         if (strname.equals("Tetris", true)) {
 
             findNavController().navigate(R.id.tetrisGameFrag, bundle, options)
@@ -973,8 +967,71 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         }
     }
 
-    //////////////
+    fun addNewBanners() {
+        var bundle = arguments
+        if (bundle == null) {
+            bundle = Bundle()
+        }
+        val country = bundle?.getString("country")
 
+        if (country.isNullOrEmpty()) {
+            mViewModel.getBanners2("World")
+        } else {
+            mViewModel.getBanners2("$country")
+
+        }
+        if (!mViewModel.getBannerResponse2.hasActiveObservers()) {
+            mViewModel.getBannerResponse2.observe(requireActivity()) {
+                when (it.status) {
+                    Resource.Status.LOADING -> {
+                        loadingDialog.show()
+                    }
+
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
+                    }
+
+                    Resource.Status.SUCCESS -> {
+                        loadingDialog.dismiss()
+                        it.data?.let { data ->
+
+                            try {
+
+                                imageList2.clear()
+                                it.data?.let { data ->
+
+                                    data.data.forEach {
+                                        imageList2.add(it.image)
+                                    }
+
+
+                                }
+                                mViewDataBinding.viewPager.adapter?.notifyDataSetChanged()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
+                    }
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+
+                        onToSignUpPage()
+                    }
+
+                    Resource.Status.ERROR -> {
+                        loadingDialog.dismiss()
+                        if (isAdded) {
+                            mViewDataBinding.root.snackbar(it.message!!)
+                        }
+                        Log.d("TAG", "eeeeeeeeeee: ${it.message}")
+                    }
+                }
+            }
+        }
+    }
+
+    //////////////
 
 
 ////
