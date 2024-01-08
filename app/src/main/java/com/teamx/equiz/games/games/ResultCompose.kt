@@ -311,7 +311,7 @@ fun ResultScreen(
             ) {
 
 
-                Row(modifier = Modifier.background(color = Color(0xFF9F81CA))) {
+                Box(modifier = Modifier.height(48.dp).background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
 
                     BackButton(onClick = { onContinueClicked(2) }
                     )
@@ -320,7 +320,7 @@ fun ResultScreen(
                         modifier = Modifier
                             .fillMaxWidth()
 
-                            .align(alignment = Alignment.CenterVertically),
+                            ,
                         textAlign = TextAlign.Center,
                         color = Color.White,
                         fontSize = 17.sp
@@ -354,7 +354,7 @@ fun ResultScreen(
 
                     }
 
-                        ShowMeantime("Mean Time", " ${time / right}s")
+                        ShowMeantime("Mean Time", " ${time / total}s")
 
 
 

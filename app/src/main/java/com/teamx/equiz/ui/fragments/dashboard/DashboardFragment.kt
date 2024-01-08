@@ -692,6 +692,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         }
 
         bundle.putString("quiz_id", "${quizArrayList.get(position)._id}")
+        bundle.putString("routeQuiz", "dash")
 
 
         findNavController().navigate(R.id.playQuizFragment, bundle, options)

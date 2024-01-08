@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -182,7 +183,7 @@ fun Make10GameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int
                 .fillMaxHeight()
                 .background(color = Color.White),
         ) {
-            Row(modifier = Modifier.background(color = Color(0xFF9F81CA))) {
+            Box(modifier = Modifier.height(48.dp).background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
 
                 BackButton(onClick = { content(false,0,0) }
                 )
@@ -191,7 +192,7 @@ fun Make10GameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int
                     modifier = Modifier
                         .fillMaxWidth()
 
-                        .align(alignment = Alignment.CenterVertically),
+                        ,
                     textAlign = TextAlign.Center,
                     color = Color.White,
                     fontSize = 17.sp

@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
@@ -66,7 +67,7 @@ fun AdditionAddictionGame(content: @Composable () -> Unit) {
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
             Column {
-                Row(modifier = Modifier.background(color = Color(0xFF9F81CA))) {
+                Box(modifier = Modifier.height(48.dp).background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
 
                     BackButton(onClick = {}/*onContinueClicked*/)
                     Text(
@@ -74,7 +75,7 @@ fun AdditionAddictionGame(content: @Composable () -> Unit) {
                         modifier = Modifier
                             .fillMaxWidth()
 
-                            .align(alignment = Alignment.CenterVertically),
+                            ,
                         textAlign = TextAlign.Center,
                         color = Color.White,
                         fontSize = 17.sp

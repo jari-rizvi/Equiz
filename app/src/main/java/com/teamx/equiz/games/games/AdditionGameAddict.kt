@@ -12,8 +12,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -110,7 +112,7 @@ fun AdditionAddictionGameMethod(content: (boolean: Boolean, rightAnswer: Int, to
                 .fillMaxHeight()
                 .background(color = Color(0xFFE1E1E1)),
         ) {
-            Row(modifier = Modifier.background(color = Color(0xFF9F81CA))) {
+            Box(modifier = Modifier.height(48.dp).background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart) {
 
                 BackButton(onClick = { content(false,0,0) }
                 )
@@ -118,8 +120,8 @@ fun AdditionAddictionGameMethod(content: (boolean: Boolean, rightAnswer: Int, to
                     text = "Training",
                     modifier = Modifier
                         .fillMaxWidth()
-
-                        .align(alignment = Alignment.CenterVertically),
+                        .wrapContentHeight()
+                        ,
                     textAlign = TextAlign.Center,
                     color = Color.White,
                     fontSize = 17.sp

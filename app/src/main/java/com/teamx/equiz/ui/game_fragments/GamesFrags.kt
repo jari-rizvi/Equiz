@@ -47,11 +47,14 @@ import com.teamx.equiz.games.games.TapTheColorGame
 import com.teamx.equiz.games.games.TetrisGame
 import com.teamx.equiz.games.games.TouchTheColorGameScreen
 import com.teamx.equiz.games.games.TouchTheNumGamePlus
-import com.teamx.equiz.games.games.TouchTheNumPlusGame
 import com.teamx.equiz.games.games.TouchTheShapesGameScreen
 import com.teamx.equiz.games.games.UnfollowTheLeaderGame
 import com.teamx.equiz.games.games.WeatherCastGame
 import com.teamx.equiz.games.games.gameAnswersTotalMiss
+import com.teamx.equiz.games.games.learningy.NumPlus
+import com.teamx.equiz.games.games.learningy.ViewMatching
+import com.teamx.equiz.games.games.learningy.rightGameAnswersNumPlus
+import com.teamx.equiz.games.games.learningy.totalGameAnswersNumPlus
 import com.teamx.equiz.games.games.rightGameAnswersAddition
 import com.teamx.equiz.games.games.rightGameAnswersColor
 import com.teamx.equiz.games.games.rightGameAnswersDecep
@@ -905,7 +908,7 @@ class MatchingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
             }
         }
         composeView.setContent {
-            MatchingStepGame(Modifier, content = { bool, rightAnswer, total ->
+            ViewMatching( content = { bool, rightAnswer, total ->
                 if (bool) {
                     var argumentBundle = arguments
                     if (argumentBundle == null) {
@@ -1492,6 +1495,8 @@ class ResultComposeFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMode
         val total = bundle!!.getInt("total", 0)
 
         Log.d("123123", "onViewCreated: $gameName ")
+        Log.d("123123", "onViewCreated: $rightAnswer ")
+        Log.d("123123", "onViewCreated: $total ")
 
         options = navOptions {
             anim {
@@ -1513,7 +1518,7 @@ class ResultComposeFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMode
             ) { i ->
                 when (i) {
                     1 -> {
-                        findNavController().popBackStack()
+                        findNavController().navigate(R.id.startUpGameFrag, arguments, options)
                     }
 
                     2 -> {
@@ -2439,7 +2444,16 @@ class ToolbarFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
          super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            findNavController().popBackStack()
+            var bundle = arguments
+            if (bundle == null) {
+                bundle = Bundle()
+            }
+            val route = bundle?.getString("route")
+            if (route.equals("dash", true)) {
+                findNavController().navigate(R.id.dashboardFragment, arguments, options)
+            } else {
+                findNavController().navigate(R.id.gamesFragment, arguments, options)
+            }
         }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
@@ -2563,7 +2577,7 @@ class TouchTheNumPlusGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
             }
         }
         composeView.setContent {
-            TouchTheNumPlusGame(content = { bool, rightAnswer, total ->
+            NumPlus(content = { bool, rightAnswer, total ->
                 if (bool) {
                     var argumentBundle = arguments
                     if (argumentBundle == null) {
@@ -2810,7 +2824,7 @@ class StartUpGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
         if (bundle == null) {
             bundle = Bundle()
         }
-        val gameName = bundle.getString("gameName")
+        val gameName = bundle?.getString("gameName")
 
 
         Log.d("123123", "onViewCreated:$gameName ")
@@ -2820,8 +2834,29 @@ class StartUpGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
                 "${returnGameName(gameName.toString())}",
                 "${returnGameInstructions(gameName.toString())}",
                 onClick = {
+                    when (it) {
+                        1 -> {
+                            var bundle = arguments
+                            if (bundle == null) {
+                                bundle = Bundle()
+                            }
+                            val route = bundle?.getString("route")
+                            if (route.equals("dash", true)) {
+                                findNavController().navigate(
+                                    R.id.dashboardFragment,
+                                    arguments,
+                                    options
+                                )
+                            } else {
+                                findNavController().navigate(R.id.gamesFragment, arguments, options)
+                            }
+                        }
 
-                    onClickGame(gameName.toString())
+                        2 -> {
+                            onClickGame(gameName.toString())
+                        }
+                    }
+
                 },
                 returnGameIconInstruction(gameName.toString())
             )

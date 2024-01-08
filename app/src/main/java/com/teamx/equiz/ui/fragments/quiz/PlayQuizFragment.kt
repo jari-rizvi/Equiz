@@ -39,8 +39,20 @@ class PlayQuizFragment : BaseFragment<PlayQuizLayoutBinding, WishlistViewModel>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
          super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            findNavController().popBackStack(R.id.dashboardFragment, true)
-            findNavController().navigate(R.id.dashboardFragment, arguments, options)
+            var bundle = arguments
+            if (bundle == null) {
+                bundle = Bundle()
+            }
+            val route = bundle?.getString("routeQuiz")
+            if (route.equals("dash", true)) {
+                findNavController().popBackStack(R.id.dashboardFragment, true)
+                findNavController().navigate(R.id.dashboardFragment, arguments, options)
+            } else {
+                findNavController().navigate(R.id.quizesFragment, arguments, options)
+            }
+
+
+
         }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
@@ -53,8 +65,17 @@ class PlayQuizFragment : BaseFragment<PlayQuizLayoutBinding, WishlistViewModel>(
             }
         }
         mViewDataBinding.btnback.setOnClickListener {
-            findNavController().popBackStack(R.id.dashboardFragment, true)
-            findNavController().navigate(R.id.dashboardFragment, arguments, options)
+            var bundle = arguments
+            if (bundle == null) {
+                bundle = Bundle()
+            }
+            val route = bundle?.getString("routeQuiz")
+            if (route.equals("dash", true)) {
+                findNavController().popBackStack(R.id.dashboardFragment, true)
+                findNavController().navigate(R.id.dashboardFragment, arguments, options)
+            } else {
+                findNavController().navigate(R.id.quizesFragment, arguments, options)
+            }
         }
         val bundle = arguments
        val id=  bundle?.getString("modelQuizId")

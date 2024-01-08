@@ -362,7 +362,7 @@ fun rpsCastGamePlot(content: (bool:Boolean, rightAnswer:Int, totalAnswer:Int) ->
                 .fillMaxHeight()
                 .background(color = Color.White),
         ) {
-            Row(modifier = Modifier.background(color = Color(0xFF9F81CA))) {
+            Box(modifier = Modifier.height(48.dp).background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
 
                 BackButton(onClick = { content(false,0,0) }
                 )
@@ -371,7 +371,7 @@ fun rpsCastGamePlot(content: (bool:Boolean, rightAnswer:Int, totalAnswer:Int) ->
                     modifier = Modifier
                         .fillMaxWidth()
 
-                        .align(alignment = Alignment.CenterVertically),
+                        ,
                     textAlign = TextAlign.Center,
                     color = Color.White,
                     fontSize = 17.sp
@@ -566,7 +566,7 @@ fun previewRPSCastGame() {
 
 @Composable
 fun ReverseRockPaperScissorsGameScreen(content: @Composable () -> Unit) {
-    Row(modifier = Modifier.background(color = Color(0xFF9F81CA))) {
+    Box(modifier = Modifier.height(48.dp).background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
 
         BackButton(onClick = {}/*onContinueClicked*/)
         Text(
@@ -574,7 +574,7 @@ fun ReverseRockPaperScissorsGameScreen(content: @Composable () -> Unit) {
             modifier = Modifier
                 .fillMaxWidth()
 
-                .align(alignment = Alignment.CenterVertically),
+                ,
             textAlign = TextAlign.Center,
             color = Color.White,
             fontSize = 17.sp

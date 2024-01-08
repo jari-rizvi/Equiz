@@ -36,7 +36,8 @@ class GamesFragment : BaseFragment<FragmentGamesBinding, GamesViewModel>(), AllG
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
          super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            findNavController().popBackStack()
+            findNavController().popBackStack(R.id.dashboardFragment, true)
+            findNavController().navigate(R.id.dashboardFragment, arguments, options)
         }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
@@ -49,7 +50,10 @@ class GamesFragment : BaseFragment<FragmentGamesBinding, GamesViewModel>(), AllG
             }
         }
 
-        mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
+        mViewDataBinding.btnback.setOnClickListener {
+            findNavController().popBackStack(R.id.dashboardFragment, true)
+            findNavController().navigate(R.id.dashboardFragment, arguments, options)
+        }
 
 
         initializeGameAdapter()

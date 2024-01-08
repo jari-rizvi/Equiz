@@ -17,7 +17,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
@@ -78,15 +77,16 @@ var cards = listOf<CardModel>()
 var optionCards = listOf<OptionCards>()
 var answer = 0
 val selectedCards = arrayListOf<Int>()
+var rightGameAnswersCardCal = 1
+var totalGameAnswersCardCal = 1
 
 @Composable
-fun CardCalculationGameScreen(content: (boolean:Boolean, rightAnswer:Int, totalAnswer:Int) -> Unit) {
+fun CardCalculationGameScreen(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit) {
 
 
     var isGameOver by remember { mutableStateOf(false) }
-        var isAlert by remember { mutableStateOf(false) }
- rightGameAnswers = 1
- wrongGameAnswers = 1
+    var isAlert by remember { mutableStateOf(false) }
+
     var isTimeUp by remember { mutableStateOf(false) }
 
     var timeLeft by remember { mutableStateOf(20L) }
@@ -116,7 +116,7 @@ fun CardCalculationGameScreen(content: (boolean:Boolean, rightAnswer:Int, totalA
     if (isGameOver) {
 
 
-        content(true, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
+        content(true, rightGameAnswersCardCal, totalGameAnswersCardCal)
 
     }
 
@@ -127,7 +127,7 @@ fun CardCalculationGameScreen(content: (boolean:Boolean, rightAnswer:Int, totalA
                 isGameOver = true
 
             } else {
-                content(false, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
+                content(false, rightGameAnswersCardCal, totalGameAnswersCardCal)
             }
         }
 
@@ -161,7 +161,7 @@ fun CardCalculationGameScreen(content: (boolean:Boolean, rightAnswer:Int, totalA
                 .fillMaxHeight()
                 .background(color = Color(0xFFE1E1E1)),
         ) {
-            Row(modifier = Modifier.background(color = Color(0xFF9F81CA))) {
+            Box(modifier = Modifier.height(48.dp).background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
 
                 BackButton(onClick = { content(false,0,0) }
                 )
@@ -170,7 +170,7 @@ fun CardCalculationGameScreen(content: (boolean:Boolean, rightAnswer:Int, totalA
                     modifier = Modifier
                         .fillMaxWidth()
 
-                        .align(alignment = Alignment.CenterVertically),
+                        ,
                     textAlign = TextAlign.Center,
                     color = Color.White,
                     fontSize = 17.sp
@@ -294,9 +294,11 @@ fun CardCalculationGameScreen(content: (boolean:Boolean, rightAnswer:Int, totalA
                                                 .height(130.dp)
                                                 .clickable(enabled = true) {
 
+                                                    totalGameAnswersCardCal++
                                                     if (checkAnswer(answer, it.value)) {
                                                         changeable = true
                                                         gameStarted = false
+                                                        rightGameAnswersCardCal++
                                                     }
 
                                                 },
@@ -341,10 +343,11 @@ fun CardCalculationGameScreen(content: (boolean:Boolean, rightAnswer:Int, totalA
                                         .width(70.dp)
                                         .height(130.dp)
                                         .clickable(enabled = true) {
-
+                                            totalGameAnswersCardCal++
                                             if (checkAnswer(answer, it.value)) {
                                                 changeable = true
                                                 gameStarted = false
+                                                rightGameAnswersCardCal++
                                             }
 
                                         },

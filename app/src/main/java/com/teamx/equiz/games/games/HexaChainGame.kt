@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -225,7 +226,7 @@ fun HexaChainGameScreen(content: @Composable () -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
-    ) { Row(modifier = Modifier.background(color = Color(0xFF9F81CA))) {
+    ) { Box(modifier = Modifier.height(48.dp).background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
 
         BackButton(onClick = {}/*onContinueClicked*/)
         Text(
@@ -233,7 +234,7 @@ fun HexaChainGameScreen(content: @Composable () -> Unit) {
             modifier = Modifier
                 .fillMaxWidth()
 
-                .align(alignment = Alignment.CenterVertically),
+                ,
             textAlign = TextAlign.Center,
             color = Color.White,
             fontSize = 17.sp

@@ -131,7 +131,7 @@ fun WeatherCastGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int)
                         .fillMaxSize()
                         .background(color = Color.Transparent)
                 ) {
-                    Row(modifier = Modifier.background(color = Color(0xFF9F81CA))) {
+                    Box(modifier = Modifier.height(48.dp).background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
 
                         BackButton(onClick = {}/*onContinueClicked*/)
                         Text(
@@ -139,7 +139,7 @@ fun WeatherCastGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int)
                             modifier = Modifier
                                 .fillMaxWidth()
 
-                                .align(alignment = Alignment.CenterVertically),
+                                ,
                             textAlign = TextAlign.Center,
                             color = Color.White,
                             fontSize = 17.sp

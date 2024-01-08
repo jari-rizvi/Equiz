@@ -128,7 +128,7 @@ fun TouchTheColorGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnsw
                 .background(color = Color(0xFFE1E1E1)),
         ) {
 
-            Row(modifier = Modifier.background(color = Color(0xFF9F81CA))) {
+            Box(modifier = Modifier.height(48.dp).background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
 
                 BackButton(onClick = { content(false,0,0) }
                 )
@@ -137,7 +137,7 @@ fun TouchTheColorGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnsw
                     modifier = Modifier
                         .fillMaxWidth()
 
-                        .align(alignment = Alignment.CenterVertically),
+                        ,
                     textAlign = TextAlign.Center,
                     color = Color.White,
                     fontSize = 17.sp

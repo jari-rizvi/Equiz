@@ -574,7 +574,7 @@ fun ToolbarCompose(
 fun StartUpDialogCompose(
     title: String = "Concentration",
     exampleTxt: String = "Same Shape: Swipe the same direction Different Shape: Opposite direction",
-    onClick: () -> Unit = {},
+    onClick: (int: Int) -> Unit = {},
     painter: Painter = painterResource(id = R.drawable.concentration_instruction_c)
 ) {
 
@@ -582,7 +582,7 @@ fun StartUpDialogCompose(
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight()
-            .background(color = Color.White),
+            .background(color = Color.LightGray),
     ) {
 
         Box(
@@ -591,17 +591,17 @@ fun StartUpDialogCompose(
                 .height(48.dp)
                 .background(color = toolbarUnique)
         ) {
-            Row(
+            Box(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(10.dp),
-                verticalAlignment = Alignment.CenterVertically
+                contentAlignment = Alignment.TopStart
             ) {
                 Icon(imageVector = Icons.Default.ArrowBackIos,
                     contentDescription = "BackButton",
                     tint = Color.White,
                     modifier = Modifier.clickable(true) {
-                        onClick()
+                        onClick(1)
                     }
 
                 )
@@ -624,16 +624,25 @@ fun StartUpDialogCompose(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
+            Text(
+                modifier = Modifier
+                    .wrapContentSize()
+                    .padding(top = 10.dp),
+                text = "How to Play",
+                color = Color(0xFF323232),
+                fontSize = 20.sp,
+                fontWeight = FontWeight.ExtraBold,
+                textAlign = TextAlign.Center
+            )
 
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(448.dp)
                     .padding(20.dp)
-                    .background(color = Color.White)
+                    .background(color = Color.LightGray)
                     .border(BorderStroke(6.dp, Color.Red), shape = RoundedCornerShape(14.dp))
-                    .background(color = Color.White, shape = RoundedCornerShape(14.dp)),
+                    .background(color = Color.LightGray, shape = RoundedCornerShape(14.dp)),
             ) {
                 Box(
                     Modifier
@@ -665,7 +674,7 @@ fun StartUpDialogCompose(
                             modifier = Modifier
                                 .padding(top = 12.dp)
                                 .clickable(true) {
-                                    onClick()
+                                    onClick(1)
                                 }
 
                         )
@@ -700,7 +709,7 @@ fun StartUpDialogCompose(
                     .clip(RoundedCornerShape(18.dp))
                     .background(toolbarUnique)
                     .clickable(enabled = true) {
-                        onClick()
+                        onClick(2)
                     }, contentAlignment = Alignment.Center
 
             ) {

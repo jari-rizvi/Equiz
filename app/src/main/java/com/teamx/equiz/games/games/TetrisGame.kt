@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -116,7 +117,7 @@ fun TetrisGame(content:  (bool:Boolean, rightAnswer:Int, totalAnswer:Int) -> Uni
                     .background(color = Color(0xFFE1E1E1)),
             ) {
 
-                Row(modifier = Modifier.background(color = Color(0xFF9F81CA))) {
+                Box(modifier = Modifier.height(48.dp).background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
 
                     BackButton(onClick = { content(false,0,0) }
                     )
@@ -125,7 +126,7 @@ fun TetrisGame(content:  (bool:Boolean, rightAnswer:Int, totalAnswer:Int) -> Uni
                         modifier = Modifier
                             .fillMaxWidth()
 
-                            .align(alignment = Alignment.CenterVertically),
+                            ,
                         textAlign = TextAlign.Center,
                         color = Color.White,
                         fontSize = 17.sp
