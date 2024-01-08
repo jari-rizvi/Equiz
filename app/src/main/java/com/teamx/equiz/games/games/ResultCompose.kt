@@ -353,24 +353,27 @@ fun ResultScreen(
                         ShowScoring("Incorrect", Color(0xFFC62E27), "${(total - right).toInt()}")
 
                     }
-                    ShowMeantime("Mean Time", " ${time / right}s")
 
-                   /* Row(
-                        modifier = Modifier
-                            .padding(top = 32.dp)
-                            .fillMaxWidth(), Arrangement.SpaceAround
-                    ) {
-                        BottomResult()
-                        BottomResult2(){at->
-                            onContinueClicked(at)
-                        }
-                    }*/
+                        ShowMeantime("Mean Time", " ${time / right}s")
+
+
+
+                    /* Row(
+                         modifier = Modifier
+                             .padding(top = 32.dp)
+                             .fillMaxWidth(), Arrangement.SpaceAround
+                     ) {
+                         BottomResult()
+                         BottomResult2(){at->
+                             onContinueClicked(at)
+                         }
+                     }*/
                     BottomButtons { i ->
                         if (i == 3) {
                             IsShareDialogTrue = true
                         } else {
-                        shouldShowOnboarding2 = false
-                            IsShareDialogTrue=false
+                            shouldShowOnboarding2 = false
+                            IsShareDialogTrue = false
                             onContinueClicked(i)
                         }
                     }
@@ -767,7 +770,13 @@ fun HomeScreen(modifier: Modifier = Modifier) {
             }
 
         } else {
-            ResultScreen(10, 7,30,"", painterResource(id = R.drawable.weathercast_icon), onContinueClicked = { shouldShowOnboarding = true })
+            ResultScreen(
+                10,
+                7,
+                30,
+                "",
+                painterResource(id = R.drawable.weathercast_icon),
+                onContinueClicked = { shouldShowOnboarding = true })
         }
     }
 }
@@ -902,12 +911,12 @@ fun foody() {
 @Preview
 @Composable
 fun dialogShareGame(
-    total: Int=1,
-    right: Int=1,
-    time: Int=0,
-    gameName: String="",
-    painter: Painter= painterResource(id = R.drawable.iconbg),
-    onContinueClicked: (i: Int) -> Unit={}
+    total: Int = 1,
+    right: Int = 1,
+    time: Int = 0,
+    gameName: String = "",
+    painter: Painter = painterResource(id = R.drawable.iconbg),
+    onContinueClicked: (i: Int) -> Unit = {}
 ) {
 
 
@@ -923,7 +932,10 @@ fun dialogShareGame(
     val accuracyPercentage: Float = percentage/*(accurateCount / totalCount).toFloat()*/
 
     Box(
-        modifier=Modifier.padding(horizontal=12.dp).fillMaxSize(),contentAlignment= Alignment.Center
+        modifier = Modifier
+            .padding(horizontal = 12.dp)
+            .fillMaxSize(),
+        contentAlignment = Alignment.Center
     ) {
         TitleHeader(
             painter = painter, title = gameName
@@ -931,7 +943,9 @@ fun dialogShareGame(
 
         Column(
             modifier = Modifier
-                .wrapContentSize().background(color=Color.White,shape= RoundedCornerShape(12.dp)).padding(vertical=12.dp)
+                .wrapContentSize()
+                .background(color = Color.White, shape = RoundedCornerShape(12.dp))
+                .padding(vertical = 12.dp)
                 .fillMaxWidth(),
             Arrangement.SpaceEvenly,
         ) {
@@ -960,10 +974,10 @@ fun dialogShareGame(
                     onContinueClicked(at)
                 }*//*
             }*/
-           /* BottomButtons { i ->
-               
-                onContinueClicked(i)
-            }*/
+            /* BottomButtons { i ->
+
+                 onContinueClicked(i)
+             }*/
         }
 
     }

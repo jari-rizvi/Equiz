@@ -51,8 +51,22 @@ import com.teamx.equiz.games.games.TouchTheNumPlusGame
 import com.teamx.equiz.games.games.TouchTheShapesGameScreen
 import com.teamx.equiz.games.games.UnfollowTheLeaderGame
 import com.teamx.equiz.games.games.WeatherCastGame
+import com.teamx.equiz.games.games.gameAnswersTotalMiss
+import com.teamx.equiz.games.games.rightGameAnswersAddition
+import com.teamx.equiz.games.games.rightGameAnswersColor
+import com.teamx.equiz.games.games.rightGameAnswersDecep
+import com.teamx.equiz.games.games.rightGameAnswersFlick
+import com.teamx.equiz.games.games.rightGameAnswersHigh
+import com.teamx.equiz.games.games.rightGameAnswersMiss
+import com.teamx.equiz.games.games.rightGameAnswersWeather
 import com.teamx.equiz.games.games.rpsCastGamePlot
+import com.teamx.equiz.games.games.totalGameAnswersAddition
+import com.teamx.equiz.games.games.totalGameAnswersColor
+import com.teamx.equiz.games.games.totalGameAnswersDecep
+import com.teamx.equiz.games.games.totalGameAnswersFlick
+import com.teamx.equiz.games.games.totalGameAnswersHigh
 import com.teamx.equiz.games.games.ui_components.StartUpDialogCompose
+import com.teamx.equiz.games.games.wrongGameAnswersWeather
 import com.teamx.equiz.ui.activity.mainActivity.MainActivity
 import com.teamx.equiz.ui.fragments.dashboard.GamesUID2
 import com.teamx.equiz.utils.DialogHelperClass
@@ -83,11 +97,14 @@ class AdditionAddictionGameFrag : BaseFragment<FragmentAddressBinding, GameFrags
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
+
+        rightGameAnswersAddition = 0
+        totalGameAnswersAddition = 0
 
         var bundle = arguments
         if (bundle == null) {
@@ -270,7 +287,7 @@ class CardCalculationGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
@@ -331,7 +348,7 @@ class ColorOfDecepGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
@@ -345,6 +362,10 @@ class ColorOfDecepGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+
+        rightGameAnswersColor = 0
+        totalGameAnswersColor = 0
+
         composeView.setContent {
             TouchTheColorGameScreen { bool, rightAnswer, total ->
                 if (bool) {
@@ -441,7 +462,7 @@ class ConcentrationGameFrag : BaseFragment<FragmentAddressBinding, GameFragsView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
@@ -502,7 +523,7 @@ class FlickGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
@@ -516,6 +537,8 @@ class FlickGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>()
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+        totalGameAnswersFlick = 0
+        rightGameAnswersFlick = 0
         composeView.setContent {
             FlickGameScreen(content = { bool, rightAnswer, total ->
                 if (bool) {
@@ -565,7 +588,7 @@ class FollowTheLeaderGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
@@ -627,7 +650,7 @@ class GuessTheFlagGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
@@ -688,7 +711,7 @@ class HighLowGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
@@ -702,6 +725,8 @@ class HighLowGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+        rightGameAnswersHigh = 0
+        totalGameAnswersHigh = 0
         composeView.setContent {
             HighLowComponent(content = { bool, rightAnswer, total ->
                 if (bool) {
@@ -802,7 +827,7 @@ class Make10GameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
@@ -865,7 +890,7 @@ class MatchingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
@@ -977,7 +1002,7 @@ class MissingPieceGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
@@ -991,6 +1016,8 @@ class MissingPieceGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+        rightGameAnswersMiss = 0
+        gameAnswersTotalMiss = 0
         composeView.setContent {
             MissingPieceGameScreen(content = { bool, rightAnswer, total ->
                 if (bool) {
@@ -1041,7 +1068,7 @@ class OperationsGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
@@ -1203,7 +1230,7 @@ class QuickEyeGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
@@ -1265,7 +1292,7 @@ class RainFallGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
@@ -1327,7 +1354,7 @@ class RapidSortingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
@@ -1389,7 +1416,7 @@ class ReflectionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
@@ -1415,31 +1442,31 @@ class ReflectionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
     }
 }
 
- @AndroidEntryPoint
- class ResultComposeFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(){
+@AndroidEntryPoint
+class ResultComposeFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
 
-     override val layoutId: Int
-         get() = R.layout.fragment_address
-     override val viewModel: Class<GameFragsViewModel>
-         get() = GameFragsViewModel::class.java
-     override val bindingVariable: Int
-         get() = BR.viewModel
+    override val layoutId: Int
+        get() = R.layout.fragment_address
+    override val viewModel: Class<GameFragsViewModel>
+        get() = GameFragsViewModel::class.java
+    override val bindingVariable: Int
+        get() = BR.viewModel
 
 
-     private lateinit var options: NavOptions
-     private lateinit var composeView: ComposeView
+    private lateinit var options: NavOptions
+    private lateinit var composeView: ComposeView
 
-     override fun onCreateView(
-         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-     ): View? {
-         mViewDataBinding = FragmentAddressBinding.inflate(inflater)
-         return ComposeView(requireContext()).also {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
+        mViewDataBinding = FragmentAddressBinding.inflate(inflater)
+        return ComposeView(requireContext()).also {
             composeView = it
         }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             var bundle = arguments
             if (bundle == null) {
@@ -1503,23 +1530,23 @@ class ReflectionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
                     }
 
                     3 -> {
-                       /* DialogHelperClass.shareGameResultDialog(
-                            requireContext(),
-                            object : DialogHelperClass.Companion.DialogInviteAnotherCallBack {
-                                override fun InviteClicked() {
+                        /* DialogHelperClass.shareGameResultDialog(
+                             requireContext(),
+                             object : DialogHelperClass.Companion.DialogInviteAnotherCallBack {
+                                 override fun InviteClicked() {
 
-                                }
+                                 }
 
-                            },
-                            true,
-                            "priceAddTopUp".toString(), total,
-                            rightAnswer,
-                            20,
-                            gameName.toString()
-                        ) {
+                             },
+                             true,
+                             "priceAddTopUp".toString(), total,
+                             rightAnswer,
+                             20,
+                             gameName.toString()
+                         ) {
 
 
-                        }*/
+                         }*/
                     }
 
                     else -> {
@@ -1533,341 +1560,340 @@ class ReflectionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
         resultGame(total, rightAnswer)
     }
 
-     private fun resultGame(total: Int, right: Int, time: Int = 20) {
+    private fun resultGame(total: Int, right: Int, time: Int = 20) {
 
 
+        val params = JsonObject()
+        try {
+            params.addProperty("correct", right)
+            params.addProperty("total", total)
+            params.addProperty("time", time)
 
-         val params = JsonObject()
-         try {
-             params.addProperty("correct", right)
-             params.addProperty("total", total)
-             params.addProperty("time", time)
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
 
-         } catch (e: JSONException) {
-             e.printStackTrace()
-         }
+        mViewModel.resultGame(params)
 
-         mViewModel.resultGame(params)
+        mViewModel.resultResponseGameOB.observe(requireActivity(), Observer {
+            when (it.status) {
+                Resource.Status.LOADING -> {
+                    loadingDialog.show()
+                }
 
-         mViewModel.resultResponseGameOB.observe(requireActivity(), Observer {
-             when (it.status) {
-                 Resource.Status.LOADING -> {
-                     loadingDialog.show()
-                 }
+                Resource.Status.NOTVERIFY -> {
+                    loadingDialog.dismiss()
+                }
 
-                 Resource.Status.NOTVERIFY -> {
-                     loadingDialog.dismiss()
-                 }
+                Resource.Status.SUCCESS -> {
+                    loadingDialog.dismiss()
+                    it.data?.let { data ->
 
-                 Resource.Status.SUCCESS -> {
-                     loadingDialog.dismiss()
-                     it.data?.let { data ->
+                        val score = data.game.score
 
-                         val score = data.game.score
-
-                         MainActivity.service?.showNotification1(
-                             "Score",
-                             "$score"
-                         )
+                        MainActivity.service?.showNotification1(
+                            "Score",
+                            "$score"
+                        )
 //                         findNavController().navigate(R.id.resultComposeFrag)
-                     }
-                 }
+                    }
+                }
 
-                 Resource.Status.AUTH -> {
-                     loadingDialog.dismiss()
-                     onToSignUpPage()
-                 }
+                Resource.Status.AUTH -> {
+                    loadingDialog.dismiss()
+                    onToSignUpPage()
+                }
 
-                 Resource.Status.ERROR -> {
-                     loadingDialog.dismiss()
-                     DialogHelperClass.errorDialog(requireContext(), it.message!!)
-                 }
-             }
-         })
-     }
+                Resource.Status.ERROR -> {
+                    loadingDialog.dismiss()
+                    DialogHelperClass.errorDialog(requireContext(), it.message!!)
+                }
+            }
+        })
+    }
 
 
-     @Composable
-     private fun returnGameIcon(enumNumberEnum: String): Painter {
+    @Composable
+    private fun returnGameIcon(enumNumberEnum: String): Painter {
 
 
-         return when (enumNumberEnum) {
+        return when (enumNumberEnum) {
 
-             GamesUID2.AdditionAddiction.name -> {
+            GamesUID2.AdditionAddiction.name -> {
 
-                 painterResource(R.drawable.addition_icon)
+                painterResource(R.drawable.addition_icon)
 
 
-             }
+            }
 
-             GamesUID2.BirdWatching.name -> {
-                 painterResource(R.drawable.bird_favicon)
+            GamesUID2.BirdWatching.name -> {
+                painterResource(R.drawable.bird_favicon)
 
-             }
+            }
 
 
-             GamesUID2.ColorDeception.name -> {
-                 painterResource(R.drawable.colorofdeception_icon)
+            GamesUID2.ColorDeception.name -> {
+                painterResource(R.drawable.colorofdeception_icon)
 
-             }
+            }
 
-             GamesUID2.Tetris.name -> {
-                 painterResource(R.drawable.tetris_icon)
+            GamesUID2.Tetris.name -> {
+                painterResource(R.drawable.tetris_icon)
 
-             }
+            }
 
-             GamesUID2.Concentration.name -> {
+            GamesUID2.Concentration.name -> {
 
-                 painterResource(R.drawable.concentration_icon)
-             }
+                painterResource(R.drawable.concentration_icon)
+            }
 
-             GamesUID2.CardCalculation.name -> {
-                 painterResource(R.drawable.cardscalculations_icon)
+            GamesUID2.CardCalculation.name -> {
+                painterResource(R.drawable.cardscalculations_icon)
 
-             }
+            }
 
-             GamesUID2.Flick.name -> {
-                 painterResource(R.drawable.flick_icon)
+            GamesUID2.Flick.name -> {
+                painterResource(R.drawable.flick_icon)
 
-             }
+            }
 
-             GamesUID2.FollowTheLeader.name -> {
-                 painterResource(R.drawable.follow_the_leder)
+            GamesUID2.FollowTheLeader.name -> {
+                painterResource(R.drawable.follow_the_leder)
 
-             }
+            }
 
-             GamesUID2.UnfollowTheLeader.name -> {
-                 painterResource(R.drawable.follow_the_leder)
+            GamesUID2.UnfollowTheLeader.name -> {
+                painterResource(R.drawable.follow_the_leder)
 
-             }
+            }
 
-             GamesUID2.GuessTheFlag.name -> {
-                 painterResource(R.drawable.guestheflag_icon)
-             }
+            GamesUID2.GuessTheFlag.name -> {
+                painterResource(R.drawable.guestheflag_icon)
+            }
 
-             GamesUID2.HighLow.name -> {
-                 painterResource(R.drawable.highorlow_icon)
+            GamesUID2.HighLow.name -> {
+                painterResource(R.drawable.highorlow_icon)
 
-             }
+            }
 
-             GamesUID2.MakeTen.name -> {
-                 painterResource(R.drawable.maketen_icon)
+            GamesUID2.MakeTen.name -> {
+                painterResource(R.drawable.maketen_icon)
 
-             }
+            }
 
-             GamesUID2.MissingPiece.name -> {
-                 painterResource(R.drawable.missingpieces_icon)
+            GamesUID2.MissingPiece.name -> {
+                painterResource(R.drawable.missingpieces_icon)
 
-             }
+            }
 
 
-             GamesUID2.QuickEye.name -> {
-                 painterResource(R.drawable.quickeye_icon)
+            GamesUID2.QuickEye.name -> {
+                painterResource(R.drawable.quickeye_icon)
 
-             }
+            }
 
-             GamesUID2.RainFall.name -> {
-                 painterResource(R.drawable.rainfall_icon)
+            GamesUID2.RainFall.name -> {
+                painterResource(R.drawable.rainfall_icon)
 
-             }
+            }
 
-             GamesUID2.RapidSorting.name -> {
-                 painterResource(R.drawable.rapid_sorting_icon)
+            GamesUID2.RapidSorting.name -> {
+                painterResource(R.drawable.rapid_sorting_icon)
 
-             }
+            }
 
-             GamesUID2.ReverseRps.name -> {
-                 painterResource(R.drawable.reverserps_icon)
+            GamesUID2.ReverseRps.name -> {
+                painterResource(R.drawable.reverserps_icon)
 
-             }
+            }
 
-             GamesUID2.Simplicity.name -> {
-                 painterResource(R.drawable.simplicity_icon)
+            GamesUID2.Simplicity.name -> {
+                painterResource(R.drawable.simplicity_icon)
 
-             }
+            }
 
-             GamesUID2.SpinningBlock.name -> {
-                 painterResource(R.drawable.spinthewheel_icon)
+            GamesUID2.SpinningBlock.name -> {
+                painterResource(R.drawable.spinthewheel_icon)
 
-             }
+            }
 
-             GamesUID2.ShapeDeception.name -> {
-                 painterResource(R.drawable.shapedeception_icon)
-             }
+            GamesUID2.ShapeDeception.name -> {
+                painterResource(R.drawable.shapedeception_icon)
+            }
 
-             GamesUID2.TapTheColor.name -> {
-                 painterResource(R.drawable.tapthecolor_icon)
+            GamesUID2.TapTheColor.name -> {
+                painterResource(R.drawable.tapthecolor_icon)
 
-             }
+            }
 
-             GamesUID2.TouchTheNum.name -> {
-                 painterResource(R.drawable.touchthenumber_icon)
+            GamesUID2.TouchTheNum.name -> {
+                painterResource(R.drawable.touchthenumber_icon)
 
-             }
+            }
 
-             GamesUID2.TouchTheNumPlus.name -> {
-                 painterResource(R.drawable.touchthenumbers_icon)
+            GamesUID2.TouchTheNumPlus.name -> {
+                painterResource(R.drawable.touchthenumbers_icon)
 
-             }
+            }
 
-             GamesUID2.WeatherCast.name -> {
-                 painterResource(R.drawable.weathercast_icon)
+            GamesUID2.WeatherCast.name -> {
+                painterResource(R.drawable.weathercast_icon)
 
-             }
+            }
 
 
-             else -> {
-                 painterResource(R.drawable.weathercast_icon)
-             }
-         }
+            else -> {
+                painterResource(R.drawable.weathercast_icon)
+            }
+        }
 
 
-     }
+    }
 
-     private fun returnGameName(enumNumberEnum: String): String {
+    private fun returnGameName(enumNumberEnum: String): String {
 
 
-         return when (enumNumberEnum) {
+        return when (enumNumberEnum) {
 
-             GamesUID2.AdditionAddiction.name -> {
-                 "Addition Addiction"
+            GamesUID2.AdditionAddiction.name -> {
+                "Addition Addiction"
 
-             }
+            }
 
-             GamesUID2.BirdWatching.name -> {
-                 "Bird Watching"
+            GamesUID2.BirdWatching.name -> {
+                "Bird Watching"
 
-             }
+            }
 
-             GamesUID2.Matching.name -> {
-                 "Matching"
+            GamesUID2.Matching.name -> {
+                "Matching"
 
-             }
+            }
 
-             GamesUID2.Operations.name -> {
+            GamesUID2.Operations.name -> {
 
-                 "Operations"
-             }
+                "Operations"
+            }
 
-             GamesUID2.ColorDeception.name -> {
-                 "ColorDeception"
+            GamesUID2.ColorDeception.name -> {
+                "ColorDeception"
 
-             }
+            }
 
-             GamesUID2.Tetris.name -> {
-                 "Tetris"
+            GamesUID2.Tetris.name -> {
+                "Tetris"
 
-             }
+            }
 
 
-             GamesUID2.CardCalculation.name -> {
-                 "Card Calculation"
+            GamesUID2.CardCalculation.name -> {
+                "Card Calculation"
 
-             }
+            }
 
-             GamesUID2.Concentration.name -> {
-                 "Concentration"
+            GamesUID2.Concentration.name -> {
+                "Concentration"
 
-             }
+            }
 
-             GamesUID2.Flick.name -> {
-                 "Flick"
+            GamesUID2.Flick.name -> {
+                "Flick"
 
-             }
+            }
 
-             GamesUID2.FollowTheLeader.name -> {
-                 "Follow The Leader"
+            GamesUID2.FollowTheLeader.name -> {
+                "Follow The Leader"
 
-             }
+            }
 
-             GamesUID2.UnfollowTheLeader.name -> {
-                 "Unfollow The Leader"
+            GamesUID2.UnfollowTheLeader.name -> {
+                "Unfollow The Leader"
 
-             }
+            }
 
-             GamesUID2.GuessTheFlag.name -> {
-                 "Guess The Flag"
-             }
+            GamesUID2.GuessTheFlag.name -> {
+                "Guess The Flag"
+            }
 
-             GamesUID2.HighLow.name -> {
-                 "High Low"
+            GamesUID2.HighLow.name -> {
+                "High Low"
 
-             }
+            }
 
-             GamesUID2.MakeTen.name -> {
-                 "Make Ten"
+            GamesUID2.MakeTen.name -> {
+                "Make Ten"
 
-             }
+            }
 
-             GamesUID2.MissingPiece.name -> {
-                 "Missing Piece"
+            GamesUID2.MissingPiece.name -> {
+                "Missing Piece"
 
-             }
+            }
 
 
-             GamesUID2.QuickEye.name -> {
-                 "Quick Eye"
+            GamesUID2.QuickEye.name -> {
+                "Quick Eye"
 
-             }
+            }
 
-             GamesUID2.RainFall.name -> {
-                 "Rain Fall"
+            GamesUID2.RainFall.name -> {
+                "Rain Fall"
 
-             }
+            }
 
-             GamesUID2.RapidSorting.name -> {
-                 "Rapid Sorting"
+            GamesUID2.RapidSorting.name -> {
+                "Rapid Sorting"
 
-             }
+            }
 
-             GamesUID2.ReverseRps.name -> {
-                 "Reverse RPS"
+            GamesUID2.ReverseRps.name -> {
+                "Reverse RPS"
 
-             }
+            }
 
-             GamesUID2.Simplicity.name -> {
-                 "Simplicity"
+            GamesUID2.Simplicity.name -> {
+                "Simplicity"
 
-             }
+            }
 
-             GamesUID2.SpinningBlock.name -> {
-                 "Spinning Block"
+            GamesUID2.SpinningBlock.name -> {
+                "Spinning Block"
 
-             }
+            }
 
-             GamesUID2.ShapeDeception.name -> {
-                 "Shape Deception"
-             }
+            GamesUID2.ShapeDeception.name -> {
+                "Shape Deception"
+            }
 
-             GamesUID2.TapTheColor.name -> {
-                 "Tap The Color"
+            GamesUID2.TapTheColor.name -> {
+                "Tap The Color"
 
-             }
+            }
 
-             GamesUID2.TouchTheNum.name -> {
-                 "Touch The Number"
+            GamesUID2.TouchTheNum.name -> {
+                "Touch The Number"
 
-             }
+            }
 
-             GamesUID2.TouchTheNumPlus.name -> {
-                 "Touch The Number Plus"
+            GamesUID2.TouchTheNumPlus.name -> {
+                "Touch The Number Plus"
 
-             }
+            }
 
-             GamesUID2.WeatherCast.name -> {
-                 "Weather Cast"
+            GamesUID2.WeatherCast.name -> {
+                "Weather Cast"
 
-             }
+            }
 
 
-             else -> {
-                 "Weather Cast"
-             }
-         }
+            else -> {
+                "Weather Cast"
+            }
+        }
 
 
-     }
- }
+    }
+}
 
 @AndroidEntryPoint
 class ReverseRPSFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
@@ -1893,7 +1919,7 @@ class ReverseRPSFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
@@ -1955,7 +1981,7 @@ class SimplicityGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
@@ -1989,7 +2015,6 @@ class SimplicityGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
         }
 
 
-
     }
 }
 
@@ -2017,7 +2042,7 @@ class SpinningBlockGameFrag : BaseFragment<FragmentAddressBinding, GameFragsView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
@@ -2049,7 +2074,6 @@ class SpinningBlockGameFrag : BaseFragment<FragmentAddressBinding, GameFragsView
 //                })
             })
         }
-
 
 
     }
@@ -2079,7 +2103,7 @@ class SpinningLotteryGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
@@ -2111,7 +2135,6 @@ class SpinningLotteryGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
 //                })
             })
         }
-
 
 
     }
@@ -2142,7 +2165,7 @@ class TapTheColorGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
@@ -2174,7 +2197,6 @@ class TapTheColorGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
 //                })
             })
         }
-
 
 
     }
@@ -2354,7 +2376,7 @@ class TetrisGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
@@ -2386,7 +2408,6 @@ class TetrisGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
 //                })
             })
         }
-
 
 
     }
@@ -2467,7 +2488,7 @@ class TouchTheNumGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
@@ -2501,7 +2522,6 @@ class TouchTheNumGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
         }
 
 
-
     }
 }
 
@@ -2529,7 +2549,7 @@ class TouchTheNumPlusGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
@@ -2563,7 +2583,6 @@ class TouchTheNumPlusGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
         }
 
 
-
     }
 }
 
@@ -2591,7 +2610,7 @@ class UnfollowTheLeaderGameFrag : BaseFragment<FragmentAddressBinding, GameFrags
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
@@ -2625,7 +2644,6 @@ class UnfollowTheLeaderGameFrag : BaseFragment<FragmentAddressBinding, GameFrags
         }
 
 
-
     }
 }
 
@@ -2653,7 +2671,7 @@ class WeatherCastGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
@@ -2666,6 +2684,8 @@ class WeatherCastGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+         rightGameAnswersWeather = 0
+         wrongGameAnswersWeather = 0
         composeView.setContent {
             WeatherCastGame(content = { bool, rightAnswer, total ->
                 if (bool) {
@@ -2685,9 +2705,9 @@ class WeatherCastGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
         }
 
 
-
     }
 }
+
 @AndroidEntryPoint
 class ShapeDeceptionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
 
@@ -2712,7 +2732,7 @@ class ShapeDeceptionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVie
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
@@ -2725,6 +2745,8 @@ class ShapeDeceptionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVie
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+         rightGameAnswersDecep = 0
+         totalGameAnswersDecep = 0
         composeView.setContent {
             TouchTheShapesGameScreen(content = { bool, rightAnswer, total ->
                 if (bool) {
@@ -2742,7 +2764,6 @@ class ShapeDeceptionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVie
 
             })
         }
-
 
 
     }
@@ -2772,7 +2793,7 @@ class StartUpGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
@@ -2814,7 +2835,6 @@ class StartUpGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
                     returnGameIcon(GamesUID2.ShapeDeception.name)
                 )*/
         }
-
 
 
     }
@@ -3461,7 +3481,7 @@ class StartUpGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
             }
 
             GamesUID2.GuessTheFlag.name -> {
-                findNavController().navigate(R.id.guessTheFlagGameFrag, arguments,options)
+                findNavController().navigate(R.id.guessTheFlagGameFrag, arguments, options)
 
             }
 

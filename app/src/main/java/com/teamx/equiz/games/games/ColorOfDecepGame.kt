@@ -60,6 +60,9 @@ enum class ColorBundle {
 var rightGameAnswersColor = 1
 var totalGameAnswersColor = 1
 
+
+
+
 @Composable
 fun TouchTheColorGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit) {
     var isGameOver by remember { mutableStateOf(false) }
@@ -247,11 +250,7 @@ fun TouchTheColorGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnsw
             }
         }
 
-
-
-
     }
-
 
 
 
