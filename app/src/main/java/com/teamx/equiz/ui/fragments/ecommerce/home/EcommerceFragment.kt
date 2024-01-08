@@ -295,6 +295,7 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
         categoriesRecyclerview()
 //        addingSliderAdapter()
         performSearch()
+        addingSliderAdapter()
     }
 
     private fun performSearch() {
