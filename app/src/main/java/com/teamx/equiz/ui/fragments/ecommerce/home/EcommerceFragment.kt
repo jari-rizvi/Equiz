@@ -7,6 +7,8 @@ import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.activity.addCallback
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
@@ -14,6 +16,7 @@ import androidx.navigation.navOptions
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.gson.JsonObject
 import com.teamx.equiz.BR
@@ -22,6 +25,7 @@ import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentEcommerceBinding
 import com.teamx.equiz.ui.activity.mainActivity.MainActivity
+import com.teamx.equiz.ui.fragments.dashboard.adapter.ImageSliderAdapter
 import com.teamx.equiz.ui.fragments.ecommerce.data.Category
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
@@ -303,6 +307,59 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
                 return@setOnEditorActionListener true
             }
             false
+        }
+    }
+
+    private val imageList2 = arrayListOf<String>()
+
+    private fun addingSliderAdapter() {
+
+
+        val imageList = listOf(
+            R.drawable.argentina_32,
+            R.drawable.brazil_31,
+            R.drawable.pakistan_02,
+            R.drawable.uae_04,
+            R.drawable.usa_03,
+            R.drawable.uk_05
+            // Add more images as needed
+        )
+
+        val adapter = ImageSliderAdapter(imageList2)
+        mViewDataBinding.viewPager.adapter = adapter
+
+        addDots(imageList.size)
+        mViewDataBinding.viewPager.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                updateDots(position)
+            }
+        })
+    }
+
+    private fun addDots(count: Int) {
+        for (i in 0 until count) {
+            val dot = ImageView(requireContext())
+            dot.setImageResource(R.drawable.dot_unselected)
+            val params = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+            params.setMargins(8, 0, 8, 0)
+            mViewDataBinding.dotsContainer.addView(dot, params)
+        }
+        updateDots(0)
+    }
+
+    private fun updateDots(selectedPosition: Int) {
+        val childCount = mViewDataBinding.dotsContainer.childCount
+        for (i in 0 until childCount) {
+            val dot = mViewDataBinding.dotsContainer.getChildAt(i) as ImageView
+            if (i == selectedPosition) {
+                dot.setImageResource(R.drawable.dot_selected_dash)
+            } else {
+                dot.setImageResource(R.drawable.dot_unselected)
+            }
         }
     }
 
