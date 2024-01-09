@@ -27,7 +27,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -160,7 +159,7 @@ fun RainFallGame(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: Int)
 fun rainFallDrops() {
     val state = rememberLazyListState()
     state.disableScrolling(GlobalScope)
-    var leftItems = (0..(43)).map {
+    var leftItems = (0..(173)).map {
         RainListItem(
             height = 110/*Random.nextInt(100, 300)*/.dp,
             name = "$it",
@@ -181,7 +180,7 @@ fun rainFallDrops() {
             }
         )
     }
-    var rightItems = (0..(43)).map {
+    var rightItems = (0..(173)).map {
         RainListItem(
             height = 110/*Random.nextInt(100, 300)*/.dp,
             name = "$it",
@@ -459,9 +458,9 @@ fun drop(item: RainListItem, onClick: () -> Unit) {
 
 
     ) {
-        Text(
+        /*Text(
             text = item.name, style = MaterialTheme.typography.bodySmall
-        )
+        )*/
         Image(
             painter = painterResource(id = checkStringReturnDrawable(item.gameObject)),
             contentDescription = null,
