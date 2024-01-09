@@ -32,7 +32,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -50,20 +49,22 @@ import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
-
 import com.teamx.equiz.games.utils.RainGameObject
 import kotlinx.coroutines.GlobalScope
 
 fun LazyListState.isScrolledToEnd() =
     layoutInfo.visibleItemsInfo.lastOrNull()?.index == layoutInfo.totalItemsCount - 1
 
+
+var rightGameAnswersRain = 1
+var wrongGameAnswersRain = 1
+
 @Composable
-fun RainFallGame(content:  (boolean:Boolean, rightAnswer:Int, totalAnswer:Int) -> Unit) {
+fun RainFallGame(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit) {
 
     var isGameOver by remember { mutableStateOf(false) }
-        var isAlert by remember { mutableStateOf(false) }
- rightGameAnswers = 1
- wrongGameAnswers = 1
+    var isAlert by remember { mutableStateOf(false) }
+
 
     var timeLeft by remember { mutableStateOf(20L) }
     var isTimeUp by remember { mutableStateOf(false) }
@@ -90,7 +91,7 @@ fun RainFallGame(content:  (boolean:Boolean, rightAnswer:Int, totalAnswer:Int) -
 
 
     if (isGameOver) {
-        content(true, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
+        content(true, rightGameAnswersRain, wrongGameAnswersRain)
     }
 
 
@@ -101,7 +102,7 @@ fun RainFallGame(content:  (boolean:Boolean, rightAnswer:Int, totalAnswer:Int) -
                 isGameOver = true
 
             } else {
-                content(false, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
+                content(false, rightGameAnswersRain, wrongGameAnswersRain)
             }
         }
 
@@ -114,7 +115,9 @@ fun RainFallGame(content:  (boolean:Boolean, rightAnswer:Int, totalAnswer:Int) -
                 .background(color = Color(0xFFE1E1E1)),
         ) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Box(modifier = Modifier.height(48.dp).background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
+                Box(modifier = Modifier
+                    .height(48.dp)
+                    .background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
 
                     BackButton(onClick = {}/*onContinueClicked*/)
                     Text(
@@ -401,12 +404,15 @@ fun rainFallDrops() {
 
                     .height(100.dp)
                     .clickable {
+                        wrongGameAnswersRain++
                         boolOption = false
                         val iu = leftBoxes.lastIndex - leftIndexCounter++
                         val iu2 = rightBoxes.lastIndex - rightIndexCounter++
 
                         if (rightBoxes[iu2].gameObject == RainGameObject.DROP && (leftBoxes[iu].gameObject == RainGameObject.THUNDER || leftBoxes[iu].gameObject == RainGameObject.BLANK)) {
                             score++
+                            rightGameAnswersRain++
+
                             deletedLeftList.add(leftBoxes[iu])
                             deletedRightList.add(rightBoxes[iu2])
                         } else if (rightBoxes[iu2].gameObject == RainGameObject.BLANK && leftBoxes[iu].gameObject == RainGameObject.THUNDER) {

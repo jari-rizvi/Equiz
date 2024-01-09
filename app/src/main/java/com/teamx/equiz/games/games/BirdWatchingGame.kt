@@ -94,7 +94,7 @@ fun BirdWatchingGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
     if (isGameOver) {
 
 
-        content(true, rightGameAnswersBird, (rightGameAnswersBird + wrongGameAnswersBird))
+        content(true, rightGameAnswersBird, wrongGameAnswersBird)
 
     }
 
@@ -105,7 +105,7 @@ fun BirdWatchingGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
                 isGameOver = true
 
             } else {
-                content(false, rightGameAnswersBird, (rightGameAnswersBird + wrongGameAnswersBird))
+                content(false, rightGameAnswersBird, wrongGameAnswersBird)
             }
         }
 
@@ -242,7 +242,7 @@ fun BirdAscendingObjects() {
         val rotation by animateFloatAsState(
             targetValue = rotationState, animationSpec = repeatable(
                 iterations = 1, animation = tween(5000)
-            )
+            ), label = ""
         )
         ///
     }

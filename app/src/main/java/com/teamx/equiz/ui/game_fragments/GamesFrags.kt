@@ -10,7 +10,6 @@ import androidx.activity.addCallback
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
@@ -34,7 +33,6 @@ import com.teamx.equiz.games.games.GuessTheFlagGame
 import com.teamx.equiz.games.games.HighLowComponent
 import com.teamx.equiz.games.games.ImplicityGameScreen
 import com.teamx.equiz.games.games.Make10GameScreen
-import com.teamx.equiz.games.games.MatchingStepGame
 import com.teamx.equiz.games.games.MissingPieceGameScreen
 import com.teamx.equiz.games.games.OperationGame
 import com.teamx.equiz.games.games.QuickEyeGame
@@ -53,8 +51,6 @@ import com.teamx.equiz.games.games.WeatherCastGame
 import com.teamx.equiz.games.games.gameAnswersTotalMiss
 import com.teamx.equiz.games.games.learningy.NumPlus
 import com.teamx.equiz.games.games.learningy.ViewMatching
-import com.teamx.equiz.games.games.learningy.rightGameAnswersNumPlus
-import com.teamx.equiz.games.games.learningy.totalGameAnswersNumPlus
 import com.teamx.equiz.games.games.rightGameAnswersAddition
 import com.teamx.equiz.games.games.rightGameAnswersColor
 import com.teamx.equiz.games.games.rightGameAnswersDecep
@@ -340,7 +336,6 @@ class ColorOfDecepGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
     }
 }
 
-
 @AndroidEntryPoint
 class ConcentrationGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
 
@@ -589,7 +584,6 @@ class GuessTheFlagGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
     }
 }
 
-
 @AndroidEntryPoint
 class HighLowGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
 
@@ -653,7 +647,6 @@ class HighLowGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
 
     }
 }
-
 
 @AndroidEntryPoint
 class Make10GameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
@@ -779,7 +772,6 @@ class MatchingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
 
     }
 }
-
 
 @AndroidEntryPoint
 class MissingPieceGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
@@ -1785,7 +1777,7 @@ class SpinningBlockGameFrag : BaseFragment<FragmentAddressBinding, GameFragsView
     }
 }
 
-@AndroidEntryPoint
+/*@AndroidEntryPoint
 class SpinningLotteryGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
 
     override val layoutId: Int
@@ -1844,7 +1836,7 @@ class SpinningLotteryGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
 
 
     }
-}
+}*/
 
 @AndroidEntryPoint
 class TapTheColorGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
@@ -1908,7 +1900,6 @@ class TapTheColorGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
     }
 }
 
-
 @AndroidEntryPoint
 class TetrisGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
 
@@ -1969,7 +1960,6 @@ class TetrisGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
 
     }
 }
-
 
 @AndroidEntryPoint
 class TouchTheNumGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
@@ -2582,6 +2572,10 @@ class StartUpGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
             GamesUID2.MissingPiece.name -> {
                 painterResource(R.drawable.howtoplay_missing)
 
+            }
+
+            GamesUID2.Matching.name -> {
+                painterResource(R.drawable.howtoplay_matching)
             }
 
 

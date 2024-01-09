@@ -64,7 +64,7 @@ class SupportFragment : BaseFragment<FragmentSupportBinding, SubscriptionViewMod
             navController.navigate(
                 R.id.chattFragment, null, options
             )
-            showToast("sdsds")
+
 
 
 // /*           val webView: WebView = mViewDataBinding.webView

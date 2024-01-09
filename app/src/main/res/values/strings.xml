@@ -72,10 +72,10 @@
     <string name="body_label">TETRIS</string>
     <string name="game_over_hint">GAME OVER</string>
     <string name="button_rotate">ROTATE</string>
-    <string name="button_up">▲</string>
-    <string name="button_left">◀</string>
-    <string name="button_right">▶</string>
-    <string name="button_down">▼</string>
+    <string name="button_up" translatable="false">▲</string>
+    <string name="button_left" translatable="false">◀</string>
+    <string name="button_right" translatable="false">▶</string>
+    <string name="button_down" translatable="false">▼</string>
     <string name="button_sounds">SOUNDS</string>
     <string name="button_pause">PAUSE/RESUME</string>
     <string name="button_reset">START/RESET</string>
@@ -83,13 +83,13 @@
     <string name="Games">Games</string>
     <string name="personal_information">Personal Information</string>
     <string name="profile">Profile</string>
-    <string name="profile2"></string>
+    <string name="profile2" translatable="false"></string>
     <string name="dashboard">Dashboard</string>
 
 
-    <string name="_1st">1<sup>st</sup></string>
-    <string name="_2nd">2<sup>nd</sup></string>
-    <string name="_3rd">3<sup>rd</sup></string>
+    <string name="_1st" translatable="false">1<sup>st</sup></string>
+    <string name="_2nd" translatable="false">2<sup>nd</sup></string>
+    <string name="_3rd" translatable="false">3<sup>rd</sup></string>
     <string name="back">Back</string>
     <string name="language">Language</string>
     <string name="english">English</string>

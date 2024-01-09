@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.navigation.NavOptions
+import androidx.navigation.Navigation
 import androidx.navigation.navOptions
 import androidx.viewpager2.widget.ViewPager2
 import com.teamx.equiz.BR
@@ -175,7 +176,12 @@ class CollectPriceFragment() : BaseFragment<FragmentCollectPriceBinding, Collect
 
         when (position) {
             1 -> {
-
+                navController = Navigation.findNavController(
+                    requireActivity(), R.id.nav_host_fragment
+                )
+                navController.navigate(
+                    R.id.chattFragment, null, options
+                )
             }
 
             2 -> {

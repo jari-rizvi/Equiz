@@ -12,7 +12,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.detectVerticalDragGestures
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -41,6 +40,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
@@ -257,7 +257,9 @@ fun HighLowComponent(content: (boo:Boolean, rightAnswer:Int, totalAnswer:Int) ->
                 .fillMaxHeight()
                 .background(color = Color.White),
         ) {
-            Box(modifier = Modifier.height(48.dp).background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
+            Box(modifier = Modifier
+                .height(48.dp)
+                .background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
 
                 BackButton(onClick = { content(false, 0, 0) }
                 )
@@ -315,7 +317,10 @@ fun HighLowComponent(content: (boo:Boolean, rightAnswer:Int, totalAnswer:Int) ->
 
                                         if (dragged) {
                                             dragged = false
-                                            Log.d("123123", "MyCardUP: ${dragAmount.y} $swipeStateX")
+                                            Log.d(
+                                                "123123",
+                                                "MyCardUP: ${dragAmount.y} $swipeStateX"
+                                            )
                                             transitionState.targetState = true
                                             i23 = 1
 
@@ -323,6 +328,8 @@ fun HighLowComponent(content: (boo:Boolean, rightAnswer:Int, totalAnswer:Int) ->
                                                 delay(800)
                                                 dragged = true
                                             }
+                                            rightGameAnswersHigh++
+                                            totalGameAnswersHigh++
                                         }
                                     }
 
@@ -330,16 +337,25 @@ fun HighLowComponent(content: (boo:Boolean, rightAnswer:Int, totalAnswer:Int) ->
 
                                         if (dragged) {
                                             dragged = false
-                                            Log.d("123123", "MyCardDOWN:${dragAmount.y} $swipeStateX")
+                                            Log.d(
+                                                "123123",
+                                                "MyCardDOWN:${dragAmount.y} $swipeStateX"
+                                            )
                                             transitionState.targetState = true
                                             i23 = 1
                                             GlobalScope.launch {
                                                 delay(800)
                                                 dragged = true
                                             }
+                                            rightGameAnswersHigh++
+                                            totalGameAnswersHigh++
                                         }
                                     }
 
+                                    else -> {
+
+                                        totalGameAnswersHigh++
+                                    }
 
                                 }
                             }
@@ -397,7 +413,7 @@ fun HighLowComponent(content: (boo:Boolean, rightAnswer:Int, totalAnswer:Int) ->
                     ) {
                     Box(
                         modifier = Modifier
-                            .size(165.dp)
+                            .size(155.dp)
                             .background(
                                 color = Pink80.copy(
                                     alpha = if (transitionState.targetState) {
@@ -440,9 +456,9 @@ fun HighLowComponent(content: (boo:Boolean, rightAnswer:Int, totalAnswer:Int) ->
 //                        )
 //                        .clip(RoundedCornerShape(12.dp))
                             ,
-                            textAlign = TextAlign.Center,
+                            textAlign = TextAlign.Center,fontWeight = FontWeight.ExtraBold,
                             fontFamily = FontFamily.Monospace,
-                            fontSize = 40.sp,
+                            fontSize = 47.sp,color = Color.White,
 //                    gravity = Alignment.Center,
                             text = "$showNumber"
                         )

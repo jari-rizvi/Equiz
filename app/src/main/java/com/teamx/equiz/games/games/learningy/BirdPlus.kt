@@ -1,4 +1,5 @@
-package com.teamx.equiz.games.games
+package com.teamx.equiz.games.games.learningy
+
 
 import android.os.CountDownTimer
 import android.util.Log
@@ -18,6 +19,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -34,22 +36,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
+import com.teamx.equiz.games.games.BackButton
+import com.teamx.equiz.games.games.rightGameAnswers
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
+import com.teamx.equiz.games.games.wrongGameAnswers
 import com.teamx.equiz.ui.theme.BirdColor4
 import kotlinx.coroutines.delay
 import java.util.LinkedList
 import kotlin.random.Random
-
-
-var rightGameAnswersSpin = 1
-var wrongGameAnswersSpin = 1
 
 @Composable
 fun SpinningBlockGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit) {
@@ -70,10 +73,10 @@ fun SpinningBlockGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: In
         // Start the timer
         object : CountDownTimer(timeLeft * 1000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                  if (timerRunning) {
+                if (timerRunning) {
                     timeLeft = millisUntilFinished / 1000
                 }
-                if (timeLeft<5){
+                if (timeLeft < 5) {
                     isAlert = true
                 }
             }
@@ -86,7 +89,7 @@ fun SpinningBlockGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: In
 
 
     if (isGameOver) {
-        content(true, rightGameAnswersSpin, wrongGameAnswersSpin)
+        content(true, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
 
     }
 
@@ -97,24 +100,24 @@ fun SpinningBlockGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: In
                 isGameOver = true
 
             } else {
-                content(false, rightGameAnswersSpin, wrongGameAnswersSpin)
+                content(false, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
             }
         }
 
 
-    }else{
+    } else {
         Column {
-            Box(modifier = Modifier
-                .height(48.dp)
-                .background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
+            Box(
+                modifier = Modifier
+                    .height(48.dp)
+                    .background(color = Color(0xFF9F81CA)), contentAlignment = Alignment.CenterStart
+            ) {
 
                 BackButton(onClick = {}/*onContinueClicked*/)
                 Text(
                     text = "Training",
                     modifier = Modifier
-                        .fillMaxWidth()
-
-                        ,
+                        .fillMaxWidth(),
                     textAlign = TextAlign.Center,
                     color = Color.White,
                     fontSize = 17.sp
@@ -144,15 +147,13 @@ fun SpinningBlockGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: In
     }
 
 
-
-
 }
 
 @Preview
 @Composable
 fun PreviewSpinningBlockGame() {
     MaterialTheme {
-        SpinningBlockGame {bool,rightAnswer,total ->
+        SpinningBlockGame { bool, rightAnswer, total ->
 //            SpinObjects67()
         }
     }
@@ -304,7 +305,6 @@ fun SpinObjects67() {
                                 linkListSpin67 = temp
                                 if (linkListSpin67.isEmpty()) {
                                     changable = true
-
                                 }
                                 Log.d("123123", "AscendingObjects:linkListAdded67 $linkListSpin67")
                             }
@@ -327,32 +327,66 @@ fun SpinObjects67() {
                     .wrapContentSize()
                     .padding(6.dp)
                     .rotate(rotation),
-                verticalArrangement = Arrangement.Center
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
 
             ) {
-                repeat(3) { row ->
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.Center
-                    ) {
-                        repeat(3) { column ->
-                            val index = row * 3 + column
-                            SpinningObject67Supplementary(index) {
+                Column(
+                    modifier = Modifier
+                        .wrapContentSize()
+                        .padding(6.dp)
+                        .rotate(rotation),
+                    verticalArrangement = Arrangement.Center
 
-                                /*temp.remove(it)
-        //                            temp.pop()
-                                linkListSpin67 = temp
-                                if (linkListSpin67.isEmpty()) {
-                                    changable = true
-                                }*/
-                                Log.d("123123", "AscendingObjects:linkListAdded67 $linkListSpin67")
+                ) {
+                    repeat(3) { row ->
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.Center
+                        ) {
+                            repeat(3) { column ->
+                                val index = row * 3 + column
+                                SpinningObject67Supplementary(index) {
+
+                                    /*temp.remove(it)
+            //                            temp.pop()
+                                    linkListSpin67 = temp
+                                    if (linkListSpin67.isEmpty()) {
+                                        changable = true
+                                    }*/
+                                    Log.d(
+                                        "123123",
+                                        "AscendingObjects:linkListAdded67 $linkListSpin67"
+                                    )
+                                }
                             }
                         }
                     }
-                }
-                LaunchedEffect(Unit) {
-                    delay(1300)
-                    gameStarted = false
+                    LaunchedEffect(Unit) {
+                        delay(1300)
+                        gameStarted = false
+                    }
+
+                    Box(
+                        modifier = Modifier
+                            .width(120.dp)
+                            .height(35.dp)
+                            .background(
+                                color = BirdColor4,
+                                shape = RoundedCornerShape(12.dp)
+                            )
+                            .clickable(true) { gameStarted = false },
+                        contentAlignment = Alignment.Center
+                    ) {
+
+                        Text(
+                            text = "Memorized",
+                            color = Color.White,
+                            fontSize = 13.sp,
+                            fontWeight = FontWeight.ExtraBold
+                        )
+                    }
+
                 }
             }
         }
@@ -389,17 +423,14 @@ fun SpinningObject67(number: Int, onClick: (item: Int) -> Unit) {
             ) {
                 if (/*colorState == Color.Gray &&*/ !linkListSpin67.contains(number)) {
                     Log.d("123123", "AnimatedObjectWrong2:$number ::$number ")
-                    wrongGameAnswersSpin++
                     return@clickable
 //                } else if (number == linkListAdded67.first) {
                 } else if (linkListSpin67.contains(number)) {
-                    rightGameAnswersSpin++
 //                    colorState = Color.Gray
                     colorState = BirdColor4
                     onClick(number)
                     Log.d("123123", "AnimatedObjectWrong1:$number ::$number ")
                 } else {
-                    wrongGameAnswersSpin++
                     Log.d("123123", "AnimatedObjectWrong2:$number ::$number ")
                 }
             }, contentAlignment = Alignment.Center
@@ -462,5 +493,89 @@ fun SpinningObject67Supplementary(number: Int, onClick: (item: Int) -> Unit) {
     }
 }
 
+@Preview
+@Composable
+fun previewBird() {
+    val isRotating: Boolean = true
+    val rotation by animateFloatAsState(
+        targetValue = if (isRotating) 180f else 0f,
+        animationSpec = repeatable(iterations = 1, animation = tween(3000)), label = ""
+    )
 
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+
+        Box(
+            modifier = Modifier
+                .size(89.dp)
+                .background(BirdColor4)
+                .graphicsLayer {
+
+                    rotationZ = rotation
+
+                }
+        ) {
+            Text(text = "Hello")
+            RotatingBox()
+
+        }
+
+    }
+
+
+}
+
+@Preview
+@Composable
+fun RotatingBox() {
+    var isRotating by remember { mutableStateOf(true) }
+
+    val rotation by animateFloatAsState(
+        targetValue = if (isRotating) 180f else 0f,
+        animationSpec = repeatable(iterations = 1, animation = tween(3000)), label = ""
+    )
+
+    LaunchedEffect(isRotating) {
+        // Trigger rotation when the component is initially composed
+        isRotating = !isRotating
+    }
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Box(
+            modifier = Modifier
+                .size(89.dp)
+                .background(Color.Gray)
+                .graphicsLayer(
+                    rotationZ = rotation
+                )
+        ) {
+            Text(text = "Hello")
+        }
+    }
+}
+
+
+@Composable
+fun You() {
+
+    /*
+    * Box Relative Layout
+    * Column   - Linearlayout - veritcal
+    * Row- Linearlayout - horizontal
+    * Surface  - FrameLayout
+    * Icon _ImageView
+    * ImageButton
+    * Button
+    * Text TextView
+    * TextField EditText
+    *
+    * */
+
+
+}
 

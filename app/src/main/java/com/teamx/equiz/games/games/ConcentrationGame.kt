@@ -10,7 +10,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -50,6 +49,8 @@ import com.teamx.equiz.games.ui.theme.DeceptionBlack
 
 var rightGameAnswersConcen = 1
 var totalGameAnswersConcen = 1
+var checker = 0
+val concentrationModels3 = ArrayList<ArrayList<ConcentrationModel>>(arrayListOf())
 
 @Preview
 @Composable
@@ -64,19 +65,12 @@ fun ConcentrationGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: In
     var startMemorized2 by remember { mutableStateOf(false) }
 
 
-    val concentrationModels:/*by remember { mutableStateOf<*/ArrayList<ConcentrationModel>/*>(*/ = arrayListOf() /*)}*/
-    val concentrationModels3 by remember {
-        mutableStateOf<ArrayList<ArrayList<ConcentrationModel>>>(
-            arrayListOf()
-        )
-    }
+    val concentrationModels:/*by remember { mutableStateOf<*/ArrayList<ConcentrationModel>/*>(*/ =
+        arrayListOf() /*)}*/
 
-    /*val concentrationModels2 *//*by remember {
-        mutableStateOf<ArrayList<Int>>(*/
+
     val concentrationModels2 = arrayListOf(0, 1, 2, 3, 4, 5)
-    /* )
- }*/
-//    startMemorized2 = true
+
     concentrationModels.clear()
 
 
@@ -92,38 +86,24 @@ fun ConcentrationGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: In
         )
     }
 
-    var checker by remember { mutableStateOf(0) }
+
 
     for (counter in 0..12) {
-//        concentrationModels.shuffle()
+
+
         concentrationModels3.add(concentrationModels)
     }
 
     LaunchedEffect(startMemorized2) {
 //        checker++
         Log.d("123123", "ConcentrationGame11111$checker ")
-//        concentrationModels.clear()
-        concentrationModels3.shuffle()
-        /*  for (count in concentrationModels2) {
 
-              concentrationModels.add(
-                  ConcentrationModel(
-                      count.toString(),
-                      count.toString(),
-                      count.toString(),
-                      EnumConcentration.values()[count % 3]
-                  )
-              )
-          }*/
-//        concentrationModels3.get(checker).shuffle()
 
-        concentrationModels3.get(checker).forEach {
-            it.IsFlipped = false
-        }
+
     }
 
     LaunchedEffect(true) {
-//        generateOptions()
+
 
         // Start the timer
         object : CountDownTimer(timeLeft * 1000, 1000) {
@@ -166,16 +146,18 @@ fun ConcentrationGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: In
                 .fillMaxHeight()
                 .background(color = Color.White),
         ) {
-            Box(modifier = Modifier.height(48.dp).background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
+            Box(
+                modifier = Modifier
+                    .height(48.dp)
+                    .background(color = Color(0xFF9F81CA)), contentAlignment = Alignment.CenterStart
+            ) {
 
                 BackButton(onClick = { content(false, 0, 0) }
                 )
                 Text(
                     text = "Training",
                     modifier = Modifier
-                        .fillMaxWidth()
-
-                        ,
+                        .fillMaxWidth(),
                     textAlign = TextAlign.Center,
                     color = Color.White,
                     fontSize = 17.sp
@@ -183,10 +165,19 @@ fun ConcentrationGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: In
 
             }
             if (startMemorized) {
-                ConcentrationObjects(concentrationModels3.get(checker)) {
+                ConcentrationObjects(concentrationModels3[checker]) {
+                    checker++
+
+                    concentrationModels3.get(checker).forEach {
+                        it.IsFlipped = false
+                    }
+
+
                     rightGameAnswersConcen++
                     startMemorized = false
-                    startMemorized2 = !startMemorized2
+//                    startMemorized2 = !startMemorized2
+
+
                 }
             } else {
                 ConcentrationObjects2(concentrationModels3.get(checker)) {
@@ -248,6 +239,7 @@ fun ConcentrationObjects(
             ConcentrationObject(
                 i, concentrationModels[i]
             ) {
+                concentrationModels3.shuffle()
                 onClick()
                 startAgain = !startAgain
                 Log.d("123123", "ConcentrationObjects:linkListAdded2 $concentLinkListAdded2")
