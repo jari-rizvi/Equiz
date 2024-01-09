@@ -204,7 +204,6 @@ class GamesFragment : BaseFragment<FragmentGamesBinding, GamesViewModel>(), AllG
 
             GamesUID2.TouchTheNum.name -> {
                 "Touch The Number"
-
             }
 
             GamesUID2.TouchTheNumPlus.name -> {

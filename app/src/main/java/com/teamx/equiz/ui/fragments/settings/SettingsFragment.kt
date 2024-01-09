@@ -48,6 +48,7 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
 
 
     var referralCode = ""
+    var userId = ""
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
          super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
@@ -127,6 +128,7 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
                             try {
 
                                 referralCode = data.user.referralCode
+                                userId = data.user._id
                                 mViewDataBinding.textView3.setText(data.user.name)
                                 mViewDataBinding.textView4.setText(data.user.email)
                                 mViewDataBinding.textView52.setText(data.user.chances.toString())
@@ -265,7 +267,9 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
                 DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
                 return@setOnClickListener
             }
-            findNavController().navigate(R.id.newsFragment, arguments, options)
+            bundle.putString("referralCode", referralCode)
+            bundle.putString("userId", userId)
+            findNavController().navigate(R.id.newsFragment, bundle, options)
         }
 
         mViewDataBinding.btnSupport.setOnClickListener {

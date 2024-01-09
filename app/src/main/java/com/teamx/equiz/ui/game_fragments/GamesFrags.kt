@@ -189,7 +189,7 @@ class BirdWatchingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
         composeView.setContent {
             Box {
 //                ToolbarCompose(title = "Training", onClick = {
-                navController.popBackStack()
+//                findNavController().popBackStack()
 //                })
                 BirdWatchingGame() { bool, rightAnswer, total ->
                     if (bool) {
@@ -215,56 +215,6 @@ class BirdWatchingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
 
     }
 }
-
-/*@AndroidEntryPoint
-class BreakTheBlockGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
-
-    override val layoutId: Int
-        get() = R.layout.fragment_address
-    override val viewModel: Class<GameFragsViewModel>
-        get() = GameFragsViewModel::class.java
-    override val bindingVariable: Int
-        get() = BR.viewModel
-
-
-    private lateinit var options: NavOptions
-    private lateinit var composeView: ComposeView
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        mViewDataBinding = FragmentAddressBinding.inflate(inflater)
-        return ComposeView(requireContext()).also {
-            composeView = it
-        }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            findNavController().popBackStack()
-        }
-        mViewDataBinding.lifecycleOwner = viewLifecycleOwner
-
-        options = navOptions {
-            anim {
-                enter = R.anim.enter_from_left
-                exit = R.anim.exit_to_left
-                popEnter = R.anim.nav_default_pop_enter_anim
-                popExit = R.anim.nav_default_pop_exit_anim
-            }
-        }
-        composeView.setContent {
-            BreakTheBlockGame(content = {
-//                ToolbarCompose(title = "Training", onClick = {
-                navController.popBackStack()
-//                })
-            })
-        }
-
-
-    }
-}*/
 
 @AndroidEntryPoint
 class CardCalculationGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
@@ -306,7 +256,7 @@ class CardCalculationGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
         }
         composeView.setContent {
             CardCalculationGameScreen(content = { bool, rightAnswer, total ->
-//                navController.popBackStack()
+
                 if (bool) {
                     var argumentBundle = arguments
                     if (argumentBundle == null) {
@@ -390,56 +340,6 @@ class ColorOfDecepGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
     }
 }
 
-/*@AndroidEntryPoint
-class ColorSwitchGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
-
-    override val layoutId: Int
-        get() = R.layout.fragment_address
-    override val viewModel: Class<GameFragsViewModel>
-        get() = GameFragsViewModel::class.java
-    override val bindingVariable: Int
-        get() = BR.viewModel
-
-
-    private lateinit var options: NavOptions
-    private lateinit var composeView: ComposeView
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        mViewDataBinding = FragmentAddressBinding.inflate(inflater)
-        return ComposeView(requireContext()).also {
-            composeView = it
-        }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            findNavController().popBackStack()
-        }
-        mViewDataBinding.lifecycleOwner = viewLifecycleOwner
-
-        options = navOptions {
-            anim {
-                enter = R.anim.enter_from_left
-                exit = R.anim.exit_to_left
-                popEnter = R.anim.nav_default_pop_enter_anim
-                popExit = R.anim.nav_default_pop_exit_anim
-            }
-        }
-        composeView.setContent {
-            ColorSwitchGameScreen(content = {
-
-//                ToolbarCompose(title = "Training", onClick = {
-//                navController.popBackStack()
-//                })
-            })
-        }
-
-
-    }
-}*/
 
 @AndroidEntryPoint
 class ConcentrationGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
@@ -493,7 +393,7 @@ class ConcentrationGameFrag : BaseFragment<FragmentAddressBinding, GameFragsView
                     findNavController().popBackStack()
 
                 }
-//                navController.popBackStack()
+
 
             })
         }
@@ -557,7 +457,7 @@ class FlickGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>()
 
                 }
 
-//                navController.popBackStack()
+
 
 
             })
@@ -620,7 +520,7 @@ class FollowTheLeaderGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
 
                 }
 
-//                navController.popBackStack()
+
 
             })
         }
@@ -745,7 +645,7 @@ class HighLowGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
 
                 }
 
-//                navController.popBackStack()
+
 
             })
         }
@@ -754,57 +654,6 @@ class HighLowGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
     }
 }
 
-/*
-@AndroidEntryPoint
-class LearningThingFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
-
-    override val layoutId: Int
-        get() = R.layout.fragment_address
-    override val viewModel: Class<GameFragsViewModel>
-        get() = GameFragsViewModel::class.java
-    override val bindingVariable: Int
-        get() = BR.viewModel
-
-
-    private lateinit var options: NavOptions
-    private lateinit var composeView: ComposeView
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        mViewDataBinding = FragmentAddressBinding.inflate(inflater)
-        return ComposeView(requireContext()).also {
-            composeView = it
-        }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            findNavController().popBackStack()
-        }
-        mViewDataBinding.lifecycleOwner = viewLifecycleOwner
-
-        composeView.setContent {
-            BirdWatchingGame(content = {
-//                ToolbarCompose(title = "Training", onClick = {
-                    navController.popBackStack()
-//                })
-
-        options = navOptions {
-            anim {
-                enter = R.anim.enter_from_left
-                exit = R.anim.exit_to_left
-                popEnter = R.anim.nav_default_pop_enter_anim
-                popExit = R.anim.nav_default_pop_exit_anim
-            }
-        }   })
-        }
-
-
-    }
-}
-*/
 
 @AndroidEntryPoint
 class Make10GameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
@@ -859,7 +708,7 @@ class Make10GameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
 
                 }
 
-//                navController.popBackStack()
+
 
             })
         }
@@ -922,7 +771,7 @@ class MatchingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
 
                 }
 
-//                navController.popBackStack()
+
 
             })
         }
@@ -931,55 +780,6 @@ class MatchingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
     }
 }
 
-/*@AndroidEntryPoint
-class MenuScreenFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
-
-    override val layoutId: Int
-        get() = R.layout.fragment_address
-    override val viewModel: Class<GameFragsViewModel>
-        get() = GameFragsViewModel::class.java
-    override val bindingVariable: Int
-        get() = BR.viewModel
-
-
-    private lateinit var options: NavOptions
-    private lateinit var composeView: ComposeView
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        mViewDataBinding = FragmentAddressBinding.inflate(inflater)
-        return ComposeView(requireContext()).also {
-            composeView = it
-        }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            findNavController().popBackStack()
-        }
-        mViewDataBinding.lifecycleOwner = viewLifecycleOwner
-
-        composeView.setContent {
-            BirdWatchingGame(content = {
-//                ToolbarCompose(title = "Training", onClick = {
-                    navController.popBackStack()
-//                })
-
-        options = navOptions {
-            anim {
-                enter = R.anim.enter_from_left
-                exit = R.anim.exit_to_left
-                popEnter = R.anim.nav_default_pop_enter_anim
-                popExit = R.anim.nav_default_pop_exit_anim
-            }
-        }   })
-        }
-
-
-    }
-}*/
 
 @AndroidEntryPoint
 class MissingPieceGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
@@ -1036,7 +836,7 @@ class MissingPieceGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
 
                 }
 
-//                navController.popBackStack()
+
 
             })
         }
@@ -1100,7 +900,7 @@ class OperationsGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
 
                 }
 
-//                navController.popBackStack()
+
 
             })
         }
@@ -1109,105 +909,6 @@ class OperationsGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
     }
 }
 
-/*@AndroidEntryPoint
-class PathToSaftyGFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
-
-    override val layoutId: Int
-        get() = R.layout.fragment_address
-    override val viewModel: Class<GameFragsViewModel>
-        get() = GameFragsViewModel::class.java
-    override val bindingVariable: Int
-        get() = BR.viewModel
-
-
-    private lateinit var options: NavOptions
-    private lateinit var composeView: ComposeView
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        mViewDataBinding = FragmentAddressBinding.inflate(inflater)
-        return ComposeView(requireContext()).also {
-            composeView = it
-        }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            findNavController().popBackStack()
-        }
-        mViewDataBinding.lifecycleOwner = viewLifecycleOwner
-
-        composeView.setContent {
-            BirdWatchingGame(content = {
-//                ToolbarCompose(title = "Training", onClick = {
-                    navController.popBackStack()
-//                })
-
-        options = navOptions {
-            anim {
-                enter = R.anim.enter_from_left
-                exit = R.anim.exit_to_left
-                popEnter = R.anim.nav_default_pop_enter_anim
-                popExit = R.anim.nav_default_pop_exit_anim
-            }
-        }   })
-        }
-
-
-    }
-}*/
-
-/*@AndroidEntryPoint
-class ProfileScreenFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
-
-    override val layoutId: Int
-        get() = R.layout.fragment_address
-    override val viewModel: Class<GameFragsViewModel>
-        get() = GameFragsViewModel::class.java
-    override val bindingVariable: Int
-        get() = BR.viewModel
-
-
-    private lateinit var options: NavOptions
-    private lateinit var composeView: ComposeView
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        mViewDataBinding = FragmentAddressBinding.inflate(inflater)
-        return ComposeView(requireContext()).also {
-            composeView = it
-        }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            findNavController().popBackStack()
-        }
-        mViewDataBinding.lifecycleOwner = viewLifecycleOwner
-
-        composeView.setContent {
-            BirdWatchingGame(content = {
-//                ToolbarCompose(title = "Training", onClick = {
-                    navController.popBackStack()
-//                })
-
-        options = navOptions {
-            anim {
-                enter = R.anim.enter_from_left
-                exit = R.anim.exit_to_left
-                popEnter = R.anim.nav_default_pop_enter_anim
-                popExit = R.anim.nav_default_pop_exit_anim
-            }
-        }   })
-        }
-
-
-    }
-}*/
 
 @AndroidEntryPoint
 class QuickEyeGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
@@ -1262,7 +963,7 @@ class QuickEyeGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
 
                 }
 
-//                navController.popBackStack()
+
 
             })
         }
@@ -1324,7 +1025,7 @@ class RainFallGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
 
                 }
 
-//                navController.popBackStack()
+
 
             })
         }
@@ -1386,7 +1087,7 @@ class RapidSortingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
 
                 }
 //                ToolbarCompose(title = "Training", onClick = {
-//                navController.popBackStack()
+
 //                })
             })
         }
@@ -1436,7 +1137,7 @@ class ReflectionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
         composeView.setContent {
             ReflectionGame(content = {
 //                ToolbarCompose(title = "Training", onClick = {
-                navController.popBackStack()
+                findNavController().popBackStack()
 //                })
             })
         }
@@ -1953,7 +1654,7 @@ class ReverseRPSFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
 
                 }
 //                ToolbarCompose(title = "Training", onClick = {
-//                navController.popBackStack()
+
 //                })
             })
         }
@@ -2014,7 +1715,7 @@ class SimplicityGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
 
                 }
 //                ToolbarCompose(title = "Training", onClick = {
-//                navController.popBackStack()
+
 //                })
             })
         }
@@ -2075,7 +1776,7 @@ class SpinningBlockGameFrag : BaseFragment<FragmentAddressBinding, GameFragsView
 
                 }
 //                ToolbarCompose(title = "Training", onClick = {
-//                navController.popBackStack()
+
 //                })
             })
         }
@@ -2136,7 +1837,7 @@ class SpinningLotteryGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
 
                 }
 //                ToolbarCompose(title = "Training", onClick = {
-//                navController.popBackStack()
+
 //                })
             })
         }
@@ -2198,7 +1899,7 @@ class TapTheColorGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
 
                 }
 //                ToolbarCompose(title = "Training", onClick = {
-//                navController.popBackStack()
+
 //                })
             })
         }
@@ -2207,155 +1908,6 @@ class TapTheColorGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
     }
 }
 
-/*@AndroidEntryPoint
-class TenSecondFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
-
-    override val layoutId: Int
-        get() = R.layout.fragment_address
-    override val viewModel: Class<GameFragsViewModel>
-        get() = GameFragsViewModel::class.java
-    override val bindingVariable: Int
-        get() = BR.viewModel
-
-
-    private lateinit var options: NavOptions
-    private lateinit var composeView: ComposeView
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        mViewDataBinding = FragmentAddressBinding.inflate(inflater)
-        return ComposeView(requireContext()).also {
-            composeView = it
-        }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            findNavController().popBackStack()
-        }
-        mViewDataBinding.lifecycleOwner = viewLifecycleOwner
-
-        composeView.setContent {
-            BirdWatchingGame(content = {
-//                ToolbarCompose(title = "Training", onClick = {
-                    navController.popBackStack()
-//                })
-
-        options = navOptions {
-            anim {
-                enter = R.anim.enter_from_left
-                exit = R.anim.exit_to_left
-                popEnter = R.anim.nav_default_pop_enter_anim
-                popExit = R.anim.nav_default_pop_exit_anim
-            }
-        }   })
-        }
-
-
-    }
-}*/
-
-/*@AndroidEntryPoint
-class testiFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
-
-    override val layoutId: Int
-        get() = R.layout.fragment_address
-    override val viewModel: Class<GameFragsViewModel>
-        get() = GameFragsViewModel::class.java
-    override val bindingVariable: Int
-        get() = BR.viewModel
-
-
-    private lateinit var options: NavOptions
-    private lateinit var composeView: ComposeView
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        mViewDataBinding = FragmentAddressBinding.inflate(inflater)
-        return ComposeView(requireContext()).also {
-            composeView = it
-        }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            findNavController().popBackStack()
-        }
-        mViewDataBinding.lifecycleOwner = viewLifecycleOwner
-
-        composeView.setContent {
-            BirdWatchingGame(content = {
-//                ToolbarCompose(title = "Training", onClick = {
-                    navController.popBackStack()
-//                })
-
-        options = navOptions {
-            anim {
-                enter = R.anim.enter_from_left
-                exit = R.anim.exit_to_left
-                popEnter = R.anim.nav_default_pop_enter_anim
-                popExit = R.anim.nav_default_pop_exit_anim
-            }
-        }   })
-        }
-
-
-    }
-}*/
-
-/*@AndroidEntryPoint
-class TestingFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
-
-    override val layoutId: Int
-        get() = R.layout.fragment_address
-    override val viewModel: Class<GameFragsViewModel>
-        get() = GameFragsViewModel::class.java
-    override val bindingVariable: Int
-        get() = BR.viewModel
-
-
-    private lateinit var options: NavOptions
-    private lateinit var composeView: ComposeView
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        mViewDataBinding = FragmentAddressBinding.inflate(inflater)
-        return ComposeView(requireContext()).also {
-            composeView = it
-        }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            findNavController().popBackStack()
-        }
-        mViewDataBinding.lifecycleOwner = viewLifecycleOwner
-
-        composeView.setContent {
-            BirdWatchingGame(content = {
-//                ToolbarCompose(title = "Training", onClick = {
-                    navController.popBackStack()
-//                })
-
-        options = navOptions {
-            anim {
-                enter = R.anim.enter_from_left
-                exit = R.anim.exit_to_left
-                popEnter = R.anim.nav_default_pop_enter_anim
-                popExit = R.anim.nav_default_pop_exit_anim
-            }
-        }   })
-        }
-
-
-    }
-}*/
 
 @AndroidEntryPoint
 class TetrisGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
@@ -2409,7 +1961,7 @@ class TetrisGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
 
                 }
 //                ToolbarCompose(title = "Training", onClick = {
-//                navController.popBackStack()
+
 //                })
             })
         }
@@ -2418,64 +1970,6 @@ class TetrisGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
     }
 }
 
-/*@AndroidEntryPoint
-class ToolbarFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
-
-    override val layoutId: Int
-        get() = R.layout.fragment_address
-    override val viewModel: Class<GameFragsViewModel>
-        get() = GameFragsViewModel::class.java
-    override val bindingVariable: Int
-        get() = BR.viewModel
-
-
-    private lateinit var options: NavOptions
-    private lateinit var composeView: ComposeView
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        mViewDataBinding = FragmentAddressBinding.inflate(inflater)
-        return ComposeView(requireContext()).also {
-            composeView = it
-        }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            var bundle = arguments
-            if (bundle == null) {
-                bundle = Bundle()
-            }
-            val route = bundle?.getString("route")
-            if (route.equals("dash", true)) {
-                findNavController().navigate(R.id.dashboardFragment, arguments, options)
-            } else {
-                findNavController().navigate(R.id.gamesFragment, arguments, options)
-            }
-        }
-        mViewDataBinding.lifecycleOwner = viewLifecycleOwner
-
-        composeView.setContent {
-            BirdWatchingGame(content = {
-//                ToolbarCompose(title = "Training", onClick = {
-                    navController.popBackStack()
-//                })
-
-        options = navOptions {
-            anim {
-                enter = R.anim.enter_from_left
-                exit = R.anim.exit_to_left
-                popEnter = R.anim.nav_default_pop_enter_anim
-                popExit = R.anim.nav_default_pop_exit_anim
-            }
-        }   })
-        }
-
-
-    }
-}*/
 
 @AndroidEntryPoint
 class TouchTheNumGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
@@ -2530,7 +2024,7 @@ class TouchTheNumGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
 
                 }
 //                ToolbarCompose(title = "Training", onClick = {
-//                navController.popBackStack()
+
 //                })
             })
         }
@@ -2591,7 +2085,7 @@ class TouchTheNumPlusGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
 
                 }
 //                ToolbarCompose(title = "Training", onClick = {
-//                navController.popBackStack()
+
 //                })
             })
         }
@@ -2652,7 +2146,7 @@ class UnfollowTheLeaderGameFrag : BaseFragment<FragmentAddressBinding, GameFrags
 
                 }
 //                ToolbarCompose(title = "Training", onClick = {
-//                navController.popBackStack()
+
 //                })
             })
         }

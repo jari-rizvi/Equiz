@@ -80,10 +80,7 @@ class ProductProfileViewModel @Inject constructor(
                     mainRepository.AddToCart(param).let {
                         if (it.isSuccessful) {
                             _addtocartResponse.postValue(Resource.success(it.body()!!))
-                        } else if (it.code() == 401) {
-//                            unAuthorizedCallback.onToSignUpPage()
-                            _addtocartResponse.postValue(Resource.error(it.message(), null))
-                        } else if (it.code() == 401) {
+                        }   else if (it.code() == 401) {
                             _addtocartResponse.postValue(Resource.unAuth("", null))
                         } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
 //                            _addtocartResponse.postValue(Resource.error(it.message(), null))
@@ -118,10 +115,7 @@ class ProductProfileViewModel @Inject constructor(
                     mainRepository.AddToWishList(param).let {
                         if (it.isSuccessful) {
                             _addtowishlistResponse.postValue(Resource.success(it.body()!!))
-                        } else if (it.code() == 401) {
-//                            unAuthorizedCallback.onToSignUpPage()
-                            _addtowishlistResponse.postValue(Resource.error(it.message(), null))
-                        } else if (it.code() == 401) {
+                        }  else if (it.code() == 401) {
                             _addtowishlistResponse.postValue(Resource.unAuth("", null))
                         } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
 //                            _addtowishlistResponse.postValue(Resource.error(it.message(), null))
@@ -155,9 +149,6 @@ class ProductProfileViewModel @Inject constructor(
                     mainRepository.deleteToWishList(param).let {
                         if (it.isSuccessful) {
                             _deleteToWishlistResponse.postValue(Resource.success(it.body()!!))
-                        } else if (it.code() == 401) {
-//                            unAuthorizedCallback.onToSignUpPage()
-                            _deleteToWishlistResponse.postValue(Resource.error(it.message(), null))
                         } else if (it.code() == 401) {
                             _deleteToWishlistResponse.postValue(Resource.unAuth("", null))
                         } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {

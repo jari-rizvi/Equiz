@@ -59,10 +59,7 @@ class ForgotPassViewModel @Inject constructor(
                     mainRepository.forgotpass(param).let {
                         if (it.isSuccessful) {
                             _forgotPassResponse.postValue(Resource.success(it.body()!!))
-                        } else if (it.code() == 401) {
-
-                            _forgotPassResponse.postValue(Resource.error(it.message(), null))
-                        } else if (it.code() == 401) {
+                        }   else if (it.code() == 401) {
                             _forgotPassResponse.postValue(Resource.unAuth("", null))
                         } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
                             val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())

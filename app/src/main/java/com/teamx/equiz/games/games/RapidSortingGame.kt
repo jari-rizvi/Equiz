@@ -11,7 +11,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -54,12 +53,15 @@ import kotlin.random.Random
 
 class RapidSortingGame {}
 
+
+var rightGameAnswersRapid = 1
+var wrongGameAnswersRapid = 1
+
 @Composable
-fun RapidSortingGame(content: (boolean: Boolean,rightAnswer:Int, totalAnswer:Int) -> Unit) {
+fun RapidSortingGame(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit) {
     var isGameOver by remember { mutableStateOf(false) }
-        var isAlert by remember { mutableStateOf(false) }
- rightGameAnswers = 1
- wrongGameAnswers = 1
+    var isAlert by remember { mutableStateOf(false) }
+
     var isTimeUp by remember { mutableStateOf(false) }
 
     var timeLeft by remember { mutableStateOf(20L) }
@@ -90,7 +92,7 @@ fun RapidSortingGame(content: (boolean: Boolean,rightAnswer:Int, totalAnswer:Int
     if (isGameOver) {
 
 
-        content(true, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
+        content(true, rightGameAnswersRapid, wrongGameAnswersRapid)
 
     }
 
@@ -101,7 +103,7 @@ fun RapidSortingGame(content: (boolean: Boolean,rightAnswer:Int, totalAnswer:Int
                 isGameOver = true
 
             } else {
-                content(false, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
+                content(false, rightGameAnswersRapid, wrongGameAnswersRapid)
             }
         }
 
@@ -115,16 +117,19 @@ fun RapidSortingGame(content: (boolean: Boolean,rightAnswer:Int, totalAnswer:Int
         ) {
 
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Box(modifier = Modifier.height(48.dp).background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
+                Box(
+                    modifier = Modifier
+                        .height(48.dp)
+                        .background(color = Color(0xFF9F81CA)),
+                    contentAlignment = Alignment.CenterStart
+                ) {
 
-                    BackButton(onClick = { content(false,0,0) }
+                    BackButton(onClick = { content(false, 0, 0) }
                     )
                     Text(
                         text = "Training",
                         modifier = Modifier
-                            .fillMaxWidth()
-
-                            ,
+                            .fillMaxWidth(),
                         textAlign = TextAlign.Center,
                         color = Color.White,
                         fontSize = 17.sp
@@ -234,6 +239,7 @@ var dragged2 = true
                     .pointerInput(Unit) {
                         detectDragGestures { change, dragAmount ->
 
+
                             when {
 
                                 previousNumber <= showNumber && (dragAmount.x <= -2.0 && dragAmount.x < 0) && randomInt == 2 -> {
@@ -243,12 +249,15 @@ var dragged2 = true
                                         Log.d("123123", "MyCardUP: ${dragAmount.y} $swipeStateX")
                                         transitionState.targetState = true
                                         i232 = 1
+                                        rightGameAnswersRapid++
+                                        wrongGameAnswersRapid++
 
                                         GlobalScope.launch {
                                             delay(500)
                                             dragged2 = true
                                         }
                                     }
+
                                 }
 
                                 previousNumber > showNumber && (dragAmount.x >= 2.0 && dragAmount.x > 0) && randomInt == 1 -> {
@@ -258,13 +267,21 @@ var dragged2 = true
                                         Log.d("123123", "MyCardDOWN:${dragAmount.y} $swipeStateX")
                                         transitionState.targetState = true
                                         i232 = 1
+                                        rightGameAnswersRapid++
+                                        wrongGameAnswersRapid++
+
                                         GlobalScope.launch {
                                             delay(500)
                                             dragged2 = true
                                         }
                                     }
+
+
                                 }
 
+                                else -> {
+                                    wrongGameAnswersRapid++
+                                }
 
                             }
                         }

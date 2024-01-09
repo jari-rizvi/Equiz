@@ -3,6 +3,7 @@ package com.teamx.equiz.games.games
 import android.os.Build
 import android.os.CountDownTimer
 import android.util.Log
+import androidx.annotation.Keep
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -12,8 +13,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -31,7 +32,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
@@ -50,9 +50,6 @@ import com.teamx.equiz.games.ui.theme.BirdColor4
 import kotlinx.coroutines.delay
 import java.util.LinkedList
 import kotlin.random.Random
-
-import androidx.annotation.Keep
-import androidx.compose.foundation.layout.height
 
 class TouchTheNumGame {}
 //Touch The Number
@@ -365,7 +362,9 @@ fun TouchTheNumGamePlus(content:  (bool:Boolean, rightAnswer:Int, totalAnswer:In
                 .fillMaxHeight()
                 .background(color = Color(0xFFE1E1E1)),
         ) {
-            Box(modifier = Modifier.height(48.dp).background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
+            Box(modifier = Modifier
+                .height(48.dp)
+                .background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
 
                 BackButton(onClick = { content(false,0,0) })
                 Text(
@@ -543,7 +542,8 @@ fun NumAnimatedObject2(number: Int, itemCompared: Int, onClick: (Item: Int) -> U
                 } else {
                     Log.d("123123", "AnimatedObjectWrong2:$number ::$itemCompared ")
                 }
-            }
+            },
+
 //            .graphicsLayer(rotationZ = rotation)
 
     ) {
@@ -557,8 +557,7 @@ fun NumAnimatedObject2(number: Int, itemCompared: Int, onClick: (Item: Int) -> U
             } else Color.Transparent,
             fontSize = 40.sp,
             fontWeight = FontWeight.ExtraBold,
-            textAlign = TextAlign.Center,
-            fontFamily = FontFamily.Cursive
+            textAlign = TextAlign.Center
         )
 
 

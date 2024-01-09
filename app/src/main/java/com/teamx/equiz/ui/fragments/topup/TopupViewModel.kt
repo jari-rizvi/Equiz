@@ -85,10 +85,7 @@ class TopupViewModel @Inject constructor(
                     mainRepository.addTopUp(param).let {
                         if (it.isSuccessful) {
                             _addTopResponse.postValue(Resource.success(it.body()!!))
-                        } else if (it.code() == 401) {
-//                            unAuthorizedCallback.onToSignUpPage()
-                            _addTopResponse.postValue(Resource.error(it.message(), null))
-                        } else if (it.code() == 401) {
+                        }  else if (it.code() == 401) {
                             _addTopResponse.postValue(Resource.unAuth("", null))
                         } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
 //                            _addTopResponse.postValue(Resource.error(it.message(), null))
