@@ -38,6 +38,7 @@ import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
+import com.teamx.equiz.ui.theme.BirdColor4
 import kotlinx.coroutines.delay
 import java.util.LinkedList
 import kotlin.random.Random
@@ -181,7 +182,7 @@ fun Make10GameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
-                .background(color = Color.White),
+                .background(color = Color(0xFFEFF4F9)),
         ) {
             Box(modifier = Modifier.height(48.dp).background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
 
@@ -488,7 +489,7 @@ var linkListAddictmake1067Checker = LinkedList<Int>()
 fun making10Game() {
     val scrollState = LazyListState()
     var columnValue by remember {
-        mutableIntStateOf(7)
+        mutableIntStateOf(5)
     }
     var indexValueForArr by remember {
         mutableIntStateOf(0)
@@ -533,8 +534,8 @@ fun making10Game() {
                                 modifier = Modifier
 
                                     .size((120).dp)
-                                    .padding(horizontal = (40 - (index + 2) * 2).dp)
-                                    .padding(top = ((40 - (index + 2) * 2)).dp)
+                                    .padding(horizontal = (2+index).dp)
+                                    .padding(top = ((20 - (index + 2) * 2)).dp)
                                     .clickable(item == (columnValue - 1)) {
                                         addingValue2 = !addingValue2
 
@@ -679,10 +680,10 @@ fun making10Game() {
                                     Color.White
                                 } else {
 
-                                    Color.Black
+                                    BirdColor4
                                 },
                                 textAlign = TextAlign.Center, fontWeight = FontWeight.ExtraBold,
-                                fontSize = 36.sp
+                                fontSize = 46.sp
                             )
                         }
                     }

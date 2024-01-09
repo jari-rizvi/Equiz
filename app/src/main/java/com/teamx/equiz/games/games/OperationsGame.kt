@@ -23,8 +23,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckBoxOutlineBlank
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -39,8 +42,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -146,16 +147,18 @@ fun OperationGame(content: (boolean:Boolean, rightAnswer:Int, totalAnswer:Int) -
                 .fillMaxHeight()
                 .background(color = Color(0xFFE1E1E1)),
         ) {
-            Box(modifier = Modifier.height(48.dp).background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
+            Box(
+                modifier = Modifier
+                    .height(48.dp)
+                    .background(color = Color(0xFF9F81CA)), contentAlignment = Alignment.CenterStart
+            ) {
 
-                BackButton(onClick = { content(false,0,0) }
+                BackButton(onClick = { content(false, 0, 0) }
                 )
                 Text(
                     text = "Training",
                     modifier = Modifier
-                        .fillMaxWidth()
-
-                        ,
+                        .fillMaxWidth(),
                     textAlign = TextAlign.Center,
                     color = Color.White,
                     fontSize = 17.sp
@@ -177,18 +180,63 @@ fun OperationGame(content: (boolean:Boolean, rightAnswer:Int, totalAnswer:Int) -
                     verticalArrangement = Arrangement.Center
                 ) {
 
-                    Text(
+                    /*Text(
                         text = equation
-                            .replaceFirst("x", "[ ]")
-                            .replaceFirst("+", "[ ]")
-                            .replaceFirst("-", "[ ]")
-                            .replaceFirst("/", "[ ]"),
+                            .replaceFirst("x", "[]")
+                            .replaceFirst("+", "[]")
+                            .replaceFirst("-", "[]")
+                            .replaceFirst("/", "[]"),
                         style = MaterialTheme.typography.headlineLarge,
                         modifier = Modifier.padding(bottom = 26.dp),
                         fontWeight = FontWeight.ExtraBold,
                         color = Color.Black,
                         fontSize = 36.sp,
-                    )
+                    )*/
+                    Row(
+                        modifier = Modifier.padding(vertical = 18.dp),
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = firstNum.toString(),
+                            style = MaterialTheme.typography.headlineLarge,
+                            modifier = Modifier.padding(horizontal = 5.dp),
+                            fontWeight = FontWeight.ExtraBold,
+                            color = Color.Black,
+                            fontSize = 36.sp,
+                        )
+                        Icon(
+                            modifier = Modifier.size(25.dp).background(Color.White, shape = RoundedCornerShape(12.dp)),
+                            imageVector = Icons.Default.CheckBoxOutlineBlank,
+                            contentDescription = null
+                        )
+                        Text(
+                            text = secondNum.toString(),
+                            style = MaterialTheme.typography.headlineLarge,
+                            modifier = Modifier.padding(horizontal = 5.dp),
+                            fontWeight = FontWeight.ExtraBold,
+                            color = Color.Black,
+                            fontSize = 36.sp,
+                        )
+                        Text(
+                            text = "=",
+                            style = MaterialTheme.typography.headlineLarge,
+                            modifier = Modifier.padding(horizontal = 5.dp),
+                            fontWeight = FontWeight.ExtraBold,
+                            color = Color.Black,
+                            fontSize = 36.sp,
+                        )
+
+                        Text(
+                            text = resultNum.toString(),
+                            style = MaterialTheme.typography.headlineLarge,
+                            modifier = Modifier.padding(horizontal = 5.dp),
+                            fontWeight = FontWeight.ExtraBold,
+                            color = Color.Black,
+                            fontSize = 36.sp,
+                        )
+                    }
+
                     /*    Text(
                             text = "Accurate: $accurateCounter \n WrongAnswer: $allCounter",
                             style = MaterialTheme.typography.headlineSmall,
@@ -237,7 +285,7 @@ fun OperationGame(content: (boolean:Boolean, rightAnswer:Int, totalAnswer:Int) -
                                     )
                                 }
                                 .size(83.dp)
-                                .clip(RoundedCornerShape((5.dp)))
+                                .clip(RoundedCornerShape((15.dp)))
                                 .background(Color.White)
                                 .clickable {
                                     selectedButtonIndex = index
@@ -288,8 +336,11 @@ fun OperationGame(content: (boolean:Boolean, rightAnswer:Int, totalAnswer:Int) -
     }
 
 
-
 }
+
+var firstNum = 0
+var secondNum = 0
+var resultNum = 0
 
 fun generateEquation(): String {
     val number1 = Random.nextInt(1, 10)
@@ -298,6 +349,10 @@ fun generateEquation(): String {
     val equation = "$number1 $operator $number2"
 //    val result = evaluateEquation(number1, number2, operator)
     val result = evaluateEquation(equation)
+    firstNum = number1
+    secondNum = number2
+    resultNum = result
+
     return "$number1 $operator $number2 = $result"
 }
 

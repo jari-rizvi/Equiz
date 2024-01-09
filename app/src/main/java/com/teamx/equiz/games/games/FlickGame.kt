@@ -11,7 +11,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,7 +18,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -115,16 +113,18 @@ fun FlickGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int)
                 .fillMaxHeight()
                 .background(color = Color.White),
         ) {
-            Box(modifier = Modifier.height(48.dp).background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
+            Box(
+                modifier = Modifier
+                    .height(48.dp)
+                    .background(color = Color(0xFF9F81CA)), contentAlignment = Alignment.CenterStart
+            ) {
 
-                BackButton(onClick = { content(false,0,0) }
+                BackButton(onClick = { content(false, 0, 0) }
                 )
                 Text(
                     text = "Training",
                     modifier = Modifier
-                        .fillMaxWidth()
-
-                        ,
+                        .fillMaxWidth(),
                     textAlign = TextAlign.Center,
                     color = Color.White,
                     fontSize = 17.sp
@@ -167,7 +167,7 @@ fun FlickComponent() {
     var intOffset by remember { mutableStateOf(IntOffset(y = 0, x = 0)) }
     var valuesTranslation by remember { mutableStateOf(150f) }
 
-    var bimap by remember { mutableStateOf(R.drawable.left) }
+    var bimap by remember { mutableStateOf(R.drawable.right_arrow_flick) }
 
     val transitionState = remember {
         MutableTransitionState(swipeStateX).apply { targetState = !swipeStateX }
@@ -198,27 +198,27 @@ fun FlickComponent() {
 
         0 -> {
 //            intOffset = IntOffset(x = -offsetTransitionX.roundToInt(), y = 0)
-            bimap = R.drawable.right
+            bimap = R.drawable.right_arrow_flick
         }
 
         1 -> {
 //            intOffset = IntOffset(x = offsetTransitionX.roundToInt(), y = 0)
-            bimap = R.drawable.left
+            bimap = R.drawable.left_arrow_flick
         }
 
         2 -> {
 //            intOffset = IntOffset(y = -offsetTransitionY.roundToInt(), x = 0)
-            bimap = R.drawable.up
+            bimap = R.drawable.top_arrow_flick
         }
 
         3 -> {
 //            intOffset = IntOffset(y = offsetTransitionY.roundToInt(), x = 0)
-            bimap = R.drawable.down
+            bimap = R.drawable.down_arrow_flick
         }
 
         else -> {
 //            intOffset = IntOffset(y = -offsetTransitionY.roundToInt(), x = 0)
-            bimap = R.drawable.left
+            bimap = R.drawable.left_arrow_flick
         }
 
 
@@ -226,13 +226,21 @@ fun FlickComponent() {
 
 
     if (restart) {
-        Card(
+        Box(
             modifier = Modifier
                 .testTag("DraggableCard")
-                .width(165.dp)
+                .size(165.dp)
+                .clip(androidx.compose.foundation.shape.CircleShape)
+                .background(
+                    color = if (checkOppo) {
+                        BirdColor1
+                    } else {
+                        BirdColor3
+                    }
+                )
                 .alpha(valuesTranslation)
-                .height(165.dp)
-                .padding(horizontal = 4.dp, vertical = 1.dp)
+
+
                 .offset {
                     intOffset
 
@@ -286,13 +294,8 @@ fun FlickComponent() {
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(
-                        color = if (checkOppo) {
-                            BirdColor1
-                        } else {
-                            BirdColor3
-                        }
-                    )
+                    .padding(20.dp)
+
             )
 
 

@@ -34,12 +34,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -49,6 +49,7 @@ import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
+import com.teamx.equiz.games.ui.theme.BirdColor4
 import com.teamx.equiz.games.ui.theme.Pink80
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -255,7 +256,7 @@ fun HighLowComponent(content: (boo:Boolean, rightAnswer:Int, totalAnswer:Int) ->
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
-                .background(color = Color.White),
+                .background(color = Color(0xFFEFF4F9)),
         ) {
             Box(modifier = Modifier
                 .height(48.dp)
@@ -413,9 +414,9 @@ fun HighLowComponent(content: (boo:Boolean, rightAnswer:Int, totalAnswer:Int) ->
                     ) {
                     Box(
                         modifier = Modifier
-                            .size(155.dp)
+                            .size(135.dp)
                             .background(
-                                color = Pink80.copy(
+                                color = Color.White.copy(
                                     alpha = if (transitionState.targetState) {
                                         fadeValue
                                     } else {
@@ -423,42 +424,18 @@ fun HighLowComponent(content: (boo:Boolean, rightAnswer:Int, totalAnswer:Int) ->
                                     }
                                 )
                             )
-                            .clip(RoundedCornerShape(12.dp)), contentAlignment = Alignment.Center
+                            .clip(RoundedCornerShape(11.dp)), contentAlignment = Alignment.Center
                     ) {
 
-//                Image(
-//                    painter = painterResource(id = bimap),
-//                    contentDescription = null,
-//                    modifier = Modifier
-//                        .size(165.dp)
-//                        .background(
-//                            color = BirdColor1.copy(
-//                                alpha = if (transitionState.targetState) {
-//                                    fadeValue
-//                                } else {
-//                                    1 - fadeValue
-//                                }
-//                            )
-//                        )
-//                )
+
 
                         Text(
                             modifier = Modifier.wrapContentSize()
 
-//                        .background(
-//                            color = Pink80.copy(
-//                                alpha = if (transitionState.targetState) {
-//                                    fadeValue
-//                                } else {
-//                                    1 - fadeValue
-//                                }
-//                            )
-//                        )
-//                        .clip(RoundedCornerShape(12.dp))
                             ,
-                            textAlign = TextAlign.Center,fontWeight = FontWeight.ExtraBold,
-                            fontFamily = FontFamily.Monospace,
-                            fontSize = 47.sp,color = Color.White,
+                            textAlign = TextAlign.Center, fontWeight = FontWeight.ExtraBold,
+
+                            fontSize = 67.sp, color = BirdColor4,
 //                    gravity = Alignment.Center,
                             text = "$showNumber"
                         )

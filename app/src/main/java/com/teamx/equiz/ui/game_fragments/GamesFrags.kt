@@ -2757,7 +2757,7 @@ class StartUpGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
 
             GamesUID2.SpinningBlock.name -> {
                 "1- Memorize the blue block locations" +
-                        "2- Tap after the blocks spin"
+                        "\n2- Tap after the blocks spin"
 
             }
 
@@ -2766,7 +2766,7 @@ class StartUpGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
             }
 
             GamesUID2.TapTheColor.name -> {
-                "1- Memorize the location of each color  2- Tap in the displayed order"
+                "1- Memorize the location of each color  \n2- Tap in the displayed order"
 
             }
 

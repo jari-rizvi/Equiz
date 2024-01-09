@@ -21,9 +21,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBackIos
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -117,16 +114,18 @@ fun BirdWatchingGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
                 .fillMaxHeight()
                 .background(color = Color.White),
         ) {
-            Box(modifier = Modifier.height(48.dp).background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
+            Box(
+                modifier = Modifier
+                    .height(48.dp)
+                    .background(color = Color(0xFF9F81CA)), contentAlignment = Alignment.CenterStart
+            ) {
 
-                BackButton(onClick = { content(false,0,0) }
+                BackButton(onClick = { content(false, 0, 0) }
                 )
                 Text(
                     text = "Training",
                     modifier = Modifier
-                        .fillMaxWidth()
-
-                        ,
+                        .fillMaxWidth(),
                     textAlign = TextAlign.Center,
                     color = Color.White,
                     fontSize = 17.sp
@@ -249,65 +248,130 @@ fun BirdAscendingObjects() {
     Box(
         modifier = Modifier
             .padding(16.dp)
-            .fillMaxSize()
+            .fillMaxSize(), contentAlignment = Alignment.Center
 //            .graphicsLayer(rotationY = rotation), contentAlignment = Alignment.Center
     ) {
 
-        for (i in birdLinkListAdded) {
+        //don't remove this comment
+        /* for (i in birdLinkListAdded) {
 
-//            val temp = birdlinkListAdded
 
-//            Log.d("123123", "AscendingObjects: $i")
 
-            BirdAnimatedObject(i) { it ->
+             BirdAnimatedObject(i) { it ->
 
-                val clickedCount = birdLinkListAdded.count { a -> a.valueColor == it.valueColor }
-                var maxCount2 = birdLinkListAdded.groupingBy { it.valueColor }.eachCount()
-                    .filter { it.value >= 0 }.values.max()
-                if (clickedCount == maxCount2) {
-                    restart = false
-                    restart = true
-                    iteration++
+                 val clickedCount = birdLinkListAdded.count { a -> a.valueColor == it.valueColor }
+                 var maxCount2 = birdLinkListAdded.groupingBy { it.valueColor }.eachCount()
+                     .filter { it.value >= 0 }.values.max()
+                 if (clickedCount == maxCount2) {
+                     restart = false
+                     restart = true
+                     iteration++
 
-                    rightGameAnswersBird++
-                } else {
-                    wrongGameAnswersBird++
-                }
+                     rightGameAnswersBird++
+                 } else {
+                     wrongGameAnswersBird++
+                 }
+ //                Log.d("123123", "AscendingObjects:birdLinkListAdded $it")
+                 Log.d(
+                     "123123",
+                     "@@@@@$iteration@@@@" + birdLinkListAdded.groupingBy { it.valueColor }.eachCount()
+                         .filter { it.value >= 0 }.values.max()
+                 )
+
+                 val aia = birdLinkListAdded.groupingBy { it.valueColor }
+                     .eachCount()
+                     .filter { it.value >= 0 }.values.indexOf(birdLinkListAdded.groupingBy { it.valueColor }
+                         .eachCount().filter { it.value >= 1 }.values.max())
+                 Log.d(
+                     "123123",
+                     "@@@@@" + BirdEnum.values()[birdLinkListAdded.groupingBy { it.valueColor }
+                         .eachCount()
+                         .filter { it.value >= 0 }.values.indexOf(birdLinkListAdded.groupingBy { it.valueColor }
+                             .eachCount().filter { it.value >= 1 }.values.max())]
+                 ).toString()
+
+                 Log.d(
+                     "123123",
+                     "@@@@@" + birdLinkListAdded.groupingBy { it.valueColor }
+                         .eachCount()
+                         .filter { it.value >= 0 }.values
+                 )
+                 Log.d(
+                     "123123",
+                     "@@@@@" + BirdEnum.values()[it.valueColor].toString()
+                 )
+                 Log.d(
+                     "123123",
+                     "@@@@@" + birdLinkListAdded.count { a -> a.valueColor == it.valueColor }
+                 )
+             }
+
+
+         }*/
+
+        Column {
+            repeat(3) { column ->
+
+                Row {
+                    repeat(3) { row ->
+                        val index = row * 3 + column
+                        val indexElement = birdLinkListAdded.get(index)
+                        BirdAnimatedObjectTy(indexElement) { it ->
+
+                            val clickedCount =
+                                birdLinkListAdded.count { a -> a.valueColor == it.valueColor }
+                            var maxCount2 =
+                                birdLinkListAdded.groupingBy { it.valueColor }.eachCount()
+                                    .filter { it.value >= 0 }.values.max()
+                            if (clickedCount == maxCount2) {
+                                restart = false
+                                restart = true
+                                iteration++
+
+                                rightGameAnswersBird++
+                            } else {
+                                wrongGameAnswersBird++
+                            }
 //                Log.d("123123", "AscendingObjects:birdLinkListAdded $it")
-                Log.d(
-                    "123123",
-                    "@@@@@$iteration@@@@" + birdLinkListAdded.groupingBy { it.valueColor }.eachCount()
-                        .filter { it.value >= 0 }.values.max()
-                )
+                            Log.d(
+                                "123123",
+                                "@@@@@$iteration@@@@" + birdLinkListAdded.groupingBy { it.valueColor }
+                                    .eachCount()
+                                    .filter { it.value >= 0 }.values.max()
+                            )
 
-                val aia = birdLinkListAdded.groupingBy { it.valueColor }
-                    .eachCount()
-                    .filter { it.value >= 0 }.values.indexOf(birdLinkListAdded.groupingBy { it.valueColor }
-                        .eachCount().filter { it.value >= 1 }.values.max())
-                Log.d(
-                    "123123",
-                    "@@@@@" + BirdEnum.values()[birdLinkListAdded.groupingBy { it.valueColor }
-                        .eachCount()
-                        .filter { it.value >= 0 }.values.indexOf(birdLinkListAdded.groupingBy { it.valueColor }
-                            .eachCount().filter { it.value >= 1 }.values.max())]
-                ).toString()
+                            val aia = birdLinkListAdded.groupingBy { it.valueColor }
+                                .eachCount()
+                                .filter { it.value >= 0 }.values.indexOf(birdLinkListAdded.groupingBy { it.valueColor }
+                                    .eachCount().filter { it.value >= 1 }.values.max())
+                            Log.d(
+                                "123123",
+                                "@@@@@" + BirdEnum.values()[birdLinkListAdded.groupingBy { it.valueColor }
+                                    .eachCount()
+                                    .filter { it.value >= 0 }.values.indexOf(birdLinkListAdded.groupingBy { it.valueColor }
+                                        .eachCount().filter { it.value >= 1 }.values.max())]
+                            ).toString()
 
-                Log.d(
-                    "123123",
-                    "@@@@@" + birdLinkListAdded.groupingBy { it.valueColor }
-                        .eachCount()
-                        .filter { it.value >= 0 }.values
-                )
-                Log.d(
-                    "123123",
-                    "@@@@@" + BirdEnum.values()[it.valueColor].toString()
-                )
-                Log.d(
-                    "123123",
-                    "@@@@@" + birdLinkListAdded.count { a -> a.valueColor == it.valueColor }
-                )
+                            Log.d(
+                                "123123",
+                                "@@@@@" + birdLinkListAdded.groupingBy { it.valueColor }
+                                    .eachCount()
+                                    .filter { it.value >= 0 }.values
+                            )
+                            Log.d(
+                                "123123",
+                                "@@@@@" + BirdEnum.values()[it.valueColor].toString()
+                            )
+                            Log.d(
+                                "123123",
+                                "@@@@@" + birdLinkListAdded.count { a -> a.valueColor == it.valueColor }
+                            )
+                        }
+                    }
+                }
             }
         }
+
 
     }
 }
@@ -367,6 +431,48 @@ fun BirdAnimatedObject(
         )
     }
 }
+
+@Composable
+fun BirdAnimatedObjectTy(
+    itemCompared: BirdListItem,
+    onClick: (Item: BirdListItem) -> Unit
+) {
+
+
+    Surface(
+        color = itemCompared.color,
+        shape = RectangleShape,
+        modifier = Modifier
+            .size(99.dp)
+            .padding(12.dp)
+            .clip(RoundedCornerShape(6.dp))
+
+            .clickable(
+//                enabled = birdlinkListAdded.contains(number)
+            ) {
+                onClick(itemCompared)/*   if (itemCompared.color == Color.Transparent) {
+                       Log.d("123123", "AnimatedObjectWrong2:${itemCompared.name} ::$itemCompared ")
+                       return@clickable
+                   } else if (itemCompared.name == birdlinkListAdded.first.name) {
+
+                       onClick(itemCompared)
+                       Log.d("123123", "AnimatedObjectWrong1:$itemCompared.name ::$itemCompared ")
+                   } else {
+                       Log.d("123123", "AnimatedObjectWrong2:$itemCompared.name ::$itemCompared ")
+                   }*/
+            }) {
+
+        Text(
+            text = /*itemCompared.name.toString() +*/"11",
+            style = MaterialTheme.typography.bodySmall,
+            color = Color.Transparent,
+            fontSize = 20.sp,
+            textAlign = TextAlign.Center,
+            fontFamily = FontFamily.Cursive
+        )
+    }
+}
+
 @Composable
 fun BirdAnimatedObject2(
     itemCompared: BirdListItem,

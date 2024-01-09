@@ -9,13 +9,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -41,7 +41,6 @@ import com.teamx.equiz.R
 import com.teamx.equiz.games.GamesUID
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
-
 import kotlin.random.Random
 
 class ReverseRPS {
@@ -362,16 +361,18 @@ fun rpsCastGamePlot(content: (bool:Boolean, rightAnswer:Int, totalAnswer:Int) ->
                 .fillMaxHeight()
                 .background(color = Color.White),
         ) {
-            Box(modifier = Modifier.height(48.dp).background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
+            Box(
+                modifier = Modifier
+                    .height(48.dp)
+                    .background(color = Color(0xFF9F81CA)), contentAlignment = Alignment.CenterStart
+            ) {
 
-                BackButton(onClick = { content(false,0,0) }
+                BackButton(onClick = { content(false, 0, 0) }
                 )
                 Text(
                     text = "Training",
                     modifier = Modifier
-                        .fillMaxWidth()
-
-                        ,
+                        .fillMaxWidth(),
                     textAlign = TextAlign.Center,
                     color = Color.White,
                     fontSize = 17.sp
@@ -385,14 +386,22 @@ fun rpsCastGamePlot(content: (bool:Boolean, rightAnswer:Int, totalAnswer:Int) ->
             ) {
 
                 Image(
-                    modifier = Modifier.size(130.dp),
+                    modifier = Modifier.size(180.dp),
                     painter = painterResource(id = rpsCheckStringReturnDrawable(imageCheckObj)),
                     contentDescription = ""
                 )
                 Text(
-                    modifier = Modifier.size(1.dp), text = imageCheckObj.name, textAlign = TextAlign.Center
+                    modifier = Modifier.size(1.dp),
+                    text = imageCheckObj.name,
+                    textAlign = TextAlign.Center
                 )
-                Row() {
+                Spacer(modifier = Modifier
+                    .wrapContentWidth()
+                    .height(63.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
                     leftBoxes.forEach {
                         rpsDrop(item = it) {
                             if (imageCheckObj.name.toString().contains("INV")) {
@@ -479,9 +488,8 @@ fun rpsDrop(item: rpsListItem, onClick: () -> Unit) {
 
     Box(
         modifier = Modifier
-            .padding(vertical = 120.dp, horizontal = 9.dp)
-            .width(90.dp)
-            .height(item.height)
+
+            .size(item.height)
             .clip(RoundedCornerShape(10.dp))
 //            .background(item.color)
             .clickable {
@@ -566,15 +574,17 @@ fun previewRPSCastGame() {
 
 @Composable
 fun ReverseRockPaperScissorsGameScreen(content: @Composable () -> Unit) {
-    Box(modifier = Modifier.height(48.dp).background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
+    Box(
+        modifier = Modifier
+            .height(48.dp)
+            .background(color = Color(0xFF9F81CA)), contentAlignment = Alignment.CenterStart
+    ) {
 
         BackButton(onClick = {}/*onContinueClicked*/)
         Text(
             text = "Training",
             modifier = Modifier
-                .fillMaxWidth()
-
-                ,
+                .fillMaxWidth(),
             textAlign = TextAlign.Center,
             color = Color.White,
             fontSize = 17.sp

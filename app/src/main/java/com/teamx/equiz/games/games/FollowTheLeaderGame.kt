@@ -11,7 +11,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -26,7 +25,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -50,12 +48,14 @@ import com.teamx.equiz.games.ui.theme.BirdColor3
 import kotlinx.coroutines.delay
 import java.util.LinkedList
 import kotlin.random.Random
+
+var rightGameAnswersFollow = 1
+var wrongGameAnswersFollow = 1
 @Composable
 fun FollowTheLeaderGame(content: (boolean:Boolean, rightAnswer:Int, totalAnswer:Int) -> Unit) {
     var isGameOver by remember { mutableStateOf(false) }
         var isAlert by remember { mutableStateOf(false) }
- rightGameAnswers = 1
- wrongGameAnswers = 1
+
     var isTimeUp by remember { mutableStateOf(false) }
     var timeLeft by remember { mutableStateOf(20L) }
 
@@ -86,7 +86,7 @@ fun FollowTheLeaderGame(content: (boolean:Boolean, rightAnswer:Int, totalAnswer:
     if (isGameOver) {
 
 
-        content(true, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
+        content(true, rightGameAnswersFollow, wrongGameAnswersFollow)
 
     }
     if (isTimeUp) {
@@ -96,7 +96,7 @@ fun FollowTheLeaderGame(content: (boolean:Boolean, rightAnswer:Int, totalAnswer:
                 isGameOver = true
 
             } else {
-                content(false, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
+                content(false, rightGameAnswersFollow, wrongGameAnswersFollow)
             }
         }
 
@@ -108,16 +108,18 @@ fun FollowTheLeaderGame(content: (boolean:Boolean, rightAnswer:Int, totalAnswer:
                 .fillMaxHeight()
                 .background(color = Color(0xFFE1E1E1)),
         ) {
-            Box(modifier = Modifier.height(48.dp).background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
+            Box(
+                modifier = Modifier
+                    .height(48.dp)
+                    .background(color = Color(0xFF9F81CA)), contentAlignment = Alignment.CenterStart
+            ) {
 
-                BackButton(onClick = { content(false,0,0) }
+                BackButton(onClick = { content(false, 0, 0) }
                 )
                 Text(
                     text = "Training",
                     modifier = Modifier
-                        .fillMaxWidth()
-
-                        ,
+                        .fillMaxWidth(),
                     textAlign = TextAlign.Center,
                     color = Color.White,
                     fontSize = 17.sp
@@ -125,15 +127,18 @@ fun FollowTheLeaderGame(content: (boolean:Boolean, rightAnswer:Int, totalAnswer:
 
             }
             Column {
-                Box(modifier = Modifier.height(48.dp).background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
+                Box(
+                    modifier = Modifier
+                        .height(48.dp)
+                        .background(color = Color(0xFF9F81CA)),
+                    contentAlignment = Alignment.CenterStart
+                ) {
 
                     BackButton(onClick = {}/*onContinueClicked*/)
                     Text(
                         text = "Training",
                         modifier = Modifier
-                            .fillMaxWidth()
-
-                            ,
+                            .fillMaxWidth(),
                         textAlign = TextAlign.Center,
                         color = Color.White,
                         fontSize = 17.sp

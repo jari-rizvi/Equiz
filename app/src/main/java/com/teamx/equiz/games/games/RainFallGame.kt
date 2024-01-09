@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -363,7 +364,7 @@ fun rainFallDrops() {
                 Image(
                     painter = painterResource(id = checkDrawableRain(boolOption)),
                     contentDescription = null,
-                    modifier = Modifier.size(110.dp)
+                    modifier = Modifier.size(130.dp)
 
                 )
             }
@@ -434,7 +435,7 @@ fun rainFallDrops() {
                 )
             }
         }
-
+        Spacer(modifier = Modifier.size(65.dp))
 //        Text(text = "$score")
     }/* LaunchedEffect(endOfListReached) {
          // do your stuff
@@ -497,9 +498,9 @@ fun checkStringReturnDrawable(str: RainGameObject): Int {
 fun checkDrawableRain(bool: Boolean): Int {
 
     return if (bool) {
-        R.drawable.umbrella_yellowrain
-    } else {
         R.drawable.umbrella_whiterain
+    } else {
+        R.drawable.umbrella_yellowrain
     }
 }
 

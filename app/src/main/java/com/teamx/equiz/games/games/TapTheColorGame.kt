@@ -14,7 +14,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -22,6 +21,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -42,6 +42,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -50,18 +51,22 @@ import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
+import com.teamx.equiz.games.ui.theme.BirdColor4
 import kotlinx.coroutines.delay
 import java.util.LinkedList
 import kotlin.random.Random
 
+var rightGameAnswersTap = 1
+var wrongGameAnswersTap = 1
+
 @RequiresApi(Build.VERSION_CODES.N)
+@Preview
 @Composable
-fun TapTheColorGame(content: (bool:Boolean, rightAnswer:Int, totalAnswer:Int) -> Unit) {
+fun TapTheColorGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit = { _, _, _ -> }) {
 
     var isGameOver by remember { mutableStateOf(false) }
-        var isAlert by remember { mutableStateOf(false) }
- rightGameAnswers = 1
- wrongGameAnswers = 1
+    var isAlert by remember { mutableStateOf(false) }
+
     var isTimeUp by remember { mutableStateOf(false) }
 
     var timeLeft by remember { mutableStateOf(20L) }
@@ -91,7 +96,7 @@ fun TapTheColorGame(content: (bool:Boolean, rightAnswer:Int, totalAnswer:Int) ->
     if (isGameOver) {
 
 
-        content(true, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
+        content(true, rightGameAnswersTap, wrongGameAnswersTap)
 
     }
 
@@ -102,7 +107,7 @@ fun TapTheColorGame(content: (bool:Boolean, rightAnswer:Int, totalAnswer:Int) ->
                 isGameOver = true
 
             } else {
-                content(false, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
+                content(false, rightGameAnswersTap, wrongGameAnswersTap)
             }
         }
 
@@ -114,15 +119,17 @@ fun TapTheColorGame(content: (bool:Boolean, rightAnswer:Int, totalAnswer:Int) ->
                 .fillMaxHeight()
                 .background(color = Color(0xFFE1E1E1)),
         ) {
-            Box(modifier = Modifier.height(48.dp).background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
+            Box(
+                modifier = Modifier
+                    .height(48.dp)
+                    .background(color = Color(0xFF9F81CA)), contentAlignment = Alignment.CenterStart
+            ) {
 
                 BackButton(onClick = {}/*onContinueClicked*/)
                 Text(
                     text = "Training",
                     modifier = Modifier
-                        .fillMaxWidth()
-
-                        ,
+                        .fillMaxWidth(),
                     textAlign = TextAlign.Center,
                     color = Color.White,
                     fontSize = 17.sp
@@ -151,7 +158,7 @@ fun TapTheColorGame(content: (bool:Boolean, rightAnswer:Int, totalAnswer:Int) ->
 
 var linkListAddedTap = LinkedList<Int>()
 
-@Preview
+
 @Composable
 fun AscendingObjectsTap() {
     val maxCount = 8
@@ -405,10 +412,10 @@ fun TouchTheNumbersGameScreenTap() {
     var restart by remember { mutableStateOf(false) }
     var timerCheck by remember { mutableStateOf(true) }
 
-    LaunchedEffect(key1 = timerCheck) {
-        delay(2500)
-        timerCheck = false
-    }
+//    LaunchedEffect(key1 = timerCheck) {
+//        delay(2500)
+//        timerCheck = false
+//    }
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -436,34 +443,6 @@ fun TouchTheNumbersGameScreenTap() {
                             .size(19.dp)
                             .background(color = checkNumberReturnColor(box.number))
                             .clickable {
-                                /*  updateScoreTap(boxes, box, index) { i ->
-                                      score++
-                                      restart = true
-                                      val arr = ArrayList<NumberBoxTap>()
-                                      boxes.forEach {
-                                          if (i != it.number) {
-                                              arr.add(it)
-                                          }
-                                      }
-                                      boxes = arr
-                                      if (boxes.isEmpty()) {
-                                          restart = false
-                                      }
-                                  }*//* val Checker = boxes.minWith(Comparator.comparingInt { it.number })
-
-                             if (Checker.number == box.number && !arrTap.contains(box.number)) {
-                                 arrTap.add(box.number)
-
-                                 // Correct order
-                                 scoreTap++
-                             } else if (!arrTap.contains(box.number)) {
-                                 val last = arrTap.maxWith(Comparator.comparingInt { it })
-                                 if (last < box.number) {
-                                     arrTap.add(box.number)
-                                 }
-
-                                 scoreTap++
-                             }*/
 
 
                                 if (!restart) {
@@ -537,26 +516,7 @@ fun TouchTheNumbersGameScreenTap() {
 
                                 )
                                 .clickable {
-                                    /* updateScoreTap(boxesTemp, box, index) { i ->
-
-                                 score++
-                                 restart = true
-                                 val arr = ArrayList<NumberBoxTap>()
-                                 boxesTemp.forEach {
-                                     if (i != it.number) {
-                                         arr.add(it)
-                                     } else {
-                                         it.boolCheck = true
-                                         boxesTemp.get(index).boolCheck = true
-                                         box.boolCheck = true
-                                         arr.add(it)
-                                     }
-                                 }
-                                 boxesTemp = arr
-                                 if (boxesTemp.isEmpty()) {
-                                     restart = false
-                                 }
-                             }*/
+                                    wrongGameAnswersTap++
                                     val Checker =
                                         boxes.minWith(Comparator.comparingInt { it.number })
 
@@ -566,6 +526,8 @@ fun TouchTheNumbersGameScreenTap() {
                                         box.boolCheck = true
                                         // Correct order
                                         score++
+                                        rightGameAnswersTap++
+
                                     } else if (!arrTap.contains(box.number)) {
                                         if (arrTap.isNotEmpty()) {
                                             val last =
@@ -574,6 +536,7 @@ fun TouchTheNumbersGameScreenTap() {
                                                 arrTap.add(box.number)
                                                 arrTap = arrTap
                                                 box.boolCheck = true
+                                                rightGameAnswersTap++
                                                 score++
                                             }
                                         }
@@ -607,11 +570,24 @@ fun TouchTheNumbersGameScreenTap() {
                 }
             }
         }
-        Text(
-            text = "Score: $score",
-            style = MaterialTheme.typography.bodyLarge,
-            modifier = Modifier.padding(top = 16.dp)
-        )
+
+        Box(
+            modifier = Modifier
+                .padding(top = 12.dp)
+                .height(45.dp)
+                .width(200.dp)
+                .background(shape = RoundedCornerShape(12.dp), color = BirdColor4)
+                .clickable {
+                    timerCheck = false
+                }, contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = "Memorized"/*: $score*/, fontWeight = FontWeight.ExtraBold,
+                style = MaterialTheme.typography.bodyLarge, color = Color.White,
+                modifier = Modifier
+            )
+        }
+
     }
 }
 

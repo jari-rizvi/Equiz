@@ -43,9 +43,9 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
 
 
 
+        service = CounterNotificationService(applicationContext)
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
 
-        service = CounterNotificationService(applicationContext)
        /* mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
         mViewDataBinding.drawerLayoutMain.btneccomernce.setOnClickListener {

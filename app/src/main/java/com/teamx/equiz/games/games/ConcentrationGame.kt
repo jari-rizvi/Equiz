@@ -36,6 +36,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -327,7 +328,9 @@ fun ConcentrationObjects2(
                     onClick()
                 }, contentAlignment = Alignment.Center
         ) {
-            Text(text = "Memorized", color = Color.White)
+            Text(text = "Memorized", fontSize = 16.sp,
+                fontWeight = FontWeight.Companion.ExtraBold,
+                color = Color.White)
         }
     }
 //    for (count in 0..maxCount) {
@@ -682,8 +685,8 @@ fun SpinningBox(
                         Log.d("123123", "SpinningBox4: ")
 //                        checkListAns.clear()
 //                        isFlipped = false
-                        totalGameAnswersConcen++
                     }
+                        totalGameAnswersConcen++
 
 //                    onClick(concentrationModels)
                 })
@@ -723,12 +726,15 @@ fun SpinningBox2(
 //    val imageRes = if (isFlipped) R.drawable.your_flipped_image else R.drawable.your_unflipped_image
 //    val imageBitmap = painterResource(id = imageRes).value.asImageBitmap()
 
-    val rotationY: Float by animateFloatAsState(targetValue = if (isFlipped) 180f else 0f)
+    val rotationY: Float by animateFloatAsState(
+        targetValue = if (isFlipped) 180f else 0f,
+        label = ""
+    )
     Surface(
         color = BirdColor4,
         modifier = Modifier
-            .padding(2.dp)
             .fillMaxSize()
+            .padding(2.dp)
             .graphicsLayer(rotationY = rotationY)
     ) {
         // Content of the spinning box (optional)
@@ -797,22 +803,22 @@ fun concentrationCheckStringReturnDrawable(str: EnumConcentration): Int {
     return when (str) {
         EnumConcentration.STAR -> {
 
-            R.drawable.starfilledminor_svgrepo_com
+            R.drawable.shapes_star_concen
         }
 
         EnumConcentration.DIAMOND -> {
 
-            R.drawable.diamond_fill_svgrepo_com
+            R.drawable.diamond_concen
         }
 
         EnumConcentration.PENTAGON -> {
 
-            R.drawable.hexagon_svgrepo_com
+            R.drawable.shapes_penta_concen
         }
 
         EnumConcentration.BACK -> {
 
-            R.drawable.cards_back_flip
+            R.drawable.purplecard_blank_concen
         }
 
         EnumConcentration.FRONT -> {
@@ -822,7 +828,7 @@ fun concentrationCheckStringReturnDrawable(str: EnumConcentration): Int {
 
 
         else -> {
-            R.drawable.hexagon_svgrepo_com
+            R.drawable.diamond_concen
         }
     }
 }
