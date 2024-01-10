@@ -54,6 +54,38 @@ class CollectPriceViewModel @Inject constructor(
 
 
 
+  private val _claimedPrizeResponse = MutableLiveData<Resource<CollectDataModel>>()
+    val claimedPrizeResponse: LiveData<Resource<CollectDataModel>>
+        get() = _claimedPrizeResponse
+    fun claimedPrize(claimed : String) {
+        viewModelScope.launch {
+            _claimedPrizeResponse.postValue(Resource.loading(null))
+            if (networkHelper.isNetworkConnected()) {
+                try {
+                    mainRepository.claimedPrizeRaffal(claimed).let {
+                        if (it.isSuccessful) {
+                            _claimedPrizeResponse.postValue(Resource.success(it.body()!!))
+                        }
+                        /*  else if (it.code() == 401) {
+                              _claimedPrizeResponse.postValue(Resource.unAuth("", null))
+                          }*/else if (it.code() == 500 || it.code() == 404 || it.code() == 400 || it.code() == 422) {
+                            val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
+                            _claimedPrizeResponse.postValue(Resource.error(jsonObj.getString("message")))
+                        } else {
+                            val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
+                            _claimedPrizeResponse.postValue(Resource.error(jsonObj.getString("message")))
+//                            _claimedPrizeResponse.postValue(Resource.error(it.message(), null))
+                        }
+                    }
+                } catch (e: Exception) {
+                    _claimedPrizeResponse.postValue(Resource.error("${e.message}", null))
+                }
+            } else _claimedPrizeResponse.postValue(Resource.error("No internet connection", null))
+        }
+    }
+
+
+
 
 
 
