@@ -24,6 +24,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -56,7 +57,7 @@ fun LazyListState.isScrolledToEnd() =
     layoutInfo.visibleItemsInfo.lastOrNull()?.index == layoutInfo.totalItemsCount - 1
 
 
-var rightGameAnswersRain = 1
+var rightGameAnswersRain = 0
 var wrongGameAnswersRain = 1
 
 @Composable
@@ -92,6 +93,8 @@ fun RainFallGame(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: Int)
 
     if (isGameOver) {
         content(true, rightGameAnswersRain, wrongGameAnswersRain)
+        rightGameAnswersRain = 0
+        wrongGameAnswersRain = 1
     }
 
 
@@ -103,6 +106,8 @@ fun RainFallGame(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: Int)
 
             } else {
                 content(false, rightGameAnswersRain, wrongGameAnswersRain)
+                rightGameAnswersRain = 0
+                wrongGameAnswersRain = 1
             }
         }
 
@@ -114,30 +119,41 @@ fun RainFallGame(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: Int)
                 .fillMaxHeight()
                 .background(color = Color(0xFFE1E1E1)),
         ) {
+
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Box(modifier = Modifier
-                    .height(48.dp)
-                    .background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
+                Box(
+                    modifier = Modifier
+                        .wrapContentSize(),
+                ) {
 
-                    BackButton(onClick = {}/*onContinueClicked*/)
-                    Text(
-                        text = "Training",
-                        modifier = Modifier
-                            .fillMaxWidth()
 
-                            ,
-                        textAlign = TextAlign.Center,
-                        color = Color.White,
-                        fontSize = 17.sp
+                    rainFallDrops()
+                    Image(
+                        painter = painterResource(id = R.drawable.cloudrain),
+                        contentDescription = null
                     )
+                    Box(
+                        modifier = Modifier
+                            .height(48.dp)
+                            .background(color = Color(0xFF9F81CA)),
+                        contentAlignment = Alignment.CenterStart
+                    ) {
 
+                        BackButton(onClick = {}/*onContinueClicked*/)
+                        Text(
+                            text = "Training",
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            textAlign = TextAlign.Center,
+                            color = Color.White,
+                            fontSize = 17.sp
+                        )
+                    }
                 }
 
 
-                rainFallDrops()
 
             }
-
             Image(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -261,8 +277,10 @@ fun rainFallDrops() {
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.Top
         ) {
+
+
             Column(
-                modifier = Modifier/*.fillMaxHeight(0.9f)*/,
+                modifier = Modifier,
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Bottom
             ) {
@@ -270,9 +288,11 @@ fun rainFallDrops() {
 
                 LazyColumn(
 //            columns = StaggeredGridCells.Adaptive(122.dp),
+                    userScrollEnabled = false,
                     modifier = Modifier
                         .width(150.dp)
                         .heightIn(500.dp, max = 680.dp)
+
                         .clickable(enabled = false, null, null, {}),
                     contentPadding = PaddingValues(16.dp),
 //            horizontalArrangement = Arrangement.spacedBy(86.dp),
@@ -293,6 +313,7 @@ fun rainFallDrops() {
                 }
 
             }
+
             Column(
                 modifier = Modifier/*.fillMaxHeight(0.9f)*/,
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -302,6 +323,7 @@ fun rainFallDrops() {
 
                 LazyColumn(
 //            columns = StaggeredGridCells.Adaptive(122.dp),
+                    userScrollEnabled = false,
                     modifier = Modifier
                         .width(150.dp)
                         .heightIn(500.dp, max = 680.dp)
@@ -336,18 +358,21 @@ fun rainFallDrops() {
             Box(
                 modifier = Modifier
                     .background(Color.Transparent)
-                    .height(110.dp)
+                    .height(130.dp)
                     .clickable {
+                        wrongGameAnswersRain++
                         boolOption = true
                         val iu = leftBoxes.lastIndex - leftIndexCounter++
                         val iu2 = rightBoxes.lastIndex - rightIndexCounter++
 
                         if (leftBoxes[iu].gameObject == RainGameObject.DROP && (rightBoxes[iu2].gameObject == RainGameObject.THUNDER || rightBoxes[iu2].gameObject == RainGameObject.BLANK)) {
                             score++
+                            rightGameAnswersRain++
                             deletedLeftList.add(leftBoxes[iu])
                             deletedRightList.add(rightBoxes[iu2])
                         } else if (leftBoxes[iu].gameObject == RainGameObject.BLANK && rightBoxes[iu2].gameObject == RainGameObject.THUNDER) {
 //                        return@Button
+                            rightGameAnswersRain++
                             deletedLeftList.add(leftBoxes[iu])
                             deletedRightList.add(rightBoxes[iu2])
                         } else {
@@ -369,40 +394,11 @@ fun rainFallDrops() {
                 )
             }
 
-            /*       Box(
-                       modifier = Modifier
-                           .background(Color.Transparent)
-                           .height(110.dp)
-                           .clickable {
-                               val iu = leftBoxes.lastIndex - leftIndexCounter++
-                               val iu2 = rightBoxes.lastIndex - rightIndexCounter++
-
-                               if (rightBoxes[iu2].gameObject == RainGameObject.DROP && leftBoxes[iu].gameObject == RainGameObject.DROP || (rightBoxes[iu2].gameObject == RainGameObject.BLANK && leftBoxes[iu].gameObject == RainGameObject.BLANK)) {
-                                   score++
-                                   deletedLeftList.add(leftBoxes[iu])
-                                   deletedRightList.add(rightBoxes[iu2])
-                               } else if (rightBoxes[iu2].gameObject == RainGameObject.BLANK && leftBoxes[iu].gameObject == RainGameObject.THUNDER) {
-       //                    return@Button
-                               } else {
-       //                    score--
-                               }
-
-
-                           }, contentAlignment = Alignment.Center
-                   ) {
-
-                       Image(
-                           painter = painterResource(id = R.drawable.umbrella_yellowrain),
-                           contentDescription = null,
-                           modifier = Modifier.size(110.dp)
-
-                       )
-                   }*/
             Box(
                 modifier = Modifier
                     .background(Color.Transparent)
 
-                    .height(100.dp)
+                    .height(130.dp)
                     .clickable {
                         wrongGameAnswersRain++
                         boolOption = false
@@ -417,6 +413,7 @@ fun rainFallDrops() {
                             deletedRightList.add(rightBoxes[iu2])
                         } else if (rightBoxes[iu2].gameObject == RainGameObject.BLANK && leftBoxes[iu].gameObject == RainGameObject.THUNDER) {
 //                    return@Button
+                            rightGameAnswersRain++
                             deletedLeftList.add(leftBoxes[iu])
                             deletedRightList.add(rightBoxes[iu2])
                         } else {
@@ -430,7 +427,7 @@ fun rainFallDrops() {
                 Image(
                     painter = painterResource(id = checkDrawableRain(!boolOption)),
                     contentDescription = null,
-                    modifier = Modifier.size(110.dp)
+                    modifier = Modifier.size(130.dp)
 
                 )
             }
@@ -519,3 +516,7 @@ data class RainListItem(
     var gameObject: RainGameObject,
     var color: Color,
 )
+
+fun valusingcourotines() {
+
+}
