@@ -502,6 +502,14 @@
         android:id="@+id/changePassFragment"
         android:name="com.teamx.equiz.ui.fragments.Auth.passchange.ChangePassFragment"
         android:label="ChangePassFragment" />
+    <fragment
+        android:id="@+id/rewardsFragment"
+        android:name="com.teamx.equiz.ui.fragments.collectPrice.RewardsFragment"
+        android:label="RewardsFragment" />
+    <fragment
+        android:id="@+id/rewardShareFragment"
+        android:name="com.teamx.equiz.ui.fragments.collectPrice.RewardShareFragment"
+        android:label="RewardShareFragment" />
 
 
 </navigation>

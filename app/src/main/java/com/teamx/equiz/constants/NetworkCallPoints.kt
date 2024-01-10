@@ -6,7 +6,7 @@ class NetworkCallPoints {
         const val LOGIN_PHONE ="api/auth/login"
         const val FOTGOTPASS_EMAIL ="api/auth/forgetPassword"
         const val SIGNUP_EMAIL ="api/auth/register"
-        const val OTP_VERIFY ="api/auth/verifyOtp/{uniqueID}"
+        const val OTP_VERIFY ="api/auth/verifyOtp"
         const val OTP_VERIFY_FORGOT ="api/auth/otpReset/{uniqueID}"
         const val ME = "api/users/find"
         const val UNSUB = "api/users/find"

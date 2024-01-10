@@ -7,13 +7,20 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentCollectPriceBinding
+import com.teamx.equiz.ui.fragments.chances.adapter.ChancesAdapter
+import com.teamx.equiz.ui.fragments.chances.data.ChancesTransaction
+import com.teamx.equiz.ui.fragments.collectPrice.adapter.RewardsAdapter
+import com.teamx.equiz.ui.fragments.collectPrice.data.Raffle
 import com.teamx.equiz.ui.fragments.collectPrice.data.WinnerData
 import com.teamx.equiz.utils.DialogHelperClass
 import com.teamx.equiz.utils.snackbar
@@ -33,6 +40,7 @@ class CollectPriceFragment() : BaseFragment<FragmentCollectPriceBinding, Collect
 
     private lateinit var options: NavOptions
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
@@ -45,6 +53,12 @@ class CollectPriceFragment() : BaseFragment<FragmentCollectPriceBinding, Collect
 
             DialogHelperClass.claimPrizeDialog(requireContext(), this, true, "")
 
+        }
+
+        mViewDataBinding.btnCalim.setOnClickListener {
+            findNavController().navigate(
+                R.id.rewardsFragment, arguments, options
+            )
         }
 
         options = navOptions {
@@ -99,9 +113,12 @@ class CollectPriceFragment() : BaseFragment<FragmentCollectPriceBinding, Collect
                         }
                         mViewDataBinding.viewPager.adapter?.notifyDataSetChanged()
                     }
-                    Resource.Status.AUTH -> { loadingDialog.dismiss()
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
                         onToSignUpPage()
                     }
+
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
                         if (isAdded) {
