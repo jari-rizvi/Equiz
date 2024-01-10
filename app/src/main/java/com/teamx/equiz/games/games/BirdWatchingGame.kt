@@ -54,7 +54,7 @@ import java.util.LinkedList
 import kotlin.random.Random
 
 
-var rightGameAnswersBird = 1
+var rightGameAnswersBird = 0
 var wrongGameAnswersBird = 1
 @Composable
 fun BirdWatchingGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit) {
@@ -92,7 +92,8 @@ fun BirdWatchingGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
 
 
         content(true, rightGameAnswersBird, wrongGameAnswersBird)
-
+        rightGameAnswersBird = 0
+        wrongGameAnswersBird = 1
     }
 
     if (isTimeUp) {
@@ -103,6 +104,8 @@ fun BirdWatchingGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
 
             } else {
                 content(false, rightGameAnswersBird, wrongGameAnswersBird)
+                rightGameAnswersBird = 0
+                wrongGameAnswersBird = 1
             }
         }
 
@@ -317,7 +320,7 @@ fun BirdAscendingObjects() {
                         val index = row * 3 + column
                         val indexElement = birdLinkListAdded.get(index)
                         BirdAnimatedObjectTy(indexElement) { it ->
-
+                            wrongGameAnswersBird++
                             val clickedCount =
                                 birdLinkListAdded.count { a -> a.valueColor == it.valueColor }
                             var maxCount2 =
@@ -330,7 +333,7 @@ fun BirdAscendingObjects() {
 
                                 rightGameAnswersBird++
                             } else {
-                                wrongGameAnswersBird++
+
                             }
 //                Log.d("123123", "AscendingObjects:birdLinkListAdded $it")
                             Log.d(

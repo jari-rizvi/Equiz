@@ -1,21 +1,20 @@
 package com.teamx.equiz.games.games
 
+
 import android.os.CountDownTimer
-import androidx.compose.foundation.BorderStroke
+import androidx.annotation.Keep
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
@@ -44,16 +43,14 @@ import com.teamx.equiz.games.ui.theme.DeceptionBlack
 import com.teamx.equiz.games.ui.theme.DeceptionPink
 import com.teamx.equiz.games.ui.theme.DeceptionPurple
 import com.teamx.equiz.games.ui.theme.DeceptionYellow
+import com.teamx.equiz.ui.theme.DeceptionBlue
 import kotlin.random.Random
-
-
-import androidx.annotation.Keep
 
 @Keep
 data class ColorBox(val colorName: ColorBundle, val color: Color)
 
 enum class ColorBundle {
-    YELLOW, BLUE, BLACK, PURPLE/*, PINK*/
+    Green, Blue, Black, Purple/*, PINK*/
 }
 
 
@@ -128,7 +125,9 @@ fun TouchTheColorGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnsw
                 .background(color = Color(0xFFE1E1E1)),
         ) {
 
-            Box(modifier = Modifier.height(48.dp).background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
+            Box(modifier = Modifier
+                .height(48.dp)
+                .background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
 
                 BackButton(onClick = { content(false,0,0) }
                 )
@@ -155,12 +154,12 @@ fun TouchTheColorGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnsw
 
 
                 Text(
-                    text = "Colors Deception",
+                    text = "",
                     style = MaterialTheme.typography.headlineSmall,
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
                 LazyVerticalGrid(
-                    modifier = Modifier.width(250.dp),
+                    modifier = Modifier.fillMaxWidth().padding(horizontal=22.dp),
                     verticalArrangement = Arrangement.Center,
                     columns = asGridCells,
                 ) {
@@ -171,14 +170,13 @@ fun TouchTheColorGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnsw
 
                         Box(
                             modifier = Modifier
-                                .padding(horizontal = 10.dp, vertical = 5.dp)
+                                .padding(14.dp)
                                 .clip(
-                                    RoundedCornerShape(19.dp)
+                                    RoundedCornerShape(9.dp)
                                 )
-                                .height(80.dp)
-                                .width(67.dp)
+                                .size(140.dp)
+
                                 .background(color = box.color)
-                                .border(BorderStroke(1.dp, Color.Transparent))
 
 
                                 .clickable {
@@ -212,7 +210,7 @@ fun TouchTheColorGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnsw
 
                                 modifier = Modifier.align(Alignment.Center),
                                 color = if (box.colorName.toString()
-                                        .equals(ColorBundle.BLUE.toString()) && box.color == Color.White
+                                        .equals(ColorBundle.Blue.toString()) && box.color == Color.White
                                 ) {
                                     DeceptionBlack
                                 } else if (box.color == Color.White) {
@@ -221,7 +219,7 @@ fun TouchTheColorGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnsw
 
                                     Color.White
                                 },
-                                text = box.colorName.toString(),
+                                text = box.colorName.toString(),fontSize = 28.sp,
                                 style = MaterialTheme.typography.bodyLarge,
                             )
                             /*}*/
@@ -273,20 +271,20 @@ private fun generateBoxes(): List<ColorBox> {
             deceptionNum = numbers[deceptionNumber]
             colorBox = when (numbers[deceptionNumber]) {
 
-                ColorBundle.YELLOW -> {
+                ColorBundle.Green -> {
                     DeceptionBlack
                 }
 
-                ColorBundle.BLUE -> {
+                ColorBundle.Blue -> {
                     DeceptionYellow
                 }
 
-                ColorBundle.BLACK -> {
+                ColorBundle.Black -> {
                     Color.White
 
                 }
 
-                ColorBundle.PURPLE -> {
+                ColorBundle.Purple -> {
                     DeceptionPink
                 }
 
@@ -301,20 +299,20 @@ private fun generateBoxes(): List<ColorBox> {
         } else {
             colorBox = when (numbers[i]) {
 
-                ColorBundle.YELLOW -> {
+                ColorBundle.Green -> {
                     DeceptionYellow
                 }
 
-                ColorBundle.BLUE -> {
-                    Color.Blue
+                ColorBundle.Blue -> {
+                    DeceptionBlue
                 }
 
-                ColorBundle.BLACK -> {
+                ColorBundle.Black -> {
                     DeceptionBlack
 
                 }
 
-                ColorBundle.PURPLE -> {
+                ColorBundle.Purple -> {
                     DeceptionPurple
                 }
 

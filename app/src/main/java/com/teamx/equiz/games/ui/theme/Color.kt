@@ -36,6 +36,6 @@ val BirdColor3 = Color(0xff71C7FE)
 
 val DeceptionBlue = Color(0xff61BAFE)
 val DeceptionPink = Color(0xffFF5C98)
-val DeceptionYellow = Color(0xffFEB53A)
+val DeceptionYellow = Color(0xff72AC33)
 val DeceptionPurple = Color(0xff926BFA)
 val DeceptionBlack = Color(0xff373737)
