@@ -75,6 +75,7 @@
                     android:drawablePadding="@dimen/_8sdp"
                     android:minHeight="48dp"
                     android:padding="@dimen/_7sdp"
+                    android:textAlignment="viewStart"
                     android:text="@string/english"
                     android:textSize="@dimen/_13ssp" />
 
@@ -92,7 +93,7 @@
                     android:id="@+id/radioArabic"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
+                    android:textAlignment="viewStart"
                     android:drawableStart="@drawable/flag_ar"
                     android:drawablePadding="@dimen/_8sdp"
                     android:minHeight="48dp"

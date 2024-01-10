@@ -17,7 +17,7 @@
     <string name="verify">تأكيد</string>
     <string name="resend">إعادة إرسال</string>
     <string name="didn_t_received_code">لم تتلق الرمز؟</string>
-    <string name="enter_the_verification_code_we_just_sent_on_your_n_email_address">أدخل رمز التحقق الذي أرسلناه للتو على عنوان بريدك الإلكتروني\\n</string>
+    <string name="enter_the_verification_code_we_just_sent_on_your_n_email_address">أدخل رمز التحقق الذي أرسلناه للتو على عنوان بريدك الإلكتروني</string>
     <string name="welcome_to_home_page">مرحبا بكم في الصفحة الرئيسية</string>
     <string name="congratulations">تهانينا</string>
     <string name="done">تم</string>

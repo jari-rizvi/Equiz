@@ -49,6 +49,7 @@ import com.teamx.equiz.games.ui.theme.BirdColor1
 import com.teamx.equiz.games.ui.theme.BirdColor2
 import com.teamx.equiz.games.ui.theme.BirdColor3
 import com.teamx.equiz.games.ui.theme.BirdColor4
+import ir.kaaveh.sdpcompose.sdp
 import kotlinx.coroutines.delay
 import java.util.LinkedList
 import kotlin.random.Random
@@ -218,7 +219,7 @@ fun BirdAscendingObjects() {
                 BirdListItem(
                     i,
                     valueColor = randomNum,
-                    12.dp,
+                    12.sdp,
                     checkNumberReturnColor2(BirdEnum.values()[randomNum]),
                 )
             )
@@ -250,7 +251,7 @@ fun BirdAscendingObjects() {
     }
     Box(
         modifier = Modifier
-            .padding(16.dp)
+            .padding(16.sdp)
             .fillMaxSize(), contentAlignment = Alignment.Center
 //            .graphicsLayer(rotationY = rotation), contentAlignment = Alignment.Center
     ) {

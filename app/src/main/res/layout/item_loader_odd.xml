@@ -90,6 +90,7 @@
             android:text="Odd"
             android:textColor="#020A53"
             android:textSize="@dimen/_14ssp"
+            android:textAlignment="viewStart"
             app:layout_constraintBottom_toBottomOf="@+id/mainLayout"
             app:layout_constraintEnd_toStartOf="@+id/hatlyIcon54545454"
             app:layout_constraintHorizontal_bias="0"

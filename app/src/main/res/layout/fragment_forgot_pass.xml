@@ -6,17 +6,17 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:background="@drawable/bg"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/bg">
 
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_100sdp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.1"
@@ -24,13 +24,13 @@
 
         <TextView
             android:id="@+id/textView"
+            style="@style/popins_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/forgot_password"
             android:textColor="@color/black"
-            style="@style/popins_regular"
-            android:textStyle="bold"
             android:textSize="@dimen/_18ssp"
-            android:text="Forgot Password"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -39,14 +39,14 @@
 
         <TextView
             android:id="@+id/textView2"
+            style="@style/popins_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            style="@style/popins_regular"
+            android:text="@string/don_t_worry_it_occurs_please_enter_the_email_address_n_linked_with_your_account"
             android:textColor="@color/black"
-            android:textStyle="bold"
             android:textSize="@dimen/_11ssp"
-            android:text="Don't worry! It occurs. Please enter the email address,\n linked with your account."
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/textView"
             app:layout_constraintStart_toStartOf="@+id/textView"
@@ -54,12 +54,12 @@
             app:layout_constraintVertical_bias="0.05" />
 
 
-      <com.google.android.material.textfield.TextInputLayout
-            android:background="@drawable/contact_input_background"
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutTextInput11"
             android:layout_width="0dp"
             android:layout_height="@dimen/_40sdp"
             android:layout_marginHorizontal="@dimen/_15sdp"
+            android:background="@drawable/contact_input_background"
             android:textColorHint="@color/black"
             app:boxBackgroundMode="none"
             app:boxStrokeWidth="0dp"
@@ -70,28 +70,28 @@
             app:layout_constraintTop_toBottomOf="@+id/textView2"
             app:layout_constraintVertical_bias="0.1">
 
-          <com.google.android.material.textfield.TextInputEditText
-                android:background="@android:color/transparent"
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etCred"
+                style="@style/popins_regular"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-
-                android:textColorHint="@color/light_gray"
-                style="@style/popins_regular"
-
-                android:textColor="@color/black"
-                android:gravity="center_vertical"
+                android:background="@android:color/transparent"
+                android:gravity="center_vertical|start"
                 android:hint="@string/enter_your_email_or_number"
                 android:imeOptions="actionNext"
                 android:inputType="text"
                 android:paddingStart="@dimen/_15sdp"
+                android:textAlignment="viewStart"
+                android:textColor="@color/black"
+                android:textColorHint="@color/light_gray"
                 android:textSize="@dimen/_11ssp" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
         <TextView
             android:id="@+id/btnSendCode"
+            style="@style/popins_regular"
             android:layout_width="286dp"
             android:layout_height="@dimen/_40sdp"
             android:layout_marginTop="20dp"
@@ -100,9 +100,8 @@
             android:gravity="center"
             android:text="@string/send_code"
             android:textColor="@color/white"
-            style="@style/popins_regular"
-            android:textStyle="bold"
             android:textSize="@dimen/_14ssp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"

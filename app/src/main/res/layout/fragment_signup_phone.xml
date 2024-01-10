@@ -38,12 +38,12 @@
             app:layout_constraintVertical_bias="0.05" />
 
 
-      <com.google.android.material.textfield.TextInputLayout
-            android:background="@drawable/contact_input_background"
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutTextInput11"
             android:layout_width="0dp"
             android:layout_height="@dimen/_40sdp"
             android:layout_marginHorizontal="@dimen/_15sdp"
+            android:background="@drawable/contact_input_background"
             android:textColorHint="@color/light_gray"
             app:boxBackgroundMode="none"
             app:boxStrokeWidth="0dp"
@@ -54,31 +54,32 @@
             app:layout_constraintTop_toBottomOf="@+id/textView"
             app:layout_constraintVertical_bias="0.05">
 
-          <com.google.android.material.textfield.TextInputEditText
-                android:background="@android:color/transparent"
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etName"
                 style="@style/popins_regular"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-              android:textColor="@color/black"
-              android:layout_gravity="center"
-                android:gravity="center_vertical"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:gravity="center_vertical|start"
+                android:textAlignment="viewStart"
                 android:hint="@string/username"
                 android:imeOptions="actionNext"
+                android:inputType="text"
 
-              android:inputType="text"
                 android:paddingStart="@dimen/_15sdp"
+                android:textColor="@color/black"
                 android:textColorHint="@color/light_gray"
                 android:textSize="@dimen/_11ssp" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
-      <com.google.android.material.textfield.TextInputLayout
-            android:background="@drawable/contact_input_background"
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutTextInput"
             android:layout_width="0dp"
             android:layout_height="@dimen/_40sdp"
             android:layout_marginHorizontal="@dimen/_15sdp"
+            android:background="@drawable/contact_input_background"
             android:textColorHint="@color/light_gray"
             app:boxBackgroundMode="none"
             app:boxStrokeWidth="0dp"
@@ -89,30 +90,31 @@
             app:layout_constraintTop_toBottomOf="@+id/layoutTextInput11"
             app:layout_constraintVertical_bias="0.05">
 
-          <com.google.android.material.textfield.TextInputEditText
-              android:id="@+id/etPhone"
-              style="@style/popins_regular"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:layout_gravity="center"
-              android:background="@android:color/transparent"
-              android:gravity="center_vertical"
-              android:hint="@string/phone_number"
-              android:imeOptions="actionNext"
-              android:inputType="text"
-              android:paddingStart="@dimen/_15sdp"
-              android:textColor="@color/black"
-              android:textColorHint="@color/light_gray"
-              android:textSize="@dimen/_11ssp" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPhone"
+                style="@style/popins_regular"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:gravity="center_vertical|start"
+                android:textAlignment="viewStart"
+                android:hint="@string/phone_number"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:paddingStart="@dimen/_15sdp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/light_gray"
+                android:textSize="@dimen/_11ssp" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
-      <com.google.android.material.textfield.TextInputLayout
-            android:background="@drawable/contact_input_background"
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutTextInput1"
             android:layout_width="0dp"
             android:layout_height="@dimen/_40sdp"
             android:layout_marginHorizontal="@dimen/_15sdp"
+            android:background="@drawable/contact_input_background"
             android:textColorHint="@color/light_gray"
             app:boxBackgroundMode="none"
             app:boxStrokeWidth="0dp"
@@ -126,21 +128,22 @@
             app:passwordToggleEnabled="true"
             app:passwordToggleTint="@color/light_gray">
 
-          <com.google.android.material.textfield.TextInputEditText
-              android:id="@+id/etPass"
-              style="@style/popins_regular"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:layout_gravity="center"
-              android:background="@android:color/transparent"
-              android:gravity="center_vertical"
-              android:hint="Enter your Password"
-              android:imeOptions="actionNext"
-              android:inputType="text"
-              android:paddingStart="@dimen/_15sdp"
-              android:textColor="@color/black"
-              android:textColorHint="@color/light_gray"
-              android:textSize="@dimen/_11ssp" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPass"
+                style="@style/popins_regular"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:gravity="center_vertical|start"
+                android:textAlignment="viewStart"
+                android:hint="Enter your Password"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:paddingStart="@dimen/_15sdp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/light_gray"
+                android:textSize="@dimen/_11ssp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -157,12 +160,12 @@
             app:layout_constraintTop_toBottomOf="@+id/layoutTextInput1"
             app:layout_constraintVertical_bias="0.05" />
 
-      <com.google.android.material.textfield.TextInputLayout
-            android:background="@drawable/contact_input_background"
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutTextInput1111"
             android:layout_width="0dp"
             android:layout_height="@dimen/_40sdp"
             android:layout_marginHorizontal="@dimen/_15sdp"
+            android:background="@drawable/contact_input_background"
             android:textColorHint="@color/light_gray"
             app:boxBackgroundMode="none"
             app:boxStrokeWidth="0dp"
@@ -173,25 +176,27 @@
             app:layout_constraintTop_toBottomOf="@+id/textField"
             app:layout_constraintVertical_bias="0.05">
 
-          <com.google.android.material.textfield.TextInputEditText
-                android:background="@android:color/transparent"
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etCode"
                 style="@style/popins_regular"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:gravity="center_vertical"
+                android:background="@android:color/transparent"
+                android:gravity="center_vertical|start"
+                android:textAlignment="viewStart"
                 android:hint="@string/referral_code"
                 android:imeOptions="actionNext"
-              android:textColor="@color/black"
-              android:inputType="text"
+                android:inputType="text"
                 android:paddingStart="@dimen/_15sdp"
+                android:textColor="@color/black"
                 android:textColorHint="@color/light_gray"
                 android:textSize="@dimen/_11ssp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/btnSignup"
+            style="@style/popins_regular"
             android:layout_width="286dp"
             android:layout_height="@dimen/_40sdp"
             android:layout_marginTop="20dp"
@@ -199,10 +204,9 @@
             android:backgroundTint="@color/theme_color"
             android:gravity="center"
             android:text="@string/register"
-            style="@style/popins_regular"
-            android:textStyle="bold"
-            android:textSize="@dimen/_14ssp"
             android:textColor="@color/white"
+            android:textSize="@dimen/_14ssp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
@@ -227,7 +231,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/_5sdp"
-            android:text="Login now"
+            android:text="@string/login_now"
             android:textColor="@color/gray"
             app:layout_constraintBottom_toBottomOf="@+id/textView5"
             app:layout_constraintStart_toEndOf="@+id/textView5"

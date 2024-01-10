@@ -72,7 +72,7 @@
 
             android:gravity="center"
             android:scaleType="fitXY"
-            android:text="Congratulation"
+            android:text="@string/congratulations"
             android:textColor="@color/white"
             android:textSize="@dimen/_30ssp"
             android:textStyle="bold"
@@ -87,13 +87,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clipToOutline="true"
-android:textStyle="bold"
             android:gravity="center"
             android:scaleType="fitXY"
             android:src="@drawable/ic_launcher_background"
-            android:text="The luck of the draw is with you!"
+            android:text="@string/the_luck_of_the_draw_is_with_you"
             android:textColor="@color/white"
             android:textSize="@dimen/_10ssp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/img"
             app:layout_constraintEnd_toEndOf="@+id/img"
             app:layout_constraintStart_toStartOf="@+id/img"
@@ -106,8 +106,8 @@ android:textStyle="bold"
             android:layout_width="0dp"
             android:layout_height="@dimen/_275sdp"
             android:layout_marginHorizontal="@dimen/_6sdp"
-            android:background="@drawable/group_19215"
             android:layout_marginTop="@dimen/_20sdp"
+            android:background="@drawable/group_19215"
             android:elevation="@dimen/_2sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -127,8 +127,7 @@ android:textStyle="bold"
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/viewPager"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                     />
+                    android:layout_height="match_parent" />
 
                 <LinearLayout
                     android:id="@+id/dotsContainer"
@@ -139,7 +138,6 @@ android:textStyle="bold"
                     android:layout_marginBottom="16dp"
                     android:orientation="horizontal"
                     android:visibility="invisible" />
-
 
 
             </RelativeLayout>
@@ -155,15 +153,15 @@ android:textStyle="bold"
             android:background="@drawable/card_background_border"
             android:backgroundTint="@color/theme_color"
             android:gravity="center"
-            android:text="Claim Prize"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout4"
+            android:text="@string/claim_prize"
             android:textColor="@color/white"
             android:textSize="@dimen/_12ssp"
             android:textStyle="bold"
-            app:layout_constraintVertical_bias=".9"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout4"
+            app:layout_constraintVertical_bias=".9" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -47,7 +47,7 @@
             style="@style/popins_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Quiz"
+            android:text="@string/quiz"
             android:textColor="@color/black"
             android:textSize="@dimen/_14ssp"
             app:layout_constraintBottom_toBottomOf="@+id/btnback"

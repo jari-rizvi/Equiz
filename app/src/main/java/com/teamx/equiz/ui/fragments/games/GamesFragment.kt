@@ -232,8 +232,8 @@ class GamesFragment : BaseFragment<FragmentGamesBinding, GamesViewModel>(), AllG
         if (bundle == null) {
             bundle = Bundle()
         }
-        bundle?.putString("gameName", strname)
-        bundle?.putString("route", "game")
+        bundle.putString("gameName", strname)
+        bundle.putString("route", "game")
         if (strname.equals("Tetris", true)) {
 
             findNavController().navigate(R.id.tetrisGameFrag, bundle, options)
