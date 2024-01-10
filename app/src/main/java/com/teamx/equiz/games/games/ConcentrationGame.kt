@@ -48,10 +48,11 @@ import com.teamx.equiz.games.ui.theme.BirdColor3
 import com.teamx.equiz.games.ui.theme.BirdColor4
 import com.teamx.equiz.games.ui.theme.DeceptionBlack
 
-var rightGameAnswersConcen = 1
+var rightGameAnswersConcen = 0
 var totalGameAnswersConcen = 1
 var checker = 0
 val concentrationModels3 = ArrayList<ArrayList<ConcentrationModel>>(arrayListOf())
+val listObjectConcent = ArrayList<ConcentrationModel>(arrayListOf())
 
 @Preview
 @Composable
@@ -94,8 +95,9 @@ fun ConcentrationGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: In
 
         concentrationModels3.add(concentrationModels)
     }
-
+    val arealist: ArrayList<ConcentrationModel> = concentrationModels3[checker]
     LaunchedEffect(startMemorized2) {
+
 //        checker++
         Log.d("123123", "ConcentrationGame11111$checker ")
 
@@ -126,6 +128,8 @@ fun ConcentrationGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: In
 
     if (isGameOver) {
         content(true, rightGameAnswersConcen, (totalGameAnswersConcen))
+        rightGameAnswersConcen = 0
+        totalGameAnswersConcen = 1
     }
 
     if (isTimeUp) {
@@ -136,6 +140,8 @@ fun ConcentrationGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: In
 
             } else {
                 content(false, rightGameAnswersConcen, (totalGameAnswersConcen))
+                rightGameAnswersConcen = 0
+                totalGameAnswersConcen = 1
             }
         }
 
@@ -165,23 +171,25 @@ fun ConcentrationGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: In
                 )
 
             }
+
             if (startMemorized) {
-                ConcentrationObjects(concentrationModels3[checker]) {
-                    checker++
+                ConcentrationObjects(arealist) {
+//                    checker++
 
                     concentrationModels3.get(checker).forEach {
                         it.IsFlipped = false
                     }
 
 
-                    rightGameAnswersConcen++
+
                     startMemorized = false
 //                    startMemorized2 = !startMemorized2
 
 
                 }
             } else {
-                ConcentrationObjects2(concentrationModels3.get(checker)) {
+                arealist.shuffle()
+                ConcentrationObjects2(arealist) {
                     startMemorized = true
                 }
 
@@ -213,7 +221,8 @@ fun ConcentrationObjects(
     onClick: () -> Unit = {}
 ) {
     /* val maxCount = 5*/
-    val concentrationModels by remember { mutableStateOf<ArrayList<ConcentrationModel>>(arr) }
+//    val concentrationModels by remember { mutableStateOf<ArrayList<ConcentrationModel>>(arr) }
+    val concentrationModels = arr/*by remember { mutableStateOf(listObjectConcent) }*/
 
 
     var startAgain by remember { mutableStateOf(true) }
@@ -222,7 +231,7 @@ fun ConcentrationObjects(
 
         checkListAns.clear()
         removed.clear()
-
+        checker++
         Log.d("123123", "ConcentrationObjects:$concentrationModels ")
 
     }
@@ -256,44 +265,12 @@ fun ConcentrationObjects2(
     onClick: () -> Unit = {}
 ) {
     val maxCount = 5
-    val concentrationModels by remember { mutableStateOf<ArrayList<ConcentrationModel>>(arr) }
-//    val concentrationModels2 by remember {
-//        mutableStateOf<ArrayList<Int>>(
-//            arrayListOf(
-//                0,
-//                1,
-//                2,
-//                3,
-//                4,
-//                5
-//            )
-//        )
-//    }
+//    val concentrationModels by remember { mutableStateOf<ArrayList<ConcentrationModel>>(arr) }
+    val concentrationModels = arr
 
 
-    var startAgain by remember { mutableStateOf(true) }
-//    concentrationModels.clear()
-//    for (count in concentrationModels2) {
-//
-//
-//        concentrationModels.add(
-//            ConcentrationModel(
-//                count.toString(),
-//                count.toString(),
-//                count.toString(),
-//                EnumConcentration.values()[count % 3]
-//            )
-//        )
-//    }
-//
-    LaunchedEffect(startAgain) {
 
-        checkListAns.clear()
-        removed.clear()
 
-        Log.d("123123", "ConcentrationObjects:$concentrationModels ")
-
-    }
 
     Column(
         modifier = Modifier
@@ -313,8 +290,6 @@ fun ConcentrationObjects2(
                 ConcentrationObject2(
                     i, concentrationModels[i]
                 ) {
-                    startAgain = !startAgain
-//                    onClick()
                     Log.d("123123", "ConcentrationObjects:linkListAdded2 $concentLinkListAdded2")
                 }
             }
@@ -333,19 +308,7 @@ fun ConcentrationObjects2(
                 color = Color.White)
         }
     }
-//    for (count in 0..maxCount) {
-    /* for (count in 0..maxCount) {
 
-
-             concentrationModels.add(
-                 ConcentrationModel(
-                     count.toString(),
-                     count.toString(),
-                     count.toString(),
-                     EnumConcentration.values()[count % 3]
-                 )
-             )
-         }*/
 
 
 }
@@ -656,37 +619,42 @@ fun SpinningBox(
                     contentScale = ContentScale.FillBounds
                 )
                 .clickable(
-                    enabled = (!isFlipped && !removed.contains(concentrationModels))
+                    enabled = true
                 ) {
-
-                    if (checkListAns.isEmpty()) {
-                        Log.d("123123", "SpinningBox: ")
-                        checkListAns.add(asdEnum)
-                        isFlipped = !isFlipped
-                    } else if (checkListAns.contains(asdEnum) && (checkListAns.get(checkListAns.size - 1) == asdEnum)) {
-                        Log.d("123123", "SpinningBox2: ")
-                        checkListAns.add(asdEnum)
-                        removed.add(concentrationModels)
-                        if (checkListAns.size == 6) {
+                    totalGameAnswersConcen++
+                    if (!isFlipped && !removed.contains(concentrationModels)) {
+                        if (checkListAns.isEmpty()) {
+                            rightGameAnswersConcen++
+                            Log.d("123123", "SpinningBox: ")
+                            checkListAns.add(asdEnum)
+                            isFlipped = !isFlipped
+                        } else if (checkListAns.contains(asdEnum) && (checkListAns.get(checkListAns.size - 1) == asdEnum)) {
+                            Log.d("123123", "SpinningBox2: ")
+                            checkListAns.add(asdEnum)
+                            removed.add(concentrationModels)
+                            rightGameAnswersConcen++
+                            if (checkListAns.size == 6) {
 
 
 //                            startAgain = !startAgain
 //                            isFlipped = false
-                            checkListAns.clear()
-                            onClick(concentrationModels)
-                        } else {
+                                checkListAns.clear()
+                                onClick(concentrationModels)
+                            } else {
+                                isFlipped = !isFlipped
+                            }
+                        } else if (checkListAns.size % 2 == 0 && (checkListAns.get(checkListAns.size - 1) != asdEnum)) {
+                            Log.d("123123", "SpinningBox3: ")
+                            rightGameAnswersConcen++
+                            checkListAns.add(asdEnum)
                             isFlipped = !isFlipped
-                        }
-                    } else if (checkListAns.size % 2 == 0 && (checkListAns.get(checkListAns.size - 1) != asdEnum)) {
-                        Log.d("123123", "SpinningBox3: ")
-                        checkListAns.add(asdEnum)
-                        isFlipped = !isFlipped
-                    } else {
-                        Log.d("123123", "SpinningBox4: ")
+                        } else {
+                            Log.d("123123", "SpinningBox4: ")
 //                        checkListAns.clear()
 //                        isFlipped = false
+                        }
                     }
-                        totalGameAnswersConcen++
+
 
 //                    onClick(concentrationModels)
                 })

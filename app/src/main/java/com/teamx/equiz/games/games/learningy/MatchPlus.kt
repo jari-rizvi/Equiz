@@ -116,7 +116,7 @@ fun MatchingGamingScene() {
 
                             }
                             .background(
-                                shape = RoundedCornerShape(12.dp),
+                                shape = RoundedCornerShape(4.dp),
                                 color = colorState.value/*if (arr2.contains(index)) {
                                     BirdColor4
                                 } else {
@@ -129,7 +129,7 @@ fun MatchingGamingScene() {
                                 fontSize = 35.sp,
                                 fontWeight = FontWeight.ExtraBold,
                                 color = if (colorState.value == Color.White) {
-                                    BirdColor4
+                                    Color(0xFFff77a8)
                                 } else {
                                     Color.White
 

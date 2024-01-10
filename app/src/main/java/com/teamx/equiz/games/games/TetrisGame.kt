@@ -4,7 +4,6 @@ import android.os.CountDownTimer
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -51,17 +50,19 @@ fun TetrisGamePreview() {
     TetrisGame()
 }
 
+var rightGameAnswersTet = 0
+var wrongGameAnswersTet = 1
+
 @Composable
-fun TetrisGame(content:  (bool:Boolean, rightAnswer:Int, totalAnswer:Int) -> Unit = {bool,rightAnswer,total ->}){
+fun TetrisGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit = { bool, rightAnswer, total -> }) {
 //    val context = LocalContext.current
     /*    StatusBarUtil.transparentStatusBar(context as Activity)
         SoundUtil.init(context)*/
 
 
     var isGameOver by remember { mutableStateOf(false) }
-        var isAlert by remember { mutableStateOf(false) }
- rightGameAnswers = 1
- wrongGameAnswers = 1
+    var isAlert by remember { mutableStateOf(false) }
+
     var isTimeUp by remember { mutableStateOf(false) }
 
     var timeLeft by remember { mutableStateOf(120L) }
@@ -91,8 +92,9 @@ fun TetrisGame(content:  (bool:Boolean, rightAnswer:Int, totalAnswer:Int) -> Uni
     if (isGameOver) {
 
 
-        content(true, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
-
+        content(true, rightGameAnswersTet, wrongGameAnswersTet)
+        rightGameAnswersTet = 0
+        wrongGameAnswersTet = 1
     }
 
     if (isTimeUp) {
@@ -102,7 +104,9 @@ fun TetrisGame(content:  (bool:Boolean, rightAnswer:Int, totalAnswer:Int) -> Uni
                 isGameOver = true
 
             } else {
-                content(false, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
+                content(false, rightGameAnswersTet, wrongGameAnswersTet)
+                rightGameAnswersTet = 0
+                wrongGameAnswersTet = 1
             }
         }
 
@@ -112,21 +116,25 @@ fun TetrisGame(content:  (bool:Boolean, rightAnswer:Int, totalAnswer:Int) -> Uni
 
 
             Box(
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier
+                    .fillMaxSize()
 
                     .background(color = Color(0xFFE1E1E1)),
             ) {
 
-                Box(modifier = Modifier.height(48.dp).background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
+                Box(
+                    modifier = Modifier
+                        .height(48.dp)
+                        .background(color = Color(0xFF9F81CA)),
+                    contentAlignment = Alignment.CenterStart
+                ) {
 
-                    BackButton(onClick = { content(false,0,0) }
+                    BackButton(onClick = { content(false, 0, 0) }
                     )
                     Text(
                         text = "Training",
                         modifier = Modifier
-                            .fillMaxWidth()
-
-                            ,
+                            .fillMaxWidth(),
                         textAlign = TextAlign.Center,
                         color = Color.White,
                         fontSize = 17.sp
@@ -134,7 +142,11 @@ fun TetrisGame(content:  (bool:Boolean, rightAnswer:Int, totalAnswer:Int) -> Uni
 
                 }
                 // A surface container using the 'background' color from the theme
-                Surface( modifier = Modifier.padding(top = 50.dp).fillMaxSize()) {
+                Surface(
+                    modifier = Modifier
+                        .padding(top = 50.dp)
+                        .fillMaxSize()
+                ) {
 
                     val viewModel = viewModel<GameViewModel>()
                     val viewState = viewModel.viewState.value

@@ -89,7 +89,7 @@ fun NumPlus(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit 
     if (isGameOver) {
 
 
-        content(true, rightGameAnswersNumPlus, (totalGameAnswersNumPlus))
+        content(true, rightGameAnswersNumPlus, totalGameAnswersNumPlus)
         rightGameAnswersNumPlus = 0
         totalGameAnswersNumPlus = 1
     }
@@ -101,7 +101,7 @@ fun NumPlus(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit 
                 isGameOver = true
 
             } else {
-                content(false, rightGameAnswersNumPlus, (totalGameAnswersNumPlus))
+                content(false, rightGameAnswersNumPlus, totalGameAnswersNumPlus)
                 rightGameAnswersNumPlus = 0
                 totalGameAnswersNumPlus = 1
             }
@@ -158,6 +158,8 @@ fun NumPlus(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit 
                                         .clip(RoundedCornerShape(12.dp))
                                         .background(Color.LightGray)
                                         .clickable {
+                                            totalGameAnswersNumPlus++
+                                            rightGameAnswersNumPlus++
                                             ischange = false
                                         }, contentAlignment = Alignment.Center
                                 ) {

@@ -1,6 +1,5 @@
 package com.teamx.equiz.games.games
 
-import android.annotation.SuppressLint
 import android.os.CountDownTimer
 import android.util.Log
 import androidx.compose.animation.core.MutableTransitionState
@@ -10,7 +9,6 @@ import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectDragGestures
-import androidx.compose.foundation.gestures.detectVerticalDragGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,7 +17,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -34,7 +31,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
@@ -43,114 +39,16 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import com.teamx.equiz.games.ui.theme.BirdColor4
-import com.teamx.equiz.games.ui.theme.Pink80
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlin.math.roundToInt
 import kotlin.random.Random
-
-
-@SuppressLint("UnusedTransitionTargetStateParameter")
-@Composable
-fun MyCard() {
-    var swipeState by remember { mutableStateOf(false) }
-    var randomInt by remember { mutableStateOf(0) }
-    var previousNumber by remember { mutableStateOf(randomInt) }
-    var wapsiState by remember { mutableStateOf(false) }
-
-    val transitionState = remember {
-        MutableTransitionState(swipeState).apply { targetState = !swipeState }
-    }
-    val transition = updateTransition(transitionState, "cardTransition")
-
-    val offsetTransition by transition.animateFloat(
-        label = "cardOffsetTransition",
-        transitionSpec = { tween(durationMillis = 300) },
-        targetValueByState = { if (swipeState) 1275f else 0f },
-    )
-    if (swipeState) {
-
-        LaunchedEffect(key1 = true) {
-            delay(1000)
-
-            swipeState = false
-            previousNumber = randomInt
-
-            wapsiState = !wapsiState
-            randomInt = Random.nextInt(4, 100);
-        }
-
-    }
-    var i = 0;
-
-    if (previousNumber >= randomInt) {
-        wapsiState = true
-    } else {
-        wapsiState = false
-
-    }
-
-    if (wapsiState) {
-        i = -1
-    } else {
-        i = 1
-    }
-
-    Card(
-        modifier = Modifier
-            .testTag("DraggableCard")
-            .width(65.dp)
-            .height(65.dp)
-            .padding(horizontal = 4.dp, vertical = 1.dp)
-            .offset {
-                if (wapsiState) {
-
-                    IntOffset(y = offsetTransition.roundToInt(), x = 0)
-                } else {
-                    IntOffset(y = -offsetTransition.roundToInt(), x = 0)
-
-                }
-
-            }
-            .pointerInput(Unit) {
-                detectVerticalDragGestures { _, dragAmount ->
-                    if (!wapsiState) {
-                        when {
-                            dragAmount >= 6 -> {
-                                swipeState = false
-                            }
-
-                            dragAmount < -6 -> {
-                                swipeState = true
-                            }
-                        }
-                    } else {
-                        when {
-                            dragAmount >= 6 -> {
-                                swipeState = true
-                            }
-
-                            dragAmount < -6 -> {
-                                swipeState = false
-                            }
-                        }
-                    }
-
-                }
-            }
-            .background(color = Color.Gray),
-
-
-        ) { Text(text = "$randomInt") }
-}
 
 
 @Preview
@@ -167,7 +65,7 @@ var i23 = 1
 var dragged = true
 
 
-var rightGameAnswersHigh = 1
+var rightGameAnswersHigh = 0
 var totalGameAnswersHigh = 1
 
 
@@ -202,6 +100,8 @@ fun HighLowComponent(content: (boo:Boolean, rightAnswer:Int, totalAnswer:Int) ->
     }
     if (isGameOver) {
         content(true, rightGameAnswersHigh, totalGameAnswersHigh)
+          rightGameAnswersHigh = 0
+          totalGameAnswersHigh = 1
     }
     if (isTimeUp) {
 
@@ -211,6 +111,8 @@ fun HighLowComponent(content: (boo:Boolean, rightAnswer:Int, totalAnswer:Int) ->
 
             } else {
                 content(false, rightGameAnswersHigh, totalGameAnswersHigh)
+                rightGameAnswersHigh = 0
+                totalGameAnswersHigh = 1
             }
         }
 
@@ -338,10 +240,7 @@ fun HighLowComponent(content: (boo:Boolean, rightAnswer:Int, totalAnswer:Int) ->
 
                                         if (dragged) {
                                             dragged = false
-                                            Log.d(
-                                                "123123",
-                                                "MyCardDOWN:${dragAmount.y} $swipeStateX"
-                                            )
+                                            Log.d("123123", "MyCardDOWN:${dragAmount.y} $swipeStateX")
                                             transitionState.targetState = true
                                             i23 = 1
                                             GlobalScope.launch {
@@ -353,7 +252,10 @@ fun HighLowComponent(content: (boo:Boolean, rightAnswer:Int, totalAnswer:Int) ->
                                         }
                                     }
 
-                                    else -> {
+                                    (dragAmount.y >= 2.0 && randomInt == 2)&&dragged -> {
+                                        totalGameAnswersHigh++
+                                    }
+                                    (dragAmount.y <= -2.0 && randomInt == 1)&&dragged -> {
 
                                         totalGameAnswersHigh++
                                     }

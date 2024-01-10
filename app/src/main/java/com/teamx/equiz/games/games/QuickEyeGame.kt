@@ -39,7 +39,7 @@ import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import kotlin.random.Random
 
 
-var rightGameAnswersQuickEye = 1
+var rightGameAnswersQuickEye = 0
 var totalGameAnswersQuickEye = 1
 
 @Preview
@@ -75,6 +75,8 @@ fun QuickEyeGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int) ->
 
     if (isGameOver) {
         content(true, rightGameAnswersQuickEye, totalGameAnswersQuickEye)
+        rightGameAnswersQuickEye=0
+        totalGameAnswersQuickEye=1
     }
 
     if (isTimeUp) {
@@ -85,6 +87,8 @@ fun QuickEyeGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int) ->
 
             } else {
                 content(false, rightGameAnswersQuickEye, totalGameAnswersQuickEye)
+                rightGameAnswersQuickEye=0
+                totalGameAnswersQuickEye=1
             }
         }
 
@@ -265,17 +269,17 @@ fun QuickCardCalculationGameScreen(content: () -> Unit) {
                     Box(
                         modifier = Modifier
                             .padding(8.dp)
-                            .width(70.dp)
-                            .height(100.dp),
+                            .width(80.dp)
+                            .height(110.dp),
                         contentAlignment = Alignment.Center
                     ) {
 
                         Image(
-                            painter = painterResource(id = /*if (card.color == QuickCardColor.GREEN) R.drawable.cardbule_cardcal else*/ R.drawable.cardbule_cardcal),
+                            painter = painterResource(id = /*if (card.color == QuickCardColor.GREEN) R.drawable.cardbule_cardcal else*/ R.drawable.cardwhite_quick),
                             contentDescription = ""
                         )
                         Text(
-                            text = card.value.toString(), color = Color.White,
+                            text = card.value.toString(), color = Color.Black,
                             fontWeight = FontWeight.ExtraBold, fontSize = 36.sp
                         )
 
@@ -366,7 +370,7 @@ fun QuickCardCalculationGameScreen(content: () -> Unit) {
                                         },
                                         color = Color.Black,
                                         fontWeight = FontWeight.ExtraBold,
-                                        fontSize = 29.sp,
+                                        fontSize = 32.sp,
                                         textAlign = TextAlign.Center
                                     )
 

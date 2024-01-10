@@ -50,7 +50,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
-var rightGameAnswersWeather = 1
+var rightGameAnswersWeather = 0
 var wrongGameAnswersWeather = 1
 
 @Composable
@@ -87,7 +87,9 @@ fun WeatherCastGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int)
 
 
     if (isGameOver) {
-        content(true, rightGameAnswersWeather, (rightGameAnswersWeather + wrongGameAnswersWeather))
+        content(true, rightGameAnswersWeather, wrongGameAnswersWeather)
+          rightGameAnswersWeather = 0
+          wrongGameAnswersWeather = 1
     }
 
     if (isTimeUp) {
@@ -100,8 +102,10 @@ fun WeatherCastGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int)
                 content(
                     false,
                     rightGameAnswersWeather,
-                    (rightGameAnswersWeather + wrongGameAnswersWeather)
+                    wrongGameAnswersWeather
                 )
+                  rightGameAnswersWeather = 0
+                  wrongGameAnswersWeather = 1
             }
         }
 
@@ -285,8 +289,8 @@ fun weatherCastGamePlot() {
                         counter++
                         rightGameAnswersWeather++
                     }else{
-                        wrongGameAnswersWeather++
                     }
+                        wrongGameAnswersWeather++
 
                 /*else if (imageCheckObj.name == it.gameObject.name) {
 //                        imageCheckObj = it.gameObject

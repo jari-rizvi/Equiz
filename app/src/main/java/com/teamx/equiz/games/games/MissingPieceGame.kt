@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.MaterialTheme.shapes
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -33,6 +34,7 @@ import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
+import kotlin.random.Random
 
 
 class MissingPieceGame {
@@ -47,7 +49,7 @@ enum class Shape {
     FIVE_Q
 }
 
-var rightGameAnswersMiss = 1
+var rightGameAnswersMiss = 0
 var gameAnswersTotalMiss = 1
 
 
@@ -84,10 +86,12 @@ fun MissingPieceGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswe
 
     if (isGameOver) {
         content(true, rightGameAnswersMiss, gameAnswersTotalMiss)
+          rightGameAnswersMiss = 0
+          gameAnswersTotalMiss = 1
     }
     var score by remember { mutableStateOf(0) }
-    var currentShapes by remember { mutableStateOf(generateShapes()) }
-    var missingShapeIndex by remember { mutableStateOf(generateMissingShapeIndex()) }
+    var currentShapes by remember { mutableStateOf(generateShapesTT()) }
+    var missingShapeIndex by remember { mutableStateOf(Random.nextInt(0, (currentShapes.size - 1))) }
 
     var isTimeUp by remember { mutableStateOf(false) }
     if (isTimeUp) {
@@ -98,6 +102,8 @@ fun MissingPieceGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswe
 
             } else {
                 content(false, rightGameAnswersMiss, gameAnswersTotalMiss)
+                rightGameAnswersMiss = 0
+                gameAnswersTotalMiss = 1
             }
         }
 
@@ -109,7 +115,9 @@ fun MissingPieceGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswe
                 .fillMaxHeight()
                 .background(color = Color(0xFFE1E1E1)),
         ) {
-            Box(modifier = Modifier.height(48.dp).background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
+            Box(modifier = Modifier
+                .height(48.dp)
+                .background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
 
                 BackButton(onClick = { content(false,0,0) }
                 )
@@ -198,7 +206,7 @@ fun MissingPieceGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswe
                                 missingShapeIndex = generateMissingShapeIndex()
                             }*/
                             modifier = Modifier
-                                .size(60.dp)
+                                .size(80.dp)
                                 .padding(vertical = 8.dp)
                                 .clickable(true) {
                                     if (index == missingShapeIndex) {
@@ -208,8 +216,9 @@ fun MissingPieceGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswe
                                         score = 0
                                     }
                                     gameAnswersTotalMiss++
-                                    currentShapes = generateShapes()
-                                    missingShapeIndex = generateMissingShapeIndex()
+                                    currentShapes = generateShapesTT()
+
+                                    missingShapeIndex =    Random.nextInt(0, (currentShapes.size - 1))/*generateMissingShapeIndex()*/
                                 }, contentDescription = ""
                         )/* {
                         Text(text = shape.toString())
@@ -242,6 +251,13 @@ fun MissingPieceGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswe
 
 private fun generateShapes(): List<Shape> {
     val shapes = Shape.values().toList()
+    return shapes.shuffled()
+}
+
+private fun generateShapesTT(): List<Shape> {
+    val shapes = Shape.values().toMutableList()
+    shapes.removeAt(Random.nextInt(0, (shapes.size - 1)))
+    shapes.removeAt(Random.nextInt(0, (shapes.size - 1)))
     return shapes.shuffled()
 }
 

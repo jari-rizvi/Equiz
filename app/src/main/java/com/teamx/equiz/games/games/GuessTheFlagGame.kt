@@ -41,7 +41,7 @@ import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import com.teamx.equiz.games.ui.theme.BirdColor4
 
-var rightGameAnswersGuess = 1
+var rightGameAnswersGuess = 0
 var wrongGameAnswersGuess = 1
 
 @Composable
@@ -134,11 +134,11 @@ fun GuessTheFlagGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
     }
 
     fun checkAnswer() {
+            wrongGameAnswersGuess++
         if (guessedCountry.text.equals(getCountryName(currentFlagIndex), ignoreCase = true)) {
             rightGameAnswersGuess++
             score++
         } else {
-            wrongGameAnswersGuess++
         }
         currentFlagIndex++
         if (currentFlagIndex >= flags.size) {
@@ -172,8 +172,11 @@ fun GuessTheFlagGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
         content(
             true,
             rightGameAnswersGuess,
-            (rightGameAnswersGuess + wrongGameAnswersGuess)
+           wrongGameAnswersGuess
         )
+
+          rightGameAnswersGuess = 0
+          wrongGameAnswersGuess = 1
     }
 
     if (isTimeUp) {
@@ -191,8 +194,10 @@ fun GuessTheFlagGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
                 content(
                     false,
                     rightGameAnswersGuess,
-                    (rightGameAnswersGuess + wrongGameAnswersGuess)
+                   wrongGameAnswersGuess
                 )
+                rightGameAnswersGuess = 0
+                wrongGameAnswersGuess = 1
             }
         }
     /*}*/
@@ -311,8 +316,8 @@ fun GuessTheFlagGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
                                         contentDescription = null,
                                         contentScale = ContentScale.Crop,
                                         modifier = Modifier
-                                            .width(180.dp)
-                                            .height(140.dp).shadow(1.dp)
+                                            .width(160.dp)
+                                            .height(110.dp)
                                             .padding(11.dp)
                                             .clickable {
                                                 guessedCountry = TextFieldValue(country)
@@ -324,53 +329,20 @@ fun GuessTheFlagGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
                             }
                         }
                     }
-                    /*LaunchedEffect(Unit) {
-                        delay(1300)
-        //                gameStarted = false
-        //                changable = true
-                    }*/
+
                 }
 
 
-                /*Button(
-                    onClick = { checkAnswer() },
-                    modifier = Modifier.padding(16.dp)
-                ) {
-                    Row {
-                        Text("Next Flag")
-                        Icon(imageVector = Icons.Default.ArrowRight, contentDescription = null)
-                    }
-                }*/
 
-//                Text("Score: $score", style = MaterialTheme.typography.bodySmall)
 
                 if (isGameOver) {
                     content(
                         true,
                         rightGameAnswersGuess,
-                        (rightGameAnswersGuess + wrongGameAnswersGuess)
+                       wrongGameAnswersGuess
                     )
-                    /*   Dialog(
-                           onDismissRequest = { isGameOver = false },
-
-                           content = {
-                               Text("Game Over")
-                               Text("Your score is $score")
-                               Button(
-                                   onClick = {
-                                       score = 0
-                                       currentFlagIndex = 0
-                                       guessedCountry = TextFieldValue()
-                                       generateOptions()
-                                       isGameOver = false
-                                       timeLeft = 60
-                                       timerRunning = true
-                                   }
-                               ) {
-                                   Text("Retry")
-                               }
-                           }
-                       )*/
+                    rightGameAnswersGuess = 0
+                    wrongGameAnswersGuess = 1
                 }
             }
             Image(
@@ -387,16 +359,7 @@ fun GuessTheFlagGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
     }
 }
 
-/*fun getCountryName(index: Int): String {
-    return when (index) {
-        0 -> "United States"
-        1 -> "United Kingdom"
-        2 -> "United Kingdom2"
-        3 -> "France"
-        // Add more country names as needed
-        else -> ""
-    }
-}*/
+
 
 fun getCountryImage(index: String): Int {
     return when (index) {

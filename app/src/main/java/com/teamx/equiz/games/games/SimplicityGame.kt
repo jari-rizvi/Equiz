@@ -1,14 +1,17 @@
 package com.teamx.equiz.games.games
 
+//class SimplicityGame {}
+
+//Simplicity
 import android.os.CountDownTimer
 import android.util.Log
+import androidx.annotation.Keep
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -46,18 +49,15 @@ import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import com.teamx.equiz.games.ui.theme.BirdColor4
 import kotlin.random.Random
 
-//class SimplicityGame {}
-
-//Simplicity
-import androidx.annotation.Keep
-
 @Keep
 data class Question(val equation: String, val choices: List<Int>, val correctAnswer: Int)
-var rightGameAnswersSimple = 1
+
+var rightGameAnswersSimple = 0
 var wrongGameAnswersSimple = 1
+
 @Preview
 @Composable
-fun ImplicityGameScreen(content: (bool: Boolean, rightAnswer:Int, totalAnswer:Int) -> Unit = {bool,rightAnswer,total ->}) {
+fun ImplicityGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit = { bool, rightAnswer, total -> }) {
     var score by remember { mutableStateOf(0) }
     var questionIndex by remember { mutableStateOf(0) }
     var gameState by remember { mutableStateOf(true) }
@@ -107,8 +107,9 @@ fun ImplicityGameScreen(content: (bool: Boolean, rightAnswer:Int, totalAnswer:In
         if (isGameOver) {
 
 
-            content(true, rightGameAnswersSimple, (rightGameAnswersSimple + wrongGameAnswersSimple))
-
+            content(true, rightGameAnswersSimple, wrongGameAnswersSimple)
+            rightGameAnswersSimple = 0
+            wrongGameAnswersSimple = 1
         }
 
         if (isTimeUp) {
@@ -118,7 +119,13 @@ fun ImplicityGameScreen(content: (bool: Boolean, rightAnswer:Int, totalAnswer:In
                     isGameOver = true
 
                 } else {
-                    content(false, rightGameAnswersSimple, (rightGameAnswersSimple + wrongGameAnswersSimple))
+                    content(
+                        false,
+                        rightGameAnswersSimple,
+                        wrongGameAnswersSimple
+                    )
+                    rightGameAnswersSimple = 0
+                    wrongGameAnswersSimple = 1
                 }
             }
 
@@ -130,16 +137,19 @@ fun ImplicityGameScreen(content: (bool: Boolean, rightAnswer:Int, totalAnswer:In
                     .fillMaxHeight()
                     .background(color = Color(0xFFE1E1E1)),
             ) {
-                Box(modifier = Modifier.height(48.dp).background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
+                Box(
+                    modifier = Modifier
+                        .height(48.dp)
+                        .background(color = Color(0xFF9F81CA)),
+                    contentAlignment = Alignment.CenterStart
+                ) {
 
-                    BackButton(onClick = { content(false,0,0) }
+                    BackButton(onClick = { content(false, 0, 0) }
                     )
                     Text(
                         text = "Training",
                         modifier = Modifier
-                            .fillMaxWidth()
-
-                            ,
+                            .fillMaxWidth(),
                         textAlign = TextAlign.Center,
                         color = Color.White,
                         fontSize = 17.sp
@@ -174,14 +184,12 @@ fun ImplicityGameScreen(content: (bool: Boolean, rightAnswer:Int, totalAnswer:In
                                     .background(Color.White)
                                     .clickable {
                                         if (gameState) {
-
+                                            wrongGameAnswersSimple++
                                             if (choice == currentQuestion.correctAnswer) {
                                                 score++
                                                 rightGameAnswersSimple++
-                                            }else{
-                                                wrongGameAnswersSimple++
+                                            } else {
                                             }
-//                        nextQuestion(questions.size)
                                             questionIndex++
                                             if (questionIndex == questions.size) {
                                                 gameState = false

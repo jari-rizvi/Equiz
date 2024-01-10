@@ -54,7 +54,7 @@ enum class ColorBundle {
 }
 
 
-var rightGameAnswersColor = 1
+var rightGameAnswersColor = 0
 var totalGameAnswersColor = 1
 
 
@@ -90,9 +90,7 @@ fun TouchTheColorGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnsw
     }
 
 
-    if (isGameOver) {
-        content(true, rightGameAnswersColor, totalGameAnswersColor)
-    }
+
     var score by remember { mutableStateOf(0) }
     var spanCount by remember { mutableStateOf(2) }
     var asGridCells by remember { mutableStateOf(GridCells.Fixed(2)) }
@@ -103,6 +101,8 @@ fun TouchTheColorGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnsw
 
 
         content(true, rightGameAnswersColor, (totalGameAnswersColor))
+        rightGameAnswersColor = 0
+        totalGameAnswersColor = 1
 
     }
     if (isTimeUp) {
@@ -113,6 +113,8 @@ fun TouchTheColorGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnsw
 
             } else {
                 content(false, rightGameAnswersColor, (totalGameAnswersColor))
+                rightGameAnswersColor = 0
+                totalGameAnswersColor = 1
             }
         }
 
@@ -151,13 +153,6 @@ fun TouchTheColorGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnsw
                 horizontalAlignment = Alignment.CenterHorizontally
 
             ) {
-
-
-                Text(
-                    text = "",
-                    style = MaterialTheme.typography.headlineSmall,
-                    modifier = Modifier.padding(bottom = 16.dp)
-                )
                 LazyVerticalGrid(
                     modifier = Modifier.fillMaxWidth().padding(horizontal=22.dp),
                     verticalArrangement = Arrangement.Center,

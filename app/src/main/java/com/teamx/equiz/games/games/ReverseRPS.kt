@@ -283,6 +283,9 @@ fun PreviewReverseRockPaperScissorsGameScreen() {
 }
 */
 
+var rightGameAnswersRps = 1
+var wrongGameAnswersRps = 1
+
 
 @Composable
 fun rpsCastGamePlot(content: (bool:Boolean, rightAnswer:Int, totalAnswer:Int) -> Unit={bool,rightAnswer,total ->}) {
@@ -307,8 +310,7 @@ fun rpsCastGamePlot(content: (bool:Boolean, rightAnswer:Int, totalAnswer:Int) ->
 
     var isGameOver by remember { mutableStateOf(false) }
         var isAlert by remember { mutableStateOf(false) }
- rightGameAnswers = 1
- wrongGameAnswers = 1
+
     var isTimeUp by remember { mutableStateOf(false) }
 
     var timeLeft by remember { mutableStateOf(20L) }
@@ -338,7 +340,9 @@ fun rpsCastGamePlot(content: (bool:Boolean, rightAnswer:Int, totalAnswer:Int) ->
     if (isGameOver) {
 
 
-        content(true, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
+        content(true, rightGameAnswersRps, wrongGameAnswersRps)
+        rightGameAnswersRps=0
+        wrongGameAnswersRps=1
 
     }
 
@@ -349,7 +353,9 @@ fun rpsCastGamePlot(content: (bool:Boolean, rightAnswer:Int, totalAnswer:Int) ->
                 isGameOver = true
 
             } else {
-                content(false, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
+                content(false, rightGameAnswersRps, wrongGameAnswersRps)
+                rightGameAnswersRps=0
+                wrongGameAnswersRps=1
             }
         }
 
@@ -404,20 +410,25 @@ fun rpsCastGamePlot(content: (bool:Boolean, rightAnswer:Int, totalAnswer:Int) ->
                 ) {
                     leftBoxes.forEach {
                         rpsDrop(item = it) {
+
+                            wrongGameAnswersRps++
                             if (imageCheckObj.name.toString().contains("INV")) {
                                 if (imageCheckObj == EnumRPS.INVPAPER && it.gameObject == EnumRPS.ROCK) {
                                     gameRand = Random.nextInt(0, 6)
                                     imageCheckObj = EnumRPS.values()[gameRand]
                                     counter++
+                                    rightGameAnswersRps++
                                 } else if (imageCheckObj == EnumRPS.INVSCISSOR && it.gameObject == EnumRPS.PAPER) {
                                     gameRand = Random.nextInt(0, 6)
                                     imageCheckObj = EnumRPS.values()[gameRand]
                                     counter++
+                                    rightGameAnswersRps++
                                 } else if (imageCheckObj == EnumRPS.INVROCK && it.gameObject == EnumRPS.SCISSOR) {
 
                                     gameRand = Random.nextInt(0, 6)
                                     imageCheckObj = EnumRPS.values()[gameRand]
                                     counter++
+                                    rightGameAnswersRps++
                                 }
                             } else {
                                 if (imageCheckObj.equals(it.gameObject)) {
@@ -426,15 +437,18 @@ fun rpsCastGamePlot(content: (bool:Boolean, rightAnswer:Int, totalAnswer:Int) ->
                                     gameRand = Random.nextInt(0, 6)
                                     imageCheckObj = EnumRPS.values()[gameRand]
                                     counter++
+                                    rightGameAnswersRps++
                                 } else if (imageCheckObj == EnumRPS.SCISSOR && it.gameObject == EnumRPS.ROCK) {
                                     gameRand = Random.nextInt(0, 6)
                                     imageCheckObj = EnumRPS.values()[gameRand]
                                     counter++
+                                    rightGameAnswersRps++
                                 } else if (imageCheckObj == EnumRPS.ROCK && it.gameObject == EnumRPS.PAPER) {
 
                                     gameRand = Random.nextInt(0, 6)
                                     imageCheckObj = EnumRPS.values()[gameRand]
                                     counter++
+                                    rightGameAnswersRps++
                                 }
                             }
 

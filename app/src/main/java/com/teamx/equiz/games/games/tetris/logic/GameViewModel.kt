@@ -6,7 +6,9 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.teamx.equiz.games.games.rightGameAnswersTet
 import com.teamx.equiz.games.games.tetris.logic.Spirit.Companion.Empty
+import com.teamx.equiz.games.games.wrongGameAnswersTet
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -139,6 +141,8 @@ class GameViewModel : ViewModel() {
                             state.copy(
                                 gameStatus = GameStatus.LineClearing
                             ).also {
+                                rightGameAnswersTet++
+                                wrongGameAnswersTet++
                                 launch {
                                     //animate the clearing lines
                                     repeat(5) {

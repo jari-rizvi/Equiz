@@ -12,7 +12,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -64,7 +63,7 @@ enum class ShapeBundle {
 }
 
 var rightGameAnswersDecep = 0
-var totalGameAnswersDecep = 0
+var totalGameAnswersDecep = 1
 
 @Composable
 fun TouchTheShapesGameScreen(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit) {
@@ -99,6 +98,8 @@ fun TouchTheShapesGameScreen(content: (boolean: Boolean, rightAnswer: Int, total
 
     if (isGameOver) {
         content(true, rightGameAnswersDecep, totalGameAnswersDecep)
+          rightGameAnswersDecep = 0
+          totalGameAnswersDecep = 1
     }
 
     if (isTimeUp) {
@@ -109,6 +110,8 @@ fun TouchTheShapesGameScreen(content: (boolean: Boolean, rightAnswer: Int, total
 
             } else {
                 content(false, rightGameAnswersDecep, totalGameAnswersDecep)
+                rightGameAnswersDecep = 0
+                totalGameAnswersDecep = 1
             }
         }
 
@@ -131,7 +134,9 @@ fun TouchTheShapesGameScreen(content: (boolean: Boolean, rightAnswer: Int, total
                 .fillMaxHeight()
                 .background(color = Color(0xFFE1E1E1)),
         ) {
-            Box(modifier = Modifier.height(48.dp).background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
+            Box(modifier = Modifier
+                .height(48.dp)
+                .background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
 
                 BackButton(onClick = { content(false,0,0) }
                 )
@@ -184,7 +189,7 @@ fun TouchTheShapesGameScreen(content: (boolean: Boolean, rightAnswer: Int, total
                                 .clickable {
                                     totalGameAnswersDecep++
                                     updateScore(boxes, box, index) { i, bool ->
-                                    rightGameAnswersDecep++
+                                        rightGameAnswersDecep++
                                         score++
                                         restart = true
                                         val arr = ArrayList<ShapeBox>()
@@ -230,7 +235,7 @@ fun TouchTheShapesGameScreen(content: (boolean: Boolean, rightAnswer: Int, total
                                 modifier = Modifier.padding(5.dp),
                                 contentAlignment = Alignment.Center
                             ) {
-                                Canvas(modifier = Modifier.size(65.dp), onDraw = {
+                                Canvas(modifier = Modifier.size(95.dp), onDraw = {
 
                                     when (box.colorName) {
 

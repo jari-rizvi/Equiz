@@ -1,4 +1,4 @@
-package com.teamx.equiz.games.games
+package com.teamx.equiz.games.games.learningy.follows
 
 import android.os.Build
 import android.os.CountDownTimer
@@ -42,6 +42,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
+import com.teamx.equiz.games.games.BackButton
+import com.teamx.equiz.games.games.TouchTheNumGamePlus
+import com.teamx.equiz.games.games.learningy.linkListSpin67
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import com.teamx.equiz.games.ui.theme.BirdColor1
@@ -62,7 +65,7 @@ data class NumberBox(val number: Int, val color: Color)
 @RequiresApi(Build.VERSION_CODES.N)
 
 @Composable
-fun TouchTheNumbersGameScreen(content: @Composable () -> Unit = {}) {
+fun UnfollowNumbersGameScreen(content: @Composable () -> Unit = {}) {
     var score by remember { mutableStateOf(0) }
     var boxes by remember { mutableStateOf(generateBoxes()) }
     var restart by remember { mutableStateOf(true) }
@@ -185,7 +188,10 @@ fun TouchTheNumbersGameScreen(content: @Composable () -> Unit = {}) {
 
 
 
-                                TouchAnimatedObject(index, boxes[index]) { iit ->
+                               TouchAnimatedObject(
+                                    index,
+                                    boxes[index]
+                                ) { iit ->
                                     Log.d("123123", "TouchTheNumbersGameScreen12: ")
                                     updateScore(boxes, iit, index) { i2 ->
                                         Log.d("123123", "TouchTheNumbersGameScreen122: ")
@@ -282,12 +288,12 @@ private fun updateScore(boxes: List<NumberBox>, box: NumberBox, index: Int, onCl
 //    val sortedNumbers = selectedNumbers.sorted()
     if (Checker.number == box.number) {
         // Correct order
-        score++
+       score++
         onClickAdd(Checker.number)
     } else {
         // Incorrect order
 //        score = 0
-        score--
+       score--
     }
 }
 
@@ -305,7 +311,7 @@ var totalGameAnswersTheNum = 1
 
 @Preview
 @Composable
-fun TouchTheNumGamePlus(content:  (bool:Boolean, rightAnswer:Int, totalAnswer:Int) -> Unit = {bool,rightAnswer,total ->}) {
+fun UnfollowTouchTheNumGamePlus(content:  (bool:Boolean, rightAnswer:Int, totalAnswer:Int) -> Unit = {bool,rightAnswer,total ->}) {
 
     var isGameOver by remember { mutableStateOf(false) }
         var isAlert by remember { mutableStateOf(false) }
@@ -339,9 +345,12 @@ fun TouchTheNumGamePlus(content:  (bool:Boolean, rightAnswer:Int, totalAnswer:In
     if (isGameOver) {
 
 
-        content(true, rightGameAnswersTheNum, totalGameAnswersTheNum)
-        rightGameAnswersTheNum=0
-        totalGameAnswersTheNum=1
+        content(true,
+           rightGameAnswersTheNum,
+           totalGameAnswersTheNum
+        )
+       rightGameAnswersTheNum =0
+       totalGameAnswersTheNum =1
 
     }
 
@@ -352,9 +361,12 @@ fun TouchTheNumGamePlus(content:  (bool:Boolean, rightAnswer:Int, totalAnswer:In
                 isGameOver = true
 
             } else {
-                content(false, rightGameAnswersTheNum, totalGameAnswersTheNum)
-                rightGameAnswersTheNum=0
-                totalGameAnswersTheNum=1
+                content(false,
+                   rightGameAnswersTheNum,
+                   totalGameAnswersTheNum
+                )
+               rightGameAnswersTheNum =0
+               totalGameAnswersTheNum =1
             }
         }
 
@@ -384,7 +396,7 @@ fun TouchTheNumGamePlus(content:  (bool:Boolean, rightAnswer:Int, totalAnswer:In
 
             }
 
-            NumAscendingObjects2()
+           NumAscendingObjects2()
 
             Image(
                 modifier = Modifier
@@ -420,34 +432,41 @@ fun NumAscendingObjects2() {
     var changable by remember { mutableStateOf(true) }
 
     var gameStarted by remember { mutableStateOf(false) }
+    LaunchedEffect(currentCount==0) {
+        repeat(maxCount) { count ->
+            delay(190L)
+            currentCount=count+1
+        }
+    }
 
     if (changable) {
-//        LaunchedEffect(Unit) {
-//            repeat(maxCount) { count ->
-//                delay(190L)
-//            }
-//        }
 
+        /*LaunchedEffect(Unit) {
+            repeat(maxCount) { count ->
+                delay(190L)
+                currentCount=count+1
+            }
+        }*/
 
         val link = LinkedList<Int>()
 
-        numLinkListAdded32.forEach {
+       numLinkListAdded32.forEach {
             link.push(it)
         }
 
-        numLinkListAdded32.clear()
+       numLinkListAdded32.clear()
 
         Log.d("123123", "AscendingObjects:linkListAddedabb $link")
         if (link.size >= 1) {
-            Log.d("123123", "AscendingObjects:1212 $numLinkListAdded32")
+            Log.d("123123", "AscendingObjects:1212 ${numLinkListAdded32}")
             for (i in link) {
-                numLinkListAdded32.push(i)
+               numLinkListAdded32.push(i)
             }
         } else {
-            Log.d("123123", "AscendingObjects:12 $numLinkListAdded32")
+            Log.d("123123", "AscendingObjects:12 ${numLinkListAdded32}")
             for (i in 0..maxCount) {
                 if (Random.nextBoolean()) {
-                    numLinkListAdded32.push(i)
+                   numLinkListAdded32.push(i)
                 }
             }
         }
@@ -474,17 +493,25 @@ fun NumAscendingObjects2() {
                 .wrapContentSize()
         ) {
 
-            for (i in 0..maxCount) {
-                val temp = numLinkListAdded32
+            for (i in 0..currentCount) {
+                val temp =numLinkListAdded32
 //            Log.d("123123", "AscendingObjects:temp ${temp.first}")
-                NumAnimatedObject2(i, temp.first) {
+               NumAnimatedObject2(i, temp.first) {
                     temp.remove(it)
-                    numLinkListAdded32 = temp
+                   numLinkListAdded32 = temp
 
                     if (linkListSpin67.isEmpty()) {
                         changable = true
+//                        currentCount=0
                     }
-                    Log.d("123123", "AscendingObjects:linkListAdded $numLinkListAdded32")
+                    if (numLinkListAdded32.isEmpty()) {
+                        currentCount = 0
+
+                    }
+                    Log.d(
+                        "123123",
+                        "AscendingObjects:linkListAdded ${numLinkListAdded32}"
+                    )
 
 
                 }
@@ -508,12 +535,7 @@ fun NumAnimatedObject2(number: Int, itemCompared: Int, onClick: (Item: Int) -> U
         }, shape = RectangleShape, modifier = Modifier
             .size(85.dp)
             .offset(
-                y = /*(-number * 60).dp*//* if ((number *//*+ 1*//*) % 3 == 0) {
-                    (number * 90).dp
-                } else {
-                    ((number % 3) * 90).dp
-                }*/
-
+                y =
                 if (number in 3..5) {
                     (((number % 3) + 2) * 90).dp
                 } else if (number > 5) {
@@ -533,19 +555,19 @@ fun NumAnimatedObject2(number: Int, itemCompared: Int, onClick: (Item: Int) -> U
             .clip(RoundedCornerShape(6.dp))
 
             .clickable(
-                enabled = numLinkListAdded32.contains(number)
+                enabled =numLinkListAdded32.contains(number)
             ) {
 
-                totalGameAnswersTheNum++
+               totalGameAnswersTheNum++
 
                 if (colorState == Color.Transparent) {
 
                     Log.d("123123", "AnimatedObjectWrong2:$number ::$itemCompared ")
                     return@clickable
-                } else if (number == numLinkListAdded32.first) {
+                } else if (number ==numLinkListAdded32.first) {
                     colorState = Color.Transparent
                     onClick(itemCompared)
-                    rightGameAnswersTheNum++
+                   rightGameAnswersTheNum++
                     Log.d("123123", "AnimatedObjectWrong1:$number ::$itemCompared ")
                 } else {
                     Log.d("123123", "AnimatedObjectWrong2:$number ::$itemCompared ")
@@ -556,8 +578,8 @@ fun NumAnimatedObject2(number: Int, itemCompared: Int, onClick: (Item: Int) -> U
 
     ) {
 
-        Text(
-            modifier = Modifier/*.rotate(-90f)*/,
+        /*Text(
+            modifier = Modifier*//*.rotate(-90f)*//*,
             text = (number + 1).toString(),
             style = MaterialTheme.typography.bodyLarge,
             color = if (numLinkListAdded32.contains(number)) {
@@ -566,7 +588,7 @@ fun NumAnimatedObject2(number: Int, itemCompared: Int, onClick: (Item: Int) -> U
             fontSize = 40.sp,
             fontWeight = FontWeight.ExtraBold,
             textAlign = TextAlign.Center
-        )
+        )*/
 
 
     }
@@ -582,36 +604,11 @@ fun TouchAnimatedObject(number: Int, itemCompared: NumberBox, onClick: (Item: Nu
         .background(
             color = itemCompared.color, shape = RoundedCornerShape(6.dp)
         )
-        .size(85.dp)/*.offset(
-                y = if (number in 3..5) {
-                    (((number % 3) + 2) * 90).dp
-                } else if (number > 5) {
-                    (((number % 3) + 2) * 90).dp
-                } else {
-                    ((number + 2) * 90).dp
-                },
-
-                x = if (number in 3..5) {
-                    (2 * 70).dp
-                } else if (number > 5) {
-                    (3 * 80).dp
-                } else {
-                    (1 * 40).dp
-                }
-            )*/
+        .size(85.dp)
         .clip(RoundedCornerShape(6.dp))
 
         .clickable {
-            onClick(itemCompared)/*   if (colorState == BirdColor1) {
-                Log.d("123123", "AnimatedObjectWrong2:$number ::$itemCompared ")
-                return@clickable
-            } else if (number == linkListAdded.first) {
-                colorState = Color.Transparent
-                onClick(itemCompared)
-                Log.d("123123", "AnimatedObjectWrong1:$number ::$itemCompared ")
-            } else {
-                Log.d("123123", "AnimatedObjectWrong2:$number ::$itemCompared ")
-            }*/
+            onClick(itemCompared)
         }
 //            .graphicsLayer(rotationZ = rotation)
         , contentAlignment = Alignment.Center) {

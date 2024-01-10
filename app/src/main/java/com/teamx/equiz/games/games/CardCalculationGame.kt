@@ -77,7 +77,7 @@ var cards = listOf<CardModel>()
 var optionCards = listOf<OptionCards>()
 var answer = 0
 val selectedCards = arrayListOf<Int>()
-var rightGameAnswersCardCal = 1
+var rightGameAnswersCardCal = 0
 var totalGameAnswersCardCal = 1
 
 @Composable
@@ -117,7 +117,8 @@ fun CardCalculationGameScreen(content: (boolean: Boolean, rightAnswer: Int, tota
 
 
         content(true, rightGameAnswersCardCal, totalGameAnswersCardCal)
-
+        rightGameAnswersCardCal=0
+        totalGameAnswersCardCal=1
     }
 
     if (isTimeUp) {
@@ -128,6 +129,8 @@ fun CardCalculationGameScreen(content: (boolean: Boolean, rightAnswer: Int, tota
 
             } else {
                 content(false, rightGameAnswersCardCal, totalGameAnswersCardCal)
+                rightGameAnswersCardCal=0
+                totalGameAnswersCardCal=1
             }
         }
 

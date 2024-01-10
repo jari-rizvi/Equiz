@@ -46,26 +46,13 @@ import com.teamx.equiz.games.games.TetrisGame
 import com.teamx.equiz.games.games.TouchTheColorGameScreen
 import com.teamx.equiz.games.games.TouchTheNumGamePlus
 import com.teamx.equiz.games.games.TouchTheShapesGameScreen
-import com.teamx.equiz.games.games.UnfollowTheLeaderGame
 import com.teamx.equiz.games.games.WeatherCastGame
-import com.teamx.equiz.games.games.gameAnswersTotalMiss
 import com.teamx.equiz.games.games.learningy.NumPlus
 import com.teamx.equiz.games.games.learningy.ViewMatching
-import com.teamx.equiz.games.games.rightGameAnswersAddition
-import com.teamx.equiz.games.games.rightGameAnswersColor
-import com.teamx.equiz.games.games.rightGameAnswersDecep
-import com.teamx.equiz.games.games.rightGameAnswersFlick
-import com.teamx.equiz.games.games.rightGameAnswersHigh
-import com.teamx.equiz.games.games.rightGameAnswersMiss
-import com.teamx.equiz.games.games.rightGameAnswersWeather
+import com.teamx.equiz.games.games.learningy.follows.UnfollowTouchTheNumGamePlus
+import com.teamx.equiz.games.games.learningy.unfolw.followTouchTheNumGamePlus
 import com.teamx.equiz.games.games.rpsCastGamePlot
-import com.teamx.equiz.games.games.totalGameAnswersAddition
-import com.teamx.equiz.games.games.totalGameAnswersColor
-import com.teamx.equiz.games.games.totalGameAnswersDecep
-import com.teamx.equiz.games.games.totalGameAnswersFlick
-import com.teamx.equiz.games.games.totalGameAnswersHigh
 import com.teamx.equiz.games.games.ui_components.StartUpDialogCompose
-import com.teamx.equiz.games.games.wrongGameAnswersWeather
 import com.teamx.equiz.ui.activity.mainActivity.MainActivity
 import com.teamx.equiz.ui.fragments.dashboard.GamesUID2
 import com.teamx.equiz.utils.DialogHelperClass
@@ -102,8 +89,6 @@ class AdditionAddictionGameFrag : BaseFragment<FragmentAddressBinding, GameFrags
         }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
-        rightGameAnswersAddition = 0
-        totalGameAnswersAddition = 0
 
         var bundle = arguments
         if (bundle == null) {
@@ -312,8 +297,7 @@ class ColorOfDecepGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
             }
         }
 
-        rightGameAnswersColor = 0
-        totalGameAnswersColor = 0
+
 
         composeView.setContent {
             TouchTheColorGameScreen { bool, rightAnswer, total ->
@@ -435,8 +419,7 @@ class FlickGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>()
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
-        totalGameAnswersFlick = 0
-        rightGameAnswersFlick = 0
+
         composeView.setContent {
             FlickGameScreen(content = { bool, rightAnswer, total ->
                 if (bool) {
@@ -501,7 +484,7 @@ class FollowTheLeaderGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
             }
         }
         composeView.setContent {
-            FollowTheLeaderGame(content = { bool, rightAnswer, total ->
+            followTouchTheNumGamePlus(content = { bool, rightAnswer, total ->
                 if (bool) {
                     var argumentBundle = arguments
                     if (argumentBundle == null) {
@@ -622,8 +605,7 @@ class HighLowGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
-        rightGameAnswersHigh = 0
-        totalGameAnswersHigh = 0
+
         composeView.setContent {
             HighLowComponent(content = { bool, rightAnswer, total ->
                 if (bool) {
@@ -811,8 +793,7 @@ class MissingPieceGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
-        rightGameAnswersMiss = 0
-        gameAnswersTotalMiss = 0
+
         composeView.setContent {
             MissingPieceGameScreen(content = { bool, rightAnswer, total ->
                 if (bool) {
@@ -1326,6 +1307,10 @@ class ResultComposeFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMode
 
             GamesUID2.BirdWatching.name -> {
                 painterResource(R.drawable.bird_favicon)
+
+            }
+            GamesUID2.Operations.name -> {
+                painterResource(R.drawable.operations_icon)
 
             }
 
@@ -2122,7 +2107,7 @@ class UnfollowTheLeaderGameFrag : BaseFragment<FragmentAddressBinding, GameFrags
             }
         }
         composeView.setContent {
-            UnfollowTheLeaderGame(content = { bool, rightAnswer, total ->
+            UnfollowTouchTheNumGamePlus(content = { bool, rightAnswer, total ->
                 if (bool) {
                     var argumentBundle = arguments
                     if (argumentBundle == null) {
@@ -2182,8 +2167,7 @@ class WeatherCastGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
-         rightGameAnswersWeather = 0
-         wrongGameAnswersWeather = 0
+
         composeView.setContent {
             WeatherCastGame(content = { bool, rightAnswer, total ->
                 if (bool) {
@@ -2243,8 +2227,7 @@ class ShapeDeceptionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVie
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
-         rightGameAnswersDecep = 0
-         totalGameAnswersDecep = 0
+
         composeView.setContent {
             TouchTheShapesGameScreen(content = { bool, rightAnswer, total ->
                 if (bool) {
@@ -2605,7 +2588,7 @@ class StartUpGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
             }
 
             GamesUID2.SpinningBlock.name -> {
-                painterResource(R.drawable.howtoplay_simplicity)
+                painterResource(R.drawable.spiningblock_howtoplay)
 
             }
 
@@ -2684,7 +2667,7 @@ class StartUpGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
 
             GamesUID2.CardCalculation.name -> {
                 "1- Add up if purple, subtract if red" +
-                        "2- Select the answer"
+                        "\n2- Select the answer"
 
             }
 
@@ -2777,7 +2760,7 @@ class StartUpGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
 
             GamesUID2.TouchTheNumPlus.name -> {
                 "1- Tap in an ascending order\n" +
-                        "2- Select the sum of the numerals"
+                        "\n2- Select the sum of the numerals"
 
             }
 

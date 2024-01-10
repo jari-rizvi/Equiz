@@ -2,11 +2,7 @@ package com.teamx.equiz.games.games
 
 import android.os.Build
 import android.os.CountDownTimer
-import android.os.VibrationEffect
-import android.os.Vibrator
-import android.util.Log
 import androidx.annotation.RequiresApi
-import androidx.compose.animation.core.Animatable
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -40,7 +36,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -58,15 +53,17 @@ import kotlin.random.Random
 //operations
 val operators = listOf("+", "-", "x", "/")
 
-@RequiresApi(Build.VERSION_CODES.O)
+var rightGameAnswersOp = 0
+var wrongGameAnswersOp = 1
 
+//@RequiresApi(Build.VERSION_CODES.O)
+@Preview
 @Composable
-fun OperationGame(content: (boolean:Boolean, rightAnswer:Int, totalAnswer:Int) -> Unit) {
+fun OperationGame(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit = { _, _, _ -> }) {
 
     var isGameOver by remember { mutableStateOf(false) }
-        var isAlert by remember { mutableStateOf(false) }
- rightGameAnswers = 1
- wrongGameAnswers = 1
+    var isAlert by remember { mutableStateOf(false) }
+
 
     var timeLeft by remember { mutableStateOf(20L) }
     var isTimeUp by remember { mutableStateOf(false) }
@@ -77,10 +74,10 @@ fun OperationGame(content: (boolean:Boolean, rightAnswer:Int, totalAnswer:Int) -
         // Start the timer
         object : CountDownTimer(timeLeft * 1000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                  if (timerRunning) {
+                if (timerRunning) {
                     timeLeft = millisUntilFinished / 1000
                 }
-                if (timeLeft<5){
+                if (timeLeft < 5) {
                     isAlert = true
                 }
             }
@@ -93,7 +90,9 @@ fun OperationGame(content: (boolean:Boolean, rightAnswer:Int, totalAnswer:Int) -
 
 
     if (isGameOver) {
-        content(true, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
+        content(true, rightGameAnswersOp, wrongGameAnswersOp)
+        rightGameAnswersOp = 0
+        wrongGameAnswersOp = 1
     }
 
 
@@ -104,40 +103,45 @@ fun OperationGame(content: (boolean:Boolean, rightAnswer:Int, totalAnswer:Int) -
                 isGameOver = true
 
             } else {
-                content(false, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
+                content(false, rightGameAnswersOp, wrongGameAnswersOp)
+                rightGameAnswersOp = 0
+                wrongGameAnswersOp = 1
             }
         }
 
 
-    }else{
+    } else {
         var equation by remember { mutableStateOf(generateEquation()) }
-        var selectedOperator by remember { mutableStateOf("") }
-        var allCounter by remember { mutableStateOf(0) }
-        var accurateCounter by remember { mutableStateOf(0) }
+        var firstNum1 by remember { mutableStateOf(firstNum) }
+        var secondNum1 by remember { mutableStateOf(secondNum) }
+        var resultNum1 by remember { mutableStateOf(resultNum) }
+//        var selectedOperator by remember { mutableStateOf("") }
+//        var allCounter by remember { mutableStateOf(0) }
+//        var accurateCounter by remember { mutableStateOf(0) }
 
-        var isShaking by remember { mutableStateOf(false) }
-        val offset = remember { Animatable(0f) }
+//        var isShaking by remember { mutableStateOf(false) }
+//        val offset = remember { Animatable(0f) }
 
         var selectedButtonIndex by remember { mutableStateOf(-1) }
-        val context = LocalContext.current
-        val vibrator = context.getSystemService(Vibrator::class.java)
+//        val context = LocalContext.current
+//        val vibrator = context.getSystemService(Vibrator::class.java)
 
-        LaunchedEffect(isShaking) {
-            if (isShaking) {
+        /*  LaunchedEffect(isShaking) {
+              if (isShaking) {
 
-                vibrator?.let { v ->
-                    v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE))
-                    // Delay for the vibration duration
-                    kotlinx.coroutines.delay(500)
-                    // Stop the vibration
-                    isShaking = false
-                    v.cancel()
-                }
-            } else {
-                offset.snapTo(0f)
-                offset.stop()
-            }
-        }
+                  vibrator?.let { v ->
+                      v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE))
+                      // Delay for the vibration duration
+                      kotlinx.coroutines.delay(500)
+                      // Stop the vibration
+                      isShaking = false
+                      v.cancel()
+                  }
+              } else {
+                  offset.snapTo(0f)
+                  offset.stop()
+              }
+          }*/
 
 
 
@@ -166,9 +170,7 @@ fun OperationGame(content: (boolean:Boolean, rightAnswer:Int, totalAnswer:Int) -
 
             }
             Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                ,
+                modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
@@ -198,7 +200,7 @@ fun OperationGame(content: (boolean:Boolean, rightAnswer:Int, totalAnswer:Int) -
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = firstNum.toString(),
+                            text = firstNum1.toString(),
                             style = MaterialTheme.typography.headlineLarge,
                             modifier = Modifier.padding(horizontal = 5.dp),
                             fontWeight = FontWeight.ExtraBold,
@@ -206,12 +208,14 @@ fun OperationGame(content: (boolean:Boolean, rightAnswer:Int, totalAnswer:Int) -
                             fontSize = 36.sp,
                         )
                         Icon(
-                            modifier = Modifier.size(25.dp).background(Color.White, shape = RoundedCornerShape(12.dp)),
+                            modifier = Modifier
+                                .size(25.dp)
+                                .background(Color.White, shape = RoundedCornerShape(12.dp)),
                             imageVector = Icons.Default.CheckBoxOutlineBlank,
                             contentDescription = null
                         )
                         Text(
-                            text = secondNum.toString(),
+                            text = secondNum1.toString(),
                             style = MaterialTheme.typography.headlineLarge,
                             modifier = Modifier.padding(horizontal = 5.dp),
                             fontWeight = FontWeight.ExtraBold,
@@ -228,7 +232,7 @@ fun OperationGame(content: (boolean:Boolean, rightAnswer:Int, totalAnswer:Int) -
                         )
 
                         Text(
-                            text = resultNum.toString(),
+                            text = resultNum1.toString(),
                             style = MaterialTheme.typography.headlineLarge,
                             modifier = Modifier.padding(horizontal = 5.dp),
                             fontWeight = FontWeight.ExtraBold,
@@ -237,88 +241,146 @@ fun OperationGame(content: (boolean:Boolean, rightAnswer:Int, totalAnswer:Int) -
                         )
                     }
 
-                    /*    Text(
-                            text = "Accurate: $accurateCounter \n WrongAnswer: $allCounter",
-                            style = MaterialTheme.typography.headlineSmall,
-                            modifier = Modifier.padding(top = 16.dp),
-                            color = Color.White
-                        )*/
 
                 }
                 Box(
                     modifier = Modifier.wrapContentSize(), contentAlignment = Alignment.Center
                 ) {
-                    var counter1 = 0
-                    var counter2 = 0
-                    var indexer = 0
-                    operators.shuffled().forEachIndexed { index, operator ->
+                    /*    var counter1 = 0
+                        var counter2 = 0
+                        var indexer = 0
+                        operators.shuffled().forEachIndexed { index, operator ->
 
-                        Box(
-                            modifier = Modifier
+                            Box(
+                                modifier = Modifier
 
-                                .padding(2.dp)
+                                    .padding(2.dp)
 
-                                .offset {
-                                    IntOffset(
-                                        if ((indexer) % 2 == 0) {
-                                            if (indexer >= 4) {
-                                                indexer = 0
+                                    .offset {
+                                        IntOffset(
+                                            if ((indexer) % 2 == 0) {
+                                                if (indexer >= 4) {
+                                                    indexer = 0
+                                                }
+                                                indexer++
+                                                Log.d("TAG", "GameScreen:$indexer ")
+                                                counter1 += 260
+                                                counter1 - 390
+                                            } else {
+                                                if (indexer >= 4) {
+                                                    indexer = 0
+                                                }
+                                                indexer++
+                                                Log.d("TAG", "GameScreen:$indexer ")
+                                                counter1 - 390
+                                            }, if ((indexer) % 2 != 0) {
+                                                counter2 = 0
+                                                counter2 += counter2
+                                                counter2
+                                            } else {
+                                                0 + 260
                                             }
-                                            indexer++
-                                            Log.d("TAG", "GameScreen:$indexer ")
-                                            counter1 += 260
-                                            counter1 - 390
-                                        } else {
-                                            if (indexer >= 4) {
-                                                indexer = 0
-                                            }
-                                            indexer++
-                                            Log.d("TAG", "GameScreen:$indexer ")
-                                            counter1 - 390
-                                        }, if ((indexer) % 2 != 0) {
-                                            counter2 = 0
-                                            counter2 += counter2
-                                            counter2
-                                        } else {
-                                            0 + 260
-                                        }
-                                    )
-                                }
-                                .size(83.dp)
-                                .clip(RoundedCornerShape((15.dp)))
-                                .background(Color.White)
-                                .clickable {
-                                    selectedButtonIndex = index
-                                    allCounter++
-
-                                    selectedOperator = operator
-                                    if (selectedOperator == equation.split(" ")[1]) {
-                                        equation = generateEquation()
-                                        accurateCounter++
-                                    } else {
-                                        if (index == selectedButtonIndex) {
-                                            isShaking = true
-                                        }
+                                        )
                                     }
-                                    indexer = 0
+                                    .size(83.dp)
+                                    .clip(RoundedCornerShape((15.dp)))
+                                    .background(Color.White)
+                                    .clickable {
+                                        selectedButtonIndex = index
+    //                                    allCounter++
+                                        wrongGameAnswersOp++
 
-                                },
-                            contentAlignment = Alignment.Center,
+    //                                    selectedOperator = operator
+                                        if (operator == equation.split(" ")[1]) {
+                                            equation = generateEquation()
+    //                                        accurateCounter++
+                                            rightGameAnswersOp++
+                                        } else {
+                                            equation = generateEquation()
+                                            if (index == selectedButtonIndex) {
+    //                                            isShaking = true
+                                            }
+                                        }
+                                        indexer = 0
+
+                                    },
+                                contentAlignment = Alignment.Center,
 
 
-                            ) {
+                                ) {
 
 
-                            Text(
-                                modifier = Modifier.wrapContentSize(),
-                                color = BirdColor4,
-                                text = operator,
-                                fontWeight = FontWeight.ExtraBold,
+                                Text(
+                                    modifier = Modifier.wrapContentSize(),
+                                    color = BirdColor4,
+                                    text = operator,
+                                    fontWeight = FontWeight.ExtraBold,
 
-                                fontSize = 53.sp
-                            )
+                                    fontSize = 53.sp
+                                )
+                            }
+
+                        }*/
+
+                    Column {
+                        repeat(2) { column ->
+                            Row {
+                                repeat(2) { row ->
+                                    val index = row * 2 + column
+                                    val operator = operators.get(index)
+                                    Box(
+                                        modifier = Modifier
+
+                                            .padding(12.dp)
+
+
+                                            .size(83.dp)
+                                            .clip(RoundedCornerShape((15.dp)))
+                                            .background(Color.White)
+                                            .clickable {
+                                                selectedButtonIndex = index
+//                                    allCounter++
+                                                wrongGameAnswersOp++
+
+//                                    selectedOperator = operator
+                                                if (operator == equation.split(" ")[1]) {
+                                                    equation = generateEquation()
+                                                    firstNum1=firstNum
+                                                    secondNum1=secondNum
+                                                    resultNum1=resultNum
+//                                        accurateCounter++
+                                                    rightGameAnswersOp++
+                                                } else {
+                                                    equation = generateEquation()
+                                                    firstNum1=firstNum
+                                                    secondNum1=secondNum
+                                                    resultNum1=resultNum
+
+                                                    if (index == selectedButtonIndex) {
+//                                            isShaking = true
+                                                    }
+                                                }
+
+
+                                            },
+                                        contentAlignment = Alignment.Center,
+
+
+                                        ) {
+
+
+                                        Text(
+                                            modifier = Modifier.wrapContentSize(),
+                                            color = BirdColor4,
+                                            text = operator,
+                                            fontWeight = FontWeight.ExtraBold,
+
+                                            fontSize = 53.sp
+                                        )
+                                    }
+                                }
+                            }
                         }
-
                     }
                 }
             }

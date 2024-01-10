@@ -3,14 +3,13 @@ package com.teamx.equiz.games.games
 import android.os.CountDownTimer
 import android.util.Log
 import androidx.annotation.Keep
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.repeatable
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,6 +17,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -42,9 +43,9 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
+import com.teamx.equiz.games.games.learningy.items
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
-import com.teamx.equiz.games.ui.theme.BirdColor3
 import kotlinx.coroutines.delay
 import java.util.LinkedList
 import kotlin.random.Random
@@ -183,154 +184,135 @@ var linkListAdded = LinkedList<Int>()
 fun AscendingObjects() {
     val maxCount = 8
     var currentCount by remember { mutableStateOf(0) }
+    var currentCount2 by remember { mutableStateOf(1) }
 
-    val listAdded by remember { mutableStateOf<ArrayList<Int>>(arrayListOf()) }
-//    val linkListAdded by remember { mutableStateOf<LinkedList<Int>>(LinkedList()) }
 
-//    linkListAdded.clear()
 
     LaunchedEffect(Unit) {
         repeat(maxCount) { count ->
-            delay(190L)
-//            colorStateList.add(colorState)
+            delay(290L)
             currentCount = count + 1
 
         }
+
+
     }
 
-//    if (currentCount == maxCount) {
     val link = LinkedList<Int>()
 
     linkListAdded.forEach {
         link.push(it)
     }
-    Log.d("123123", "AscendingObjects:linkListAddedabb $linkListAdded")
     linkListAdded.clear()
-    Log.d("123123", "AscendingObjects:linkListAddedabb $link")
     if (link.size >= 1) {
-        Log.d("123123", "AscendingObjects:1212 $linkListAdded")
         for (i in link) {
             linkListAdded.push(i)
         }
     } else {
-        Log.d("123123", "AscendingObjects:12 $linkListAdded")
         for (i in 0..maxCount) {
             if (Random.nextBoolean()) {
                 linkListAdded.push(i)
             }
         }
     }
-    /*  } else if (currentCount <= 1) {
-          linkListAdded.push(0)
-      }*/
-    Log.d("123123", "AscendingObjects:linkListAddedabbbbbb $linkListAdded")
-//    val randInt = Random.nextInt(1, 3)
-    /*    val items2 = (0 until currentCount).map {
-            LeaderListItem(
-                height = 90.dp,
-                name = it,
-                gamesUID = LeaderEnum.values()[it % 2],
-                color = if (it % randInt == 0) {
-                    Color(0xFF2450E7).copy(alpha = 1f)
-                } else {
-                    Color.Transparent
-                }
-            )
-        }
 
-        var items1 by remember { mutableStateOf<List<LeaderListItem>>(items2) }
-
-        items1 = items2*/
-
-//    Log.d("123123", "AscendingObjects: ${items1.size}")
-    Log.d("123123", "AscendingObjects:linkListAdded ${linkListAdded.size}")
-    ///
-    var rotationState by remember { mutableStateOf(0f) }
-    LaunchedEffect(Unit) {
-        repeat(180) { count ->
-            delay(10L)
-//            colorStateList.add(colorState)
-            rotationState = 180f
-
-        }
-    }
-    // Animate the rotationState from 0f to 360f repeatedly
-    val rotation by animateFloatAsState(
-        targetValue = rotationState, animationSpec = repeatable(
-            iterations = 1,
-            animation = tween(5000)
-        )
-    )
     ///
 
     Box(
         modifier = Modifier
             .padding(16.dp)
-            .fillMaxSize()
-//            .graphicsLayer(rotationY = rotation), contentAlignment = Alignment.Center
+            .fillMaxSize(),
+        contentAlignment = Alignment.Center
     ) {
-        /*  LazyVerticalStaggeredGrid(
-              columns = StaggeredGridCells.Adaptive(90.dp),
-              modifier = Modifier.size(300.dp),
-              contentPadding = PaddingValues(2.dp),
-              horizontalArrangement = Arrangement.Center
-          ) {
-              items(items1.size) {
-                  LeaderGrids(items1[it], it) {
 
-                      Log.d("123123", "AscendingObjects: $")
-                      items1[it].color = Color.Transparent
-                  }
-
-              }*/
-//        listAdded.clear()
-        /* if (bool) {
-             for (i in 0..currentCount) {
-                 listAdded.add(i)
-                 linkListAdded.push(i)
-             }
-         }*/
-        for (i in 0..currentCount) {/* if (i == (currentCount - 1)) {
-                 bool = false
-             }*/
+        /*for (i in 0..currentCount) {
 
             var temp = linkListAdded
             Log.d("123123", "AscendingObjects:temp ${temp.first}")
-            AnimatedObject(i, temp.first/*, colorStateList[i]*/) {
+            AnimatedObject(i, temp.first) {
 
                 temp.pop()
                 linkListAdded = temp
-                Log.d("123123", "AscendingObjects:linkListAdded $linkListAdded")/*  if (listAdded[it] == i) {
-
-                      } else {
-
-                      }*/
-//                colorStateList[it] = Color.Transparent
+                Log.d("123123", "AscendingObjects:linkListAdded $linkListAdded")
             }
+        }*/
+        if (linkListAdded.isNotEmpty()) {
+
+            val column = currentCount
+            val rows = currentCount
+
+
+            /*  Column {
+                  repeat(3) { column ->
+                      Row() {
+                          repeat(3) { row ->
+                              var temp = linkListAdded
+                              val indexValue = row * 3 + column
+
+                              AnimatedObject(indexValue, temp.first) {
+
+                                  temp.pop()
+                                  linkListAdded = temp
+                                  if (linkListAdded.isEmpty()) {
+                                      currentCount2 = currentCount2 + 1
+                                      currentCount = 0
+                                  }
+
+                                  Log.d("123123", "AscendingObjects:linkListAdded $linkListAdded")
+                              }
+
+                          }
+                      }
+                  }
+              }
+  */
+
+
+             LazyVerticalGrid(modifier = Modifier.fillMaxSize(),
+                 columns = GridCells.Fixed(3),
+                 contentPadding = PaddingValues(16.dp)
+             ) {
+                 items(currentCount) { item ->
+
+                    var temp = linkListAdded
+                    val indexValue = item
+
+                    AnimatedObject(indexValue, temp.first) {
+
+                        temp.pop()
+                        linkListAdded = temp
+                        if (linkListAdded.isEmpty()) {
+                            currentCount2 = currentCount2 + 1
+                            currentCount = 0
+                        }
+
+                        Log.d("123123", "AscendingObjects:linkListAdded $linkListAdded")
+                    }
+
+
+                }
+            }
+
+
         }
-//        }
     }
 }
 
 @Composable
 fun AnimatedObject(number: Int, itemCompared: Int, onClick: (Item: Int) -> Unit) {
-    var colorState by remember { mutableStateOf<Color>(BirdColor3) }
+    var colorState by remember { mutableStateOf<Color>(Color(0xFF9F81CA)) }
 
     Surface(
         color =
-        if (linkListAdded.contains(number)/* % 2 == 0*/) {
-            colorState
+        if (linkListAdded.contains(number)) {
+            Color(0xFF9F81CA)
         } else {
             Color.Transparent
         }, shape = RectangleShape, modifier = Modifier
+            .padding(5.dp)
             .size(85.dp)
             .offset(
-                y = /*(-number * 60).dp*/
-                /* if ((number *//*+ 1*//*) % 3 == 0) {
-                    (number * 90).dp
-                } else {
-                    ((number % 3) * 90).dp
-                }*/
+                y =
 
                 if (number in 3..5) {
                     (((number % 3) + 2) * 90).dp
@@ -341,23 +323,19 @@ fun AnimatedObject(number: Int, itemCompared: Int, onClick: (Item: Int) -> Unit)
                 },
 
                 x = if (number in 3..5) {
-                    (/*-number*/2 * 70).dp
+                    (2 * 70).dp
                 } else if (number > 5) {
-                    (/*-number*/3 * 80).dp
+                    (3 * 80).dp
                 } else {
-                    (/*-number*/1 * 40).dp
-                }/*(-number * 60).dp*/
+                    (1 * 40).dp
+                }
             )
             .clip(RoundedCornerShape(6.dp))
 
             .clickable(
-                enabled = if (linkListAdded.contains(number)/* % 2 == 0*/) {
-                    true
-                } else {
-                    false
-                }
+                enabled = linkListAdded.contains(number)
             ) {
-                if (colorState == Color.Transparent) {
+                if (colorState == Color.Transparent && false) {
                     Log.d("123123", "AnimatedObjectWrong2:$number ::$itemCompared ")
                     return@clickable
                 } else if (number == linkListAdded.first) {
@@ -368,12 +346,11 @@ fun AnimatedObject(number: Int, itemCompared: Int, onClick: (Item: Int) -> Unit)
                     Log.d("123123", "AnimatedObjectWrong2:$number ::$itemCompared ")
                 }
             }
-//            .graphicsLayer(rotationZ = rotation)
 
     ) {
 
         Text(
-            text = /*number.toString()*/"",
+            text = "",
             style = MaterialTheme.typography.bodySmall,
             color = Color.White,
             fontSize = 20.sp,
@@ -385,24 +362,6 @@ fun AnimatedObject(number: Int, itemCompared: Int, onClick: (Item: Int) -> Unit)
     }
 }
 
-@Composable
-fun LeaderGrids(item: LeaderListItem, counter: Int, onClick: (Item: Int) -> Unit) {
-
-
-    /*    LazyVerticalStaggeredGrid(
-            columns = StaggeredGridCells.Adaptive(90.dp),
-            modifier = Modifier.size(300.dp),
-            contentPadding = PaddingValues(2.dp),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            items(items1) { item ->*/
-
-    LeaderColorBox(item = item) {
-        onClick(counter)
-    }
-//        }
-//    }
-}
 
 @Keep
 data class LeaderListItem(
