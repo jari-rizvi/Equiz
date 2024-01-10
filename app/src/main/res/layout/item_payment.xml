@@ -51,6 +51,8 @@
                 android:textSize="@dimen/_12ssp"
                 android:textStyle="bold"
                 android:layout_height="wrap_content"
+                android:textAlignment="viewStart"
+                android:gravity="center_vertical|start"
                 android:layout_gravity="center_vertical"
                 app:layout_constraintStart_toEndOf="@+id/paymentImage"
                 android:text="master Card end **00"

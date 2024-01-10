@@ -77,6 +77,8 @@
             android:layout_marginStart="@dimen/_5sdp"
             android:text="Even"
             android:textColor="#020A53"
+            android:textAlignment="viewStart"
+            android:gravity="center_vertical|start"
             android:textSize="@dimen/_14ssp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/hatlyIcon54545454"

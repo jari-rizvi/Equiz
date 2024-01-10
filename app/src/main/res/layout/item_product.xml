@@ -80,6 +80,8 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
+            android:textAlignment="viewStart"
+            android:gravity="center_vertical|start"
             android:singleLine="true"
             android:text="Dubai"
             android:layout_marginHorizontal="@dimen/_10sdp"

@@ -109,7 +109,7 @@
     <string name="mobile_number">Mobile Number</string>
     <string name="date_of_birth">Date of birth</string>
     <string name="password_">Password</string>
-    <string name="save">Save</string>
+
     <string name="change_password_">Change Password</string>
     <string name="change_phone_number">Change Phone Number</string>
     <string name="games_leaderboard">Games leaderboard</string>
@@ -148,6 +148,8 @@
     <string name="total_amount">Total Amount</string>
     <string name="you_need_to_be_verify">You need to be verify</string>
     <string name="cancel">Cancel</string>
+
+    <string name="save">Save</string>
     <string name="are_you_sure_you_want_to_delete">are you sure you want to delete</string>
     <string name="are_you_sure_you_want_to_unsubscribe">Are you sure you want to unsubscribe?</string>
     <string name="pay">Pay</string>
@@ -198,6 +200,14 @@
     <string name="select_one_of_the_option_given_below_to_sign_up">Select one of the option given below to sign Up</string>
     <string name="pay_now">Pay now</string>
     <string name="wishlist_items">Wishlist items</string>
+    <string name="are_you_sure_you_want_to_logout">Are you sure you want to logout?</string>
+    <string name="ok">Ok</string>
+    <string name="united_arab_emirates_quiz">United Arab Emirates Quiz</string>
+    <string name="take_quiz_earned_chances_repeat">Take Quiz * Earned Chances * Repeat</string>
+    <string name="play">Play</string>
+    <string name="contact_support_team">Contact Support Team</string>
+    <string name="top_up_successfully_done">Top Up Successfully Done</string>
+    <string name="you_earned_1000_points">You Earned 1000 Points</string>
 
 
 </resources>

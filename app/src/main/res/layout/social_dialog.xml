@@ -107,7 +107,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Contact Support Team"
+        android:text="@string/contact_support_team"
         android:textAlignment="center"
         android:textColor="@color/blue"
         android:textSize="@dimen/_14ssp"
