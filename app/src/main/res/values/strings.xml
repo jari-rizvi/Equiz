@@ -198,6 +198,12 @@
     <string name="select_one_of_the_option_given_below_to_sign_up">Select one of the option given below to sign Up</string>
     <string name="pay_now">Pay now</string>
     <string name="wishlist_items">Wishlist items</string>
+    <string name="speed">Speed</string>
+    <string name="judgment">Judgment</string>
+    <string name="calculation">Calculation</string>
+    <string name="accuracy">Accuracy</string>
+    <string name="observation">Observation</string>
+    <string name="memory">Memory</string>
 
 
 </resources>

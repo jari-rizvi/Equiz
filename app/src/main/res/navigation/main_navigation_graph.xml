@@ -510,6 +510,10 @@
         android:id="@+id/rewardShareFragment"
         android:name="com.teamx.equiz.ui.fragments.collectPrice.RewardShareFragment"
         android:label="RewardShareFragment" />
+    <fragment
+        android:id="@+id/userProgressFragment"
+        android:name="com.teamx.equiz.ui.fragments.userprogress.UserProgressFragment"
+        android:label="UserProgressFragment" />
 
 
 </navigation>
