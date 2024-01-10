@@ -57,9 +57,9 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, CollectPriceViewMod
             }
             rewardsRec()
 
-            mViewModel.collectPrize()
-            if (!mViewModel.collectPrizeResponse.hasActiveObservers()) {
-                mViewModel.collectPrizeResponse.observe(requireActivity()) {
+            mViewModel.claimedPrize("true")
+            if (!mViewModel.claimedPrizeResponse.hasActiveObservers()) {
+                mViewModel.claimedPrizeResponse.observe(requireActivity()) {
                     when (it.status) {
                         Resource.Status.LOADING -> {
                             loadingDialog.show()

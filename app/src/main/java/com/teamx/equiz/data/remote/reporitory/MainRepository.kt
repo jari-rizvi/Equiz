@@ -111,6 +111,7 @@ class MainRepository @Inject constructor(
     suspend fun unsub() = apiService.unsub()
     suspend fun deleteUser() = apiService.deleteUser()
     suspend fun collectPrizeRaffal() = apiService.collectPrizeRaffal()
+    suspend fun claimedPrizeRaffal(@Query("claimed") claimed: String) = apiService.claimedPrizeRaffal(claimed)
 
 
 }

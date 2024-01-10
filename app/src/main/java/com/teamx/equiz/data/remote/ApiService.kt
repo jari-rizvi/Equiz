@@ -280,6 +280,12 @@ interface ApiService {
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<CollectDataModel>
 
+
+    @GET(NetworkCallPoints.COLLECT_PRIZE)
+    suspend fun claimedPrizeRaffal(
+        @Query("claimed") claimed: String,
+        @Header("token") basicCredentials: String = "$TOKENER"): Response<CollectDataModel>
+
     @PUT(NetworkCallPoints.UPDATE_PROFILE)
     suspend fun updateProfile(
         @Body params: JsonObject,
