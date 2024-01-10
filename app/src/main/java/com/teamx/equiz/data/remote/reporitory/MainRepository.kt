@@ -43,10 +43,7 @@ class MainRepository @Inject constructor(
         @Query("current") current: Boolean
     ) = apiService.getCurrentNews(params, current)
 
-    suspend fun getRecentNews(
-        @Body params: JsonObject,
-        @Query("recent") recent: Boolean
-    ) = apiService.getRecentNews(params, recent)
+    suspend fun getRecentNews(@Body params: JsonObject, @Query("recent") recent: Boolean) = apiService.getRecentNews(params, recent)
 
     suspend fun getCoupons() = apiService.getCoupons()
     suspend fun stripeDataMethod(@Body params: JsonObject?) = apiService.stripeDataMethod(params)

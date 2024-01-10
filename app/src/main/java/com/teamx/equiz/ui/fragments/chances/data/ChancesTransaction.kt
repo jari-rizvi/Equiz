@@ -9,5 +9,6 @@ data class ChancesTransaction(
     val chances: Int,
     val quizId: QuizId,
     val timestamp: String,
+    val chanceType: String,
     val userId: String
 )

@@ -15,34 +15,48 @@
         android:elevation="@dimen/_2sdp">
 
 
-            <ImageView
-                android:id="@+id/container"
-                android:layout_width="@dimen/_50sdp"
-                android:layout_height="0dp"
-                android:src="@drawable/icons"
-                app:layout_constraintHorizontal_bias="0"
-                android:layout_margin="@dimen/_6sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <!--<ImageView
+            android:id="@+id/container"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/_6sdp"
+            android:src="@drawable/icons"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />-->
 
 
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/container"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_centerInParent="true"
+            android:layout_margin="@dimen/_6sdp"
+            android:clipToOutline="true"
+            android:src="@drawable/coin"
+            android:padding="@dimen/_2sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView54"
+            style="@style/popins_regular"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Order in Preparation"
             android:layout_marginStart="@dimen/_5sdp"
-            android:textColor="@color/black"
-            app:layout_constraintHorizontal_bias="0.05"
-            android:textSize="@dimen/_12ssp"
+            android:text="Order in Preparation"
             android:textAlignment="viewStart"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12ssp"
             android:textStyle="bold"
-            style="@style/popins_regular"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/textView56"
+            app:layout_constraintHorizontal_bias="0.05"
             app:layout_constraintStart_toEndOf="@+id/container"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.1" />
@@ -52,29 +66,30 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:maxLines="1"
-            android:text="We are preparing your order #2525."
-            android:textSize="@dimen/_10ssp"
-            app:layout_constraintVertical_bias="0.1"
+            android:text=""
             android:textAlignment="viewStart"
+            android:textSize="@dimen/_10ssp"
             app:layout_constraintBottom_toTopOf="@+id/textView13"
             app:layout_constraintEnd_toEndOf="@+id/textView54"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="@+id/textView54"
-            app:layout_constraintTop_toBottomOf="@+id/textView54" />
+            app:layout_constraintTop_toBottomOf="@+id/textView54"
+            app:layout_constraintVertical_bias="0.1" />
+
         <TextView
             android:id="@+id/textView551"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:maxLines="1"
-            android:text="We are preparing your order #2525."
-            android:textSize="@dimen/_10ssp"
+            android:text=""
             android:textAlignment="viewStart"
-            app:layout_constraintVertical_bias="0.1"
+            android:textSize="@dimen/_10ssp"
             app:layout_constraintBottom_toTopOf="@+id/textView13"
             app:layout_constraintEnd_toEndOf="@+id/textView55"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="@+id/textView55"
-            app:layout_constraintTop_toBottomOf="@+id/textView55" />
+            app:layout_constraintTop_toBottomOf="@+id/textView55"
+            app:layout_constraintVertical_bias="0.1" />
 
         <TextView
             android:id="@+id/textView56"
@@ -93,8 +108,8 @@
             android:id="@+id/textView13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             android:text="2 days"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/textView55"
             app:layout_constraintHorizontal_bias="0"
