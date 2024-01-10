@@ -5,6 +5,7 @@
     android:id="@+id/main_navigation_graph"
     app:startDestination="@id/tempFragment">
 
+
     <fragment
         android:id="@+id/tempFragment"
         android:name="com.teamx.equiz.ui.fragments.Auth.temp.TempFragment"
