@@ -397,6 +397,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         gameStrArrayList.removeIf { it.name == "Flick" || it.name == "Tetris" || it.name == "High Low" || it.name == "Make Ten" || it.name == "Rapid Sorting" || it.name == "Spinning Block"}
 
 
+
         val layoutManager1 =
             LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
         mViewDataBinding.allGamesRecycler.layoutManager = layoutManager1
