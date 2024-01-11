@@ -26,8 +26,7 @@
 
             android:layout_margin="@dimen/_10sdp"
             android:padding="@dimen/_2sdp"
-            android:src="@drawable/iconbg"
-            android:tint="#B2926BFA"
+            android:src="@drawable/baseline_person_white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

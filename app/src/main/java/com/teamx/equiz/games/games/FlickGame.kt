@@ -54,7 +54,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
-var rightGameAnswersFlick = 1
+var rightGameAnswersFlick = 0
 var totalGameAnswersFlick = 1
 
 @Preview
@@ -91,6 +91,8 @@ fun FlickGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int)
 
     if (isGameOver) {
         content(true, rightGameAnswersFlick, totalGameAnswersFlick)
+        rightGameAnswersFlick=0
+        totalGameAnswersFlick=1
     }
 
 
@@ -102,6 +104,8 @@ fun FlickGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int)
 
             } else {
                 content(false, rightGameAnswersFlick, totalGameAnswersFlick)
+                rightGameAnswersFlick=0
+                totalGameAnswersFlick=1
             }
         }
 
@@ -248,7 +252,7 @@ fun FlickComponent() {
                 .pointerInput(Unit) {
                     detectDragGestures { change, dragAmount ->
                         if (dragAmount.y > 26 || dragAmount.x > 26) {
-                            totalGameAnswersFlick++
+
                         }
                         when {
                             dragAmount.x >= 26 && randomInt == 0 -> {
@@ -257,6 +261,7 @@ fun FlickComponent() {
                                 swipeStateX = true
                                 restart = true
                                 rightGameAnswersFlick++
+                                totalGameAnswersFlick++
                             }
 
                             dragAmount.x < -26 && randomInt == 1 -> {
@@ -265,6 +270,7 @@ fun FlickComponent() {
                                 swipeStateX = true
                                 restart = true
                                 rightGameAnswersFlick++
+                                totalGameAnswersFlick++
                             }
 
                             dragAmount.y >= 26 && randomInt == 3 -> {
@@ -273,6 +279,7 @@ fun FlickComponent() {
                                 swipeStateX = true
                                 restart = true
                                 rightGameAnswersFlick++
+                                totalGameAnswersFlick++
                             }
 
                             dragAmount.y < -26 && randomInt == 2 -> {
@@ -281,6 +288,7 @@ fun FlickComponent() {
                                 swipeStateX = true
                                 restart = true
                                 rightGameAnswersFlick++
+                                totalGameAnswersFlick++
                             }
 
                         }
