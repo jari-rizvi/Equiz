@@ -1,6 +1,7 @@
 package com.teamx.equiz.ui.fragments.Auth.otp
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.addCallback
 import androidx.lifecycle.Observer
@@ -31,12 +32,22 @@ class OtpPhoneFragment : BaseFragment<FragmentOtpPhoneBinding, OtpViewModel>() {
 
     private lateinit var options: NavOptions
 
-
+    lateinit var phoneNumber: String
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
+
+        var bundle = arguments
+
+        if (bundle == null) {
+            bundle = Bundle()
+        }
+
+        phoneNumber = bundle.getString("phone").toString()
+
+        Log.d("phoneNumber", "verifyotpForgot: ${phoneNumber}")
 
         options = navOptions {
             anim {
@@ -54,25 +65,13 @@ class OtpPhoneFragment : BaseFragment<FragmentOtpPhoneBinding, OtpViewModel>() {
     }
 
 
-
     fun verifyotpForgot() {
-
-
-        var bundle = arguments
-
-        if (bundle == null) {
-            bundle = Bundle()
-        }
-
-        val phoneNumber = bundle?.getString("phone")
-
         val code = mViewDataBinding.pinView.text.toString()
-
 
         val params = JsonObject()
         try {
             params.addProperty("uniqueID", code)
-            params.addProperty("phone", "$phoneNumber")
+            params.addProperty("phone", phoneNumber)
 
         } catch (e: JSONException) {
             e.printStackTrace()
@@ -109,21 +108,24 @@ class OtpPhoneFragment : BaseFragment<FragmentOtpPhoneBinding, OtpViewModel>() {
                             )
 
 
-                            }
-                        }
-                        Resource.Status.AUTH -> { loadingDialog.dismiss()
-//                            onToSignUpPage()
-                        }
-                        Resource.Status.ERROR -> {
-                            loadingDialog.dismiss()
-                            DialogHelperClass.errorDialog(requireContext(), it.message!!)
                         }
                     }
-                    if (isAdded) {
-                        mViewModel.otpVerifyResponse.removeObservers(viewLifecycleOwner)
-                    }
-                })
-            }
 
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+//                            onToSignUpPage()
+                    }
+
+                    Resource.Status.ERROR -> {
+                        loadingDialog.dismiss()
+                        DialogHelperClass.errorDialog(requireContext(), it.message!!)
+                    }
+                }
+                if (isAdded) {
+                    mViewModel.otpVerifyResponse.removeObservers(viewLifecycleOwner)
+                }
+            })
         }
+
     }
+}

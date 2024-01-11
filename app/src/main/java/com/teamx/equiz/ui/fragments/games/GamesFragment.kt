@@ -1,10 +1,12 @@
 package com.teamx.equiz.ui.fragments.games
 
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.addCallback
+import androidx.annotation.RequiresApi
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
@@ -33,8 +35,9 @@ class GamesFragment : BaseFragment<FragmentGamesBinding, GamesViewModel>(), AllG
     private lateinit var options: NavOptions
 
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack(R.id.dashboardFragment, true)
             findNavController().navigate(R.id.dashboardFragment, arguments, options)
@@ -61,6 +64,7 @@ class GamesFragment : BaseFragment<FragmentGamesBinding, GamesViewModel>(), AllG
 
     private lateinit var gameStrArrayList: ArrayList<GamesModel>
     private lateinit var gameAdapter: AllGamesAdapter
+    @RequiresApi(Build.VERSION_CODES.N)
     private fun initializeGameAdapter() {
         gameStrArrayList = ArrayList()
 
@@ -69,9 +73,27 @@ class GamesFragment : BaseFragment<FragmentGamesBinding, GamesViewModel>(), AllG
 //            gameStrArrayList.add(i.name)
 //        }
 
+        Log.d("initializeGameAdapter", "initializeGameAdapter: ${GamesUID2.Flick.name}")
+        Log.d("initializeGameAdapter", "initializeGameAdapter: ${GamesUID2.Tetris.name}")
+        Log.d("initializeGameAdapter", "initializeGameAdapter: ${GamesUID2.RapidSorting.name}")
+        Log.d("initializeGameAdapter", "initializeGameAdapter: ${GamesUID2.SpinningBlock.name}")
+        Log.d("initializeGameAdapter", "initializeGameAdapter: ${GamesUID2.MakeTen.name}")
+        Log.d("initializeGameAdapter", "initializeGameAdapter: ${GamesUID2.HighLow.name}")
+
         GamesUID2.values().forEachIndexed { index, gamesUID2 ->
-            gameStrArrayList.add(GamesModel(returnGameName(gamesUID2.name), returnImg(gamesUID2.name)))
+
+            if (index != 3 || index != 6) {
+                gameStrArrayList.add(
+                    GamesModel(
+                        returnGameName(gamesUID2.name), returnImg(gamesUID2.name)
+                    )
+                )
+            }
         }
+
+        gameStrArrayList.removeIf { it.name == "Flick" || it.name == "Tetris" || it.name == "High Low" || it.name == "Make Ten" || it.name == "Rapid Sorting" || it.name == "Spinning Block"}
+
+
 
         val linearLayoutManager = GridLayoutManager(context, 3, RecyclerView.VERTICAL, false)
 
@@ -82,6 +104,7 @@ class GamesFragment : BaseFragment<FragmentGamesBinding, GamesViewModel>(), AllG
 
 
     }
+
     private fun returnGameName(enumNumberEnum: String): String {
 
 
@@ -224,6 +247,7 @@ class GamesFragment : BaseFragment<FragmentGamesBinding, GamesViewModel>(), AllG
 
 
     }
+
     override fun onClickGame(position: Int) {
         Log.d("123123", "onClickGame: ")
         var strname = GamesUID2.values()[position].name

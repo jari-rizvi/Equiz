@@ -1,6 +1,7 @@
 package com.teamx.equiz.ui.fragments.dashboard
 
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -8,6 +9,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.activity.addCallback
 import androidx.annotation.Keep
+import androidx.annotation.RequiresApi
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
@@ -59,6 +61,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
     lateinit var quizAdapter: QuizesAdapter
     lateinit var quizArrayList: ArrayList<Data>
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
          super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
@@ -380,6 +383,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     private fun initializeGameAdapter() {
         gameStrArrayList = ArrayList()
 
@@ -388,6 +392,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         GamesUID2.values().forEachIndexed { index, gamesUID2 ->
             gameStrArrayList.add(GamesModel(returnGameName(gamesUID2.name), returnImg(gamesUID2.name)))
         }
+
+        gameStrArrayList.removeIf { it.name == "Flick" || it.name == "Tetris" || it.name == "High Low" || it.name == "Make Ten" || it.name == "Rapid Sorting" || it.name == "Spinning Block"}
 
 
         val layoutManager1 =
