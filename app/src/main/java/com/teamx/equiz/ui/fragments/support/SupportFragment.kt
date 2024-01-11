@@ -2,28 +2,22 @@ package com.teamx.equiz.ui.fragments.support
 
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.webkit.WebResourceError
-import android.webkit.WebResourceRequest
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import androidx.activity.addCallback
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
-import com.teamx.equiz.databinding.FragmentReferralBinding
-import com.teamx.equiz.databinding.FragmentSubscriptionBinding
 import com.teamx.equiz.databinding.FragmentSupportBinding
-import com.teamx.equiz.ui.fragments.Auth.login.LoginViewModel
-import com.teamx.equiz.ui.fragments.referral.ReferralViewModel
 import com.teamx.equiz.ui.fragments.subscription.SubscriptionViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import androidx.activity.addCallback
-import androidx.navigation.fragment.findNavController
+
 
 @AndroidEntryPoint
 class SupportFragment : BaseFragment<FragmentSupportBinding, SubscriptionViewModel>() {
@@ -55,6 +49,15 @@ class SupportFragment : BaseFragment<FragmentSupportBinding, SubscriptionViewMod
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+
+        mViewDataBinding.textView39.setOnClickListener {
+            val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
+                data = Uri.parse("mailto:abc@xyz.com")
+            }
+            startActivity(Intent.createChooser(emailIntent, "Send feedback"))
+        }
+
+        mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
 
         mViewDataBinding.textView38.setOnClickListener {
 
@@ -97,4 +100,7 @@ class SupportFragment : BaseFragment<FragmentSupportBinding, SubscriptionViewMod
 
 
     }
+
+
+
 }

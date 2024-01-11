@@ -36,7 +36,7 @@ class LoaderBoardFragment : BaseFragment<FragmentLoaderBoardBinding, LoaderBoard
 
     private var isOdd = false
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
@@ -51,6 +51,11 @@ class LoaderBoardFragment : BaseFragment<FragmentLoaderBoardBinding, LoaderBoard
             }
         }
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
+
+        mViewDataBinding.constraintLayout10.setOnClickListener {
+            findNavController().navigate(R.id.userProgressFragment, arguments, options)
+
+        }
 
 //        initializeCategoriesAdapter()
 

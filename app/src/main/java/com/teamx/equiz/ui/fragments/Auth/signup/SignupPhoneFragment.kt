@@ -87,6 +87,12 @@ class SignupPhoneFragment : BaseFragment<FragmentSignupPhoneBinding, SignupViewM
                 e.printStackTrace()
             }
 
+            var bundle = arguments
+            if (bundle == null) {
+                bundle = Bundle()
+            }
+            bundle.putString("phone", userPhone)
+
 
             mViewModel.signup(params)
 
@@ -107,7 +113,7 @@ class SignupPhoneFragment : BaseFragment<FragmentSignupPhoneBinding, SignupViewM
 
                             it.data?.let { data ->
 
-                                findNavController().navigate(R.id.action_signupPhoneFragment_to_otpPhoneFragment,arguments,options)
+                                findNavController().navigate(R.id.action_signupPhoneFragment_to_otpPhoneFragment,bundle,options)
                                 Log.d("TAG", "otpVale: ${it.data.otp}")
 
 

@@ -151,6 +151,7 @@
                 android:layout_width="@dimen/_60sdp"
                 android:layout_height="@dimen/_60sdp"
                 android:background="@drawable/bg_circle"
+                android:backgroundTint="@android:color/transparent"
                 android:clipToOutline="true"
                 android:src="@drawable/icons"
                 android:scaleType="fitXY"

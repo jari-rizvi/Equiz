@@ -214,6 +214,8 @@
     <string name="contact_support_team">Contact Support Team</string>
     <string name="top_up_successfully_done">Top Up Successfully Done</string>
     <string name="you_earned_1000_points">You Earned 1000 Points</string>
+    <string name="enter_your_email">Enter Your Email</string>
+    <string name="enter_your_number">Enter Your Number</string>
 
 
 </resources>

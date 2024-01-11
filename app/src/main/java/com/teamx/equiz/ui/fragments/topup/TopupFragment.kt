@@ -440,7 +440,6 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
                                     allowsDelayedPaymentMethods = false,
                                     googlePay = googlePayConfiguration
                                 )
-
 //
                                 //abhi comment karaha hu
                                 paymentSheet.presentWithPaymentIntent(
@@ -496,7 +495,6 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
             }
 
             is PaymentSheetResult.Completed -> {
-
                 DialogHelperClass.topUpDialog(
                     requireContext(), this, true,priceAddTopUp.toString()
                 )
@@ -603,6 +601,6 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
 
     }
 
-////////////
+
 
 }

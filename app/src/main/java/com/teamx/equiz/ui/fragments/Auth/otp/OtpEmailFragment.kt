@@ -47,6 +47,8 @@ class OtpEmailFragment : BaseFragment<FragmentOtpEmailBinding, OtpViewModel>() {
         mViewDataBinding.btnVerify.setOnClickListener {
             verifyotpForgot()
         }
+
+
     }
 
     fun verifyotpForgot() {

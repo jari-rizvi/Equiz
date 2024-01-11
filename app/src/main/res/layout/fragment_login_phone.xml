@@ -63,7 +63,7 @@
                 android:background="@android:color/transparent"
                 android:gravity="center_vertical|start"
                 android:textAlignment="viewStart"
-                android:hint="@string/enter_your_email_or_number"
+                android:hint="@string/enter_your_number"
                 android:imeOptions="actionNext"
                 android:inputType="text"
 

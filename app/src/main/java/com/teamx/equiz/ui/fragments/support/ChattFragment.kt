@@ -62,7 +62,7 @@ class ChattFragment : BaseFragment<FragmentChatBinding, SubscriptionViewModel>()
             webView.settings.domStorageEnabled = true // Tawk.to uses local storage
 
 // Load Tawk.to chat widget URL
-            webView.loadUrl("https://tawk.to/chat/652946c76fcfe87d54b97f12/1hckjove5")
+            webView.loadUrl("https://tawk.to/chat/659eb44f8d261e1b5f519728/1hjpv0mb5")
 
 
 

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
 import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
@@ -46,80 +47,82 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
         service = CounterNotificationService(applicationContext)
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
 
-       /* mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+        mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
-        mViewDataBinding.drawerLayoutMain.btneccomernce.setOnClickListener {
-            mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-            navController!!.navigate(R.id.ecommerceFragment)
-        }
-        mViewDataBinding.drawerLayoutMain.btnHome.setOnClickListener {
-            mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-            navController!!.navigate(R.id.dashboardFragment)
-        }
-        mViewDataBinding.drawerLayoutMain.btnquiz.setOnClickListener {
-            mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-            navController!!.navigate(R.id.quizesFragment)
-        }
-        mViewDataBinding.drawerLayoutMain.btnWallet.setOnClickListener {
-            mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-            navController!!.navigate(R.id.walletFragment)
-        }
+        /* mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
-        mViewDataBinding.drawerLayoutMain.btnReffeal.setOnClickListener {
-            mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-            navController!!.navigate(R.id.referralFragment)
-        }
+         mViewDataBinding.drawerLayoutMain.btneccomernce.setOnClickListener {
+             mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+             navController!!.navigate(R.id.ecommerceFragment)
+         }
+         mViewDataBinding.drawerLayoutMain.btnHome.setOnClickListener {
+             mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+             navController!!.navigate(R.id.dashboardFragment)
+         }
+         mViewDataBinding.drawerLayoutMain.btnquiz.setOnClickListener {
+             mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+             navController!!.navigate(R.id.quizesFragment)
+         }
+         mViewDataBinding.drawerLayoutMain.btnWallet.setOnClickListener {
+             mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+             navController!!.navigate(R.id.walletFragment)
+         }
 
-        mViewDataBinding.drawerLayoutMain.btnProfile.setOnClickListener {
-            mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-            navController!!.navigate(R.id.profileFragment)
-        }
+         mViewDataBinding.drawerLayoutMain.btnReffeal.setOnClickListener {
+             mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+             navController!!.navigate(R.id.referralFragment)
+         }
 
-        mViewDataBinding.drawerLayoutMain.btnNotification.setOnClickListener {
-            mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-            navController!!.navigate(R.id.notificationsFragment)
-        }
+         mViewDataBinding.drawerLayoutMain.btnProfile.setOnClickListener {
+             mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+             navController!!.navigate(R.id.profileFragment)
+         }
 
-        mViewDataBinding.drawerLayoutMain.btnNews.setOnClickListener {
-            mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-            navController!!.navigate(R.id.newsFragment)
-        }
+         mViewDataBinding.drawerLayoutMain.btnNotification.setOnClickListener {
+             mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+             navController!!.navigate(R.id.notificationsFragment)
+         }
 
-        mViewDataBinding.drawerLayoutMain.btnSupport.setOnClickListener {
-            mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-            navController!!.navigate(R.id.supportFragment)
-        }
+         mViewDataBinding.drawerLayoutMain.btnNews.setOnClickListener {
+             mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+             navController!!.navigate(R.id.newsFragment)
+         }
 
-        mViewDataBinding.drawerLayoutMain.btnSetting.setOnClickListener {
-            mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-            Toast.makeText(this, "Comming Soom", Toast.LENGTH_SHORT).show();
-        }
+         mViewDataBinding.drawerLayoutMain.btnSupport.setOnClickListener {
+             mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+             navController!!.navigate(R.id.supportFragment)
+         }
 
-        mViewDataBinding.drawerLayoutMain.btnTermsAndCondition.setOnClickListener {
-            mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-            navController!!.navigate(R.id.wishlistFragment)
-            Toast.makeText(this, "Comming Soom", Toast.LENGTH_SHORT).show();
-        }
+         mViewDataBinding.drawerLayoutMain.btnSetting.setOnClickListener {
+             mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+             Toast.makeText(this, "Comming Soom", Toast.LENGTH_SHORT).show();
+         }
 
-        mViewDataBinding.drawerLayoutMain.btnCollectPrize.setOnClickListener {
-            mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-            navController!!.navigate(R.id.profileFragment)
-        }
+         mViewDataBinding.drawerLayoutMain.btnTermsAndCondition.setOnClickListener {
+             mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+             navController!!.navigate(R.id.wishlistFragment)
+             Toast.makeText(this, "Comming Soom", Toast.LENGTH_SHORT).show();
+         }
 
-        mViewDataBinding.drawerLayoutMain.btnCoupon.setOnClickListener {
-            mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-            navController!!.navigate(R.id.coupnsFragment
-            )
-        }
+         mViewDataBinding.drawerLayoutMain.btnCollectPrize.setOnClickListener {
+             mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+             navController!!.navigate(R.id.profileFragment)
+         }
 
-        mViewDataBinding.drawerLayoutMain.btnleaderboard.setOnClickListener {
-            mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-            navController!!.navigate(R.id.loaderBoardFragment)
-        }
-        mViewDataBinding.drawerLayoutMain.btnSubscribe.setOnClickListener {
-            mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-            navController!!.navigate(R.id.subscriptionFragment)
-        }*/
+         mViewDataBinding.drawerLayoutMain.btnCoupon.setOnClickListener {
+             mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+             navController!!.navigate(R.id.coupnsFragment
+             )
+         }
+
+         mViewDataBinding.drawerLayoutMain.btnleaderboard.setOnClickListener {
+             mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+             navController!!.navigate(R.id.loaderBoardFragment)
+         }
+         mViewDataBinding.drawerLayoutMain.btnSubscribe.setOnClickListener {
+             mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+             navController!!.navigate(R.id.subscriptionFragment)
+         }*/
 
 
         setBottomNavigationWithNavController(savedInstanceState)

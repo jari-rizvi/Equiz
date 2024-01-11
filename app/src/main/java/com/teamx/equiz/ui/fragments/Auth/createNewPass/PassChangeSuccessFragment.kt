@@ -49,7 +49,9 @@ class PassChangeSuccessFragment : BaseFragment<FragmentPassChangeSuccessBinding,
         }
 
         mViewDataBinding.btnVerify.setOnClickListener {
-            findNavController().navigate(R.id.action_passChangeSuccessFragment_to_logInFragment,arguments,options)
+            findNavController().navigate(R.id.temp2Fragment, arguments, options)
+
+//            findNavController().navigate(R.id.action_passChangeSuccessFragment_to_logInFragment,arguments,options)
 
         }
 

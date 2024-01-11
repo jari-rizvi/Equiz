@@ -47,7 +47,6 @@ class OtpPhoneFragment : BaseFragment<FragmentOtpPhoneBinding, OtpViewModel>() {
             }
         }
 
-
         mViewDataBinding.btnVerify.setOnClickListener {
             verifyotpForgot()
         }
@@ -64,7 +63,7 @@ class OtpPhoneFragment : BaseFragment<FragmentOtpPhoneBinding, OtpViewModel>() {
             bundle = Bundle()
         }
 
-        val phoneNumber = bundle?.getString("phoneNumber")
+        val phoneNumber = bundle?.getString("phone")
 
         val code = mViewDataBinding.pinView.text.toString()
 
