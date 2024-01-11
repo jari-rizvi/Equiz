@@ -253,11 +253,11 @@ fun HighLowComponent(content: (boo:Boolean, rightAnswer:Int, totalAnswer:Int) ->
                                     }
 
                                     (dragAmount.y >= 2.0 && randomInt == 2)&&dragged -> {
-                                        totalGameAnswersHigh++
+//                                        totalGameAnswersHigh++
                                     }
                                     (dragAmount.y <= -2.0 && randomInt == 1)&&dragged -> {
 
-                                        totalGameAnswersHigh++
+//                                        totalGameAnswersHigh++
                                     }
 
                                 }
