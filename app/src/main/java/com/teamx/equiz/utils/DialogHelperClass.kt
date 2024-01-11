@@ -139,6 +139,8 @@ class DialogHelperClass {
                 } else {
                 }
                 dialog.dismiss()
+
+
             }
             btn_social_fb3.setOnClickListener {
                 if (boo) {
