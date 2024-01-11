@@ -389,6 +389,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
 
 
+
         GamesUID2.values().forEachIndexed { index, gamesUID2 ->
             gameStrArrayList.add(GamesModel(returnGameName(gamesUID2.name), returnImg(gamesUID2.name)))
         }
