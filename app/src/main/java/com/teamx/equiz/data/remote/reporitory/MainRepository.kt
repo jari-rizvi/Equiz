@@ -113,5 +113,9 @@ class MainRepository @Inject constructor(
     suspend fun collectPrizeRaffal() = apiService.collectPrizeRaffal()
     suspend fun claimedPrizeRaffal(@Query("claimed") claimed: String) = apiService.claimedPrizeRaffal(claimed)
 
+    suspend fun getAddressList() = apiService.getAddressList()
+    suspend fun addAddress(@Body param: JsonObject) = apiService.addAddress(param)
+    suspend fun deleteAddress(@Path("addressId") addressId: String) = apiService.deleteAddress(addressId)
+
 
 }

@@ -69,6 +69,10 @@ class NetworkCallPoints {
 
 
         const val UPLOAD_IMGS = "api/users/upload"
+        const val GET_ADDRESS_LIST = "api/users/findAddress"
+        const val ADD_ADDRESS = "/api/users/addAddress"
+        const val DELETE_ADDRESS ="api/users/removeAddress/{addressId}"
+
 
 
         var TOKENER: String? = ""

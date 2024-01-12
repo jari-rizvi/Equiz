@@ -79,6 +79,13 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
                 R.id.settingsFragment, arguments, options
             )
         }
+
+        mViewDataBinding.btnWishlist.setOnClickListener {
+
+            findNavController().navigate(
+                R.id.wishlistFragment, arguments, options
+            )
+        }
         mViewDataBinding.textView155.setOnClickListener {
 
             findNavController().navigate(

@@ -114,7 +114,7 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
         cartRecyclerview()
         mViewDataBinding.btnProceed.setOnClickListener {
             if (cartArrayList2.isNotEmpty()) {
-                findNavController().navigate(R.id.addressFragment, arguments, options)
+                findNavController().navigate(R.id.addressListFragment, arguments, options)
             } else {
                 showToast("Cart is Empty")
             }

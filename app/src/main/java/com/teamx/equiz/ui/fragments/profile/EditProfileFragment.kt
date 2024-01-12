@@ -76,10 +76,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
         }
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
         mViewDataBinding.btnChangePass.setOnClickListener {
-
-
             findNavController().navigate(R.id.changePassFragment, arguments, options)
-
         }
 
         mViewDataBinding.btnAddPicture.setOnClickListener {
@@ -132,9 +129,6 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                         loadingDialog.dismiss()
                         it.data?.let { data ->
                             if (data.user.image.isNotEmpty()){
-
-//                            Picasso.get().load(data.user.image).resize(500, 500)
-//                                .into(mViewDataBinding.profilePicture)
                             Glide.with(mViewDataBinding.profilePicture.context).load(data.user.image).into(mViewDataBinding.profilePicture)
                             }
 
@@ -192,7 +186,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                         it.data?.let { data ->
                             try {
 
-
+                                Glide.with(mViewDataBinding.profilePicture.context).load(data.user.image).into(mViewDataBinding.profilePicture)
                                 imageUrl = data.user.image
 //                            userDOB = data.user.dateOfBirth.toString()
                                 userEmail = data.user.email
@@ -205,7 +199,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
 
 //                                Picasso.get().load(data.user.image).resize(500, 500)
 //                                    .into(mViewDataBinding.profilePicture)
-                                Glide.with(mViewDataBinding.profilePicture.context).load(data.user.image).into(mViewDataBinding.profilePicture)
+
 
 
                             }
@@ -244,7 +238,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                             try {
 //                                Picasso.get().load(imageUrl).resize(500, 500)
 //                                    .into(mViewDataBinding.profilePicture)
-                                Glide.with(mViewDataBinding.profilePicture.context).load(imageUrl).into(mViewDataBinding.profilePicture)
+                                Glide.with(mViewDataBinding.profilePicture.context).load(data.image).into(mViewDataBinding.profilePicture)
 
                             }
                             catch (e: Exception) {

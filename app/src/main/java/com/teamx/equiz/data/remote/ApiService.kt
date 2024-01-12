@@ -34,6 +34,7 @@ import com.teamx.equiz.data.models.topWinnerData.TopWinnerData
 import com.teamx.equiz.data.models.wishlistdata.WishlistData
 import com.teamx.equiz.ui.fragments.Auth.datanotify.DataFCMModel
 import com.teamx.equiz.ui.fragments.address.dataclasses.AddressOrderCreate
+import com.teamx.equiz.ui.fragments.address.dataclasses.getAddressList.GetAddressListData
 import com.teamx.equiz.ui.fragments.chances.data.ChancesModelData
 import com.teamx.equiz.ui.fragments.collectPrice.data.CollectDataModel
 import com.teamx.equiz.ui.fragments.ecommerce.data.CategoryEcomData
@@ -48,6 +49,7 @@ import com.teamx.equiz.ui.fragments.topup.data.TopUpModelData
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.HTTP
 import retrofit2.http.Header
@@ -72,14 +74,15 @@ interface ApiService {
 
     @GET(NetworkCallPoints.BANNERS_DATA)
     suspend fun getBannersDashboard(
-        @Query("country") country: String="",
-        @Header("type") type: String="home",
+        @Query("country") country: String = "",
+        @Header("type") type: String = "home",
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<NewsImagesDataModel>
+
     @GET(NetworkCallPoints.BANNERS_DATA)
     suspend fun getBannersEco(
-        @Query("country") country: String="",
-        @Header("type") type: String="shop",
+        @Query("country") country: String = "",
+        @Header("type") type: String = "shop",
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<NewsImagesDataModel>
 
@@ -284,7 +287,8 @@ interface ApiService {
     @GET(NetworkCallPoints.COLLECT_PRIZE)
     suspend fun claimedPrizeRaffal(
         @Query("claimed") claimed: String,
-        @Header("token") basicCredentials: String = "$TOKENER"): Response<CollectDataModel>
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<CollectDataModel>
 
     @PUT(NetworkCallPoints.UPDATE_PROFILE)
     suspend fun updateProfile(
@@ -356,4 +360,20 @@ interface ApiService {
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<TopWinnerData>
 
+
+    @GET(NetworkCallPoints.GET_ADDRESS_LIST)
+    suspend fun getAddressList(
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<GetAddressListData>
+
+    @POST(NetworkCallPoints.ADD_ADDRESS)
+    suspend fun addAddress(
+        @Body params: JsonObject?, @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<GetAddressListData>
+
+    @HTTP(method = "DELETE", path = NetworkCallPoints.DELETE_ADDRESS)
+    suspend fun deleteAddress(
+        @Path("addressId") uniqueID: String,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<GetAddressListData>
 }

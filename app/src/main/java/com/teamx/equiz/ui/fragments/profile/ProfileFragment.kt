@@ -77,6 +77,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
 
                                 mViewDataBinding.textView3.setText(data.user.name)
                                 mViewDataBinding.textView4.setText(data.user.email)
+                                mViewDataBinding.textView4.setText(data.user.phone)
                                 mViewDataBinding.textView52.setText(data.user.chances.toString())
                                 mViewDataBinding.textView51.setText(data.user.score.toString())
 

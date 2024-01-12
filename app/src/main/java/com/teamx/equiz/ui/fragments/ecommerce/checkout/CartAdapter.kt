@@ -43,7 +43,7 @@ class CartAdapter(var arrayList: ArrayList<Data>, val onCartListener: OnCartList
             ""
         }
         holder.binding.productprice.text = try {
-            "${cart.product.price.toString()}"
+            "${cart.product.price}"
         } catch (e: Exception) {
             ""
         }

@@ -515,6 +515,10 @@
         android:id="@+id/userProgressFragment"
         android:name="com.teamx.equiz.ui.fragments.userprogress.UserProgressFragment"
         android:label="UserProgressFragment" />
+    <fragment
+        android:id="@+id/addressListFragment"
+        android:name="com.teamx.equiz.ui.fragments.address.AddressListFragment"
+        android:label="AddressListFragment" />
 
 
 </navigation>

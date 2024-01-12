@@ -8,13 +8,18 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.gson.Gson
 import com.google.gson.JsonObject
@@ -23,16 +28,26 @@ import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentAddressBinding
+import com.teamx.equiz.games.games.arr
+import com.teamx.equiz.ui.fragments.address.bottomSheetAddSearch.BottomSheetAddressFragment
+import com.teamx.equiz.ui.fragments.address.bottomSheetAddSearch.BottomSheetListener
 import com.teamx.equiz.ui.fragments.address.dataclasses.ShippingInfo
 import com.teamx.equiz.utils.DialogHelperClass
 import com.teamx.equiz.utils.LocationPermission
+import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.json.JSONException
 import java.io.IOException
 import java.util.Locale
 
 @AndroidEntryPoint
-class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>() {
+class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>(),
+    BottomSheetListener {
 
     override val layoutId: Int
         get() = R.layout.fragment_address
@@ -40,13 +55,16 @@ class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>()
         get() = AddressViewModel::class.java
     override val bindingVariable: Int
         get() = BR.viewModel
-
-
+    private lateinit var googleMap: GoogleMap
+    private var isMapBeingDragged = true
+    private lateinit var bottomSheetAddSearchFragment: BottomSheetAddressFragment
     private lateinit var options: NavOptions
+    private var myJob: Job? = null
+
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
@@ -60,71 +78,77 @@ class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>()
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+        txtBottomLocation = view.findViewById(R.id.editAddress1)
+
 
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
 
-
-        mViewDataBinding.imgLocation.setOnClickListener {
-
-            locationPermissionRequest.launch(
-                arrayOf(
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                )
-            )
+        bottomSheetAddSearchFragment = BottomSheetAddressFragment()
+        bottomSheetAddSearchFragment.setBottomSheetListener(this)
 
 
-        }
         mViewDataBinding.btnProceed.setOnClickListener {
+            isValidate()
+
+        }
 
 
-            val country = mViewDataBinding.country.text.toString()
-            val city = mViewDataBinding.city.text.toString()
-            val etPostal = mViewDataBinding.etPostal.text.toString()
-            val etState = mViewDataBinding.etState.text.toString()
-            val etName = mViewDataBinding.etName.text.toString()
-            val etPhone = mViewDataBinding.etPhone.text.toString()
-            val address = mViewDataBinding.editAddress1.text.toString()
 
-            val params = JsonObject()
-            try {
+        mViewDataBinding.editAddress1.setOnClickListener {
 
-
-                params.add(
-                    "shippingInfo", Gson().toJsonTree(
-                        ShippingInfo(
-                            address = address,
-                            phoneNumber = etPhone,
-                            postalCode = etPostal,
-                            city = city,
-                            state = etState,
-                            country = country,
-                        )
-                    )
+            if (!bottomSheetAddSearchFragment.isAdded) {
+                bottomSheetAddSearchFragment.show(
+                    parentFragmentManager,
+                    bottomSheetAddSearchFragment.tag
                 )
-
-//                params.addProperty("couponCode", "EXTRA69-365-448-1043")
-
-            } catch (e: JSONException) {
-                e.printStackTrace()
-            }
-            if (address.isNullOrEmpty()) {
-                showToast("Please add Address")
-            } else {
-                if (country.isNotEmpty()
-                    && city.isNotEmpty()
-                    && etPostal.isNotEmpty()
-                    && etState.isNotEmpty()
-                    && etPhone.isNotEmpty()
-                    && address.isNotEmpty()
-                ) {
-
-                    mViewModel.createOrder(params)
-                }else{
-                    showToast("Please add Details")
-                }
             }
         }
+//        mViewDataBinding.btnProceed.setOnClickListener {
+//
+//
+////            val country = mViewDataBinding.country.text.toString()
+////            val city = mViewDataBinding.city.text.toString()
+////            val etPostal = mViewDataBinding.etPostal.text.toString()
+////            val etState = mViewDataBinding.etState.text.toString()
+////            val etName = mViewDataBinding.etName.text.toString()
+//            val etPhone = mViewDataBinding.etPhone.text.toString()
+//            val address = mViewDataBinding.editAddress1.text.toString()
+//
+//            val params = JsonObject()
+//            try {
+//
+//
+//                params.add(
+//                    "shippingInfo", Gson().toJsonTree(
+//                        ShippingInfo(
+//                            address = address,
+//                            phoneNumber = etPhone,
+//                            postalCode = "etPostal",
+//                            city = "city",
+//                            state = "etState",
+//                            country = "country",
+//                        )
+//                    )
+//                )
+//
+////                params.addProperty("couponCode", "EXTRA69-365-448-1043")
+//
+//            } catch (e: JSONException) {
+//                e.printStackTrace()
+//            }
+//            if (address.isNullOrEmpty()) {
+//                showToast("Please add Address")
+//            } else {
+//                if (etPhone.isNotEmpty()
+//                    && address.isNotEmpty()
+//                ) {
+//
+//                    mViewModel.createOrder(params)
+//                } else {
+//                    showToast("Please add Details")
+//                }
+//            }
+//        }
 
 
         if (!mViewModel.createOrderResponse.hasActiveObservers()) {
@@ -156,9 +180,12 @@ class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>()
                             )
                         }
                     }
-                    Resource.Status.AUTH -> { loadingDialog.dismiss()
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
                         onToSignUpPage()
                     }
+
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
                         DialogHelperClass.errorDialog(
@@ -178,34 +205,127 @@ class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>()
 
     }
 
+
+    fun ApiCall() {
+
+        val label = mViewDataBinding.etLabel.text.toString()
+        val address = mViewDataBinding.editAddress1.text.toString()
+        val phoneNumber = mViewDataBinding.etPhone.text.toString()
+
+
+        if (!label!!.isEmpty() || !address!!.isEmpty() || !phoneNumber!!.isEmpty()) {
+
+            val addressses = Address2(
+                label = label,
+                address = address,
+                phoneNumber = phoneNumber
+            )
+            Log.d("TAG", "labellabellabel: $label")
+            val params = JsonObject()
+            try {
+                params.add(
+                    "addresses", Gson().toJsonTree(addressses)
+                )
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
+            mViewModel.addAddress(params)
+            if (!mViewModel.addAddressResponse.hasActiveObservers()) {
+                mViewModel.addAddressResponse.observe(requireActivity()) {
+                    when (it.status) {
+                        Resource.Status.LOADING -> {
+                            loadingDialog.show()
+                        }
+
+                        Resource.Status.NOTVERIFY -> {
+                            loadingDialog.dismiss()
+                        }
+
+                        Resource.Status.SUCCESS -> {
+                            loadingDialog.dismiss()
+                            it.data?.let { data ->
+                                findNavController().popBackStack()
+
+                            }
+                        }
+
+                        Resource.Status.AUTH -> {
+                            loadingDialog.dismiss()
+                            onToSignUpPage()
+                        }
+
+                        Resource.Status.ERROR -> {
+                            loadingDialog.dismiss()
+                            DialogHelperClass.errorDialog(
+                                requireContext(),
+                                it.message!!
+                            )
+                        }
+                    }
+                    if (isAdded) {
+                        mViewModel.addAddressResponse.removeObservers(
+                            viewLifecycleOwner
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+    fun isValidate(): Boolean {
+        if (mViewDataBinding.etLabel.text.toString().trim().isEmpty()) {
+            if (isAdded) {
+                mViewDataBinding.root.snackbar(getString(R.string.enter_label))
+            }
+            return false
+        }
+
+        if (mViewDataBinding.etPhone.text.toString().trim().isEmpty()) {
+            if (isAdded) {
+                mViewDataBinding.root.snackbar(getString(R.string.enter_phone))
+            }
+            return false
+        }
+        if (mViewDataBinding.editAddress1.text.toString().trim().isEmpty()) {
+            if (isAdded) {
+                mViewDataBinding.root.snackbar(getString(R.string.enter_address))
+            }
+            return false
+        }
+
+        ApiCall()
+        return true
+    }
+
     @RequiresApi(Build.VERSION_CODES.N)
     val locationPermissionRequest = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
     ) { permissions ->
 
-        if (LocationPermission.requestPermission(requireContext())){
-           requestLocation()
+        if (LocationPermission.requestPermission(requireContext())) {
+            requestLocation()
 
 
-        }else{
+        } else {
             Log.d("allowLocation", "locationPermissionRequest: not working")
         }
     }
 
 
-
     @SuppressLint("MissingPermission")
     private fun requestLocation() {
 
-        val fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+        val fusedLocationClient =
+            LocationServices.getFusedLocationProviderClient(requireActivity())
 
         fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
             // Handle the location result
-             if (location != null) {
-                 val getAddress = getAddressFromLocation(LatLng(location.latitude, location.longitude))
+            if (location != null) {
+                val getAddress =
+                    getAddressFromLocation(LatLng(location.latitude, location.longitude))
 
 
-                 Log.e("requestLocation", "getAddress, ${getAddress}")
+                Log.e("requestLocation", "getAddress, ${getAddress}")
             } else {
 
             }
@@ -237,10 +357,10 @@ class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>()
                 val addressStr = "$addressLine, $city\n$state, $country, $postalCode"
 
                 mViewDataBinding.editAddress1.setText(addressStr)
-                mViewDataBinding.country.setText(country)
-                mViewDataBinding.city.setText(city)
-                mViewDataBinding.etState.setText(state)
-                mViewDataBinding.etPostal.setText(postalCode)
+//                mViewDataBinding.country.setText(country)
+//                mViewDataBinding.city.setText(city)
+//                mViewDataBinding.etState.setText(state)
+//                mViewDataBinding.etPostal.setText(postalCode)
 
                 // Do something with the address information
                 Log.d("requestLocation", "addresses: $addresses")
@@ -256,4 +376,64 @@ class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>()
         }
 
     }
+//    override fun onMapReady(p0: GoogleMap) {
+//        googleMap = p0
+//
+////        getLocationObserver()
+//
+//        googleMap.setOnCameraIdleListener {
+//            myJob?.cancel()
+//            myJob = GlobalScope.launch(Dispatchers.Main) {
+//                if (isMapBeingDragged) {
+//
+//                    val currentLatLng = googleMap.cameraPosition.target
+////                    mViewDataBinding.locationLoader.visibility = View.VISIBLE
+//                    val result = withContext(Dispatchers.IO) {
+//                        getAddressFromLocation(currentLatLng)
+//                    }
+//                    latLngFinal = currentLatLng
+////                    mViewDataBinding.locationLoader.visibility = View.GONE
+////                    updateUi(result, "", "", "", addressLabel)
+//                }
+//                isMapBeingDragged = true
+//            }
+//        }
+//    }
+
+
+    private lateinit var txtBottomLocation: TextView
+    private var latLngFinal: LatLng? = null
+
+    private fun updateUi(
+        result: String,
+        appartment: String,
+        building: String,
+        additionalInfo: String,
+        label: String
+    ) {
+        mViewDataBinding.editAddress1.setText(result)
+        txtBottomLocation.text = result
+
+
+    }
+
+    private var addressLabel = "Home"
+
+    override fun onBottomSheetDataReceived(data: String, latLng: LatLng) {
+        isMapBeingDragged = false
+
+        updateUi(data, "", "", "", addressLabel)
+        bottomSheetAddSearchFragment.dismiss()
+
+        latLngFinal = latLng
+
+//        googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng), 1000, null)
+
+//        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17f))
+
+        Log.e("requestLocation", "data, $data")
+        Log.e("requestLocation", "latLng, $latLng")
+    }
+
+
 }
