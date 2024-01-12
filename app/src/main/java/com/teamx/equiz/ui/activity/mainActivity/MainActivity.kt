@@ -1,5 +1,6 @@
 package com.teamx.equiz.ui.activity.mainActivity
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
@@ -10,6 +11,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.teamx.equiz.BR
+import com.teamx.equiz.MainApplication
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseActivity
 import com.teamx.equiz.databinding.ActivityMainBinding
@@ -35,7 +37,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
     lateinit var progress_bar: ProgressBar
     private var navController: NavController? = null
 
-
+    override fun attachBaseContext(newBase: Context?) =
+        super.attachBaseContext(MainApplication.localeManager!!.setLocale(newBase!!))
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -144,7 +147,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
                 }
 
                 R.id.gamesFragment -> {
-
                     mViewDataBinding.bottomNavigationq.setSelectedIndex(1)
                      mViewDataBinding.bottomNavigationq?.visibility = View.VISIBLE
                 }

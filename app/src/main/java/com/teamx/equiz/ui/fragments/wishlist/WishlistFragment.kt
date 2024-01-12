@@ -86,7 +86,13 @@ class WishlistFragment : BaseFragment<FragmentWishlistBinding, WishlistViewModel
                         }
                     }
                     Resource.Status.AUTH -> { loadingDialog.dismiss()
-                        onToSignUpPage()
+                         if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
                     }
                     Resource.Status.ERROR -> {
                         mViewDataBinding.shimmerLayout.visibility = View.GONE
@@ -155,7 +161,13 @@ class WishlistFragment : BaseFragment<FragmentWishlistBinding, WishlistViewModel
                         }
                     }
                     Resource.Status.AUTH -> { loadingDialog.dismiss()
-                        onToSignUpPage()
+                         if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
                     }
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()

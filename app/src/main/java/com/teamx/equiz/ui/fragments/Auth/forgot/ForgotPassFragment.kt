@@ -120,7 +120,13 @@ class ForgotPassFragment : BaseFragment<FragmentForgotPassBinding, ForgotPassVie
                                 }
                             }
                             Resource.Status.AUTH -> { loadingDialog.dismiss()
+                                 if (isAdded) {
+                            try {
                                 onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
                             }
                             Resource.Status.ERROR -> {
                                 loadingDialog.dismiss()
@@ -151,7 +157,13 @@ class ForgotPassFragment : BaseFragment<FragmentForgotPassBinding, ForgotPassVie
                                 }
                             }
                             Resource.Status.AUTH -> { loadingDialog.dismiss()
+                                 if (isAdded) {
+                            try {
                                 onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
                             }
                             Resource.Status.ERROR -> {
                                 loadingDialog.dismiss()

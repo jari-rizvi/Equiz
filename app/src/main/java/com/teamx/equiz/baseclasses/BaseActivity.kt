@@ -1,5 +1,6 @@
 package com.teamx.equiz.baseclasses
 
+import android.content.Context
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.annotation.LayoutRes
@@ -7,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
+import com.teamx.equiz.MainApplication
 
 
 abstract class BaseActivity<T : ViewDataBinding, V : BaseViewModel> : AppCompatActivity() {
@@ -50,5 +52,7 @@ abstract class BaseActivity<T : ViewDataBinding, V : BaseViewModel> : AppCompatA
         mViewDataBinding.executePendingBindings()
 
     }
-
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(MainApplication.localeManager!!.setLocale(newBase!!))
+    }
 }

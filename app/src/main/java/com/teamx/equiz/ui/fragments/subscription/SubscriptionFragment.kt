@@ -179,7 +179,13 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
                         }
                     }
                     Resource.Status.AUTH -> { loadingDialog.dismiss()
-                        onToSignUpPage()
+                         if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
                     }
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
@@ -246,7 +252,13 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
 
                     Resource.Status.AUTH -> {
                         loadingDialog.dismiss()
-                        onToSignUpPage()
+                         if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
                     }
 
                     Resource.Status.ERROR -> {

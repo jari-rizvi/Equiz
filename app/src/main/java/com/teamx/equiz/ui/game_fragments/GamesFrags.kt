@@ -47,6 +47,7 @@ import com.teamx.equiz.games.games.TouchTheColorGameScreen
 import com.teamx.equiz.games.games.TouchTheNumGamePlus
 import com.teamx.equiz.games.games.TouchTheShapesGameScreen
 import com.teamx.equiz.games.games.WeatherCastGame
+import com.teamx.equiz.games.games.learningy.FlicksSc
 import com.teamx.equiz.games.games.learningy.NumPlus
 import com.teamx.equiz.games.games.learningy.ViewMatching
 import com.teamx.equiz.games.games.learningy.follows.UnfollowTouchTheNumGamePlus
@@ -421,7 +422,7 @@ class FlickGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>()
         }
 
         composeView.setContent {
-            FlickGameScreen(content = { bool, rightAnswer, total ->
+            FlicksSc(content = { bool, rightAnswer, total ->
                 if (bool) {
                     var argumentBundle = arguments
                     if (argumentBundle == null) {
@@ -1280,7 +1281,13 @@ class ResultComposeFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMode
 
                 Resource.Status.AUTH -> {
                     loadingDialog.dismiss()
-                    onToSignUpPage()
+                     if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
                 }
 
                 Resource.Status.ERROR -> {

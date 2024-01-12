@@ -129,7 +129,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                         loadingDialog.dismiss()
                         it.data?.let { data ->
                             if (data.user.image.isNotEmpty()){
-                            Glide.with(mViewDataBinding.profilePicture.context).load(data.user.image).into(mViewDataBinding.profilePicture)
+                            Glide.with(mViewDataBinding.profilePicture.context).load(data.user.image).placeholder(R.drawable.baseline_person_white).into(mViewDataBinding.profilePicture)
                             }
 
                             mViewDataBinding.userName.setText(data.user.name)
@@ -157,7 +157,13 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                         }
                     }
                     Resource.Status.AUTH -> { loadingDialog.dismiss()
-                        onToSignUpPage()
+                         if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
                     }
                     Resource.Status.ERROR -> {
 
@@ -210,7 +216,13 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                         }
                     }
                     Resource.Status.AUTH -> { loadingDialog.dismiss()
-                        onToSignUpPage()
+                         if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
                     }
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
@@ -247,7 +259,13 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                         }
                     }
                     Resource.Status.AUTH -> { loadingDialog.dismiss()
-                        onToSignUpPage()
+                         if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
                     }
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()

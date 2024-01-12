@@ -16,7 +16,7 @@
             android:layout_height="@dimen/_75sdp"
             android:layout_centerInParent="true"
             android:background="@drawable/border_background"
-            android:elevation="@dimen/_5sdp"
+            android:src="@drawable/baseline_person_white"
             android:padding="@dimen/_2sdp"
             app:layout_constraintBottom_toTopOf="@+id/constraintLayout5"
             app:layout_constraintEnd_toEndOf="parent"

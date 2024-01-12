@@ -86,7 +86,13 @@ class CoupnsFragment : BaseFragment<FragmentCouponsBinding, CouponsViewModel>(),
                         }
                     }
                     Resource.Status.AUTH -> { loadingDialog.dismiss()
-                        onToSignUpPage()
+                         if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
                     }
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()

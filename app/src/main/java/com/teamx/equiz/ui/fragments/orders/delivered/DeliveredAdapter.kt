@@ -33,7 +33,7 @@ class DeliveredAdapter(
 
 
         holder.binding.orderId.text = "Order#" + orders._id
-        holder.binding.amount.text = orders.totalPoints.toString()
+        holder.binding.amount.text = orders.totalPrice.toString()
         val o = orders.createdAt.toString().replaceAfter('T', "").replace("T", "")
 
         holder.binding.textView42.text = "Delivered"

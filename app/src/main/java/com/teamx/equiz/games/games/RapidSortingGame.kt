@@ -237,7 +237,11 @@ var dragged2 = true
 
                     )
                     .pointerInput(Unit) {
-                        detectDragGestures { change, dragAmount ->
+                        detectDragGestures(
+                            onDragEnd = {
+                                wrongGameAnswersRapid++
+                            }
+                        ) { change, dragAmount ->
 
 
                             when {
@@ -250,7 +254,7 @@ var dragged2 = true
                                         transitionState.targetState = true
                                         i232 = 1
                                         rightGameAnswersRapid++
-                                        wrongGameAnswersRapid++
+
 
                                         GlobalScope.launch {
                                             delay(500)
@@ -268,7 +272,7 @@ var dragged2 = true
                                         transitionState.targetState = true
                                         i232 = 1
                                         rightGameAnswersRapid++
-                                        wrongGameAnswersRapid++
+
 
                                         GlobalScope.launch {
                                             delay(500)
@@ -276,11 +280,6 @@ var dragged2 = true
                                         }
                                     }
 
-
-                                }
-
-                                else -> {
-                                    wrongGameAnswersRapid++
                                 }
 
                             }

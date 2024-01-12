@@ -86,7 +86,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
 //                                        .into(mViewDataBinding.profilePicture)
 
                                     Glide.with(mViewDataBinding.profilePicture.context)
-                                        .load(data.user.image).into(mViewDataBinding.profilePicture)
+                                        .load(data.user.image).placeholder(R.drawable.baseline_person_white).into(mViewDataBinding.profilePicture)
                                 }
 
                                 if (data.user.isPremium) {
@@ -104,7 +104,13 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
 
                     Resource.Status.AUTH -> {
                         loadingDialog.dismiss()
-                        onToSignUpPage()
+                         if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
                     }
 
                     Resource.Status.ERROR -> {
@@ -153,7 +159,13 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
 
                     Resource.Status.AUTH -> {
                         loadingDialog.dismiss()
-                        onToSignUpPage()
+                         if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
                     }
 
                     Resource.Status.ERROR -> {
@@ -197,7 +209,13 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
 
                     Resource.Status.AUTH -> {
                         loadingDialog.dismiss()
-                        onToSignUpPage()
+                         if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
                     }
 
                     Resource.Status.ERROR -> {

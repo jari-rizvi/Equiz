@@ -166,7 +166,13 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
                         mViewDataBinding.popularRecycler.adapter?.notifyDataSetChanged()
                     }
                     Resource.Status.AUTH -> { loadingDialog.dismiss()
-                        onToSignUpPage()
+                         if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
                     }
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
@@ -203,7 +209,13 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
                         }
                     }
                     Resource.Status.AUTH -> { loadingDialog.dismiss()
-                        onToSignUpPage()
+                         if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
                     }
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
@@ -242,7 +254,13 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
                         }
                     }
                     Resource.Status.AUTH -> { loadingDialog.dismiss()
-                        onToSignUpPage()
+                         if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
                     }
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
@@ -281,7 +299,13 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
                         }
                     }
                     Resource.Status.AUTH -> { loadingDialog.dismiss()
-                        onToSignUpPage()
+                         if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
                     }
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
@@ -333,7 +357,13 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
 //                        mViewDataBinding.mainLayout.visibility = View.VISIBLE
 //                        mViewDataBinding.shimmerLayout.stopShimmer()
 //                        mViewDataBinding.shimmerLayout.visibility = View.GONE
-                        onToSignUpPage()
+                         if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
                     }
 
                     Resource.Status.ERROR -> {
@@ -663,7 +693,13 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
                     Resource.Status.AUTH -> {
                         loadingDialog.dismiss()
 
-                        onToSignUpPage()
+                         if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
                     }
 
                     Resource.Status.ERROR -> {
@@ -729,7 +765,13 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
                     Resource.Status.AUTH -> {
                         loadingDialog.dismiss()
 
-                        onToSignUpPage()
+                         if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
                     }
 
                     Resource.Status.ERROR -> {

@@ -146,7 +146,7 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
                             if (bundle == null) {
                                 bundle = Bundle()
                             }
-                            bundle?.putString("phoneNumber", userPhone)
+                            bundle?.putString("phone", userPhone)
                             Handler().postDelayed({
                                 findNavController().navigate(
                                     R.id.action_logInFragment_to_otpPhoneFragment,
@@ -170,7 +170,13 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
                             }
                         }
                         Resource.Status.AUTH -> { loadingDialog.dismiss()
-                            onToSignUpPage()
+                             if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
                         }
                         Resource.Status.ERROR -> {
                             loadingDialog.dismiss()

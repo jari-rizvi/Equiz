@@ -21,7 +21,7 @@ import java.util.Locale
 
 
 @AndroidEntryPoint
-class LanguageFragment() : BaseFragment<FragmentLanguageBinding, AddressViewModel>() {
+class LanguageFragment : BaseFragment<FragmentLanguageBinding, AddressViewModel>() {
 
     override val layoutId: Int
         get() = R.layout.fragment_language

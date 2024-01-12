@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.addCallback
+import androidx.compose.foundation.layout.Box
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
@@ -137,7 +139,13 @@ class AllProductEcommerceFragment :
                         }
                     }
                     Resource.Status.AUTH -> { loadingDialog.dismiss()
-                        onToSignUpPage()
+                         if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
                     }
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
@@ -176,7 +184,13 @@ class AllProductEcommerceFragment :
                         }
                     }
                     Resource.Status.AUTH -> { loadingDialog.dismiss()
-                        onToSignUpPage()
+                         if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
                     }
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
@@ -216,10 +230,15 @@ class AllProductEcommerceFragment :
 
         val bundle = Bundle()
         bundle.putString("id", id_)
+
         findNavController().navigate(
-            R.id.action_ecommerceFragment_to_productProfileFragment,
-            bundle
+            R.id.productProfileFragment, bundle, options
         )
+
+//        findNavController().navigate(
+//            R.id.action_ecommerceFragment_to_productProfileFragment,
+//            bundle
+//        )
 
 
     }

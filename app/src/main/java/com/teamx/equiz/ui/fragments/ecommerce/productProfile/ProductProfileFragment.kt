@@ -69,7 +69,13 @@ class ProductProfileFragment :
 
         mViewDataBinding.btnWish.setOnClickListener {
             if (NetworkCallPoints.TOKENER.isNullOrEmpty() || NetworkCallPoints.TOKENER.equals("null", true)) {
-                DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
+                if (isAdded) {
+                    try {
+                        DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
                 return@setOnClickListener
             }
             AddToWishList()
@@ -93,7 +99,13 @@ class ProductProfileFragment :
 
         mViewDataBinding.btnCheckout.setOnClickListener {
             if (NetworkCallPoints.TOKENER.isNullOrEmpty() || NetworkCallPoints.TOKENER.equals("null", true)) {
-                DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
+                if (isAdded) {
+                    try {
+                        DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
                 return@setOnClickListener
             }
 
@@ -141,7 +153,13 @@ class ProductProfileFragment :
 
                     }
                     Resource.Status.AUTH -> { loadingDialog.dismiss()
-                        onToSignUpPage()
+                         if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
                     }
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
@@ -198,7 +216,13 @@ class ProductProfileFragment :
                             }
                         }
                         Resource.Status.AUTH -> { loadingDialog.dismiss()
-                            onToSignUpPage()
+                             if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
                         }
                         Resource.Status.ERROR -> {
                             loadingDialog.dismiss()
@@ -252,7 +276,13 @@ class ProductProfileFragment :
                             }
                         }
                         Resource.Status.AUTH -> { loadingDialog.dismiss()
-                            onToSignUpPage()
+                             if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
                         }
                         Resource.Status.ERROR -> {
                             loadingDialog.dismiss()
@@ -286,7 +316,13 @@ class ProductProfileFragment :
                             }
                         }
                         Resource.Status.AUTH -> { loadingDialog.dismiss()
-                            onToSignUpPage()
+                             if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
                         }
                         Resource.Status.ERROR -> {
                             loadingDialog.dismiss()
