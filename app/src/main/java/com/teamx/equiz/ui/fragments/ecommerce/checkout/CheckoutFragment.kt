@@ -120,7 +120,16 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
         cartRecyclerview()
         mViewDataBinding.btnProceed.setOnClickListener {
             if (cartArrayList2.isNotEmpty()) {
-                findNavController().navigate(R.id.addressListFragment, arguments, options)
+                val coupon = mViewDataBinding.autoCompleteTextView.text.toString().ifEmpty { "" }
+
+                var bundle = arguments
+                if (bundle == null) {
+                    bundle = Bundle()
+                }
+                bundle.putString("couponCode", coupon)
+
+
+                findNavController().navigate(R.id.addressListFragment, bundle, options)
             } else {
                 showToast("Cart is Empty")
             }

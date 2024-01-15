@@ -57,6 +57,10 @@ class AddressesListAdapter(
 
         }
 
+        holder.bind.root.setOnClickListener {
+            onAddressListener.onCheckClick(position)
+        }
+
     }
 
     override fun getItemCount(): Int {
@@ -75,6 +79,7 @@ interface OnAddressListener {
 
     fun oneditClick(position : Int)
 
-    fun ondeleteClick(position : Int)
+    fun ondeleteClick(position: Int)
+    fun onCheckClick(position: Int)
 
 }

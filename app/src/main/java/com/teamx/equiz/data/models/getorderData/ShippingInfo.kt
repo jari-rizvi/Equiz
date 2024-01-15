@@ -11,3 +11,10 @@ data class ShippingInfo(
     val postalCode: String,
     val state: String
 )
+
+@Keep
+data class ShippingInfo2(
+    val address: String?,
+    val label: String?,
+    val phoneNumber: String?,
+)

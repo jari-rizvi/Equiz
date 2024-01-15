@@ -1,12 +1,10 @@
 package com.teamx.equiz.ui.fragments.address
 
 
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.activity.addCallback
 import androidx.annotation.Keep
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.Observer
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
@@ -18,18 +16,16 @@ import com.google.gson.JsonObject
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
-import com.teamx.equiz.data.models.getorderData.ShippingInfo
+import com.teamx.equiz.data.models.getorderData.ShippingInfo2
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentAddressListBinding
-import com.teamx.equiz.games.games.arr
 import com.teamx.equiz.ui.fragments.address.adapter.AddressesListAdapter
 import com.teamx.equiz.ui.fragments.address.adapter.OnAddressListener
 import com.teamx.equiz.ui.fragments.address.dataclasses.getAddressList.Data
 import com.teamx.equiz.utils.DialogHelperClass
+import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import org.json.JSONException
-import java.util.ArrayList
 
 @AndroidEntryPoint
 class AddressListFragment : BaseFragment<FragmentAddressListBinding, AddressViewModel>(),
@@ -155,105 +151,109 @@ class AddressListFragment : BaseFragment<FragmentAddressListBinding, AddressView
 
 
                 mViewDataBinding.btnProceed.setOnClickListener {
+                    if (singleAddress == null) {
+                        mViewDataBinding.root.snackbar("Please select address")
+                    } else {
+
+                        val bundle = arguments
+
+                        val couponCode = bundle?.getString("couponCode") ?: ""
 
 
-//            val country = mViewDataBinding.country.text.toString()
-//            val city = mViewDataBinding.city.text.toString()
-//            val etPostal = mViewDataBinding.etPostal.text.toString()
-//            val etState = mViewDataBinding.etState.text.toString()
-//            val etName = mViewDataBinding.etName.text.toString()
-            val etPhone = "mViewDataBinding.etPhone.text.toString()"
-            val address = "mViewDataBinding.editAddress1.text.toString()"
+                        val label = singleAddress?.label ?: ""
+                        val etPhone = singleAddress?.phoneNumber ?: ""
+                        val address = singleAddress?.address ?: ""
 
-            val params = JsonObject()
-            try {
+                        val params = JsonObject()
+                        try {
 
 
-                params.add(
-                    "shippingInfo", Gson().toJsonTree(
-                        ShippingInfo(
-                            address = address,
-                            phoneNumber = etPhone,
-                            postalCode = "etPostal",
-                            city = "city",
-                            state = "etState",
-                            country = "country",
-                        )
-                    )
-                )
+                            params.add(
+                                "shippingInfo", Gson().toJsonTree(
+                                    ShippingInfo2(
+                                        address = address,
+                                        phoneNumber = etPhone,
+                                        label = label
+                                    )
+                                )
+                            )
 
-//                params.addProperty("couponCode", "EXTRA69-365-448-1043")
-
-            } catch (e: JSONException) {
-                e.printStackTrace()
-            }
-            if (address.isNullOrEmpty()) {
-                showToast("Please add Address")
-            } else {
-                if (etPhone.isNotEmpty()
-                    && address.isNotEmpty()
-                ) {
-
-                    mViewModel.createOrder(params)
-                } else {
-                    showToast("Please add Details")
-                }
-            }
+                            if (couponCode.isNotEmpty()) {
+                                params.addProperty("couponCode", couponCode)
+                            }
 
 
-                    if (!mViewModel.createOrderResponse.hasActiveObservers()) {
-                        mViewModel.createOrderResponse.observe(requireActivity()) {
-                            when (it.status) {
-                                Resource.Status.LOADING -> {
-                                    loadingDialog.show()
-                                }
+                        } catch (e: JSONException) {
+                            e.printStackTrace()
+                        }
+                        if (address.isNullOrEmpty()) {
+                            showToast("Please add Address")
+                        } else {
+                            if (etPhone.isNotEmpty()
+                                && address.isNotEmpty()
+                            ) {
 
-                                Resource.Status.NOTVERIFY -> {
-                                    loadingDialog.dismiss()
-                                }
+                                mViewModel.createOrder(params)
+                            } else {
+                                showToast("Please add Details")
+                            }
+                        }
 
-                                Resource.Status.SUCCESS -> {
-                                    loadingDialog.dismiss()
-                                    it.data?.let { data ->
 
-                                        var bundle = arguments
-                                        if (bundle == null) {
-                                            bundle = Bundle()
+                        if (!mViewModel.createOrderResponse.hasActiveObservers()) {
+                            mViewModel.createOrderResponse.observe(requireActivity()) {
+                                when (it.status) {
+                                    Resource.Status.LOADING -> {
+                                        loadingDialog.show()
+                                    }
+
+                                    Resource.Status.NOTVERIFY -> {
+                                        loadingDialog.dismiss()
+                                    }
+
+                                    Resource.Status.SUCCESS -> {
+                                        loadingDialog.dismiss()
+                                        it.data?.let { data ->
+
+                                            var bundle = arguments
+                                            if (bundle == null) {
+                                                bundle = Bundle()
+                                            }
+                                            bundle!!.putString("order_id", data.data._id)
+
+
+                                            findNavController().navigate(
+                                                R.id.paymentMethodsFragment,
+                                                bundle,
+                                                options
+                                            )
                                         }
-                                        bundle!!.putString("order_id", data.data._id)
+                                    }
 
+                                    Resource.Status.AUTH -> {
+                                        loadingDialog.dismiss()
+                                        if (isAdded) {
+                                            try {
+                                                onToSignUpPage()
+                                            } catch (e: Exception) {
+                                                e.printStackTrace()
+                                            }
+                                        }
+                                    }
 
-                                        findNavController().navigate(
-                                            R.id.paymentMethodsFragment,
-                                            bundle,
-                                            options
+                                    Resource.Status.ERROR -> {
+                                        loadingDialog.dismiss()
+                                        DialogHelperClass.errorDialog(
+                                            requireContext(),
+                                            it.message!!
                                         )
                                     }
                                 }
-
-                                Resource.Status.AUTH -> {
-                                    loadingDialog.dismiss()
-                                    if (isAdded) {
-                                        try {
-                                            onToSignUpPage()
-                                        } catch (e: Exception) {
-                                            e.printStackTrace()
-                                        }
-                                    }
-                                }
-
-                                Resource.Status.ERROR -> {
-                                    loadingDialog.dismiss()
-                                    DialogHelperClass.errorDialog(
-                                        requireContext(),
-                                        it.message!!
+                                if (isAdded) {
+                                    mViewModel.createOrderResponse.removeObservers(
+                                        viewLifecycleOwner
                                     )
                                 }
-                            }
-                            if (isAdded) {
-                                mViewModel.createOrderResponse.removeObservers(
-                                    viewLifecycleOwner
-                                )
                             }
                         }
                     }
@@ -283,6 +283,23 @@ class AddressListFragment : BaseFragment<FragmentAddressListBinding, AddressView
         findNavController().navigate(R.id.addressEditFragment2, bundle, options)
 
     }
+
+    override fun onCheckClick(position: Int) {
+
+        addressArrayList.forEach {
+            it.value = false
+        }
+
+        addressArrayList[position].value = true
+
+        singleAddress = addressArrayList.get(position)
+
+
+        addressAdapter.notifyDataSetChanged()
+
+    }
+
+    private var singleAddress: Data? = null
 
     override fun ondeleteClick(position: Int) {
         val id = addressArrayList[position]._id
@@ -331,7 +348,10 @@ class AddressListFragment : BaseFragment<FragmentAddressListBinding, AddressView
         }
     }
 
+
 }
+
+@Keep
 class AddressesClass : ArrayList<Address2>()
 
 @Keep
