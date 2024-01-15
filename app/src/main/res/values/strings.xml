@@ -94,7 +94,7 @@
     <string name="language">Language</string>
     <string name="english">English</string>
     <string name="arabic">Arabic</string>
-    <string name="collect_raffal_prize">Collect Raffal Prize</string>
+    <string name="collect_raffal_prize">Collect Raffle Prize</string>
     <string name="all_products">All Products</string>
     <string name="old_password">Old Password</string>
     <string name="change_password">Change Password</string>
@@ -156,7 +156,7 @@
     <string name="you_have_successfully_confirm_your_payment_send">you have Successfully confirm your payment send!</string>
     <string name="home">Home</string>
     <string name="collect_prize">Collect Prize</string>
-    <string name="tearms_and_condition">Tearms And Condition</string>
+    <string name="tearms_and_condition">Terms And Condition</string>
     <string name="logout">Logout</string>
     <string name="subscribe_your_plan">Subscribe your Plan</string>
     <string name="let_s_upgrade_to_pro_account">Let’s Upgrade to Pro Account</string>

@@ -13,7 +13,7 @@ data class Data(
     val orderStatus: String,
     val paymentIntent: String,
     val shippingInfo: ShippingInfo,
-    val totalPoints: Int,
+    val totalPoints: Double,
     val totalPrice: Any,
     val user: String
 )

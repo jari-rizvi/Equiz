@@ -27,16 +27,21 @@ class FavouriteAdapter(
 
         holder.binding.productName.text = list.title
 
-        holder.binding.qty.text =  "${ list.quantity.toString() } Qty"
+        holder.binding.qty.text = "${list.quantity.toString()} Qty"
 
-        holder.binding.price.text = "${ list.price.toString() } AED"
+        holder.binding.price.text = "${list.price.toString()} AED"
         if (!list.images.isNullOrEmpty()) {
 //            Picasso.get().load(list.images.get(0)).into(holder.binding.productImage)
-            Glide.with(holder.binding.productImage.context).load(list.images.get(0)).into(holder.binding.productImage)
+            Glide.with(holder.binding.productImage.context).load(list.images.get(0))
+                .into(holder.binding.productImage)
+        }
+
+        holder.binding.textView56.setOnClickListener {
+            wishlistListener.onClickItem(position)
         }
 
         holder.itemView.setOnClickListener {
-            wishlistListener.onClickItem(position)
+            wishlistListener.onAddToCart(position)
         }
 
 
@@ -55,4 +60,5 @@ class FavouriteAdapter(
 
 interface WishListListener {
     fun onClickItem(position: Int)
+    fun onAddToCart(position: Int)
 }

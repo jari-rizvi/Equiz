@@ -76,6 +76,7 @@ class RecieptFragment : BaseFragment<FragmentRecieptBinding, WishlistViewModel>(
             date = bundle.getString("date").toString()
         }
         Log.d("TAG", "onViewCreated12121221: $paymentMethod")
+        Log.d("TAG", "onViewCreated12121221: $total")
 
 
         mViewDataBinding.textView66.text = date

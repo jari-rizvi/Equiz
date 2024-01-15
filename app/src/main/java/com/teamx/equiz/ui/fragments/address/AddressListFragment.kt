@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.addCallback
 import androidx.annotation.Keep
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.Observer
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
@@ -230,6 +231,7 @@ class AddressListFragment : BaseFragment<FragmentAddressListBinding, AddressView
                                         }
                                     }
 
+
                                     Resource.Status.AUTH -> {
                                         loadingDialog.dismiss()
                                         if (isAdded) {
@@ -256,10 +258,11 @@ class AddressListFragment : BaseFragment<FragmentAddressListBinding, AddressView
                                 }
                             }
                         }
+
+
                     }
-
-
                 }
+
 
         addressRecyclerview()
     }

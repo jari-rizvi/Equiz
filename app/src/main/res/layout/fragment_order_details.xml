@@ -190,7 +190,7 @@
                 style="@style/popins_regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
+                android:text="sdsddsdsd"
                 android:textColor="@color/black"
                 android:visibility="gone"
                 android:textSize="@dimen/_10ssp"
@@ -205,77 +205,81 @@
             <TextView
                 android:id="@+id/orderId"
                 style="@style/popins_regular"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/_100sdp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:layout_marginHorizontal="@dimen/_5sdp"
                 android:text=""
+                android:gravity="center"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_10ssp"
-                app:layout_constraintBottom_toTopOf="@+id/date"
-                app:layout_constraintEnd_toEndOf="@+id/productName"
-                app:layout_constraintHorizontal_bias="0"
-                app:layout_constraintStart_toStartOf="@+id/productName"
-                app:layout_constraintTop_toBottomOf="@+id/productName" />
+                app:layout_constraintBottom_toBottomOf="@+id/textView23"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.8"
+                app:layout_constraintStart_toEndOf="@+id/textView23"
+                app:layout_constraintTop_toTopOf="@+id/textView23" />
 
             <TextView
                 android:id="@+id/date"
                 style="@style/popins_regular"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/_100sdp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp"
+                android:gravity="start"
                 android:text=""
                 android:textColor="@color/black"
                 android:textSize="@dimen/_10ssp"
-                app:layout_constraintBottom_toTopOf="@+id/paymentType"
+                app:layout_constraintBottom_toBottomOf="@+id/textView24"
                 app:layout_constraintEnd_toEndOf="@+id/orderId"
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toStartOf="@+id/orderId"
-                app:layout_constraintTop_toBottomOf="@+id/orderId" />
+                app:layout_constraintTop_toTopOf="@+id/textView24" />
 
             <TextView
                 android:id="@+id/paymentType"
                 style="@style/popins_regular"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/_100sdp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp"
+                android:gravity="start"
                 android:text=""
                 android:textColor="@color/black"
                 android:textSize="@dimen/_10ssp"
-                app:layout_constraintBottom_toTopOf="@+id/discount"
+                app:layout_constraintBottom_toBottomOf="@+id/textView26"
                 app:layout_constraintEnd_toEndOf="@+id/date"
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toStartOf="@+id/date"
-                app:layout_constraintTop_toBottomOf="@+id/date" />
+                app:layout_constraintTop_toTopOf="@+id/textView26" />
 
             <TextView
                 android:id="@+id/discount"
                 style="@style/popins_regular"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/_100sdp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp"
+                android:gravity="start"
+
                 android:text="0.00"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_10ssp"
-                app:layout_constraintBottom_toTopOf="@+id/total"
+                app:layout_constraintBottom_toBottomOf="@+id/textView27"
                 app:layout_constraintEnd_toEndOf="@+id/paymentType"
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toStartOf="@+id/paymentType"
-                app:layout_constraintTop_toBottomOf="@+id/paymentType" />
+                app:layout_constraintTop_toTopOf="@+id/textView27" />
 
             <TextView
                 android:id="@+id/total"
                 style="@style/popins_regular"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/_100sdp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp"
+                android:gravity="start"
                 android:text=""
                 android:textColor="@color/black"
                 android:textSize="@dimen/_10ssp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/textView28"
                 app:layout_constraintEnd_toEndOf="@+id/discount"
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toStartOf="@+id/discount"
-                app:layout_constraintTop_toBottomOf="@+id/discount" />
+                app:layout_constraintTop_toTopOf="@+id/textView28" />
 
             <TextView
                 android:id="@+id/btnReOrder"

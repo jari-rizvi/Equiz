@@ -35,7 +35,7 @@ class CancelledAdapter(
 
 
         holder.binding.orderId.text = "Order#"+orders._id
-        holder.binding.amount.text = orders.totalPrice.toString()
+        holder.binding.amount.text = orders.totalPoints.toString()+" Points"
         holder.binding.textView42.text = "Cancelled"
         holder.binding.cartBottom.backgroundTintList = ColorStateList.valueOf(
             ContextCompat.getColor(

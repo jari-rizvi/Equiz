@@ -32,6 +32,7 @@ class MainRepository @Inject constructor(
         apiService.getProducts(keyword = keyword, category = category)
 
     suspend fun getCart() = apiService.getCart()
+    suspend fun applyCoupon(  @Query("code") code: String) = apiService.applyCoupon(code)
     suspend fun getWallet() = apiService.getWallet()
     suspend fun getUpcomingNews(
         @Body params: JsonObject,
@@ -113,7 +114,6 @@ class MainRepository @Inject constructor(
     suspend fun deleteUser() = apiService.deleteUser()
     suspend fun collectPrizeRaffal() = apiService.collectPrizeRaffal()
     suspend fun claimedPrizeRaffal(@Query("claimed") claimed: String) = apiService.claimedPrizeRaffal(claimed)
-
     suspend fun getAddressList() = apiService.getAddressList()
     suspend fun addAddress(@Body param: JsonObject) = apiService.addAddress(param)
     suspend fun deleteAddress(@Path("addressId") addressId: String) = apiService.deleteAddress(addressId)

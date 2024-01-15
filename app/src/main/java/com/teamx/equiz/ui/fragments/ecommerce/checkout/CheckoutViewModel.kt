@@ -65,6 +65,46 @@ class CheckoutViewModel @Inject constructor(
         }
     }
 
+    private val _applyCouponResponse = MutableLiveData<Resource<GetCartData>>()
+    val applyCouponResponse: LiveData<Resource<GetCartData>>
+        get() = _applyCouponResponse
+
+    fun applyCoupon(code: String) {
+        viewModelScope.launch {
+            _applyCouponResponse.postValue(Resource.loading(null))
+            if (networkHelper.isNetworkConnected()) {
+                try {
+                    Timber.tag("87878787887").d("starta")
+
+                    mainRepository.applyCoupon(code).let {
+                        if (it.isSuccessful) {
+                            _applyCouponResponse.postValue(Resource.success(it.body()!!))
+                            Timber.tag("87878787887").d(it.body()!!.toString())
+                        } else if (it.code() == 401) {
+                            _applyCouponResponse.postValue(Resource.unAuth("", null))
+                        } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
+                            Timber.tag("87878787887").d("secoonnddd")
+
+//                            _applyCouponResponse.postValue(Resource.error(it.message(), null))
+                            val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
+                            _applyCouponResponse.postValue(Resource.error(jsonObj.getString("message")))
+                        } else {
+                            _applyCouponResponse.postValue(
+                                Resource.error(
+                                    "Some thing went wrong",
+                                    null
+                                )
+                            )
+                            Timber.tag("87878787887").d("third")
+
+                        }
+                    }
+                } catch (e: Exception) {
+                    _applyCouponResponse.postValue(Resource.error("${e.message}", null))
+                }
+            } else _applyCouponResponse.postValue(Resource.error("No internet connection", null))
+        }
+    }
 
 
     private val _deleteCartResponse = MutableLiveData<Resource<SuccessData>>()
@@ -77,14 +117,14 @@ class CheckoutViewModel @Inject constructor(
             _deleteCartResponse.postValue(Resource.loading(null))
             if (networkHelper.isNetworkConnected()) {
                 try {
-                    Timber.tag("87878787887").d( "starta")
+                    Timber.tag("87878787887").d("starta")
 
                     mainRepository.deleteCart(productId).let {
                         if (it.isSuccessful) {
                             _deleteCartResponse.postValue(Resource.success(it.body()!!))
-                            Timber.tag("87878787887").d( it.body()!!.toString())
-                        }  else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
-                            Timber.tag("87878787887").d( "secoonnddd")
+                            Timber.tag("87878787887").d(it.body()!!.toString())
+                        } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
+                            Timber.tag("87878787887").d("secoonnddd")
 
 //                            _deleteCartResponse.postValue(Resource.error(it.message(), null))
                             val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())

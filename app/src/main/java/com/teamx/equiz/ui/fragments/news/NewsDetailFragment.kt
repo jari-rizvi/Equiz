@@ -52,6 +52,10 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding, NewsViewModel
             }
         }
 
+        mViewDataBinding.imgLogo.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
         val bundle = arguments
         if (bundle != null) {
             id = bundle.getString("id").toString()

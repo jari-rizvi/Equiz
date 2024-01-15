@@ -134,9 +134,8 @@ class ProductProfileFragment :
 
                             mViewDataBinding.shimmerLayout.visibility = View.GONE
                             mViewDataBinding.root.visibility = View.VISIBLE
-
                             mViewDataBinding.productName.text = it.data.data.title
-                            mViewDataBinding.productPrice.text = it.data.data.price .toString()
+                            mViewDataBinding.productPrice.text = it.data.data.point.toString() +" Points"
                             mViewDataBinding.desc.text = it.data.data.description
                             mViewDataBinding.btnWish.isChecked = it.data.data.isFavorite
 

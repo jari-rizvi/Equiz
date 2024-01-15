@@ -39,8 +39,7 @@
                 app:layout_constraintHorizontal_bias="0.021"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.1"
-                app:tint="@color/black" />
+                app:layout_constraintVertical_bias="0.1" />
 
 
             <ImageView
@@ -138,7 +137,8 @@
                 android:layout_height="@dimen/_250sdp"
                 android:ellipsize="end"
                 android:textSize="@dimen/_13ssp"
-                android:gravity="center"
+                android:gravity="start"
+                android:padding="@dimen/_5sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/text1"
                 app:layout_constraintStart_toStartOf="@+id/textView29"

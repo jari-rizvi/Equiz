@@ -142,8 +142,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
                         it.data?.let { data ->
 
                             try {
-
-
 //                                mViewDataBinding.root.snackbar(data)
                                 if (isAdded) {
                                     if (data.subscription.plan.active) {

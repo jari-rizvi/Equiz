@@ -5,14 +5,15 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:background="@color/white"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/mainLayout"
             android:layout_width="match_parent"
-            android:visibility="gone"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/bg"
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/btnback"
@@ -29,18 +30,17 @@
 
             <TextView
                 android:id="@+id/textView"
+                style="@style/popins_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/emirates_q"
                 android:textColor="@color/red"
                 android:textSize="@dimen/_19ssp"
-                style="@style/popins_bold"
                 app:layout_constraintBottom_toBottomOf="@+id/btnback"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.2"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/btnback"
-                  />
+                app:layout_constraintTop_toTopOf="@+id/btnback" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/topCoinContainer"
@@ -81,21 +81,21 @@
                     android:layout_marginStart="@dimen/_15sdp"
                     android:background="@drawable/rounded_dialog_background"
                     android:backgroundTint="#9F81C9"
+                    android:drawablePadding="@dimen/_1sdp"
+                    android:ellipsize="start"
                     android:gravity="center"
                     android:paddingStart="@dimen/_28sdp"
                     android:paddingEnd="@dimen/_5sdp"
+                    android:singleLine="true"
                     android:text="250000000000"
-                    android:ellipsize="start"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_10ssp"
                     app:drawableRightCompat="@drawable/plus_dash"
-                    android:drawablePadding="@dimen/_1sdp"
                     app:layout_constraintBottom_toBottomOf="@+id/coinImg"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.2"
                     app:layout_constraintStart_toStartOf="@+id/coinImg"
-                    app:layout_constraintTop_toTopOf="@+id/coinImg"
-                    android:singleLine="true" />
+                    app:layout_constraintTop_toTopOf="@+id/coinImg" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -114,41 +114,40 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView"
                 app:layout_constraintVertical_bias="0.0">
 
-               <!-- <ImageView
-                    android:id="@+id/img"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:background="@drawable/card_background"
-                    android:clipToOutline="true"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/ic_launcher_background"
+                <!-- <ImageView
+                     android:id="@+id/img"
+                     android:layout_width="0dp"
+                     android:layout_height="0dp"
+                     android:background="@drawable/card_background"
+                     android:clipToOutline="true"
+                     android:scaleType="fitXY"
+                     android:src="@drawable/ic_launcher_background"
 
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />-->
+                     app:layout_constraintBottom_toBottomOf="parent"
+                     app:layout_constraintEnd_toEndOf="parent"
+                     app:layout_constraintStart_toStartOf="parent"
+                     app:layout_constraintTop_toTopOf="parent" />-->
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@drawable/card_background"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:background="@drawable/card_background"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <androidx.viewpager2.widget.ViewPager2
                         android:id="@+id/viewPager"
                         android:layout_width="match_parent"
-                        android:background="@drawable/card_background"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        android:background="@drawable/card_background" />
 
                     <LinearLayout
                         android:id="@+id/dotsContainer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
-                        android:visibility="invisible"
                         android:layout_centerHorizontal="true"
                         android:layout_marginBottom="16dp"
                         android:orientation="horizontal" />
@@ -160,10 +159,10 @@
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginBottom="@dimen/_20sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/constraintLayout4"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginBottom="@dimen/_20sdp"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout4"
                 app:layout_constraintVertical_bias="0.05">
 
@@ -235,10 +234,11 @@
                         android:id="@+id/textView155"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/see_all"
                         android:drawableEnd="@drawable/see_allicon"
-                        android:gravity="center"
+                        android:drawablePadding="@dimen/_5sdp"
                         android:drawableTint="@color/theme_color"
+                        android:gravity="center"
+                        android:text="@string/see_all"
                         android:textColor="@color/theme_color"
                         app:layout_constraintBottom_toBottomOf="@+id/textView16"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -282,8 +282,8 @@
                         android:id="@+id/recCategories"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
                         android:layout_marginHorizontal="@dimen/_14sdp"
+                        android:orientation="horizontal"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -299,9 +299,9 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
 
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:layout_marginBottom="@dimen/_24sdp"
                         android:maxHeight="@dimen/_270sdp"
-                        android:layout_marginTop="@dimen/_10sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -315,12 +315,12 @@
                         android:id="@+id/textView17"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/top_winners"
+                        android:layout_marginTop="@dimen/_5sdp"
 
+                        android:text="@string/top_winners"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_15ssp"
                         android:textStyle="bold"
-                        android:layout_marginTop="@dimen/_5sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.05"
@@ -333,23 +333,23 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/_10sdp"
-                        tools:listitem="@layout/item_winner"
                         android:orientation="horizontal"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView17"
-                        app:layout_constraintVertical_bias="0.03" />
+                        app:layout_constraintVertical_bias="0.03"
+                        tools:listitem="@layout/item_winner" />
                     <!--Bottom Game rec-->
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/bottomGameLayout"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:paddingBottom="@dimen/_50sdp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        android:paddingBottom="@dimen/_50sdp"
                         app:layout_constraintTop_toBottomOf="@+id/winnerRecycler">
 
                         <TextView
@@ -405,25 +405,23 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/shimmerLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="visible">
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmerLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="visible">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
 
-                <include layout="@layout/shimmer_dashboard" />
+                        <include layout="@layout/shimmer_dashboard" />
 
-            </LinearLayout>
+                    </LinearLayout>
 
-        </com.facebook.shimmer.ShimmerFrameLayout>
+                </com.facebook.shimmer.ShimmerFrameLayout>
     </RelativeLayout>
-
-
 
 
 </layout>

@@ -129,6 +129,11 @@ interface ApiService {
     @GET(NetworkCallPoints.GET_CART)
     suspend fun getCart(@Header("token") basicCredentials: String = "$TOKENER"): Response<GetCartData>
 
+    @GET(NetworkCallPoints.APPLU_COUON)
+    suspend fun applyCoupon(
+        @Query("code") code: String,
+        @Header("token") basicCredentials: String = "$TOKENER"): Response<GetCartData>
+
     @GET(NetworkCallPoints.GET_WALLET)
     suspend fun getWallet(@Header("token") basicCredentials: String = "$TOKENER"): Response<GetWalletData>
 

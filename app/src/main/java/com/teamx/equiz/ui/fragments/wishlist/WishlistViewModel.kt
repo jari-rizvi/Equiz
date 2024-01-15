@@ -5,7 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.google.gson.JsonObject
 import com.teamx.equiz.baseclasses.BaseViewModel
+import com.teamx.equiz.data.models.addtocart.AddtoCartData
 import com.teamx.equiz.data.models.delete_wishlist.DeleteWishListData
+import com.teamx.equiz.data.models.sucessData.SuccessData
 import com.teamx.equiz.data.models.wishlistdata.WishlistData
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.data.remote.reporitory.MainRepository
@@ -21,6 +23,40 @@ class WishlistViewModel @Inject constructor(
     private val mainRepository: MainRepository,
     private val networkHelper: NetworkHelper
 ) : BaseViewModel() {
+
+    private val _addtocartResponse = MutableLiveData<Resource<AddtoCartData>>()
+    val addtocartResponse: LiveData<Resource<AddtoCartData>>
+        get() = _addtocartResponse
+
+    fun addtocart(param: JsonObject) {
+        viewModelScope.launch {
+            _addtocartResponse.postValue(Resource.loading(null))
+            if (networkHelper.isNetworkConnected()) {
+                try {
+                    mainRepository.AddToCart(param).let {
+                        if (it.isSuccessful) {
+                            _addtocartResponse.postValue(Resource.success(it.body()!!))
+                        }   else if (it.code() == 401) {
+                            _addtocartResponse.postValue(Resource.unAuth("", null))
+                        } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
+//                            _addtocartResponse.postValue(Resource.error(it.message(), null))
+                            val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
+                            _addtocartResponse.postValue(Resource.error(jsonObj.getString("message")))
+                        } else {
+                            _addtocartResponse.postValue(
+                                Resource.error(
+                                    "Some thing went wrong",
+                                    null
+                                )
+                            )
+                        }
+                    }
+                } catch (e: Exception) {
+                    _addtocartResponse.postValue(Resource.error("${e.message}", null))
+                }
+            } else _addtocartResponse.postValue(Resource.error("No internet connection", null))
+        }
+    }
 
     private val _wishlistResponse = MutableLiveData<Resource<WishlistData>>()
     val wishlistResponse: LiveData<Resource<WishlistData>>

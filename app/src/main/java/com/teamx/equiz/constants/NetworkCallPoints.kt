@@ -40,6 +40,7 @@ class NetworkCallPoints {
         const val GET_PRODUCT_BY_ID = "api/products/find/{id}"
         const val ADD_TO_CART = "api/carts/add"
         const val GET_CART = "api/carts/find"
+        const val APPLU_COUON = "api/carts/find/"
 
         const val DELETE_CART = "api/carts/{productId}"
         const val UPDATE_CART = "api/carts/update"

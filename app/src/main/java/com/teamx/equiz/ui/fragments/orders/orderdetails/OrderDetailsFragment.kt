@@ -13,16 +13,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.teamx.equiz.R
 import com.teamx.equiz.BR
 import com.teamx.equiz.baseclasses.BaseFragment
-import com.teamx.equiz.data.models.getorderData.Data
-import com.teamx.equiz.data.models.orderDetailData.ProductDetail
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentOrderDetailsBinding
-import com.teamx.equiz.ui.fragments.orders.delivered.DeliveredAdapter
-import com.teamx.equiz.ui.fragments.orders.processing.ProcessingAdapter
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import androidx.activity.addCallback
+import com.teamx.equiz.data.models.orderDetailData.ProductDetail
+
 @AndroidEntryPoint
 class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding, OrderDetailsViewModel>() {
 
@@ -43,7 +41,7 @@ class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding, OrderDeta
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
@@ -87,9 +85,11 @@ class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding, OrderDeta
                         mViewDataBinding.shimmerLayout.startShimmer()
                         mViewDataBinding.shimmerLayout.visibility = View.VISIBLE
                     }
+
                     Resource.Status.NOTVERIFY -> {
                         loadingDialog.dismiss()
                     }
+
                     Resource.Status.SUCCESS -> {
 //                        loadingDialog.dismiss()
                         mViewDataBinding.shimmerLayout.stopShimmer()
@@ -110,8 +110,21 @@ class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding, OrderDeta
                                 .replace("T", "")
 
                             mViewDataBinding.date.text = o
-//                            mViewDataBinding.discount.text = data.data.orders.d
-                            mViewDataBinding.total.text = data.data.orders.totalPrice.toString()
+                            try {
+
+                                mViewDataBinding.discount.text =
+                                    data.data.orders.coupon!!.amount.toString()
+                            } catch (e: Exception) {
+                            }
+
+                            if(data.data.orders.coupon == null){
+                                mViewDataBinding.total.text =
+                                    data.data.orders.totalPoints.toString() + " Points"
+                            }
+                            else{
+                                mViewDataBinding.total.text =
+                                    data.data.orders.discountedPrice.toString() + " Points"
+                            }
 
 
                             var bundle = arguments
@@ -120,14 +133,16 @@ class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding, OrderDeta
                             }
                             bundle.putString("id", data.data.orders._id)
                             bundle.putString("paymentMethod", data.data.orders.paymentIntent)
-                            bundle.putString("total", data.data.orders.totalPrice.toString())
+                            bundle.putString("total", mViewDataBinding.total.text.toString())
                             bundle.putString("date", o)
 
 
                         }
                     }
-                    Resource.Status.AUTH -> { loadingDialog.dismiss()
-                         if (isAdded) {
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+                        if (isAdded) {
                             try {
                                 onToSignUpPage()
                             } catch (e: Exception) {
@@ -135,6 +150,7 @@ class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding, OrderDeta
                             }
                         }
                     }
+
                     Resource.Status.ERROR -> {
 //                        loadingDialog.dismiss()
                         mViewDataBinding.shimmerLayout.stopShimmer()

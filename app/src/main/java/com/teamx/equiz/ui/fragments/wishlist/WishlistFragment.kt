@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.addCallback
+import androidx.lifecycle.Observer
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
@@ -18,6 +19,7 @@ import com.teamx.equiz.data.models.wishlistdata.Product
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentWishlistBinding
 import com.teamx.equiz.utils.DialogHelperClass
+import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONException
 
@@ -38,6 +40,7 @@ class WishlistFragment : BaseFragment<FragmentWishlistBinding, WishlistViewModel
 
     lateinit var favouriteAdapter: FavouriteAdapter
     lateinit var favouriteArrayList: ArrayList<Product>
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
          super.onViewCreated(view, savedInstanceState)
@@ -176,6 +179,67 @@ class WishlistFragment : BaseFragment<FragmentWishlistBinding, WishlistViewModel
                 }
                 if (isAdded) {
                     mViewModel.deleteToWishlistResponse.removeObservers(viewLifecycleOwner)
+                }
+            }
+        }
+
+
+    }
+
+    override fun onAddToCart(position: Int) {
+
+        var productId = favouriteArrayList[position]._id
+        val params = JsonObject()
+        try {
+            params.addProperty("productId", productId)
+            params.addProperty("quantity", "1")
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+
+
+        mViewModel.addtocart(params)
+
+        if (!mViewModel.addtocartResponse.hasActiveObservers()) {
+            mViewModel.addtocartResponse.observe(requireActivity()) {
+                when (it.status) {
+                    Resource.Status.LOADING -> {
+                        loadingDialog.show()
+                    }
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
+                    }
+                    Resource.Status.SUCCESS -> {
+                        loadingDialog.dismiss()
+
+                        it.data?.let { data ->
+                            if (isAdded) {
+                                findNavController().navigate(
+                                    R.id.checkoutFragment,
+                                    arguments,
+                                    options
+                                )
+                            }
+
+
+                        }
+                    }
+                    Resource.Status.AUTH -> { loadingDialog.dismiss()
+                        if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
+                    }
+                    Resource.Status.ERROR -> {
+                        loadingDialog.dismiss()
+                        DialogHelperClass.errorDialog(requireContext(), it.message!!)
+                    }
+                }
+                if (isAdded) {
+                    mViewModel.addtocartResponse.removeObservers(viewLifecycleOwner)
                 }
             }
         }

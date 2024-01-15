@@ -29,7 +29,7 @@ class ProductAdapter(
 
         holder.binding.productName.text = product.title
 
-        holder.binding.productPrice.text = "${product.point} Pts"
+        holder.binding.productPrice.text = "${product.point} Points"
         holder.binding.wishListAddBtn.isChecked = product.isFavorite
 
 //       val quanti = product.qty ?: 1
