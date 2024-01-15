@@ -4,6 +4,7 @@ package com.teamx.equiz.data.remote
 import com.google.gson.JsonObject
 import com.teamx.equiz.constants.NetworkCallPoints
 import com.teamx.equiz.constants.NetworkCallPoints.Companion.TOKENER
+import com.teamx.equiz.data.models.ResendOtpData
 import com.teamx.equiz.data.models.addtocart.AddtoCartData
 import com.teamx.equiz.data.models.addtowishlist.AddToWishlistData
 import com.teamx.equiz.data.models.bannerData.bannews.BanNews
@@ -182,6 +183,9 @@ interface ApiService {
 
     @POST(NetworkCallPoints.FOTGOTPASS_EMAIL)
     suspend fun forgotpass(@Body params: JsonObject?): Response<ForgotPassData>
+
+    @POST(NetworkCallPoints.RESEND_OTP)
+    suspend fun resendOtp(@Body params: JsonObject?): Response<ResendOtpData>
 
     @POST(NetworkCallPoints.SIGNUP_EMAIL)
     suspend fun Signup(@Body params: JsonObject?): Response<SignupData>

@@ -8,6 +8,7 @@ class NetworkCallPoints {
         const val SIGNUP_EMAIL ="api/auth/register"
         const val OTP_VERIFY ="api/auth/verifyOtp"
         const val OTP_VERIFY_FORGOT ="api/auth/otpReset/{uniqueID}"
+        const val RESEND_OTP ="/api/auth/resendOTP"
         const val ME = "api/users/find"
         const val UNSUB = "api/users/find"
         const val DELETE_USER = "api/users/remove"

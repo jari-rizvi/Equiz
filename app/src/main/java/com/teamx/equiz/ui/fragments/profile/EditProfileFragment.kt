@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
@@ -20,6 +21,7 @@ import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentEditProfileBinding
+import com.teamx.equiz.utils.DialogHelperClass
 import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -58,9 +60,10 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
     var userEmail = ""
     var userDOB = ""
     var userPhone = ""
+    lateinit var userId : String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
@@ -122,42 +125,58 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                     Resource.Status.LOADING -> {
                         loadingDialog.show()
                     }
+
                     Resource.Status.NOTVERIFY -> {
                         loadingDialog.dismiss()
                     }
+
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
-                            if (data.user.image.isNotEmpty()){
-                            Glide.with(mViewDataBinding.profilePicture.context).load(data.user.image).placeholder(R.drawable.baseline_person_white).into(mViewDataBinding.profilePicture)
+                            if (data.user.image.isNotEmpty()) {
+                                Glide.with(mViewDataBinding.profilePicture.context)
+                                    .load(data.user.image).into(mViewDataBinding.profilePicture)
+                                if (data.user.image.isNotEmpty()) {
+                                    Glide.with(mViewDataBinding.profilePicture.context)
+                                        .load(data.user.image)
+                                        .placeholder(R.drawable.baseline_person_white)
+                                        .into(mViewDataBinding.profilePicture)
+                                }
+
+                                mViewDataBinding.userName.setText(data.user.name)
+                                mViewDataBinding.phone.setText(data.user.phone)
+                                mViewDataBinding.email.setText(data.user.email)
+
+                                /*  val userData = PrefHelper.getInstance(requireActivity()).getUserData()
+                                  userData!!.name = data.name
+                                  userData!!.profileImage = data.profileImage
+                                  PrefHelper.getInstance(requireActivity()).setUserData(userData)*/
+                                if (isAdded) {
+                                    mViewDataBinding.root.snackbar("Profile updated")
+                                }
+
+                                /*       val bundle = arguments
+                                       if (bundle != null) {
+                                           bundle.putString("userimg", data.profileImage)
+                                           bundle.putString("username", data.name)
+                                       }*/
+
+
+                                findNavController().navigate(
+                                    R.id.action_editProfileFragment_to_dashboardFragment,
+                                    arguments,
+                                    options
+                                )
+
+
                             }
-
-                            mViewDataBinding.userName.setText(data.user.name)
-                            mViewDataBinding.phone.setText(data.user.phone)
-                            mViewDataBinding.email.setText(data.user.email)
-
-                            /*  val userData = PrefHelper.getInstance(requireActivity()).getUserData()
-                              userData!!.name = data.name
-                              userData!!.profileImage = data.profileImage
-                              PrefHelper.getInstance(requireActivity()).setUserData(userData)*/
-                            if (isAdded) {
-                                mViewDataBinding.root.snackbar("Profile updated")
-                            }
-
-                            /*       val bundle = arguments
-                                   if (bundle != null) {
-                                       bundle.putString("userimg", data.profileImage)
-                                       bundle.putString("username", data.name)
-                                   }*/
-
-
-                            findNavController().navigate(R.id.action_editProfileFragment_to_dashboardFragment,arguments,options)
-
-
                         }
                     }
-                    Resource.Status.AUTH -> { loadingDialog.dismiss()
-                         if (isAdded) {
+
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+                        if (isAdded) {
                             try {
                                 onToSignUpPage()
                             } catch (e: Exception) {
@@ -165,6 +184,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                             }
                         }
                     }
+
                     Resource.Status.ERROR -> {
 
                         loadingDialog.dismiss()
@@ -184,15 +204,50 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                     Resource.Status.LOADING -> {
                         loadingDialog.show()
                     }
+
                     Resource.Status.NOTVERIFY -> {
                         loadingDialog.dismiss()
                     }
+
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
                             try {
 
-                                Glide.with(mViewDataBinding.profilePicture.context).load(data.user.image).into(mViewDataBinding.profilePicture)
+                                Log.d("TAG", "onViewCreatedemail: ${data.user.isEmailValid}")
+                                Log.d("TAG", "onViewCreatedphone: ${data.user.isPhoneValid}")
+
+                                if (data.user.isEmailValid) {
+                                    mViewDataBinding.btnVerifyEmail.visibility = View.GONE
+                                    mViewDataBinding.emailImgVerify.visibility = View.VISIBLE
+                                }
+                                if (!data.user.isEmailValid) {
+                                    mViewDataBinding.btnVerifyEmail.visibility = View.VISIBLE
+                                    mViewDataBinding.emailImgNotVerify.visibility = View.VISIBLE
+                                }
+
+                                if (data.user.isPhoneValid) {
+                                    mViewDataBinding.btnVerifyPhone.visibility = View.GONE
+                                    mViewDataBinding.phoneImgVerify.visibility = View.VISIBLE
+                                }
+                                if (!data.user.isPhoneValid) {
+                                    mViewDataBinding.btnVerifyPhone.visibility = View.VISIBLE
+                                    mViewDataBinding.phoneImgNotVerify.visibility = View.VISIBLE
+                                }
+
+
+                                var bundle = arguments
+                                if (bundle == null) {
+                                    bundle = Bundle()
+                                }
+                                bundle?.putString("phone", data.user.phone)
+                                bundle?.putString("email", data.user.email)
+
+                                userId = data.user._id
+
+
+                                Glide.with(mViewDataBinding.profilePicture.context)
+                                    .load(data.user.image).into(mViewDataBinding.profilePicture)
                                 imageUrl = data.user.image
 //                            userDOB = data.user.dateOfBirth.toString()
                                 userEmail = data.user.email
@@ -207,16 +262,17 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
 //                                    .into(mViewDataBinding.profilePicture)
 
 
-
-                            }
-                            catch (e: Exception) {
+                            } catch (e: Exception) {
 
                             }
 
                         }
                     }
-                    Resource.Status.AUTH -> { loadingDialog.dismiss()
-                         if (isAdded) {
+
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+                        if (isAdded) {
                             try {
                                 onToSignUpPage()
                             } catch (e: Exception) {
@@ -224,6 +280,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                             }
                         }
                     }
+
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
                         if (isAdded) {
@@ -241,25 +298,30 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                     Resource.Status.LOADING -> {
                         loadingDialog.show()
                     }
+
                     Resource.Status.NOTVERIFY -> {
                         loadingDialog.dismiss()
                     }
+
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
                             try {
 //                                Picasso.get().load(imageUrl).resize(500, 500)
 //                                    .into(mViewDataBinding.profilePicture)
-                                Glide.with(mViewDataBinding.profilePicture.context).load(data.image).into(mViewDataBinding.profilePicture)
+                                Glide.with(mViewDataBinding.profilePicture.context).load(data.image)
+                                    .into(mViewDataBinding.profilePicture)
 
-                            }
-                            catch (e: Exception) {
+                            } catch (e: Exception) {
 
                             }
                         }
                     }
-                    Resource.Status.AUTH -> { loadingDialog.dismiss()
-                         if (isAdded) {
+
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+                        if (isAdded) {
                             try {
                                 onToSignUpPage()
                             } catch (e: Exception) {
@@ -267,6 +329,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                             }
                         }
                     }
+
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
                         Log.d("uploadReviewIm", "onViewCreated: ${it.message}")
@@ -289,16 +352,131 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
 
         mViewDataBinding.dob.setOnClickListener {
             DatePickerDialog(
-                requireContext(),
-                dateSetListener,
+                requireContext(), dateSetListener,
                 // set DatePickerDialog to point to today's date when it loads up
-                cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH),
-                cal.get(Calendar.DAY_OF_MONTH)
+                cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)
             ).show()
         }
 
+
+
+        mViewDataBinding.btnVerifyPhone.setOnClickListener {
+
+            userPhone = mViewDataBinding.phone.text.toString()
+
+            val params = JsonObject()
+            try {
+                params.addProperty("phone", userPhone)
+                params.addProperty("userId", userId)
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
+            mViewModel.resendOtp(params)
+            if (!mViewModel.resendOtpResponse.hasActiveObservers()) {
+                mViewModel.resendOtpResponse.observe(requireActivity()) {
+                    when (it.status) {
+                        Resource.Status.LOADING -> {
+                            loadingDialog.show()
+                        }
+
+                        Resource.Status.NOTVERIFY -> {
+                            loadingDialog.dismiss()
+                        }
+
+                        Resource.Status.SUCCESS -> {
+                            val bundle = Bundle()
+                            bundle.putString("phone", userPhone)
+                            loadingDialog.dismiss()
+                            findNavController().navigate(
+                                R.id.otpPhoneFragment, bundle, options
+                            )
+
+                        }
+
+                        Resource.Status.AUTH -> {
+                            loadingDialog.dismiss()
+                            if (isAdded) {
+                                try {
+                                    onToSignUpPage()
+                                } catch (e: Exception) {
+                                    e.printStackTrace()
+                                }
+                            }
+                        }
+
+                        Resource.Status.ERROR -> {
+                            loadingDialog.dismiss()
+                            DialogHelperClass.errorDialog(requireContext(), it.message!!)
+                        }
+                    }
+                    if (isAdded) {
+                        mViewModel.resendOtpResponse.removeObservers(viewLifecycleOwner)
+                    }
+                }
+            }
+
+
+        }
+
+        mViewDataBinding.btnVerifyEmail.setOnClickListener {
+            userEmail = mViewDataBinding.email.text.toString()
+
+            val params = JsonObject()
+            try {
+                params.addProperty("email", userEmail)
+                params.addProperty("userId", userId)
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
+            mViewModel.resendOtp(params)
+            if (!mViewModel.resendOtpResponse.hasActiveObservers()) {
+                mViewModel.resendOtpResponse.observe(requireActivity()) {
+                    when (it.status) {
+                        Resource.Status.LOADING -> {
+                            loadingDialog.show()
+                        }
+
+                        Resource.Status.NOTVERIFY -> {
+                            loadingDialog.dismiss()
+                        }
+
+                        Resource.Status.SUCCESS -> {
+                            val bundle = Bundle()
+                            bundle.putString("email", userEmail)
+                            loadingDialog.dismiss()
+                            findNavController().navigate(
+                                R.id.otpEmailFragment, bundle, options
+                            )
+
+                        }
+
+                        Resource.Status.AUTH -> {
+                            loadingDialog.dismiss()
+                            if (isAdded) {
+                                try {
+                                    onToSignUpPage()
+                                } catch (e: Exception) {
+                                    e.printStackTrace()
+                                }
+                            }
+                        }
+
+                        Resource.Status.ERROR -> {
+                            loadingDialog.dismiss()
+                            DialogHelperClass.errorDialog(requireContext(), it.message!!)
+                        }
+                    }
+                    if (isAdded) {
+                        mViewModel.resendOtpResponse.removeObservers(viewLifecycleOwner)
+                    }
+                }
+            }
+
+
+        }
+
     }
+
 
     private fun updateDateInView() {
         val myFormat = "MM/dd/yyyy" // mention the format you need
@@ -330,8 +508,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                 val imageUri = uri
 
                 val bitmap = MediaStore.Images.Media.getBitmap(
-                    requireActivity().contentResolver,
-                    imageUri
+                    requireActivity().contentResolver, imageUri
                 )
 
 // Compress the bitmap to a JPEG format with 80% quality and save it to a file
