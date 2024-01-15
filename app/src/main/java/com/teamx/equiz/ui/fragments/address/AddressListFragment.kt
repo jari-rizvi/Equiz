@@ -13,9 +13,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
+import com.google.gson.JsonObject
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
+import com.teamx.equiz.data.models.getorderData.ShippingInfo
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentAddressListBinding
 import com.teamx.equiz.games.games.arr
@@ -25,6 +28,7 @@ import com.teamx.equiz.ui.fragments.address.dataclasses.getAddressList.Data
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
+import org.json.JSONException
 import java.util.ArrayList
 
 @AndroidEntryPoint
@@ -59,7 +63,8 @@ class AddressListFragment : BaseFragment<FragmentAddressListBinding, AddressView
         }
 
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
-        mViewDataBinding.btnProceed.setOnClickListener {
+
+        mViewDataBinding.addAddress.setOnClickListener {
             findNavController().navigate(R.id.addressFragment, arguments, options)
         }
 
@@ -148,6 +153,114 @@ class AddressListFragment : BaseFragment<FragmentAddressListBinding, AddressView
 //            }
 //        }
 
+
+                mViewDataBinding.btnProceed.setOnClickListener {
+
+
+//            val country = mViewDataBinding.country.text.toString()
+//            val city = mViewDataBinding.city.text.toString()
+//            val etPostal = mViewDataBinding.etPostal.text.toString()
+//            val etState = mViewDataBinding.etState.text.toString()
+//            val etName = mViewDataBinding.etName.text.toString()
+            val etPhone = "mViewDataBinding.etPhone.text.toString()"
+            val address = "mViewDataBinding.editAddress1.text.toString()"
+
+            val params = JsonObject()
+            try {
+
+
+                params.add(
+                    "shippingInfo", Gson().toJsonTree(
+                        ShippingInfo(
+                            address = address,
+                            phoneNumber = etPhone,
+                            postalCode = "etPostal",
+                            city = "city",
+                            state = "etState",
+                            country = "country",
+                        )
+                    )
+                )
+
+//                params.addProperty("couponCode", "EXTRA69-365-448-1043")
+
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
+            if (address.isNullOrEmpty()) {
+                showToast("Please add Address")
+            } else {
+                if (etPhone.isNotEmpty()
+                    && address.isNotEmpty()
+                ) {
+
+                    mViewModel.createOrder(params)
+                } else {
+                    showToast("Please add Details")
+                }
+            }
+
+
+                    if (!mViewModel.createOrderResponse.hasActiveObservers()) {
+                        mViewModel.createOrderResponse.observe(requireActivity()) {
+                            when (it.status) {
+                                Resource.Status.LOADING -> {
+                                    loadingDialog.show()
+                                }
+
+                                Resource.Status.NOTVERIFY -> {
+                                    loadingDialog.dismiss()
+                                }
+
+                                Resource.Status.SUCCESS -> {
+                                    loadingDialog.dismiss()
+                                    it.data?.let { data ->
+
+                                        var bundle = arguments
+                                        if (bundle == null) {
+                                            bundle = Bundle()
+                                        }
+                                        bundle!!.putString("order_id", data.data._id)
+
+
+                                        findNavController().navigate(
+                                            R.id.paymentMethodsFragment,
+                                            bundle,
+                                            options
+                                        )
+                                    }
+                                }
+
+                                Resource.Status.AUTH -> {
+                                    loadingDialog.dismiss()
+                                    if (isAdded) {
+                                        try {
+                                            onToSignUpPage()
+                                        } catch (e: Exception) {
+                                            e.printStackTrace()
+                                        }
+                                    }
+                                }
+
+                                Resource.Status.ERROR -> {
+                                    loadingDialog.dismiss()
+                                    DialogHelperClass.errorDialog(
+                                        requireContext(),
+                                        it.message!!
+                                    )
+                                }
+                            }
+                            if (isAdded) {
+                                mViewModel.createOrderResponse.removeObservers(
+                                    viewLifecycleOwner
+                                )
+                            }
+                        }
+                    }
+
+
+                }
+
         addressRecyclerview()
     }
 
@@ -163,6 +276,12 @@ class AddressListFragment : BaseFragment<FragmentAddressListBinding, AddressView
     }
 
     override fun oneditClick(position: Int) {
+
+        val id = addressArrayList[position]._id
+        val bundle = Bundle()
+        bundle.putString("id", id)
+        findNavController().navigate(R.id.addressEditFragment2, bundle, options)
+
     }
 
     override fun ondeleteClick(position: Int) {

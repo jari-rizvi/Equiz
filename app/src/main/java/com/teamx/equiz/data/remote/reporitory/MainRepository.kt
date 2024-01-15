@@ -117,6 +117,10 @@ class MainRepository @Inject constructor(
     suspend fun getAddressList() = apiService.getAddressList()
     suspend fun addAddress(@Body param: JsonObject) = apiService.addAddress(param)
     suspend fun deleteAddress(@Path("addressId") addressId: String) = apiService.deleteAddress(addressId)
+    suspend fun getAddressById(@Path("id") addressId: String) = apiService.GetAddressById(addressId)
+    suspend fun updateAddress(
+        @Body params: JsonObject,
+    ) = apiService.updateAddress(params)
 
 
 }

@@ -5,6 +5,7 @@ import com.google.gson.JsonObject
 import com.teamx.equiz.constants.NetworkCallPoints
 import com.teamx.equiz.constants.NetworkCallPoints.Companion.TOKENER
 import com.teamx.equiz.data.models.ResendOtpData
+import com.teamx.equiz.data.models.addressbyid.GetAddressById
 import com.teamx.equiz.data.models.addtocart.AddtoCartData
 import com.teamx.equiz.data.models.addtowishlist.AddToWishlistData
 import com.teamx.equiz.data.models.bannerData.bannews.BanNews
@@ -50,7 +51,6 @@ import com.teamx.equiz.ui.fragments.topup.data.TopUpModelData
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.Body
-import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.HTTP
 import retrofit2.http.Header
@@ -380,4 +380,20 @@ interface ApiService {
         @Path("addressId") uniqueID: String,
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<GetAddressListData>
+
+    @GET(NetworkCallPoints.GET_ADDRESS_BY_ID)
+    suspend fun GetAddressById(
+        @Path("id") id: String,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<GetAddressById>
+
+
+    @PUT(NetworkCallPoints.UPDATE_ADDRESS)
+    suspend fun updateAddress(
+        @Body params: JsonObject?,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<GetAddressById>
+
+
+
 }

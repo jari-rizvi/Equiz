@@ -29,6 +29,7 @@ import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentAddressBinding
+import com.teamx.equiz.databinding.FragmentEditAddressBinding
 import com.teamx.equiz.games.games.arr
 import com.teamx.equiz.ui.fragments.address.bottomSheetAddSearch.BottomSheetAddressFragment
 import com.teamx.equiz.ui.fragments.address.bottomSheetAddSearch.BottomSheetListener
@@ -47,11 +48,11 @@ import java.io.IOException
 import java.util.Locale
 
 @AndroidEntryPoint
-class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>(),
+class AddressEditFragment : BaseFragment<FragmentEditAddressBinding, AddressViewModel>(),
     BottomSheetListener {
 
     override val layoutId: Int
-        get() = R.layout.fragment_address
+        get() = R.layout.fragment_edit_address
     override val viewModel: Class<AddressViewModel>
         get() = AddressViewModel::class.java
     override val bindingVariable: Int
@@ -158,110 +159,9 @@ class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>()
                 )
             }
         }
-//        mViewDataBinding.btnProceed.setOnClickListener {
-//
-//
-////            val country = mViewDataBinding.country.text.toString()
-////            val city = mViewDataBinding.city.text.toString()
-////            val etPostal = mViewDataBinding.etPostal.text.toString()
-////            val etState = mViewDataBinding.etState.text.toString()
-////            val etName = mViewDataBinding.etName.text.toString()
-//            val etPhone = mViewDataBinding.etPhone.text.toString()
-//            val address = mViewDataBinding.editAddress1.text.toString()
-//
-//            val params = JsonObject()
-//            try {
-//
-//
-//                params.add(
-//                    "shippingInfo", Gson().toJsonTree(
-//                        ShippingInfo(
-//                            address = address,
-//                            phoneNumber = etPhone,
-//                            postalCode = "etPostal",
-//                            city = "city",
-//                            state = "etState",
-//                            country = "country",
-//                        )
-//                    )
-//                )
-//
-////                params.addProperty("couponCode", "EXTRA69-365-448-1043")
-//
-//            } catch (e: JSONException) {
-//                e.printStackTrace()
-//            }
-//            if (address.isNullOrEmpty()) {
-//                showToast("Please add Address")
-//            } else {
-//                if (etPhone.isNotEmpty()
-//                    && address.isNotEmpty()
-//                ) {
-//
-//                    mViewModel.createOrder(params)
-//                } else {
-//                    showToast("Please add Details")
-//                }
-//            }
-//        }
 
 
-        if (!mViewModel.createOrderResponse.hasActiveObservers()) {
-            mViewModel.createOrderResponse.observe(requireActivity()) {
-                when (it.status) {
-                    Resource.Status.LOADING -> {
-                        loadingDialog.show()
-                    }
 
-                    Resource.Status.NOTVERIFY -> {
-                        loadingDialog.dismiss()
-                    }
-
-                    Resource.Status.SUCCESS -> {
-                        loadingDialog.dismiss()
-                        it.data?.let { data ->
-
-                            var bundle = arguments
-                            if (bundle == null) {
-                                bundle = Bundle()
-                            }
-                            bundle!!.putString("order_id", data.data._id)
-
-
-                            findNavController().navigate(
-                                R.id.paymentMethodsFragment,
-                                bundle,
-                                options
-                            )
-                        }
-                    }
-
-                    Resource.Status.AUTH -> {
-                        loadingDialog.dismiss()
-                        if (isAdded) {
-                            try {
-                                onToSignUpPage()
-                            } catch (e: Exception) {
-                                e.printStackTrace()
-                            }
-                        }
-                    }
-
-                    Resource.Status.ERROR -> {
-                        loadingDialog.dismiss()
-                        DialogHelperClass.errorDialog(
-                            requireContext(),
-                            it.message!!
-                        )
-                    }
-                }
-                if (isAdded) {
-                    mViewModel.createOrderResponse.removeObservers(
-                        viewLifecycleOwner
-                    )
-                }
-            }
-        }
 
 
     }
@@ -269,30 +169,25 @@ class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>()
 
     fun ApiCall() {
 
-        val label = mViewDataBinding.etLabel.text.toString()
         val address = mViewDataBinding.editAddress1.text.toString()
         val phoneNumber = mViewDataBinding.etPhone.text.toString()
 
 
-        if (!label!!.isEmpty() || !address!!.isEmpty() || !phoneNumber!!.isEmpty()) {
+        if (!address!!.isEmpty() || !phoneNumber!!.isEmpty()) {
 
-            val addressses = Address2(
-                label = label,
-                address = address,
-                phoneNumber = phoneNumber
-            )
-            Log.d("TAG", "labellabellabel: $label")
+
             val params = JsonObject()
             try {
-                params.add(
-                    "addresses", Gson().toJsonTree(addressses)
-                )
+                params.addProperty("address", address)
+                params.addProperty("addressId", addressId)
+                params.addProperty("phoneNumber", phoneNumber)
             } catch (e: JSONException) {
                 e.printStackTrace()
             }
-            mViewModel.addAddress(params)
-            if (!mViewModel.addAddressResponse.hasActiveObservers()) {
-                mViewModel.addAddressResponse.observe(requireActivity()) {
+
+            mViewModel.updateAddress(params)
+            if (!mViewModel.updateAddressResponse.hasActiveObservers()) {
+                mViewModel.updateAddressResponse.observe(requireActivity()) {
                     when (it.status) {
                         Resource.Status.LOADING -> {
                             loadingDialog.show()
@@ -324,7 +219,7 @@ class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>()
                         }
                     }
                     if (isAdded) {
-                        mViewModel.addAddressResponse.removeObservers(
+                        mViewModel.updateAddressResponse.removeObservers(
                             viewLifecycleOwner
                         )
                     }

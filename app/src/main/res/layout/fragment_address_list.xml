@@ -80,7 +80,7 @@
             android:background="@drawable/card_background_border"
             android:backgroundTint="@color/theme_color"
             android:gravity="center"
-            android:text="Add"
+            android:text="@string/proceed_to_check_out"
             android:textColor="@color/white"
             android:textSize="@dimen/_12ssp"
             android:textStyle="bold"
@@ -88,6 +88,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/addressRecycler" />
+
+        <TextView
+            android:id="@+id/addAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_address"
+            android:textColor="@color/theme_color"
+            android:fontFamily="@font/poppin_regular"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintBottom_toBottomOf="@+id/textView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="@+id/textView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -219,8 +219,9 @@
     <string name="enter_your_address">Enter your address</string>
     <string name="enter_label">Enter Label</string>
     <string name="enter_address">Enter Address</string>
-
-
+    <string name="update">Update</string>
+    <string name="edit_address">Edit Address</string>
+    <string name="add_address">Add Address</string>
 
 
 </resources>

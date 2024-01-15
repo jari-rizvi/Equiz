@@ -73,6 +73,8 @@ class NetworkCallPoints {
         const val GET_ADDRESS_LIST = "api/users/findAddress"
         const val ADD_ADDRESS = "/api/users/addAddress"
         const val DELETE_ADDRESS ="api/users/removeAddress/{addressId}"
+        const val GET_ADDRESS_BY_ID ="api/users/findAddessId/{id}"
+        const val UPDATE_ADDRESS ="api/users/updateAddress"
 
 
 
