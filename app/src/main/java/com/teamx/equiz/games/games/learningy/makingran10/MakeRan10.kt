@@ -1,6 +1,7 @@
 package com.teamx.equiz.games.games.learningy.makingran10
 
 import android.os.CountDownTimer
+import android.util.Log
 import androidx.annotation.Keep
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
@@ -15,13 +16,12 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
@@ -33,6 +33,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -40,21 +41,22 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
 import com.teamx.equiz.games.games.BackButton
 import com.teamx.equiz.games.games.disableScrolling
-import com.teamx.equiz.games.games.linkListAddictmake1067Checker
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
-import com.teamx.equiz.games.utils.RainGameObject
+import com.teamx.equiz.ui.theme.BirdColor4
 import kotlinx.coroutines.GlobalScope
+import kotlin.random.Random
 
 fun LazyListState.isScrolledToEnd() =
     layoutInfo.visibleItemsInfo.lastOrNull()?.index == layoutInfo.totalItemsCount - 1
@@ -104,10 +106,13 @@ fun Rain10Game(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: Int) -
     if (isTimeUp) {
 
         TimeUpDialogCompose() { i ->
+            Log.d("123123", "Rain10Game: $rightGameAnswersRain")
+            Log.d("123123", "Rain10Game: $wrongGameAnswersRain")
             if (i) {
                 isGameOver = true
 
             } else {
+
                 content(false, rightGameAnswersRain, wrongGameAnswersRain)
                 rightGameAnswersRain = 0
                 wrongGameAnswersRain = 1
@@ -130,7 +135,7 @@ fun Rain10Game(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: Int) -
                 ) {
 
 
-                    rainFallDrops()
+                    rain10Drops()
 
                     Box(
                         modifier = Modifier
@@ -170,107 +175,80 @@ fun Rain10Game(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: Int) -
 }
 
 @Composable
-fun rainFallDrops() {
+fun rain10Drops() {
+
+    val availableCards = remember { mutableStateOf(generateArray()) }
+
+    val leftItems = remember { ArrayList<RainListItem>() }
+    val midItems = remember { ArrayList<RainListItem>() }
+    val rightItems = remember { ArrayList<RainListItem>() }
+
+    availableCards.value.forEach {
+
+
+        leftItems.add(RainListItem(it[0].toString(), 110.dp))
+        midItems.add(RainListItem(it[1].toString(), 110.dp))
+        rightItems.add(RainListItem(it[2].toString(), 110.dp))
+    }
+
+    leftItems.get(leftItems.lastIndex).isClickable = true
+    midItems.get(midItems.lastIndex).isClickable = true
+    rightItems.get(rightItems.lastIndex).isClickable = true
+
+
     val state = rememberLazyListState()
     state.disableScrolling(GlobalScope)
+
+
+    /*
     var leftItems = (0..(173)).map {
         RainListItem(
-            height = 110/*Random.nextInt(100, 300)*/.dp,
+            height = 110.dp,
             name = "$it",
-
-            color = if (it % 5 == 0) {
-                Color(0xFFF44336).copy(alpha = 1f)
-            } else if (it % 2 == 0) {
-                Color(0xFF4CAF50).copy(alpha = 1f)
-            } else {
-                Color(0xFF00BCD4).copy(alpha = 1f)
-            },
-            gameObject = if (it % 5 == 0) {
-                RainGameObject.THUNDER
-            } else if (it % 2 == 0) {
-                RainGameObject.BLANK
-            } else {
-                RainGameObject.DROP
-            }
+        )
+    }
+    var midItems = (0..(173)).map {
+        RainListItem(
+            height = 110.dp,
+            name = "$it",
         )
     }
     var rightItems = (0..(173)).map {
         RainListItem(
-            height = 110/*Random.nextInt(100, 300)*/.dp,
+            height = 110.dp,
             name = "$it",
-
-            color = if (it % 5 == 0) {
-                Color(0xFFF44336).copy(alpha = 1f)
-            } else if (it % 2 == 0) {
-                Color(0xFF4CAF50).copy(alpha = 1f)
-            } else {
-                Color(0xFF00BCD4).copy(alpha = 1f)
-            },
-            gameObject = if (it % 5 == 0) {
-                RainGameObject.THUNDER
-            } else if (it % 2 == 0) {
-                RainGameObject.BLANK
-            } else {
-                RainGameObject.DROP
-            }
         )
     }
     leftItems = leftItems.shuffled()
     rightItems = rightItems.shuffled()
+    midItems = midItems.shuffled()*/
 
-    /*rightItems =*/
-    leftItems.forEachIndexed { i, t ->
-        if (leftItems[i].gameObject == RainGameObject.THUNDER && rightItems[i].gameObject == RainGameObject.THUNDER) {
-            leftItems.get(i).gameObject = RainGameObject.BLANK
-            leftItems.get(i).color = Color(0xFF4CAF50).copy(alpha = 1f)
-        }
-    }
-    leftItems.forEachIndexed { i, t ->
-        if (leftItems[i].gameObject == RainGameObject.BLANK && rightItems[i].gameObject == RainGameObject.BLANK) {
-            leftItems.get(i).gameObject = RainGameObject.DROP
-            leftItems.get(i).color = Color(0xFF00BCD4).copy(alpha = 1f)
-        }
-    }
-    leftItems.forEachIndexed { i, t ->
-        if (leftItems[i].gameObject == RainGameObject.DROP && rightItems[i].gameObject == RainGameObject.DROP) {
-            leftItems.get(i).gameObject = RainGameObject.THUNDER
-            leftItems.get(i).color = Color(0xFFF44336).copy(alpha = 1f)
-        }
-    }
-    var score by remember { mutableStateOf(0) }
-    var boolOption by remember { mutableStateOf(false) }
-    val leftBoxes by remember { mutableStateOf(leftItems) }
-    val rightBoxes by remember { mutableStateOf(rightItems) }
-    var leftIndexCounter by remember { mutableStateOf(0) }
-    var rightIndexCounter by remember { mutableStateOf(0) }
-    val deletedLeftList = remember { mutableStateListOf<RainListItem>() }
-    val deletedRightList = remember { mutableStateListOf<RainListItem>() }
+
+    var leftIndexCounter by remember { mutableIntStateOf(0) }
+
+    val deletedIndexList = remember { mutableStateListOf<Int>() }
     val leftScrollState = rememberLazyListState()
-    val rightScrollState2 = rememberLazyListState()/* val endOfListReached by remember {
-         derivedStateOf {
-             leftScrollState.isScrolledToEnd()
-             leftScrollState.disableScrolling(GlobalScope)
-         }
-     }*/
+    val rightScrollState2 = rememberLazyListState()
+    val midScrollState2 = rememberLazyListState()
 
-//    leftScrollState.disableScrolling(GlobalScope)
-//    rightScrollState2.disableScrolling(GlobalScope)
     LaunchedEffect(true) {
-        rightScrollState2.scrollToItem(rightBoxes.size)
-        leftScrollState.scrollToItem(leftBoxes.size)
-        leftScrollState.scroll(MutatePriority.PreventUserInput, {})
-        rightScrollState2.scroll(MutatePriority.PreventUserInput, {})
+        leftScrollState.scrollToItem(leftItems.size)
+        midScrollState2.scrollToItem(midItems.size)
+        rightScrollState2.scrollToItem(rightItems.size)
+        leftScrollState.scroll(MutatePriority.PreventUserInput) {}
+        midScrollState2.scroll(MutatePriority.PreventUserInput) {}
+        rightScrollState2.scroll(MutatePriority.PreventUserInput) {}
     }
     Column(
         modifier = Modifier
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Bottom
+        verticalArrangement = Arrangement.Center
 
     ) {
         Row(
-            modifier = Modifier/*.fillMaxSize(*//*1f*//*)*/,
-            horizontalArrangement = Arrangement.Center,
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.Top
         ) {
 
@@ -280,30 +258,43 @@ fun rainFallDrops() {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Bottom
             ) {
-//        Row() {
+
 
                 LazyColumn(
-//            columns = StaggeredGridCells.Adaptive(122.dp),
                     userScrollEnabled = false,
                     modifier = Modifier
                         .width(100.dp)
-                        .heightIn(300.dp, max = 380.dp)
 
+                        .heightIn(440.dp, max = 460.dp)
                         .clickable(enabled = false, null, null, {}),
-                    contentPadding = PaddingValues(16.dp),
-//            horizontalArrangement = Arrangement.spacedBy(86.dp),
+                    contentPadding = PaddingValues(1.dp),
                     state = leftScrollState
-//        verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
 
-                    itemsIndexed(items = leftBoxes, itemContent = { _, item ->
+                    itemsIndexed(items = leftItems, itemContent = { index, item ->
 
                         AnimatedVisibility(
-                            visible = !deletedLeftList.contains(item),
+                            visible = !deletedIndexList.contains(index),
                             enter = expandVertically(),
-                            exit = shrinkVertically(animationSpec = tween(durationMillis = 1000))
+                            exit = shrinkVertically(animationSpec = tween(durationMillis = 500))
                         ) {
-                            drop(item = item) {}
+                            drop(item = item, index = index * 2) {
+                                val iu = leftItems.lastIndex - leftIndexCounter
+                                val iu2 = midItems.lastIndex - leftIndexCounter
+                                val iu3 = rightItems.lastIndex - leftIndexCounter
+                                if (it) {
+                                    rightGameAnswersRain++
+                                }
+                                wrongGameAnswersRain++
+                                deletedIndexList.add(index)
+
+                                leftItems[iu - 1].isClickable = true
+                                midItems[iu2 - 1].isClickable = true
+                                rightItems[iu3 - 1].isClickable = true
+
+                                leftIndexCounter++
+
+                            }
                         }
                     })
                 }
@@ -311,32 +302,49 @@ fun rainFallDrops() {
             }
 
             Column(
-                modifier = Modifier/*.fillMaxHeight(0.9f)*/,
+                modifier = Modifier,
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Bottom
             ) {
-//        Row() {
+
 
                 LazyColumn(
-//            columns = StaggeredGridCells.Adaptive(122.dp),
+
                     userScrollEnabled = false,
                     modifier = Modifier
                         .width(100.dp)
-                        .heightIn(300.dp, max = 380.dp)
+                        .heightIn(440.dp, max = 460.dp)
                         .clickable(enabled = false, null, null, {}),
-                    contentPadding = PaddingValues(16.dp),
-//            horizontalArrangement = Arrangement.spacedBy(86.dp),
-                    state = rightScrollState2
-//        verticalArrangement = Arrangement.spacedBy(16.dp)
+                    contentPadding = PaddingValues(1.dp),
+
+                    state = midScrollState2
+
                 ) {
-                    itemsIndexed(items = rightBoxes, itemContent = { _, item ->
+                    itemsIndexed(items = midItems, itemContent = { index, item ->
 
                         AnimatedVisibility(
-                            visible = !deletedRightList.contains(item),
+                            visible = !deletedIndexList.contains(index),
                             enter = expandVertically(),
-                            exit = shrinkVertically(animationSpec = tween(durationMillis = 1000))
+                            exit = shrinkVertically(animationSpec = tween(durationMillis = 500))
                         ) {
-                            drop(item = item) {}
+                            drop(item = item, index = index * 0) {
+                                val iu = leftItems.lastIndex - leftIndexCounter
+                                val iu2 = midItems.lastIndex - leftIndexCounter
+                                val iu3 = rightItems.lastIndex - leftIndexCounter
+
+                                if (it) {
+                                    rightGameAnswersRain++
+                                }
+                                wrongGameAnswersRain++
+                                deletedIndexList.add(index)
+
+                                leftItems[iu - 1].isClickable = true
+                                midItems[iu2 - 1].isClickable = true
+                                rightItems[iu3 - 1].isClickable = true
+
+                                leftIndexCounter++
+
+                            }
                         }
                     })
                 }
@@ -352,191 +360,152 @@ fun rainFallDrops() {
                     userScrollEnabled = false,
                     modifier = Modifier
                         .width(100.dp)
-                        .heightIn(300.dp, max = 380.dp)
+                        .heightIn(440.dp, max = 460.dp)
                         .clickable(enabled = false, null, null, {}),
-                    contentPadding = PaddingValues(16.dp),
+                    contentPadding = PaddingValues(1.dp),
                     state = rightScrollState2
                 ) {
-                    itemsIndexed(items = rightBoxes, itemContent = { _, item ->
+                    itemsIndexed(items = rightItems, itemContent = { index, item ->
 
                         AnimatedVisibility(
-                            visible = !deletedRightList.contains(item),
+                            visible = !deletedIndexList.contains(index),
                             enter = expandVertically(),
-                            exit = shrinkVertically(animationSpec = tween(durationMillis = 1000))
+                            exit = shrinkVertically(animationSpec = tween(durationMillis = 500))
                         ) {
-                            drop(item = item) {}
+                            drop(item = item, index = -index * 2) {
+                                val iu = leftItems.lastIndex - leftIndexCounter
+                                val iu2 = midItems.lastIndex - leftIndexCounter
+                                val iu3 = rightItems.lastIndex - leftIndexCounter
+
+                                if (it) {
+
+                                    rightGameAnswersRain++
+                                }
+                                wrongGameAnswersRain++
+                                deletedIndexList.add(index)
+
+                                leftItems[iu - 1].isClickable = true
+                                midItems[iu2 - 1].isClickable = true
+                                rightItems[iu3 - 1].isClickable = true
+
+                                leftIndexCounter++
+
+                            }
                         }
                     })
                 }
             }
         }
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(100.dp),
-            horizontalArrangement = Arrangement.SpaceEvenly,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
 
-
-            Box(
-                modifier = Modifier
-                    .background(Color.Transparent)
-                    .height(130.dp)
-                    .clickable {
-                        wrongGameAnswersRain++
-                        boolOption = true
-                        val iu = leftBoxes.lastIndex - leftIndexCounter++
-                        val iu2 = rightBoxes.lastIndex - rightIndexCounter++
-
-                        if (leftBoxes[iu].gameObject == RainGameObject.DROP && (rightBoxes[iu2].gameObject == RainGameObject.THUNDER || rightBoxes[iu2].gameObject == RainGameObject.BLANK)) {
-                            score++
-                            rightGameAnswersRain++
-                            deletedLeftList.add(leftBoxes[iu])
-                            deletedRightList.add(rightBoxes[iu2])
-                        } else if (leftBoxes[iu].gameObject == RainGameObject.BLANK && rightBoxes[iu2].gameObject == RainGameObject.THUNDER) {
-//                        return@Button
-                            rightGameAnswersRain++
-                            deletedLeftList.add(leftBoxes[iu])
-                            deletedRightList.add(rightBoxes[iu2])
-                        } else {
-                            leftIndexCounter--
-                            rightIndexCounter--
-//                        return@Button
-//                    score--
-                        }
-
-                    }, contentAlignment = Alignment.Center
-            ) {
-
-
-                Image(
-                    painter = painterResource(id = checkDrawableRain(boolOption)),
-                    contentDescription = null,
-                    modifier = Modifier.size(130.dp)
-
-                )
-            }
-
-            Box(
-                modifier = Modifier
-                    .background(Color.Transparent)
-
-                    .height(130.dp)
-                    .clickable {
-                        wrongGameAnswersRain++
-                        boolOption = false
-                        val iu = leftBoxes.lastIndex - leftIndexCounter++
-                        val iu2 = rightBoxes.lastIndex - rightIndexCounter++
-
-                        if (rightBoxes[iu2].gameObject == RainGameObject.DROP && (leftBoxes[iu].gameObject == RainGameObject.THUNDER || leftBoxes[iu].gameObject == RainGameObject.BLANK)) {
-                            score++
-                            rightGameAnswersRain++
-
-                            deletedLeftList.add(leftBoxes[iu])
-                            deletedRightList.add(rightBoxes[iu2])
-                        } else if (rightBoxes[iu2].gameObject == RainGameObject.BLANK && leftBoxes[iu].gameObject == RainGameObject.THUNDER) {
-//                    return@Button
-                            rightGameAnswersRain++
-                            deletedLeftList.add(leftBoxes[iu])
-                            deletedRightList.add(rightBoxes[iu2])
-                        } else {
-//                    score--
-                            leftIndexCounter--
-                            rightIndexCounter--
-                        }
-
-                    }, contentAlignment = Alignment.Center
-            ) {
-                Image(
-                    painter = painterResource(id = checkDrawableRain(!boolOption)),
-                    contentDescription = null,
-                    modifier = Modifier.size(130.dp)
-
-                )
-            }
-        }
-        Spacer(modifier = Modifier.size(65.dp))
 
     }
 
 }
 
+var sum = 0
 
 @Composable
-fun drop(item: RainListItem, onClick: () -> Unit) {
-    val context = LocalContext.current
+fun drop(index: Int, item: RainListItem, onClick: (boo: Boolean) -> Unit) {
 
-    var colorState by remember { mutableStateOf(Color.Transparent) }
+
+    var colorState by remember { mutableStateOf(R.drawable.white_card) }
+
 
     Box(
         modifier = Modifier
             .size(item.height)
-            .padding(vertical = 1.dp)
-//            .clip(RoundedCornerShape(95.dp))
-            .background(colorState)
-            .clickable(enabled = true, null) {
-                if (colorState == Color.Blue) {
-                    colorState = Color.Transparent
+            /*.offset {
+                if (item.isClickable) {
+                    IntOffset(index, 0)
                 } else {
-                    colorState = Color.Blue
+                    IntOffset(index, -105)
                 }
+            }*/
+            .clickable(enabled = item.isClickable, null) {
+                if (sum < 0) {
+                    sum = 0
+                }
+
+                if (colorState == R.drawable.purple_card) {
+                    sum = sum - item.name.toInt()
+                    colorState = R.drawable.white_card
+                } else {
+                    sum = sum + item.name.toInt()
+                    colorState = R.drawable.purple_card
+                }
+                Log.d("123123", "drop 123123: $sum ")
+
+                if (sum % 10 == 0) {
+                    sum = 0
+                    onClick(true)
+
+                } else if (sum > 10) {
+                    sum = 0
+                    onClick(false)
+                }
+
             }/*.clickable {
                 onClick()
             }*/, contentAlignment = Alignment.Center
 
 
     ) {
-        /*Text(
-            text = item.name, style = MaterialTheme.typography.bodySmall
-        )*/
+
         Image(
             painter = painterResource(
-                if (linkListAddictmake1067Checker.isNotEmpty()  /*&&addingValue2*/) {
-                    R.drawable.purple_card
-                } else {
-//                    addingValue2 = false
-                    R.drawable.white_card
-                }
-            )/*painterResource(id = checkStringReturnDrawable(item.gameObject))*/,
+                colorState
+            ),
             contentDescription = null,
-            modifier = Modifier.size(150.dp)
         )
+
+
+
+        Text(
+            modifier = Modifier
+
+                .wrapContentSize(),
+            text = item.name,
+            color = if (colorState == R.drawable.purple_card) {
+                Color.White
+            } else {
+                BirdColor4
+            },
+            textAlign = TextAlign.Center, fontWeight = FontWeight.ExtraBold,
+            fontSize = 46.sp
+        )
+
+
     }
 }
 
 
-fun checkStringReturnDrawable(str: RainGameObject): Int {
-    return when (str) {
-        RainGameObject.DROP -> {
+fun generateArray(): Array<Array<Int>> {
+    val size = 45
+    val array = Array(size) { Array(3) { 0 } }
 
-            R.drawable.droprain
-        }
+    var count = 0
 
-        RainGameObject.THUNDER -> {
-
-            R.drawable.stromrain
-        }
-
-        RainGameObject.BLANK -> {
-
-            R.drawable.padlock_2rain
-        }
-
-
-        else -> {
-            R.drawable.ic_launcher_background
+    for (i in 1..10) {
+        for (j in 1..10) {
+            for (k in 1..10) {
+                if (i + j + k == 10 && count < size) {
+                    array[count][0] = i
+                    array[count][1] = j
+                    array[count][2] = k
+                    count++
+                }
+            }
+            if (i + j == 10 && count < size) {
+                array[count][0] = i
+                array[count][1] = j
+                array[count][2] = Random.nextInt(1, 10)
+                count++
+            }
         }
     }
-}
 
-fun checkDrawableRain(bool: Boolean): Int {
 
-    return if (bool) {
-        R.drawable.umbrella_whiterain
-    } else {
-        R.drawable.umbrella_yellowrain
-    }
+    return array
 }
 
 @Preview
@@ -551,10 +520,7 @@ fun previewRain10Game() {
 data class RainListItem(
     var name: String,
     var height: Dp,
-    var gameObject: RainGameObject,
-    var color: Color,
+    var isClickable: Boolean = false,
 )
 
-fun valusingcourotines() {
-
-}
+ 
