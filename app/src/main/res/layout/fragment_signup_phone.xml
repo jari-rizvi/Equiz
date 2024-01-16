@@ -126,7 +126,7 @@
             app:layout_constraintVertical_bias="0.05"
             app:passwordToggleDrawable="@drawable/show"
             app:passwordToggleEnabled="true"
-            app:passwordToggleTint="@color/light_gray">
+            app:passwordToggleTint="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etPass"
@@ -141,7 +141,6 @@
                 android:imeOptions="actionNext"
                 android:inputType="text"
                 android:paddingStart="@dimen/_15sdp"
-                android:textColor="@color/black"
                 android:textColorHint="@color/light_gray"
                 android:textSize="@dimen/_11ssp" />
         </com.google.android.material.textfield.TextInputLayout>

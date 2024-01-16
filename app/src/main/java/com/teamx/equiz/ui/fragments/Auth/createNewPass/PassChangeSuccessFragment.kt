@@ -34,8 +34,11 @@ class PassChangeSuccessFragment : BaseFragment<FragmentPassChangeSuccessBinding,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
          super.onViewCreated(view, savedInstanceState)
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+     /*   requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
+        }*/
+
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
         }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 

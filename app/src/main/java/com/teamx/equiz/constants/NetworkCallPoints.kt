@@ -10,7 +10,8 @@ class NetworkCallPoints {
         const val OTP_VERIFY_FORGOT ="api/auth/otpReset/{uniqueID}"
         const val RESEND_OTP ="/api/auth/resendOTP"
         const val ME = "api/users/find"
-        const val UNSUB = "api/users/find"
+//        const val UNSUB = "api/users/find"
+        const val UNSUB = "api/payment/unsubscribe"
         const val DELETE_USER = "api/users/remove"
         const val UPDATE_PROFILE = "api/users/update"
 
@@ -21,7 +22,7 @@ class NetworkCallPoints {
 
 
         const val RESET_PASSWORD = "api/auth/passwordReset"
-        const val CHANGE_PASSWORD = "api/auth/changePassword"
+        const val CHANGE_PASSWORD = "api/users/changePassword"
         const val RESULT_GAME = "api/game/progress"
         const val GET_ALL_CATEGORIES = "api/category"
         const val WISHLIST_DATA = "api/wishlist/find"

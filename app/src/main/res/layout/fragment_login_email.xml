@@ -89,7 +89,6 @@
                 android:imeOptions="actionNext"
                 android:inputType="textPassword"
                 android:paddingHorizontal="@dimen/_10sdp"
-                android:textColor="@color/black"
                 android:textColorHint="@color/light_gray"
                 android:textSize="@dimen/_11ssp" />
         </com.google.android.material.textfield.TextInputLayout>

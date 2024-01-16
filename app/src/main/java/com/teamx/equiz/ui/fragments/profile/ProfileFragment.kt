@@ -143,11 +143,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
 
                             try {
 //                                mViewDataBinding.root.snackbar(data)
-                                if (isAdded) {
-                                    if (data.subscription.plan.active) {
-                                        mViewDataBinding.root.snackbar("Subcription will end at the end of the Month")
-                                    }
-                                }
+                                    mViewDataBinding.root.snackbar("Subcription will end at the end of the Month")
+
 
                             } catch (e: Exception) {
                                 e.printStackTrace()

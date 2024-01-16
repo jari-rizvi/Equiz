@@ -132,7 +132,8 @@ interface ApiService {
     @GET(NetworkCallPoints.APPLU_COUON)
     suspend fun applyCoupon(
         @Query("code") code: String,
-        @Header("token") basicCredentials: String = "$TOKENER"): Response<GetCartData>
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<GetCartData>
 
     @GET(NetworkCallPoints.GET_WALLET)
     suspend fun getWallet(@Header("token") basicCredentials: String = "$TOKENER"): Response<GetWalletData>
@@ -232,8 +233,11 @@ interface ApiService {
     @POST(NetworkCallPoints.RESET_PASSWORD)
     suspend fun resetPass(@Body params: JsonObject?): Response<SuccessData>
 
-    @POST(NetworkCallPoints.CHANGE_PASSWORD)
-    suspend fun changePass(@Body params: JsonObject?): Response<SuccessData>
+    @PUT(NetworkCallPoints.CHANGE_PASSWORD)
+    suspend fun changePass(
+        @Body params: JsonObject?,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<SuccessData>
 
 
     @PUT(NetworkCallPoints.RESULT_GAME)
@@ -398,7 +402,6 @@ interface ApiService {
         @Body params: JsonObject?,
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<GetAddressById>
-
 
 
 }
