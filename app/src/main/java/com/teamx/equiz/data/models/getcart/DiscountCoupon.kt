@@ -1,5 +1,9 @@
 package com.teamx.equiz.data.models.getcart
 
+import androidx.annotation.Keep
+
+@Keep
+
 data class DiscountCoupon(
     val __v: Int,
     val _id: String,
