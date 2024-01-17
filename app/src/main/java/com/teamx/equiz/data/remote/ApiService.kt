@@ -37,6 +37,7 @@ import com.teamx.equiz.data.models.wishlistdata.WishlistData
 import com.teamx.equiz.ui.fragments.Auth.datanotify.DataFCMModel
 import com.teamx.equiz.ui.fragments.address.dataclasses.AddressOrderCreate
 import com.teamx.equiz.ui.fragments.address.dataclasses.getAddressList.GetAddressListData
+import com.teamx.equiz.ui.fragments.cards.modelcards.CardsModel
 import com.teamx.equiz.ui.fragments.chances.data.ChancesModelData
 import com.teamx.equiz.ui.fragments.collectPrice.data.CollectDataModel
 import com.teamx.equiz.ui.fragments.ecommerce.data.CategoryEcomData
@@ -229,6 +230,17 @@ interface ApiService {
         @Body params: JsonObject?,
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<TopUpModelData>
+
+    @GET(NetworkCallPoints.CARDS_LIST)
+    suspend fun cardsList(
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<CardsModel>
+
+    @PUT(NetworkCallPoints.DEFAULT_CARD)
+    suspend fun setDefaultCard(
+        @Body params: JsonObject?,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<DeleteWishListData>
 
     @POST(NetworkCallPoints.RESET_PASSWORD)
     suspend fun resetPass(@Body params: JsonObject?): Response<SuccessData>

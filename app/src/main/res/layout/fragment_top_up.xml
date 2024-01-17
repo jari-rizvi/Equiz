@@ -244,13 +244,13 @@
             <TextView
                 android:id="@+id/textView44"
                 style="@style/popins_regular"
-                android:layout_width="@dimen/_75sdp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/card_background"
                 android:backgroundTint="#9F81CA"
-                android:padding="@dimen/_2sdp"
-                android:text="Add card"
-                android:textAlignment="center"
+                android:text="Available cards"
+                android:paddingHorizontal="@dimen/_5sdp"
+                android:paddingVertical="@dimen/_2sdp"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView43"
@@ -335,6 +335,21 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <TextView
+                    android:id="@+id/paymentName"
+                    style="@style/popins_regular"
+                    android:layout_width="@dimen/_180sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical|start"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:textAlignment="viewStart"
+                    android:textSize="@dimen/_12ssp"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toTopOf="@+id/visa"
+                    app:layout_constraintBottom_toBottomOf="@+id/visa"
+                    app:layout_constraintStart_toEndOf="@+id/visa"/>
+
 
                 <RadioButton
                     android:id="@+id/radioVisa"
@@ -371,11 +386,29 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/master_card"
+                    android:clickable="false"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.05"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txtAddNewCard"
+                    style="@style/popins_regular"
+                    android:layout_width="@dimen/_180sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical|start"
+                    android:text="Add new card"
+                    android:clickable="false"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:textAlignment="viewStart"
+                    android:textSize="@dimen/_12ssp"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toTopOf="@+id/master"
+                    app:layout_constraintBottom_toBottomOf="@+id/master"
+                    app:layout_constraintStart_toEndOf="@+id/master"/>
 
 
                 <RadioButton

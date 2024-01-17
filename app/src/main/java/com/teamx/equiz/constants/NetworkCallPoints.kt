@@ -69,6 +69,9 @@ class NetworkCallPoints {
         const val ADD_TOPUP ="api/wallet/addAmount"
         const val COLLECT_PRIZE ="api/raffle/myWinner"
 
+        const val CARDS_LIST ="/api/payment/getPaymentMethod"
+        const val DEFAULT_CARD ="/api/payment/setDefault"
+
 
 
         const val UPLOAD_IMGS = "api/users/upload"

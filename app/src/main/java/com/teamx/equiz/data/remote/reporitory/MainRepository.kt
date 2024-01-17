@@ -59,6 +59,8 @@ class MainRepository @Inject constructor(
     suspend fun deleteToWishList(@Body param: JsonObject) = apiService.deleteToWishList(param)
     suspend fun createOrder(@Body param: JsonObject) = apiService.createOrder(param)
     suspend fun addTopUp(@Body param: JsonObject) = apiService.addTopUp(param)
+    suspend fun cardsList() = apiService.cardsList()
+    suspend fun setDefaultCard(@Body param: JsonObject) = apiService.setDefaultCard(param)
     suspend fun resetPass(@Body param: JsonObject) = apiService.resetPass(param)
     suspend fun changePass(@Body param: JsonObject) = apiService.changePass(param)
     suspend fun resultGame(@Body param: JsonObject) = apiService.resultGame(param)

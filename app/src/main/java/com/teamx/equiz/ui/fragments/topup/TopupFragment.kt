@@ -51,7 +51,7 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
     var amount = "0"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
@@ -65,6 +65,11 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+
+        mViewDataBinding.textView44.setOnClickListener {
+            findNavController().navigate(R.id.action_topupFragment_to_cardsFragment)
+        }
+
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
 
         paymentAdapter()
@@ -215,6 +220,59 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
         initStripe()
 
         mViewDataBinding.editText.addTextChangedListener(textWatcher)
+
+
+        mViewModel.cardsList()
+
+        if (!mViewModel.cardsListResponse.hasActiveObservers()) {
+            mViewModel.cardsListResponse.observe(viewLifecycleOwner) {
+                when (it.status) {
+                    Resource.Status.LOADING -> {
+                        loadingDialog.show()
+                    }
+
+                    Resource.Status.SUCCESS -> {
+                        loadingDialog.dismiss()
+                        it.data?.let {
+
+
+                            if (it.default != null) {
+                                mViewDataBinding.paymentName.text = try {
+                                    "**** **** **** ${it.default.card.last4}"
+                                } catch (e: Exception) {
+                                    ""
+                                }
+                                mViewDataBinding.radioVisa.isChecked = true
+                                mViewDataBinding.radiomaster.isChecked = false
+                                paymentDefaultId = it.default.id?:""
+                            }
+
+//                            cardsArrayList.clear()
+//                            cardsArrayList.addAll(it.paymentMethod)
+//                            cardsAdapter.notifyDataSetChanged()
+                        }
+                    }
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+                        if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
+                    }
+
+                    Resource.Status.ERROR -> {
+                        loadingDialog.dismiss()
+                        DialogHelperClass.errorDialog(requireContext(), it.message!!)
+                    }
+
+                    else -> {}
+                }
+            }
+        }
     }
 
     private val textWatcher = object : TextWatcher {
@@ -385,11 +443,18 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
 
     }
 
+    var paymentDefaultId = ""
+
     private fun presentPaymentSheet(shopId: Int) {
         val params = JsonObject()
         params.addProperty("amount", shopId)
         params.addProperty("topup", true)
-        mViewModel.addTop(params)
+        if (mViewDataBinding.radioVisa.isChecked) {
+            params.addProperty("payment_method", paymentDefaultId)
+        }
+        if (paymentDefaultId.isNotEmpty()) {
+            mViewModel.addTop(params)
+        }
 
         if (!mViewModel.addTopResponse.hasActiveObservers()) {
 
@@ -402,6 +467,15 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let {
+
+                            if (mViewDataBinding.radioVisa.isChecked) {
+                                DialogHelperClass.topUpDialog(
+                                    requireContext(), this, true, priceAddTopUp.toString()
+                                )
+                                return@observe
+                            }
+
+
                             paymentIntentClientSecret = it.checkout ?: ""
                             stripPublicKey =
                                 "pk_test_51L1UVCGn3F7BuM88wH1PSuNgc9bX7tq0MkIMB2HU2BbScX3i7VgZw4V8nimfe1zUEF8uQ3Q6PFbzrMacvH5PfA7900PaBHO20E"
@@ -454,8 +528,10 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
                             mViewModel.addTopResponse.removeObservers(viewLifecycleOwner)
                         }
                     }
-                    Resource.Status.AUTH -> { loadingDialog.dismiss()
-                         if (isAdded) {
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+                        if (isAdded) {
                             try {
                                 onToSignUpPage()
                             } catch (e: Exception) {
@@ -463,6 +539,7 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
                             }
                         }
                     }
+
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
                         DialogHelperClass.errorDialog(requireContext(), it.message!!)
@@ -494,7 +571,7 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
 
             is PaymentSheetResult.Completed -> {
                 DialogHelperClass.topUpDialog(
-                    requireContext(), this, true,priceAddTopUp.toString()
+                    requireContext(), this, true, priceAddTopUp.toString()
                 )
 //                print("Completed")
 //                Timber.tag("Completed").d("hello there___${verifyCheckout?.amount}")
@@ -574,7 +651,7 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
 //                checkoutOrder(createCheckOutJson(verifyCheckout!!))
 
                 DialogHelperClass.topUpDialog(
-                    requireContext(), this, true,priceAddTopUp.toString()
+                    requireContext(), this, true, priceAddTopUp.toString()
                 )
 
             }
@@ -598,7 +675,6 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
 
 
     }
-
 
 
 }

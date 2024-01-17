@@ -303,7 +303,11 @@
     <fragment
         android:id="@+id/topupFragment"
         android:name="com.teamx.equiz.ui.fragments.topup.TopupFragment"
-        android:label="TopupFragment" />
+        android:label="TopupFragment" >
+        <action
+            android:id="@+id/action_topupFragment_to_cardsFragment"
+            app:destination="@id/cardsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/chattFragment"
         android:name="com.teamx.equiz.ui.fragments.support.ChattFragment"
@@ -528,5 +532,10 @@
         android:name="com.teamx.equiz.ui.fragments.address.AddressListCheckoutFragment"
         android:label="AddressListCheckoutFragment" />
 
+    <fragment
+        android:id="@+id/cardsFragment"
+        tools:layout="@layout/fragment_cards"
+        android:name="com.teamx.equiz.ui.fragments.cards.CardsFragment"
+        android:label="CardsFragment" />
 
 </navigation>
