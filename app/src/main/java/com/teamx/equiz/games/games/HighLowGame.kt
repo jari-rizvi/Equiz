@@ -212,7 +212,11 @@ fun HighLowComponent(content: (boo:Boolean, rightAnswer:Int, totalAnswer:Int) ->
 
                         )
                         .pointerInput(Unit) {
-                            detectDragGestures { change, dragAmount ->
+                            detectDragGestures(
+                                onDragEnd = {
+                                    totalGameAnswersHigh++
+                                }
+                            ) { change, dragAmount ->
 
                                 when {
 
@@ -232,7 +236,6 @@ fun HighLowComponent(content: (boo:Boolean, rightAnswer:Int, totalAnswer:Int) ->
                                                 dragged = true
                                             }
                                             rightGameAnswersHigh++
-                                            totalGameAnswersHigh++
                                         }
                                     }
 
@@ -248,7 +251,6 @@ fun HighLowComponent(content: (boo:Boolean, rightAnswer:Int, totalAnswer:Int) ->
                                                 dragged = true
                                             }
                                             rightGameAnswersHigh++
-                                            totalGameAnswersHigh++
                                         }
                                     }
 

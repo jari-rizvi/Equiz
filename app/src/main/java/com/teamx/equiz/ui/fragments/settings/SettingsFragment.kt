@@ -131,11 +131,13 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
                                 userId = data.user._id
                                 mViewDataBinding.textView3.setText(data.user.name)
                                 mViewDataBinding.textView4.setText(data.user.email)
+                                mViewDataBinding.textView4.setText(data.user.phone)
                                 mViewDataBinding.textView52.setText(data.user.chances.toString())
                                 mViewDataBinding.textView51.setText(data.user.score.toString())
 
 //                                Picasso.get().load(data.user.image).resize(500, 500).into(mViewDataBinding.profilePicture)
-                                Glide.with(mViewDataBinding.profilePicture.context).load(data.user.image).into(mViewDataBinding.profilePicture)
+                                Log.d("profilePicture", "onViewCreated: ${data.user.image}")
+                                Glide.with(mViewDataBinding.profilePicture.context).load(data.user.image).placeholder(R.drawable.baseline_person_white).into(mViewDataBinding.profilePicture)
 
                                 if (!data.user.isPremium) {
                                     mViewDataBinding.btnSubscribe.visibility = View.VISIBLE
@@ -153,7 +155,13 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
 
                     Resource.Status.AUTH -> {
                         loadingDialog.dismiss()
-                        onToSignUpPage()
+                        if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
                     }
 
                     Resource.Status.ERROR -> {
@@ -218,14 +226,27 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
         }
         mViewDataBinding.btnquiz.setOnClickListener {
             if (TOKENER.isNullOrEmpty() || TOKENER.equals("null", true)) {
-                DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
+
+                if (isAdded) {
+                    try {
+                        DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
                 return@setOnClickListener
             }
             findNavController().navigate(R.id.quizesFragment, arguments, options)
         }
         mViewDataBinding.btnWallet.setOnClickListener {
             if (TOKENER.isNullOrEmpty() || TOKENER.equals("null", true)) {
-                DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
+                if (isAdded) {
+                    try {
+                        DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
                 return@setOnClickListener
             }
             bundle.putString("referralCode", referralCode)
@@ -234,7 +255,13 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
 
         mViewDataBinding.btnReffeal.setOnClickListener {
             if (TOKENER.isNullOrEmpty() || TOKENER.equals("null", true)) {
-                DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
+                if (isAdded) {
+                    try {
+                        DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
                 return@setOnClickListener
             }
 
@@ -246,7 +273,13 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
 
         mViewDataBinding.btnProfile.setOnClickListener {
             if (TOKENER.isNullOrEmpty() || TOKENER.equals("null", true)) {
-                DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
+                if (isAdded) {
+                    try {
+                        DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
                 return@setOnClickListener
             }
 
@@ -256,7 +289,13 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
 
         mViewDataBinding.btnNotification.setOnClickListener {
             if (TOKENER.isNullOrEmpty() || TOKENER.equals("null", true)) {
-                DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
+                if (isAdded) {
+                    try {
+                        DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
                 return@setOnClickListener
             }
             findNavController().navigate(R.id.notificationsFragment, arguments, options)
@@ -264,7 +303,14 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
 
         mViewDataBinding.btnNews.setOnClickListener {
             if (TOKENER.isNullOrEmpty() || TOKENER.equals("null", true)) {
-                DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
+
+                if (isAdded) {
+                    try {
+                        DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
                 return@setOnClickListener
             }
             bundle.putString("referralCode", referralCode)
@@ -277,6 +323,7 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
         }
 
         mViewDataBinding.btnSetting.setOnClickListener {
+            findNavController().navigate(R.id.languageFragment, arguments, options)
 //            Toast.makeText(this, "Comming Soom", Toast.LENGTH_SHORT).show();
         }
 
@@ -294,31 +341,79 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
 
         mViewDataBinding.btnCollectPrize.setOnClickListener {
             if (TOKENER.isNullOrEmpty() || TOKENER.equals("null", true)) {
-                DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
-                return@setOnClickListener
+                try {
+                    if (isAdded) {
+                        try {
+                            DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                    }
+                    return@setOnClickListener
+                } catch (e: Exception) {
+
+                }
+
             }
             findNavController().navigate(R.id.collectPriceFragment, arguments, options)
         }
 
         mViewDataBinding.btnCoupon.setOnClickListener {
             if (TOKENER.isNullOrEmpty() || TOKENER.equals("null", true)) {
-                DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
-                return@setOnClickListener
+
+                try {
+                    if (isAdded) {
+                        try {
+                            DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                    }
+                    return@setOnClickListener
+                } catch (e: Exception) {
+
+                }
+
             }
             findNavController().navigate(R.id.coupnsFragment, arguments, options)
         }
 
         mViewDataBinding.btnleaderboard.setOnClickListener {
             if (TOKENER.isNullOrEmpty() || TOKENER.equals("null", true)) {
-                DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
-                return@setOnClickListener
+                try {
+                    if (isAdded) {
+                        try {
+                            DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                    }
+                    return@setOnClickListener
+                } catch (e: Exception) {
+
+                }
+
             }
             findNavController().navigate(R.id.loaderBoardFragment, arguments, options)
         }
         mViewDataBinding.btnSubscribe.setOnClickListener {
             if (TOKENER.isNullOrEmpty() || TOKENER.equals("null", true)) {
-                DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
-                return@setOnClickListener
+                try {
+                    if (isAdded) {
+                        try {
+                            try {
+                                DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                    }
+                    return@setOnClickListener
+                } catch (e: Exception) {
+                }
+
             }
             findNavController().navigate(R.id.subscriptionFragment, arguments, options)
         }
@@ -357,7 +452,13 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
 
                     Resource.Status.AUTH -> {
                         loadingDialog.dismiss()
-                        onToSignUpPage()
+                        if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
                     }
 
                     Resource.Status.ERROR -> {

@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.squareup.picasso.Picasso
 import com.teamx.equiz.data.models.getcart.Data
 import com.teamx.equiz.databinding.ItemCartBinding
 
@@ -43,7 +42,7 @@ class CartAdapter(var arrayList: ArrayList<Data>, val onCartListener: OnCartList
             ""
         }
         holder.binding.productprice.text = try {
-            "${cart.product.price.toString()}"
+            "${cart.product.point} Points"
         } catch (e: Exception) {
             ""
         }

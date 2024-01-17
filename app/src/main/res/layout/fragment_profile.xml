@@ -16,7 +16,7 @@
             android:layout_height="@dimen/_75sdp"
             android:layout_centerInParent="true"
             android:background="@drawable/border_background"
-            android:elevation="@dimen/_5sdp"
+            android:src="@drawable/baseline_person_white"
             android:padding="@dimen/_2sdp"
             app:layout_constraintBottom_toTopOf="@+id/constraintLayout5"
             app:layout_constraintEnd_toEndOf="parent"
@@ -163,6 +163,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:text="@string/total_chances"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_13ssp"
@@ -362,6 +364,58 @@
                             android:paddingStart="@dimen/_7sdp"
                             android:paddingEnd="@dimen/_7sdp"
                             android:text="@string/chances"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_11ssp"
+                            android:textStyle="bold" />
+
+                        <!--                        <androidx.appcompat.widget.SwitchCompat-->
+                        <!--                            android:id="@+id/swOnOff"-->
+                        <!--                            android:layout_width="0dp"-->
+                        <!--                            android:layout_height="wrap_content"-->
+                        <!--                            android:layout_marginStart="@dimen/_75sdp"-->
+                        <!--                            android:layout_marginEnd="@dimen/_3sdp"-->
+                        <!--                            android:layout_weight="0.9"-->
+                        <!--                            android:padding="@dimen/_20sdp"-->
+                        <!--                            android:thumb="@drawable/custom_thumb"-->
+                        <!--                            app:track="@drawable/custom_track" />-->
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/btnAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_38sdp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp">
+
+                        <ImageView
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="@dimen/_22sdp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:src="@drawable/address_1"
+                            app:tint="@color/gray" />
+
+                        <TextView
+                            style="@style/popins_regular"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@android:color/transparent"
+                            android:drawableEnd="@drawable/arrow"
+                            android:drawableTint="@color/black"
+                            android:gravity="center_vertical|start"
+                            android:textAlignment="viewStart"
+                            android:paddingStart="@dimen/_7sdp"
+                            android:paddingEnd="@dimen/_7sdp"
+                            android:text="@string/address"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_11ssp"
                             android:textStyle="bold" />

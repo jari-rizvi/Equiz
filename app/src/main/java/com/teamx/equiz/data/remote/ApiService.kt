@@ -4,6 +4,8 @@ package com.teamx.equiz.data.remote
 import com.google.gson.JsonObject
 import com.teamx.equiz.constants.NetworkCallPoints
 import com.teamx.equiz.constants.NetworkCallPoints.Companion.TOKENER
+import com.teamx.equiz.data.models.ResendOtpData
+import com.teamx.equiz.data.models.addressbyid.GetAddressById
 import com.teamx.equiz.data.models.addtocart.AddtoCartData
 import com.teamx.equiz.data.models.addtowishlist.AddToWishlistData
 import com.teamx.equiz.data.models.bannerData.bannews.BanNews
@@ -34,6 +36,7 @@ import com.teamx.equiz.data.models.topWinnerData.TopWinnerData
 import com.teamx.equiz.data.models.wishlistdata.WishlistData
 import com.teamx.equiz.ui.fragments.Auth.datanotify.DataFCMModel
 import com.teamx.equiz.ui.fragments.address.dataclasses.AddressOrderCreate
+import com.teamx.equiz.ui.fragments.address.dataclasses.getAddressList.GetAddressListData
 import com.teamx.equiz.ui.fragments.chances.data.ChancesModelData
 import com.teamx.equiz.ui.fragments.collectPrice.data.CollectDataModel
 import com.teamx.equiz.ui.fragments.ecommerce.data.CategoryEcomData
@@ -72,14 +75,15 @@ interface ApiService {
 
     @GET(NetworkCallPoints.BANNERS_DATA)
     suspend fun getBannersDashboard(
-        @Query("country") country: String="",
-        @Header("type") type: String="home",
+        @Query("country") country: String = "",
+        @Header("type") type: String = "home",
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<NewsImagesDataModel>
+
     @GET(NetworkCallPoints.BANNERS_DATA)
     suspend fun getBannersEco(
-        @Query("country") country: String="",
-        @Header("type") type: String="shop",
+        @Query("country") country: String = "",
+        @Header("type") type: String = "shop",
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<NewsImagesDataModel>
 
@@ -124,6 +128,12 @@ interface ApiService {
 
     @GET(NetworkCallPoints.GET_CART)
     suspend fun getCart(@Header("token") basicCredentials: String = "$TOKENER"): Response<GetCartData>
+
+    @GET(NetworkCallPoints.APPLU_COUON)
+    suspend fun applyCoupon(
+        @Query("code") code: String,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<GetCartData>
 
     @GET(NetworkCallPoints.GET_WALLET)
     suspend fun getWallet(@Header("token") basicCredentials: String = "$TOKENER"): Response<GetWalletData>
@@ -180,6 +190,9 @@ interface ApiService {
     @POST(NetworkCallPoints.FOTGOTPASS_EMAIL)
     suspend fun forgotpass(@Body params: JsonObject?): Response<ForgotPassData>
 
+    @POST(NetworkCallPoints.RESEND_OTP)
+    suspend fun resendOtp(@Body params: JsonObject?): Response<ResendOtpData>
+
     @POST(NetworkCallPoints.SIGNUP_EMAIL)
     suspend fun Signup(@Body params: JsonObject?): Response<SignupData>
 
@@ -220,8 +233,11 @@ interface ApiService {
     @POST(NetworkCallPoints.RESET_PASSWORD)
     suspend fun resetPass(@Body params: JsonObject?): Response<SuccessData>
 
-    @POST(NetworkCallPoints.CHANGE_PASSWORD)
-    suspend fun changePass(@Body params: JsonObject?): Response<SuccessData>
+    @PUT(NetworkCallPoints.CHANGE_PASSWORD)
+    suspend fun changePass(
+        @Body params: JsonObject?,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<SuccessData>
 
 
     @PUT(NetworkCallPoints.RESULT_GAME)
@@ -284,7 +300,8 @@ interface ApiService {
     @GET(NetworkCallPoints.COLLECT_PRIZE)
     suspend fun claimedPrizeRaffal(
         @Query("claimed") claimed: String,
-        @Header("token") basicCredentials: String = "$TOKENER"): Response<CollectDataModel>
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<CollectDataModel>
 
     @PUT(NetworkCallPoints.UPDATE_PROFILE)
     suspend fun updateProfile(
@@ -355,5 +372,36 @@ interface ApiService {
     suspend fun getTopWinners(
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<TopWinnerData>
+
+
+    @GET(NetworkCallPoints.GET_ADDRESS_LIST)
+    suspend fun getAddressList(
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<GetAddressListData>
+
+    @POST(NetworkCallPoints.ADD_ADDRESS)
+    suspend fun addAddress(
+        @Body params: JsonObject?, @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<GetAddressListData>
+
+    @HTTP(method = "DELETE", path = NetworkCallPoints.DELETE_ADDRESS)
+    suspend fun deleteAddress(
+        @Path("addressId") uniqueID: String,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<GetAddressListData>
+
+    @GET(NetworkCallPoints.GET_ADDRESS_BY_ID)
+    suspend fun GetAddressById(
+        @Path("id") id: String,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<GetAddressById>
+
+
+    @PUT(NetworkCallPoints.UPDATE_ADDRESS)
+    suspend fun updateAddress(
+        @Body params: JsonObject?,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<GetAddressById>
+
 
 }

@@ -68,7 +68,13 @@ class CancelledFragment : BaseFragment<FragmentCanclledBinding, CancelledViewMod
                         mViewDataBinding.shimmerLayout.visibility = View.VISIBLE
                     } /* Resource.Status.AUTH -> {
                     loadingDialog.dismiss()
-                    onToSignUpPage()
+                     if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
                 }*/
                     Resource.Status.NOTVERIFY -> {
                         loadingDialog.dismiss()
@@ -90,7 +96,13 @@ class CancelledFragment : BaseFragment<FragmentCanclledBinding, CancelledViewMod
                         }
                     }
                     Resource.Status.AUTH -> { loadingDialog.dismiss()
-                        onToSignUpPage()
+                         if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
                     }
                     Resource.Status.ERROR -> {
 //                        loadingDialog.dismiss()

@@ -2,6 +2,7 @@ package com.teamx.equiz.baseclasses
 
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,6 +16,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
+import com.teamx.equiz.MainApplication
 import com.teamx.equiz.R
 import com.teamx.equiz.SharedViewModel
 import com.teamx.equiz.data.local.datastore.DataStoreProvider
@@ -95,7 +97,22 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> :
         //observe view data
 
     }
-
+    open fun setNewLocale(language: String?, restartProcess: Boolean): Boolean {
+        if (language != null) {
+            MainApplication.localeManager!!.setNewLocale(requireActivity(), language)
+        }
+        val i = Intent(requireActivity(), MainActivity::class.java)
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(i)
+        if (restartProcess) {
+            val intent = Intent(requireActivity(), MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        }
+        return true
+    }
 
     open fun subscribeToShareLiveData() {
 

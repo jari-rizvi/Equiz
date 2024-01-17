@@ -8,10 +8,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.google.gson.JsonObject
 import com.teamx.equiz.baseclasses.BaseViewModel
+import com.teamx.equiz.data.models.ResendOtpData
 import com.teamx.equiz.data.models.editProfile.EditProfileData
+import com.teamx.equiz.data.models.forgotpassData.ForgotPassData
 import com.teamx.equiz.data.models.loginData.LoginData
 import com.teamx.equiz.data.models.meModel.MeModel
 import com.teamx.equiz.data.models.modelUploadImages.ModelUploadImage
+import com.teamx.equiz.data.models.sucessData.SuccessData
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.data.remote.reporitory.MainRepository
 import com.teamx.equiz.utils.NetworkHelper
@@ -26,6 +29,48 @@ class EditProfileViewModel @Inject constructor(
     private val mainRepository: MainRepository,
     private val networkHelper: NetworkHelper
 ) : BaseViewModel() {
+
+
+    private val _resendOtpResponse = MutableLiveData<Resource<ResendOtpData>>()
+    val resendOtpResponse: LiveData<Resource<ResendOtpData>>
+        get() = _resendOtpResponse
+
+    fun resendOtp(param: JsonObject) {
+        viewModelScope.launch {
+            _resendOtpResponse.postValue(Resource.loading(null))
+            if (networkHelper.isNetworkConnected()) {
+                try {
+                    mainRepository.resendOtp(param).let {
+                        if (it.isSuccessful) {
+                            _resendOtpResponse.postValue(Resource.success(it.body()!!))
+                        } else if (it.code() == 401) {
+
+                            _resendOtpResponse.postValue(Resource.error(it.message(), null))
+                        } else if (it.code() == 401) {
+                            _resendOtpResponse.postValue(Resource.unAuth("", null))
+                        } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
+                            val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
+                            _resendOtpResponse.postValue(Resource.error(jsonObj.getString("message")))
+                        } else {
+                            _resendOtpResponse.postValue(Resource.error("Some thing went wrong", null))
+                        }
+                    }
+                } catch (e: Exception) {
+                    _resendOtpResponse.postValue(Resource.error("${e.message}", null))
+                }
+            } else _resendOtpResponse.postValue(Resource.error("No internet connection", null))
+        }
+    }
+
+
+
+
+
+
+
+
+
+
 
     private val _updateProfileResponse = MutableLiveData<Resource<EditProfileData>>()
     val updateProfileResponse: LiveData<Resource<EditProfileData>>

@@ -6,5 +6,5 @@ import androidx.annotation.Keep
 data class Data(
     val product: Product,
     var quantity: Int,
-    val totalPrice: Double
+    val totalPoint: Double
 )

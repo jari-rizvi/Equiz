@@ -14,6 +14,7 @@ data class Data(
     val icon: List<String>,
     val images: List<String>,
     val price: Double,
+    val point: Double,
     val product_type: String,
     val quantity: Int,
     val ratings: List<Any>,

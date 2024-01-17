@@ -4,10 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools">
 
 
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorAccent_indeed">
+
+
 
         <ImageView
             android:id="@+id/btnback"
@@ -27,7 +31,7 @@
             style="@style/popins_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/address"
+            android:text="Add Address"
             android:textColor="@color/black"
             android:textSize="@dimen/_14ssp"
             android:textStyle="bold"
@@ -37,80 +41,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/btnback"
             app:layout_constraintVertical_bias="0.05" />
-
-
-        <TextView
-            android:id="@+id/textView36"
-            style="@style/popins_regular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/_5sdp"
-            android:text="@string/country"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_10ssp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etPhone"
-            app:layout_constraintVertical_bias="0." />
-
-
-        <EditText
-            android:id="@+id/country"
-            android:layout_width="@dimen/_130sdp"
-            android:layout_height="@dimen/_30sdp"
-            android:layout_marginHorizontal="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:background="@drawable/contact_input_background"
-            android:minHeight="@dimen/_35sdp"
-            android:paddingStart="@dimen/_10sdp"
-            android:singleLine="true"
-            android:textColor="#666666"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView36"
-            app:layout_constraintVertical_bias="0" />
-
-
-        <TextView
-            android:id="@+id/textView37"
-            style="@style/popins_regular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/city"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_10ssp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/textView36"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toStartOf="@+id/city"
-            app:layout_constraintTop_toTopOf="@+id/textView36" />
-
-        <EditText
-            android:id="@+id/city"
-            android:layout_width="@dimen/_130sdp"
-            android:layout_height="@dimen/_30sdp"
-            android:layout_marginHorizontal="@dimen/_15sdp"
-            android:background="@drawable/contact_input_background"
-            android:minHeight="@dimen/_35sdp"
-            android:paddingStart="@dimen/_10sdp"
-            android:singleLine="true"
-            android:textAlignment="viewStart"
-            android:textColor="#666666"
-            app:layout_constraintBottom_toBottomOf="@+id/country"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.9"
-            app:layout_constraintStart_toEndOf="@+id/country"
-            app:layout_constraintTop_toTopOf="@+id/country"
-            app:layout_constraintVertical_bias="0.0" />
-
 
 
 
@@ -128,9 +58,9 @@
             android:singleLine="true"
             android:textColor="#666666"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/etName"
+            app:layout_constraintEnd_toEndOf="@+id/etLabel"
             app:layout_constraintHorizontal_bias="0."
-            app:layout_constraintStart_toStartOf="@+id/etName"
+            app:layout_constraintStart_toStartOf="@+id/etLabel"
             app:layout_constraintTop_toBottomOf="@+id/Address"
             app:layout_constraintVertical_bias="0" />
 
@@ -151,128 +81,22 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/_5sdp"
             android:text="@string/address"
             android:textColor="@color/black"
             android:textSize="@dimen/_10ssp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/country" />
-
-
-        <TextView
-            android:id="@+id/textView38"
-            style="@style/popins_regular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/_5sdp"
-            android:text="@string/postal_code"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_10ssp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editAddress1"
-            app:layout_constraintVertical_bias="0" />
+            app:layout_constraintTop_toBottomOf="@+id/etPhone" />
 
-
-        <TextView
-            android:id="@+id/textView39"
-            style="@style/popins_regular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/state"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_10ssp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/textView38"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toStartOf="@+id/city"
-            app:layout_constraintTop_toTopOf="@+id/textView38" />
-
-
-        <EditText
-            android:id="@+id/etPostal"
-            android:layout_width="@dimen/_130sdp"
-            android:layout_height="@dimen/_30sdp"
-            android:layout_marginHorizontal="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:inputType="phone"
-            android:background="@drawable/contact_input_background"
-            android:minHeight="@dimen/_35sdp"
-            android:textAlignment="viewStart"
-            android:paddingStart="@dimen/_10sdp"
-            android:singleLine="true"
-            android:textColor="#666666"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView38" />
-
-
-        <EditText
-            android:id="@+id/etState"
-            android:layout_width="@dimen/_130sdp"
-            android:layout_height="@dimen/_30sdp"
-            android:layout_marginHorizontal="@dimen/_15sdp"
-            android:background="@drawable/contact_input_background"
-            android:minHeight="@dimen/_35sdp"
-            android:paddingStart="@dimen/_10sdp"
-            android:singleLine="true"
-            android:textAlignment="viewStart"
-            android:textColor="#666666"
-            app:layout_constraintBottom_toBottomOf="@+id/etPostal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.9"
-            app:layout_constraintStart_toEndOf="@+id/etPostal"
-            app:layout_constraintTop_toTopOf="@+id/etPostal"
-            app:layout_constraintVertical_bias="0.0" />
-
-
-        <TextView
-            android:id="@+id/textttt"
-            style="@style/popins_regular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_15sdp"
-            android:layout_marginVertical="@dimen/_12sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/_5sdp"
-            android:text="@string/save_for_future"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_10ssp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etPostal"
-            app:layout_constraintVertical_bias="0.03" />
-
-
-        <Switch
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/textttt"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.9"
-            app:layout_constraintStart_toEndOf="@+id/textttt"
-            app:layout_constraintTop_toTopOf="@+id/textttt"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
 
         <TextView
             android:id="@+id/textView387"
             style="@style/popins_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/name_"
+            android:text="Label"
             android:textColor="@color/black"
             android:textSize="@dimen/_10ssp"
             android:textStyle="bold"
@@ -284,7 +108,7 @@
             app:layout_constraintVertical_bias="0.05" />
 
         <EditText
-            android:id="@+id/etName"
+            android:id="@+id/etLabel"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_30sdp"
             android:layout_marginHorizontal="@dimen/_15sdp"
@@ -292,13 +116,13 @@
             android:background="@drawable/contact_input_background"
             android:minHeight="@dimen/_35sdp"
             android:paddingStart="@dimen/_10sdp"
-            android:textAlignment="viewStart"
             android:singleLine="true"
+            android:textAlignment="viewStart"
             android:textColor="#666666"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.9"
-            app:layout_constraintStart_toStartOf="@+id/country"
+            app:layout_constraintStart_toStartOf="@+id/textView387"
             app:layout_constraintTop_toBottomOf="@+id/textView387"
             app:layout_constraintVertical_bias="0.0" />
 
@@ -318,7 +142,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etName"
+            app:layout_constraintTop_toBottomOf="@+id/etLabel"
             app:layout_constraintVertical_bias="0" />
 
         <EditText
@@ -327,8 +151,8 @@
             android:layout_height="@dimen/_30sdp"
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_5sdp"
-            android:inputType="phone"
             android:background="@drawable/contact_input_background"
+            android:inputType="phone"
             android:minHeight="@dimen/_35sdp"
             android:paddingStart="@dimen/_10sdp"
             android:singleLine="true"
@@ -337,9 +161,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.9"
-            app:layout_constraintStart_toStartOf="@+id/country"
+            app:layout_constraintStart_toStartOf="@+id/textView3877"
             app:layout_constraintTop_toBottomOf="@+id/textView3877"
             app:layout_constraintVertical_bias="0.0" />
+
         <TextView
             android:id="@+id/btnProceed"
             style="@style/popins_regular"
@@ -349,14 +174,14 @@
             android:background="@drawable/card_background_border"
             android:backgroundTint="@color/theme_color"
             android:gravity="center"
-            android:text="@string/proceed_to_check_out"
+            android:text="@string/save"
             android:textColor="@color/white"
             android:textSize="@dimen/_12ssp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textttt" />
+            app:layout_constraintTop_toBottomOf="@+id/editAddress1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.text.format.DateFormat
+import android.util.Log
 import android.view.View
 import androidx.core.content.FileProvider
 import androidx.navigation.NavOptions
@@ -65,8 +66,6 @@ class RecieptFragment : BaseFragment<FragmentRecieptBinding, WishlistViewModel>(
 
         mViewDataBinding.btnSave.setOnClickListener {
             ScreenshotButton()
-
-            showToast("sdsdsdsd")
         }
 
         val bundle = arguments
@@ -76,6 +75,8 @@ class RecieptFragment : BaseFragment<FragmentRecieptBinding, WishlistViewModel>(
             total = bundle.getString("total").toString()
             date = bundle.getString("date").toString()
         }
+        Log.d("TAG", "onViewCreated12121221: $paymentMethod")
+        Log.d("TAG", "onViewCreated12121221: $total")
 
 
         mViewDataBinding.textView66.text = date

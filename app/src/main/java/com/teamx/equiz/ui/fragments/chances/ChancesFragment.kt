@@ -88,7 +88,13 @@ class ChancesFragment : BaseFragment<FragmentChancesBinding, ChancesViewModel>()
                         mViewDataBinding.recyclerView.adapter?.notifyDataSetChanged()
                     }
                     Resource.Status.AUTH -> { loadingDialog.dismiss()
-                        onToSignUpPage()
+                         if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
                     }
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()

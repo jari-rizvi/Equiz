@@ -27,12 +27,9 @@ import com.teamx.equiz.games.games.AdditionAddictionGameMethod
 import com.teamx.equiz.games.games.BirdWatchingGame
 import com.teamx.equiz.games.games.CardCalculationGameScreen
 import com.teamx.equiz.games.games.ConcentrationGame
-import com.teamx.equiz.games.games.FlickGameScreen
-import com.teamx.equiz.games.games.FollowTheLeaderGame
 import com.teamx.equiz.games.games.GuessTheFlagGame
 import com.teamx.equiz.games.games.HighLowComponent
 import com.teamx.equiz.games.games.ImplicityGameScreen
-import com.teamx.equiz.games.games.Make10GameScreen
 import com.teamx.equiz.games.games.MissingPieceGameScreen
 import com.teamx.equiz.games.games.OperationGame
 import com.teamx.equiz.games.games.QuickEyeGame
@@ -47,9 +44,11 @@ import com.teamx.equiz.games.games.TouchTheColorGameScreen
 import com.teamx.equiz.games.games.TouchTheNumGamePlus
 import com.teamx.equiz.games.games.TouchTheShapesGameScreen
 import com.teamx.equiz.games.games.WeatherCastGame
+import com.teamx.equiz.games.games.learningy.FlicksSc
 import com.teamx.equiz.games.games.learningy.NumPlus
 import com.teamx.equiz.games.games.learningy.ViewMatching
 import com.teamx.equiz.games.games.learningy.follows.UnfollowTouchTheNumGamePlus
+import com.teamx.equiz.games.games.learningy.makingran10.Rain10Game
 import com.teamx.equiz.games.games.learningy.unfolw.followTouchTheNumGamePlus
 import com.teamx.equiz.games.games.rpsCastGamePlot
 import com.teamx.equiz.games.games.ui_components.StartUpDialogCompose
@@ -421,7 +420,7 @@ class FlickGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>()
         }
 
         composeView.setContent {
-            FlickGameScreen(content = { bool, rightAnswer, total ->
+            FlicksSc(content = { bool, rightAnswer, total ->
                 if (bool) {
                     var argumentBundle = arguments
                     if (argumentBundle == null) {
@@ -669,7 +668,7 @@ class Make10GameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
             }
         }
         composeView.setContent {
-            Make10GameScreen(content = { bool, rightAnswer, total ->
+            Rain10Game(content = { bool, rightAnswer, total ->
                 if (bool) {
                     var argumentBundle = arguments
                     if (argumentBundle == null) {
@@ -1280,7 +1279,13 @@ class ResultComposeFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMode
 
                 Resource.Status.AUTH -> {
                     loadingDialog.dismiss()
-                    onToSignUpPage()
+                     if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
                 }
 
                 Resource.Status.ERROR -> {

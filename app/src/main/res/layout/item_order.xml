@@ -13,9 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/_100sdp"
         android:layout_margin="@dimen/_10sdp"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:layout_marginEnd="@dimen/_10sdp"
         android:background="@drawable/card_background"
         android:backgroundTint="@color/white"
         android:elevation="@dimen/_2sdp"
@@ -25,11 +22,13 @@
 
         <TextView
             android:id="@+id/orderId"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/_180sdp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_5sdp"
             android:layout_marginHorizontal="@dimen/_5sdp"
             android:text=""
+            android:maxLines="1"
+            android:ellipsize="end"
             android:textColor="#A1A1A1"
             android:textAlignment="viewStart"
             android:textSize="@dimen/_12ssp"
@@ -73,8 +72,9 @@
             android:id="@+id/textView41"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_2sdp"
+            android:layout_marginVertical="@dimen/_2sdp"
             android:text="@string/total_amount"
+
             android:textAlignment="viewStart"
             app:layout_constraintBottom_toTopOf="@+id/cartBottom"
             app:layout_constraintEnd_toEndOf="@+id/productName"
@@ -85,8 +85,10 @@
 
         <TextView
             android:id="@+id/date"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_80sdp"
             android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:text=""
             android:textSize="@dimen/_12ssp"
             app:layout_constraintStart_toEndOf="@+id/orderId"
@@ -98,12 +100,16 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cartBottom"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_30sdp"
+            android:layout_height="@dimen/_35sdp"
             android:background="@drawable/shape_bottom_round_grey"
             android:backgroundTint="#051CEB"
+            android:clipToOutline="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView41"
+            app:layout_constraintVertical_bias="0">
 
 
             <TextView

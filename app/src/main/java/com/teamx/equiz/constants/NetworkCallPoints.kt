@@ -8,8 +8,10 @@ class NetworkCallPoints {
         const val SIGNUP_EMAIL ="api/auth/register"
         const val OTP_VERIFY ="api/auth/verifyOtp"
         const val OTP_VERIFY_FORGOT ="api/auth/otpReset/{uniqueID}"
+        const val RESEND_OTP ="/api/auth/resendOTP"
         const val ME = "api/users/find"
-        const val UNSUB = "api/users/find"
+//        const val UNSUB = "api/users/find"
+        const val UNSUB = "api/payment/unsubscribe"
         const val DELETE_USER = "api/users/remove"
         const val UPDATE_PROFILE = "api/users/update"
 
@@ -20,7 +22,7 @@ class NetworkCallPoints {
 
 
         const val RESET_PASSWORD = "api/auth/passwordReset"
-        const val CHANGE_PASSWORD = "api/auth/changePassword"
+        const val CHANGE_PASSWORD = "api/users/changePassword"
         const val RESULT_GAME = "api/game/progress"
         const val GET_ALL_CATEGORIES = "api/category"
         const val WISHLIST_DATA = "api/wishlist/find"
@@ -39,6 +41,7 @@ class NetworkCallPoints {
         const val GET_PRODUCT_BY_ID = "api/products/find/{id}"
         const val ADD_TO_CART = "api/carts/add"
         const val GET_CART = "api/carts/find"
+        const val APPLU_COUON = "api/carts/find/"
 
         const val DELETE_CART = "api/carts/{productId}"
         const val UPDATE_CART = "api/carts/update"
@@ -69,6 +72,12 @@ class NetworkCallPoints {
 
 
         const val UPLOAD_IMGS = "api/users/upload"
+        const val GET_ADDRESS_LIST = "api/users/findAddress"
+        const val ADD_ADDRESS = "/api/users/addAddress"
+        const val DELETE_ADDRESS ="api/users/removeAddress/{addressId}"
+        const val GET_ADDRESS_BY_ID ="api/users/findAddessId/{id}"
+        const val UPDATE_ADDRESS ="api/users/updateAddress"
+
 
 
         var TOKENER: String? = ""

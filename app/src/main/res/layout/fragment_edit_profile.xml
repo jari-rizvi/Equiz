@@ -78,7 +78,6 @@
                 android:layout_height="@dimen/_60sdp"
                 android:layout_centerInParent="true"
                 android:background="@drawable/border_background"
-                android:elevation="@dimen/_5sdp"
                 android:padding="@dimen/_2sdp"
                 android:src="@drawable/baseline_person"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -111,9 +110,9 @@
                 android:background="@drawable/contact_input_background"
                 android:maxLength="30"
                 android:minHeight="@dimen/_35sdp"
-                android:textAlignment="viewStart"
                 android:paddingStart="@dimen/_10sdp"
                 android:singleLine="true"
+                android:textAlignment="viewStart"
                 android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -163,14 +162,40 @@
                 android:background="@drawable/contact_input_background"
                 android:enabled="false"
                 android:inputType="textEmailAddress"
-                android:textAlignment="viewStart"
                 android:minHeight="@dimen/_35sdp"
                 android:paddingStart="@dimen/_10sdp"
                 android:singleLine="true"
+                android:textAlignment="viewStart"
                 android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/etaTxt" />
+
+
+            <ImageView
+                android:id="@+id/emailImgNotVerify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/delete"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/email"
+                app:layout_constraintEnd_toEndOf="@+id/email"
+                app:layout_constraintHorizontal_bias="0.95"
+                app:layout_constraintStart_toStartOf="@+id/email"
+                app:layout_constraintTop_toTopOf="@+id/email" />
+
+            <ImageView
+                android:id="@+id/emailImgVerify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:src="@drawable/baseline_verified_24"
+                app:layout_constraintBottom_toBottomOf="@+id/email"
+                app:layout_constraintEnd_toEndOf="@+id/email"
+                app:layout_constraintHorizontal_bias="0.95"
+                app:layout_constraintStart_toStartOf="@+id/email"
+                app:layout_constraintTop_toTopOf="@+id/email" />
+
 
             <TextView
                 android:id="@+id/etaTxt"
@@ -179,14 +204,29 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_15sdp"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginBottom="@dimen/_5sdp"
                 android:text="@string/email_"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12ssp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnVerifyEmail"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/userName" />
+
+            <TextView
+                android:id="@+id/btnVerifyEmail"
+                style="@style/popins_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:text="Please Verify"
+                android:visibility="gone"
+                android:textColor="@color/theme_color"
+                android:textSize="@dimen/_10ssp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/Address"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/Address" />
+
 
             <EditText
                 android:id="@+id/phone"
@@ -197,13 +237,53 @@
                 android:background="@drawable/contact_input_background"
                 android:inputType="phone"
                 android:minHeight="@dimen/_35sdp"
-                android:textAlignment="viewStart"
                 android:paddingStart="@dimen/_10sdp"
                 android:singleLine="true"
+                android:textAlignment="viewStart"
                 android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/Address" />
+
+
+            <TextView
+                android:id="@+id/btnVerifyPhone"
+                style="@style/popins_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:text="Please Verify"
+                android:visibility="gone"
+                android:textColor="@color/theme_color"
+                android:textSize="@dimen/_10ssp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/textView2444"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView2444" />
+
+            <ImageView
+                android:id="@+id/phoneImgNotVerify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/delete"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/phone"
+                app:layout_constraintEnd_toEndOf="@+id/phone"
+                app:layout_constraintHorizontal_bias="0.95"
+                app:layout_constraintStart_toStartOf="@+id/phone"
+                app:layout_constraintTop_toTopOf="@+id/phone" />
+
+            <ImageView
+                android:id="@+id/phoneImgVerify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:src="@drawable/baseline_verified_24"
+                app:layout_constraintBottom_toBottomOf="@+id/phone"
+                app:layout_constraintEnd_toEndOf="@+id/phone"
+                app:layout_constraintHorizontal_bias="0.95"
+                app:layout_constraintStart_toStartOf="@+id/phone"
+                app:layout_constraintTop_toTopOf="@+id/phone" />
 
             <TextView
                 android:id="@+id/Address"
@@ -216,7 +296,7 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12ssp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/btnChangePhone"
+                app:layout_constraintEnd_toStartOf="@+id/btnVerifyEmail"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/email" />
 
@@ -233,10 +313,10 @@
                 android:drawableTint="@color/black"
                 android:inputType="text"
                 android:minHeight="@dimen/_35sdp"
-                android:textAlignment="viewStart"
                 android:padding="@dimen/_5sdp"
                 android:paddingStart="@dimen/_10sdp"
                 android:singleLine="true"
+                android:textAlignment="viewStart"
                 android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -250,8 +330,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_15sdp"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:textAlignment="viewStart"
                 android:text="@string/date_of_birth"
+                android:textAlignment="viewStart"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12ssp"
                 android:textStyle="bold"
@@ -270,10 +350,13 @@
                 android:background="@drawable/contact_input_background"
                 android:inputType="text"
                 android:minHeight="@dimen/_35sdp"
-                android:textAlignment="viewStart"
                 android:padding="@dimen/_5sdp"
                 android:paddingStart="@dimen/_10sdp"
+                android:clickable="false"
+                android:focusable="false"
+                android:hint="********"
                 android:singleLine="true"
+                android:textAlignment="viewStart"
                 android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -288,9 +371,9 @@
                 android:layout_marginHorizontal="@dimen/_15sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:text="@string/password_"
+                android:textAlignment="viewStart"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12ssp"
-                android:textAlignment="viewStart"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/btnChangePass"
                 app:layout_constraintStart_toStartOf="parent"

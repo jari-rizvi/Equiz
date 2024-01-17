@@ -41,7 +41,7 @@ fun CircularRotatingView() {
         animationSpec = infiniteRepeatable(
             animation = tween(durationMillis = rotationDuration.toInt()),
             repeatMode = RepeatMode.Restart
-        )
+        ), label = ""
     )
     Box(
         modifier = Modifier

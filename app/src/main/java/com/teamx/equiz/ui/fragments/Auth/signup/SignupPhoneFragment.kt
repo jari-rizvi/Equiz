@@ -106,7 +106,13 @@ class SignupPhoneFragment : BaseFragment<FragmentSignupPhoneBinding, SignupViewM
                             loadingDialog.dismiss()
                         }
                         Resource.Status.AUTH -> { loadingDialog.dismiss()
-                            onToSignUpPage()
+                             if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
                         }
                         Resource.Status.SUCCESS -> {
                             loadingDialog.dismiss()

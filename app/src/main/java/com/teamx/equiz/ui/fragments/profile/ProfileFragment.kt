@@ -77,6 +77,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
 
                                 mViewDataBinding.textView3.setText(data.user.name)
                                 mViewDataBinding.textView4.setText(data.user.email)
+                                mViewDataBinding.textView4.setText(data.user.phone)
                                 mViewDataBinding.textView52.setText(data.user.chances.toString())
                                 mViewDataBinding.textView51.setText(data.user.score.toString())
 
@@ -85,7 +86,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
 //                                        .into(mViewDataBinding.profilePicture)
 
                                     Glide.with(mViewDataBinding.profilePicture.context)
-                                        .load(data.user.image).into(mViewDataBinding.profilePicture)
+                                        .load(data.user.image).placeholder(R.drawable.baseline_person_white).into(mViewDataBinding.profilePicture)
                                 }
 
                                 if (data.user.isPremium) {
@@ -103,7 +104,13 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
 
                     Resource.Status.AUTH -> {
                         loadingDialog.dismiss()
-                        onToSignUpPage()
+                         if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
                     }
 
                     Resource.Status.ERROR -> {
@@ -135,14 +142,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
                         it.data?.let { data ->
 
                             try {
-
-
 //                                mViewDataBinding.root.snackbar(data)
-                                if (isAdded) {
-                                    if (data.subscription.plan.active) {
-                                        mViewDataBinding.root.snackbar("Subcription will end at the end of the Month")
-                                    }
-                                }
+                                    mViewDataBinding.root.snackbar("Subcription will end at the end of the Month")
+
 
                             } catch (e: Exception) {
                                 e.printStackTrace()
@@ -152,7 +154,13 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
 
                     Resource.Status.AUTH -> {
                         loadingDialog.dismiss()
-                        onToSignUpPage()
+                         if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
                     }
 
                     Resource.Status.ERROR -> {
@@ -196,7 +204,13 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
 
                     Resource.Status.AUTH -> {
                         loadingDialog.dismiss()
-                        onToSignUpPage()
+                         if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
                     }
 
                     Resource.Status.ERROR -> {
@@ -216,6 +230,13 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
         mViewDataBinding.btnEditProfile.setOnClickListener {
             findNavController().navigate(
                 R.id.action_profileFragment_to_editProfileFragment,
+                arguments,
+                options
+            )
+        }
+        mViewDataBinding.btnAddress.setOnClickListener {
+            findNavController().navigate(
+                R.id.addressListFragment,
                 arguments,
                 options
             )

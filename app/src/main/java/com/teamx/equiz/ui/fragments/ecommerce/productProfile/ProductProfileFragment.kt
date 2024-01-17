@@ -69,7 +69,13 @@ class ProductProfileFragment :
 
         mViewDataBinding.btnWish.setOnClickListener {
             if (NetworkCallPoints.TOKENER.isNullOrEmpty() || NetworkCallPoints.TOKENER.equals("null", true)) {
-                DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
+                if (isAdded) {
+                    try {
+                        DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
                 return@setOnClickListener
             }
             AddToWishList()
@@ -93,7 +99,13 @@ class ProductProfileFragment :
 
         mViewDataBinding.btnCheckout.setOnClickListener {
             if (NetworkCallPoints.TOKENER.isNullOrEmpty() || NetworkCallPoints.TOKENER.equals("null", true)) {
-                DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
+                if (isAdded) {
+                    try {
+                        DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
                 return@setOnClickListener
             }
 
@@ -122,9 +134,8 @@ class ProductProfileFragment :
 
                             mViewDataBinding.shimmerLayout.visibility = View.GONE
                             mViewDataBinding.root.visibility = View.VISIBLE
-
                             mViewDataBinding.productName.text = it.data.data.title
-                            mViewDataBinding.productPrice.text = it.data.data.price.toString()
+                            mViewDataBinding.productPrice.text = it.data.data.point.toString() +" Points"
                             mViewDataBinding.desc.text = it.data.data.description
                             mViewDataBinding.btnWish.isChecked = it.data.data.isFavorite
 
@@ -141,7 +152,13 @@ class ProductProfileFragment :
 
                     }
                     Resource.Status.AUTH -> { loadingDialog.dismiss()
-                        onToSignUpPage()
+                         if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
                     }
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
@@ -198,7 +215,13 @@ class ProductProfileFragment :
                             }
                         }
                         Resource.Status.AUTH -> { loadingDialog.dismiss()
-                            onToSignUpPage()
+                             if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
                         }
                         Resource.Status.ERROR -> {
                             loadingDialog.dismiss()
@@ -252,7 +275,13 @@ class ProductProfileFragment :
                             }
                         }
                         Resource.Status.AUTH -> { loadingDialog.dismiss()
-                            onToSignUpPage()
+                             if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
                         }
                         Resource.Status.ERROR -> {
                             loadingDialog.dismiss()
@@ -286,7 +315,13 @@ class ProductProfileFragment :
                             }
                         }
                         Resource.Status.AUTH -> { loadingDialog.dismiss()
-                            onToSignUpPage()
+                             if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
                         }
                         Resource.Status.ERROR -> {
                             loadingDialog.dismiss()

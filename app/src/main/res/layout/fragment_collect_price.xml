@@ -172,7 +172,7 @@
             android:background="@drawable/rounded_dialog_background"
             android:backgroundTint="#9F81C9"
             android:gravity="center"
-            android:text="Claim Prize"
+            android:text="My Rewards"
             android:textColor="@color/white"
             android:textSize="@dimen/_10ssp"
             app:layout_constraintBottom_toBottomOf="@+id/textView"

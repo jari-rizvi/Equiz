@@ -50,6 +50,8 @@ class SupportFragment : BaseFragment<FragmentSupportBinding, SubscriptionViewMod
             }
         }
 
+
+
         mViewDataBinding.textView39.setOnClickListener {
             val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
                 data = Uri.parse("mailto:abc@xyz.com")

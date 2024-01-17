@@ -348,12 +348,7 @@ fun SpinObjects67() {
                                 val index = row * 3 + column
                                 SpinningObject67Supplementary(index) {
 
-                                    /*temp.remove(it)
-            //                            temp.pop()
-                                    linkListSpin67 = temp
-                                    if (linkListSpin67.isEmpty()) {
-                                        changable = true
-                                    }*/
+
                                     Log.d(
                                         "123123",
                                         "AscendingObjects:linkListAdded67 $linkListSpin67"
@@ -454,7 +449,6 @@ fun SpinningObject67(number: Int, onClick: (item: Int) -> Unit) {
 @Composable
 fun SpinningObject67Supplementary(number: Int, onClick: (item: Int) -> Unit) {
     var colorState by remember { mutableStateOf<Color>(BirdColor4) }
-//    var colorState by remember { mutableStateOf<Color>(Color.Gray) }
 
     Box(
         modifier = Modifier

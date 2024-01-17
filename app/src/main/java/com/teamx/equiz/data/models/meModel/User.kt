@@ -19,6 +19,8 @@ data class User(
     val isAdmin: Boolean,
     val isPremium: Boolean,
     val isValid: Boolean,
+    val isEmailValid : Boolean,
+    val isPhoneValid : Boolean,
     val name: String,
     val password: String,
     val permission: List<Any>,

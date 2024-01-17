@@ -52,6 +52,10 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding, NewsViewModel
             }
         }
 
+        mViewDataBinding.imgLogo.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
         val bundle = arguments
         if (bundle != null) {
             id = bundle.getString("id").toString()
@@ -83,7 +87,13 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding, NewsViewModel
                         }
                     }
                     Resource.Status.AUTH -> { loadingDialog.dismiss()
-                        onToSignUpPage()
+                         if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
                     }
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()

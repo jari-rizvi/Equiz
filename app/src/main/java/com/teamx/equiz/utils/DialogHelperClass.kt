@@ -673,7 +673,7 @@ class DialogHelperClass {
 
         fun unsubUserDialog(context: Context, dialogCallBack: DeleteUserDialogCallBack): Dialog {
             val dialog = Dialog(context)
-            dialog.setContentView(R.layout.delete_user_layout)
+            dialog.setContentView(R.layout.unsub_user_layout)
             dialog.window!!.setLayout(
                 WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT
             )
