@@ -29,7 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONException
 
 @AndroidEntryPoint
-class AddressListFragment : BaseFragment<FragmentAddressListBinding, AddressViewModel>(),
+class AddressListCheckoutFragment : BaseFragment<FragmentAddressListBinding, AddressViewModel>(),
     OnAddressListener {
 
     override val layoutId: Int
@@ -111,119 +111,157 @@ class AddressListFragment : BaseFragment<FragmentAddressListBinding, AddressView
         }
 
 
-        mViewDataBinding.btnProceed.visibility = View.GONE
-
-//                mViewDataBinding.btnProceed.setOnClickListener {
-//                    if (singleAddress == null) {
-//                        mViewDataBinding.root.snackbar("Please select address")
-//                    } else {
+//        if (!mViewModel.addressList.hasActiveObservers()) {
+//            mViewModel.addressList.observe(requireActivity()) {
+//                when (it.status) {
+//                    Resource.Status.LOADING -> {
+//                        loadingDialog.show()
+//                    }
 //
-//                        val bundle = arguments
+//                    Resource.Status.SUCCESS -> {
+//                        loadingDialog.dismiss()
+//                        it.data?.let { data ->
 //
-//                        val couponCode = bundle?.getString("couponCode") ?: ""
-//
-//
-//                        val label = singleAddress?.label ?: ""
-//                        val etPhone = singleAddress?.phoneNumber ?: ""
-//                        val address = singleAddress?.address ?: ""
-//
-//                        val params = JsonObject()
-//                        try {
-//
-//
-//                            params.add(
-//                                "shippingInfo", Gson().toJsonTree(
-//                                    ShippingInfo2(
-//                                        address = address,
-//                                        phoneNumber = etPhone,
-//                                        label = label
-//                                    )
-//                                )
-//                            )
-//
-//                            if (couponCode.isNotEmpty()) {
-//                                params.addProperty("couponCode", couponCode)
+//                            if (addressArrayList.isEmpty()) {
+//                                mViewDataBinding.emptyTV.visibility = View.VISIBLE
+//                                mViewDataBinding.addressRecycler.visibility = View.GONE
 //                            }
+//                            mViewDataBinding.emptyTV.visibility = View.GONE
+//                            mViewDataBinding.addressRecycler.visibility = View.VISIBLE
 //
 //
-//                        } catch (e: JSONException) {
-//                            e.printStackTrace()
-//                        }
-//                        if (address.isNullOrEmpty()) {
-//                            showToast("Please add Address")
-//                        } else {
-//                            if (etPhone.isNotEmpty()
-//                                && address.isNotEmpty()
-//                            ) {
+//                            data.data.forEach {
 //
-//                                mViewModel.createOrder(params)
-//                            } else {
-//                                showToast("Please add Details")
+//                                addressArrayList.add(it)
 //                            }
+//                            addressAdapter.notifyDataSetChanged()
+//
 //                        }
+//                    }
 //
-//
-//                        if (!mViewModel.createOrderResponse.hasActiveObservers()) {
-//                            mViewModel.createOrderResponse.observe(requireActivity()) {
-//                                when (it.status) {
-//                                    Resource.Status.LOADING -> {
-//                                        loadingDialog.show()
-//                                    }
-//
-//                                    Resource.Status.NOTVERIFY -> {
-//                                        loadingDialog.dismiss()
-//                                    }
-//
-//                                    Resource.Status.SUCCESS -> {
-//                                        loadingDialog.dismiss()
-//                                        it.data?.let { data ->
-//
-//                                            var bundle = arguments
-//                                            if (bundle == null) {
-//                                                bundle = Bundle()
-//                                            }
-//                                            bundle!!.putString("order_id", data.data._id)
-//
-//
-//                                            findNavController().navigate(
-//                                                R.id.paymentMethodsFragment,
-//                                                bundle,
-//                                                options
-//                                            )
-//                                        }
-//                                    }
-//
-//
-//                                    Resource.Status.AUTH -> {
-//                                        loadingDialog.dismiss()
-//                                        if (isAdded) {
-//                                            try {
-//                                                onToSignUpPage()
-//                                            } catch (e: Exception) {
-//                                                e.printStackTrace()
-//                                            }
-//                                        }
-//                                    }
-//
-//                                    Resource.Status.ERROR -> {
-//                                        loadingDialog.dismiss()
-//                                        DialogHelperClass.errorDialog(
-//                                            requireContext(),
-//                                            it.message!!
-//                                        )
-//                                    }
-//                                }
-//                                if (isAdded) {
-//                                    mViewModel.createOrderResponse.removeObservers(
-//                                        viewLifecycleOwner
-//                                    )
-//                                }
-//                            }
-//                        }
-//
-//
+//                    Resource.Status.ERROR -> {
+//                        loadingDialog.dismiss()
+//                        DialogHelperClass.errorDialog(requireContext(), it.message!!)
 //                    }
 //                }
+//                if (isAdded) {
+//                    mViewModel.addressList.removeObservers(viewLifecycleOwner)
+//                }
+//            }
+//        }
+
+
+                mViewDataBinding.btnProceed.setOnClickListener {
+                    if (singleAddress == null) {
+                        mViewDataBinding.root.snackbar("Please select address")
+                    } else {
+
+                        val bundle = arguments
+
+                        val couponCode = bundle?.getString("couponCode") ?: ""
+
+
+                        val label = singleAddress?.label ?: ""
+                        val etPhone = singleAddress?.phoneNumber ?: ""
+                        val address = singleAddress?.address ?: ""
+
+                        val params = JsonObject()
+                        try {
+
+
+                            params.add(
+                                "shippingInfo", Gson().toJsonTree(
+                                    ShippingInfo2(
+                                        address = address,
+                                        phoneNumber = etPhone,
+                                        label = label
+                                    )
+                                )
+                            )
+
+                            if (couponCode.isNotEmpty()) {
+                                params.addProperty("couponCode", couponCode)
+                            }
+
+
+                        } catch (e: JSONException) {
+                            e.printStackTrace()
+                        }
+                        if (address.isNullOrEmpty()) {
+                            showToast("Please add Address")
+                        } else {
+                            if (etPhone.isNotEmpty()
+                                && address.isNotEmpty()
+                            ) {
+
+                                mViewModel.createOrder(params)
+                            } else {
+                                showToast("Please add Details")
+                            }
+                        }
+
+
+                        if (!mViewModel.createOrderResponse.hasActiveObservers()) {
+                            mViewModel.createOrderResponse.observe(requireActivity()) {
+                                when (it.status) {
+                                    Resource.Status.LOADING -> {
+                                        loadingDialog.show()
+                                    }
+
+                                    Resource.Status.NOTVERIFY -> {
+                                        loadingDialog.dismiss()
+                                    }
+
+                                    Resource.Status.SUCCESS -> {
+                                        loadingDialog.dismiss()
+                                        it.data?.let { data ->
+
+                                            var bundle = arguments
+                                            if (bundle == null) {
+                                                bundle = Bundle()
+                                            }
+                                            bundle!!.putString("order_id", data.data._id)
+
+
+                                            findNavController().navigate(
+                                                R.id.paymentMethodsFragment,
+                                                bundle,
+                                                options
+                                            )
+                                        }
+                                    }
+
+
+                                    Resource.Status.AUTH -> {
+                                        loadingDialog.dismiss()
+                                        if (isAdded) {
+                                            try {
+                                                onToSignUpPage()
+                                            } catch (e: Exception) {
+                                                e.printStackTrace()
+                                            }
+                                        }
+                                    }
+
+                                    Resource.Status.ERROR -> {
+                                        loadingDialog.dismiss()
+                                        DialogHelperClass.errorDialog(
+                                            requireContext(),
+                                            it.message!!
+                                        )
+                                    }
+                                }
+                                if (isAdded) {
+                                    mViewModel.createOrderResponse.removeObservers(
+                                        viewLifecycleOwner
+                                    )
+                                }
+                            }
+                        }
+
+
+                    }
+                }
 
 
         addressRecyclerview()
@@ -316,12 +354,12 @@ class AddressListFragment : BaseFragment<FragmentAddressListBinding, AddressView
 
 }
 
-//@Keep
-//class AddressesClass : ArrayList<Address2>()
-//
-//@Keep
-//open class Address2(
-//    open val label: String,
-//    open val address: String,
-//    open val phoneNumber: String
-//)
+@Keep
+class AddressesClass : ArrayList<Address2>()
+
+@Keep
+open class Address2(
+    open val label: String,
+    open val address: String,
+    open val phoneNumber: String
+)

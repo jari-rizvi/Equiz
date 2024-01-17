@@ -234,6 +234,13 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
                 options
             )
         }
+        mViewDataBinding.btnAddress.setOnClickListener {
+            findNavController().navigate(
+                R.id.addressListFragment,
+                arguments,
+                options
+            )
+        }
         mViewDataBinding.btnOrder.setOnClickListener {
             findNavController().navigate(
                 R.id.action_profileFragment_to_ordersFragment,

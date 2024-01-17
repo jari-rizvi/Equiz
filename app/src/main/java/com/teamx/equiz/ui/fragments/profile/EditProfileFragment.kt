@@ -98,26 +98,6 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
 
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
 
-        mViewDataBinding.btnSave.setOnClickListener {
-            userName = mViewDataBinding.userName.text.toString()
-            if (userName.isNotEmpty()) {
-                val params = JsonObject()
-                try {
-                    params.addProperty("email", userEmail)
-                    params.addProperty("DOB", userDOB)
-                    params.addProperty("username", userName)
-                    params.addProperty("image", imageUrl)
-                } catch (e: JSONException) {
-                    e.printStackTrace()
-                }
-
-                mViewModel.updateProfile(params)
-            } else {
-                mViewDataBinding.root.snackbar("Enter Username")
-            }
-
-        }
-
 
         if (!mViewModel.updateProfileResponse.hasActiveObservers()) {
             mViewModel.updateProfileResponse.observe(requireActivity()) {
@@ -307,10 +287,10 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                         loadingDialog.dismiss()
                         it.data?.let { data ->
                             try {
-//                                Picasso.get().load(imageUrl).resize(500, 500)
-//                                    .into(mViewDataBinding.profilePicture)
                                 Glide.with(mViewDataBinding.profilePicture.context).load(data.image)
                                     .into(mViewDataBinding.profilePicture)
+
+                                imageUrl = data.image
 
                             } catch (e: Exception) {
 
@@ -358,7 +338,25 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
             ).show()
         }
 
+        mViewDataBinding.btnSave.setOnClickListener {
+            userName = mViewDataBinding.userName.text.toString()
+            if (userName.isNotEmpty()) {
+                val params = JsonObject()
+                try {
+                    params.addProperty("email", userEmail)
+                    params.addProperty("DOB", userDOB)
+                    params.addProperty("username", userName)
+                    params.addProperty("image", imageUrl)
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
 
+                mViewModel.updateProfile(params)
+            } else {
+                mViewDataBinding.root.snackbar("Enter Username")
+            }
+
+        }
 
         mViewDataBinding.btnVerifyPhone.setOnClickListener {
 

@@ -3,6 +3,8 @@ package com.teamx.equiz.ui.fragments.dashboard
 
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
@@ -40,6 +42,8 @@ import com.teamx.equiz.utils.DialogHelperClass
 import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONException
+import java.util.Timer
+import java.util.TimerTask
 
 @AndroidEntryPoint
 class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewModel>(),
@@ -53,6 +57,10 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         get() = BR.viewModel
 
 
+    private lateinit var timer: Timer
+    private val delayInMillis: Long = 2000 // Adjust the delay time as needed
+    private val handler = Handler(Looper.getMainLooper())
+
     private lateinit var options: NavOptions
 
     lateinit var winnerAdapter: TopWinnersAdapter
@@ -61,14 +69,15 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
     lateinit var quizAdapter: QuizesAdapter
     lateinit var quizArrayList: ArrayList<Data>
+
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
 
-        
+
 
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
@@ -93,7 +102,11 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             findNavController().navigate(R.id.settingsFragment, bundle, options)
         }
         mViewDataBinding.tvCoins.setOnClickListener {
-            if (NetworkCallPoints.TOKENER.isNullOrEmpty() || NetworkCallPoints.TOKENER.equals("null", true)) {
+            if (NetworkCallPoints.TOKENER.isNullOrEmpty() || NetworkCallPoints.TOKENER.equals(
+                    "null",
+                    true
+                )
+            ) {
                 DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
                 return@setOnClickListener
             }
@@ -103,17 +116,21 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         }
 
         mViewDataBinding.textView155.setOnClickListener {
-            if (NetworkCallPoints.TOKENER.isNullOrEmpty() || NetworkCallPoints.TOKENER.equals("null", true)) {
+            if (NetworkCallPoints.TOKENER.isNullOrEmpty() || NetworkCallPoints.TOKENER.equals(
+                    "null",
+                    true
+                )
+            ) {
                 DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
                 return@setOnClickListener
             }
             findNavController().navigate(
-                R.id.quizesFragment, arguments,options
+                R.id.quizesFragment, arguments, options
             )
         }
         mViewDataBinding.seeAllGames.setOnClickListener {
             findNavController().navigate(
-                R.id.gamesFragment, arguments,options
+                R.id.gamesFragment, arguments, options
             )
         }
 
@@ -124,17 +141,18 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                 when (it.status) {
                     Resource.Status.LOADING -> {
 //                        loadingDialog.show()
-                        mViewDataBinding.shimmerLayout.startShimmer()
-                        mViewDataBinding.shimmerLayout.visibility = View.VISIBLE
+//                        mViewDataBinding.shimmerLayout.startShimmer()
+//                        mViewDataBinding.shimmerLayout.visibility = View.VISIBLE
                     }
+
                     Resource.Status.NOTVERIFY -> {
                         loadingDialog.dismiss()
                     }
 
                     Resource.Status.SUCCESS -> {
 //                        loadingDialog.dismiss()
-                        mViewDataBinding.shimmerLayout.stopShimmer()
-                        mViewDataBinding.shimmerLayout.visibility = View.GONE
+//                        mViewDataBinding.shimmerLayout.stopShimmer()
+//                        mViewDataBinding.shimmerLayout.visibility = View.GONE
                         mViewDataBinding.mainLayout.visibility = View.VISIBLE
                         it.data?.let { data ->
 
@@ -145,15 +163,15 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                     Resource.Status.AUTH -> {
                         loadingDialog.dismiss()
                         mViewDataBinding.mainLayout.visibility = View.VISIBLE
-                        mViewDataBinding.shimmerLayout.stopShimmer()
-                        mViewDataBinding.shimmerLayout.visibility = View.GONE
+//                        mViewDataBinding.shimmerLayout.stopShimmer()
+//                        mViewDataBinding.shimmerLayout.visibility = View.GONE
                         onToSignUpPage()
                     }
 
                     Resource.Status.ERROR -> {
 //                        loadingDialog.dismiss()
-                        mViewDataBinding.shimmerLayout.stopShimmer()
-                        mViewDataBinding.shimmerLayout.visibility = View.GONE
+//                        mViewDataBinding.shimmerLayout.stopShimmer()
+//                        mViewDataBinding.shimmerLayout.visibility = View.GONE
                         DialogHelperClass.errorDialog(
                             requireContext(), it.message!!
                         )
@@ -178,8 +196,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                 when (it.status) {
                     Resource.Status.LOADING -> {
 //                        loadingDialog.show()
-                        mViewDataBinding.shimmerLayout.startShimmer()
-                        mViewDataBinding.shimmerLayout.visibility = View.VISIBLE
+//                        mViewDataBinding.shimmerLayout.startShimmer()
+//                        mViewDataBinding.shimmerLayout.visibility = View.VISIBLE
                     }
 
                     Resource.Status.NOTVERIFY -> {
@@ -188,8 +206,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
                     Resource.Status.SUCCESS -> {
 //                        loadingDialog.dismiss()
-                        mViewDataBinding.shimmerLayout.stopShimmer()
-                        mViewDataBinding.shimmerLayout.visibility = View.GONE
+//                        mViewDataBinding.shimmerLayout.stopShimmer()
+//                        mViewDataBinding.shimmerLayout.visibility = View.GONE
 //                        mViewDataBinding.mainLayout.visibility = View.VISIBLE
                         imageList2.clear()
                         it.data?.let { data ->
@@ -210,15 +228,15 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                     Resource.Status.AUTH -> {
                         loadingDialog.dismiss()
                         mViewDataBinding.mainLayout.visibility = View.VISIBLE
-                        mViewDataBinding.shimmerLayout.stopShimmer()
-                        mViewDataBinding.shimmerLayout.visibility = View.GONE
+//                        mViewDataBinding.shimmerLayout.stopShimmer()
+//                        mViewDataBinding.shimmerLayout.visibility = View.GONE
                         onToSignUpPage()
                     }
 
                     Resource.Status.ERROR -> {
 //                        loadingDialog.dismiss()
-                        mViewDataBinding.shimmerLayout.stopShimmer()
-                        mViewDataBinding.shimmerLayout.visibility = View.GONE
+//                        mViewDataBinding.shimmerLayout.stopShimmer()
+//                        mViewDataBinding.shimmerLayout.visibility = View.GONE
                         DialogHelperClass.errorDialog(
                             requireContext(), it.message!!
                         )
@@ -236,8 +254,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                 when (it.status) {
                     Resource.Status.LOADING -> {
 //                        loadingDialog.show()
-                        mViewDataBinding.shimmerLayout.startShimmer()
-                        mViewDataBinding.shimmerLayout.visibility = View.VISIBLE
+//                        mViewDataBinding.shimmerLayout.startShimmer()
+//                        mViewDataBinding.shimmerLayout.visibility = View.VISIBLE
                     }
 
                     Resource.Status.NOTVERIFY -> {
@@ -246,8 +264,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
                     Resource.Status.SUCCESS -> {
 //                        loadingDialog.dismiss()
-                        mViewDataBinding.shimmerLayout.stopShimmer()
-                        mViewDataBinding.shimmerLayout.visibility = View.GONE
+//                        mViewDataBinding.shimmerLayout.stopShimmer()
+//                        mViewDataBinding.shimmerLayout.visibility = View.GONE
                         mViewDataBinding.mainLayout.visibility = View.VISIBLE
                         it.data?.let { data ->
                             data.game.forEach {
@@ -263,15 +281,15 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                     Resource.Status.AUTH -> {
                         loadingDialog.dismiss()
                         mViewDataBinding.mainLayout.visibility = View.VISIBLE
-                        mViewDataBinding.shimmerLayout.stopShimmer()
-                        mViewDataBinding.shimmerLayout.visibility = View.GONE
+//                        mViewDataBinding.shimmerLayout.stopShimmer()
+//                        mViewDataBinding.shimmerLayout.visibility = View.GONE
                         onToSignUpPage()
                     }
 
                     Resource.Status.ERROR -> {
 //                        loadingDialog.dismiss()
-                        mViewDataBinding.shimmerLayout.stopShimmer()
-                        mViewDataBinding.shimmerLayout.visibility = View.GONE
+//                        mViewDataBinding.shimmerLayout.stopShimmer()
+//                        mViewDataBinding.shimmerLayout.visibility = View.GONE
                         DialogHelperClass.errorDialog(
                             requireContext(), it.message!!
                         )
@@ -292,17 +310,19 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                 when (it.status) {
                     Resource.Status.LOADING -> {
 //                        loadingDialog.show()
-                        mViewDataBinding.shimmerLayout.startShimmer()
-                        mViewDataBinding.shimmerLayout.visibility = View.VISIBLE
+//                        mViewDataBinding.shimmerLayout.startShimmer()
+//                        mViewDataBinding.shimmerLayout.visibility = View.VISIBLE
                     }
+
                     Resource.Status.NOTVERIFY -> {
                         loadingDialog.dismiss()
                     }
+
                     Resource.Status.SUCCESS -> {
                         quizArrayList.clear()
 //                        loadingDialog.dismiss()
-                        mViewDataBinding.shimmerLayout.stopShimmer()
-                        mViewDataBinding.shimmerLayout.visibility = View.GONE
+//                        mViewDataBinding.shimmerLayout.stopShimmer()
+//                        mViewDataBinding.shimmerLayout.visibility = View.GONE
                         mViewDataBinding.mainLayout.visibility = View.VISIBLE
                         mViewDataBinding.recQuizes.visibility = View.VISIBLE
                         it.data?.let { data ->
@@ -317,15 +337,15 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                     Resource.Status.AUTH -> {
                         loadingDialog.dismiss()
                         mViewDataBinding.mainLayout.visibility = View.VISIBLE
-                        mViewDataBinding.shimmerLayout.stopShimmer()
-                        mViewDataBinding.shimmerLayout.visibility = View.GONE
+//                        mViewDataBinding.shimmerLayout.stopShimmer()
+//                        mViewDataBinding.shimmerLayout.visibility = View.GONE
                         onToSignUpPage()
                     }
 
                     Resource.Status.ERROR -> {
 //                        loadingDialog.dismiss()
-                        mViewDataBinding.shimmerLayout.stopShimmer()
-                        mViewDataBinding.shimmerLayout.visibility = View.GONE
+//                        mViewDataBinding.shimmerLayout.stopShimmer()
+//                        mViewDataBinding.shimmerLayout.visibility = View.GONE
                         mViewDataBinding.recQuizes.visibility = View.GONE
                         /*  DialogHelperClass.errorDialog(
                               requireContext(), it.message!!
@@ -379,7 +399,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         quizesTitleAdapter = QuizesTitleAdapter(strArrayList, this)
         mViewDataBinding.recCategories.adapter = quizesTitleAdapter
 
-        mViewModel.getquizTitile("World", "General Knowledge", "",this)
+        mViewModel.getquizTitile("World", "General Knowledge", "", this)
 
     }
 
@@ -391,11 +411,15 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
 
         GamesUID2.values().forEachIndexed { index, gamesUID2 ->
-            gameStrArrayList.add(GamesModel(returnGameName(gamesUID2.name), returnImg(gamesUID2.name)))
+            gameStrArrayList.add(
+                GamesModel(
+                    returnGameName(gamesUID2.name),
+                    returnImg(gamesUID2.name)
+                )
+            )
         }
 
 //        gameStrArrayList.removeIf { it.name == "Flick" || it.name == "Tetris" || it.name == "High Low" || it.name == "Make Ten" || it.name == "Rapid Sorting" || it.name == "Spinning Block"}
-
 
 
         val layoutManager1 =
@@ -409,66 +433,85 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
     }
 
 
-    companion object{
+    companion object {
         fun returnImg(index: String): Int {
             when (index) {
                 GamesUID2.AdditionAddiction.name -> {
                     return R.drawable.addition_icon
                 }
+
                 GamesUID2.BirdWatching.name -> {
                     return R.drawable.bird_favicon
                 }
+
                 GamesUID2.ColorDeception.name -> {
                     return R.drawable.colorofdeception_icon
                 }
+
                 GamesUID2.Tetris.name -> {
                     return R.drawable.tetris_icon
                 }
+
                 GamesUID2.Concentration.name -> {
                     return R.drawable.concentration_icon
                 }
+
                 GamesUID2.CardCalculation.name -> {
                     return R.drawable.cardscalculations_icon
                 }
+
                 GamesUID2.Flick.name -> {
                     return R.drawable.flick_icon
                 }
+
                 GamesUID2.FollowTheLeader.name -> {
                     return R.drawable.follow_the_leder
                 }
+
                 GamesUID2.GuessTheFlag.name -> {
                     return R.drawable.guestheflag_icon
                 }
+
                 GamesUID2.HighLow.name -> {
                     return R.drawable.highorlow_icon
                 }
+
                 GamesUID2.MakeTen.name -> {
                     return R.drawable.maketen_icon
                 }
+
                 GamesUID2.Matching.name -> {
                     return R.drawable.matching_icon
                 }
+
                 GamesUID2.MissingPiece.name -> {
                     return R.drawable.missingpieces_icon
                 }
+
                 GamesUID2.Operations.name -> {
                     return R.drawable.operations_icon
                 }
+
                 GamesUID2.QuickEye.name -> {
                     return R.drawable.quickeye_icon
                 }
+
                 GamesUID2.RainFall.name -> {
                     return R.drawable.rainfall_icon
                 }
+
                 GamesUID2.RapidSorting.name -> {
                     return R.drawable.rapid_sorting_icon
                 }
+
                 GamesUID2.ReverseRps.name -> {
                     return R.drawable.reverserps_icon
                 }
+
                 GamesUID2.Simplicity.name -> {
                     return R.drawable.simplicity_icon
                 }
+
                 GamesUID2.SpinningBlock.name -> {
                     return R.drawable.spinthewheel_icon
                 }
@@ -528,6 +571,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
 
     }
+
     private fun returnGameName(enumNumberEnum: String): String {
 
 
@@ -680,7 +724,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         } else {
             ""
         }
-        mViewModel.getquizTitile("$tick", "$topic", "",this)
+        mViewModel.getquizTitile("$tick", "$topic", "", this)
 //        strArrayList.forEach{
 //            if (it.isSelected)
 //            it.isSelected = false
@@ -724,134 +768,134 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
             findNavController().navigate(R.id.startUpGameFrag, bundle, options)
         }
-      /*  when (gameStrArrayList[position].name) {
+        /*  when (gameStrArrayList[position].name) {
 
-            GamesUID2.AdditionAddiction.name -> {
+              GamesUID2.AdditionAddiction.name -> {
 
-                findNavController().navigate(R.id.additionAddictionGameFrag, arguments,options)
-
-
-            }
-
-            GamesUID2.BirdWatching.name -> {
-                findNavController().navigate(R.id.birdWatchingGameFrag, arguments,options)
-
-            }
-
-//            GamesUID2.BreakTheBlock.name -> {
-//                findNavController().navigate(R.id.breakTheBlockGameFrag, arguments,options)
-//
-//            }
-
-            GamesUID2.ColorDeception.name -> {
-                findNavController().navigate(R.id.colorOfDecepGameFrag, arguments,options)
-
-            }
-
-            GamesUID2.Tetris.name -> {
-                findNavController().navigate(R.id.tetrisGameFrag, arguments,options)
-
-            }
-
-            GamesUID2.Concentration.name -> {
-
-                findNavController().navigate(R.id.concentrationGameFrag, arguments,options)
-            }
-
-            GamesUID2.CardCalculation.name -> {
-                findNavController().navigate(R.id.cardCalculationGameFrag, arguments,options)
-
-            }
-
-            GamesUID2.Flick.name -> {
-                findNavController().navigate(R.id.flickGameFrag, arguments,options)
-
-            }
-
-            GamesUID2.FollowTheLeader.name -> {
-                findNavController().navigate(R.id.followTheLeaderGameFrag, arguments,options)
-
-            }
-
-            GamesUID2.UnfollowTheLeader.name -> {
-                findNavController().navigate(R.id.unfollowTheLeaderGameFrag, arguments,options)
-
-            }
-
-            GamesUID2.GuessTheFlag.name -> {
-//                findNavController().navigate(R.id,arguments,options)
-
-            }
-
-            GamesUID2.HighLow.name -> {
-                findNavController().navigate(R.id.highLowGameFrag, arguments,options)
-
-            }
-
-            GamesUID2.MakeTen.name -> {
-                findNavController().navigate(R.id.make10GameFrag, arguments,options)
-
-            }
-
-            GamesUID2.MissingPiece.name -> {
-                findNavController().navigate(R.id.missingPieceGameFrag, arguments,options)
-
-            }
+                  findNavController().navigate(R.id.additionAddictionGameFrag, arguments,options)
 
 
-            GamesUID2.QuickEye.name -> {
-                findNavController().navigate(R.id.quickEyeGameFrag, arguments,options)
+              }
 
-            }
+              GamesUID2.BirdWatching.name -> {
+                  findNavController().navigate(R.id.birdWatchingGameFrag, arguments,options)
 
-            GamesUID2.RainFall.name -> {
-                findNavController().navigate(R.id.rainFallGameFrag, arguments,options)
+              }
 
-            }
+  //            GamesUID2.BreakTheBlock.name -> {
+  //                findNavController().navigate(R.id.breakTheBlockGameFrag, arguments,options)
+  //
+  //            }
 
-            GamesUID2.RapidSorting.name -> {
-                findNavController().navigate(R.id.rapidSortingGameFrag, arguments,options)
+              GamesUID2.ColorDeception.name -> {
+                  findNavController().navigate(R.id.colorOfDecepGameFrag, arguments,options)
 
-            }
+              }
 
-            GamesUID2.ReverseRps.name -> {
-                findNavController().navigate(R.id.reverseRPSFrag, arguments,options)
+              GamesUID2.Tetris.name -> {
+                  findNavController().navigate(R.id.tetrisGameFrag, arguments,options)
 
-            }
+              }
 
-            GamesUID2.Simplicity.name -> {
-                findNavController().navigate(R.id.simplicityGameFrag, arguments,options)
+              GamesUID2.Concentration.name -> {
 
-            }
-            GamesUID2.SpinningBlock.name -> {
-                findNavController().navigate(R.id.spinningBlockGameFrag, arguments,options)
+                  findNavController().navigate(R.id.concentrationGameFrag, arguments,options)
+              }
 
-            }
-            GamesUID2.ShapeDeception.name -> {
-                findNavController().navigate(R.id.shapeDeceptionGameFrag, arguments,options)
-            }
-            GamesUID2.TapTheColor.name -> {
-                findNavController().navigate(R.id.tapTheColorGameFrag, arguments,options)
+              GamesUID2.CardCalculation.name -> {
+                  findNavController().navigate(R.id.cardCalculationGameFrag, arguments,options)
 
-            }
+              }
 
-            GamesUID2.TouchTheNum.name -> {
-                findNavController().navigate(R.id.touchTheNumGameFrag, arguments,options)
+              GamesUID2.Flick.name -> {
+                  findNavController().navigate(R.id.flickGameFrag, arguments,options)
 
-            }
+              }
 
-            GamesUID2.TouchTheNumPlus.name -> {
-                findNavController().navigate(R.id.touchTheNumPlusGameFrag, arguments,options)
+              GamesUID2.FollowTheLeader.name -> {
+                  findNavController().navigate(R.id.followTheLeaderGameFrag, arguments,options)
 
-            }
+              }
 
-            GamesUID2.WeatherCast.name -> {
-                findNavController().navigate(R.id.weatherCastGameFrag, arguments,options)
+              GamesUID2.UnfollowTheLeader.name -> {
+                  findNavController().navigate(R.id.unfollowTheLeaderGameFrag, arguments,options)
 
-            }
+              }
+
+              GamesUID2.GuessTheFlag.name -> {
+  //                findNavController().navigate(R.id,arguments,options)
+
+              }
+
+              GamesUID2.HighLow.name -> {
+                  findNavController().navigate(R.id.highLowGameFrag, arguments,options)
+
+              }
+
+              GamesUID2.MakeTen.name -> {
+                  findNavController().navigate(R.id.make10GameFrag, arguments,options)
+
+              }
+
+              GamesUID2.MissingPiece.name -> {
+                  findNavController().navigate(R.id.missingPieceGameFrag, arguments,options)
+
+              }
 
 
-        }*/
+              GamesUID2.QuickEye.name -> {
+                  findNavController().navigate(R.id.quickEyeGameFrag, arguments,options)
+
+              }
+
+              GamesUID2.RainFall.name -> {
+                  findNavController().navigate(R.id.rainFallGameFrag, arguments,options)
+
+              }
+
+              GamesUID2.RapidSorting.name -> {
+                  findNavController().navigate(R.id.rapidSortingGameFrag, arguments,options)
+
+              }
+
+              GamesUID2.ReverseRps.name -> {
+                  findNavController().navigate(R.id.reverseRPSFrag, arguments,options)
+
+              }
+
+              GamesUID2.Simplicity.name -> {
+                  findNavController().navigate(R.id.simplicityGameFrag, arguments,options)
+
+              }
+              GamesUID2.SpinningBlock.name -> {
+                  findNavController().navigate(R.id.spinningBlockGameFrag, arguments,options)
+
+              }
+              GamesUID2.ShapeDeception.name -> {
+                  findNavController().navigate(R.id.shapeDeceptionGameFrag, arguments,options)
+              }
+              GamesUID2.TapTheColor.name -> {
+                  findNavController().navigate(R.id.tapTheColorGameFrag, arguments,options)
+
+              }
+
+              GamesUID2.TouchTheNum.name -> {
+                  findNavController().navigate(R.id.touchTheNumGameFrag, arguments,options)
+
+              }
+
+              GamesUID2.TouchTheNumPlus.name -> {
+                  findNavController().navigate(R.id.touchTheNumPlusGameFrag, arguments,options)
+
+              }
+
+              GamesUID2.WeatherCast.name -> {
+                  findNavController().navigate(R.id.weatherCastGameFrag, arguments,options)
+
+              }
+
+
+          }*/
     }
 
     override fun onWinnerClick(position: Int) {
@@ -885,6 +929,25 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                 updateDots(position)
             }
         })
+
+
+        // Initialize the timer
+        timer = Timer()
+        var a = mViewDataBinding.viewPager
+        // Schedule the automatic sliding task
+        timer.scheduleAtFixedRate(object : TimerTask() {
+            override fun run() {
+                handler.post {
+                    val currentItem = a.currentItem
+                    val itemCount = adapter.itemCount
+
+                    // If the current item is the last one, set the item to the first
+                    a.currentItem = if (currentItem < itemCount - 1) currentItem + 1 else 0
+                }
+            }
+        }, 0, delayInMillis)
+
+
     }
 
 
@@ -942,10 +1005,6 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                                     mViewModel.getBanners(params)
 
 
-
-
-
-
                                 } catch (e: JSONException) {
                                     e.printStackTrace()
                                 }
@@ -959,8 +1018,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                     Resource.Status.AUTH -> {
                         loadingDialog.dismiss()
                         mViewDataBinding.mainLayout.visibility = View.VISIBLE
-                        mViewDataBinding.shimmerLayout.stopShimmer()
-                        mViewDataBinding.shimmerLayout.visibility = View.GONE
+//                        mViewDataBinding.shimmerLayout.stopShimmer()
+//                        mViewDataBinding.shimmerLayout.visibility = View.GONE
                         onToSignUpPage()
                     }
 
@@ -1033,17 +1092,13 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                         if (isAdded) {
                             mViewDataBinding.root.snackbar(it.message!!)
                         }
-                        Log.d("TAG", "eeeeeeeeeee: ${it.message}")
+
                     }
                 }
             }
         }
     }
 
-    //////////////
-
-
-////
 
 //    private fun askNotificationPermission() {
 //        // This is only necessary for API level >= 33 (TIRAMISU)

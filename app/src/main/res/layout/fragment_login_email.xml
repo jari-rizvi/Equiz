@@ -30,7 +30,6 @@
             app:boxBackgroundMode="none"
             app:boxStrokeWidth="0dp"
             app:hintEnabled="false"
-
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -40,8 +39,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etEMail"
                 style="@style/popins_regular"
-                android:layout_width="370dp"
-                android:layout_height="53dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:background="@android:color/transparent"
                 android:gravity="center_vertical|start"

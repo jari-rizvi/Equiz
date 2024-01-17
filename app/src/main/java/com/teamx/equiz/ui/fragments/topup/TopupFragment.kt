@@ -212,11 +212,7 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
             mViewDataBinding.radiogoogle.isChecked = true
         }
 
-
-        //
         initStripe()
-
-        //
 
         mViewDataBinding.editText.addTextChangedListener(textWatcher)
     }
@@ -355,8 +351,6 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
     }
 
 
-    ///////////////
-
     lateinit var paymentIntentClientSecret: String
     lateinit var stripPublicKey: String
     var selectionStr = ""
@@ -485,8 +479,6 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
     }
 
     private fun onPaymentSheetResult(paymentSheetResult: PaymentSheetResult) {
-
-
         when (paymentSheetResult) {
             is PaymentSheetResult.Canceled -> {
                 Timber.tag("Cancel").d("hello there")

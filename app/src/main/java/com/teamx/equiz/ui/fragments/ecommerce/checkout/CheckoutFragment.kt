@@ -38,7 +38,7 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
     var totalPrice = 0.0
     var subTotal = 0.0
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
@@ -56,7 +56,7 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
 
         mViewDataBinding.btnApply.setOnClickListener {
 
-           val code=   mViewDataBinding.autoCompleteTextView.text.toString()
+            val code = mViewDataBinding.autoCompleteTextView.text.toString()
             mViewModel.applyCoupon(code)
             if (!mViewModel.applyCouponResponse.hasActiveObservers()) {
                 mViewModel.applyCouponResponse.observe(requireActivity(), Observer {
@@ -66,9 +66,11 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
 //                        mViewDataBinding.shimmerLayout.startShimmer()
 //                        mViewDataBinding.shimmerLayout.visibility = View.VISIBLE
                         }
+
                         Resource.Status.NOTVERIFY -> {
                             loadingDialog.dismiss()
                         }
+
                         Resource.Status.SUCCESS -> {
 //                        loadingDialog.dismiss()
 //                        mViewDataBinding.shimmerLayout.stopShimmer()
@@ -77,25 +79,30 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
                             it.data?.let { data ->
 
                                 data.data.forEach {
-                                 /*   if (it != null) {
-                                        cartArrayList2.add(it)
+                                    /*   if (it != null) {
+                                           cartArrayList2.add(it)
 
-                                        it.product?.let { itt ->
-                                            subTotal += itt.point!! * it.totalPoint
-                                        }
+                                           it.product?.let { itt ->
+                                               subTotal += itt.point!! * it.totalPoint
+                                           }
 
 
-                                    }*/
-
-                                    mViewDataBinding.amount.text = data.discount.toString()
-                                    mViewDataBinding.qty.text = data.discountCoupon.amount.toString()
-                                    mViewDataBinding.date.text = ""
-                                    mViewDataBinding.orderno.text = "${ data.data[0].totalPoint.toString()} Points"
+                                       }*/
+                                    try {
+                                        mViewDataBinding.amount.text = data.discount.toString()
+                                        mViewDataBinding.qty.text =
+                                            data.discountCoupon.amount.toString()
+                                        mViewDataBinding.date.text = ""
+                                        mViewDataBinding.orderno.text =
+                                            "${data.data[0].totalPoint.toString()} Points"
+                                    } catch (e: Exception) {
+                                    }
                                 }
 //
 
                             }
                         }
+
                         Resource.Status.AUTH -> {
                             loadingDialog.dismiss()
                             if (isAdded) {
@@ -106,6 +113,7 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
                                 }
                             }
                         }
+
                         Resource.Status.ERROR -> {
 //                        loadingDialog.dismiss()
 //                        mViewDataBinding.shimmerLayout.stopShimmer()
@@ -131,9 +139,11 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
 //                        mViewDataBinding.shimmerLayout.startShimmer()
 //                        mViewDataBinding.shimmerLayout.visibility = View.VISIBLE
                     }
+
                     Resource.Status.NOTVERIFY -> {
                         loadingDialog.dismiss()
                     }
+
                     Resource.Status.SUCCESS -> {
 //                        loadingDialog.dismiss()
 //                        mViewDataBinding.shimmerLayout.stopShimmer()
@@ -152,19 +162,22 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
 
                                 }
 
-                                      mViewDataBinding.amount.text = data.data[0].totalPoint.toString()+" Points"
-                                      mViewDataBinding.date.text = ""
-                                      mViewDataBinding.qty.text = "0.0"
-                                      mViewDataBinding.orderno.text = "${ data.data[0].totalPoint.toString()} Points"
+                                mViewDataBinding.amount.text =
+                                    data.data[0].totalPoint.toString() + " Points"
+                                mViewDataBinding.date.text = ""
+                                mViewDataBinding.qty.text = "0.0"
+                                mViewDataBinding.orderno.text =
+                                    "${data.data[0].totalPoint.toString()} Points"
                             }
 //                                      mViewDataBinding.orderno.text = it.or
                             cartAdapter?.notifyDataSetChanged()
 
                         }
                     }
+
                     Resource.Status.AUTH -> {
                         loadingDialog.dismiss()
-                         if (isAdded) {
+                        if (isAdded) {
                             try {
                                 onToSignUpPage()
                             } catch (e: Exception) {
@@ -172,6 +185,7 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
                             }
                         }
                     }
+
                     Resource.Status.ERROR -> {
 //                        loadingDialog.dismiss()
 //                        mViewDataBinding.shimmerLayout.stopShimmer()
@@ -196,7 +210,7 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
                 bundle.putString("couponCode", coupon)
 
 
-                findNavController().navigate(R.id.addressListFragment, bundle, options)
+                findNavController().navigate(R.id.addressListCheckoutFragment, bundle, options)
             } else {
                 showToast("Cart is Empty")
             }
@@ -230,8 +244,10 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
                             cartAdapter?.notifyDataSetChanged()
                         }
                     }
-                    Resource.Status.AUTH -> { loadingDialog.dismiss()
-                         if (isAdded) {
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+                        if (isAdded) {
                             try {
                                 onToSignUpPage()
                             } catch (e: Exception) {
@@ -239,6 +255,7 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
                             }
                         }
                     }
+
                     Resource.Status.ERROR -> {
 //                        loadingDialog.dismiss()
 //                        mViewDataBinding.shimmerLayout.stopShimmer()
@@ -254,9 +271,6 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
 
 
     }
-
-
-
 
 
     private fun cartRecyclerview() {
@@ -284,23 +298,27 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
 //                        mViewDataBinding.shimmerLayout.startShimmer()
 //                        mViewDataBinding.shimmerLayout.visibility = View.VISIBLE
                     }
+
                     Resource.Status.NOTVERIFY -> {
                         loadingDialog.dismiss()
                     }
+
                     Resource.Status.SUCCESS -> {
 //                        loadingDialog.dismiss()
 //                        mViewDataBinding.shimmerLayout.stopShimmer()
 //                        mViewDataBinding.shimmerLayout.visibility = View.GONE
                         mViewDataBinding.mainLayout.visibility = View.VISIBLE
                         it.data?.let { data ->
-                            cartArrayList2  .clear()
+                            cartArrayList2.clear()
                             mViewModel.getCart()
                             cartAdapter?.notifyDataSetChanged()
                         }
                         mViewModel.getCart()
                     }
-                    Resource.Status.AUTH -> { loadingDialog.dismiss()
-                         if (isAdded) {
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+                        if (isAdded) {
                             try {
                                 onToSignUpPage()
                             } catch (e: Exception) {
@@ -308,6 +326,7 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
                             }
                         }
                     }
+
                     Resource.Status.ERROR -> {
 //                        loadingDialog.dismiss()
 //                        mViewDataBinding.shimmerLayout.stopShimmer()
@@ -358,8 +377,6 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
         mViewModel.updateCart(params)
 
     }
-
-
 
 
 }

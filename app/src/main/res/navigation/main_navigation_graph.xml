@@ -523,6 +523,10 @@
         android:id="@+id/addressEditFragment2"
         android:name="com.teamx.equiz.ui.fragments.address.AddressEditFragment"
         android:label="AddressEditFragment" />
+    <fragment
+        android:id="@+id/addressListCheckoutFragment"
+        android:name="com.teamx.equiz.ui.fragments.address.AddressListCheckoutFragment"
+        android:label="AddressListCheckoutFragment" />
 
 
 </navigation>

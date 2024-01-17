@@ -3,6 +3,7 @@ package com.teamx.equiz.ui.fragments.ecommerce.home
 
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
@@ -30,6 +31,8 @@ import com.teamx.equiz.utils.DialogHelperClass
 import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONException
+import java.util.Timer
+import java.util.TimerTask
 
 @AndroidEntryPoint
 class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewModel>(),
@@ -42,6 +45,9 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
     override val bindingVariable: Int
         get() = BR.viewModel
 
+    private lateinit var timer: Timer
+    private val delayInMillis: Long = 2000 // Adjust the delay time as needed
+    private val handlerr = Handler(Looper.getMainLooper())
 
     lateinit var categoriesAdapter: CategoriesAdapter
     lateinit var categoriesArrayList2: ArrayList<Category>
@@ -435,6 +441,22 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
                 updateDots(position)
             }
         })
+
+        // Initialize the timer
+        timer = Timer()
+        var a = mViewDataBinding.viewPager
+        // Schedule the automatic sliding task
+        timer.scheduleAtFixedRate(object : TimerTask() {
+            override fun run() {
+                handlerr.post {
+                    val currentItem = a.currentItem
+                    val itemCount = adapter.itemCount
+
+                    // If the current item is the last one, set the item to the first
+                    a.currentItem = if (currentItem < itemCount - 1) currentItem + 1 else 0
+                }
+            }
+        }, 0, delayInMillis)
     }
 
     private fun addDots(count: Int) {
