@@ -71,10 +71,9 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout5"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginHorizontal="@dimen/_10sdp"
             android:background="@drawable/card_back_less_rad"
-
             android:elevation="@dimen/_1sdp"
             android:paddingVertical="@dimen/_10sdp"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
@@ -88,23 +87,23 @@
             <TextView
                 android:id="@+id/btnCurrent"
                 style="@style/popins_regular"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/ranking"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_13ssp"
+                app:layout_constraintVertical_bias="0.1"
                 app:layout_constraintBottom_toBottomOf="@+id/view1"
                 app:layout_constraintEnd_toStartOf="@+id/view1"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/view1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textView50"
                 style="@style/popins_bold"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:gravity="center"
@@ -122,21 +121,20 @@
                 android:layout_height="@dimen/_50sdp"
                 android:background="@color/white"
                 android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="@+id/btnCurrent"
-                app:layout_constraintEnd_toStartOf="@+id/btnPast"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/view2"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/btnCurrent"
-                app:layout_constraintTop_toTopOf="@+id/btnCurrent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/btnPast"
                 style="@style/popins_regular"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/total_points"
                 android:textColor="@color/white"
-
                 android:textSize="@dimen/_13ssp"
                 app:layout_constraintBottom_toBottomOf="@+id/btnCurrent"
                 app:layout_constraintEnd_toStartOf="@+id/view2"
@@ -151,15 +149,15 @@
                 android:background="@color/white"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="@+id/view1"
-                app:layout_constraintEnd_toStartOf="@+id/btnReview"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/btnPast"
-                app:layout_constraintTop_toTopOf="@+id/btnPast" />
+                app:layout_constraintStart_toEndOf="@+id/view1"
+                app:layout_constraintTop_toTopOf="@+id/view1" />
 
             <TextView
                 android:id="@+id/textView51"
                 style="@style/popins_bold"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:gravity="center"
@@ -174,11 +172,11 @@
             <TextView
                 android:id="@+id/btnReview"
                 style="@style/popins_regular"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
                 android:gravity="center"
                 android:maxLines="1"
-                android:ellipsize="end"
                 android:text="@string/total_chances"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_13ssp"
@@ -191,7 +189,7 @@
             <TextView
                 android:id="@+id/textView52"
                 style="@style/popins_bold"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:gravity="center"
