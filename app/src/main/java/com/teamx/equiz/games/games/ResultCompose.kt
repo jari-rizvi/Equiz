@@ -284,7 +284,12 @@ fun ResultScreen(
 ) {
 
     var IsShareDialogTrue by remember { mutableStateOf(false) }
-    var percentage = ((right.toDouble() / total)).toFloat()
+
+    var percentage = if (total == 0) {
+        0f
+    } else {
+        ((right.toDouble() / total)).toFloat()
+    }
 //    val accurateCount: Float = 33f
 //    val inaccurateCount: Float = 67f
     val accurateCount: Float = percentage
@@ -311,16 +316,19 @@ fun ResultScreen(
             ) {
 
 
-                Box(modifier = Modifier.height(48.dp).background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
+                Box(
+                    modifier = Modifier
+                        .height(48.dp)
+                        .background(color = Color(0xFF9F81CA)),
+                    contentAlignment = Alignment.CenterStart
+                ) {
 
                     BackButton(onClick = { onContinueClicked(2) }
                     )
                     Text(
                         text = "Training",
                         modifier = Modifier
-                            .fillMaxWidth()
-
-                            ,
+                            .fillMaxWidth(),
                         textAlign = TextAlign.Center,
                         color = Color.White,
                         fontSize = 17.sp
@@ -353,9 +361,12 @@ fun ResultScreen(
                         ShowScoring("Incorrect", Color(0xFFC62E27), "${(total - right).toInt()}")
 
                     }
-
-                        ShowMeantime("Mean Time", " ${time / total}s")
-
+                    val to = if (total == 0) {
+                        1
+                    } else {
+                        total
+                    }
+                    ShowMeantime("Mean Time", " ${time / (to)}s")
 
 
                     /* Row(
@@ -920,7 +931,11 @@ fun dialogShareGame(
 ) {
 
 
-    var percentage = ((right.toDouble() / total)).toFloat()
+    var percentage = if (total == 0) {
+        0f
+    } else {
+        ((right.toDouble() / total)).toFloat()
+    }
 //    val accurateCount: Float = 33f
 //    val inaccurateCount: Float = 67f
     val accurateCount: Float = percentage

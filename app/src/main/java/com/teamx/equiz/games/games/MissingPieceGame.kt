@@ -122,7 +122,7 @@ fun MissingPieceGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswe
                 BackButton(onClick = { content(false,0,0) }
                 )
                 Text(
-                    text = "Training",
+                    text = "Missing Piece",
                     modifier = Modifier
                         .fillMaxWidth()
 

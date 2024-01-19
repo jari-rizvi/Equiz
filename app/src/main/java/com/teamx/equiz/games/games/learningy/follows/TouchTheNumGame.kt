@@ -307,7 +307,7 @@ fun PreviewTouchTheNumbersGameScreen() {
 
 //Touch The Number
 var rightGameAnswersTheNum = 0
-var totalGameAnswersTheNum = 1
+var totalGameAnswersTheNum = 0
 
 @Preview
 @Composable
@@ -384,7 +384,7 @@ fun UnfollowTouchTheNumGamePlus(content:  (bool:Boolean, rightAnswer:Int, totalA
 
                 BackButton(onClick = { content(false,0,0) })
                 Text(
-                    text = "Training",
+                    text = "Unfollow The Leader",
                     modifier = Modifier
                         .fillMaxWidth()
 

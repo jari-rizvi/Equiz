@@ -51,7 +51,7 @@ import kotlin.random.Random
 
 
 var rightGameAnswersSpin = 0
-var wrongGameAnswersSpin = 1
+var wrongGameAnswersSpin = 0
 
 @Composable
 fun SpinningBlockGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit) {
@@ -112,9 +112,9 @@ fun SpinningBlockGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: In
                 .height(48.dp)
                 .background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
 
-                BackButton(onClick = {}/*onContinueClicked*/)
+                BackButton(onClick = {content(false,0,0) }/*onContinueClicked*/)
                 Text(
-                    text = "Training",
+                    text = "Spinning Block",
                     modifier = Modifier
                         .fillMaxWidth()
 

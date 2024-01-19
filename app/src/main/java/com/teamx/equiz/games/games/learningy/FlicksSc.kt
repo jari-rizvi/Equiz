@@ -215,6 +215,11 @@ fun FlicksSc(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit
                             detectDragGestures(
                                 onDragEnd = {
                                     totalGameAnswersFlick++
+
+                                    if(!transitionState.targetState){
+                                        randInt = Random.nextInt(0, 4)
+                                        isInverse = Random.nextBoolean()
+                                    }
                                 }
                             ) { change, dragAmount ->
                                 change.consume()

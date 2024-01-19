@@ -51,7 +51,7 @@ import java.util.LinkedList
 import kotlin.random.Random
 
 var rightGameAnswersFollow = 1
-var wrongGameAnswersFollow = 1
+var wrongGameAnswersFollow = 0
 @Composable
 fun FollowTheLeaderGame(content: (boolean:Boolean, rightAnswer:Int, totalAnswer:Int) -> Unit) {
     var isGameOver by remember { mutableStateOf(false) }
@@ -135,7 +135,7 @@ fun FollowTheLeaderGame(content: (boolean:Boolean, rightAnswer:Int, totalAnswer:
                     contentAlignment = Alignment.CenterStart
                 ) {
 
-                    BackButton(onClick = {}/*onContinueClicked*/)
+                    BackButton(onClick = {content(false,0,0) }/*onContinueClicked*/)
                     Text(
                         text = "Training",
                         modifier = Modifier

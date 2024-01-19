@@ -51,7 +51,7 @@ import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 var rightGameAnswersWeather = 0
-var wrongGameAnswersWeather = 1
+var wrongGameAnswersWeather = 0
 
 @Composable
 fun WeatherCastGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit) {
@@ -137,9 +137,9 @@ fun WeatherCastGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int)
                 ) {
                     Box(modifier = Modifier.height(48.dp).background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
 
-                        BackButton(onClick = {}/*onContinueClicked*/)
+                        BackButton(onClick = {content(false,0,0) }/*onContinueClicked*/)
                         Text(
-                            text = "Training",
+                            text = "Weather Cast",
                             modifier = Modifier
                                 .fillMaxWidth()
 
@@ -279,17 +279,19 @@ fun weatherCastGamePlot() {
             leftBoxes.forEach {
                 weatherDrop(item = it) {
                     if (imageCheckObj.name == it.gameObject.name) {
-                        gameRand = Random.nextInt(0, 9)
-                        imageCheckObj = EnumWeather.values()[gameRand]
+//                        gameRand = Random.nextInt(0, 9)
+//                        imageCheckObj = EnumWeather.values()[gameRand]
                         counter++
                         rightGameAnswersWeather++
                     } else if (!imageCheckObj.name.contains(it.gameObject.name) && imageCheckObj.name.contains("_")) {
-                        gameRand = Random.nextInt(0, 9)
-                        imageCheckObj = EnumWeather.values()[gameRand]
+//                        gameRand = Random.nextInt(0, 9)
+//                        imageCheckObj = EnumWeather.values()[gameRand]
                         counter++
                         rightGameAnswersWeather++
                     }else{
                     }
+                    gameRand = Random.nextInt(0, 9)
+                    imageCheckObj = EnumWeather.values()[gameRand]
                         wrongGameAnswersWeather++
 
                 /*else if (imageCheckObj.name == it.gameObject.name) {

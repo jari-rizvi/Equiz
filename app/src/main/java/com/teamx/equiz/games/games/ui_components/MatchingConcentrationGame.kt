@@ -49,7 +49,7 @@ import com.teamx.equiz.games.ui.theme.DeceptionBlack
 import kotlinx.coroutines.delay
 
 var rightGameAnswersConcen = 1
-var totalGameAnswersConcen = 1
+var totalGameAnswersConcen = 0
 
 @Preview
 @Composable

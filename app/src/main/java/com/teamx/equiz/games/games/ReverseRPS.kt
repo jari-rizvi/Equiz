@@ -283,8 +283,8 @@ fun PreviewReverseRockPaperScissorsGameScreen() {
 }
 */
 
-var rightGameAnswersRps = 1
-var wrongGameAnswersRps = 1
+var rightGameAnswersRps = 0
+var wrongGameAnswersRps = 0
 
 
 @Composable
@@ -376,7 +376,7 @@ fun rpsCastGamePlot(content: (bool:Boolean, rightAnswer:Int, totalAnswer:Int) ->
                 BackButton(onClick = { content(false, 0, 0) }
                 )
                 Text(
-                    text = "Training",
+                    text = "Reverse RPS",
                     modifier = Modifier
                         .fillMaxWidth(),
                     textAlign = TextAlign.Center,

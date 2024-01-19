@@ -55,7 +55,7 @@ import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 var rightGameAnswersFlick = 0
-var totalGameAnswersFlick = 1
+var totalGameAnswersFlick = 0
 
 @Preview
 @Composable

@@ -58,7 +58,7 @@ fun LazyListState.isScrolledToEnd() =
 
 
 var rightGameAnswersRain = 0
-var wrongGameAnswersRain = 1
+var wrongGameAnswersRain = 0
 
 @Composable
 fun RainFallGame(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit) {
@@ -141,7 +141,7 @@ fun RainFallGame(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: Int)
 
                         BackButton(onClick = {}/*onContinueClicked*/)
                         Text(
-                            text = "Training",
+                            text = "Rain Fall",
                             modifier = Modifier
                                 .fillMaxWidth(),
                             textAlign = TextAlign.Center,

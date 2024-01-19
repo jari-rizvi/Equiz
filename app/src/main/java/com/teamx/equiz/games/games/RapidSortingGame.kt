@@ -55,7 +55,7 @@ class RapidSortingGame {}
 
 
 var rightGameAnswersRapid = 1
-var wrongGameAnswersRapid = 1
+var wrongGameAnswersRapid = 0
 
 @Composable
 fun RapidSortingGame(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit) {
@@ -127,7 +127,7 @@ fun RapidSortingGame(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: 
                     BackButton(onClick = { content(false, 0, 0) }
                     )
                     Text(
-                        text = "Training",
+                        text = "Rapid Sorting",
                         modifier = Modifier
                             .fillMaxWidth(),
                         textAlign = TextAlign.Center,

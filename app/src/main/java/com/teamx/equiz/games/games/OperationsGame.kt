@@ -54,7 +54,7 @@ import kotlin.random.Random
 val operators = listOf("+", "-", "x", "/")
 
 var rightGameAnswersOp = 0
-var wrongGameAnswersOp = 1
+var wrongGameAnswersOp = 0
 
 //@RequiresApi(Build.VERSION_CODES.O)
 @Preview
@@ -160,7 +160,7 @@ fun OperationGame(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: Int
                 BackButton(onClick = { content(false, 0, 0) }
                 )
                 Text(
-                    text = "Training",
+                    text = "Operation",
                     modifier = Modifier
                         .fillMaxWidth(),
                     textAlign = TextAlign.Center,

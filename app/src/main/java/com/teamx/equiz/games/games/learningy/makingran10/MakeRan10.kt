@@ -2,6 +2,8 @@ package com.teamx.equiz.games.games.learningy.makingran10
 
 import android.os.CountDownTimer
 import android.util.Log
+import android.widget.ImageView
+import android.widget.ImageView.ScaleType
 import androidx.annotation.Keep
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
@@ -21,7 +23,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
@@ -29,6 +31,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.icons.Icons
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -40,13 +43,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
@@ -58,12 +62,11 @@ import com.teamx.equiz.ui.theme.BirdColor4
 import kotlinx.coroutines.GlobalScope
 import kotlin.random.Random
 
-fun LazyListState.isScrolledToEnd() =
-    layoutInfo.visibleItemsInfo.lastOrNull()?.index == layoutInfo.totalItemsCount - 1
+fun LazyListState.isScrolledToEnd() = layoutInfo.visibleItemsInfo.lastOrNull()?.index == layoutInfo.totalItemsCount - 1
 
 
 var rightGameAnswersRain = 0
-var wrongGameAnswersRain = 1
+var wrongGameAnswersRain = 0
 
 @Composable
 fun Rain10Game(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit) {
@@ -144,9 +147,9 @@ fun Rain10Game(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: Int) -
                         contentAlignment = Alignment.CenterStart
                     ) {
 
-                        BackButton(onClick = {}/*onContinueClicked*/)
+                        BackButton(onClick = {content(false,0,0) }/*onContinueClicked*/)
                         Text(
-                            text = "Training",
+                            text = "Make Ten",
                             modifier = Modifier
                                 .fillMaxWidth(),
                             textAlign = TextAlign.Center,
@@ -278,7 +281,7 @@ fun rain10Drops() {
                             enter = expandVertically(),
                             exit = shrinkVertically(animationSpec = tween(durationMillis = 500))
                         ) {
-                            drop(item = item, index = index * 2) {
+                            drop(item = item, index = index) {
                                 val iu = leftItems.lastIndex - leftIndexCounter
                                 val iu2 = midItems.lastIndex - leftIndexCounter
                                 val iu3 = rightItems.lastIndex - leftIndexCounter
@@ -327,7 +330,7 @@ fun rain10Drops() {
                             enter = expandVertically(),
                             exit = shrinkVertically(animationSpec = tween(durationMillis = 500))
                         ) {
-                            drop(item = item, index = index * 0) {
+                            drop(item = item, index = index) {
                                 val iu = leftItems.lastIndex - leftIndexCounter
                                 val iu2 = midItems.lastIndex - leftIndexCounter
                                 val iu3 = rightItems.lastIndex - leftIndexCounter
@@ -372,7 +375,7 @@ fun rain10Drops() {
                             enter = expandVertically(),
                             exit = shrinkVertically(animationSpec = tween(durationMillis = 500))
                         ) {
-                            drop(item = item, index = -index * 2) {
+                            drop(item = item, index = index) {
                                 val iu = leftItems.lastIndex - leftIndexCounter
                                 val iu2 = midItems.lastIndex - leftIndexCounter
                                 val iu3 = rightItems.lastIndex - leftIndexCounter
@@ -414,6 +417,15 @@ fun drop(index: Int, item: RainListItem, onClick: (boo: Boolean) -> Unit) {
     Box(
         modifier = Modifier
             .size(item.height)
+
+            .graphicsLayer {
+                clip = true
+                if (item.isClickable) {
+                } else {
+                }
+
+
+            }
             /*.offset {
                 if (item.isClickable) {
                     IntOffset(index, 0)
@@ -455,7 +467,13 @@ fun drop(index: Int, item: RainListItem, onClick: (boo: Boolean) -> Unit) {
             painter = painterResource(
                 colorState
             ),
-            contentDescription = null,
+            contentDescription = null, modifier = Modifier.fillMaxSize().padding(
+                top = if (item.isClickable) {
+                    0.dp
+                } else {
+                    12.dp
+                }
+            )
         )
 
 

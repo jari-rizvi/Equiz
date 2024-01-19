@@ -56,7 +56,7 @@ import kotlin.random.Random
 
 
 var rightGameAnswersBird = 0
-var wrongGameAnswersBird = 1
+var wrongGameAnswersBird = 0
 @Composable
 fun BirdWatchingGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit) {
     var isGameOver by remember { mutableStateOf(false) }
@@ -127,7 +127,7 @@ fun BirdWatchingGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
                 BackButton(onClick = { content(false, 0, 0) }
                 )
                 Text(
-                    text = "Training",
+                    text = "Bird Watching",
                     modifier = Modifier
                         .fillMaxWidth(),
                     textAlign = TextAlign.Center,
