@@ -40,7 +40,7 @@ import kotlin.random.Random
 
 
 var rightGameAnswersQuickEye = 0
-var totalGameAnswersQuickEye = 1
+var totalGameAnswersQuickEye = 0
 
 @Preview
 @Composable
@@ -111,7 +111,7 @@ fun QuickEyeGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int) ->
                 BackButton(onClick = { content(false,0,0) }
                 )
                 Text(
-                    text = "Training",
+                    text = "Quick Eye",
                     modifier = Modifier
                         .fillMaxWidth()
 

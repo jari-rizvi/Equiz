@@ -63,7 +63,7 @@ enum class ShapeBundle {
 }
 
 var rightGameAnswersDecep = 0
-var totalGameAnswersDecep = 1
+var totalGameAnswersDecep = 0
 
 @Composable
 fun TouchTheShapesGameScreen(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit) {
@@ -141,7 +141,7 @@ fun TouchTheShapesGameScreen(content: (boolean: Boolean, rightAnswer: Int, total
                 BackButton(onClick = { content(false,0,0) }
                 )
                 Text(
-                    text = "Training",
+                    text = "Shape Deception",
                     modifier = Modifier
                         .fillMaxWidth()
 

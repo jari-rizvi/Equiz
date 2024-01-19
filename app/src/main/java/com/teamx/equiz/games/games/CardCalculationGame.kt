@@ -78,7 +78,7 @@ var optionCards = listOf<OptionCards>()
 var answer = 0
 val selectedCards = arrayListOf<Int>()
 var rightGameAnswersCardCal = 0
-var totalGameAnswersCardCal = 1
+var totalGameAnswersCardCal = 0
 
 @Composable
 fun CardCalculationGameScreen(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit) {
@@ -169,7 +169,7 @@ fun CardCalculationGameScreen(content: (boolean: Boolean, rightAnswer: Int, tota
                 BackButton(onClick = { content(false,0,0) }
                 )
                 Text(
-                    text = "Training",
+                    text = "Card Calculation",
                     modifier = Modifier
                         .fillMaxWidth()
 

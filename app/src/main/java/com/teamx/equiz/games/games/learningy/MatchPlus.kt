@@ -147,7 +147,7 @@ fun MatchingGamingScene() {
 
 }
 var rightGameAnswersMatc = 0
-var totalGameAnswersMatc = 1
+var totalGameAnswersMatc = 0
 @Preview
 @Composable
 fun ViewMatching(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit = { _, _, _ -> }) {
@@ -227,7 +227,7 @@ fun ViewMatching(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int) -> 
                 }
                 )
                 Text(
-                    text = "Training",
+                    text = "Matching",
                     modifier = Modifier
                         .fillMaxWidth(),
                     textAlign = TextAlign.Center,

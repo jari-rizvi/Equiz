@@ -55,7 +55,7 @@ enum class ColorBundle {
 
 
 var rightGameAnswersColor = 0
-var totalGameAnswersColor = 1
+var totalGameAnswersColor = 0
 
 
 
@@ -134,7 +134,7 @@ fun TouchTheColorGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnsw
                 BackButton(onClick = { content(false,0,0) }
                 )
                 Text(
-                    text = "Training",
+                    text = "Color Deception",
                     modifier = Modifier
                         .fillMaxWidth()
 

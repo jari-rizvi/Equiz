@@ -66,7 +66,7 @@ var dragged = true
 
 
 var rightGameAnswersHigh = 0
-var totalGameAnswersHigh = 1
+var totalGameAnswersHigh = 0
 
 
 @Composable
@@ -167,7 +167,7 @@ fun HighLowComponent(content: (boo:Boolean, rightAnswer:Int, totalAnswer:Int) ->
                 BackButton(onClick = { content(false, 0, 0) }
                 )
                 Text(
-                    text = "Training",
+                    text = "High Low",
                     modifier = Modifier
                         .fillMaxWidth()
 

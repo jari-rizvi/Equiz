@@ -42,7 +42,7 @@ import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import com.teamx.equiz.games.ui.theme.BirdColor4
 
 var rightGameAnswersGuess = 0
-var wrongGameAnswersGuess = 1
+var wrongGameAnswersGuess = 0
 
 @Composable
 fun GuessTheFlagGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit = { bool, rightAnswer, total -> }) {
@@ -227,7 +227,7 @@ fun GuessTheFlagGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
                 BackButton(onClick = { content(false, 0, 0) }
                 )
                 Text(
-                    text = "Training",
+                    text = "Guess The Flag",
                     modifier = Modifier
                         .fillMaxWidth(),
                     textAlign = TextAlign.Center,

@@ -94,7 +94,7 @@ fun PreviewTouchTheNumbersGameScreen() {
 
 //Touch The Number
 var rightGameAnswersTheNum = 0
-var totalGameAnswersTheNum = 1
+var totalGameAnswersTheNum = 0
 
 @Preview
 @Composable
@@ -171,7 +171,7 @@ fun followTouchTheNumGamePlus(content:  (bool:Boolean, rightAnswer:Int, totalAns
 
                 BackButton(onClick = { content(false,0,0) })
                 Text(
-                    text = "Training",
+                    text = "Follow The Leader",
                     modifier = Modifier
                         .fillMaxWidth()
 

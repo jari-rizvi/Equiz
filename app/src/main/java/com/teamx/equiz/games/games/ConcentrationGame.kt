@@ -49,7 +49,7 @@ import com.teamx.equiz.games.ui.theme.BirdColor4
 import com.teamx.equiz.games.ui.theme.DeceptionBlack
 
 var rightGameAnswersConcen = 0
-var totalGameAnswersConcen = 1
+var totalGameAnswersConcen = 0
 var checker = 0
 val concentrationModels3 = ArrayList<ArrayList<ConcentrationModel>>(arrayListOf())
 val listObjectConcent = ArrayList<ConcentrationModel>(arrayListOf())
@@ -162,7 +162,7 @@ fun ConcentrationGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: In
                 BackButton(onClick = { content(false, 0, 0) }
                 )
                 Text(
-                    text = "Training",
+                    text = "Concentration",
                     modifier = Modifier
                         .fillMaxWidth(),
                     textAlign = TextAlign.Center,

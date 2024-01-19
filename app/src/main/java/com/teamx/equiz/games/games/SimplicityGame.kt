@@ -53,7 +53,7 @@ import kotlin.random.Random
 data class Question(val equation: String, val choices: List<Int>, val correctAnswer: Int)
 
 var rightGameAnswersSimple = 0
-var wrongGameAnswersSimple = 1
+var wrongGameAnswersSimple = 0
 
 @Preview
 @Composable
@@ -147,7 +147,7 @@ fun ImplicityGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswer: 
                     BackButton(onClick = { content(false, 0, 0) }
                     )
                     Text(
-                        text = "Training",
+                        text = "Simplicity",
                         modifier = Modifier
                             .fillMaxWidth(),
                         textAlign = TextAlign.Center,

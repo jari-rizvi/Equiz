@@ -56,8 +56,8 @@ import kotlinx.coroutines.delay
 import java.util.LinkedList
 import kotlin.random.Random
 
-var rightGameAnswersTap = 1
-var wrongGameAnswersTap = 1
+var rightGameAnswersTap = 0
+var wrongGameAnswersTap = 0
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Preview
@@ -125,9 +125,9 @@ fun TapTheColorGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int)
                     .background(color = Color(0xFF9F81CA)), contentAlignment = Alignment.CenterStart
             ) {
 
-                BackButton(onClick = {}/*onContinueClicked*/)
+                BackButton(onClick = {content(false,0,0) }/*onContinueClicked*/)
                 Text(
-                    text = "Training",
+                    text = "Tap The Color",
                     modifier = Modifier
                         .fillMaxWidth(),
                     textAlign = TextAlign.Center,

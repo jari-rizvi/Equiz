@@ -1,5 +1,6 @@
 package com.teamx.equiz.games.games
 
+import android.content.pm.ActivityInfo
 import android.os.CountDownTimer
 import android.util.Log
 import androidx.compose.foundation.Image
@@ -38,6 +39,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
+import com.teamx.equiz.games.games.learningy.LockScreenOrientation
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import com.teamx.equiz.ui.theme.BirdColor3
@@ -47,14 +49,14 @@ import java.util.LinkedList
 import kotlin.random.Random
 
 var rightGameAnswersAddition = 0
-var totalGameAnswersAddition = 1
+var totalGameAnswersAddition = 0
 
 var rightGameAnswers = 1
-var wrongGameAnswers = 1
+var wrongGameAnswers = 0
 
 @Composable
 fun AdditionAddictionGameMethod(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit) {
-
+    LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
 
     var isGameOver by remember { mutableStateOf(false) }
     var isAlert by remember { mutableStateOf(false) }
@@ -117,7 +119,7 @@ fun AdditionAddictionGameMethod(content: (boolean: Boolean, rightAnswer: Int, to
                 BackButton(onClick = { content(false,0,0) }
                 )
                 Text(
-                    text = "Training",
+                    text = "Addition Addiction",
                     modifier = Modifier
                         .fillMaxWidth()
                         .wrapContentHeight()

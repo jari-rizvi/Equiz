@@ -1,5 +1,6 @@
 package com.teamx.equiz.ui.game_fragments
 
+import android.content.pm.ActivityInfo
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -45,6 +46,7 @@ import com.teamx.equiz.games.games.TouchTheNumGamePlus
 import com.teamx.equiz.games.games.TouchTheShapesGameScreen
 import com.teamx.equiz.games.games.WeatherCastGame
 import com.teamx.equiz.games.games.learningy.FlicksSc
+import com.teamx.equiz.games.games.learningy.LockScreenOrientation
 import com.teamx.equiz.games.games.learningy.NumPlus
 import com.teamx.equiz.games.games.learningy.ViewMatching
 import com.teamx.equiz.games.games.learningy.follows.UnfollowTouchTheNumGamePlus
@@ -107,7 +109,7 @@ class AdditionAddictionGameFrag : BaseFragment<FragmentAddressBinding, GameFrags
             }
         }
         composeView.setContent {
-
+            LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             AdditionAddictionGameMethod(content = { bool, rightAnswer, total ->
                 if (bool) {
                     var argumentBundle = arguments
@@ -121,7 +123,7 @@ class AdditionAddictionGameFrag : BaseFragment<FragmentAddressBinding, GameFrags
                 } else {
                     findNavController().popBackStack()
                 }
-//                })
+
             })
 
         }
@@ -167,10 +169,11 @@ class BirdWatchingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
             }
         }
         composeView.setContent {
+            LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             Box {
-//                ToolbarCompose(title = "Training", onClick = {
+
 //                findNavController().popBackStack()
-//                })
+
                 BirdWatchingGame() { bool, rightAnswer, total ->
                     if (bool) {
                         var argumentBundle = arguments
@@ -235,6 +238,7 @@ class CardCalculationGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
             }
         }
         composeView.setContent {
+            LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             CardCalculationGameScreen(content = { bool, rightAnswer, total ->
 
                 if (bool) {
@@ -299,6 +303,7 @@ class ColorOfDecepGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
 
 
         composeView.setContent {
+            LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             TouchTheColorGameScreen { bool, rightAnswer, total ->
                 if (bool) {
                     var argumentBundle = arguments
@@ -358,6 +363,7 @@ class ConcentrationGameFrag : BaseFragment<FragmentAddressBinding, GameFragsView
             }
         }
         composeView.setContent {
+            LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             ConcentrationGame(content = { bool, rightAnswer, total ->
                 if (bool) {
                     var argumentBundle = arguments
@@ -420,6 +426,7 @@ class FlickGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>()
         }
 
         composeView.setContent {
+            LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             FlicksSc(content = { bool, rightAnswer, total ->
                 if (bool) {
                     var argumentBundle = arguments
@@ -433,8 +440,6 @@ class FlickGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>()
                     findNavController().popBackStack()
 
                 }
-
-
 
 
             })
@@ -483,6 +488,7 @@ class FollowTheLeaderGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
             }
         }
         composeView.setContent {
+            LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             followTouchTheNumGamePlus(content = { bool, rightAnswer, total ->
                 if (bool) {
                     var argumentBundle = arguments
@@ -496,7 +502,6 @@ class FollowTheLeaderGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
                     findNavController().popBackStack()
 
                 }
-
 
 
             })
@@ -545,6 +550,7 @@ class GuessTheFlagGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
             }
         }
         composeView.setContent {
+            LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             GuessTheFlagGame(content = { bool, rightAnswer, total ->
                 if (bool) {
                     var argumentBundle = arguments
@@ -606,6 +612,7 @@ class HighLowGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
         }
 
         composeView.setContent {
+            LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             HighLowComponent(content = { bool, rightAnswer, total ->
                 if (bool) {
                     var argumentBundle = arguments
@@ -619,7 +626,6 @@ class HighLowGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
                     findNavController().popBackStack()
 
                 }
-
 
 
             })
@@ -668,6 +674,7 @@ class Make10GameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
             }
         }
         composeView.setContent {
+            LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             Rain10Game(content = { bool, rightAnswer, total ->
                 if (bool) {
                     var argumentBundle = arguments
@@ -681,7 +688,6 @@ class Make10GameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
                     findNavController().popBackStack()
 
                 }
-
 
 
             })
@@ -731,7 +737,8 @@ class MatchingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
             }
         }
         composeView.setContent {
-            ViewMatching( content = { bool, rightAnswer, total ->
+            LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+            ViewMatching(content = { bool, rightAnswer, total ->
                 if (bool) {
                     var argumentBundle = arguments
                     if (argumentBundle == null) {
@@ -744,7 +751,6 @@ class MatchingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
                     findNavController().popBackStack()
 
                 }
-
 
 
             })
@@ -794,6 +800,7 @@ class MissingPieceGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
         }
 
         composeView.setContent {
+            LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             MissingPieceGameScreen(content = { bool, rightAnswer, total ->
                 if (bool) {
                     var argumentBundle = arguments
@@ -807,7 +814,6 @@ class MissingPieceGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
                     findNavController().popBackStack()
 
                 }
-
 
 
             })
@@ -858,6 +864,7 @@ class OperationsGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
             }
         }
         composeView.setContent {
+            LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             OperationGame(content = { bool, rightAnswer, total ->
                 if (bool) {
                     var argumentBundle = arguments
@@ -871,7 +878,6 @@ class OperationsGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
                     findNavController().popBackStack()
 
                 }
-
 
 
             })
@@ -921,6 +927,7 @@ class QuickEyeGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
             }
         }
         composeView.setContent {
+            LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             QuickEyeGame(content = { bool, rightAnswer, total ->
                 if (bool) {
                     var argumentBundle = arguments
@@ -934,7 +941,6 @@ class QuickEyeGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
                     findNavController().popBackStack()
 
                 }
-
 
 
             })
@@ -983,6 +989,7 @@ class RainFallGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
             }
         }
         composeView.setContent {
+            LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             RainFallGame(content = { bool, rightAnswer, total ->
                 if (bool) {
                     var argumentBundle = arguments
@@ -996,7 +1003,6 @@ class RainFallGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
                     findNavController().popBackStack()
 
                 }
-
 
 
             })
@@ -1045,6 +1051,7 @@ class RapidSortingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
             }
         }
         composeView.setContent {
+            LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             RapidSortingGame(content = { bool, rightAnswer, total ->
                 if (bool) {
                     var argumentBundle = arguments
@@ -1058,9 +1065,9 @@ class RapidSortingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
                     findNavController().popBackStack()
 
                 }
-//                ToolbarCompose(title = "Training", onClick = {
 
-//                })
+
+
             })
         }
 
@@ -1107,10 +1114,11 @@ class ReflectionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
             }
         }
         composeView.setContent {
+            LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             ReflectionGame(content = {
-//                ToolbarCompose(title = "Training", onClick = {
+
                 findNavController().popBackStack()
-//                })
+
             })
         }
 
@@ -1182,6 +1190,9 @@ class ResultComposeFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMode
 
 
         composeView.setContent {
+            LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+
+
             ResultScreen(
                 total,
                 rightAnswer,
@@ -1622,6 +1633,7 @@ class ReverseRPSFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
             }
         }
         composeView.setContent {
+            LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             rpsCastGamePlot(content = { bool, rightAnswer, total ->
                 if (bool) {
                     var argumentBundle = arguments
@@ -1635,9 +1647,9 @@ class ReverseRPSFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
                     findNavController().popBackStack()
 
                 }
-//                ToolbarCompose(title = "Training", onClick = {
 
-//                })
+
+
             })
         }
 
@@ -1683,6 +1695,7 @@ class SimplicityGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
             }
         }
         composeView.setContent {
+            LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             ImplicityGameScreen(content = { bool, rightAnswer, total ->
                 if (bool) {
                     var argumentBundle = arguments
@@ -1696,9 +1709,9 @@ class SimplicityGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
                     findNavController().popBackStack()
 
                 }
-//                ToolbarCompose(title = "Training", onClick = {
 
-//                })
+
+
             })
         }
 
@@ -1744,6 +1757,7 @@ class SpinningBlockGameFrag : BaseFragment<FragmentAddressBinding, GameFragsView
             }
         }
         composeView.setContent {
+            LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             SpinningBlockGame(content = { bool, rightAnswer, total ->
                 if (bool) {
                     var argumentBundle = arguments
@@ -1757,9 +1771,9 @@ class SpinningBlockGameFrag : BaseFragment<FragmentAddressBinding, GameFragsView
                     findNavController().popBackStack()
 
                 }
-//                ToolbarCompose(title = "Training", onClick = {
 
-//                })
+
+
             })
         }
 
@@ -1818,9 +1832,9 @@ class SpinningLotteryGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
                     findNavController().popBackStack()
 
                 }
-//                ToolbarCompose(title = "Training", onClick = {
 
-//                })
+
+
             })
         }
 
@@ -1867,6 +1881,7 @@ class TapTheColorGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
             }
         }
         composeView.setContent {
+            LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             TapTheColorGame(content = { bool, rightAnswer, total ->
                 if (bool) {
                     var argumentBundle = arguments
@@ -1880,9 +1895,9 @@ class TapTheColorGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
                     findNavController().popBackStack()
 
                 }
-//                ToolbarCompose(title = "Training", onClick = {
 
-//                })
+
+
             })
         }
 
@@ -1928,6 +1943,7 @@ class TetrisGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
             }
         }
         composeView.setContent {
+            LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             TetrisGame(content = { bool, rightAnswer, total ->
                 if (bool) {
                     var argumentBundle = arguments
@@ -1941,9 +1957,9 @@ class TetrisGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
                     findNavController().popBackStack()
 
                 }
-//                ToolbarCompose(title = "Training", onClick = {
 
-//                })
+
+
             })
         }
 
@@ -1990,6 +2006,7 @@ class TouchTheNumGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
             }
         }
         composeView.setContent {
+            LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             TouchTheNumGamePlus(content = { bool, rightAnswer, total ->
                 if (bool) {
                     var argumentBundle = arguments
@@ -2003,9 +2020,9 @@ class TouchTheNumGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
                     findNavController().popBackStack()
 
                 }
-//                ToolbarCompose(title = "Training", onClick = {
 
-//                })
+
+
             })
         }
 
@@ -2051,6 +2068,7 @@ class TouchTheNumPlusGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
             }
         }
         composeView.setContent {
+            LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             NumPlus(content = { bool, rightAnswer, total ->
                 if (bool) {
                     var argumentBundle = arguments
@@ -2064,9 +2082,9 @@ class TouchTheNumPlusGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
                     findNavController().popBackStack()
 
                 }
-//                ToolbarCompose(title = "Training", onClick = {
 
-//                })
+
+
             })
         }
 
@@ -2112,6 +2130,7 @@ class UnfollowTheLeaderGameFrag : BaseFragment<FragmentAddressBinding, GameFrags
             }
         }
         composeView.setContent {
+            LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             UnfollowTouchTheNumGamePlus(content = { bool, rightAnswer, total ->
                 if (bool) {
                     var argumentBundle = arguments
@@ -2125,9 +2144,9 @@ class UnfollowTheLeaderGameFrag : BaseFragment<FragmentAddressBinding, GameFrags
                     findNavController().popBackStack()
 
                 }
-//                ToolbarCompose(title = "Training", onClick = {
 
-//                })
+
+
             })
         }
 
@@ -2174,6 +2193,7 @@ class WeatherCastGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
         }
 
         composeView.setContent {
+            LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             WeatherCastGame(content = { bool, rightAnswer, total ->
                 if (bool) {
                     var argumentBundle = arguments
@@ -2234,6 +2254,7 @@ class ShapeDeceptionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVie
         }
 
         composeView.setContent {
+            LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             TouchTheShapesGameScreen(content = { bool, rightAnswer, total ->
                 if (bool) {
                     var argumentBundle = arguments
@@ -2302,6 +2323,7 @@ class StartUpGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
         Log.d("123123", "onViewCreated:$gameName ")
 
         composeView.setContent {
+            LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             StartUpDialogCompose(
                 "${returnGameName(gameName.toString())}",
                 "${returnGameInstructions(gameName.toString())}",
@@ -2639,7 +2661,7 @@ class StartUpGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
             GamesUID2.AdditionAddiction.name -> {
 
                 "Sum up panels equal to the" +
-                        "indicated number"
+                        " indicated number"
 
 
             }
@@ -2651,7 +2673,7 @@ class StartUpGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
 
 
             GamesUID2.ColorDeception.name -> {
-                "Choose the color that doesn’t belong"
+                "Choose the color that does not belong"
 
             }
 
@@ -2677,7 +2699,7 @@ class StartUpGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
             }
 
             GamesUID2.Flick.name -> {
-                "Blue: Follow the arrow Pink: Unfollow the arrow"
+                "Blue: Follow the arrow \nPink: Unfollow the arrow"
 
             }
 
@@ -2759,7 +2781,7 @@ class StartUpGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
             }
 
             GamesUID2.TouchTheNum.name -> {
-                "Purple: Tap in ascending order Pink: Tap in descending order"
+                "Purple: Tap in ascending order \nPink: Tap in descending order"
 
             }
 

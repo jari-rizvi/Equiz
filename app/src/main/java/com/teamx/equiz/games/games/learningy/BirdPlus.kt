@@ -113,9 +113,9 @@ fun SpinningBlockGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: In
                     .background(color = Color(0xFF9F81CA)), contentAlignment = Alignment.CenterStart
             ) {
 
-                BackButton(onClick = {}/*onContinueClicked*/)
+                BackButton(onClick = {content(false,0,0) }/*onContinueClicked*/)
                 Text(
-                    text = "Training",
+                    text = "Spinning Block",
                     modifier = Modifier
                         .fillMaxWidth(),
                     textAlign = TextAlign.Center,

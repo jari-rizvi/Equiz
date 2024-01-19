@@ -51,7 +51,7 @@ fun TetrisGamePreview() {
 }
 
 var rightGameAnswersTet = 0
-var wrongGameAnswersTet = 1
+var wrongGameAnswersTet = 0
 
 @Composable
 fun TetrisGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit = { bool, rightAnswer, total -> }) {
@@ -132,7 +132,7 @@ fun TetrisGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int) -> U
                     BackButton(onClick = { content(false, 0, 0) }
                     )
                     Text(
-                        text = "Training",
+                        text = "Tetris",
                         modifier = Modifier
                             .fillMaxWidth(),
                         textAlign = TextAlign.Center,

@@ -43,7 +43,7 @@ var sumM = 0
 var PresumM = 0
 
 var rightGameAnswersNumPlus = 0
-var totalGameAnswersNumPlus = 1
+var totalGameAnswersNumPlus = 0
 
 @Preview
 @Composable
@@ -128,7 +128,7 @@ fun NumPlus(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit 
                 }
                 )
                 Text(
-                    text = "Training",
+                    text = "Touch The Number Plus",
                     modifier = Modifier
                         .fillMaxWidth(),
                     textAlign = TextAlign.Center,
