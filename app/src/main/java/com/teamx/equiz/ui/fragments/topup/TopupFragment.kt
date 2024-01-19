@@ -450,11 +450,14 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
         params.addProperty("amount", shopId)
         params.addProperty("topup", true)
         if (mViewDataBinding.radioVisa.isChecked) {
-            params.addProperty("payment_method", paymentDefaultId)
+                params.addProperty("payment_method", paymentDefaultId)
+            if (paymentDefaultId.isEmpty()) {
+                showToast("Please select card!")
+                return
+            }
         }
-        if (paymentDefaultId.isNotEmpty()) {
-            mViewModel.addTop(params)
-        }
+
+        mViewModel.addTop(params)
 
         if (!mViewModel.addTopResponse.hasActiveObservers()) {
 
@@ -467,6 +470,8 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let {
+
+                            Log.d("addTopResponse", "addTopResponse: ${it.data}")
 
                             if (mViewDataBinding.radioVisa.isChecked) {
                                 DialogHelperClass.topUpDialog(
