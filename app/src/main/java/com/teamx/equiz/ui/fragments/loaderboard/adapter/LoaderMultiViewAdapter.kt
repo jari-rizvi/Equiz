@@ -96,12 +96,17 @@ class LoaderMultiViewAdapter(
                     holderClass1.textView15456.visibility = View.GONE
                     holderClass1.textView16.visibility = View.VISIBLE
                 }
+                try {
 
-                holderClass1.equizIcon54545454.isChecked = false
+                    holderClass1.equizIcon54545454.isChecked = false
 
-                holderClass1.textView16.text = "${position + 1}"
-                holderClass1.score.text = data.score.toString()
-                holderClass1.name.text = data.name.toString()
+                    holderClass1.textView16.text = "${position + 1}"
+                    holderClass1.score.text = data.score.toString()
+                    holderClass1.name.text = data.name.toString()
+                }
+                catch (e:Exception){
+                    e.printStackTrace()
+                }
                 try {
 
 //                    Picasso.get().load(data.image).into(holderClass1.hatlyIcon5454)

@@ -146,6 +146,7 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
                             if (bundle == null) {
                                 bundle = Bundle()
                             }
+
                             bundle?.putString("phone", userPhone)
                             Handler().postDelayed({
                                 findNavController().navigate(
@@ -154,7 +155,6 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
                                     options
                                 )
                             }, 1000)
-
 //                            onToOtpPage()
                         }
                         Resource.Status.SUCCESS -> {

@@ -161,9 +161,12 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
 
 
                                 }
+                                var countPrice = 0.0
+                                data.data.forEach {
+                                    countPrice += it.totalPoint
+                                }
 
-                                mViewDataBinding.amount.text =
-                                    data.data[0].totalPoint.toString() + " Points"
+                                mViewDataBinding.amount.text = "$countPrice Points"
                                 mViewDataBinding.date.text = ""
                                 mViewDataBinding.qty.text = "0.0"
                                 mViewDataBinding.orderno.text =
@@ -216,10 +219,6 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
             }
         }
 
-
-
-
-
         if (!mViewModel.updateCartResponse.hasActiveObservers()) {
             mViewModel.updateCartResponse.observe(requireActivity(), Observer {
                 when (it.status) {
@@ -241,6 +240,7 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
                         it.data?.let { data ->
                             cartArrayList2.clear()
                             mViewModel.getCart()
+
                             cartAdapter?.notifyDataSetChanged()
                         }
                     }

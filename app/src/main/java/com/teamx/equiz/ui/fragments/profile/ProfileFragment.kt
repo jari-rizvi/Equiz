@@ -36,7 +36,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
@@ -73,20 +73,28 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
                         it.data?.let { data ->
 
                             try {
-
-
                                 mViewDataBinding.textView3.setText(data.user.name)
                                 mViewDataBinding.textView4.setText(data.user.email)
                                 mViewDataBinding.textView4.setText(data.user.phone)
                                 mViewDataBinding.textView52.setText(data.user.chances.toString())
                                 mViewDataBinding.textView51.setText(data.user.score.toString())
 
+                                Log.d("TAG", "onViewCreated121212: ${data.user.isPremium}")
+
+                                if (data.user.isPremium) {
+                                    Log.d("TAG", "onViewCreated121212: ${data.user.isPremium}")
+                                    mViewDataBinding.premium.visibility = View.VISIBLE
+
+                                }
+
                                 if (!data.user.image.isNullOrEmpty()) {
 //                                    Picasso.get().load(data.user.image).resize(500, 500)
 //                                        .into(mViewDataBinding.profilePicture)
 
                                     Glide.with(mViewDataBinding.profilePicture.context)
-                                        .load(data.user.image).placeholder(R.drawable.baseline_person_white).into(mViewDataBinding.profilePicture)
+                                        .load(data.user.image)
+                                        .placeholder(R.drawable.baseline_person_white)
+                                        .into(mViewDataBinding.profilePicture)
                                 }
 
                                 if (data.user.isPremium) {
@@ -104,7 +112,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
 
                     Resource.Status.AUTH -> {
                         loadingDialog.dismiss()
-                         if (isAdded) {
+                        if (isAdded) {
                             try {
                                 onToSignUpPage()
                             } catch (e: Exception) {
@@ -143,7 +151,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
 
                             try {
 //                                mViewDataBinding.root.snackbar(data)
-                                    mViewDataBinding.root.snackbar("Subcription will end at the end of the Month")
+                                mViewDataBinding.root.snackbar("Subcription will end at the end of the Month")
 
 
                             } catch (e: Exception) {
@@ -154,7 +162,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
 
                     Resource.Status.AUTH -> {
                         loadingDialog.dismiss()
-                         if (isAdded) {
+                        if (isAdded) {
                             try {
                                 onToSignUpPage()
                             } catch (e: Exception) {
@@ -204,7 +212,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
 
                     Resource.Status.AUTH -> {
                         loadingDialog.dismiss()
-                         if (isAdded) {
+                        if (isAdded) {
                             try {
                                 onToSignUpPage()
                             } catch (e: Exception) {

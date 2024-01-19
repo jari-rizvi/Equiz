@@ -97,9 +97,12 @@ class AddressListFragment : BaseFragment<FragmentAddressListBinding, AddressView
 
                         }
                     }
-                    Resource.Status.AUTH -> { loadingDialog.dismiss()
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
                         onToSignUpPage()
                     }
+
                     Resource.Status.ERROR -> {
                         DialogHelperClass.errorDialog(requireContext(), it.message!!)
                     }
@@ -286,7 +289,8 @@ class AddressListFragment : BaseFragment<FragmentAddressListBinding, AddressView
                         it.data?.let { data ->
                             addressArrayList.clear()
                             mViewModel.getAddressList()
-                        addressAdapter.notifyDataSetChanged()
+                            addressAdapter.notifyDataSetChanged()
+                            mViewDataBinding.root.snackbar("Address Deleted Successfully")
 
                         }
                     }

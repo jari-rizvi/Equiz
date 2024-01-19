@@ -139,7 +139,7 @@
                 android:textAlignment="viewStart"
                 android:hint="Enter your Password"
                 android:imeOptions="actionNext"
-                android:inputType="text"
+                android:inputType="textPassword"
                 android:paddingStart="@dimen/_15sdp"
                 android:textColorHint="@color/light_gray"
                 android:textSize="@dimen/_11ssp" />

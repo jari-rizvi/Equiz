@@ -79,11 +79,18 @@ class PlayQuizFragment : BaseFragment<PlayQuizLayoutBinding, WishlistViewModel>(
         }
         val bundle = arguments
        val id=  bundle?.getString("modelQuizId")
+
+
         mViewDataBinding.playAgainBtn.setOnClickListener {
 
             findNavController().navigate(R.id.singleQuizFragment,arguments,options)
 
         }
+
+
+//       mViewDataBinding.playAgainBtn.setOnClickListener {
+//           findNavController().navigate(R.id.playQuizVideoFragment,arguments,options)
+//       }
 
 
     }

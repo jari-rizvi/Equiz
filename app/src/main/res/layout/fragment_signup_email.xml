@@ -140,7 +140,7 @@
                 android:paddingStart="@dimen/_15sdp"
                 android:hint="Enter your Password"
                 android:imeOptions="actionNext"
-                android:inputType="text"
+                android:inputType="textPassword"
                 android:textSize="@dimen/_11ssp" />
         </com.google.android.material.textfield.TextInputLayout>
 

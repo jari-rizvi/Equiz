@@ -20,5 +20,6 @@ data class Data(
     val startTime: String,
     val title: String,
     val topic: String,
-    val type: String
+    val type: String,
+    val video: String
 )

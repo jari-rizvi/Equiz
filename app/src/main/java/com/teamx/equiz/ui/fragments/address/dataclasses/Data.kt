@@ -12,7 +12,7 @@ data class Data(
     val orderItems: List<String>,
     val orderStatus: String,
     val shippingInfo: ShippingInfo,
-    val totalPoints: Int,
+    val totalPoints: Double,
     val totalPrice: Double,
     val user: String
 )

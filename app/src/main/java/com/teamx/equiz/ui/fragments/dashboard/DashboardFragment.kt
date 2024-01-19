@@ -407,9 +407,6 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
     private fun initializeGameAdapter() {
         gameStrArrayList = ArrayList()
 
-
-
-
         GamesUID2.values().forEachIndexed { index, gamesUID2 ->
             gameStrArrayList.add(
                 GamesModel(

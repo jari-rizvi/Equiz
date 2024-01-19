@@ -32,6 +32,7 @@ import com.teamx.equiz.utils.DialogHelperClass
 import com.teamx.equiz.utils.PrefHelper
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import java.time.temporal.TemporalAmount
 
 @AndroidEntryPoint
 class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTopSellerListener,
@@ -47,6 +48,8 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
     private lateinit var options: NavOptions
     private lateinit var paymentAdapter: PaymentAdapter
     private lateinit var paymentArrayList: ArrayList<PaymentMethod>
+
+
 
     var amount = "0"
 
@@ -93,7 +96,6 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
             mViewDataBinding.pts3.isChecked = false
             mViewDataBinding.pts4.isChecked = false
             mViewDataBinding.pts5.isChecked = false
-
             amount = "200"
             priceAddTopUp = amount.toInt()
             mViewDataBinding.img.text = amount
@@ -144,6 +146,7 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
             priceAddTopUp = amount.toInt()
             mViewDataBinding.img.text = amount
         }
+
 
         mViewDataBinding.payNowBtn.setOnClickListener {
 //            presentPaymentSheet(priceAddTopUp)
@@ -244,7 +247,7 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
                                 }
                                 mViewDataBinding.radioVisa.isChecked = true
                                 mViewDataBinding.radiomaster.isChecked = false
-                                paymentDefaultId = it.default.id?:""
+                                paymentDefaultId = it.default.id ?: ""
                             }
 
 //                            cardsArrayList.clear()
@@ -450,7 +453,7 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
         params.addProperty("amount", shopId)
         params.addProperty("topup", true)
         if (mViewDataBinding.radioVisa.isChecked) {
-                params.addProperty("payment_method", paymentDefaultId)
+            params.addProperty("payment_method", paymentDefaultId)
             if (paymentDefaultId.isEmpty()) {
                 showToast("Please select card!")
                 return

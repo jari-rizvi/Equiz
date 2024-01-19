@@ -135,6 +135,11 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
                                 mViewDataBinding.textView52.setText(data.user.chances.toString())
                                 mViewDataBinding.textView51.setText(data.user.score.toString())
 
+
+                                if (data.user.isPremium) {
+                                    mViewDataBinding.premium.visibility = View.VISIBLE
+                                }
+
 //                                Picasso.get().load(data.user.image).resize(500, 500).into(mViewDataBinding.profilePicture)
                                 Log.d("profilePicture", "onViewCreated: ${data.user.image}")
                                 Glide.with(mViewDataBinding.profilePicture.context).load(data.user.image).placeholder(R.drawable.baseline_person_white).into(mViewDataBinding.profilePicture)
