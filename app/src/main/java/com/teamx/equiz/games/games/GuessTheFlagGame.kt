@@ -21,6 +21,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -46,8 +47,8 @@ var wrongGameAnswersGuess = 0
 
 @Composable
 fun GuessTheFlagGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit = { bool, rightAnswer, total -> }) {
-    var score by remember { mutableStateOf(0) }
-    var currentFlagIndex by remember { mutableStateOf(0) }
+    var score by remember { mutableIntStateOf(0) }
+    var currentFlagIndex by remember { mutableIntStateOf(0) }
     var guessedCountry by remember { mutableStateOf(TextFieldValue()) }
     var options by remember { mutableStateOf(listOf<String>()) }
     var isOptionSelected by remember { mutableStateOf(false) }

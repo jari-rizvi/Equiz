@@ -153,7 +153,7 @@ fun BirdWatchingGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
                     )*/
                     Text(
                         modifier = Modifier.wrapContentSize(),
-                        text = "Bird Watching",
+                        text = "",
                         color = Color.White,
                         fontSize = 16.sp,
                         textAlign = TextAlign.Center
