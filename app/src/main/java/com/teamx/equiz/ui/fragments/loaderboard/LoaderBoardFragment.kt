@@ -8,10 +8,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.squareup.picasso.Picasso
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.data.models.topWinnerData.Game
+import com.teamx.equiz.data.models.topWinnerData.GameModel
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentLoaderBoardBinding
 import com.teamx.equiz.ui.fragments.loaderboard.adapter.LoaderMultiViewAdapter
@@ -32,7 +34,7 @@ class LoaderBoardFragment : BaseFragment<FragmentLoaderBoardBinding, LoaderBoard
 
     private lateinit var loaderMultiViewAdapter: LoaderMultiViewAdapter
 
-    lateinit var winnerArrayList: ArrayList<Game>
+    lateinit var winnerArrayList: ArrayList<GameModel>
 
     private var isOdd = false
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -92,24 +94,30 @@ class LoaderBoardFragment : BaseFragment<FragmentLoaderBoardBinding, LoaderBoard
 //                                Picasso.get().load(data.game[2].image)
 //                                    .into(mViewDataBinding.equizIcon54)
 
-                                Glide.with(mViewDataBinding.equizIcon.context)
-                                    .load(data.game[0].image).into(mViewDataBinding.equizIcon)
-                                Glide.with(mViewDataBinding.equizIcon5454.context)
-                                    .load(data.game[1].image).into(mViewDataBinding.equizIcon5454)
-                                Glide.with(mViewDataBinding.equizIcon54.context)
-                                    .load(data.game[2].image).into(mViewDataBinding.equizIcon54)
+//                                Glide.with(mViewDataBinding.equizIcon.context)
+//                                    .load(data.game[0].userId.image).into(mViewDataBinding.equizIcon)
 
-                                mViewDataBinding.textView545.text = data.game[0].name
+                                Picasso.get().load(data.game[0].userId.image).placeholder(R.drawable.baseline_person).error(R.drawable.baseline_person).resize(500, 500).into(mViewDataBinding.equizIcon)
+                                Picasso.get().load(data.game[1].userId.image).placeholder(R.drawable.baseline_person).error(R.drawable.baseline_person).resize(500, 500).into(mViewDataBinding.equizIcon)
+                                Picasso.get().load(data.game[2].userId.image).placeholder(R.drawable.baseline_person).error(R.drawable.baseline_person).resize(500, 500).into(mViewDataBinding.equizIcon)
+
+//
+//                                Glide.with(mViewDataBinding.equizIcon5454.context)
+//                                    .load(data.game[1].userId.image).into(mViewDataBinding.equizIcon5454)
+//                                Glide.with(mViewDataBinding.equizIcon54.context)
+//                                    .load(data.game[2].userId.image).into(mViewDataBinding.equizIcon54)
+
+                                mViewDataBinding.textView545.text = data.game[0].userId.name
                                 mViewDataBinding.textView545455.text =
-                                    data.game[0].wallet.toString()
+                                    data.game[0].userId.wallet.toString()
 
-                                mViewDataBinding.textView54545.text = data.game[1].name
+                                mViewDataBinding.textView54545.text = data.game[1].userId.name
                                 mViewDataBinding.textView545545455.text =
-                                    data.game[1].wallet.toString()
+                                    data.game[1].userId.wallet.toString()
 
-                                mViewDataBinding.textView545545445.text = data.game[2].name
+                                mViewDataBinding.textView545545445.text = data.game[2].userId.name
                                 mViewDataBinding.textView5455454554545.text =
-                                    data.game[2].wallet.toString()
+                                    data.game[2].userId.wallet.toString()
 
                             } catch (e: Exception) {
                             }

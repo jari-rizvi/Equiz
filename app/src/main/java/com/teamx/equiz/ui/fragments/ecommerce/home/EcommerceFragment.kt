@@ -28,6 +28,7 @@ import com.teamx.equiz.databinding.FragmentEcommerceBinding
 import com.teamx.equiz.ui.fragments.dashboard.adapter.ImageSliderAdapter
 import com.teamx.equiz.ui.fragments.ecommerce.data.Category
 import com.teamx.equiz.utils.DialogHelperClass
+import com.teamx.equiz.utils.PrefHelper
 import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONException
@@ -742,10 +743,12 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
         if (bundle == null) {
             bundle = Bundle()
         }
-        val country = bundle?.getString("country")
+        var country = bundle?.getString("country")
+
 
         if (country.isNullOrEmpty()) {
-            mViewModel.getBanners2("World")
+            country = PrefHelper.getInstance(requireContext()).getCountry
+            mViewModel.getBanners2(country.toString())
         } else {
             mViewModel.getBanners2("$country")
 

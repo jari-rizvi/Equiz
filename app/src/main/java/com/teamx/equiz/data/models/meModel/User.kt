@@ -12,7 +12,7 @@ data class User(
     val city: String,
     val country: String,
     val createdAt: String,
-    val dateOfBirth: Any,
+    val dateOfBirth: String,
     val email: String,
     val fcmToken: String,
     val image: String,

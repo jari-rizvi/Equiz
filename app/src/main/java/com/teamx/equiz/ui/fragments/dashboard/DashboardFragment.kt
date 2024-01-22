@@ -12,6 +12,7 @@ import android.widget.LinearLayout
 import androidx.activity.addCallback
 import androidx.annotation.Keep
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
@@ -27,6 +28,7 @@ import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.constants.NetworkCallPoints
 import com.teamx.equiz.data.models.quizTitleData.Data
 import com.teamx.equiz.data.models.topWinnerData.Game
+import com.teamx.equiz.data.models.topWinnerData.GameModel
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentDashboardBinding
 import com.teamx.equiz.ui.fragments.dashboard.adapter.AllGameInterface
@@ -39,6 +41,7 @@ import com.teamx.equiz.ui.fragments.quizes.TitleData
 import com.teamx.equiz.ui.fragments.quizes.adapter.QuizesAdapter
 import com.teamx.equiz.ui.fragments.quizes.adapter.QuizesTitleAdapter
 import com.teamx.equiz.utils.DialogHelperClass
+import com.teamx.equiz.utils.PrefHelper
 import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONException
@@ -64,7 +67,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
     private lateinit var options: NavOptions
 
     lateinit var winnerAdapter: TopWinnersAdapter
-    lateinit var winnerArrayList: ArrayList<Game>
+    lateinit var winnerArrayList: ArrayList<GameModel>
 
 
     lateinit var quizAdapter: QuizesAdapter
@@ -188,9 +191,6 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
         mViewModel.getTopWinners(this)
 
-
-
-
         if (!mViewModel.getBannerResponse.hasActiveObservers()) {
             mViewModel.getBannerResponse.observe(requireActivity()) {
                 when (it.status) {
@@ -305,7 +305,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
 
 
-        if (!mViewModel.getquizTitileResponse.hasActiveObservers()) {
+
             mViewModel.getquizTitileResponse.observe(requireActivity()) {
                 when (it.status) {
                     Resource.Status.LOADING -> {
@@ -355,13 +355,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                         }
                     }
                 }
-                if (isAdded) {
-//                    mViewModel.getquizTitileResponse.removeObservers(
-//                        viewLifecycleOwner
-//                    )
-                }
+
             }
-        }
+
         FirebaseApp.initializeApp(requireContext())
         Firebase.initialize(requireContext())
 
@@ -388,8 +384,20 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
     private fun initializeCategoriesAdapter() {
         strArrayList = ArrayList()
 
+        var bundle = arguments
+        if (bundle == null) {
+            bundle = Bundle()
+        }
+        var country = bundle?.getString("country")
+
+
+        if (country.isNullOrEmpty()) {
+            country = PrefHelper.getInstance(requireContext()).getCountry
+
+        }
+
         strArrayList.add(TitleData("World", true))
-        strArrayList.add(TitleData("Pakistan", false))
+        strArrayList.add(TitleData(country.toString(), false))
         strArrayList.add(TitleData("Premium", false))
 
         val layoutManager1 =
@@ -399,7 +407,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         quizesTitleAdapter = QuizesTitleAdapter(strArrayList, this)
         mViewDataBinding.recCategories.adapter = quizesTitleAdapter
 
-        mViewModel.getquizTitile("World", "General Knowledge", "", this)
+        mViewModel.getquizTitile("World", "", "", this)
 
     }
 
@@ -417,7 +425,6 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         }
 
 //        gameStrArrayList.removeIf { it.name == "Flick" || it.name == "Tetris" || it.name == "High Low" || it.name == "Make Ten" || it.name == "Rapid Sorting" || it.name == "Spinning Block"}
-
 
 
         val layoutManager1 =
@@ -718,7 +725,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         val tick = strArrayList.get(position).value
 
         val topic = if (tick.equals("World", true)) {
-            "General Knowledge"
+            ""
         } else {
             ""
         }
@@ -1038,10 +1045,12 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         if (bundle == null) {
             bundle = Bundle()
         }
-        val country = bundle?.getString("country")
+        var country = bundle?.getString("country")
+
 
         if (country.isNullOrEmpty()) {
-            mViewModel.getBanners2("World")
+            country = PrefHelper.getInstance(requireContext()).getCountry
+            mViewModel.getBanners2(country.toString())
         } else {
             mViewModel.getBanners2("$country")
 

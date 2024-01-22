@@ -297,6 +297,14 @@ class PrefHelper private constructor() {
         sharedPreferences.edit().putString("phoneNumberTxt", slectStripe).apply()
     }
 
+  val getCountry: String?
+        get() = sharedPreferences.getString("country", "")
+
+
+    fun setCountry(selectCountry: String) {
+        sharedPreferences.edit().putString("country", selectCountry).apply()
+    }
+
 
     fun setFavouriteShop(shippingAddress: List<String>) {
         val gson = Gson()

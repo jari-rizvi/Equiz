@@ -21,6 +21,6 @@ data class UpdatedData(
     val resetTokenExpiration: String,
     val street: String,
     val uniqueID: String,
-    val wallet: Int,
+    val wallet: Double,
     val zip: String
 )

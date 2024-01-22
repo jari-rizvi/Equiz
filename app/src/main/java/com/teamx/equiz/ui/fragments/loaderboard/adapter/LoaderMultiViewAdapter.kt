@@ -7,13 +7,15 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatCheckedTextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.squareup.picasso.Picasso
 import com.teamx.equiz.R
-import com.teamx.equiz.data.models.topWinnerData.Game
+import com.teamx.equiz.data.models.topWinnerData.GameModel
 
 class LoaderMultiViewAdapter(
-    private val dataSet: ArrayList<Game>
+    private val dataSet: ArrayList<GameModel>
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -53,35 +55,40 @@ class LoaderMultiViewAdapter(
     ) {
         val data = dataSet[position]
 
-        when (dataSet[position].bool) {
+        when (true/*dataSet[position].bool*/) {
             true -> {
                 val holderClass2 = holder as OptionalViewHolder
 
-                if (position == 0){
-                    holderClass2.textView15456.visibility = View.VISIBLE
-                    holderClass2.textView16.visibility = View.GONE
-                }else{
-                    holderClass2.textView15456.visibility = View.GONE
-                    holderClass2.textView16.visibility = View.VISIBLE
+                if (position == 0) {
+                    holderClass2.textView15456?.visibility = View.VISIBLE
+                    holderClass2.textView16?.visibility = View.GONE
+                } else {
+                    holderClass2.textView15456?.visibility = View.GONE
+                    holderClass2.textView16?.visibility = View.VISIBLE
                 }
 
 //                holderClass2.hatlyIcon54545454.isChecked = true
 
-                holderClass2.textView16.text = "${position + 1}"
-                holderClass2.score.text = data.score.toString()
-                holderClass2.name.text = data.name.toString()
+                holderClass2.textView16?.text = "${position + 1}"
+                holderClass2.score?.text = data.userId.wallet.toString()
+
+                holderClass2.name?.text = data.userId.name.toString()
 
                 try {
-
+                    if (data.userId.image.isNotEmpty()) {
 //                    Picasso.get().load(data.image).into(holderClass2.hatlyIcon5454)
-                    Glide.with(holderClass2.equizIcon5454.context).load(data.image)
-                        .into(holderClass2.equizIcon5454)
-                }
-                catch (e:Exception){
+
+                        Glide.with(holderClass2.equizIcon5454!!.context).load(data.userId.image)
+                            .into(holderClass2.equizIcon5454!!).onLoadFailed(
+                                ContextCompat.getDrawable(
+                                    holderClass2.equizIcon5454!!.context,
+                                    R.drawable.baseline_person
+                                )
+                            )
+                    }
+                } catch (e: Exception) {
 
                 }
-
-
 
 
             }
@@ -89,35 +96,32 @@ class LoaderMultiViewAdapter(
             false -> {
                 val holderClass1 = holder as RequiredViewHolder
 
-                if (position == 0){
-                    holderClass1.textView15456.visibility = View.VISIBLE
-                    holderClass1.textView16.visibility = View.GONE
-                }else{
-                    holderClass1.textView15456.visibility = View.GONE
-                    holderClass1.textView16.visibility = View.VISIBLE
+                if (position == 0) {
+                    holderClass1.textView15456?.visibility = View.VISIBLE
+                    holderClass1.textView16?.visibility = View.GONE
+                } else {
+                    holderClass1.textView15456?.visibility = View.GONE
+                    holderClass1.textView16?.visibility = View.VISIBLE
                 }
                 try {
 
-                    holderClass1.equizIcon54545454.isChecked = false
+                    holderClass1.equizIcon54545454?.isChecked = false
 
-                    holderClass1.textView16.text = "${position + 1}"
-                    holderClass1.score.text = data.score.toString()
-                    holderClass1.name.text = data.name.toString()
-                }
-                catch (e:Exception){
+                    holderClass1.textView16?.text = "${position + 1}"
+                    holderClass1.score?.text = data.userId.wallet.toString()
+
+                    holderClass1.name?.text = data.userId.name.toString()
+                } catch (e: Exception) {
                     e.printStackTrace()
                 }
                 try {
 
 //                    Picasso.get().load(data.image).into(holderClass1.hatlyIcon5454)
-                    Glide.with(holderClass1.equizIcon5454.context).load(data.image)
-                        .into(holderClass1.equizIcon5454)
+                    Glide.with(holderClass1.equizIcon5454!!.context).load(data.userId.image)
+                        .into(holderClass1.equizIcon5454!!)
+                } catch (e: Exception) {
+                    e.printStackTrace()
                 }
-                catch (e:Exception){
-
-                }
-
-
 
 
             }
@@ -129,7 +133,7 @@ class LoaderMultiViewAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (dataSet[position].bool) {
+        return if (true/*dataSet[position].bool*/) {
             VIEW_TYPE_1
         } else {
             VIEW_TYPE_2
@@ -139,12 +143,12 @@ class LoaderMultiViewAdapter(
 
     internal class RequiredViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
-        val textView15456: ImageView
-        val equizIcon5454: ImageView
-        val equizIcon54545454: AppCompatCheckedTextView
-        val textView16: TextView
-        val name: TextView
-        val score: TextView
+        var textView15456: ImageView? = null
+        var equizIcon5454: ImageView? = null
+        var equizIcon54545454: AppCompatCheckedTextView? = null
+        var textView16: TextView? = null
+        var name: TextView? = null
+        var score: TextView? = null
 
 
         init {
@@ -160,13 +164,12 @@ class LoaderMultiViewAdapter(
 
 
     internal class OptionalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val textView15456: ImageView
-        val equizIcon5454: ImageView
-        val equizIcon54545454: AppCompatCheckedTextView
-        val textView16: TextView
-        val name: TextView
-        val score: TextView
-
+        var textView15456: ImageView? = null
+        var equizIcon5454: ImageView? = null
+        var equizIcon54545454: AppCompatCheckedTextView? = null
+        var textView16: TextView? = null
+        var name: TextView? = null
+        var score: TextView? = null
 
 
         init {

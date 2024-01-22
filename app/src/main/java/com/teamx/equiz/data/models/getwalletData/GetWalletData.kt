@@ -4,7 +4,7 @@ import androidx.annotation.Keep
 
 @Keep
 data class GetWalletData(
-    val `data`: Int,
+    val `data`: Double,
     val recentExpiration: List<Any>,
     val transactions: List<Transaction>
 )

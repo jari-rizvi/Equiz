@@ -50,8 +50,8 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
     private lateinit var paymentArrayList: ArrayList<PaymentMethod>
 
 
-
     var amount = "0"
+    var priceAddTopUp = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -69,13 +69,33 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
             }
         }
 
+
+
+
+
+        val bundle = Bundle()
+        bundle.putString("amount", priceAddTopUp.toString())
+
+        Log.d("TAG", "priceAddTopUppriceAddTopUppriceAddTopUp: $priceAddTopUp")
+
         mViewDataBinding.textView44.setOnClickListener {
-            findNavController().navigate(R.id.action_topupFragment_to_cardsFragment)
+            findNavController().navigate(
+                R.id.action_topupFragment_to_cardsFragment,
+                bundle,
+                options
+            )
         }
 
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
 
         paymentAdapter()
+
+
+        val bundle2 = arguments
+
+        val changeamount = bundle2?.getString("amount")
+
+        mViewDataBinding.img.text = changeamount
 
         mViewDataBinding.pts1.setOnClickListener {
             mViewDataBinding.pts6.isChecked = false
@@ -293,9 +313,9 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
             mViewDataBinding.pts4.isChecked = false
             mViewDataBinding.pts5.isChecked = false
             if (mViewDataBinding.editText.text.toString().isEmpty()) {
-
                 priceAddTopUp = 0
                 mViewDataBinding.img.text = "0".toString()
+
             } else {
                 mViewDataBinding.img.text = mViewDataBinding.editText.text.toString()
                 priceAddTopUp = mViewDataBinding.editText.text.toString().toInt()
@@ -420,7 +440,7 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
     lateinit var paymentSheet: PaymentSheet
 
 
-    var priceAddTopUp = 0
+
     private fun initStripe() {
 
 

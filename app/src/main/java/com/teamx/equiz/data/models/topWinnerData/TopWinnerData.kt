@@ -4,7 +4,7 @@ import androidx.annotation.Keep
 
 @Keep
 data class TopWinnerData(
-    val game: List<Game>,
+    val game: List<GameModel>,
     val page: Int,
     val totalPages: Int,
     val totalUsersCount: Int,

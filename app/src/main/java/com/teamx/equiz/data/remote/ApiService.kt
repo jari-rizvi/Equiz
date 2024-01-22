@@ -77,14 +77,14 @@ interface ApiService {
     @GET(NetworkCallPoints.BANNERS_DATA)
     suspend fun getBannersDashboard(
         @Query("country") country: String = "",
-        @Header("type") type: String = "home",
+        @Query("type") type: String = "home",
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<NewsImagesDataModel>
 
     @GET(NetworkCallPoints.BANNERS_DATA)
     suspend fun getBannersEco(
         @Query("country") country: String = "",
-        @Header("type") type: String = "shop",
+        @Query("type") type: String = "shop",
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<NewsImagesDataModel>
 

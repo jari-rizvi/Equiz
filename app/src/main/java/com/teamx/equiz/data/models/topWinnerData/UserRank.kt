@@ -9,5 +9,5 @@ data class UserRank(
     val name: String,
     val rank: Int,
     val score: Double,
-    val wallet: Int
+    val wallet: Double
 )

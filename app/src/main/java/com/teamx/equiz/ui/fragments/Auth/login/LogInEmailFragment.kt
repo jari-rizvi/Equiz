@@ -29,6 +29,7 @@ import com.teamx.equiz.constants.NetworkCallPoints.Companion.TOKENER
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentLoginEmailBinding
 import com.teamx.equiz.utils.DialogHelperClass
+import com.teamx.equiz.utils.PrefHelper
 import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -77,7 +78,7 @@ class LogInEmailFragment : BaseFragment<FragmentLoginEmailBinding, LoginViewMode
 
         FirebaseApp.initializeApp(requireContext())
         Firebase.initialize(requireContext())
-        mViewModel.viewModelScope.launch {
+        mViewModel.viewModelScope.launch(Dispatchers.IO) {
             addClientCountry()
         }
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
@@ -351,6 +352,8 @@ class LogInEmailFragment : BaseFragment<FragmentLoginEmailBinding, LoginViewMode
                 var country2 = json.getString("country")
 
                 country = country2
+
+                PrefHelper.getInstance(requireContext()).setCountry(country2)
             }
             Log.d("123123", "addClientCountry: ${response}")
         }

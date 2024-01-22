@@ -90,7 +90,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
                                 if (!data.user.image.isNullOrEmpty()) {
 //                                    Picasso.get().load(data.user.image).resize(500, 500)
 //                                        .into(mViewDataBinding.profilePicture)
-
                                     Glide.with(mViewDataBinding.profilePicture.context)
                                         .load(data.user.image)
                                         .placeholder(R.drawable.baseline_person_white)

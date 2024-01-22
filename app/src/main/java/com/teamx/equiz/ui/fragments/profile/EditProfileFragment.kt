@@ -126,6 +126,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                                 mViewDataBinding.userName.setText(data.user.name)
                                 mViewDataBinding.phone.setText(data.user.phone)
                                 mViewDataBinding.email.setText(data.user.email)
+                                mViewDataBinding.dob.text = data.user.dateOfBirth?.replaceAfter("T","")?.replace("T","").toString()
 
                                 /*  val userData = PrefHelper.getInstance(requireActivity()).getUserData()
                                   userData!!.name = data.name
@@ -236,6 +237,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                                 mViewDataBinding.userName.setText(data.user.name)
                                 mViewDataBinding.phone.setText(data.user.phone)
                                 mViewDataBinding.email.setText(data.user.email)
+                                mViewDataBinding.dob.text = data.user.dateOfBirth?.replaceAfter("T","")?.replace("T","").toString()
 //                            mViewDataBinding.dob.setText(data.user.dateOfBirth.toString())
 
 //                                Picasso.get().load(data.user.image).resize(500, 500)
@@ -344,7 +346,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                 val params = JsonObject()
                 try {
                     params.addProperty("email", userEmail)
-                    params.addProperty("DOB", userDOB)
+                    params.addProperty("DOB", dob)
                     params.addProperty("username", userName)
                     params.addProperty("image", imageUrl)
                 } catch (e: JSONException) {

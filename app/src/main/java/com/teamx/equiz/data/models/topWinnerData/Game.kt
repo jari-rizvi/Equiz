@@ -12,3 +12,6 @@ data class Game(
     val wallet: Any,
     val bool : Boolean
 )
+
+
+

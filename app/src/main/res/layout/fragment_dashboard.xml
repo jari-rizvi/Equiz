@@ -86,7 +86,7 @@
                     android:paddingStart="@dimen/_28sdp"
                     android:paddingEnd="@dimen/_5sdp"
                     android:singleLine="true"
-                    android:text="250000000000"
+                    android:text="0"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_10ssp"
                     app:drawableRightCompat="@drawable/plus_dash"
@@ -281,7 +281,7 @@
                         android:id="@+id/recCategories"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/_14sdp"
+                        android:layout_marginHorizontal="@dimen/_5sdp"
                         android:orientation="horizontal"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -294,13 +294,11 @@
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recQuizes"
-
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-
+                        android:layout_height="@dimen/_200sdp"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:layout_marginBottom="@dimen/_24sdp"
-                        android:maxHeight="@dimen/_270sdp"
+                        android:maxHeight="@dimen/_200sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -315,7 +313,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_5sdp"
-
                         android:text="@string/top_winners"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_15ssp"

@@ -7,7 +7,7 @@ data class Transaction(
     val __v: Int,
     val _id: String,
     val expiresAt: String,
-    val points: Int,
+    val points: Double,
     val timestamp: String,
     val pointType: String,
     val transactionType: Boolean,
