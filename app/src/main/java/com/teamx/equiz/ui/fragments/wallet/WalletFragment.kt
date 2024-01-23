@@ -1,6 +1,8 @@
 package com.teamx.equiz.ui.fragments.wallet
 
 
+import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.NavOptions
@@ -20,6 +22,9 @@ import com.teamx.equiz.ui.fragments.wishlist.FavouriteAdapter
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.activity.addCallback
+import androidx.annotation.RequiresApi
+import com.teamx.equiz.utils.TimeFormatter
+
 @AndroidEntryPoint
 class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
 
@@ -34,8 +39,10 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
     lateinit var walletArrayList: ArrayList<Transaction>
     private lateinit var options: NavOptions
 
+    @SuppressLint("SetTextI18n")
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
@@ -52,11 +59,19 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
 
         mViewDataBinding.textView9.setOnClickListener {
-            findNavController().navigate(R.id.action_walletFragment_to_referralFragment,arguments,options)
+            findNavController().navigate(
+                R.id.action_walletFragment_to_referralFragment,
+                arguments,
+                options
+            )
         }
 
         mViewDataBinding.btnTopUp.setOnClickListener {
-            findNavController().navigate(R.id.action_walletFragment_to_topupFragment,arguments,options)
+            findNavController().navigate(
+                R.id.action_walletFragment_to_topupFragment,
+                arguments,
+                options
+            )
 
         }
 
@@ -69,9 +84,11 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
                     Resource.Status.LOADING -> {
                         loadingDialog.show()
                     }
+
                     Resource.Status.NOTVERIFY -> {
                         loadingDialog.dismiss()
                     }
+
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
@@ -81,8 +98,14 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
 
                             mViewDataBinding.shimmerLayout.stopShimmer()
                             mViewDataBinding.textView10.text = data.data.toString() + " Points"
+
                             data.transactions.forEach {
                                 walletArrayList.add(it)
+                                mViewDataBinding.textView11.text =
+                                    it.points.toString() + " Expires at " + it.expiresAt.substringBefore(
+                                        "T"
+                                    )
+
                             }
 
                             walletAdapter.notifyDataSetChanged()
@@ -90,8 +113,10 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
 
                         }
                     }
-                    Resource.Status.AUTH -> { loadingDialog.dismiss()
-                         if (isAdded) {
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+                        if (isAdded) {
                             try {
                                 onToSignUpPage()
                             } catch (e: Exception) {
@@ -99,6 +124,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
                             }
                         }
                     }
+
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
                         DialogHelperClass.errorDialog(

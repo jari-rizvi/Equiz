@@ -48,6 +48,7 @@
             android:elevation="@dimen/_3sdp"
             android:layout_marginHorizontal="@dimen/_15sdp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:tabIndicator="@android:color/transparent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:tabTextColor="@color/tab_categories_order"

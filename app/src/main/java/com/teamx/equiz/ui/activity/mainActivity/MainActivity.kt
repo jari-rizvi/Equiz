@@ -146,7 +146,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
                      mViewDataBinding.bottomNavigationq?.visibility = View.VISIBLE
                 }
 
-                R.id.gamesFragment -> {
+                R.id.userStatsFragment -> {
                     mViewDataBinding.bottomNavigationq.setSelectedIndex(1)
                      mViewDataBinding.bottomNavigationq?.visibility = View.VISIBLE
                 }
@@ -263,7 +263,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
             ),
             com.teamx.equiz.games.nav_custom.custombottomnav.Model(
                 R.drawable.game_dash,
-                R.id.gamesFragment,
+                R.id.userStatsFragment,
                 id = 1,
                 R.string.profile2/*R.string.title_favorite*/,
                 R.string.empty_value

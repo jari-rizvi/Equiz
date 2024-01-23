@@ -541,5 +541,9 @@
         android:id="@+id/playQuizVideoFragment"
         android:name="com.teamx.equiz.ui.fragments.quiz.QuizVideoFragment"
         android:label="PlayQuizVideoFragment" />
+    <fragment
+        android:id="@+id/userStatsFragment"
+        android:name="com.teamx.equiz.ui.fragments.userStats.UserStatsFragment"
+        android:label="UserStatsFragment" />
 
 </navigation>

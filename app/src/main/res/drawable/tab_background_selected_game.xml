@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:bottom="@dimen/_3sdp"
@@ -7,10 +6,11 @@
         android:right="@dimen/_3sdp"
         android:top="@dimen/_3sdp">
 
-        <shape xmlns:android="http://schemas.android.com/apk/res/android" >
-            <solid android:color="#00CDCDCD" />
-            <corners android:radius="@dimen/_20sdp" />
+        <shape>
+            <solid android:color="@color/theme_color" />
+            <corners android:radius="@dimen/_10sdp" />
         </shape>
 
     </item>
 </layer-list>
+

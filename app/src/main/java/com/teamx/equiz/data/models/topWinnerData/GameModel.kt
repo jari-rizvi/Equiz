@@ -8,7 +8,7 @@ data class GameModel(
     val _id: String,
     val accuracy: Int,
     val calculation: Int,
-    val judgment: Int,
+    val judgment: Any,
     val memory: Int,
     val observation: Int,
     val rank: Int,
