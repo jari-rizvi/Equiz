@@ -16,6 +16,7 @@ import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentQuizesBinding
 import com.teamx.equiz.ui.fragments.quizes.adapter.QuizesAdapter
 import com.teamx.equiz.ui.fragments.quizes.adapter.QuizesTitleAdapter
+import com.teamx.equiz.utils.PrefHelper
 import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -121,8 +122,38 @@ class QuizesFragment : BaseFragment<FragmentQuizesBinding, QuizesViewModel>(), Q
     private fun initializeCategoriesAdapter() {
         strArrayList = ArrayList()
         strTitleArrayList = ArrayList()
+        var bundle = arguments
+        if (bundle == null) {
+            bundle = Bundle()
+        }
+
+        var country = bundle?.getString("country")
+
+        if (country.isNullOrEmpty()) {
+            country = PrefHelper.getInstance(requireContext()).getCountry
+
+        }
+
+        val splitter = country.toString().split(" ")
+        if (splitter.size > 1) {
+            var tempString = ""
+            splitter.forEach {
+                tempString += it.first().toString()
+            }
+            country = tempString
+        } else {
+            if (country.isNullOrEmpty()) {
+                country = "Regional"
+
+            }
+
+        }
+
+
+
+
         strTitleArrayList.add(TitleData("World", true))
-        strTitleArrayList.add(TitleData("Pakistan", false))
+        strTitleArrayList.add(TitleData("$country", false))
         strTitleArrayList.add(TitleData("Premium", false))
 
         val layoutManager1 =

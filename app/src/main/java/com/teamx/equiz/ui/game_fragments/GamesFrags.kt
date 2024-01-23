@@ -1238,6 +1238,19 @@ class ResultComposeFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMode
                          }*/
                     }
 
+                    21 -> {
+
+                    }
+
+                    22 -> {
+
+                    }
+
+                    23 -> {
+
+                    }
+
+
                     else -> {
                         findNavController().navigate(R.id.subscriptionFragment, arguments, options)
                     }

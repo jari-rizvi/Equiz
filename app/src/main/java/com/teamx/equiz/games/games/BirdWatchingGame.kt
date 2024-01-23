@@ -57,8 +57,9 @@ import kotlin.random.Random
 
 var rightGameAnswersBird = 0
 var wrongGameAnswersBird = 0
+@Preview
 @Composable
-fun BirdWatchingGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit) {
+fun BirdWatchingGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit={_,_,_->}) {
     var isGameOver by remember { mutableStateOf(false) }
     var isAlert by remember { mutableStateOf(false) }
     var isTimeUp by remember { mutableStateOf(false) }
@@ -116,7 +117,7 @@ fun BirdWatchingGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
-                .background(color = Color.White),
+                .background(color = Color(0xffEFF4F8)),
         ) {
             Box(
                 modifier = Modifier

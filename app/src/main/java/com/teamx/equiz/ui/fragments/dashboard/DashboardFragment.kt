@@ -12,7 +12,6 @@ import android.widget.LinearLayout
 import androidx.activity.addCallback
 import androidx.annotation.Keep
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
@@ -27,7 +26,6 @@ import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.constants.NetworkCallPoints
 import com.teamx.equiz.data.models.quizTitleData.Data
-import com.teamx.equiz.data.models.topWinnerData.Game
 import com.teamx.equiz.data.models.topWinnerData.GameModel
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentDashboardBinding
@@ -395,6 +393,23 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             country = PrefHelper.getInstance(requireContext()).getCountry
 
         }
+        val splitter = country.toString().split(" ")
+
+        if (splitter.size > 1) {
+            var tempString = ""
+            splitter.forEach {
+                tempString += it.first().toString()
+            }
+            country = tempString
+        } else {
+            if (country.isNullOrEmpty()) {
+                country = "Regional"
+            }
+
+        }
+
+
+
 
         strArrayList.add(TitleData("World", true))
         strArrayList.add(TitleData(country.toString(), false))

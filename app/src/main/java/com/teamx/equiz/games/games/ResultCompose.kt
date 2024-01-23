@@ -1,5 +1,6 @@
 package com.teamx.equiz.games.games
 
+import android.util.Log
 import androidx.annotation.Keep
 import androidx.annotation.StringRes
 import androidx.compose.animation.core.Animatable
@@ -112,6 +113,38 @@ fun ShowScoring(title: String, color: Color, score: String) {
             .width(170.dp)
             .height(55.dp)
             .border(BorderStroke(2.dp, color), shape = RoundedCornerShape(14.dp))
+            .background(color = Color.White, shape = RoundedCornerShape(14.dp)),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(text = "$title", color = color, fontWeight = FontWeight.Normal)
+        Text(text = score, color = color, fontWeight = FontWeight.Bold)
+    }
+}
+
+@Composable
+fun ShowScoring2(title: String, color: Color, score: String) {
+    Column(
+        modifier = Modifier
+            .width(100.dp)
+            .height(55.dp)
+//            .border(BorderStroke(1.dp, color), shape = RoundedCornerShape(14.dp))
+            .background(color = color, shape = RoundedCornerShape(14.dp)),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(text = "$title", color = Color.White, fontWeight = FontWeight.Normal)
+        Text(text = score, color = Color.White, fontWeight = FontWeight.Bold)
+    }
+}
+
+@Composable
+fun ShowScoring2a(title: String, color: Color, score: String) {
+    Column(
+        modifier = Modifier
+            .width(100.dp)
+            .height(55.dp)
+//            .border(BorderStroke(1.dp, color), shape = RoundedCornerShape(14.dp))
             .background(color = Color.White, shape = RoundedCornerShape(14.dp)),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -307,7 +340,7 @@ fun ResultScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
-                .background(color = Color(0xFFE1E1E1)),
+                .background(color = Color(0xffEFF4F8)),
         ) {
             Column(
                 modifier = Modifier
@@ -326,7 +359,7 @@ fun ResultScreen(
                     BackButton(onClick = { onContinueClicked(2) }
                     )
                     Text(
-                        text = "Training",
+                        text = "$gameName",
                         modifier = Modifier
                             .fillMaxWidth(),
                         textAlign = TextAlign.Center,
@@ -392,7 +425,18 @@ fun ResultScreen(
             }
 
             if (IsShareDialogTrue) {
-                dialogShareGame(total, right, time, gameName, painter, {})
+                dialogShareGame(total, right, time, gameName, painter) {
+
+                    if (it == 3) {
+                        IsShareDialogTrue = false
+                    } else if (it == 21) {
+                        onContinueClicked(it)
+                    } else if (it == 22) {
+                        onContinueClicked(it)
+                    } else if (it == 23) {
+                        onContinueClicked(it)
+                    }
+                }
             }
 
 
@@ -438,7 +482,7 @@ fun TitleHeader(
                 .padding(start = 13.dp),
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
-            color = Color.Gray
+            color = Color(0xFF9F81CA)
         )
     }
 }
@@ -448,7 +492,7 @@ fun TitleHeader(
 fun CircularChart1(
     values: List<Float> = listOf(65f, 60f, 55f),
     colors: List<Color> = listOf(
-        Color(0xFFbe1558), Color(0xFFe75874), Color(0xFFfbcbc9)
+        Color(0xFFbe1358), Color(0xFFe75874), Color(0xFFfbcbc9)
     ),
     backgroundCircleColor: Color = Color.LightGray.copy(alpha = 0.3f),
     legend: List<String> = listOf("Mango", "Apple", "Melon"),
@@ -676,7 +720,7 @@ fun DualColorCircularProgressBar2(progressVal: Float = 0.05f) {
             Text(
                 text = "${(progressVal * 100).toInt()}%",
                 color = toolbarUnique,
-                fontSize = 36.sp,
+                fontSize = 26.sp,
                 fontStyle = FontStyle.Normal, fontWeight = FontWeight.ExtraBold,
             )
         }
@@ -684,53 +728,53 @@ fun DualColorCircularProgressBar2(progressVal: Float = 0.05f) {
         CircularProgressIndicator(
             progress = .33f,
             modifier = Modifier
-                .size(185.dp)
+                .size(135.dp)
                 .rotate(0f)
 
             /*.background(Color.Transparent)*/,
             color = Color(0xFF9F81CA)/*BirdColor1*/,
 
-            strokeWidth = 42.dp
+            strokeWidth = 32.dp
         )
         CircularProgressIndicator(
             progress = .33f,
             modifier = Modifier
-                .size(185.dp)
+                .size(135.dp)
                 .rotate(118f)
             /*.background(Color.Transparent)*/,
             color = Color(0xFF9F81CA)/*BirdColor1*/,
 
-            strokeWidth = 45.dp
+            strokeWidth = 35.dp
         )
         CircularProgressIndicator(
             progress = .35f,
             modifier = Modifier
-                .size(185.dp)
+                .size(135.dp)
                 .rotate(118f + 118f)
             /*.background(Color.Transparent)*/,
             color = Color(0xFF9F81CA)/*BirdColor1*/,
 
-            strokeWidth = 46.dp
+            strokeWidth = 36.dp
         )
         CircularProgressIndicator(
             progress = progress, // Remaining progress
             modifier = Modifier
-                .size(185.dp)
+                .size(135.dp)
 
                 .rotate(190f)
             /*.background(Color.Transparent)*/,
-            color = Color(0xFF9F81CA)/*Color.Transparent*/, strokeWidth = 38.dp
+            color = Color(0xFF9F81CA)/*Color.Transparent*/, strokeWidth = 28.dp
 
         )
         CircularProgressIndicator(
             progress = 1f - progress,
             modifier = Modifier
-                .size(185.dp)
+                .size(135.dp)
                 .rotate(315f)
             /*.background(Color.Transparent)*/,
             color = Color(0xFFF7D1D1)/*BirdColor1*/,
 
-            strokeWidth = 42.dp
+            strokeWidth = 32.dp
         )
     }
 }
@@ -922,10 +966,10 @@ fun foody() {
 @Preview
 @Composable
 fun dialogShareGame(
-    total: Int = 1,
-    right: Int = 1,
+    total: Int = 10,
+    right: Int = 7,
     time: Int = 0,
-    gameName: String = "",
+    gameName: String = "Concentration",
     painter: Painter = painterResource(id = R.drawable.iconbg),
     onContinueClicked: (i: Int) -> Unit = {}
 ) {
@@ -945,55 +989,149 @@ fun dialogShareGame(
 
 //    val accuracyPercentage: Float = (accurateCount / totalCount).toFloat()
     val accuracyPercentage: Float = percentage/*(accurateCount / totalCount).toFloat()*/
-
     Box(
         modifier = Modifier
             .padding(horizontal = 12.dp)
             .fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        TitleHeader(
-            painter = painter, title = gameName
-        )
-
-        Column(
+        Box(
             modifier = Modifier
-                .wrapContentSize()
-                .background(color = Color.White, shape = RoundedCornerShape(12.dp))
-                .padding(vertical = 12.dp)
-                .fillMaxWidth(),
-            Arrangement.SpaceEvenly,
+                .padding(horizontal = 12.dp)
+                .wrapContentSize(),
+            contentAlignment = Alignment.Center
         ) {
-            DualColorCircularProgressBar2(accuracyPercentage)
-            ShowMeantime("Mean Time", " ${time / right}s")
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 16.dp),
-                Arrangement.SpaceEvenly,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                ShowScoring("Correct", Color(0xFF9F81CA), "${right.toInt()}")
-                ShowScoring("Incorrect", Color(0xFFC62E27), "${(total - right).toInt()}")
 
+            Column(
+                modifier = Modifier
+                    .background(Color(0xffEFF4F8), shape = RoundedCornerShape(14.dp))
+                    .border(
+                        BorderStroke(4.dp, Color(0xFF9F81CA)),
+                        shape = RoundedCornerShape(14.dp)
+                    )
+                    .padding(20.dp), horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+
+
+                Text(
+                    text = "Share",
+                    color = Color(0xFF9F81CA),
+                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = 16.sp
+                )
+                Spacer(modifier = Modifier.size(12.dp))
+
+                Text(
+                    modifier = Modifier.fillMaxWidth(),
+                    text = "Share This Results",
+                    textAlign = TextAlign.Center, fontWeight = FontWeight.ExtraBold,
+                    fontSize = 16.sp
+                )
+                Spacer(modifier = Modifier.size(12.dp))
+
+
+
+                Column(
+                    modifier = Modifier
+                        .width(300.dp)
+                        .height(450.dp)
+                        .border(BorderStroke(6.dp, Color.White), shape = RoundedCornerShape(2.dp))
+
+                        .background(color = Color(0xffEFF4F8), shape = RoundedCornerShape(2.dp))
+                        .padding(vertical = 12.dp)
+                        .fillMaxWidth(),
+                    Arrangement.SpaceEvenly,
+                ) {
+                    TitleHeader(
+                        painter = painter, title = gameName
+                    )
+                    DualColorCircularProgressBar2(accuracyPercentage)
+                    val to = if (right == 0) {
+                        1
+                    } else {
+                        right
+                    }
+
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 16.dp),
+                        Arrangement.SpaceEvenly,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        ShowScoring2a("Incorrect", Color(0xFF9F81CA), "${(total - right).toInt()}")
+                        ShowScoring2("Correct", Color(0xFF9F81CA), "${right.toInt()}")
+
+                    }
+                    ShowMeantime("Mean Time", " ${time / to}s")
+
+                    Image(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight(),
+                        painter = painterResource(id = R.drawable.iconbg),
+                        contentDescription = "bg"
+                    )
+                }
+                Spacer(modifier = Modifier.size(20.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center
+                ) {
+
+                    Icon(
+                        modifier = Modifier
+                            .size(45.dp)
+                            .clickable {
+                                Log.d("123", "dialogShareGame: ")
+
+                            },
+                        painter = painterResource(id = R.drawable.x_social),
+                        contentDescription = null
+                    )
+                    Icon(
+                        modifier = Modifier
+                            .size(45.dp)
+                            .clickable {
+
+                                Log.d("123", "dialogShareGame: ")
+                            },
+                        painter = painterResource(id = R.drawable.vector__2_),
+                        contentDescription = null
+                    )
+                    Icon(
+                        modifier = Modifier
+                            .size(45.dp)
+                            .clickable {
+                                Log.d("123", "dialogShareGame: ")
+
+                            },
+                        painter = painterResource(id = R.drawable.social),
+                        contentDescription = null
+                    )
+
+                }
             }
-
-
-            /*Row(
+            Icon(
                 modifier = Modifier
-                    .padding(top = 32.dp)
-                    .fillMaxWidth(), Arrangement.SpaceAround
-            ) {
-                BottomResult()
-              *//*  BottomResult2() { at ->
-                    onContinueClicked(at)
-                }*//*
-            }*/
-            /* BottomButtons { i ->
-
-                 onContinueClicked(i)
-             }*/
+                    .padding(7.dp)
+                    .clickable { onContinueClicked(3) }
+                    .align(Alignment.TopEnd),
+                painter = painterResource(id = R.drawable.cancel_share),
+                contentDescription = null
+            )
         }
-
     }
 }
+
+
+
+
+
+
+
+
+
+
+
