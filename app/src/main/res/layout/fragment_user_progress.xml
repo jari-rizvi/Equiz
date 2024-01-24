@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_20sdp"
             android:fontFamily="@font/poppins_bold"
-            android:text="60%"
+            android:text="0%"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="@+id/textView30"
             app:layout_constraintEnd_toEndOf="parent"
@@ -69,34 +69,23 @@
             app:layout_constraintTop_toTopOf="@+id/textView30" />
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/asassasa"
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/simpleProgressBar"
+
             android:layout_width="0dp"
-            android:layout_height="@dimen/_15sdp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_4sdp"
-            android:background="@drawable/card_background"
+            android:max="100"
+
+            app:indicatorColor="#538B4D"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/textView31"
             app:layout_constraintStart_toStartOf="@+id/textView30"
             app:layout_constraintTop_toBottomOf="@+id/textView30"
-            app:layout_constraintVertical_bias="0">
-
-            <ProgressBar
-                android:id="@+id/simpleProgressBar"
-                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="@drawable/card_background"
-                android:clipToOutline="true"
-                android:elevation="@dimen/_1sdp"
-                android:progressDrawable="@drawable/custom_progress"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintVertical_bias="0"
+            app:trackColor="@color/white"
+            app:trackCornerRadius="@dimen/_10sdp"
+            app:trackThickness="@dimen/_10sdp" />
 
 
         <TextView
@@ -113,7 +102,7 @@
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/asassasa"
+            app:layout_constraintTop_toBottomOf="@+id/simpleProgressBar"
             app:layout_constraintVertical_bias="0.05" />
 
         <TextView
@@ -121,7 +110,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_bold"
-            android:text="60%"
+            android:text="0%"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="@+id/textView301"
             app:layout_constraintEnd_toEndOf="@+id/textView31"
@@ -129,36 +118,22 @@
             app:layout_constraintTop_toTopOf="@+id/textView301" />
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/judgePro"
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/simpleProgressBar1"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_4sdp"
-            android:background="@drawable/card_background"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:max="100"
+
+            app:indicatorColor="#D33E74"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/textView31"
             app:layout_constraintStart_toStartOf="@+id/textView30"
             app:layout_constraintTop_toBottomOf="@+id/textView311"
-            app:layout_constraintVertical_bias="0">
-
-            <ProgressBar
-                android:id="@+id/simpleProgressBar1"
-                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="@drawable/card_background"
-                android:backgroundTint="@color/gray"
-                android:clipToOutline="true"
-                android:elevation="@dimen/_1sdp"
-                android:max="100"
-                android:progressDrawable="@drawable/custom_progress_red"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintVertical_bias="0"
+            app:trackColor="@color/white"
+            app:trackCornerRadius="@dimen/_10sdp"
+            app:trackThickness="@dimen/_10sdp" />
 
 
         <TextView
@@ -175,7 +150,7 @@
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/judgePro"
+            app:layout_constraintTop_toBottomOf="@+id/simpleProgressBar1"
             app:layout_constraintVertical_bias="0.05" />
 
         <TextView
@@ -183,7 +158,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_bold"
-            android:text="60%"
+            android:text="0%"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="@+id/textView302"
             app:layout_constraintEnd_toEndOf="@+id/textView311"
@@ -191,36 +166,21 @@
             app:layout_constraintTop_toTopOf="@+id/textView302" />
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/calPro"
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/simpleProgressBar2"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_4sdp"
-            android:background="@drawable/card_background"
+            android:layout_height="wrap_content"
+            android:max="100"
+
+            app:indicatorColor="#F1DE34"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/textView31"
             app:layout_constraintStart_toStartOf="@+id/textView30"
-            app:layout_constraintTop_toBottomOf="@+id/textView312"
-            app:layout_constraintVertical_bias="0">
-
-            <ProgressBar
-                android:id="@+id/simpleProgressBar2"
-                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="@drawable/card_background"
-                android:backgroundTint="@color/gray"
-                android:clipToOutline="true"
-                android:elevation="@dimen/_1sdp"
-
-                android:progressDrawable="@drawable/custom_progress_purple"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintTop_toBottomOf="@+id/textView302"
+            app:layout_constraintVertical_bias="0"
+            app:trackColor="@color/white"
+            app:trackCornerRadius="@dimen/_10sdp"
+            app:trackThickness="@dimen/_10sdp" />
 
 
         <TextView
@@ -237,7 +197,7 @@
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/calPro"
+            app:layout_constraintTop_toBottomOf="@+id/simpleProgressBar2"
             app:layout_constraintVertical_bias="0.05" />
 
         <TextView
@@ -245,42 +205,30 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_bold"
-            android:text="60%"
+            android:text="0%"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="@+id/textView303"
             app:layout_constraintEnd_toEndOf="@+id/textView312"
             app:layout_constraintStart_toStartOf="@+id/textView312"
             app:layout_constraintTop_toTopOf="@+id/textView303" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/accPro"
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/simpleProgressBar3"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_4sdp"
-            android:background="@drawable/card_background"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:max="100"
+
+            app:indicatorColor="#5986E4"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/textView31"
             app:layout_constraintStart_toStartOf="@+id/textView30"
             app:layout_constraintTop_toBottomOf="@+id/textView303"
-            app:layout_constraintVertical_bias="0">
-
-            <ProgressBar
-                android:id="@+id/simpleProgressBar3"
-                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="@drawable/card_background"
-                android:backgroundTint="@color/gray"
-                android:clipToOutline="true"
-                android:elevation="@dimen/_1sdp"
-                android:progressDrawable="@drawable/custom_progress"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintVertical_bias="0"
+            app:trackColor="@color/white"
+            app:trackCornerRadius="@dimen/_10sdp"
+            app:trackThickness="@dimen/_10sdp" />
 
 
         <TextView
@@ -297,7 +245,7 @@
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/accPro"
+            app:layout_constraintTop_toBottomOf="@+id/simpleProgressBar3"
             app:layout_constraintVertical_bias="0.05" />
 
         <TextView
@@ -305,7 +253,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_bold"
-            android:text="60%"
+            android:text="0%"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="@+id/textView304"
             app:layout_constraintEnd_toEndOf="@+id/textView313"
@@ -313,37 +261,22 @@
             app:layout_constraintTop_toTopOf="@+id/textView304" />
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/obsPro"
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/simpleProgressBar4"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_4sdp"
-            android:background="@drawable/card_background"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:max="100"
+
+            app:indicatorColor="#9F81CA"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/textView31"
             app:layout_constraintStart_toStartOf="@+id/textView30"
             app:layout_constraintTop_toBottomOf="@+id/textView304"
-            app:layout_constraintVertical_bias="0">
-
-            <ProgressBar
-                android:id="@+id/simpleProgressBar4"
-                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="@drawable/card_background"
-                android:backgroundTint="@color/gray"
-                android:clipToOutline="true"
-                android:elevation="@dimen/_1sdp"
-
-                android:progressDrawable="@drawable/custom_progress_theme"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
+            app:layout_constraintVertical_bias="0"
+            app:trackColor="@color/white"
+            app:trackCornerRadius="@dimen/_10sdp"
+            app:trackThickness="@dimen/_10sdp" />
 
         <TextView
             android:id="@+id/textView305"
@@ -359,7 +292,7 @@
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/obsPro"
+            app:layout_constraintTop_toBottomOf="@+id/simpleProgressBar4"
             app:layout_constraintVertical_bias="0.05" />
 
         <TextView
@@ -367,7 +300,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_bold"
-            android:text="60%"
+            android:text="0%"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="@+id/textView305"
             app:layout_constraintEnd_toEndOf="@+id/textView314"
@@ -375,36 +308,22 @@
             app:layout_constraintTop_toTopOf="@+id/textView305" />
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/memPro"
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/simpleProgressBar5"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_4sdp"
-            android:background="@drawable/card_background"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:max="100"
+
+            app:indicatorColor="#C62E27"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/textView31"
             app:layout_constraintStart_toStartOf="@+id/textView30"
             app:layout_constraintTop_toBottomOf="@+id/textView305"
-            app:layout_constraintVertical_bias="0">
-
-            <ProgressBar
-                android:id="@+id/simpleProgressBar5"
-                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="@drawable/card_background"
-                android:backgroundTint="@color/gray"
-                android:clipToOutline="true"
-                android:elevation="@dimen/_1sdp"
-
-                android:progressDrawable="@drawable/custom_progress_yellow"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintVertical_bias="0"
+            app:trackColor="@color/white"
+            app:trackCornerRadius="@dimen/_10sdp"
+            app:trackThickness="@dimen/_10sdp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

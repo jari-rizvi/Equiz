@@ -1,6 +1,5 @@
 package com.teamx.equiz.ui.fragments.userprogress
 
-import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -89,38 +88,24 @@ class UserProgressFragment : BaseFragment<FragmentUserProgressBinding, LoaderBoa
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
-                            mViewDataBinding.simpleProgressBar.progress = data.game[0].speed
+                            mViewDataBinding.simpleProgressBar.secondaryProgress = data.game[0].speed
                             mViewDataBinding.textView31.text = data.game[0].speed.toString() + " %"
-                            mViewDataBinding.simpleProgressBar.max = 100
 
-                            val progressAnimator = ObjectAnimator.ofInt(data.game[0].speed, mViewDataBinding.simpleProgressBar.progress, 0, 100)
-                            progressAnimator.duration = 1000
+                            mViewDataBinding.simpleProgressBar1.secondaryProgress = data.game[0].judgment
+                            mViewDataBinding.textView311.text = data.game[0].judgment.toString() + " %"
 
-                            // Start the animation
-                            progressAnimator.start()
-
-                            mViewDataBinding.simpleProgressBar1.progress = data.game[0].judgment
-                            mViewDataBinding.textView311.text =
-                                data.game[0].judgment.toString() + " %"
-
-                            mViewDataBinding.simpleProgressBar3.progress = data.game[0].accuracy
-                            mViewDataBinding.textView313.text =
-                                data.game[0].accuracy.toString() + " %"
+                            mViewDataBinding.simpleProgressBar3.secondaryProgress = data.game[0].accuracy
+                            mViewDataBinding.textView313.text = data.game[0].accuracy.toString() + " %"
 
                             mViewDataBinding.simpleProgressBar4.secondaryProgress = data.game[0].observation
 
+                            mViewDataBinding.textView314.text = data.game[0].observation.toString() + " %"
 
+                            mViewDataBinding.simpleProgressBar5.secondaryProgress = data.game[0].memory
+                            mViewDataBinding.textView315.text = data.game[0].memory.toString() + " %"
 
-                            mViewDataBinding.textView314.text =
-                                data.game[0].observation.toString() + " %"
-
-                            mViewDataBinding.simpleProgressBar2.progress = data.game[0].memory
-                            mViewDataBinding.textView315.text =
-                                data.game[0].memory.toString() + " %"
-
-                            mViewDataBinding.simpleProgressBar5.progress = data.game[0].calculation
-                            mViewDataBinding.textView312.text =
-                                data.game[0].calculation.toString() + " %"
+                            mViewDataBinding.simpleProgressBar2.secondaryProgress = data.game[0].calculation
+                            mViewDataBinding.textView312.text = data.game[0].calculation.toString() + " %"
 
 
                         }
