@@ -225,6 +225,12 @@
     <string name="edit_address">Edit Address</string>
     <string name="add_address">Add Address</string>
     <string name="password_8_character_and_special">Password should be at least 8 characters long and contain at least one special character.</string>
+    <string name="remove_from_cart">Remove from Cart</string>
+    <string name="add_card_details">Add Card Details</string>
+    <string name="label">Label</string>
+    <string name="select_address">Select Address</string>
+    <string name="select_card">Select Card</string>
+    <string name="proceed_to_pay">Proceed To Pay</string>
 
 
 </resources>

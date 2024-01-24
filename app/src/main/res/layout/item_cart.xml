@@ -63,6 +63,7 @@
             android:layout_marginHorizontal="@dimen/_5sdp"
             android:textColor="@color/black"
             android:maxLines="1"
+            android:textAlignment="viewStart"
             android:textSize="@dimen/_12ssp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

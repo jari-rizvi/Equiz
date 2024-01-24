@@ -101,9 +101,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
 
-                    android:text="Add to Cart"
+                    android:layout_centerInParent="true"
+                    android:text="@string/add_to_cart"
                     android:textColor="@color/colorWhite" />
             </RelativeLayout>
 
@@ -117,9 +117,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
 
-                    android:text="Remove from Cart"
+                    android:layout_centerInParent="true"
+                    android:text="@string/remove_from_cart"
                     android:textColor="@color/colorWhite" />
             </RelativeLayout>
         </LinearLayout>

@@ -3,6 +3,8 @@ package com.teamx.equiz.ui.fragments.subscription
 
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
+import android.widget.Button
 import androidx.activity.addCallback
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.NavOptions
@@ -13,6 +15,7 @@ import com.google.gson.JsonObject
 import com.stripe.android.PaymentConfiguration
 import com.stripe.android.Stripe
 import com.stripe.android.model.ConfirmPaymentIntentParams
+import com.stripe.android.view.CardInputWidget
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
@@ -43,10 +46,9 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            findNavController().popBackStack()
-        }
-        mViewDataBinding.lifecycleOwner = viewLifecycleOwner
+
+
+//        mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {
             anim {
@@ -57,40 +59,58 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
             }
         }
 
+        val bottomSheetStripe: ConstraintLayout = view.findViewById(R.id.bottomSheetStripe)
+        val cardInputWidget: CardInputWidget = view.findViewById(R.id.cardInputWidget)
+        val btnPay: Button = view.findViewById(R.id.btnPay)
+
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetStripe)
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
+
 
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
 
 
+
+        bottomSheetBehavior.addBottomSheetCallback(object :
+            BottomSheetBehavior.BottomSheetCallback() {
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+
+            }
+
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                when (newState) {
+                    BottomSheetBehavior.STATE_EXPANDED -> MainActivity.bottomNav?.visibility =
+                        View.GONE
+
+                    BottomSheetBehavior.STATE_COLLAPSED -> MainActivity.bottomNav?.visibility =
+                        View.VISIBLE
+
+                    else -> "Persistent Bottom Sheet"
+                }
+            }
+        })
+
+
+
+
         mViewDataBinding.btnBuy.setOnClickListener {
-            bottomSheetBehavior =
-                BottomSheetBehavior.from(mViewDataBinding.bottomSheetLayout.bottomSheetStripe)
 
-                bottomSheetBehavior.addBottomSheetCallback(object :
-                    BottomSheetBehavior.BottomSheetCallback() {
-                    override fun onSlide(bottomSheet: View, slideOffset: Float) {
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
 
-                    }
 
-                    override fun onStateChanged(bottomSheet: View, newState: Int) {
-                        when (newState) {
-                            BottomSheetBehavior.STATE_EXPANDED -> MainActivity.bottomNav?.visibility =
-                                View.GONE
-
-                            BottomSheetBehavior.STATE_COLLAPSED -> MainActivity.bottomNav?.visibility =
-                                View.VISIBLE
-
-                            else -> "Persistent Bottom Sheet"
-                        }
-                    }
-                })
-
-            val state =
-                if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) BottomSheetBehavior.STATE_COLLAPSED
-                else BottomSheetBehavior.STATE_EXPANDED
-            bottomSheetBehavior.state = state
+//            val state =
+//                if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) BottomSheetBehavior.STATE_COLLAPSED
+//                else BottomSheetBehavior.STATE_EXPANDED
+//            bottomSheetBehavior.state = state
 
 
         }
+
+
+
         PaymentConfiguration.init(
             requireContext(),
             "pk_test_51L1UVCGn3F7BuM88wH1PSuNgc9bX7tq0MkIMB2HU2BbScX3i7VgZw4V8nimfe1zUEF8uQ3Q6PFbzrMacvH5PfA7900PaBHO20E"
@@ -102,11 +122,10 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
         )
 
         //new work
-        mViewDataBinding.bottomSheetLayout.btnPay.setOnClickListener {
+        btnPay.setOnClickListener {
 
 
-            val cardParams =
-                mViewDataBinding.bottomSheetLayout.cardInputWidget.paymentMethodCreateParams
+            val cardParams = cardInputWidget.paymentMethodCreateParams
 
 
 
@@ -218,7 +237,7 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
                         it.data?.let { data ->
 
                             val cardParams =
-                                mViewDataBinding.bottomSheetLayout.cardInputWidget.paymentMethodCreateParams
+                                cardInputWidget.paymentMethodCreateParams
 
                             if (cardParams != null) {
                                 val params =

@@ -16,6 +16,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import androidx.viewpager2.widget.ViewPager2
 import com.google.firebase.FirebaseApp
 import com.google.firebase.ktx.Firebase
@@ -46,6 +47,7 @@ import org.json.JSONException
 import timber.log.Timber
 import java.util.Timer
 import java.util.TimerTask
+
 
 @AndroidEntryPoint
 class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewModel>(),
@@ -385,7 +387,18 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         initializeQuizesAdapter()
         addingSliderAdapter()
 
+        mViewDataBinding.swiperefresh.setOnRefreshListener(OnRefreshListener {
+            mViewDataBinding.swiperefresh.isRefreshing = false
+            RearrangeData()
+        })
 
+    }
+
+    private fun RearrangeData() {
+        mViewModel.getWallet(this)
+        mViewModel.getTopWinners(id, this)
+        mViewModel.getquizTitile("World", "", "", this)
+        addNewBanners()
     }
 
     private lateinit var strArrayList: ArrayList<TitleData>

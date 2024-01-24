@@ -138,7 +138,6 @@
     <string name="cancel">إلغاء</string>
 
 
-    <string name="save">Save</string>
     <string name="are_you_sure_you_want_to_delete">هل أنت متأكد أنك تريد حذف</string>
     <string name="are_you_sure_you_want_to_unsubscribe">هل أنت متأكد أنك تريد إلغاء الاشتراك؟</string>
     <string name="pay">Pay</string>
@@ -147,9 +146,7 @@
     <string name="collect_prize">جمع الجائزة</string>
     <string name="tearms_and_condition">الشروط والحالة</string>
     <string name="logout">تسجيل خروج</string>
-    <string name="subscribe_your_plan">Subscribe your Plan</string>
     <string name="let_s_upgrade_to_pro_account">دعونا نقوم بالترقية إلى الحساب الاحترافي</string>
-    <string name="phone">Phone</string>
     <string name="country">Country</string>
     <string name="city">City</string>
     <string name="postal_code">Postal Code</string>
@@ -160,11 +157,8 @@
     <string name="discount">تخفيض</string>
     <string name="sub_total">المجموع الفرعي</string>
     <string name="the_luck_of_the_draw_is_with_you">حظ السحب معك!</string>
-    <string name="claim_prize">Claim Prize</string>
     <string name="create_new_password">إنشاء كلمة مرور جديدة</string>
     <string name="your_new_password_must_be_unique_form_those_n_previously_used">يجب أن تكون كلمة المرور الجديدة فريدة من نوعها\n المستخدمة سابقًا.</string>
-    <string name="forgot_password">Forgot Password</string>
-    <string name="don_t_worry_it_occurs_please_enter_the_email_address_n_linked_with_your_account">Don\'t worry! It occurs. Please enter the email address,\n linked with your account.</string>
     <string name="welcome_back_glad_to_nsee_you_again">مرحبًا بعودتك! يسعدني\nرؤيتك مرة أخرى!</string>
     <string name="forgot_passwords">Forgot Passwords?</string>
     <string name="don_t_have_an_account">ليس لديك حساب؟</string>
