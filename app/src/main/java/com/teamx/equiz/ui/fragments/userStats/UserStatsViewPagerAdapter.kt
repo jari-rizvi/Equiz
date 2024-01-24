@@ -21,9 +21,9 @@ class UserStatsViewPagerAdapter(fragmentActivity: FragmentActivity, private var 
         return when (position) {
             0 -> UserProgressFragment()
             1 -> LoaderBoardFragment()
-            2 -> CancelledFragment()
+            2 -> UserProgressFragment()
             3 -> GamesFragment()
-            else -> CancelledFragment()
+            else -> UserProgressFragment()
         }
     }
 

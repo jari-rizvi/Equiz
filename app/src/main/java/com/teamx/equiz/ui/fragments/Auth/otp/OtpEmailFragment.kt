@@ -15,6 +15,7 @@ import com.teamx.equiz.constants.NetworkCallPoints
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentOtpEmailBinding
 import com.teamx.equiz.utils.DialogHelperClass
+import com.teamx.equiz.utils.PrefHelper
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONException
 
@@ -78,6 +79,7 @@ class OtpEmailFragment : BaseFragment<FragmentOtpEmailBinding, OtpViewModel>() {
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
+                            PrefHelper.getInstance(requireContext()).saveUerId(it.data.user._id)
 
                             var bundle = arguments
 

@@ -26,7 +26,7 @@ import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.constants.NetworkCallPoints
 import com.teamx.equiz.data.models.quizTitleData.Data
-import com.teamx.equiz.data.models.topWinnerData.GameModel
+import com.teamx.equiz.data.models.topWinnerData.Game
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentDashboardBinding
 import com.teamx.equiz.ui.fragments.dashboard.adapter.AllGameInterface
@@ -43,6 +43,7 @@ import com.teamx.equiz.utils.PrefHelper
 import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONException
+import timber.log.Timber
 import java.util.Timer
 import java.util.TimerTask
 
@@ -59,17 +60,18 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
 
     private lateinit var timer: Timer
-    private val delayInMillis: Long = 2000 // Adjust the delay time as needed
+    private val delayInMillis: Long = 2000
     private val handler = Handler(Looper.getMainLooper())
 
     private lateinit var options: NavOptions
 
     lateinit var winnerAdapter: TopWinnersAdapter
-    lateinit var winnerArrayList: ArrayList<GameModel>
+    lateinit var winnerArrayList: ArrayList<Game>
 
 
     lateinit var quizAdapter: QuizesAdapter
     lateinit var quizArrayList: ArrayList<Data>
+    var id: String = ""
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -135,6 +137,13 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             )
         }
 
+        val bundle = arguments
+        if (bundle != null) {
+            id = bundle.getString("id").toString()
+            Timber.tag("TAG").d(id.toString())
+        }
+
+
         mViewModel.getWallet(this)
 
         if (!mViewModel.getwalletResponse.hasActiveObservers()) {
@@ -187,7 +196,13 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         }
 
 
-        mViewModel.getTopWinners(this)
+        id = PrefHelper.getInstance(requireContext()).setUserId.toString()
+
+        if (id.isNullOrEmpty()){
+            id = " "
+        }
+            mViewModel.getTopWinners(id, this)
+
 
         if (!mViewModel.getBannerResponse.hasActiveObservers()) {
             mViewModel.getBannerResponse.observe(requireActivity()) {
@@ -304,57 +319,58 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
 
 
-            mViewModel.getquizTitileResponse.observe(requireActivity()) {
-                when (it.status) {
-                    Resource.Status.LOADING -> {
+        mViewModel.getquizTitileResponse.observe(requireActivity()) {
+            when (it.status) {
+                Resource.Status.LOADING -> {
 //                        loadingDialog.show()
 //                        mViewDataBinding.shimmerLayout.startShimmer()
 //                        mViewDataBinding.shimmerLayout.visibility = View.VISIBLE
-                    }
-
-                    Resource.Status.NOTVERIFY -> {
-                        loadingDialog.dismiss()
-                    }
-
-                    Resource.Status.SUCCESS -> {
-                        quizArrayList.clear()
-//                        loadingDialog.dismiss()
-//                        mViewDataBinding.shimmerLayout.stopShimmer()
-//                        mViewDataBinding.shimmerLayout.visibility = View.GONE
-                        mViewDataBinding.mainLayout.visibility = View.VISIBLE
-                        mViewDataBinding.recQuizes.visibility = View.VISIBLE
-                        it.data?.let { data ->
-                            data.data.forEach {
-                                quizArrayList.add(it)
-                            }
-                            quizAdapter.notifyDataSetChanged()
-                        }
-
-                    }
-
-                    Resource.Status.AUTH -> {
-                        loadingDialog.dismiss()
-                        mViewDataBinding.mainLayout.visibility = View.VISIBLE
-//                        mViewDataBinding.shimmerLayout.stopShimmer()
-//                        mViewDataBinding.shimmerLayout.visibility = View.GONE
-                        onToSignUpPage()
-                    }
-
-                    Resource.Status.ERROR -> {
-//                        loadingDialog.dismiss()
-//                        mViewDataBinding.shimmerLayout.stopShimmer()
-//                        mViewDataBinding.shimmerLayout.visibility = View.GONE
-                        mViewDataBinding.recQuizes.visibility = View.GONE
-                        /*  DialogHelperClass.errorDialog(
-                              requireContext(), it.message!!
-                          )*/
-                        if (isAdded) {
-                            mViewDataBinding.root.snackbar(it.message!!)
-                        }
-                    }
                 }
 
+                Resource.Status.NOTVERIFY -> {
+                    loadingDialog.dismiss()
+                }
+
+                Resource.Status.SUCCESS -> {
+                    quizArrayList.clear()
+//                        loadingDialog.dismiss()
+//                        mViewDataBinding.shimmerLayout.stopShimmer()
+//                        mViewDataBinding.shimmerLayout.visibility = View.GONE
+                    mViewDataBinding.mainLayout.visibility = View.VISIBLE
+                    mViewDataBinding.recQuizes.visibility = View.VISIBLE
+
+                    it.data?.let { data ->
+                        data.data.forEach {
+                            quizArrayList.add(it)
+                        }
+                        quizAdapter.notifyDataSetChanged()
+                    }
+
+                }
+
+                Resource.Status.AUTH -> {
+                    loadingDialog.dismiss()
+                    mViewDataBinding.mainLayout.visibility = View.VISIBLE
+//                        mViewDataBinding.shimmerLayout.stopShimmer()
+//                        mViewDataBinding.shimmerLayout.visibility = View.GONE
+                    onToSignUpPage()
+                }
+
+                Resource.Status.ERROR -> {
+//                        loadingDialog.dismiss()
+//                        mViewDataBinding.shimmerLayout.stopShimmer()
+//                        mViewDataBinding.shimmerLayout.visibility = View.GONE
+                    mViewDataBinding.recQuizes.visibility = View.GONE
+                    /*  DialogHelperClass.errorDialog(
+                          requireContext(), it.message!!
+                      )*/
+                    if (isAdded) {
+                        mViewDataBinding.root.snackbar(it.message!!)
+                    }
+                }
             }
+
+        }
 
         FirebaseApp.initializeApp(requireContext())
         Firebase.initialize(requireContext())

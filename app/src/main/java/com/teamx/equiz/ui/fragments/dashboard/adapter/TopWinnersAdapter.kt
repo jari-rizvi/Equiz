@@ -2,19 +2,14 @@ package com.teamx.equiz.ui.fragments.dashboard.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.google.android.play.integrity.internal.w
 import com.squareup.picasso.Picasso
 import com.teamx.equiz.R
 import com.teamx.equiz.data.models.topWinnerData.Game
-import com.teamx.equiz.data.models.topWinnerData.GameModel
 import com.teamx.equiz.databinding.ItemWinnerBinding
 
 class TopWinnersAdapter(
-    private val addressArrayList: ArrayList<GameModel>, val quizesInterface: TopWinnerInterface
+    private val addressArrayList: ArrayList<Game>, val quizesInterface: TopWinnerInterface
 ) : RecyclerView.Adapter<TopWinnerViewHolder>() {
 
     override fun onCreateViewHolder(

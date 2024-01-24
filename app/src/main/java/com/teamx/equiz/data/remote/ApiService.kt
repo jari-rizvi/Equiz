@@ -382,7 +382,8 @@ interface ApiService {
 
     @GET(NetworkCallPoints.GET_TOP_WINNERS)
     suspend fun getTopWinners(
-        @Header("token") basicCredentials: String = "$TOKENER"
+        @Path("userId") userId: String="",
+     /*   @Header("token") basicCredentials: String = "$TOKENER"*/
     ): Response<TopWinnerData>
 
 

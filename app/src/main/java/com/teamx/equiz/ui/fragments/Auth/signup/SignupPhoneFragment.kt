@@ -20,6 +20,14 @@ import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONException
 import androidx.activity.addCallback
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import org.json.JSONObject
+import java.util.regex.Pattern
+
 @AndroidEntryPoint
 class SignupPhoneFragment : BaseFragment<FragmentSignupPhoneBinding, SignupViewModel>() {
 
@@ -36,6 +44,8 @@ class SignupPhoneFragment : BaseFragment<FragmentSignupPhoneBinding, SignupViewM
     private var userPhone: String? = null
     private var userName: String? = null
     private var password: String? = null
+    var country: String = ""
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
          super.onViewCreated(view, savedInstanceState)
@@ -57,11 +67,20 @@ class SignupPhoneFragment : BaseFragment<FragmentSignupPhoneBinding, SignupViewM
 
             findNavController().navigate(R.id.action_signupPhoneFragment_to_logInFragment,arguments,options)
 
-
         }
+
+        mViewModel.viewModelScope.launch(Dispatchers.IO) {
+            addClientCountry()
+        }
+
 
         mViewDataBinding.btnSignup.setOnClickListener {
             isValidate()
+        }
+
+
+        mViewModel.viewModelScope.launch(Dispatchers.IO) {
+            addClientCountry()
         }
 
     }
@@ -140,6 +159,15 @@ class SignupPhoneFragment : BaseFragment<FragmentSignupPhoneBinding, SignupViewM
         }
     }
 
+    fun isPasswordValid(password: String): Boolean {
+        val specialCharacterPattern: Pattern = Pattern.compile("[!@#\$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]+")
+        val containsSpecialCharacter = specialCharacterPattern.matcher(password).find()
+
+        val isLengthValid = password.trim().length >= 8
+
+        return isLengthValid && containsSpecialCharacter
+    }
+
     fun isValidate(): Boolean {
         if (mViewDataBinding.etPhone.text.toString().trim().isEmpty()) {
               if(isAdded){
@@ -156,17 +184,53 @@ class SignupPhoneFragment : BaseFragment<FragmentSignupPhoneBinding, SignupViewM
 
         if (mViewDataBinding.etPass.text.toString().trim().isEmpty()) {
               if(isAdded){
-            mViewDataBinding.root.snackbar(getString(R.string.enter_your_password))
+            mViewDataBinding.root.snackbar(getString(R.string.enter_your_pasword))
              }
             return false
         }
-        if (mViewDataBinding.etPass.text.toString().trim().length < 8) {
-              if(isAdded){
-            mViewDataBinding.root.snackbar(getString(R.string.password_8_character))
-             }
+        if (!isPasswordValid(mViewDataBinding.etPass.text.toString())) {
+            if (isAdded) {
+                mViewDataBinding.root.snackbar(getString(R.string.password_8_character_and_special))
+            }
             return false
         }
         ApiCall()
         return true
     }
+
+
+    private fun addClientCountry() {
+        mViewModel.viewModelScope.launch(Dispatchers.IO) {  try {
+
+
+            val client = OkHttpClient()
+            val request = Request.Builder()
+                .url("https://ipwho.is/")
+                .build()
+
+            val response = client.newCall(request).execute()
+            var responseCode = 0;
+            if (response.code.also { responseCode = it } == 200) {
+                // Get response
+                val jsonData: String = response!!.body!!.string()
+
+                // Transform reponse to JSon Object
+                val json = JSONObject(jsonData)
+
+                // Use the JSon Object
+                var ip = json.getString("ip")
+                var country2 = json.getString("country")
+
+                country = country2
+            }
+            Log.d("123123", "addClientCountry: ${response}")
+        }
+
+        catch (e:Exception){
+            e.printStackTrace()
+        }
+        }
+    }
+
+
 }

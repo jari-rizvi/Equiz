@@ -82,7 +82,12 @@ class ProductAdapter(
     }
 
     override fun getItemCount(): Int {
-        return arrayList.size
+        if(arrayList.size > 4){
+            return 4
+        }
+        else{
+            return arrayList.size
+        }
     }
 
     class TopProductViewHolder(itemProductBinding: ItemProductBinding) :

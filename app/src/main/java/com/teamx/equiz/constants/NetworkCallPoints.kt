@@ -58,7 +58,7 @@ class NetworkCallPoints {
 
 
         const val GET_ORDER_DETAILS ="api/orders/order/{id}"
-        const val GET_TOP_WINNERS ="api/game/all"
+        const val GET_TOP_WINNERS ="api/game/all/{userId}"
         const val GET_QUIZ_TITLE ="api/quiz/tile"
         const val GET_NOTIFICATION ="api/notification/find"
         const val GET_PLAN ="api/payment/getPlan"

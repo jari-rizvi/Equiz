@@ -24,7 +24,6 @@
         <ScrollView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginBottom="@dimen/_52sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guidelin1e"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,6 +36,19 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 app:layout_constraintTop_toTopOf="parent">
+
+
+                <ImageView
+                    android:id="@+id/btnback"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/profilePicture"
+                    app:layout_constraintEnd_toStartOf="@+id/profilePicture"
+                    app:layout_constraintHorizontal_bias=".2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/profilePicture"
+                    app:srcCompat="@drawable/arrow_left"
+                    app:tint="@color/black" />
 
 
                 <de.hdodenhof.circleimageview.CircleImageView

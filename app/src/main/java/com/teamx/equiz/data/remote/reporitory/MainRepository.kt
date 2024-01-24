@@ -109,7 +109,7 @@ class MainRepository @Inject constructor(
         @Query("id") id: String,
     ) = apiService.getOrderDetail(id)
 
-    suspend fun getTopWinners() = apiService.getTopWinners()
+    suspend fun getTopWinners(@Path("userId") userId: String) = apiService.getTopWinners(userId)
 
     suspend fun me() = apiService.me()
     suspend fun unsub() = apiService.unsub()

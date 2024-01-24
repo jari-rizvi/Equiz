@@ -39,6 +39,7 @@ import okhttp3.Request
 import org.json.JSONException
 import org.json.JSONObject
 import timber.log.Timber
+import java.util.regex.Pattern
 
 
 @AndroidEntryPoint
@@ -187,6 +188,9 @@ class LogInEmailFragment : BaseFragment<FragmentLoginEmailBinding, LoginViewMode
                                     dataStoreProvider.saveUserToken(data.token)
                                     TOKENER = data.token
                                 }
+
+                                PrefHelper.getInstance(requireContext()).saveUerId(it.data.user._id)
+
                                 var bundle = arguments
                                 if (bundle == null) {
                                     bundle = Bundle()
@@ -223,8 +227,19 @@ class LogInEmailFragment : BaseFragment<FragmentLoginEmailBinding, LoginViewMode
         }
     }
 
+    fun isPasswordValid(password: String): Boolean {
+        // Check if the password contains at least one special character
+        val specialCharacterPattern: Pattern = Pattern.compile("[!@#\$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]+")
+        val containsSpecialCharacter = specialCharacterPattern.matcher(password).find()
+
+        // Check if the password length is at least 8 characters
+        val isLengthValid = password.trim().length >= 8
+
+        return isLengthValid && containsSpecialCharacter
+    }
 
     fun isValidate(): Boolean {
+
         if (mViewDataBinding.etEMail.text.toString().trim().isEmpty()) {
               if(isAdded){
             mViewDataBinding.root.snackbar(getString(R.string.enter_email))
@@ -234,16 +249,18 @@ class LogInEmailFragment : BaseFragment<FragmentLoginEmailBinding, LoginViewMode
 
         if (mViewDataBinding.etPass.text.toString().trim().isEmpty()) {
               if(isAdded){
-            mViewDataBinding.root.snackbar(getString(R.string.enter_your_password))
+            mViewDataBinding.root.snackbar(getString(R.string.enter_your_pasword))
              }
             return false
         }
-        if (mViewDataBinding.etPass.text.toString().trim().length < 8) {
+        if (!isPasswordValid(mViewDataBinding.etPass.text.toString())) {
             if (isAdded) {
-                mViewDataBinding.root.snackbar(getString(R.string.password_8_character))
+                mViewDataBinding.root.snackbar(getString(R.string.password_8_character_and_special))
             }
             return false
         }
+
+
         ApiCall()
         return true
     }
@@ -333,30 +350,36 @@ class LogInEmailFragment : BaseFragment<FragmentLoginEmailBinding, LoginViewMode
     }
 
    private fun addClientCountry() {
-        mViewModel.viewModelScope.launch(Dispatchers.IO) {
-            val client = OkHttpClient()
-            val request = Request.Builder()
-                .url("https://ipwho.is/")
-                .build()
-            val response = client.newCall(request).execute()
-            var responseCode = 0;
-            if (response.code.also { responseCode = it } == 200) {
-                // Get response
-                val jsonData: String = response!!.body!!.string()
+       mViewModel.viewModelScope.launch(Dispatchers.IO) {    try {
 
-                // Transform reponse to JSon Object
-                val json = JSONObject(jsonData)
 
-                // Use the JSon Object
-                var ip = json.getString("ip")
-                var country2 = json.getString("country")
+               val client = OkHttpClient()
+               val request = Request.Builder()
+                   .url("https://ipwho.is/")
+                   .build()
+               val response = client.newCall(request).execute()
+               var responseCode = 0;
+               if (response.code.also { responseCode = it } == 200) {
+                   // Get response
+                   val jsonData: String = response!!.body!!.string()
+                   Log.d("TAG", "addClientCountry: $jsonData")
 
-                country = country2
+                   // Transform reponse to JSon Object
+                   val json = JSONObject(jsonData)
 
-                PrefHelper.getInstance(requireContext()).setCountry(country2)
-            }
-            Log.d("123123", "addClientCountry: ${response}")
-        }
+                   // Use the JSon Object
+                   var ip = json.getString("ip")
+                   var country2 = json.getString("country")
+
+                   country = country2
+
+                   PrefHelper.getInstance(requireContext()).setCountry(country2)
+               }
+               Log.d("123123", "addClientCountry: ${response}")
+
+       } catch (e:Exception){
+           e.printStackTrace()
+       } }
     }
 
 

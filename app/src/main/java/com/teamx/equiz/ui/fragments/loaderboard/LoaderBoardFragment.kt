@@ -7,18 +7,18 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
 import com.squareup.picasso.Picasso
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.data.models.topWinnerData.Game
-import com.teamx.equiz.data.models.topWinnerData.GameModel
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentLoaderBoardBinding
 import com.teamx.equiz.ui.fragments.loaderboard.adapter.LoaderMultiViewAdapter
 import com.teamx.equiz.utils.DialogHelperClass
+import com.teamx.equiz.utils.PrefHelper
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class LoaderBoardFragment : BaseFragment<FragmentLoaderBoardBinding, LoaderBoardViewModel>() {
@@ -34,9 +34,11 @@ class LoaderBoardFragment : BaseFragment<FragmentLoaderBoardBinding, LoaderBoard
 
     private lateinit var loaderMultiViewAdapter: LoaderMultiViewAdapter
 
-    lateinit var winnerArrayList: ArrayList<GameModel>
+    lateinit var winnerArrayList: ArrayList<Game>
 
     private var isOdd = false
+    var id: String = ""
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
@@ -61,7 +63,14 @@ class LoaderBoardFragment : BaseFragment<FragmentLoaderBoardBinding, LoaderBoard
 
 //        initializeCategoriesAdapter()
 
-        mViewModel.getTopWinners()
+
+
+        id = PrefHelper.getInstance(requireContext()).setUserId.toString()
+        if (id.isNullOrEmpty()){
+            id = " "
+        }
+
+        mViewModel.getTopWinners(id)
 
         if (!mViewModel.getTopWinnersResponse.hasActiveObservers()) {
             mViewModel.getTopWinnersResponse.observe(requireActivity()) {

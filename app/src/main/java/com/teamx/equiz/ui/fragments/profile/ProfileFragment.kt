@@ -50,6 +50,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+
+        mViewDataBinding.btnback.setOnClickListener {
+            popUpStack()
+        }
+
+
         val bundle = arguments
 
         val strRank = bundle?.getString("rankUser", "")

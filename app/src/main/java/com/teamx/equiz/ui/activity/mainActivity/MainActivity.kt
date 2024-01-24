@@ -141,7 +141,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
                     mViewDataBinding.bottomNavigationq?.visibility = View.VISIBLE
 
                 }
-                R.id.settingsFragment -> {
+                R.id.ecommerceFragment -> {
                     mViewDataBinding.bottomNavigationq.setSelectedIndex(2)
                      mViewDataBinding.bottomNavigationq?.visibility = View.VISIBLE
                 }
@@ -270,7 +270,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
             ),
             com.teamx.equiz.games.nav_custom.custombottomnav.Model(
                 R.drawable.setting_dash,
-                R.id.settingsFragment,
+                R.id.ecommerceFragment,
                 2,/*R.string.title_chat*/
                 R.string.profile2,
                 R.string.empty_value

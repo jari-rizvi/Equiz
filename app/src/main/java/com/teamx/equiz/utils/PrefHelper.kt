@@ -19,10 +19,10 @@ class PrefHelper private constructor() {
         private val PLACE_OBJ = "place_obj"
         private val PAYTYPE = "pay_type"
         private val SPECIAL_INSTRUCATIONS = "special_instructions"
-        private val USER_ID = "user_id"
         private val SAVE_COUPONTOKEN = "save_token"
         private val MERCHANT_ID = "merchant_id"
         private val ORDER_ID = "order_id"
+        private val USER_ID = "user_id"
         private const val dbCardP = "dbCardP"
         private val LANGTYPE = "lang_type"
         private val CARPLATE = "car_plate"
@@ -79,7 +79,7 @@ class PrefHelper private constructor() {
 
     fun savePaymentMethod(pay_type: String) {
 //        sharedPreferences.edit().putString(PAYTYPE, pay_type).apply()
-        if (pay_type.contains("card", true)||pay_type.contains("google", true)) {
+        if (pay_type.contains("card", true) || pay_type.contains("google", true)) {
             sharedPreferences.edit().putString(PAYTYPE, "ONLINE_PAYMENTS").apply()
         } else if (pay_type.contains("paypal", true)) {
             sharedPreferences.edit().putString(PAYTYPE, "PAYPAL").apply()
@@ -119,11 +119,7 @@ class PrefHelper private constructor() {
         sharedPreferences.edit().putBoolean(NOTIFICATION_ENABLE, redeem).apply()
     }
 
-    val user_id: String? get() = sharedPreferences.getString(USER_ID, "")
 
-    fun saveUserId(pay_type: String) {
-        sharedPreferences.edit().putString(USER_ID, pay_type).apply()
-    }
 
     val getCouponCode: String? get() = sharedPreferences.getString(SAVE_COUPONTOKEN, "")
 
@@ -145,6 +141,12 @@ class PrefHelper private constructor() {
 
     }
 
+    val setUserId: String? get() = sharedPreferences.getString(USER_ID, "")
+
+    fun saveUerId(user_id: String) {
+        sharedPreferences.edit().putString(USER_ID, user_id).apply()
+
+    }
 
 
     fun getDebitCardPointer(): String? {
@@ -297,7 +299,7 @@ class PrefHelper private constructor() {
         sharedPreferences.edit().putString("phoneNumberTxt", slectStripe).apply()
     }
 
-  val getCountry: String?
+    val getCountry: String?
         get() = sharedPreferences.getString("country", "")
 
 
@@ -314,7 +316,10 @@ class PrefHelper private constructor() {
 
     fun getFavouriteShop(): UserFavouriteShop? {
         val gson = Gson()
-        return gson.fromJson(sharedPreferences.getString(favouriteShop, "[]"), UserFavouriteShop::class.java)
+        return gson.fromJson(
+            sharedPreferences.getString(favouriteShop, "[]"),
+            UserFavouriteShop::class.java
+        )
     }
 
     fun setFavouriteProduct(shippingAddress: List<String>) {
@@ -348,9 +353,6 @@ class PrefHelper private constructor() {
         val street_address: String,
         val zip: String? = "00000"
     )
-
-
-
 
 
     //

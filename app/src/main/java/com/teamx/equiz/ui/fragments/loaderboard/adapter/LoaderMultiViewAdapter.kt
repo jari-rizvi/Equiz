@@ -10,12 +10,11 @@ import androidx.appcompat.widget.AppCompatCheckedTextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.squareup.picasso.Picasso
 import com.teamx.equiz.R
-import com.teamx.equiz.data.models.topWinnerData.GameModel
+import com.teamx.equiz.data.models.topWinnerData.Game
 
 class LoaderMultiViewAdapter(
-    private val dataSet: ArrayList<GameModel>
+    private val dataSet: ArrayList<Game>
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

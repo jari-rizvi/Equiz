@@ -28,6 +28,7 @@ import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @AndroidEntryPoint
 class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsViewModel>() {
@@ -46,6 +47,7 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
     private lateinit var quizesTitleAdapter: QuizesTitleAdapter
     private lateinit var quizesAdapter: QuizesAdapter
 
+    var id: String = ""
 
     var referralCode = ""
     var userId = ""
@@ -55,7 +57,9 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
             findNavController().popBackStack()
         }
 
-
+        mViewDataBinding.btnback.setOnClickListener {
+            popUpStack()
+        }
 
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
@@ -67,6 +71,7 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+
 
 //        TOKENER =
 //            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTFlNWZiOGM3NjU2MDdlNzE0NjNiZGYiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3MDE2ODg4ODAsImV4cCI6MTcwMTc3NTI4MH0.th7AmVunSuxLeq8XP5oe-JywCZGijWOAtrqPmImIKzM"
@@ -426,7 +431,14 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
     }
 
     fun addLeaderBoard() {
-        mViewModel.getTopWinners()
+
+        id = PrefHelper.getInstance(requireContext()).setUserId.toString()
+
+        if (id.isNullOrEmpty()){
+            id = " "
+        }
+
+        mViewModel.getTopWinners(id)
 
         if (!mViewModel.getTopWinnersResponse.hasActiveObservers()) {
             mViewModel.getTopWinnersResponse.observe(requireActivity()) {
@@ -445,9 +457,10 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
 
 
                             try {
-                                data.userRank.forEach {
+                                mViewDataBinding.textView50.text = data.userRank.rank.toString()
+                              /*  {
                                     mViewDataBinding.textView50.text = it.rank.toString()
-                                }
+                                }*/
 
                             } catch (e: Exception) {
                                 e.printStackTrace()

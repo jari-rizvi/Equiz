@@ -40,7 +40,9 @@
     <string name="enter_email">Enter Email</string>
     <string name="enter_name">Enter Your Name</string>
     <string name="password_8_character">Password must have atleast 8 character</string>
+    <string name="password_must_special">Password should contain at least 1 special character.</string>
     <string name="enter_your_password">**************</string>
+    <string name="enter_your_pasword">Enter You Password</string>
     <string name="enter_Password">Enter Password</string>
     <string name="password_does_not_match">Password does not match</string>
     <string name="quizzes">Quizzes</string>
@@ -222,6 +224,7 @@
     <string name="update">Update</string>
     <string name="edit_address">Edit Address</string>
     <string name="add_address">Add Address</string>
+    <string name="password_8_character_and_special">Password should be at least 8 characters long and contain at least one special character.</string>
 
 
 </resources>

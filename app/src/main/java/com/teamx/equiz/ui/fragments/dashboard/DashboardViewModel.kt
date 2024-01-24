@@ -122,7 +122,7 @@ class DashboardViewModel @Inject constructor(
     val getTopWinnersResponse: LiveData<Resource<TopWinnerData>>
         get() = _getTopWinnersResponse
 
-    fun getTopWinners(
+    fun getTopWinners(id:String,
         unAuthorizedCallback: UnAuthorizedCallback
     ) {
         viewModelScope.launch {
@@ -131,7 +131,7 @@ class DashboardViewModel @Inject constructor(
                 try {
                     Timber.tag("87878787887").d("starta")
 
-                    mainRepository.getTopWinners().let {
+                    mainRepository.getTopWinners(id).let {
                         if (it.isSuccessful) {
                             _getTopWinnersResponse.postValue(Resource.success(it.body()!!))
                             Timber.tag("87878787887").d(it.body()!!.toString())

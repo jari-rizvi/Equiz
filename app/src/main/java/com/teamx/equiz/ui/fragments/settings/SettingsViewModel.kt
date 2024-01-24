@@ -1,12 +1,10 @@
 package com.teamx.equiz.ui.fragments.settings
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.teamx.equiz.baseclasses.BaseViewModel
 import com.teamx.equiz.data.models.meModel.MeModel
-import com.teamx.equiz.data.models.quizTitleData.QuizTitleData
 import com.teamx.equiz.data.models.topWinnerData.TopWinnerData
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.data.remote.reporitory.MainRepository
@@ -63,14 +61,14 @@ class SettingsViewModel @Inject constructor(
     val getTopWinnersResponse: LiveData<Resource<TopWinnerData>>
         get() = _getTopWinnersResponse
 
-    fun getTopWinners() {
+    fun getTopWinners(id:String) {
         viewModelScope.launch {
             _getTopWinnersResponse.postValue(Resource.loading(null))
             if (networkHelper.isNetworkConnected()) {
                 try {
                     Timber.tag("87878787887").d("starta")
 
-                    mainRepository.getTopWinners().let {
+                    mainRepository.getTopWinners(id).let {
                         if (it.isSuccessful) {
                             _getTopWinnersResponse.postValue(Resource.success(it.body()!!))
                             Timber.tag("87878787887").d(it.body()!!.toString())
