@@ -27,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -35,6 +36,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
 import com.teamx.equiz.games.games.BackButton
+import com.teamx.equiz.games.games.learningy.musiclearning.correctSound
+import com.teamx.equiz.games.games.learningy.musiclearning.incorrectSound
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import kotlin.random.Random
@@ -63,6 +66,7 @@ fun NumPlus(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit 
     var isTimeUp by remember { mutableStateOf(false) }
 
     var timeLeft by remember { mutableStateOf(20L) }
+    val context = LocalContext.current
 
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
@@ -91,7 +95,7 @@ fun NumPlus(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit 
 
         content(true, rightGameAnswersNumPlus, totalGameAnswersNumPlus)
         rightGameAnswersNumPlus = 0
-        totalGameAnswersNumPlus = 1
+        totalGameAnswersNumPlus = 0
     }
 
     if (isTimeUp) {
@@ -103,7 +107,7 @@ fun NumPlus(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit 
             } else {
                 content(false, rightGameAnswersNumPlus, totalGameAnswersNumPlus)
                 rightGameAnswersNumPlus = 0
-                totalGameAnswersNumPlus = 1
+                totalGameAnswersNumPlus = 0
             }
         }
 
@@ -124,7 +128,7 @@ fun NumPlus(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit 
                 BackButton(onClick = {
                     content(false, 0, 0)
                     rightGameAnswersNumPlus = 0
-                    totalGameAnswersNumPlus = 1
+                    totalGameAnswersNumPlus = 0
                 }
                 )
                 Text(
@@ -160,6 +164,7 @@ fun NumPlus(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit 
                                         .clickable {
                                             totalGameAnswersNumPlus++
                                             rightGameAnswersNumPlus++
+                                            correctSound(context)
                                             ischange = false
                                         }, contentAlignment = Alignment.Center
                                 ) {
@@ -181,7 +186,9 @@ fun NumPlus(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit 
                                             totalGameAnswersNumPlus++
                                             if (value == PresumM) {
                                                 rightGameAnswersNumPlus++
+
                                             }
+                                            incorrectSound(context)
                                             ischange = false
                                         }, contentAlignment = Alignment.Center
                                 ) {

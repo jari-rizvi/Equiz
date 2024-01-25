@@ -1,17 +1,12 @@
 package com.teamx.equiz.games.games.learningy.unfolw
 
-import android.os.Build
 import android.os.CountDownTimer
 import android.util.Log
 import androidx.annotation.Keep
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -34,6 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -43,11 +39,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
 import com.teamx.equiz.games.games.BackButton
-import com.teamx.equiz.games.games.TouchTheNumGamePlus
 import com.teamx.equiz.games.games.learningy.linkListSpin67
+import com.teamx.equiz.games.games.learningy.musiclearning.correctSound
+import com.teamx.equiz.games.games.learningy.musiclearning.incorrectSound
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
-import com.teamx.equiz.games.ui.theme.BirdColor1
 import com.teamx.equiz.games.ui.theme.BirdColor3
 import com.teamx.equiz.games.ui.theme.BirdColor4
 import kotlinx.coroutines.delay
@@ -106,6 +102,7 @@ fun followTouchTheNumGamePlus(content:  (bool:Boolean, rightAnswer:Int, totalAns
     var isTimeUp by remember { mutableStateOf(false) }
 
     var timeLeft by remember { mutableStateOf(20L) }
+    val context = LocalContext.current
 
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
@@ -136,8 +133,8 @@ fun followTouchTheNumGamePlus(content:  (bool:Boolean, rightAnswer:Int, totalAns
            rightGameAnswersTheNum,
            totalGameAnswersTheNum
         )
-       rightGameAnswersTheNum =0
-       totalGameAnswersTheNum =1
+        rightGameAnswersTheNum = 0
+        totalGameAnswersTheNum = 0
 
     }
 
@@ -152,8 +149,8 @@ fun followTouchTheNumGamePlus(content:  (bool:Boolean, rightAnswer:Int, totalAns
                    rightGameAnswersTheNum,
                    totalGameAnswersTheNum
                 )
-               rightGameAnswersTheNum =0
-               totalGameAnswersTheNum =1
+                rightGameAnswersTheNum = 0
+                totalGameAnswersTheNum = 0
             }
         }
 
@@ -312,7 +309,7 @@ fun NumAscendingObjects2() {
 @Composable
 fun NumAnimatedObject2(number: Int, itemCompared: Int, onClick: (Item: Int) -> Unit) {
     var colorState by remember { mutableStateOf<Color>(BirdColor4) }
-
+    val context = LocalContext.current
     Surface(
         color = if (numLinkListAdded32.contains(number)) {
             colorState = BirdColor4
@@ -342,21 +339,23 @@ fun NumAnimatedObject2(number: Int, itemCompared: Int, onClick: (Item: Int) -> U
             .clip(RoundedCornerShape(6.dp))
 
             .clickable(
-                enabled =numLinkListAdded32.contains(number)
+                enabled = numLinkListAdded32.contains(number)
             ) {
 
-               totalGameAnswersTheNum++
+                totalGameAnswersTheNum++
 
                 if (colorState == Color.Transparent) {
 
                     Log.d("123123", "AnimatedObjectWrong2:$number ::$itemCompared ")
                     return@clickable
-                } else if (number ==numLinkListAdded32.last) {
+                } else if (number == numLinkListAdded32.last) {
                     colorState = Color.Transparent
                     onClick(itemCompared)
-                   rightGameAnswersTheNum++
+                    rightGameAnswersTheNum++
+                    correctSound(context)
                     Log.d("123123", "AnimatedObjectWrong1:$number ::$itemCompared ")
                 } else {
+                    incorrectSound(context)
                     Log.d("123123", "AnimatedObjectWrong2:$number ::$itemCompared ")
                 }
             },

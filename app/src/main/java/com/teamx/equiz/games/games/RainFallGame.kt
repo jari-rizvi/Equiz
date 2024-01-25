@@ -68,6 +68,7 @@ fun RainFallGame(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: Int)
 
 
     var timeLeft by remember { mutableStateOf(20L) }
+    val context = LocalContext.current
     var isTimeUp by remember { mutableStateOf(false) }
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {

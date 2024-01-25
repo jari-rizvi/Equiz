@@ -11,7 +11,9 @@ import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.databinding.CombineResultGameFragmentBinding
+import com.teamx.equiz.ui.fragments.dashboard.DashboardFragment.Companion.returnGameName
 import com.teamx.equiz.ui.game_fragments.game_random.RandomGameFragsViewModel
+import com.teamx.equiz.utils.DialogHelperClass.Companion.returnGameIconRes
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -77,19 +79,28 @@ class CombinedGameResultFragment :
             ((sharedViewModel.gameNameRight.get(0) / sharedViewModel.gameNameTotal.get(0)) * 100).toInt()
         mViewDataBinding.game1per.text =
             "${((sharedViewModel.gameNameRight.get(0) / sharedViewModel.gameNameTotal.get(0)) * 100).toInt()}%"
-        mViewDataBinding.game1tv.text = "${sharedViewModel.gameName.get(0)}"
+        mViewDataBinding.game1tv.text = "${returnGameName(sharedViewModel.gameName.get(0))}"
+        mViewDataBinding.game1img.setImageResource(returnGameIconRes(sharedViewModel.gameName.get(0)))
 
         mViewDataBinding.simpleProgressBar1.secondaryProgress =
             ((sharedViewModel.gameNameRight.get(1) / sharedViewModel.gameNameTotal.get(1)) * 100).toInt()
         mViewDataBinding.game2per.text =
             "${((sharedViewModel.gameNameRight.get(1) / sharedViewModel.gameNameTotal.get(1)) * 100).toInt()}%"
-        mViewDataBinding.game2tv.text = "${sharedViewModel.gameName.get(1)}"
+        mViewDataBinding.game2tv.text = "${returnGameName(sharedViewModel.gameName.get(1))}"
+        mViewDataBinding.game2img.setImageResource(returnGameIconRes(sharedViewModel.gameName.get(1)))
         if (sharedViewModel.gameName.size > 2) {
             mViewDataBinding.simpleProgressBar2.secondaryProgress =
                 ((sharedViewModel.gameNameRight.get(2) / sharedViewModel.gameNameTotal.get(2)) * 100).toInt()
             mViewDataBinding.game3per.text =
                 "${((sharedViewModel.gameNameRight.get(2) / sharedViewModel.gameNameTotal.get(2)) * 100).toInt()}%"
-            mViewDataBinding.game3tv.text = "${sharedViewModel.gameName.get(2)}"
+            mViewDataBinding.game3tv.text = "${returnGameName(sharedViewModel.gameName.get(2))}"
+            mViewDataBinding.game3img.setImageResource(
+                returnGameIconRes(
+                    sharedViewModel.gameName.get(
+                        2
+                    )
+                )
+            )
         }
 
 

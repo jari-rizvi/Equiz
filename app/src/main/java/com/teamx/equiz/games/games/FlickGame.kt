@@ -36,6 +36,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
@@ -57,6 +58,7 @@ import kotlin.random.Random
 var rightGameAnswersFlick = 0
 var totalGameAnswersFlick = 0
 
+/*
 @Preview
 @Composable
 fun FlickGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit = { bool, rightAnswer, total -> }) {
@@ -66,6 +68,7 @@ fun FlickGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int)
     var isTimeUp by remember { mutableStateOf(false) }
 
     var timeLeft by remember { mutableStateOf(20L) }
+    val context = LocalContext.current
 
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
@@ -126,7 +129,7 @@ fun FlickGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int)
                 BackButton(onClick = { content(false, 0, 0) }
                 )
                 Text(
-                    text = "Training",
+                    text = "Flick",
                     modifier = Modifier
                         .fillMaxWidth(),
                     textAlign = TextAlign.Center,
@@ -159,6 +162,7 @@ fun FlickGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int)
 
 
 }
+*/
 
 //flick
 @Composable

@@ -34,6 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -43,6 +44,7 @@ import com.teamx.equiz.R
 import com.teamx.equiz.games.games.learningy.SpinObstacles
 import com.teamx.equiz.games.games.learningy.SpinningObject67
 import com.teamx.equiz.games.games.learningy.SpinningObject67Supplementary
+import com.teamx.equiz.games.games.learningy.musiclearning.incorrectSound
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import com.teamx.equiz.ui.theme.BirdColor4
@@ -63,6 +65,7 @@ fun SpinningBlockGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: In
     var isTimeUp by remember { mutableStateOf(false) }
 
     var timeLeft by remember { mutableStateOf(20L) }
+    val context = LocalContext.current
 
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
@@ -89,7 +92,7 @@ fun SpinningBlockGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: In
     if (isGameOver) {
         content(true, rightGameAnswersSpin, wrongGameAnswersSpin)
         rightGameAnswersSpin=0
-        wrongGameAnswersSpin=1
+        wrongGameAnswersSpin=0
     }
 
     if (isTimeUp) {
@@ -101,7 +104,7 @@ fun SpinningBlockGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: In
             } else {
                 content(false, rightGameAnswersSpin, wrongGameAnswersSpin)
                 rightGameAnswersSpin=0
-                wrongGameAnswersSpin=1
+                wrongGameAnswersSpin=0
             }
         }
 
@@ -333,51 +336,52 @@ fun SpinObjects67() {
 
 }
 
-@Composable
-fun SpinningObject67(number: Int, onClick: (item: Int) -> Unit) {
-    var colorState by remember { mutableStateOf(Color.Gray) }
-
-    Box(
-        modifier = Modifier
-            .padding(6.dp)
-            .size(85.dp)
-            .background(
-                color = colorState, shape = RoundedCornerShape(6.dp)
-            )
-            .clip(RoundedCornerShape(6.dp))
-
-            .clickable(
-                enabled = true
-            ) {
-
-                if (linkListSpin67.contains(number)) {
-                    if (!linkListSpin67.contains(number)) {
-                        Log.d("123123", "AnimatedObjectWrong2:$number ::$number ")
-                        wrongGameAnswersSpin++
-                        return@clickable
-
-                    } else if (linkListSpin67.contains(number)) {
-                        rightGameAnswersSpin++
-
-                        colorState = BirdColor4
-                        onClick(number)
-                        Log.d("123123", "AnimatedObjectWrong1:$number ::$number ")
-                    } else {
-                        wrongGameAnswersSpin++
-                        Log.d("123123", "AnimatedObjectWrong2:$number ::$number ")
-                    }
-                } else {
-                    colorState = Color.Red
-                    onClick(number)
-                }
-
-            }, contentAlignment = Alignment.Center
-
-    ) {
-
-
-    }
-}
+//@Composable
+//fun SpinningObject67(number: Int, onClick: (item: Int) -> Unit) {
+//    var colorState by remember { mutableStateOf(Color.Gray) }
+//
+//    Box(
+//        modifier = Modifier
+//            .padding(6.dp)
+//            .size(85.dp)
+//            .background(
+//                color = colorState, shape = RoundedCornerShape(6.dp)
+//            )
+//            .clip(RoundedCornerShape(6.dp))
+//
+//            .clickable(
+//                enabled = true
+//            ) {
+//
+//                if (linkListSpin67.contains(number)) {
+//                    if (!linkListSpin67.contains(number)) {
+//                        Log.d("123123", "AnimatedObjectWrong2:$number ::$number ")
+//                        wrongGameAnswersSpin++
+//                        incorrectSound(context)
+//                        return@clickable
+//
+//                    } else if (linkListSpin67.contains(number)) {
+//                        rightGameAnswersSpin++
+//
+//                        colorState = BirdColor4
+//                        onClick(number)
+//                        Log.d("123123", "AnimatedObjectWrong1:$number ::$number ")
+//                    } else {
+//                        wrongGameAnswersSpin++
+//                        Log.d("123123", "AnimatedObjectWrong2:$number ::$number ")
+//                    }
+//                } else {
+//                    colorState = Color.Red
+//                    onClick(number)
+//                }
+//
+//            }, contentAlignment = Alignment.Center
+//
+//    ) {
+//
+//
+//    }
+//}
 
 @Composable
 fun SpinningObject67Supplementary(number: Int, onClick: (item: Int) -> Unit) {

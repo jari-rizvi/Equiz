@@ -42,12 +42,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Fill
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
+import com.teamx.equiz.games.games.learningy.musiclearning.correctSound
+import com.teamx.equiz.games.games.learningy.musiclearning.incorrectSound
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import com.teamx.equiz.games.ui.theme.DeceptionBlack
 import com.teamx.equiz.games.ui.theme.DeceptionPink
@@ -73,6 +76,7 @@ fun TouchTheShapesGameScreen(content: (boolean: Boolean, rightAnswer: Int, total
     wrongGameAnswers = 1
 
     var timeLeft by remember { mutableStateOf(20L) }
+    val context = LocalContext.current
     var isTimeUp by remember { mutableStateOf(false) }
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
@@ -98,8 +102,8 @@ fun TouchTheShapesGameScreen(content: (boolean: Boolean, rightAnswer: Int, total
 
     if (isGameOver) {
         content(true, rightGameAnswersDecep, totalGameAnswersDecep)
-          rightGameAnswersDecep = 0
-          totalGameAnswersDecep = 1
+        rightGameAnswersDecep = 0
+        totalGameAnswersDecep = 0
     }
 
     if (isTimeUp) {
@@ -111,7 +115,7 @@ fun TouchTheShapesGameScreen(content: (boolean: Boolean, rightAnswer: Int, total
             } else {
                 content(false, rightGameAnswersDecep, totalGameAnswersDecep)
                 rightGameAnswersDecep = 0
-                totalGameAnswersDecep = 1
+                totalGameAnswersDecep = 0
             }
         }
 
@@ -187,9 +191,11 @@ fun TouchTheShapesGameScreen(content: (boolean: Boolean, rightAnswer: Int, total
 
 
                                 .clickable {
+                                    val temp = rightGameAnswersDecep
                                     totalGameAnswersDecep++
                                     updateScore(boxes, box, index) { i, bool ->
                                         rightGameAnswersDecep++
+                                        correctSound(context)
                                         score++
                                         restart = true
                                         val arr = ArrayList<ShapeBox>()
@@ -203,6 +209,9 @@ fun TouchTheShapesGameScreen(content: (boolean: Boolean, rightAnswer: Int, total
                                             restart = false
                                         }
 
+                                    }
+                                    if (temp == rightGameAnswersDecep) {
+                                        incorrectSound(context)
                                     }
                                     if (!restart) {
                                         boxes = generateBoxes()

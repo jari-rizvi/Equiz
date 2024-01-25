@@ -36,6 +36,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -44,6 +45,8 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
+import com.teamx.equiz.games.games.learningy.musiclearning.correctSound
+import com.teamx.equiz.games.games.learningy.musiclearning.incorrectSound
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import com.teamx.equiz.games.ui.theme.BirdColor4
@@ -66,6 +69,7 @@ fun OperationGame(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: Int
 
 
     var timeLeft by remember { mutableStateOf(20L) }
+    val context = LocalContext.current
     var isTimeUp by remember { mutableStateOf(false) }
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
@@ -92,7 +96,7 @@ fun OperationGame(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: Int
     if (isGameOver) {
         content(true, rightGameAnswersOp, wrongGameAnswersOp)
         rightGameAnswersOp = 0
-        wrongGameAnswersOp = 1
+        wrongGameAnswersOp = 0
     }
 
 
@@ -105,7 +109,7 @@ fun OperationGame(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: Int
             } else {
                 content(false, rightGameAnswersOp, wrongGameAnswersOp)
                 rightGameAnswersOp = 0
-                wrongGameAnswersOp = 1
+                wrongGameAnswersOp = 0
             }
         }
 
@@ -350,7 +354,9 @@ fun OperationGame(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: Int
                                                     resultNum1 = resultNum
 //                                        accurateCounter++
                                                     rightGameAnswersOp++
+                                                    correctSound(context)
                                                 } else {
+                                                    incorrectSound(context)
                                                     equation = generateEquation()
                                                     firstNum1 = firstNum
                                                     secondNum1 = secondNum

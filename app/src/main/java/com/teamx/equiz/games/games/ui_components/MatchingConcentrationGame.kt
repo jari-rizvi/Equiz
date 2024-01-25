@@ -35,6 +35,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -51,93 +52,94 @@ import kotlinx.coroutines.delay
 var rightGameAnswersConcen = 1
 var totalGameAnswersConcen = 0
 
-@Preview
-@Composable
-fun MatchConcentrationGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit = { bool, rightAnswer, total -> }) {
-    var isGameOver by remember { mutableStateOf(false) }
-    var isAlert by remember { mutableStateOf(false) }
-
-    var timeLeft by remember { mutableStateOf(20L) }
-    var isTimeUp by remember { mutableStateOf(false) }
-    var timerRunning by remember { mutableStateOf(true) }
-    LaunchedEffect(true) {
-//        generateOptions()
-
-        // Start the timer
-        object : CountDownTimer(timeLeft * 1000, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-                if (timerRunning) {
-                    timeLeft = millisUntilFinished / 1000
-                }
-                if (timeLeft < 5) {
-                    isAlert = true
-                }
-            }
-
-            override fun onFinish() {
-                isTimeUp = true
-            }
-        }.start()
-    }
-
-
-    if (isGameOver) {
-        content(true, rightGameAnswersConcen, (totalGameAnswersConcen))
-    }
-
-    if (isTimeUp) {
-
-        TimeUpDialogCompose() { i ->
-            if (i) {
-                isGameOver = true
-
-            } else {
-                content(false, rightGameAnswersConcen, (totalGameAnswersConcen))
-            }
-        }
-
-
-    } else {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
-                .background(color = Color.White),
-        ) {
-            Box(modifier = Modifier.height(48.dp).background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
-
-                BackButton(onClick = { content(false, 0, 0) }
-                )
-                Text(
-                    text = "Training",
-                    modifier = Modifier
-                        .fillMaxWidth()
-
-                        ,
-                    textAlign = TextAlign.Center,
-                    color = Color.White,
-                    fontSize = 17.sp
-                )
-
-            }
-
-            ConcentrationObjects()
-
-            Image(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight(),
-                painter = painterResource(id = R.drawable.iconbg),
-                contentDescription = "bg"
-            )
-            if (isAlert) {
-                GameAlertingTime()
-            }
-        }
-    }
-
-
-}
+//@Preview
+//@Composable
+//fun MatchConcentrationGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit = { bool, rightAnswer, total -> }) {
+//    var isGameOver by remember { mutableStateOf(false) }
+//    var isAlert by remember { mutableStateOf(false) }
+//
+//    var timeLeft by remember { mutableStateOf(20L) }
+//    val context = LocalContext.current
+//    var isTimeUp by remember { mutableStateOf(false) }
+//    var timerRunning by remember { mutableStateOf(true) }
+//    LaunchedEffect(true) {
+////        generateOptions()
+//
+//        // Start the timer
+//        object : CountDownTimer(timeLeft * 1000, 1000) {
+//            override fun onTick(millisUntilFinished: Long) {
+//                if (timerRunning) {
+//                    timeLeft = millisUntilFinished / 1000
+//                }
+//                if (timeLeft < 5) {
+//                    isAlert = true
+//                }
+//            }
+//
+//            override fun onFinish() {
+//                isTimeUp = true
+//            }
+//        }.start()
+//    }
+//
+//
+//    if (isGameOver) {
+//        content(true, rightGameAnswersConcen, (totalGameAnswersConcen))
+//    }
+//
+//    if (isTimeUp) {
+//
+//        TimeUpDialogCompose() { i ->
+//            if (i) {
+//                isGameOver = true
+//
+//            } else {
+//                content(false, rightGameAnswersConcen, (totalGameAnswersConcen))
+//            }
+//        }
+//
+//
+//    } else {
+//        Box(
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .fillMaxHeight()
+//                .background(color = Color.White),
+//        ) {
+//            Box(modifier = Modifier.height(48.dp).background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
+//
+//                BackButton(onClick = { content(false, 0, 0) }
+//                )
+//                Text(
+//                    text = "Matching",
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//
+//                        ,
+//                    textAlign = TextAlign.Center,
+//                    color = Color.White,
+//                    fontSize = 17.sp
+//                )
+//
+//            }
+//
+//            ConcentrationObjects()
+//
+//            Image(
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .fillMaxHeight(),
+//                painter = painterResource(id = R.drawable.iconbg),
+//                contentDescription = "bg"
+//            )
+//            if (isAlert) {
+//                GameAlertingTime()
+//            }
+//        }
+//    }
+//
+//
+//}
 
 var linkListAdded2 = ArrayList<ConcentrationModel>()
 var checkListAns = ArrayList<MatchEnumConcentration>()

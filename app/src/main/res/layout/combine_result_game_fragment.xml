@@ -10,8 +10,8 @@
 
         <ImageView
             android:id="@+id/btnback"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
 
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -29,6 +29,7 @@
             android:layout_height="wrap_content"
             android:text="Game Over"
             android:textColor="@color/black"
+            android:textStyle="bold"
             android:textSize="@dimen/_25ssp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -42,18 +43,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_5sdp"
             android:fontFamily="@font/poppins_bold"
             android:text="Game 1"
             android:textColor="@color/black"
             android:textSize="@dimen/_14ssp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/game1img"
             app:layout_constraintEnd_toStartOf="@+id/game1per"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toEndOf="@+id/game1img"
+            app:layout_constraintTop_toTopOf="@+id/game1img" />
+
+        <ImageView
+            android:id="@+id/game1img"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            app:layout_constraintBottom_toTopOf="@+id/game2img"
+            app:layout_constraintVertical_bias="0.1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView13"
-            app:layout_constraintVertical_bias="0" />
+            app:layout_constraintVertical_chainStyle="spread" />
 
         <TextView
             android:id="@+id/game1per"
@@ -75,11 +86,10 @@
 
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_4sdp"
             android:max="100"
-
+android:layout_marginTop="@dimen/_5sdp"
             app:indicatorColor="@color/theme_color"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/game2tv"
             app:layout_constraintEnd_toEndOf="@+id/game1per"
             app:layout_constraintStart_toStartOf="@+id/game1tv"
             app:layout_constraintTop_toBottomOf="@+id/game1tv"
@@ -93,18 +103,29 @@
             android:id="@+id/game2tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_15sdp"
             android:fontFamily="@font/poppins_bold"
             android:text="Game 2"
             android:textColor="@color/black"
             android:textSize="@dimen/_14ssp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/game2img"
             app:layout_constraintEnd_toStartOf="@+id/game1per"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/simpleProgressBar"
+
+            app:layout_constraintStart_toStartOf="@+id/game1tv"
+            app:layout_constraintTop_toTopOf="@+id/game2img"
             app:layout_constraintVertical_bias="0.05" />
+
+        <ImageView
+            android:id="@+id/game2img"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            app:layout_constraintBottom_toTopOf="@+id/game3img"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/game1img"
+            app:layout_constraintVertical_bias="0.1" />
 
         <TextView
             android:id="@+id/game2per"
@@ -123,14 +144,13 @@
             android:id="@+id/simpleProgressBar1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
             android:max="100"
-
+            android:layout_marginTop="@dimen/_5sdp"
             app:indicatorColor="@color/theme_color"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/game3tv"
             app:layout_constraintEnd_toEndOf="@+id/game1per"
-            app:layout_constraintStart_toStartOf="@+id/game1tv"
-            app:layout_constraintTop_toBottomOf="@+id/game2per"
+            app:layout_constraintStart_toStartOf="@+id/simpleProgressBar"
+            app:layout_constraintTop_toBottomOf="@+id/game2tv"
             app:layout_constraintVertical_bias="0"
             app:trackColor="@color/white"
             app:trackCornerRadius="@dimen/_10sdp"
@@ -141,18 +161,28 @@
             android:id="@+id/game3tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_15sdp"
             android:fontFamily="@font/poppins_bold"
             android:text="Game 3"
             android:textColor="@color/black"
             android:textSize="@dimen/_14ssp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/game3img"
             app:layout_constraintEnd_toStartOf="@+id/game1per"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/simpleProgressBar1"
+
+            app:layout_constraintStart_toStartOf="@+id/game2tv"
+            app:layout_constraintTop_toTopOf="@+id/game3img"
             app:layout_constraintVertical_bias="0.05" />
+
+        <ImageView
+            android:id="@+id/game3img"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/game2img"
+            app:layout_constraintVertical_bias="0.1" />
 
         <TextView
             android:id="@+id/game3per"
@@ -172,11 +202,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:max="100"
-
+            android:layout_marginTop="@dimen/_5sdp"
             app:indicatorColor="@color/theme_color"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/game1per"
-            app:layout_constraintStart_toStartOf="@+id/game1tv"
+            app:layout_constraintStart_toStartOf="@+id/simpleProgressBar"
             app:layout_constraintTop_toBottomOf="@+id/game3tv"
             app:layout_constraintVertical_bias="0"
             app:trackColor="@color/white"

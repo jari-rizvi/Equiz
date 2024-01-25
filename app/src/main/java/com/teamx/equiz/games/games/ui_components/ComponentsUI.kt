@@ -578,6 +578,12 @@ fun StartUpDialogCompose(
     painter: Painter = painterResource(id = R.drawable.concentration_instruction_c)
 ) {
 
+    LaunchedEffect(Unit) {
+        delay(5000)
+        onClick(2)
+    }
+
+
     Box(
         modifier = Modifier
             .fillMaxWidth()

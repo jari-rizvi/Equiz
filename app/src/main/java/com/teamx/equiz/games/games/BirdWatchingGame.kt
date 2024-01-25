@@ -35,6 +35,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
@@ -43,6 +44,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
+import com.teamx.equiz.games.games.learningy.musiclearning.correctSound
+import com.teamx.equiz.games.games.learningy.musiclearning.incorrectSound
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import com.teamx.equiz.games.ui.theme.BirdColor1
@@ -66,6 +69,7 @@ fun BirdWatchingGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
 
 
     var timeLeft by remember { mutableStateOf(20L) }
+    val context = LocalContext.current
 
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
@@ -95,7 +99,7 @@ fun BirdWatchingGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
 
         content(true, rightGameAnswersBird, wrongGameAnswersBird)
         rightGameAnswersBird = 0
-        wrongGameAnswersBird = 1
+        wrongGameAnswersBird = 0
     }
 
     if (isTimeUp) {
@@ -107,7 +111,7 @@ fun BirdWatchingGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
             } else {
                 content(false, rightGameAnswersBird, wrongGameAnswersBird)
                 rightGameAnswersBird = 0
-                wrongGameAnswersBird = 1
+                wrongGameAnswersBird = 0
             }
         }
 
@@ -186,6 +190,7 @@ var iteration = 0
 @Preview
 @Composable
 fun BirdAscendingObjects() {
+    val context = LocalContext.current
 //    val maxCount = 8
     val maxCount by remember {
         mutableStateOf(
@@ -334,8 +339,9 @@ fun BirdAscendingObjects() {
                                 iteration++
 
                                 rightGameAnswersBird++
+                                correctSound(context)
                             } else {
-
+                                incorrectSound(context)
                             }
 //                Log.d("123123", "AscendingObjects:birdLinkListAdded $it")
                             Log.d(

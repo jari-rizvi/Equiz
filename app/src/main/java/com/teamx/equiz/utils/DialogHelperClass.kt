@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.ProgressBar
@@ -454,6 +455,142 @@ class DialogHelperClass {
 
                 else -> {
                     painterResource(R.drawable.weathercast_icon)
+                }
+            }
+
+
+        }
+
+        fun returnGameIconRes(enumNumberEnum: String): Int {
+
+
+            return when (enumNumberEnum) {
+
+                GamesUID2.AdditionAddiction.name -> {
+
+                   R.drawable.addition_icon
+
+
+                }
+
+                GamesUID2.BirdWatching.name -> {
+                   R.drawable.bird_favicon
+
+                }
+
+
+                GamesUID2.ColorDeception.name -> {
+                   R.drawable.colorofdeception_icon
+
+                }
+
+                /*GamesUID2.Tetris.name -> {
+                   R.drawable.tetris_icon
+
+                }*/
+
+                GamesUID2.Concentration.name -> {
+
+                   R.drawable.concentration_icon
+                }
+
+                GamesUID2.CardCalculation.name -> {
+                   R.drawable.cardscalculations_icon
+
+                }
+
+                GamesUID2.Flick.name -> {
+                   R.drawable.flick_icon
+
+                }
+
+                GamesUID2.FollowTheLeader.name -> {
+                   R.drawable.follow_the_leder
+
+                }
+
+                GamesUID2.UnfollowTheLeader.name -> {
+                   R.drawable.follow_the_leder
+
+                }
+
+                GamesUID2.GuessTheFlag.name -> {
+                   R.drawable.guestheflag_icon
+                }
+
+                GamesUID2.HighLow.name -> {
+                   R.drawable.highorlow_icon
+
+                }
+
+                GamesUID2.MakeTen.name -> {
+                   R.drawable.maketen_icon
+
+                }
+
+                GamesUID2.MissingPiece.name -> {
+                   R.drawable.missingpieces_icon
+
+                }
+
+
+                GamesUID2.QuickEye.name -> {
+                   R.drawable.quickeye_icon
+
+                }
+
+                GamesUID2.RainFall.name -> {
+                   R.drawable.rainfall_icon
+
+                }
+
+                GamesUID2.RapidSorting.name -> {
+                   R.drawable.rapid_sorting_icon
+
+                }
+
+                GamesUID2.ReverseRps.name -> {
+                   R.drawable.reverserps_icon
+
+                }
+
+                GamesUID2.Simplicity.name -> {
+                   R.drawable.simplicity_icon
+
+                }
+
+                GamesUID2.SpinningBlock.name -> {
+                   R.drawable.spinthewheel_icon
+
+                }
+
+                GamesUID2.ShapeDeception.name -> {
+                   R.drawable.shapedeception_icon
+                }
+
+                GamesUID2.TapTheColor.name -> {
+                   R.drawable.tapthecolor_icon
+
+                }
+
+                GamesUID2.TouchTheNum.name -> {
+                   R.drawable.touchthenumber_icon
+
+                }
+
+                GamesUID2.TouchTheNumPlus.name -> {
+                   R.drawable.touchthenumbers_icon
+
+                }
+
+                GamesUID2.WeatherCast.name -> {
+                   R.drawable.weathercast_icon
+
+                }
+
+
+                else -> {
+                   R.drawable.weathercast_icon
                 }
             }
 

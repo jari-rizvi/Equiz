@@ -26,6 +26,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -34,6 +35,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
 import com.teamx.equiz.games.games.BackButton
+import com.teamx.equiz.games.games.learningy.musiclearning.correctSound
+import com.teamx.equiz.games.games.learningy.musiclearning.incorrectSound
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import com.teamx.equiz.ui.theme.BirdColor4
@@ -48,6 +51,7 @@ fun MatchingGamingScene() {
     val arr2 = remember { arrayListOf<Int>() }
     var changeable by remember { mutableStateOf(true) }
 
+    val context = LocalContext.current
     Log.d("123123", "MatchingGamingScenearr2:$arr2 ")
     Log.d("123123", "MatchingGamingScenearr:$arr ")
 
@@ -102,7 +106,9 @@ fun MatchingGamingScene() {
                                     changeable = !changeable
                                     rightGameAnswersMatc++
                                     totalGameAnswersMatc++
+                                    correctSound(context)
                                 } else {
+                                    incorrectSound(context)
                                     totalGameAnswersMatc++
 
                                     arr2.removeAt(0)
@@ -162,6 +168,7 @@ fun ViewMatching(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int) -> 
     var isTimeUp by remember { mutableStateOf(false) }
 
     var timeLeft by remember { mutableStateOf(20L) }
+    val context = LocalContext.current
 
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
@@ -190,7 +197,7 @@ fun ViewMatching(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int) -> 
 
         content(true, rightGameAnswersMatc, (totalGameAnswersMatc))
         rightGameAnswersMatc = 0
-        totalGameAnswersMatc = 1
+        totalGameAnswersMatc = 0
     }
 
     if (isTimeUp) {
@@ -202,7 +209,7 @@ fun ViewMatching(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int) -> 
             } else {
                 content(false, rightGameAnswersMatc, (totalGameAnswersMatc))
                 rightGameAnswersMatc = 0
-                totalGameAnswersMatc = 1
+                totalGameAnswersMatc = 0
             }
         }
 
@@ -223,7 +230,7 @@ fun ViewMatching(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int) -> 
                 BackButton(onClick = {
                     content(false, 0, 0)
                     rightGameAnswersMatc = 0
-                    totalGameAnswersMatc = 1
+                    totalGameAnswersMatc = 0
                 }
                 )
                 Text(

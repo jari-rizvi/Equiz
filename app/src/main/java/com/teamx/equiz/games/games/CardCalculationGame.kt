@@ -29,6 +29,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -36,6 +37,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
+import com.teamx.equiz.games.games.learningy.musiclearning.correctSound
+import com.teamx.equiz.games.games.learningy.musiclearning.incorrectSound
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import kotlin.random.Random
@@ -90,6 +93,7 @@ fun CardCalculationGameScreen(content: (boolean: Boolean, rightAnswer: Int, tota
     var isTimeUp by remember { mutableStateOf(false) }
 
     var timeLeft by remember { mutableStateOf(20L) }
+    val context = LocalContext.current
 
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
@@ -118,7 +122,7 @@ fun CardCalculationGameScreen(content: (boolean: Boolean, rightAnswer: Int, tota
 
         content(true, rightGameAnswersCardCal, totalGameAnswersCardCal)
         rightGameAnswersCardCal=0
-        totalGameAnswersCardCal=1
+        totalGameAnswersCardCal=0
     }
 
     if (isTimeUp) {
@@ -130,7 +134,7 @@ fun CardCalculationGameScreen(content: (boolean: Boolean, rightAnswer: Int, tota
             } else {
                 content(false, rightGameAnswersCardCal, totalGameAnswersCardCal)
                 rightGameAnswersCardCal=0
-                totalGameAnswersCardCal=1
+                totalGameAnswersCardCal=0
             }
         }
 
@@ -302,6 +306,10 @@ fun CardCalculationGameScreen(content: (boolean: Boolean, rightAnswer: Int, tota
                                                         changeable = true
                                                         gameStarted = false
                                                         rightGameAnswersCardCal++
+                                                        correctSound(context)
+                                                    }else{
+                                                        incorrectSound(context)
+
                                                     }
 
                                                 },

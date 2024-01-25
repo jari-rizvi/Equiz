@@ -32,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -40,6 +41,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
 import com.teamx.equiz.games.games.learningy.LockScreenOrientation
+import com.teamx.equiz.games.games.learningy.musiclearning.correctSound
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import com.teamx.equiz.ui.theme.BirdColor3
@@ -64,6 +66,7 @@ fun AdditionAddictionGameMethod(content: (boolean: Boolean, rightAnswer: Int, to
     var isTimeUp by remember { mutableStateOf(false) }
 
     var timeLeft by remember { mutableStateOf(20L) }
+    val context = LocalContext.current
 
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
@@ -337,7 +340,7 @@ fun AddictObject67(
     var colorState by remember { mutableStateOf<Color>(Color.White) }
     var colorStateTxt by remember { mutableStateOf<Color>(BirdColor3) }
 //    var colorState by remember { mutableStateOf<Color>(Color.Gray) }
-
+val context  = LocalContext.current
     Box(
         modifier = Modifier
             .padding(6.dp)
@@ -367,6 +370,7 @@ fun AddictObject67(
 //                            colorStateTxt = BirdColor3
 //                            colorState = Color.White
                             rightGameAnswersAddition++
+                            correctSound(context)
                             true
                         } else {
 
@@ -391,6 +395,7 @@ fun AddictObject67(
 //                            colorStateTxt = BirdColor3
 //                            colorState = Color.White
                             rightGameAnswersAddition++
+                            correctSound(context)
                             true
                         } else {
 //                            totalGameAnswersAddition++

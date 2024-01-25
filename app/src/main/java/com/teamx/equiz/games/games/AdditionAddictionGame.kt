@@ -71,7 +71,7 @@ fun AdditionAddictionGame(content: @Composable () -> Unit) {
 
                     BackButton(onClick = {}/*onContinueClicked*/)
                     Text(
-                        text = "Training",
+                        text = "Addition Addiction",
                         modifier = Modifier
                             .fillMaxWidth()
 

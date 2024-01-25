@@ -28,9 +28,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.teamx.equiz.games.games.learningy.musiclearning.correctSound
+import com.teamx.equiz.games.games.learningy.musiclearning.incorrectSound
 import com.teamx.equiz.games.games.rightGameAnswersSpin
 import com.teamx.equiz.games.games.wrongGameAnswersSpin
 import com.teamx.equiz.ui.theme.BirdColor4
@@ -46,7 +49,7 @@ var counterp = 0
 fun SpinObstacles() {
     var isComplex by remember { mutableStateOf(false) }
     var arrVal by remember { mutableStateOf(generateRanArr()) }
-
+    val context = LocalContext.current
     var rotationState by remember { mutableFloatStateOf(90f) }
     Box(contentAlignment = Alignment.Center) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -103,9 +106,11 @@ fun SpinObstacles() {
 
                                                         rightGameAnswersSpin++
                                                         wrongGameAnswersSpin++
+                                                        correctSound(context)
                                                     }
 
                                                 } else {
+                                                        incorrectSound(context)
                                                     wrongGameAnswersSpin++
                                                     arrVal = generateRanArr()
                                                     isComplex = false

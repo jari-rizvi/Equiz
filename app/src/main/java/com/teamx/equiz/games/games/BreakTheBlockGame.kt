@@ -33,7 +33,7 @@ fun BreakTheBlockGame(content: @Composable () -> Unit) {
 
                 BackButton(onClick = {}/*onContinueClicked*/)
                 Text(
-                    text = "Training",
+                    text = "Break The Block",
                     modifier = Modifier
                         .fillMaxWidth()
 

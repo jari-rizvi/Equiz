@@ -34,6 +34,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -42,6 +43,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
+import com.teamx.equiz.games.games.learningy.musiclearning.correctSound
+import com.teamx.equiz.games.games.learningy.musiclearning.incorrectSound
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import com.teamx.equiz.games.ui.theme.BirdColor4
@@ -77,6 +80,7 @@ fun HighLowComponent(content: (boo:Boolean, rightAnswer:Int, totalAnswer:Int) ->
 
     var isTimeUp by remember { mutableStateOf(false) }
     var timeLeft by remember { mutableStateOf(20L) }
+    val context = LocalContext.current
 
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
@@ -152,7 +156,7 @@ fun HighLowComponent(content: (boo:Boolean, rightAnswer:Int, totalAnswer:Int) ->
             })
 
 
-
+val temp = rightGameAnswersHigh
 
         Box(
             modifier = Modifier
@@ -214,6 +218,9 @@ fun HighLowComponent(content: (boo:Boolean, rightAnswer:Int, totalAnswer:Int) ->
                         .pointerInput(Unit) {
                             detectDragGestures(
                                 onDragEnd = {
+                                    if(temp == rightGameAnswersHigh){
+                                        incorrectSound(context)
+                                    }
                                     totalGameAnswersHigh++
                                 }
                             ) { change, dragAmount ->
@@ -236,6 +243,8 @@ fun HighLowComponent(content: (boo:Boolean, rightAnswer:Int, totalAnswer:Int) ->
                                                 dragged = true
                                             }
                                             rightGameAnswersHigh++
+                                            correctSound(context)
+
                                         }
                                     }
 
@@ -251,6 +260,7 @@ fun HighLowComponent(content: (boo:Boolean, rightAnswer:Int, totalAnswer:Int) ->
                                                 dragged = true
                                             }
                                             rightGameAnswersHigh++
+                                            correctSound(context)
                                         }
                                     }
 

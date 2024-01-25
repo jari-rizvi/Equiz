@@ -35,6 +35,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -42,6 +43,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
+import com.teamx.equiz.games.games.learningy.musiclearning.correctSound
+import com.teamx.equiz.games.games.learningy.musiclearning.incorrectSound
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import com.teamx.equiz.games.ui.theme.BirdColor3
@@ -61,6 +64,7 @@ fun ConcentrationGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: In
     var isAlert by remember { mutableStateOf(false) }
 
     var timeLeft by remember { mutableStateOf(20L) }
+    val context = LocalContext.current
     var isTimeUp by remember { mutableStateOf(false) }
     var timerRunning by remember { mutableStateOf(true) }
     var startMemorized by remember { mutableStateOf(false) }
@@ -591,7 +595,7 @@ fun SpinningBox(
 
 //    val imageRes = if (isFlipped) R.drawable.your_flipped_image else R.drawable.your_unflipped_image
 //    val imageBitmap = painterResource(id = imageRes).value.asImageBitmap()
-
+    val context = LocalContext.current
     val rotationY: Float by animateFloatAsState(targetValue = if (isFlipped) 180f else 0f)
     Surface(
         color = BirdColor4,
@@ -622,9 +626,11 @@ fun SpinningBox(
                     enabled = true
                 ) {
                     totalGameAnswersConcen++
+                    val temp = rightGameAnswersConcen
                     if (!isFlipped && !removed.contains(concentrationModels)) {
                         if (checkListAns.isEmpty()) {
                             rightGameAnswersConcen++
+                            correctSound(context)
                             Log.d("123123", "SpinningBox: ")
                             checkListAns.add(asdEnum)
                             isFlipped = !isFlipped
@@ -633,6 +639,7 @@ fun SpinningBox(
                             checkListAns.add(asdEnum)
                             removed.add(concentrationModels)
                             rightGameAnswersConcen++
+                            correctSound(context)
                             if (checkListAns.size == 6) {
 
 
@@ -646,6 +653,7 @@ fun SpinningBox(
                         } else if (checkListAns.size % 2 == 0 && (checkListAns.get(checkListAns.size - 1) != asdEnum)) {
                             Log.d("123123", "SpinningBox3: ")
                             rightGameAnswersConcen++
+                            correctSound(context)
                             checkListAns.add(asdEnum)
                             isFlipped = !isFlipped
                         } else {
@@ -654,7 +662,9 @@ fun SpinningBox(
 //                        isFlipped = false
                         }
                     }
-
+                    if (temp == rightGameAnswersConcen) {
+                        incorrectSound(context)
+                    }
 
 //                    onClick(concentrationModels)
                 })

@@ -29,6 +29,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -114,220 +115,221 @@ fun PreviewMake10GameScreen() {
 
 class SelectedCard(var index: Int, var cardValue: Int)
 
-@Composable
-fun Make10GameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit = { bool, rightAnswer, total -> }) {
-    var availableCards = remember { mutableStateOf(generateArray()) }
-    val selectedCards = remember { mutableStateListOf<Int>() }
-    val selectedCardstr = remember { mutableStateListOf<String>() }
-    val selectedCards2 = remember { mutableStateListOf<SelectedCard>() }
-    var restart by remember { mutableStateOf(true) }
-    var counter by remember { mutableStateOf(0) }
-    var isGameOver by remember { mutableStateOf(false) }
-    var isAlert by remember { mutableStateOf(false) }
-    var rightGameAnswers = 0
-    var wrongGameAnswers = 0
-
-    var timeLeft by remember { mutableStateOf(20L) }
-    var isTimeUp by remember { mutableStateOf(false) }
-    var timerRunning by remember { mutableStateOf(true) }
-    LaunchedEffect(true) {
-//        generateOptions()
-
-        // Start the timer
-        object : CountDownTimer(timeLeft * 1000, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-                  if (timerRunning) {
-                    timeLeft = millisUntilFinished / 1000
-                }
-                if (timeLeft<5){
-                    isAlert = true
-                }
-            }
-
-            override fun onFinish() {
-                isTimeUp = true
-            }
-        }.start()
-    }
-    if (isGameOver) {
-        content(true, rightGameAnswers10, (rightGameAnswers10 + totalGameAnswers10))
-    }
-    if (isTimeUp) {
-
-        TimeUpDialogCompose() { i ->
-            if (i) {
-                isGameOver = true
-
-            } else {
-                content(false, rightGameAnswers10, (rightGameAnswers10 + totalGameAnswers10))
-            }
-        }
-
-
-    } else {
-        if (restart) {
-//        availableCards.value = availableCards.value.shuffled()
-            counter += 1
-            if (counter == 14) {
-                counter = 0
-            }
-
-            selectedCards.clear()
-            selectedCardstr.clear()
-            selectedCards2.clear()
-            restart = false
-        }
-
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
-                .background(color = Color(0xFFEFF4F9)),
-        ) {
-            Box(modifier = Modifier.height(48.dp).background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
-
-                BackButton(onClick = { content(false,0,0) }
-                )
-                Text(
-                    text = "Training",
-                    modifier = Modifier
-                        .fillMaxWidth()
-
-                        ,
-                    textAlign = TextAlign.Center,
-                    color = Color.White,
-                    fontSize = 17.sp
-                )
-
-            }
-
-            making10Game()
-            /*Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                     ,
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = "Make 10",
-                    color = Color.White,
-                    style = MaterialTheme.typography.headlineSmall,
-                    modifier = Modifier.padding(bottom = 16.dp)
-                )
-
-                Row(
-                    modifier = Modifier.padding(horizontal = 16.dp),
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    availableCards.value.get(counter).forEachIndexed { index, card ->
-
-                        Box(modifier = Modifier
-                            .padding(8.dp)
-                            .width(72.dp)
-                            .height(92.dp)
-                            .clip(RoundedCornerShape(12.dp))
-                            .clickable {
-                                var checker = false
-                                //
-                                if (selectedCards.contains(card)) {
-                                    selectedCards2.forEach { selectedCard ->
-                                        if (card == selectedCard.cardValue) {
-                                            checker = selectedCard.index == index
-                                        }
-                                    }
-                                    if (selectedCards.sum() + card <= 10 && !checker) {
-                                        if (selectedCards.sum() + card == 10) {
-                                            restart = true
-                                            selectedCards.add(card)
-                                            selectedCardstr.add("$card@$index")
-                                            selectedCards2.add(SelectedCard(index, card))
-                                            return@clickable
-                                        }
-                                        selectedCards.add(card)
-                                        selectedCardstr.add("$card@$index")
-                                        selectedCards2.add(SelectedCard(index, card))
-
-                                    }
-                                } else {
-                                    if (selectedCards.sum() + card <= 10) {
-                                        if (selectedCards.sum() + card == 10) {
-                                            restart = true
-                                            selectedCards.add(card)
-                                            selectedCardstr.add("$card@$index")
-                                            selectedCards2.add(SelectedCard(index, card))
-                                            return@clickable
-                                        }
-                                        selectedCardstr.add("$card@$index")
-                                        selectedCards.add(card)
-                                        selectedCards2.add(SelectedCard(index, card))
-
-                                    }
-                                }
-
-                            }
-                            .background(
-                                if (selectedCardstr.contains("$card@$index")) {
-//                            if (selectedCards.contains(card)) {
-
-//                                    if (selectedCards2[selectedCards.indexOf(card)].index == index) {
-                                    BirdColor3*//*} else {
-                                    BirdColor1
-                                }*//*
-
-                                } else {
-                                    BirdColor1
-                                }
-                            )
-//                        .border(BorderStroke(1.dp, Color.Black))
-                            , contentAlignment = Alignment.Center
-//                    colors = ButtonDefaults.buttonColors(
-//                        containerColor = if (selectedCards.contains(card)) Color.Gray else Color.White
-//                    ),
-//                    border = BorderStroke(1.dp, Color.Black)
-                        ) {
-                            Text(text = card.toString(), fontSize = 26.sp, color = Color.White)
-                        }
-                    }
-                }
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                Text(
-                    color = Color.White,
-                    text = "Selected Cards: ${selectedCards.joinToString(", ")}",
-                    style = MaterialTheme.typography.bodyLarge
-                )
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-               *//* Button(
-                    onClick = { selectedCards.clear() }, modifier = Modifier.padding(8.dp)
-                ) {
-                    Text(text = "Clear", color = Color.White)
-                }*//*
-            }*/
-            Image(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight(),
-                painter = painterResource(id = R.drawable.iconbg),
-                contentDescription = "bg"
-            )
-            if (isAlert) {
-                GameAlertingTime()
-            }
-        }
-    }
-
-
-}
+//@Composable
+//fun Make10GameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit = { bool, rightAnswer, total -> }) {
+//    var availableCards = remember { mutableStateOf(generateArray()) }
+//    val selectedCards = remember { mutableStateListOf<Int>() }
+//    val selectedCardstr = remember { mutableStateListOf<String>() }
+//    val selectedCards2 = remember { mutableStateListOf<SelectedCard>() }
+//    var restart by remember { mutableStateOf(true) }
+//    var counter by remember { mutableStateOf(0) }
+//    var isGameOver by remember { mutableStateOf(false) }
+//    var isAlert by remember { mutableStateOf(false) }
+//    var rightGameAnswers = 0
+//    var wrongGameAnswers = 0
+//
+//    var timeLeft by remember { mutableStateOf(20L) }
+//    val context = LocalContext.current
+//    var isTimeUp by remember { mutableStateOf(false) }
+//    var timerRunning by remember { mutableStateOf(true) }
+//    LaunchedEffect(true) {
+////        generateOptions()
+//
+//        // Start the timer
+//        object : CountDownTimer(timeLeft * 1000, 1000) {
+//            override fun onTick(millisUntilFinished: Long) {
+//                  if (timerRunning) {
+//                    timeLeft = millisUntilFinished / 1000
+//                }
+//                if (timeLeft<5){
+//                    isAlert = true
+//                }
+//            }
+//
+//            override fun onFinish() {
+//                isTimeUp = true
+//            }
+//        }.start()
+//    }
+//    if (isGameOver) {
+//        content(true, rightGameAnswers10, (rightGameAnswers10 + totalGameAnswers10))
+//    }
+//    if (isTimeUp) {
+//
+//        TimeUpDialogCompose() { i ->
+//            if (i) {
+//                isGameOver = true
+//
+//            } else {
+//                content(false, rightGameAnswers10, (rightGameAnswers10 + totalGameAnswers10))
+//            }
+//        }
+//
+//
+//    } else {
+//        if (restart) {
+////        availableCards.value = availableCards.value.shuffled()
+//            counter += 1
+//            if (counter == 14) {
+//                counter = 0
+//            }
+//
+//            selectedCards.clear()
+//            selectedCardstr.clear()
+//            selectedCards2.clear()
+//            restart = false
+//        }
+//
+//        Box(
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .fillMaxHeight()
+//                .background(color = Color(0xFFEFF4F9)),
+//        ) {
+//            Box(modifier = Modifier.height(48.dp).background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
+//
+//                BackButton(onClick = { content(false,0,0) }
+//                )
+//                Text(
+//                    text = "Make Ten",
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//
+//                        ,
+//                    textAlign = TextAlign.Center,
+//                    color = Color.White,
+//                    fontSize = 17.sp
+//                )
+//
+//            }
+//
+//            making10Game()
+//            /*Column(
+//                modifier = Modifier
+//                    .fillMaxSize()
+//                     ,
+//                verticalArrangement = Arrangement.Center,
+//                horizontalAlignment = Alignment.CenterHorizontally
+//            ) {
+//                Text(
+//                    text = "Make 10",
+//                    color = Color.White,
+//                    style = MaterialTheme.typography.headlineSmall,
+//                    modifier = Modifier.padding(bottom = 16.dp)
+//                )
+//
+//                Row(
+//                    modifier = Modifier.padding(horizontal = 16.dp),
+//                    horizontalArrangement = Arrangement.Center,
+//                    verticalAlignment = Alignment.CenterVertically
+//                ) {
+//                    availableCards.value.get(counter).forEachIndexed { index, card ->
+//
+//                        Box(modifier = Modifier
+//                            .padding(8.dp)
+//                            .width(72.dp)
+//                            .height(92.dp)
+//                            .clip(RoundedCornerShape(12.dp))
+//                            .clickable {
+//                                var checker = false
+//                                //
+//                                if (selectedCards.contains(card)) {
+//                                    selectedCards2.forEach { selectedCard ->
+//                                        if (card == selectedCard.cardValue) {
+//                                            checker = selectedCard.index == index
+//                                        }
+//                                    }
+//                                    if (selectedCards.sum() + card <= 10 && !checker) {
+//                                        if (selectedCards.sum() + card == 10) {
+//                                            restart = true
+//                                            selectedCards.add(card)
+//                                            selectedCardstr.add("$card@$index")
+//                                            selectedCards2.add(SelectedCard(index, card))
+//                                            return@clickable
+//                                        }
+//                                        selectedCards.add(card)
+//                                        selectedCardstr.add("$card@$index")
+//                                        selectedCards2.add(SelectedCard(index, card))
+//
+//                                    }
+//                                } else {
+//                                    if (selectedCards.sum() + card <= 10) {
+//                                        if (selectedCards.sum() + card == 10) {
+//                                            restart = true
+//                                            selectedCards.add(card)
+//                                            selectedCardstr.add("$card@$index")
+//                                            selectedCards2.add(SelectedCard(index, card))
+//                                            return@clickable
+//                                        }
+//                                        selectedCardstr.add("$card@$index")
+//                                        selectedCards.add(card)
+//                                        selectedCards2.add(SelectedCard(index, card))
+//
+//                                    }
+//                                }
+//
+//                            }
+//                            .background(
+//                                if (selectedCardstr.contains("$card@$index")) {
+////                            if (selectedCards.contains(card)) {
+//
+////                                    if (selectedCards2[selectedCards.indexOf(card)].index == index) {
+//                                    BirdColor3*//*} else {
+//                                    BirdColor1
+//                                }*//*
+//
+//                                } else {
+//                                    BirdColor1
+//                                }
+//                            )
+////                        .border(BorderStroke(1.dp, Color.Black))
+//                            , contentAlignment = Alignment.Center
+////                    colors = ButtonDefaults.buttonColors(
+////                        containerColor = if (selectedCards.contains(card)) Color.Gray else Color.White
+////                    ),
+////                    border = BorderStroke(1.dp, Color.Black)
+//                        ) {
+//                            Text(text = card.toString(), fontSize = 26.sp, color = Color.White)
+//                        }
+//                    }
+//                }
+//
+//                Spacer(modifier = Modifier.height(16.dp))
+//
+//                Text(
+//                    color = Color.White,
+//                    text = "Selected Cards: ${selectedCards.joinToString(", ")}",
+//                    style = MaterialTheme.typography.bodyLarge
+//                )
+//
+//                Spacer(modifier = Modifier.height(16.dp))
+//
+//               *//* Button(
+//                    onClick = { selectedCards.clear() }, modifier = Modifier.padding(8.dp)
+//                ) {
+//                    Text(text = "Clear", color = Color.White)
+//                }*//*
+//            }*/
+//            Image(
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .fillMaxHeight(),
+//                painter = painterResource(id = R.drawable.iconbg),
+//                contentDescription = "bg"
+//            )
+//            if (isAlert) {
+//                GameAlertingTime()
+//            }
+//        }
+//    }
+//
+//
+//}
 
 @Preview
 @Composable
 fun PreviewMake10GameScreen() {
-    Make10GameScreen() { bool, rightAnswer, total -> }
+//    Make10GameScreen() { bool, rightAnswer, total -> }
 }
 //make 10
 

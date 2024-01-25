@@ -30,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
@@ -38,6 +39,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
+import com.teamx.equiz.games.games.learningy.musiclearning.correctSound
+import com.teamx.equiz.games.games.learningy.musiclearning.incorrectSound
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import com.teamx.equiz.games.ui.theme.BirdColor4
@@ -57,6 +60,7 @@ fun GuessTheFlagGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
 
 
     var timeLeft by remember { mutableStateOf(20L) }
+    val context = LocalContext.current
     var timerRunning by remember { mutableStateOf(true) }
     var isTimeUp by remember { mutableStateOf(false) }
 
@@ -138,8 +142,10 @@ fun GuessTheFlagGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
             wrongGameAnswersGuess++
         if (guessedCountry.text.equals(getCountryName(currentFlagIndex), ignoreCase = true)) {
             rightGameAnswersGuess++
+            correctSound(context)
             score++
         } else {
+            incorrectSound(context)
         }
         currentFlagIndex++
         if (currentFlagIndex >= flags.size) {
@@ -177,7 +183,7 @@ fun GuessTheFlagGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
         )
 
           rightGameAnswersGuess = 0
-          wrongGameAnswersGuess = 1
+          wrongGameAnswersGuess = 0
     }
 
     if (isTimeUp) {
@@ -198,7 +204,7 @@ fun GuessTheFlagGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
                    wrongGameAnswersGuess
                 )
                 rightGameAnswersGuess = 0
-                wrongGameAnswersGuess = 1
+                wrongGameAnswersGuess = 0
             }
         }
     /*}*/
@@ -343,7 +349,7 @@ fun GuessTheFlagGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
                        wrongGameAnswersGuess
                     )
                     rightGameAnswersGuess = 0
-                    wrongGameAnswersGuess = 1
+                    wrongGameAnswersGuess = 0
                 }
             }
             Image(

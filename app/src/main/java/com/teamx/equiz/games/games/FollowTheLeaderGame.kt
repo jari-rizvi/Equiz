@@ -59,6 +59,7 @@ fun FollowTheLeaderGame(content: (boolean:Boolean, rightAnswer:Int, totalAnswer:
 
     var isTimeUp by remember { mutableStateOf(false) }
     var timeLeft by remember { mutableStateOf(20L) }
+    val context = LocalContext.current
 
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
@@ -118,7 +119,7 @@ fun FollowTheLeaderGame(content: (boolean:Boolean, rightAnswer:Int, totalAnswer:
                 BackButton(onClick = { content(false, 0, 0) }
                 )
                 Text(
-                    text = "Training",
+                    text = "Follow The Leader",
                     modifier = Modifier
                         .fillMaxWidth(),
                     textAlign = TextAlign.Center,
@@ -137,7 +138,7 @@ fun FollowTheLeaderGame(content: (boolean:Boolean, rightAnswer:Int, totalAnswer:
 
                     BackButton(onClick = {content(false,0,0) }/*onContinueClicked*/)
                     Text(
-                        text = "Training",
+                        text = "Follow The Leader",
                         modifier = Modifier
                             .fillMaxWidth(),
                         textAlign = TextAlign.Center,

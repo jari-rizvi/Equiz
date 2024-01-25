@@ -45,6 +45,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -887,7 +888,7 @@ fun PieChart(chartData: List<ChartSlice>) {
 @Preview
 @Composable
 fun DualColorCircularProgressBar2(progressVal: Float = 0.05f) {
-    var progress by remember { mutableStateOf(progressVal) }
+    var progress by remember { mutableFloatStateOf(progressVal) }
 
     Box(
         modifier = Modifier
@@ -919,7 +920,7 @@ fun DualColorCircularProgressBar2(progressVal: Float = 0.05f) {
         CircularProgressIndicator(
             progress = .33f,
             modifier = Modifier
-                .size(135.dp)
+                .size(155.dp)
                 .rotate(0f)
 
             /*.background(Color.Transparent)*/,
@@ -930,7 +931,7 @@ fun DualColorCircularProgressBar2(progressVal: Float = 0.05f) {
         CircularProgressIndicator(
             progress = .33f,
             modifier = Modifier
-                .size(135.dp)
+                .size(155.dp)
                 .rotate(118f)
             /*.background(Color.Transparent)*/,
             color = Color(0xFF9F81CA)/*BirdColor1*/,
@@ -940,7 +941,7 @@ fun DualColorCircularProgressBar2(progressVal: Float = 0.05f) {
         CircularProgressIndicator(
             progress = .35f,
             modifier = Modifier
-                .size(135.dp)
+                .size(155.dp)
                 .rotate(118f + 118f)
             /*.background(Color.Transparent)*/,
             color = Color(0xFF9F81CA)/*BirdColor1*/,
@@ -950,7 +951,7 @@ fun DualColorCircularProgressBar2(progressVal: Float = 0.05f) {
         CircularProgressIndicator(
             progress = progress, // Remaining progress
             modifier = Modifier
-                .size(135.dp)
+                .size(155.dp)
 
                 .rotate(190f)
             /*.background(Color.Transparent)*/,
@@ -960,7 +961,7 @@ fun DualColorCircularProgressBar2(progressVal: Float = 0.05f) {
         CircularProgressIndicator(
             progress = 1f - progress,
             modifier = Modifier
-                .size(135.dp)
+                .size(155.dp)
                 .rotate(315f)
             /*.background(Color.Transparent)*/,
             color = Color(0xFFF7D1D1)/*BirdColor1*/,

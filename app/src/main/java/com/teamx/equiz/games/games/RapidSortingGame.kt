@@ -35,6 +35,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
@@ -43,6 +44,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
+import com.teamx.equiz.games.games.learningy.musiclearning.correctSound
+import com.teamx.equiz.games.games.learningy.musiclearning.incorrectSound
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import com.teamx.equiz.games.ui.theme.Pink80
@@ -54,7 +57,7 @@ import kotlin.random.Random
 class RapidSortingGame {}
 
 
-var rightGameAnswersRapid = 1
+var rightGameAnswersRapid = 0
 var wrongGameAnswersRapid = 0
 
 @Composable
@@ -65,6 +68,7 @@ fun RapidSortingGame(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: 
     var isTimeUp by remember { mutableStateOf(false) }
 
     var timeLeft by remember { mutableStateOf(20L) }
+    val context = LocalContext.current
 
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
@@ -93,7 +97,8 @@ fun RapidSortingGame(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: 
 
 
         content(true, rightGameAnswersRapid, wrongGameAnswersRapid)
-
+        rightGameAnswersRapid = 0
+        wrongGameAnswersRapid = 0
     }
 
     if (isTimeUp) {
@@ -104,6 +109,8 @@ fun RapidSortingGame(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: 
 
             } else {
                 content(false, rightGameAnswersRapid, wrongGameAnswersRapid)
+                rightGameAnswersRapid = 0
+                wrongGameAnswersRapid = 0
             }
         }
 
@@ -169,7 +176,7 @@ var dragged2 = true
     @Composable
     fun RapidComponent() {
         val swipeStateX by remember { mutableStateOf(false) }
-
+        val context = LocalContext.current
         var previousNumber by remember { mutableStateOf(Random.nextInt(0, 100)) }
         var showNumber by remember { mutableStateOf(Random.nextInt(0, 100)) }
         val valuesTranslation by remember {
@@ -189,7 +196,7 @@ var dragged2 = true
         val transitionState = remember { MutableTransitionState(false) }
         val transition = updateTransition(transitionState, "cardTransition")
 
-
+        val temp = rightGameAnswersRapid
         val offsetTransitionY by transition.animateFloat(label = "cardOffsetTransition",
             transitionSpec = { tween(durationMillis = 700) },
 
@@ -239,6 +246,9 @@ var dragged2 = true
                     .pointerInput(Unit) {
                         detectDragGestures(
                             onDragEnd = {
+                                if (temp == rightGameAnswersRapid) {
+                                    incorrectSound(context)
+                                }
                                 wrongGameAnswersRapid++
                             }
                         ) { change, dragAmount ->
@@ -254,7 +264,7 @@ var dragged2 = true
                                         transitionState.targetState = true
                                         i232 = 1
                                         rightGameAnswersRapid++
-
+                                        correctSound(context)
 
                                         GlobalScope.launch {
                                             delay(500)
@@ -272,7 +282,7 @@ var dragged2 = true
                                         transitionState.targetState = true
                                         i232 = 1
                                         rightGameAnswersRapid++
-
+                                        correctSound(context)
 
                                         GlobalScope.launch {
                                             delay(500)

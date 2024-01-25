@@ -33,185 +33,186 @@ import kotlin.math.roundToInt
 
 var arr = arrayListOf<MemoryItem>()
 
-@RequiresApi(Build.VERSION_CODES.O)
-@Preview
-@Composable
-fun MatchingStepGame(modifier: Modifier=Modifier, content:   (boolean:Boolean, rightAnswer:Int, totalAnswer:Int) -> Unit={bool,rightAnswer,total ->}) {
-
-    var isGameOver by remember { mutableStateOf(false) }
-        var isAlert by remember { mutableStateOf(false) }
- rightGameAnswers = 1
- wrongGameAnswers = 1
-    var isTimeUp by remember { mutableStateOf(false) }
-    var timeLeft by remember { mutableStateOf(20L) }
-
-    var timerRunning by remember { mutableStateOf(true) }
-    var gameStarted by remember { mutableStateOf(false) }
-    var r by remember { mutableStateOf(0) }
-    var r1 by remember { mutableStateOf(0) }
-    val myRandomValues = mutableListOf(1, 2, 3, 1, 2, 3)
-    myRandomValues.shuffle()
-    val coroutineScope = rememberCoroutineScope()
-    val context = LocalContext.current
-    val vibrator = context.getSystemService(Vibrator::class.java)
-    for (i in myRandomValues) {
-        arr.add(MemoryItem(name = "$i", uniqueId = counter++))
-    }
-
-    LaunchedEffect(true) {
-//        generateOptions()
-
-        // Start the timer
-        object : CountDownTimer(timeLeft * 1000, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-                  if (timerRunning) {
-                    timeLeft = millisUntilFinished / 1000
-                }
-                if (timeLeft<5){
-                    isAlert = true
-                }
-            }
-
-            override fun onFinish() {
-                isGameOver = true
-            }
-        }.start()
-    }
-    if (isGameOver) {
-        content(true, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
-    }
-
-    if (isTimeUp) {
-
-        TimeUpDialogCompose() { i ->
-            if (i) {
-                isGameOver = true
-
-            } else {
-                content(false, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
-            }
-        }
-
-
-    }else{
-        if (gameStarted) {
-            LaunchedEffect(true) {
-                delay(3000)
-                gameStarted = true
-            }
-        }
-
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
-                .background(color = Color.White),
-        ) {
-            Box(modifier = Modifier.height(48.dp).background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
-
-                BackButton(onClick = { content(false,0,0) }
-                )
-                Text(
-                    text = "Training",
-                    modifier = Modifier
-                        .fillMaxWidth()
-
-                        ,
-                    textAlign = TextAlign.Center,
-                    color = Color.White,
-                    fontSize = 17.sp
-                )
-
-            }
-
-
-
-            Column(
-                modifier = modifier.fillMaxSize(), Arrangement.Center, Alignment.CenterHorizontally
-            ) {
-//        Text(modifier = modifier, text = "Memorize The Same numbers")
-
-//        Text(modifier = modifier, text = "Total Attemps: $r   Accurate: $r1")
-                Row(modifier = modifier) {
-                    for (i in arr.subList(0, 3).indices) {
-                        // Trigger the vibration effect when the Composable is recomposed
-                        LaunchedEffect(true) {
-                            vibrator?.let { v ->
-                                v.vibrate(
-                                    VibrationEffect.createOneShot(
-                                        500, VibrationEffect.DEFAULT_AMPLITUDE
-                                    )
-                                )
-                                // Delay for the vibration duration
-                                delay(500)
-                                // Stop the vibration
-                                v.cancel()
-                            }
-                        }
-
-                        CardShape(modifier, i, {
-                            r++
-                        }, {
-                            r1++
-                        }, {
-
-
-                        })
-                    }
-                }
-                Row(modifier = modifier) {
-                    for (i in arr.subList(3, 6).indices) {
-                        CardShape(modifier, i, {
-                            r++
-                        }, {
-                            r1++
-                        }, {})
-                    }
-                }
-
-                ShakingButton()
-//        SwipeGestureExample()
-            }
-
-
-            Image(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight(),
-                painter = painterResource(id = R.drawable.iconbg),
-                contentDescription = "bg"
-            )
-            if (isAlert) {
-                GameAlertingTime()
-            }
-        }
-    }
-
-
-
-
-
-
-
-    /*else {
-            Column(
-                modifier = modifier.fillMaxSize(), Arrangement.Center, Alignment.CenterHorizontally
-            ) {
-
-                Row(modifier = modifier) {
-                    CardShape(modifier, "", false)
-                    CardShape(modifier, "", false)
-                    CardShape(modifier, "", false)
-                }
-                Row(modifier = modifier) {
-                    CardShape(modifier, "", false)
-                    CardShape(modifier, "", false)
-                    CardShape(modifier, "", false)
-                }
-            }
-    //        gameStarted = true
-        }*/
-}
+//@RequiresApi(Build.VERSION_CODES.O)
+//@Preview
+//@Composable
+//fun MatchingStepGame(modifier: Modifier=Modifier, content:   (boolean:Boolean, rightAnswer:Int, totalAnswer:Int) -> Unit={bool,rightAnswer,total ->}) {
+//
+//    var isGameOver by remember { mutableStateOf(false) }
+//        var isAlert by remember { mutableStateOf(false) }
+// rightGameAnswers = 1
+// wrongGameAnswers = 1
+//    var isTimeUp by remember { mutableStateOf(false) }
+//    var timeLeft by remember { mutableStateOf(20L) }
+//    val context = LocalContext.current
+//
+//    var timerRunning by remember { mutableStateOf(true) }
+//    var gameStarted by remember { mutableStateOf(false) }
+//    var r by remember { mutableStateOf(0) }
+//    var r1 by remember { mutableStateOf(0) }
+//    val myRandomValues = mutableListOf(1, 2, 3, 1, 2, 3)
+//    myRandomValues.shuffle()
+//    val coroutineScope = rememberCoroutineScope()
+//
+//    val vibrator = context.getSystemService(Vibrator::class.java)
+//    for (i in myRandomValues) {
+//        arr.add(MemoryItem(name = "$i", uniqueId = counter++))
+//    }
+//
+//    LaunchedEffect(true) {
+////        generateOptions()
+//
+//        // Start the timer
+//        object : CountDownTimer(timeLeft * 1000, 1000) {
+//            override fun onTick(millisUntilFinished: Long) {
+//                  if (timerRunning) {
+//                    timeLeft = millisUntilFinished / 1000
+//                }
+//                if (timeLeft<5){
+//                    isAlert = true
+//                }
+//            }
+//
+//            override fun onFinish() {
+//                isGameOver = true
+//            }
+//        }.start()
+//    }
+//    if (isGameOver) {
+//        content(true, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
+//    }
+//
+//    if (isTimeUp) {
+//
+//        TimeUpDialogCompose() { i ->
+//            if (i) {
+//                isGameOver = true
+//
+//            } else {
+//                content(false, rightGameAnswers, (rightGameAnswers + wrongGameAnswers))
+//            }
+//        }
+//
+//
+//    }else{
+//        if (gameStarted) {
+//            LaunchedEffect(true) {
+//                delay(3000)
+//                gameStarted = true
+//            }
+//        }
+//
+//        Box(
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .fillMaxHeight()
+//                .background(color = Color.White),
+//        ) {
+//            Box(modifier = Modifier.height(48.dp).background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
+//
+//                BackButton(onClick = { content(false,0,0) }
+//                )
+//                Text(
+//                    text = "Matching",
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//
+//                        ,
+//                    textAlign = TextAlign.Center,
+//                    color = Color.White,
+//                    fontSize = 17.sp
+//                )
+//
+//            }
+//
+//
+//
+//            Column(
+//                modifier = modifier.fillMaxSize(), Arrangement.Center, Alignment.CenterHorizontally
+//            ) {
+////        Text(modifier = modifier, text = "Memorize The Same numbers")
+//
+////        Text(modifier = modifier, text = "Total Attemps: $r   Accurate: $r1")
+//                Row(modifier = modifier) {
+//                    for (i in arr.subList(0, 3).indices) {
+//                        // Trigger the vibration effect when the Composable is recomposed
+//                        LaunchedEffect(true) {
+//                            vibrator?.let { v ->
+//                                v.vibrate(
+//                                    VibrationEffect.createOneShot(
+//                                        500, VibrationEffect.DEFAULT_AMPLITUDE
+//                                    )
+//                                )
+//                                // Delay for the vibration duration
+//                                delay(500)
+//                                // Stop the vibration
+//                                v.cancel()
+//                            }
+//                        }
+//
+//                        CardShape(modifier, i, {
+//                            r++
+//                        }, {
+//                            r1++
+//                        }, {
+//
+//
+//                        })
+//                    }
+//                }
+//                Row(modifier = modifier) {
+//                    for (i in arr.subList(3, 6).indices) {
+//                        CardShape(modifier, i, {
+//                            r++
+//                        }, {
+//                            r1++
+//                        }, {})
+//                    }
+//                }
+//
+//                ShakingButton()
+////        SwipeGestureExample()
+//            }
+//
+//
+//            Image(
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .fillMaxHeight(),
+//                painter = painterResource(id = R.drawable.iconbg),
+//                contentDescription = "bg"
+//            )
+//            if (isAlert) {
+//                GameAlertingTime()
+//            }
+//        }
+//    }
+//
+//
+//
+//
+//
+//
+//
+//    /*else {
+//            Column(
+//                modifier = modifier.fillMaxSize(), Arrangement.Center, Alignment.CenterHorizontally
+//            ) {
+//
+//                Row(modifier = modifier) {
+//                    CardShape(modifier, "", false)
+//                    CardShape(modifier, "", false)
+//                    CardShape(modifier, "", false)
+//                }
+//                Row(modifier = modifier) {
+//                    CardShape(modifier, "", false)
+//                    CardShape(modifier, "", false)
+//                    CardShape(modifier, "", false)
+//                }
+//            }
+//    //        gameStarted = true
+//        }*/
+//}
 
 var firstChoice: MemoryItem? = null
 var secondChoice: MemoryItem? = null

@@ -34,6 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -45,6 +46,8 @@ import com.teamx.equiz.R
 import com.teamx.equiz.games.games.BackButton
 import com.teamx.equiz.games.games.TouchTheNumGamePlus
 import com.teamx.equiz.games.games.learningy.linkListSpin67
+import com.teamx.equiz.games.games.learningy.musiclearning.correctSound
+import com.teamx.equiz.games.games.learningy.musiclearning.incorrectSound
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import com.teamx.equiz.games.ui.theme.BirdColor1
@@ -319,6 +322,7 @@ fun UnfollowTouchTheNumGamePlus(content:  (bool:Boolean, rightAnswer:Int, totalA
     var isTimeUp by remember { mutableStateOf(false) }
 
     var timeLeft by remember { mutableStateOf(20L) }
+    val context = LocalContext.current
 
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
@@ -349,8 +353,8 @@ fun UnfollowTouchTheNumGamePlus(content:  (bool:Boolean, rightAnswer:Int, totalA
            rightGameAnswersTheNum,
            totalGameAnswersTheNum
         )
-       rightGameAnswersTheNum =0
-       totalGameAnswersTheNum =1
+        rightGameAnswersTheNum = 0
+        totalGameAnswersTheNum = 0
 
     }
 
@@ -365,8 +369,8 @@ fun UnfollowTouchTheNumGamePlus(content:  (bool:Boolean, rightAnswer:Int, totalA
                    rightGameAnswersTheNum,
                    totalGameAnswersTheNum
                 )
-               rightGameAnswersTheNum =0
-               totalGameAnswersTheNum =1
+                rightGameAnswersTheNum = 0
+                totalGameAnswersTheNum = 0
             }
         }
 
@@ -525,7 +529,7 @@ fun NumAscendingObjects2() {
 @Composable
 fun NumAnimatedObject2(number: Int, itemCompared: Int, onClick: (Item: Int) -> Unit) {
     var colorState by remember { mutableStateOf<Color>(BirdColor4) }
-
+    val context = LocalContext.current
     Surface(
         color = if (numLinkListAdded32.contains(number)) {
             colorState = BirdColor4
@@ -555,21 +559,23 @@ fun NumAnimatedObject2(number: Int, itemCompared: Int, onClick: (Item: Int) -> U
             .clip(RoundedCornerShape(6.dp))
 
             .clickable(
-                enabled =numLinkListAdded32.contains(number)
+                enabled = numLinkListAdded32.contains(number)
             ) {
 
-               totalGameAnswersTheNum++
+                totalGameAnswersTheNum++
 
                 if (colorState == Color.Transparent) {
 
                     Log.d("123123", "AnimatedObjectWrong2:$number ::$itemCompared ")
                     return@clickable
-                } else if (number ==numLinkListAdded32.first) {
+                } else if (number == numLinkListAdded32.first) {
                     colorState = Color.Transparent
                     onClick(itemCompared)
-                   rightGameAnswersTheNum++
+                    rightGameAnswersTheNum++
+                    correctSound(context)
                     Log.d("123123", "AnimatedObjectWrong1:$number ::$itemCompared ")
                 } else {
+                    incorrectSound(context)
                     Log.d("123123", "AnimatedObjectWrong2:$number ::$itemCompared ")
                 }
             },

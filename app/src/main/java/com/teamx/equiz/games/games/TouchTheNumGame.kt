@@ -34,6 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -42,6 +43,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
+import com.teamx.equiz.games.games.learningy.musiclearning.correctSound
+import com.teamx.equiz.games.games.learningy.musiclearning.incorrectSound
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import com.teamx.equiz.games.ui.theme.BirdColor1
@@ -313,6 +316,7 @@ fun TouchTheNumGamePlus(content:  (bool:Boolean, rightAnswer:Int, totalAnswer:In
     var isTimeUp by remember { mutableStateOf(false) }
 
     var timeLeft by remember { mutableStateOf(20L) }
+    val context = LocalContext.current
 
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
@@ -340,8 +344,8 @@ fun TouchTheNumGamePlus(content:  (bool:Boolean, rightAnswer:Int, totalAnswer:In
 
 
         content(true, rightGameAnswersTheNum, totalGameAnswersTheNum)
-        rightGameAnswersTheNum=0
-        totalGameAnswersTheNum=1
+        rightGameAnswersTheNum = 0
+        totalGameAnswersTheNum = 0
 
     }
 
@@ -353,8 +357,8 @@ fun TouchTheNumGamePlus(content:  (bool:Boolean, rightAnswer:Int, totalAnswer:In
 
             } else {
                 content(false, rightGameAnswersTheNum, totalGameAnswersTheNum)
-                rightGameAnswersTheNum=0
-                totalGameAnswersTheNum=1
+                rightGameAnswersTheNum = 0
+                totalGameAnswersTheNum = 0
             }
         }
 
@@ -372,11 +376,9 @@ fun TouchTheNumGamePlus(content:  (bool:Boolean, rightAnswer:Int, totalAnswer:In
 
                 BackButton(onClick = { content(false,0,0) })
                 Text(
-                    text = "Training",
+                    text = "Touch The Number",
                     modifier = Modifier
-                        .fillMaxWidth()
-
-                        ,
+                        .fillMaxWidth(),
                     textAlign = TextAlign.Center,
                     color = Color.White,
                     fontSize = 17.sp
@@ -460,7 +462,7 @@ fun NumAscendingObjects2() {
         }
     }
 
-
+    val context = LocalContext.current
     Box(
         modifier = Modifier
             .padding(16.dp)
@@ -482,6 +484,7 @@ fun NumAscendingObjects2() {
                     numLinkListAdded32 = temp
 
                     if (linkListSpin67.isEmpty()) {
+                        correctSound(context)
                         changable = true
                     }
                     Log.d("123123", "AscendingObjects:linkListAdded $numLinkListAdded32")
@@ -498,7 +501,7 @@ fun NumAscendingObjects2() {
 @Composable
 fun NumAnimatedObject2(number: Int, itemCompared: Int, onClick: (Item: Int) -> Unit) {
     var colorState by remember { mutableStateOf<Color>(BirdColor4) }
-
+    val context = LocalContext.current
     Surface(
         color = if (numLinkListAdded32.contains(number)) {
             colorState = BirdColor4
@@ -548,6 +551,7 @@ fun NumAnimatedObject2(number: Int, itemCompared: Int, onClick: (Item: Int) -> U
                     rightGameAnswersTheNum++
                     Log.d("123123", "AnimatedObjectWrong1:$number ::$itemCompared ")
                 } else {
+                    incorrectSound(context)
                     Log.d("123123", "AnimatedObjectWrong2:$number ::$itemCompared ")
                 }
             },

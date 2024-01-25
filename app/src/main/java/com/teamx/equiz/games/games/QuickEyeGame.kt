@@ -27,6 +27,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -34,6 +35,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
+import com.teamx.equiz.games.games.learningy.musiclearning.correctSound
+import com.teamx.equiz.games.games.learningy.musiclearning.incorrectSound
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import kotlin.random.Random
@@ -50,6 +53,7 @@ fun QuickEyeGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int) ->
 
 
     var timeLeft by remember { mutableStateOf(20L) }
+    val context = LocalContext.current
     var isTimeUp by remember { mutableStateOf(false) }
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
@@ -75,8 +79,8 @@ fun QuickEyeGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int) ->
 
     if (isGameOver) {
         content(true, rightGameAnswersQuickEye, totalGameAnswersQuickEye)
-        rightGameAnswersQuickEye=0
-        totalGameAnswersQuickEye=1
+        rightGameAnswersQuickEye = 0
+        totalGameAnswersQuickEye = 0
     }
 
     if (isTimeUp) {
@@ -87,8 +91,8 @@ fun QuickEyeGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int) ->
 
             } else {
                 content(false, rightGameAnswersQuickEye, totalGameAnswersQuickEye)
-                rightGameAnswersQuickEye=0
-                totalGameAnswersQuickEye=1
+                rightGameAnswersQuickEye = 0
+                totalGameAnswersQuickEye = 0
             }
         }
 
@@ -106,16 +110,18 @@ fun QuickEyeGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int) ->
                 .fillMaxHeight()
                 .background(color = Color(0xFFE1E1E1)),
         ) {
-            Box(modifier = Modifier.height(48.dp).background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
+            Box(
+                modifier = Modifier
+                    .height(48.dp)
+                    .background(color = Color(0xFF9F81CA)), contentAlignment = Alignment.CenterStart
+            ) {
 
-                BackButton(onClick = { content(false,0,0) }
+                BackButton(onClick = { content(false, 0, 0) }
                 )
                 Text(
                     text = "Quick Eye",
                     modifier = Modifier
-                        .fillMaxWidth()
-
-                        ,
+                        .fillMaxWidth(),
                     textAlign = TextAlign.Center,
                     color = Color.White,
                     fontSize = 17.sp
@@ -219,7 +225,7 @@ val quickSelectedCards = arrayListOf<String>()
 @Composable
 fun QuickCardCalculationGameScreen(content: () -> Unit) {
 
-
+    val context = LocalContext.current
     var changeable by remember { mutableStateOf(true) }
     var gameStarted by remember { mutableStateOf(false) }
     if (changeable) {
@@ -340,8 +346,11 @@ fun QuickCardCalculationGameScreen(content: () -> Unit) {
                                                 )
                                             ) {
                                                 rightGameAnswersQuickEye++
+                                                correctSound(context)
                                                 changeable = true
                                                 gameStarted = false
+                                            } else {
+                                                incorrectSound(context)
                                             }
 
                                         },

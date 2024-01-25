@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.MaterialTheme.shapes
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -26,12 +25,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
+import com.teamx.equiz.games.games.learningy.musiclearning.correctSound
+import com.teamx.equiz.games.games.learningy.musiclearning.incorrectSound
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import kotlin.random.Random
@@ -61,6 +63,7 @@ fun MissingPieceGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswe
 
 
     var timeLeft by remember { mutableStateOf(20L) }
+    val context = LocalContext.current
 
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
@@ -209,16 +212,24 @@ fun MissingPieceGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswe
                                 .size(80.dp)
                                 .padding(vertical = 8.dp)
                                 .clickable(true) {
+                                    val temp = rightGameAnswersMiss
                                     if (index == missingShapeIndex) {
                                         rightGameAnswersMiss++
+                                        correctSound(context)
                                         score++
                                     } else {
                                         score = 0
                                     }
+                                    if (temp == rightGameAnswersMiss) {
+                                        incorrectSound(context)
+                                    }
                                     gameAnswersTotalMiss++
                                     currentShapes = generateShapesTT()
 
-                                    missingShapeIndex =    Random.nextInt(0, (currentShapes.size - 1))/*generateMissingShapeIndex()*/
+                                    missingShapeIndex = Random.nextInt(
+                                        0,
+                                        (currentShapes.size - 1)
+                                    )/*generateMissingShapeIndex()*/
                                 }, contentDescription = ""
                         )/* {
                         Text(text = shape.toString())

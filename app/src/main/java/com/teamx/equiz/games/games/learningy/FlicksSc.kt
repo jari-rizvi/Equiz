@@ -30,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -37,6 +38,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
 import com.teamx.equiz.games.games.BackButton
+import com.teamx.equiz.games.games.learningy.musiclearning.correctSound
+import com.teamx.equiz.games.games.learningy.musiclearning.incorrectSound
 import com.teamx.equiz.games.games.rightGameAnswersFlick
 import com.teamx.equiz.games.games.totalGameAnswersFlick
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
@@ -56,7 +59,7 @@ fun FlicksSc(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit
 
     var isTimeUp by remember { mutableStateOf(false) }
     var timeLeft by remember { mutableStateOf(20L) }
-
+    val context = LocalContext.current
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
 //        generateOptions()
@@ -80,7 +83,7 @@ fun FlicksSc(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit
     if (isGameOver) {
         content(true, rightGameAnswersFlick, totalGameAnswersFlick)
         rightGameAnswersFlick = 0
-        totalGameAnswersFlick = 1
+        totalGameAnswersFlick = 0
     }
     if (isTimeUp) {
         Log.d("234234", "FlicksSc:$totalGameAnswersFlick ")
@@ -92,7 +95,7 @@ fun FlicksSc(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit
             } else {
                 content(false, rightGameAnswersFlick, totalGameAnswersFlick)
                 totalGameAnswersFlick = 0
-                rightGameAnswersFlick = 1
+                rightGameAnswersFlick = 0
             }
         }
 
@@ -216,9 +219,10 @@ fun FlicksSc(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit
                                 onDragEnd = {
                                     totalGameAnswersFlick++
 
-                                    if(!transitionState.targetState){
+                                    if (!transitionState.targetState) {
                                         randInt = Random.nextInt(0, 4)
                                         isInverse = Random.nextBoolean()
+                                        incorrectSound(context)
                                     }
                                 }
                             ) { change, dragAmount ->
@@ -248,7 +252,7 @@ fun FlicksSc(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit
 
 
                                 transitionState.targetState = true
-
+                                correctSound(context)
 
                             }
 
@@ -305,6 +309,7 @@ fun FlicksSc(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit
             if (transitionState.targetState) {
                 delay(800)
                 rightGameAnswersFlick++
+
                 randInt = Random.nextInt(0, 4)
                 isInverse = Random.nextBoolean()
                 transitionState.targetState = false

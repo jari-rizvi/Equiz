@@ -2,8 +2,6 @@ package com.teamx.equiz.games.games.learningy.makingran10
 
 import android.os.CountDownTimer
 import android.util.Log
-import android.widget.ImageView
-import android.widget.ImageView.ScaleType
 import androidx.annotation.Keep
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
@@ -31,7 +29,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.icons.Icons
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -43,9 +40,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -56,6 +53,8 @@ import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
 import com.teamx.equiz.games.games.BackButton
 import com.teamx.equiz.games.games.disableScrolling
+import com.teamx.equiz.games.games.learningy.musiclearning.correctSound
+import com.teamx.equiz.games.games.learningy.musiclearning.incorrectSound
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import com.teamx.equiz.ui.theme.BirdColor4
@@ -76,6 +75,7 @@ fun Rain10Game(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: Int) -
 
 
     var timeLeft by remember { mutableStateOf(20L) }
+    val context = LocalContext.current
     var isTimeUp by remember { mutableStateOf(false) }
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
@@ -102,7 +102,7 @@ fun Rain10Game(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: Int) -
     if (isGameOver) {
         content(true, rightGameAnswersRain, wrongGameAnswersRain)
         rightGameAnswersRain = 0
-        wrongGameAnswersRain = 1
+        wrongGameAnswersRain = 0
     }
 
 
@@ -118,7 +118,7 @@ fun Rain10Game(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: Int) -
 
                 content(false, rightGameAnswersRain, wrongGameAnswersRain)
                 rightGameAnswersRain = 0
-                wrongGameAnswersRain = 1
+                wrongGameAnswersRain = 0
             }
         }
 
@@ -228,7 +228,7 @@ fun rain10Drops() {
 
 
     var leftIndexCounter by remember { mutableIntStateOf(0) }
-
+    val context = LocalContext.current
     val deletedIndexList = remember { mutableStateListOf<Int>() }
     val leftScrollState = rememberLazyListState()
     val rightScrollState2 = rememberLazyListState()
@@ -286,7 +286,10 @@ fun rain10Drops() {
                                 val iu2 = midItems.lastIndex - leftIndexCounter
                                 val iu3 = rightItems.lastIndex - leftIndexCounter
                                 if (it) {
+                                    correctSound(context)
                                     rightGameAnswersRain++
+                                }else{
+                                    incorrectSound(context)
                                 }
                                 wrongGameAnswersRain++
                                 deletedIndexList.add(index)
@@ -336,7 +339,11 @@ fun rain10Drops() {
                                 val iu3 = rightItems.lastIndex - leftIndexCounter
 
                                 if (it) {
+                                    correctSound(context)
                                     rightGameAnswersRain++
+                                }else{
+                                    incorrectSound(context)
+
                                 }
                                 wrongGameAnswersRain++
                                 deletedIndexList.add(index)
@@ -381,8 +388,11 @@ fun rain10Drops() {
                                 val iu3 = rightItems.lastIndex - leftIndexCounter
 
                                 if (it) {
-
+correctSound(context)
                                     rightGameAnswersRain++
+                                }else{
+incorrectSound(context)
+
                                 }
                                 wrongGameAnswersRain++
                                 deletedIndexList.add(index)
@@ -467,13 +477,15 @@ fun drop(index: Int, item: RainListItem, onClick: (boo: Boolean) -> Unit) {
             painter = painterResource(
                 colorState
             ),
-            contentDescription = null, modifier = Modifier.fillMaxSize().padding(
-                top = if (item.isClickable) {
-                    0.dp
-                } else {
-                    12.dp
-                }
-            )
+            contentDescription = null, modifier = Modifier
+                .fillMaxSize()
+                .padding(
+                    top = if (item.isClickable) {
+                        0.dp
+                    } else {
+                        12.dp
+                    }
+                )
         )
 
 

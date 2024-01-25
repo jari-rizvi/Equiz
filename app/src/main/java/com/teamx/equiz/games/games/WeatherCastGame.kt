@@ -63,6 +63,7 @@ fun WeatherCastGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int)
     var isTimeUp by remember { mutableStateOf(false) }
 
     var timeLeft by remember { mutableStateOf(20L) }
+    val context = LocalContext.current
 
     var timerRunning by remember { mutableStateOf(true) }
     LaunchedEffect(true) {
