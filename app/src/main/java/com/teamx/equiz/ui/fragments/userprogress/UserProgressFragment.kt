@@ -1,5 +1,6 @@
 package com.teamx.equiz.ui.fragments.userprogress
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -26,6 +27,8 @@ import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.constants.AppConstants
 import com.teamx.equiz.data.models.PaymentMethod
+import com.teamx.equiz.data.models.topWinnerData.Game
+import com.teamx.equiz.data.models.topWinnerData.TopWinnerData
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentTopUpBinding
 import com.teamx.equiz.databinding.FragmentUserProgressBinding
@@ -48,7 +51,9 @@ class UserProgressFragment : BaseFragment<FragmentUserProgressBinding, LoaderBoa
         get() = BR.viewModel
     private lateinit var options: NavOptions
     var id: String = ""
+    var GameModel: Game? = null
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
@@ -66,6 +71,37 @@ class UserProgressFragment : BaseFragment<FragmentUserProgressBinding, LoaderBoa
             }
         }
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
+
+
+        mViewDataBinding.cc.setOnClickListener {
+
+            GameModel?.let { it1 ->
+                DialogHelperClass.chickenDialog(requireContext(),
+                    object : DialogHelperClass.Companion.ChickenDialogCallBack {
+                        override fun onCloseClick() {
+
+                        }
+
+
+                    }, gamesModel = it1
+                ).show()
+            }
+        }
+
+        mViewDataBinding.cc1.setOnClickListener {
+
+            GameModel?.let { it1 ->
+                DialogHelperClass.UserStatsDialog(requireContext(),
+                    object : DialogHelperClass.Companion.ChickenDialogCallBack {
+                        override fun onCloseClick() {
+
+                        }
+
+
+                    }, gamesModel = it1
+                ).show()
+            }
+        }
 
 
         id = PrefHelper.getInstance(requireContext()).setUserId.toString()
@@ -89,25 +125,57 @@ class UserProgressFragment : BaseFragment<FragmentUserProgressBinding, LoaderBoa
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
-                            mViewDataBinding.simpleProgressBar.secondaryProgress = data.game[0].speed
-                            mViewDataBinding.textView31.text = data.game[0].speed.toString() + " %"
+                            val speed =
+                                data.game[0].speed.toDouble() / data.game[0].level.Range.toDouble() * 100
+                            mViewDataBinding.simpleProgressBar.secondaryProgress = speed.toInt()
+                            Log.d("TAG", "speedspeed: $speed")
+                            val roundoffspeed = Math.round(speed)
 
-                            mViewDataBinding.simpleProgressBar1.secondaryProgress = data.game[0].judgment
-                            mViewDataBinding.textView311.text = data.game[0].judgment.toString() + " %"
+                            mViewDataBinding.textView31.text = "$roundoffspeed %"
 
-                            mViewDataBinding.simpleProgressBar3.secondaryProgress = data.game[0].accuracy
-                            mViewDataBinding.textView313.text = data.game[0].accuracy.toString() + " %"
+                            val judgment =
+                                data.game[0].judgment.toDouble() / data.game[0].level.Range.toDouble() * 100
+                            mViewDataBinding.simpleProgressBar1.secondaryProgress = judgment.toInt()
+                            val roundoffjudgment = Math.round(judgment)
 
-                            mViewDataBinding.simpleProgressBar4.secondaryProgress = data.game[0].observation
+                            mViewDataBinding.textView311.text = "$roundoffjudgment %"
 
-                            mViewDataBinding.textView314.text = data.game[0].observation.toString() + " %"
+                            val accuracy =
+                                data.game[0].accuracy.toDouble() / data.game[0].level.Range.toDouble() * 100
+                            val roundoffAccuracy = Math.round(accuracy)
+                            mViewDataBinding.simpleProgressBar3.secondaryProgress = accuracy.toInt()
+                            mViewDataBinding.textView313.text = "$roundoffAccuracy %"
 
-                            mViewDataBinding.simpleProgressBar5.secondaryProgress = data.game[0].memory
-                            mViewDataBinding.textView315.text = data.game[0].memory.toString() + " %"
+                            val observation =
+                                data.game[0].observation.toDouble() / data.game[0].level.Range.toDouble() * 100
+                            mViewDataBinding.simpleProgressBar4.secondaryProgress =
+                                observation.toInt()
+                            val roundoffobservation = Math.round(observation)
+                            mViewDataBinding.textView314.text = "$roundoffobservation %"
 
-                            mViewDataBinding.simpleProgressBar2.secondaryProgress = data.game[0].calculation
-                            mViewDataBinding.textView312.text = data.game[0].calculation.toString() + " %"
+                            val memory =
+                                data.game[0].memory.toDouble() / data.game[0].level.Range.toDouble() * 100
+                            mViewDataBinding.simpleProgressBar5.secondaryProgress = memory.toInt()
+                            val roundoffmemory = Math.round(memory)
+                            mViewDataBinding.textView315.text = "$roundoffmemory %"
 
+                            val calculation =
+                                data.game[0].accuracy.toDouble() / data.game[0].level.Range.toDouble() * 100
+                            mViewDataBinding.simpleProgressBar2.secondaryProgress =
+                                calculation.toInt()
+                            val roundoffcalculation = Math.round(calculation)
+
+                            mViewDataBinding.textView312.text = "$roundoffcalculation %"
+
+                            mViewDataBinding.getRank.text = data.game[0].rank.toString()
+
+
+                            val chickenProgress =
+                                data.game[0].totalScore.toDouble() / data.game[0].level.Range.toDouble() * 100
+                            mViewDataBinding.simpleProgress.secondaryProgress =
+                                chickenProgress.toInt()
+
+                            GameModel= data.game[0]
 
                         }
                     }

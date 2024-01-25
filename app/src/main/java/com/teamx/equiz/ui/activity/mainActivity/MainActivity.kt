@@ -9,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.teamx.equiz.BR
 import com.teamx.equiz.MainApplication
@@ -269,7 +270,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
                 R.string.empty_value
             ),
             com.teamx.equiz.games.nav_custom.custombottomnav.Model(
-                R.drawable.setting_dash,
+                R.drawable.cartt,
                 R.id.ecommerceFragment,
                 2,/*R.string.title_chat*/
                 R.string.profile2,

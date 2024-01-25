@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="AndroidLintSetTextI18n">
+        <ignore path="D:/Jari's Projects/Equiz/app/src/main/java/com/teamx/equiz/utils/DialogHelperClass.kt" />
+    </issue>
+</lint>

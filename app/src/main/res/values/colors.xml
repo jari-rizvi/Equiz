@@ -19,6 +19,7 @@
 
     <color name="colorPrimary">#DA243A</color>
     <color name="colorPrimaryDark">#DA243A</color>
+    <color name="yellow">#FEC700</color>
     <color name="colorPrimaryDarkLight">#DD4D5F</color>
 
     <color name="colorAccent_indeed">#F1F1F1</color>

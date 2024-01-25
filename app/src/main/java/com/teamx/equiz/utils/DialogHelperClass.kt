@@ -1,17 +1,20 @@
 package com.teamx.equiz.utils
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.WindowManager
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import com.teamx.equiz.R
+import com.teamx.equiz.data.models.topWinnerData.Game
 import com.teamx.equiz.games.games.dialogShareGame
 import com.teamx.equiz.ui.fragments.collectPrice.ClaimInterfaceCallback
 import com.teamx.equiz.ui.fragments.dashboard.GamesUID2
@@ -283,45 +286,45 @@ class DialogHelperClass {
                 }
                 dialog.dismiss()
             }
-            
+
 
             dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             dialog.show()
         }
 
 
-      /*  interface DialogCallBackOtpVerify {
-            fun onOtpClick()
-        }
+        /*  interface DialogCallBackOtpVerify {
+              fun onOtpClick()
+          }
 
-        fun verifyOtpDialog(context: Context, dialogCallBack: DialogCallBackOtpVerify): Dialog {
-            val dialog = Dialog(context)
-            dialog.setContentView(R.layout.verify_otp_dialog)
-            dialog.window!!.setLayout(
-                WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT
-            )
-            dialog.setCancelable(false)
-            val send = dialog.findViewById<TextView>(R.id.sendOtp)
-            val cancelBtn = dialog.findViewById<TextView>(R.id.btnCancel)
+          fun verifyOtpDialog(context: Context, dialogCallBack: DialogCallBackOtpVerify): Dialog {
+              val dialog = Dialog(context)
+              dialog.setContentView(R.layout.verify_otp_dialog)
+              dialog.window!!.setLayout(
+                  WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT
+              )
+              dialog.setCancelable(false)
+              val send = dialog.findViewById<TextView>(R.id.sendOtp)
+              val cancelBtn = dialog.findViewById<TextView>(R.id.btnCancel)
 
-            cancelBtn.setOnClickListener {
-                dialog.dismiss()
-            }
-            send.setOnClickListener {
-                dialogCallBack.onOtpClick()
-                dialog.dismiss()
-            }
+              cancelBtn.setOnClickListener {
+                  dialog.dismiss()
+              }
+              send.setOnClickListener {
+                  dialogCallBack.onOtpClick()
+                  dialog.dismiss()
+              }
 
-            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+              dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-            return dialog
-        }
+              return dialog
+          }
 
-*/
+  */
 
 
         @Composable
-         fun returnGameIcon(enumNumberEnum: String): Painter {
+        fun returnGameIcon(enumNumberEnum: String): Painter {
 
 
             return when (enumNumberEnum) {
@@ -457,7 +460,7 @@ class DialogHelperClass {
 
         }
 
-          fun returnGameName(enumNumberEnum: String): String {
+        fun returnGameName(enumNumberEnum: String): String {
 
 
             return when (enumNumberEnum) {
@@ -599,7 +602,7 @@ class DialogHelperClass {
             }
 
 
-          }
+        }
 
 
         interface DialogCallBackSignIn {
@@ -610,6 +613,10 @@ class DialogHelperClass {
         interface DeleteUserDialogCallBack {
             fun onSignInClick1()
             fun onSignUpClick1()
+        }
+
+        interface ChickenDialogCallBack {
+            fun onCloseClick()
         }
 
         var dialog: Dialog? = null
@@ -695,16 +702,104 @@ class DialogHelperClass {
             return dialog
         }
 
+        fun UserStatsDialog(
+            context: Context,
+            dialogCallBack: ChickenDialogCallBack,
+            gamesModel: Game
+        ): Dialog {
+            val dialog = Dialog(context)
+            dialog.setContentView(R.layout.user_stats_dialog)
+            dialog.window!!.setLayout(
+                WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT
+            )
+            dialog.setCancelable(false)
+            val cancelBtn = dialog.findViewById<TextView>(R.id.btnClose)
+            val speedProgress = dialog.findViewById<ProgressBar>(R.id.simpleProgressBar)
+            val judgeProgress = dialog.findViewById<ProgressBar>(R.id.simpleProgressBar1)
+            val calProgress = dialog.findViewById<ProgressBar>(R.id.simpleProgressBar2)
+            val accuracyProgress = dialog.findViewById<ProgressBar>(R.id.simpleProgressBar3)
+            val obsProgress = dialog.findViewById<ProgressBar>(R.id.simpleProgressBar4)
+            val memoryProgress = dialog.findViewById<ProgressBar>(R.id.simpleProgressBar5)
 
 
+            val speed =
+                gamesModel.speed.toDouble() / gamesModel.level.Range.toDouble() * 100
+            speedProgress.secondaryProgress = speed.toInt()
 
 
+            val judgment =
+                gamesModel.judgment.toDouble() / gamesModel.level.Range.toDouble() * 100
+            judgeProgress.secondaryProgress = judgment.toInt()
+
+            val calul =
+                gamesModel.calculation.toDouble() / gamesModel.level.Range.toDouble() * 100
+            calProgress.secondaryProgress = calul.toInt()
+
+            val acc =
+                gamesModel.accuracy.toDouble() / gamesModel.level.Range.toDouble() * 100
+            accuracyProgress.secondaryProgress = acc.toInt()
+
+            val observation =
+                gamesModel.observation.toDouble() / gamesModel.level.Range.toDouble() * 100
+            obsProgress.secondaryProgress =
+                observation.toInt()
+
+            val memory =
+                gamesModel.memory.toDouble() / gamesModel.level.Range.toDouble() * 100
+            memoryProgress.secondaryProgress = memory.toInt()
 
 
+            cancelBtn.setOnClickListener {
+                dialogCallBack.onCloseClick()
+                dialog.dismiss()
+            }
 
 
+            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+            return dialog
+        }
 
 
+        @SuppressLint("SetTextI18n")
+        fun chickenDialog(
+            context: Context,
+            dialogCallBack: ChickenDialogCallBack,
+            gamesModel: Game
+        ): Dialog {
+            val dialog = Dialog(context)
+            dialog.setContentView(R.layout.level_chicken_dialog)
+            dialog.window!!.setLayout(
+                WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT
+            )
+            dialog.setCancelable(false)
+            val cancelBtn = dialog.findViewById<TextView>(R.id.btnClose)
+            val speed = dialog.findViewById<TextView>(R.id.textView67)
+            val judgment = dialog.findViewById<TextView>(R.id.textView68)
+            val cal = dialog.findViewById<TextView>(R.id.textView70)
+            val accuracy = dialog.findViewById<TextView>(R.id.textView71)
+            val observation = dialog.findViewById<TextView>(R.id.textView72)
+            val memory = dialog.findViewById<TextView>(R.id.textView73)
+
+
+            speed.text = gamesModel.speed.toString() + "/" + gamesModel.level.Range
+            judgment.text = gamesModel.judgment.toString() + "/" + gamesModel.level.Range
+            cal.text = gamesModel.calculation.toString() + "/" + gamesModel.level.Range
+            accuracy.text = gamesModel.accuracy.toString() + "/" + gamesModel.level.Range
+            observation.text = gamesModel.observation.toString() + "/" + gamesModel.level.Range
+            memory.text = gamesModel.observation.toString() + "/" + gamesModel.level.Range
+
+
+            cancelBtn.setOnClickListener {
+                dialogCallBack.onCloseClick()
+                dialog.dismiss()
+            }
+
+
+            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+            return dialog
+        }
 
 
     }

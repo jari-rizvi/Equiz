@@ -26,14 +26,144 @@
 
         <ImageView
             android:id="@+id/imageView13"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_150sdp"
+            android:layout_width="@dimen/_160sdp"
+            android:layout_height="@dimen/_130sdp"
             android:src="@drawable/brain"
+            android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cc"
             app:layout_constraintVertical_bias="0.05" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cc"
+            android:layout_width="@dimen/_140sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:background="@drawable/border_background"
+            android:backgroundTint="@color/white"
+            android:elevation="@dimen/_1sdp"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            app:layout_constraintVertical_bias="0"
+            android:layout_marginTop="@dimen/_8sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profilePicture"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                app:layout_constraintHorizontal_bias="0"
+                android:scaleType="centerCrop"
+                android:src="@drawable/chicken_rank"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/simpleProgress"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="wrap_content"
+                android:max="100"
+                app:layout_constraintHorizontal_bias="0"
+                android:layout_marginHorizontal="@dimen/_5sdp"
+                app:indicatorColor="#538B4D"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginVertical="@dimen/_3sdp"
+                app:layout_constraintStart_toEndOf="@+id/profilePicture"
+                app:layout_constraintTop_toBottomOf="@+id/text_view"
+                app:layout_constraintVertical_bias="0"
+                app:trackColor="@color/light_gray"
+                app:trackCornerRadius="@dimen/_10sdp"
+                app:trackThickness="@dimen/_10sdp" />
+
+
+            <TextView
+                android:id="@+id/text_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Level Chicken"
+                android:textColor="@color/black"
+                android:layout_marginHorizontal="@dimen/_5sdp"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintVertical_bias="0.1"
+                android:textSize="@dimen/_14ssp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/profilePicture"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cc1"
+            android:layout_width="@dimen/_140sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:background="@drawable/border_background"
+            android:backgroundTint="@color/white"
+            android:elevation="@dimen/_1sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/cc"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cc"
+            app:layout_constraintTop_toTopOf="@+id/cc"
+            app:layout_constraintVertical_bias="0">
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profilePicture1"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/rankingg"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/getRank"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_5sdp"
+                android:textColor="@color/black"
+                android:gravity="center_vertical"
+                android:text="1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toEndOf="@+id/profilePicture1"
+                app:layout_constraintTop_toBottomOf="@+id/text_view1"
+                app:layout_constraintVertical_bias="0" />
+
+
+            <TextView
+                android:id="@+id/text_view1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_5sdp"
+                android:text="Rank"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14ssp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/profilePicture1"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.1" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         <TextView
@@ -41,7 +171,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:fontFamily="@font/poppins_bold"
             android:text="@string/speed"
             android:textColor="@color/black"
@@ -56,11 +186,12 @@
 
         <TextView
             android:id="@+id/textView31"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_40sdp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_20sdp"
             android:fontFamily="@font/poppins_bold"
             android:text="0%"
+            android:gravity="center"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="@+id/textView30"
             app:layout_constraintEnd_toEndOf="parent"
@@ -71,12 +202,10 @@
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
             android:id="@+id/simpleProgressBar"
-
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_4sdp"
             android:max="100"
-
             app:indicatorColor="#538B4D"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/textView31"
@@ -107,7 +236,8 @@
 
         <TextView
             android:id="@+id/textView311"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_40sdp"
+            android:gravity="center"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_bold"
             android:text="0%"
@@ -155,7 +285,8 @@
 
         <TextView
             android:id="@+id/textView312"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_40sdp"
+            android:gravity="center"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_bold"
             android:text="0%"
@@ -171,7 +302,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:max="100"
-
             app:indicatorColor="#F1DE34"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/textView31"
@@ -202,7 +332,8 @@
 
         <TextView
             android:id="@+id/textView313"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_40sdp"
+            android:gravity="center"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_bold"
             android:text="0%"
@@ -250,7 +381,8 @@
 
         <TextView
             android:id="@+id/textView314"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_40sdp"
+            android:gravity="center"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_bold"
             android:text="0%"
@@ -297,7 +429,8 @@
 
         <TextView
             android:id="@+id/textView315"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_40sdp"
+            android:gravity="center"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_bold"
             android:text="0%"
