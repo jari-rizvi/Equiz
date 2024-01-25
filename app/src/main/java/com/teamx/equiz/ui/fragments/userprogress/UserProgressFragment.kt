@@ -54,6 +54,7 @@ class UserProgressFragment : BaseFragment<FragmentUserProgressBinding, LoaderBoa
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
+
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {

@@ -149,7 +149,7 @@ fun OperationGame(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: Int
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
-                .background(color = Color(0xFFE1E1E1)),
+                .background(color = Color(0xFFEFF4F9)),
         ) {
             Box(
                 modifier = Modifier
@@ -210,7 +210,7 @@ fun OperationGame(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: Int
                         Icon(
                             modifier = Modifier
                                 .size(25.dp)
-                                .background(Color.White, shape = RoundedCornerShape(12.dp)),
+                                .background(Color.White, shape = RoundedCornerShape(2.dp)),
                             imageVector = Icons.Default.CheckBoxOutlineBlank,
                             contentDescription = null
                         )
@@ -331,11 +331,11 @@ fun OperationGame(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: Int
                                     Box(
                                         modifier = Modifier
 
-                                            .padding(12.dp)
+                                            .padding(5.dp)
 
 
-                                            .size(83.dp)
-                                            .clip(RoundedCornerShape((15.dp)))
+                                            .size(95.dp)
+                                            .clip(RoundedCornerShape((10.dp)))
                                             .background(Color.White)
                                             .clickable {
                                                 selectedButtonIndex = index
@@ -345,16 +345,16 @@ fun OperationGame(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: Int
 //                                    selectedOperator = operator
                                                 if (operator == equation.split(" ")[1]) {
                                                     equation = generateEquation()
-                                                    firstNum1=firstNum
-                                                    secondNum1=secondNum
-                                                    resultNum1=resultNum
+                                                    firstNum1 = firstNum
+                                                    secondNum1 = secondNum
+                                                    resultNum1 = resultNum
 //                                        accurateCounter++
                                                     rightGameAnswersOp++
                                                 } else {
                                                     equation = generateEquation()
-                                                    firstNum1=firstNum
-                                                    secondNum1=secondNum
-                                                    resultNum1=resultNum
+                                                    firstNum1 = firstNum
+                                                    secondNum1 = secondNum
+                                                    resultNum1 = resultNum
 
                                                     if (index == selectedButtonIndex) {
 //                                            isShaking = true
@@ -368,11 +368,35 @@ fun OperationGame(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: Int
 
                                         ) {
 
+                                        val op = when (operator) {
+                                            "+" -> {
 
+                                                painterResource(R.drawable.add)
+                                            }
+
+                                            "*" -> {
+                                                painterResource(R.drawable.add)
+                                            }
+
+                                            "/" -> {
+                                                painterResource(R.drawable.add)
+
+                                            }
+
+                                            "x" -> {
+                                                painterResource(R.drawable.add)
+
+
+                                            }
+
+                                            else -> {
+                                                painterResource(R.drawable.add)
+                                            }
+                                        }
                                         Text(
-                                            modifier = Modifier.wrapContentSize(),
+                                            modifier = Modifier.fillMaxSize(),
                                             color = BirdColor4,
-                                            text = operator,
+                                            text = operator, textAlign = TextAlign.Center,
                                             fontWeight = FontWeight.ExtraBold,
 
                                             fontSize = 53.sp

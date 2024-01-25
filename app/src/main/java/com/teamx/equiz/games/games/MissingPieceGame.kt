@@ -50,7 +50,7 @@ enum class Shape {
 }
 
 var rightGameAnswersMiss = 0
-var gameAnswersTotalMiss = 1
+var gameAnswersTotalMiss = 0
 
 
 @Preview
@@ -87,7 +87,7 @@ fun MissingPieceGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswe
     if (isGameOver) {
         content(true, rightGameAnswersMiss, gameAnswersTotalMiss)
           rightGameAnswersMiss = 0
-          gameAnswersTotalMiss = 1
+          gameAnswersTotalMiss = 0
     }
     var score by remember { mutableStateOf(0) }
     var currentShapes by remember { mutableStateOf(generateShapesTT()) }
@@ -103,7 +103,7 @@ fun MissingPieceGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswe
             } else {
                 content(false, rightGameAnswersMiss, gameAnswersTotalMiss)
                 rightGameAnswersMiss = 0
-                gameAnswersTotalMiss = 1
+                gameAnswersTotalMiss = 0
             }
         }
 

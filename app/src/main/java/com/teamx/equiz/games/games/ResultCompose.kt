@@ -288,6 +288,50 @@ fun BottomButtons(onContinueClicked: (int: Int) -> Unit) {
 }
 
 @Composable
+fun BottomButtons2(onContinueClicked: (int: Int) -> Unit) {
+    Row(
+        modifier = Modifier
+            .clip(RoundedCornerShape(6))
+
+            .padding(vertical = 12.dp)
+
+            .fillMaxWidth(), Arrangement.SpaceEvenly, verticalAlignment = Alignment.Bottom
+    ) {
+        Button(
+            onClick = { onContinueClicked(1) },
+            shape = RoundedCornerShape(19.dp),
+            modifier = Modifier.width(130.dp),
+            colors = ButtonDefaults.buttonColors(Color(0xFF9F81CA))
+        ) {
+            Text(text = "Continue")
+
+        }
+        Button(
+            onClick = { onContinueClicked(2) },
+
+            modifier = Modifier.width(130.dp),
+            shape = RoundedCornerShape(19.dp),
+            colors = ButtonDefaults.buttonColors(Color.White)
+
+        ) {
+            Text(text = "Back", color = Color.Black)
+
+        }
+        Button(
+            shape = RoundedCornerShape(26.dp),
+            onClick = { onContinueClicked(3) },
+            modifier = Modifier,
+            colors = ButtonDefaults.buttonColors(Color(0xFF9F81CA))
+
+        ) {
+            Icon(imageVector = Icons.Default.Share, contentDescription = null)
+
+        }
+    }
+
+}
+
+@Composable
 fun BackButton(onClick: () -> Unit) {
     Box(
         modifier = Modifier.clickable { onClick() }, contentAlignment = Alignment.Center
@@ -413,6 +457,153 @@ fun ResultScreen(
                          }
                      }*/
                     BottomButtons { i ->
+                        if (i == 3) {
+                            IsShareDialogTrue = true
+                        } else {
+                            shouldShowOnboarding2 = false
+                            IsShareDialogTrue = false
+                            onContinueClicked(i)
+                        }
+                    }
+                }
+            }
+
+            if (IsShareDialogTrue) {
+                dialogShareGame(total, right, time, gameName, painter) {
+
+                    if (it == 3) {
+                        IsShareDialogTrue = false
+                    } else if (it == 21) {
+                        onContinueClicked(it)
+                    } else if (it == 22) {
+                        onContinueClicked(it)
+                    } else if (it == 23) {
+                        onContinueClicked(it)
+                    }
+                }
+            }
+
+
+            Image(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(),
+                painter = painterResource(id = R.drawable.iconbg),
+                contentDescription = "bg"
+            )
+        }
+    } else {
+//        HighOrLowGameScreen({ shouldShowOnboarding2 = true })
+    }
+}
+
+@Composable
+fun ResultScreen2(
+    total: Int,
+    right: Int,
+    time: Int,
+    gameName: String,
+    painter: Painter,
+    onContinueClicked: (i: Int) -> Unit
+) {
+
+    var IsShareDialogTrue by remember { mutableStateOf(false) }
+
+    var percentage = if (total == 0) {
+        0f
+    } else {
+        ((right.toDouble() / total)).toFloat()
+    }
+//    val accurateCount: Float = 33f
+//    val inaccurateCount: Float = 67f
+    val accurateCount: Float = percentage
+    val inaccurateCount: Float = 100f - percentage
+
+    val totalCount = accurateCount + inaccurateCount
+
+//    val accuracyPercentage: Float = (accurateCount / totalCount).toFloat()
+    val accuracyPercentage: Float = percentage/*(accurateCount / totalCount).toFloat()*/
+
+    var shouldShowOnboarding2 by rememberSaveable { mutableStateOf(true) }
+
+    if (shouldShowOnboarding2) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .background(color = Color(0xffEFF4F8)),
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(),
+            ) {
+
+
+                Box(
+                    modifier = Modifier
+                        .height(48.dp)
+                        .background(color = Color(0xFF9F81CA)),
+                    contentAlignment = Alignment.CenterStart
+                ) {
+
+                    BackButton(onClick = { onContinueClicked(2) }
+                    )
+                    Text(
+                        text = "$gameName",
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        textAlign = TextAlign.Center,
+                        color = Color.White,
+                        fontSize = 17.sp
+                    )
+
+                }
+                TitleHeader(
+                    painter = painter, title = gameName
+                )
+
+
+
+
+                Column(
+                    modifier = Modifier
+                        .padding(top = 32.dp)
+                        .fillMaxHeight()
+                        .fillMaxWidth(),
+                    Arrangement.SpaceEvenly,
+                ) {
+                    DualColorCircularProgressBar2(accuracyPercentage)
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 16.dp),
+                        Arrangement.SpaceEvenly,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        ShowScoring("Correct", Color(0xFF9F81CA), "${right.toInt()}")
+                        ShowScoring("Incorrect", Color(0xFFC62E27), "${(total - right).toInt()}")
+
+                    }
+                    val to = if (total == 0) {
+                        1
+                    } else {
+                        total
+                    }
+                    ShowMeantime("Mean Time", " ${time / (to)}s")
+
+
+                    /* Row(
+                         modifier = Modifier
+                             .padding(top = 32.dp)
+                             .fillMaxWidth(), Arrangement.SpaceAround
+                     ) {
+                         BottomResult()
+                         BottomResult2(){at->
+                             onContinueClicked(at)
+                         }
+                     }*/
+                    BottomButtons2 { i ->
                         if (i == 3) {
                             IsShareDialogTrue = true
                         } else {

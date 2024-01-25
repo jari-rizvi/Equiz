@@ -344,10 +344,10 @@ class DialogHelperClass {
 
                 }
 
-                GamesUID2.Tetris.name -> {
+                /*GamesUID2.Tetris.name -> {
                     painterResource(R.drawable.tetris_icon)
 
-                }
+                }*/
 
                 GamesUID2.Concentration.name -> {
 
@@ -487,10 +487,10 @@ class DialogHelperClass {
 
                 }
 
-                GamesUID2.Tetris.name -> {
+               /* GamesUID2.Tetris.name -> {
                     "Tetris"
 
-                }
+                }*/
 
 
                 GamesUID2.CardCalculation.name -> {

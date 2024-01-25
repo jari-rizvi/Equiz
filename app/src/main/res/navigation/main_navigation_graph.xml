@@ -546,5 +546,17 @@
         android:id="@+id/userStatsFragment"
         android:name="com.teamx.equiz.ui.fragments.userStats.UserStatsFragment"
         android:label="UserStatsFragment" />
+    <fragment
+        android:id="@+id/randomGameFragment2"
+        android:name="com.teamx.equiz.ui.game_fragments.game_random.RandomGameFragment"
+        android:label="RandomGameFragment" />
+    <fragment
+        android:id="@+id/resultComposeFrag2"
+        android:name="com.teamx.equiz.ui.game_fragments.ResultComposeFrag2"
+        android:label="ResultComposeFrag2" />
+    <fragment
+        android:id="@+id/combinedGameResultFragment"
+        android:name="com.teamx.equiz.ui.game_fragments.combine_result.CombinedGameResultFragment"
+        android:label="CombinedGameResultFragment" />
 
 </navigation>

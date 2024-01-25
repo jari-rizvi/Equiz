@@ -3,6 +3,7 @@ package com.teamx.equiz
 import androidx.lifecycle.MutableLiveData
 import com.teamx.equiz.baseclasses.BaseViewModel
 import com.teamx.equiz.data.models.ProductModel
+import com.teamx.equiz.ui.fragments.dashboard.GamesUID2
 
 
 /**
@@ -45,4 +46,15 @@ class SharedViewModel : BaseViewModel() {
             }
         }
     }
+
+
+    var roundInteger = 0
+    var stateOfGameFrags = 0
+    var gameName = arrayListOf<String>()
+    var gameNameRight = arrayListOf<Double>()
+    var gameNameTotal = arrayListOf<Double>()
+    var gamesTotalScore = 0
+    var gamesRightScore = 0
+
+
 }

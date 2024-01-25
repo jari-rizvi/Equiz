@@ -4,5 +4,5 @@ import androidx.annotation.Keep
 
 @Keep
 data class GameObj(
-    val game: Game
+    val game: Game?
 )

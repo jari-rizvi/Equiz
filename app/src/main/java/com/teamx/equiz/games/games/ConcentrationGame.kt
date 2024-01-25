@@ -129,7 +129,7 @@ fun ConcentrationGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: In
     if (isGameOver) {
         content(true, rightGameAnswersConcen, (totalGameAnswersConcen))
         rightGameAnswersConcen = 0
-        totalGameAnswersConcen = 1
+        totalGameAnswersConcen = 0
     }
 
     if (isTimeUp) {
@@ -141,7 +141,7 @@ fun ConcentrationGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: In
             } else {
                 content(false, rightGameAnswersConcen, (totalGameAnswersConcen))
                 rightGameAnswersConcen = 0
-                totalGameAnswersConcen = 1
+                totalGameAnswersConcen = 0
             }
         }
 

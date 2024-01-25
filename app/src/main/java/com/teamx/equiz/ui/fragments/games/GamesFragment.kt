@@ -74,7 +74,7 @@ class GamesFragment : BaseFragment<FragmentGamesBinding, GamesViewModel>(), AllG
 //        }
 
         Log.d("initializeGameAdapter", "initializeGameAdapter: ${GamesUID2.Flick.name}")
-        Log.d("initializeGameAdapter", "initializeGameAdapter: ${GamesUID2.Tetris.name}")
+//        Log.d("initializeGameAdapter", "initializeGameAdapter: ${GamesUID2.Tetris.name}")
         Log.d("initializeGameAdapter", "initializeGameAdapter: ${GamesUID2.RapidSorting.name}")
         Log.d("initializeGameAdapter", "initializeGameAdapter: ${GamesUID2.SpinningBlock.name}")
         Log.d("initializeGameAdapter", "initializeGameAdapter: ${GamesUID2.MakeTen.name}")
@@ -92,6 +92,7 @@ class GamesFragment : BaseFragment<FragmentGamesBinding, GamesViewModel>(), AllG
         }
 
 //        gameStrArrayList.removeIf { it.name == "Flick" || it.name == "Tetris" || it.name == "High Low" || it.name == "Make Ten" || it.name == "Rapid Sorting" || it.name == "Spinning Block"}
+        gameStrArrayList.removeIf {it.name == "Tetris" }
 
 
 
@@ -135,10 +136,10 @@ class GamesFragment : BaseFragment<FragmentGamesBinding, GamesViewModel>(), AllG
 
             }
 
-            GamesUID2.Tetris.name -> {
+           /* GamesUID2.Tetris.name -> {
                 "Tetris"
 
-            }
+            }*/
 
 
             GamesUID2.CardCalculation.name -> {

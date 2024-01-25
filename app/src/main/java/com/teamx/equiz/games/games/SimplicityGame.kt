@@ -58,13 +58,13 @@ var wrongGameAnswersSimple = 0
 @Preview
 @Composable
 fun ImplicityGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit = { bool, rightAnswer, total -> }) {
-    var score by remember { mutableStateOf(0) }
+//    var score by remember { mutableStateOf(0) }
     var questionIndex by remember { mutableStateOf(0) }
     var gameState by remember { mutableStateOf(true) }
 
 
     val questions = generateQuestions()
-    Log.d("TAG", "ImplicityGameScreen:$questions ")
+    Log.d("TAG", "SImplicityGameScreen:$questions ")
     if (gameState) {
         val currentQuestion = if (questions.isNotEmpty()) {
             questions[questionIndex]
@@ -175,6 +175,7 @@ fun ImplicityGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswer: 
                     ) {
 
                         itemsIndexed(currentQuestion.choices.shuffled()) { _, choice ->
+                            var colorStateForBox by remember { mutableStateOf(Color.White) }
                             Box(
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -186,10 +187,13 @@ fun ImplicityGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswer: 
                                         if (gameState) {
                                             wrongGameAnswersSimple++
                                             if (choice == currentQuestion.correctAnswer) {
-                                                score++
+//                                                score++
                                                 rightGameAnswersSimple++
+                                                colorStateForBox = BirdColor4
                                             } else {
+                                                colorStateForBox = Color.Red
                                             }
+
                                             questionIndex++
                                             if (questionIndex == questions.size) {
                                                 gameState = false
@@ -244,7 +248,7 @@ fun ImplicityGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswer: 
             IconButton(
                 onClick = {
                     questionIndex = 0
-                    score = 0
+//                    score = 0
                     gameState = true
 
                 }, Modifier.size(54.dp)

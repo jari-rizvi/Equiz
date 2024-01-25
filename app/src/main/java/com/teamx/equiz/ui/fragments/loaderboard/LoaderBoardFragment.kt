@@ -44,6 +44,7 @@ class LoaderBoardFragment : BaseFragment<FragmentLoaderBoardBinding, LoaderBoard
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
+
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {

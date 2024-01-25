@@ -38,6 +38,7 @@ import com.teamx.equiz.games.games.RainFallGame
 import com.teamx.equiz.games.games.RapidSortingGame
 import com.teamx.equiz.games.games.ReflectionGame
 import com.teamx.equiz.games.games.ResultScreen
+import com.teamx.equiz.games.games.ResultScreen2
 import com.teamx.equiz.games.games.SpinningBlockGame
 import com.teamx.equiz.games.games.TapTheColorGame
 import com.teamx.equiz.games.games.TetrisGame
@@ -119,7 +120,29 @@ class AdditionAddictionGameFrag : BaseFragment<FragmentAddressBinding, GameFrags
                     argumentBundle.putInt("rightAnswer", rightAnswer)
                     argumentBundle.putInt("total", total)
 
-                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                    val route = argumentBundle.getString("route")
+                    if (route.equals("gameRand", true)) {
+                        if (sharedViewModel.roundInteger == 3) {
+                            findNavController().navigate(
+                                R.id.combinedGameResultFragment,
+                                argumentBundle,
+                                options
+                            )
+
+                        } else {
+                            findNavController().navigate(
+                                R.id.resultComposeFrag2,
+                                argumentBundle,
+                                options
+                            )
+                        }
+                    } else {
+                        findNavController().navigate(
+                            R.id.resultComposeFrag,
+                            argumentBundle,
+                            options
+                        )
+                    }
                 } else {
                     findNavController().popBackStack()
                 }
@@ -182,7 +205,20 @@ class BirdWatchingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
                         }
                         argumentBundle.putInt("rightAnswer", rightAnswer)
                         argumentBundle.putInt("total", total)
-                        findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                        val route = argumentBundle.getString("route")
+                        if (route.equals("gameRand", true)) {
+                            findNavController().navigate(
+                                R.id.resultComposeFrag2,
+                                argumentBundle,
+                                options
+                            )
+                        } else {
+                            findNavController().navigate(
+                                R.id.resultComposeFrag,
+                                argumentBundle,
+                                options
+                            )
+                        }
                     } else {
                         findNavController().popBackStack()
 
@@ -248,7 +284,29 @@ class CardCalculationGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
                     }
                     argumentBundle.putInt("rightAnswer", rightAnswer)
                     argumentBundle.putInt("total", total)
-                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                    val route = argumentBundle.getString("route")
+                    if (route.equals("gameRand", true)) {
+                        if (sharedViewModel.roundInteger == 3) {
+                            findNavController().navigate(
+                                R.id.combinedGameResultFragment,
+                                argumentBundle,
+                                options
+                            )
+
+                        } else {
+                            findNavController().navigate(
+                                R.id.resultComposeFrag2,
+                                argumentBundle,
+                                options
+                            )
+                        }
+                    } else {
+                        findNavController().navigate(
+                            R.id.resultComposeFrag,
+                            argumentBundle,
+                            options
+                        )
+                    }
                 } else {
                     findNavController().popBackStack()
 
@@ -312,7 +370,29 @@ class ColorOfDecepGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
                     }
                     argumentBundle.putInt("rightAnswer", rightAnswer)
                     argumentBundle.putInt("total", total)
-                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                    val route = argumentBundle.getString("route")
+                    if (route.equals("gameRand", true)) {
+                        if (sharedViewModel.roundInteger == 3) {
+                            findNavController().navigate(
+                                R.id.combinedGameResultFragment,
+                                argumentBundle,
+                                options
+                            )
+
+                        } else {
+                            findNavController().navigate(
+                                R.id.resultComposeFrag2,
+                                argumentBundle,
+                                options
+                            )
+                        }
+                    } else {
+                        findNavController().navigate(
+                            R.id.resultComposeFrag,
+                            argumentBundle,
+                            options
+                        )
+                    }
                 } else {
                     findNavController().popBackStack()
 
@@ -372,7 +452,29 @@ class ConcentrationGameFrag : BaseFragment<FragmentAddressBinding, GameFragsView
                     }
                     argumentBundle.putInt("rightAnswer", rightAnswer)
                     argumentBundle.putInt("total", total)
-                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                    val route = argumentBundle.getString("route")
+                    if (route.equals("gameRand", true)) {
+                        if (sharedViewModel.roundInteger == 3) {
+                            findNavController().navigate(
+                                R.id.combinedGameResultFragment,
+                                argumentBundle,
+                                options
+                            )
+
+                        } else {
+                            findNavController().navigate(
+                                R.id.resultComposeFrag2,
+                                argumentBundle,
+                                options
+                            )
+                        }
+                    } else {
+                        findNavController().navigate(
+                            R.id.resultComposeFrag,
+                            argumentBundle,
+                            options
+                        )
+                    }
                 } else {
                     findNavController().popBackStack()
 
@@ -435,7 +537,29 @@ class FlickGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>()
                     }
                     argumentBundle.putInt("rightAnswer", rightAnswer)
                     argumentBundle.putInt("total", total)
-                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                    val route = argumentBundle.getString("route")
+                    if (route.equals("gameRand", true)) {
+                        if (sharedViewModel.roundInteger == 3) {
+                            findNavController().navigate(
+                                R.id.combinedGameResultFragment,
+                                argumentBundle,
+                                options
+                            )
+
+                        } else {
+                            findNavController().navigate(
+                                R.id.resultComposeFrag2,
+                                argumentBundle,
+                                options
+                            )
+                        }
+                    } else {
+                        findNavController().navigate(
+                            R.id.resultComposeFrag,
+                            argumentBundle,
+                            options
+                        )
+                    }
                 } else {
                     findNavController().popBackStack()
 
@@ -497,7 +621,29 @@ class FollowTheLeaderGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
                     }
                     argumentBundle.putInt("rightAnswer", rightAnswer)
                     argumentBundle.putInt("total", total)
-                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                    val route = argumentBundle.getString("route")
+                    if (route.equals("gameRand", true)) {
+                        if (sharedViewModel.roundInteger == 3) {
+                            findNavController().navigate(
+                                R.id.combinedGameResultFragment,
+                                argumentBundle,
+                                options
+                            )
+
+                        } else {
+                            findNavController().navigate(
+                                R.id.resultComposeFrag2,
+                                argumentBundle,
+                                options
+                            )
+                        }
+                    } else {
+                        findNavController().navigate(
+                            R.id.resultComposeFrag,
+                            argumentBundle,
+                            options
+                        )
+                    }
                 } else {
                     findNavController().popBackStack()
 
@@ -559,7 +705,29 @@ class GuessTheFlagGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
                     }
                     argumentBundle.putInt("rightAnswer", rightAnswer)
                     argumentBundle.putInt("total", total)
-                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                    val route = argumentBundle.getString("route")
+                    if (route.equals("gameRand", true)) {
+                        if (sharedViewModel.roundInteger == 3) {
+                            findNavController().navigate(
+                                R.id.combinedGameResultFragment,
+                                argumentBundle,
+                                options
+                            )
+
+                        } else {
+                            findNavController().navigate(
+                                R.id.resultComposeFrag2,
+                                argumentBundle,
+                                options
+                            )
+                        }
+                    } else {
+                        findNavController().navigate(
+                            R.id.resultComposeFrag,
+                            argumentBundle,
+                            options
+                        )
+                    }
                 } else {
                     findNavController().popBackStack()
 
@@ -621,7 +789,29 @@ class HighLowGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
                     }
                     argumentBundle.putInt("rightAnswer", rightAnswer)
                     argumentBundle.putInt("total", total)
-                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                    val route = argumentBundle.getString("route")
+                    if (route.equals("gameRand", true)) {
+                        if (sharedViewModel.roundInteger == 3) {
+                            findNavController().navigate(
+                                R.id.combinedGameResultFragment,
+                                argumentBundle,
+                                options
+                            )
+
+                        } else {
+                            findNavController().navigate(
+                                R.id.resultComposeFrag2,
+                                argumentBundle,
+                                options
+                            )
+                        }
+                    } else {
+                        findNavController().navigate(
+                            R.id.resultComposeFrag,
+                            argumentBundle,
+                            options
+                        )
+                    }
                 } else {
                     findNavController().popBackStack()
 
@@ -683,7 +873,29 @@ class Make10GameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
                     }
                     argumentBundle.putInt("rightAnswer", rightAnswer)
                     argumentBundle.putInt("total", total)
-                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                    val route = argumentBundle.getString("route")
+                    if (route.equals("gameRand", true)) {
+                        if (sharedViewModel.roundInteger == 3) {
+                            findNavController().navigate(
+                                R.id.combinedGameResultFragment,
+                                argumentBundle,
+                                options
+                            )
+
+                        } else {
+                            findNavController().navigate(
+                                R.id.resultComposeFrag2,
+                                argumentBundle,
+                                options
+                            )
+                        }
+                    } else {
+                        findNavController().navigate(
+                            R.id.resultComposeFrag,
+                            argumentBundle,
+                            options
+                        )
+                    }
                 } else {
                     findNavController().popBackStack()
 
@@ -746,7 +958,29 @@ class MatchingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
                     }
                     argumentBundle.putInt("rightAnswer", rightAnswer)
                     argumentBundle.putInt("total", total)
-                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                    val route = argumentBundle.getString("route")
+                    if (route.equals("gameRand", true)) {
+                        if (sharedViewModel.roundInteger == 3) {
+                            findNavController().navigate(
+                                R.id.combinedGameResultFragment,
+                                argumentBundle,
+                                options
+                            )
+
+                        } else {
+                            findNavController().navigate(
+                                R.id.resultComposeFrag2,
+                                argumentBundle,
+                                options
+                            )
+                        }
+                    } else {
+                        findNavController().navigate(
+                            R.id.resultComposeFrag,
+                            argumentBundle,
+                            options
+                        )
+                    }
                 } else {
                     findNavController().popBackStack()
 
@@ -809,7 +1043,29 @@ class MissingPieceGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
                     }
                     argumentBundle.putInt("rightAnswer", rightAnswer)
                     argumentBundle.putInt("total", total)
-                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                    val route = argumentBundle.getString("route")
+                    if (route.equals("gameRand", true)) {
+                        if (sharedViewModel.roundInteger == 3) {
+                            findNavController().navigate(
+                                R.id.combinedGameResultFragment,
+                                argumentBundle,
+                                options
+                            )
+
+                        } else {
+                            findNavController().navigate(
+                                R.id.resultComposeFrag2,
+                                argumentBundle,
+                                options
+                            )
+                        }
+                    } else {
+                        findNavController().navigate(
+                            R.id.resultComposeFrag,
+                            argumentBundle,
+                            options
+                        )
+                    }
                 } else {
                     findNavController().popBackStack()
 
@@ -873,7 +1129,29 @@ class OperationsGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
                     }
                     argumentBundle.putInt("rightAnswer", rightAnswer)
                     argumentBundle.putInt("total", total)
-                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                    val route = argumentBundle.getString("route")
+                    if (route.equals("gameRand", true)) {
+                        if (sharedViewModel.roundInteger == 3) {
+                            findNavController().navigate(
+                                R.id.combinedGameResultFragment,
+                                argumentBundle,
+                                options
+                            )
+
+                        } else {
+                            findNavController().navigate(
+                                R.id.resultComposeFrag2,
+                                argumentBundle,
+                                options
+                            )
+                        }
+                    } else {
+                        findNavController().navigate(
+                            R.id.resultComposeFrag,
+                            argumentBundle,
+                            options
+                        )
+                    }
                 } else {
                     findNavController().popBackStack()
 
@@ -936,7 +1214,29 @@ class QuickEyeGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
                     }
                     argumentBundle.putInt("rightAnswer", rightAnswer)
                     argumentBundle.putInt("total", total)
-                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                    val route = argumentBundle.getString("route")
+                    if (route.equals("gameRand", true)) {
+                        if (sharedViewModel.roundInteger == 3) {
+                            findNavController().navigate(
+                                R.id.combinedGameResultFragment,
+                                argumentBundle,
+                                options
+                            )
+
+                        } else {
+                            findNavController().navigate(
+                                R.id.resultComposeFrag2,
+                                argumentBundle,
+                                options
+                            )
+                        }
+                    } else {
+                        findNavController().navigate(
+                            R.id.resultComposeFrag,
+                            argumentBundle,
+                            options
+                        )
+                    }
                 } else {
                     findNavController().popBackStack()
 
@@ -998,7 +1298,29 @@ class RainFallGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
                     }
                     argumentBundle.putInt("rightAnswer", rightAnswer)
                     argumentBundle.putInt("total", total)
-                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                    val route = argumentBundle.getString("route")
+                    if (route.equals("gameRand", true)) {
+                        if (sharedViewModel.roundInteger == 3) {
+                            findNavController().navigate(
+                                R.id.combinedGameResultFragment,
+                                argumentBundle,
+                                options
+                            )
+
+                        } else {
+                            findNavController().navigate(
+                                R.id.resultComposeFrag2,
+                                argumentBundle,
+                                options
+                            )
+                        }
+                    } else {
+                        findNavController().navigate(
+                            R.id.resultComposeFrag,
+                            argumentBundle,
+                            options
+                        )
+                    }
                 } else {
                     findNavController().popBackStack()
 
@@ -1060,7 +1382,30 @@ class RapidSortingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
                     }
                     argumentBundle.putInt("rightAnswer", rightAnswer)
                     argumentBundle.putInt("total", total)
-                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                    val route = argumentBundle.getString("route")
+                    if (route.equals("gameRand", true)) {
+                        if (sharedViewModel.roundInteger == 3) {
+                            findNavController().navigate(
+                                R.id.combinedGameResultFragment,
+                                argumentBundle,
+                                options
+                            )
+
+                        } else {
+                            findNavController().navigate(
+                                R.id.resultComposeFrag2,
+                                argumentBundle,
+                                options
+                            )
+                        }
+
+                    } else {
+                        findNavController().navigate(
+                            R.id.resultComposeFrag,
+                            argumentBundle,
+                            options
+                        )
+                    }
                 } else {
                     findNavController().popBackStack()
 
@@ -1268,7 +1613,11 @@ class ResultComposeFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMode
         val params = JsonObject()
         try {
             params.addProperty("correct", right)
-            params.addProperty("total", total)
+            if (total == 0) {
+                params.addProperty("total", 1)
+            } else {
+                params.addProperty("total", total)
+            }
             params.addProperty("time", time)
 
         } catch (e: JSONException) {
@@ -1291,7 +1640,7 @@ class ResultComposeFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMode
                     loadingDialog.dismiss()
                     it.data?.let { data ->
 
-                        val score = data.game.score
+                        val score = data.game?.score ?: ""
 
                         MainActivity.service?.showNotification1(
                             "Score",
@@ -1349,10 +1698,10 @@ class ResultComposeFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMode
 
             }
 
-            GamesUID2.Tetris.name -> {
+            /*GamesUID2.Tetris.name -> {
                 painterResource(R.drawable.tetris_icon)
 
-            }
+            }*/
 
             GamesUID2.Concentration.name -> {
 
@@ -1492,10 +1841,494 @@ class ResultComposeFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMode
 
             }
 
-            GamesUID2.Tetris.name -> {
-                "Tetris"
+            /* GamesUID2.Tetris.name -> {
+                 "Tetris"
+
+             }*/
+
+
+            GamesUID2.CardCalculation.name -> {
+                "Card Calculation"
 
             }
+
+            GamesUID2.Concentration.name -> {
+                "Concentration"
+
+            }
+
+            GamesUID2.Flick.name -> {
+                "Flick"
+
+            }
+
+            GamesUID2.FollowTheLeader.name -> {
+                "Follow The Leader"
+
+            }
+
+            GamesUID2.UnfollowTheLeader.name -> {
+                "Unfollow The Leader"
+
+            }
+
+            GamesUID2.GuessTheFlag.name -> {
+                "Guess The Flag"
+            }
+
+            GamesUID2.HighLow.name -> {
+                "High Low"
+
+            }
+
+            GamesUID2.MakeTen.name -> {
+                "Make Ten"
+
+            }
+
+            GamesUID2.MissingPiece.name -> {
+                "Missing Piece"
+
+            }
+
+
+            GamesUID2.QuickEye.name -> {
+                "Quick Eye"
+
+            }
+
+            GamesUID2.RainFall.name -> {
+                "Rain Fall"
+
+            }
+
+            GamesUID2.RapidSorting.name -> {
+                "Rapid Sorting"
+
+            }
+
+            GamesUID2.ReverseRps.name -> {
+                "Reverse RPS"
+
+            }
+
+            GamesUID2.Simplicity.name -> {
+                "Simplicity"
+
+            }
+
+            GamesUID2.SpinningBlock.name -> {
+                "Spinning Block"
+
+            }
+
+            GamesUID2.ShapeDeception.name -> {
+                "Shape Deception"
+            }
+
+            GamesUID2.TapTheColor.name -> {
+                "Tap The Color"
+
+            }
+
+            GamesUID2.TouchTheNum.name -> {
+                "Touch The Number"
+
+            }
+
+            GamesUID2.TouchTheNumPlus.name -> {
+                "Touch The Number Plus"
+
+            }
+
+            GamesUID2.WeatherCast.name -> {
+                "Weather Cast"
+
+            }
+
+
+            else -> {
+                "Weather Cast"
+            }
+        }
+
+
+    }
+}
+
+@AndroidEntryPoint
+class ResultComposeFrag2 : BaseFragment<FragmentAddressBinding, GameFragsViewModel>() {
+
+    override val layoutId: Int
+        get() = R.layout.fragment_address
+    override val viewModel: Class<GameFragsViewModel>
+        get() = GameFragsViewModel::class.java
+    override val bindingVariable: Int
+        get() = BR.viewModel
+
+
+    private lateinit var options: NavOptions
+    private lateinit var composeView: ComposeView
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
+        mViewDataBinding = FragmentAddressBinding.inflate(inflater)
+        return ComposeView(requireContext()).also {
+            composeView = it
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            var bundle = arguments
+            if (bundle == null) {
+                bundle = Bundle()
+            }
+            val route = bundle?.getString("route")
+            if (route.equals("dash", true)) {
+                findNavController().navigate(R.id.dashboardFragment, arguments, options)
+            } else {
+                findNavController().navigate(R.id.gamesFragment, arguments, options)
+            }
+        }
+        mViewDataBinding.lifecycleOwner = viewLifecycleOwner
+
+
+        var bundle = arguments
+        if (bundle == null) {
+            bundle = Bundle()
+        }
+        val gameName = bundle!!.getString("gameName")
+
+        val rightAnswer = bundle!!.getInt("rightAnswer", 0)
+        val total = bundle!!.getInt("total", 0)
+
+        Log.d("123123", "onViewCreated: $gameName ")
+        Log.d("123123", "onViewCreated: $rightAnswer ")
+        Log.d("123123", "onViewCreated: $total ")
+        sharedViewModel.gameNameRight.add(rightAnswer.toDouble())
+        sharedViewModel.gameNameTotal.add(total.toDouble())
+        sharedViewModel.gameName.add(gameName.toString())
+        options = navOptions {
+            anim {
+                enter = R.anim.enter_from_left
+                exit = R.anim.exit_to_left
+                popEnter = R.anim.nav_default_pop_enter_anim
+                popExit = R.anim.nav_default_pop_exit_anim
+            }
+        }
+
+
+        composeView.setContent {
+            LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+
+
+            ResultScreen2(
+                total,
+                rightAnswer,
+                20,
+                returnGameName(gameName.toString()),
+                returnGameIcon(gameName.toString())
+            ) { i ->
+                when (i) {
+                    1 -> {
+                        findNavController().navigate(R.id.randomGameFragment2, arguments, options)
+                    }
+
+                    2 -> {
+                        var bundle = arguments
+                        if (bundle == null) {
+                            bundle = Bundle()
+                        }
+                        val route = bundle?.getString("route")
+                        if (route.equals("dash", true)) {
+                            findNavController().navigate(R.id.dashboardFragment, arguments, options)
+                        } else {
+                            findNavController().navigate(R.id.gamesFragment, arguments, options)
+                        }
+                    }
+
+                    3 -> {
+                        /* DialogHelperClass.shareGameResultDialog(
+                             requireContext(),
+                             object : DialogHelperClass.Companion.DialogInviteAnotherCallBack {
+                                 override fun InviteClicked() {
+
+                                 }
+
+                             },
+                             true,
+                             "priceAddTopUp".toString(), total,
+                             rightAnswer,
+                             20,
+                             gameName.toString()
+                         ) {
+
+
+                         }*/
+                    }
+
+                    21 -> {
+
+                    }
+
+                    22 -> {
+
+                    }
+
+                    23 -> {
+
+                    }
+
+
+                    else -> {
+                        findNavController().navigate(R.id.subscriptionFragment, arguments, options)
+                    }
+                }
+
+            }
+        }
+
+        resultGame(total, rightAnswer)
+    }
+
+    private fun resultGame(total: Int, right: Int, time: Int = 20) {
+
+
+        val params = JsonObject()
+        try {
+            params.addProperty("correct", right)
+            params.addProperty("total", total)
+            params.addProperty("time", time)
+
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+
+        mViewModel.resultGame(params)
+
+        mViewModel.resultResponseGameOB.observe(requireActivity(), Observer {
+            when (it.status) {
+                Resource.Status.LOADING -> {
+                    loadingDialog.show()
+                }
+
+                Resource.Status.NOTVERIFY -> {
+                    loadingDialog.dismiss()
+                }
+
+                Resource.Status.SUCCESS -> {
+                    loadingDialog.dismiss()
+                    it.data?.let { data ->
+
+                        val score = data.game?.score ?: ""
+
+                        MainActivity.service?.showNotification1(
+                            "Score",
+                            "$score"
+                        )
+//                         findNavController().navigate(R.id.resultComposeFrag)
+                    }
+                }
+
+                Resource.Status.AUTH -> {
+                    loadingDialog.dismiss()
+                    if (isAdded) {
+                        try {
+                            onToSignUpPage()
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                    }
+                }
+
+                Resource.Status.ERROR -> {
+                    loadingDialog.dismiss()
+                    DialogHelperClass.errorDialog(requireContext(), it.message!!)
+                }
+            }
+        })
+    }
+
+
+    @Composable
+    private fun returnGameIcon(enumNumberEnum: String): Painter {
+
+
+        return when (enumNumberEnum) {
+
+            GamesUID2.AdditionAddiction.name -> {
+
+                painterResource(R.drawable.addition_icon)
+
+
+            }
+
+            GamesUID2.BirdWatching.name -> {
+                painterResource(R.drawable.bird_favicon)
+
+            }
+
+            GamesUID2.Operations.name -> {
+                painterResource(R.drawable.operations_icon)
+
+            }
+
+
+            GamesUID2.ColorDeception.name -> {
+                painterResource(R.drawable.colorofdeception_icon)
+
+            }
+
+            /*GamesUID2.Tetris.name -> {
+                painterResource(R.drawable.tetris_icon)
+
+            }*/
+
+            GamesUID2.Concentration.name -> {
+
+                painterResource(R.drawable.concentration_icon)
+            }
+
+            GamesUID2.CardCalculation.name -> {
+                painterResource(R.drawable.cardscalculations_icon)
+
+            }
+
+            GamesUID2.Flick.name -> {
+                painterResource(R.drawable.flick_icon)
+
+            }
+
+            GamesUID2.FollowTheLeader.name -> {
+                painterResource(R.drawable.follow_the_leder)
+
+            }
+
+            GamesUID2.UnfollowTheLeader.name -> {
+                painterResource(R.drawable.follow_the_leder)
+
+            }
+
+            GamesUID2.GuessTheFlag.name -> {
+                painterResource(R.drawable.guestheflag_icon)
+            }
+
+            GamesUID2.HighLow.name -> {
+                painterResource(R.drawable.highorlow_icon)
+
+            }
+
+            GamesUID2.MakeTen.name -> {
+                painterResource(R.drawable.maketen_icon)
+
+            }
+
+            GamesUID2.MissingPiece.name -> {
+                painterResource(R.drawable.missingpieces_icon)
+
+            }
+
+
+            GamesUID2.QuickEye.name -> {
+                painterResource(R.drawable.quickeye_icon)
+
+            }
+
+            GamesUID2.RainFall.name -> {
+                painterResource(R.drawable.rainfall_icon)
+
+            }
+
+            GamesUID2.RapidSorting.name -> {
+                painterResource(R.drawable.rapid_sorting_icon)
+
+            }
+
+            GamesUID2.ReverseRps.name -> {
+                painterResource(R.drawable.reverserps_icon)
+
+            }
+
+            GamesUID2.Simplicity.name -> {
+                painterResource(R.drawable.simplicity_icon)
+
+            }
+
+            GamesUID2.SpinningBlock.name -> {
+                painterResource(R.drawable.spinthewheel_icon)
+
+            }
+
+            GamesUID2.ShapeDeception.name -> {
+                painterResource(R.drawable.shapedeception_icon)
+            }
+
+            GamesUID2.TapTheColor.name -> {
+                painterResource(R.drawable.tapthecolor_icon)
+
+            }
+
+            GamesUID2.TouchTheNum.name -> {
+                painterResource(R.drawable.touchthenumber_icon)
+
+            }
+
+            GamesUID2.TouchTheNumPlus.name -> {
+                painterResource(R.drawable.touchthenumbers_icon)
+
+            }
+
+            GamesUID2.WeatherCast.name -> {
+                painterResource(R.drawable.weathercast_icon)
+
+            }
+
+
+            else -> {
+                painterResource(R.drawable.weathercast_icon)
+            }
+        }
+
+
+    }
+
+    private fun returnGameName(enumNumberEnum: String): String {
+
+
+        return when (enumNumberEnum) {
+
+            GamesUID2.AdditionAddiction.name -> {
+                "Addition Addiction"
+
+            }
+
+            GamesUID2.BirdWatching.name -> {
+                "Bird Watching"
+
+            }
+
+            GamesUID2.Matching.name -> {
+                "Matching"
+
+            }
+
+            GamesUID2.Operations.name -> {
+
+                "Operations"
+            }
+
+            GamesUID2.ColorDeception.name -> {
+                "ColorDeception"
+
+            }
+
+            /* GamesUID2.Tetris.name -> {
+                 "Tetris"
+
+             }*/
 
 
             GamesUID2.CardCalculation.name -> {
@@ -1655,7 +2488,29 @@ class ReverseRPSFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
                     }
                     argumentBundle.putInt("rightAnswer", rightAnswer)
                     argumentBundle.putInt("total", total)
-                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                    val route = argumentBundle.getString("route")
+                    if (route.equals("gameRand", true)) {
+                        if (sharedViewModel.roundInteger == 3) {
+                            findNavController().navigate(
+                                R.id.combinedGameResultFragment,
+                                argumentBundle,
+                                options
+                            )
+
+                        } else {
+                            findNavController().navigate(
+                                R.id.resultComposeFrag2,
+                                argumentBundle,
+                                options
+                            )
+                        }
+                    } else {
+                        findNavController().navigate(
+                            R.id.resultComposeFrag,
+                            argumentBundle,
+                            options
+                        )
+                    }
                 } else {
                     findNavController().popBackStack()
 
@@ -1717,7 +2572,29 @@ class SimplicityGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
                     }
                     argumentBundle.putInt("rightAnswer", rightAnswer)
                     argumentBundle.putInt("total", total)
-                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                    val route = argumentBundle.getString("route")
+                    if (route.equals("gameRand", true)) {
+                        if (sharedViewModel.roundInteger == 3) {
+                            findNavController().navigate(
+                                R.id.combinedGameResultFragment,
+                                argumentBundle,
+                                options
+                            )
+
+                        } else {
+                            findNavController().navigate(
+                                R.id.resultComposeFrag2,
+                                argumentBundle,
+                                options
+                            )
+                        }
+                    } else {
+                        findNavController().navigate(
+                            R.id.resultComposeFrag,
+                            argumentBundle,
+                            options
+                        )
+                    }
                 } else {
                     findNavController().popBackStack()
 
@@ -1779,7 +2656,29 @@ class SpinningBlockGameFrag : BaseFragment<FragmentAddressBinding, GameFragsView
                     }
                     argumentBundle.putInt("rightAnswer", rightAnswer)
                     argumentBundle.putInt("total", total)
-                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                    val route = argumentBundle.getString("route")
+                    if (route.equals("gameRand", true)) {
+                        if (sharedViewModel.roundInteger == 3) {
+                            findNavController().navigate(
+                                R.id.combinedGameResultFragment,
+                                argumentBundle,
+                                options
+                            )
+
+                        } else {
+                            findNavController().navigate(
+                                R.id.resultComposeFrag2,
+                                argumentBundle,
+                                options
+                            )
+                        }
+                    } else {
+                        findNavController().navigate(
+                            R.id.resultComposeFrag,
+                            argumentBundle,
+                            options
+                        )
+                    }
                 } else {
                     findNavController().popBackStack()
 
@@ -1840,7 +2739,12 @@ class SpinningLotteryGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
                     }
                     argumentBundle.putInt("rightAnswer", rightAnswer)
                     argumentBundle.putInt("total", total)
-                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                   val route = argumentBundle.getString("route")
+                    if (route.equals("gameRand", true)) {
+                        findNavController().navigate(R.id.resultComposeFrag2, argumentBundle, options)
+                    } else {
+                        findNavController().navigate(R.id.resultComposeFrag, argumentBundle, options)
+                    }
                 } else {
                     findNavController().popBackStack()
 
@@ -1903,7 +2807,29 @@ class TapTheColorGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
                     }
                     argumentBundle.putInt("rightAnswer", rightAnswer)
                     argumentBundle.putInt("total", total)
-                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                    val route = argumentBundle.getString("route")
+                    if (route.equals("gameRand", true)) {
+                        if (sharedViewModel.roundInteger == 3) {
+                            findNavController().navigate(
+                                R.id.combinedGameResultFragment,
+                                argumentBundle,
+                                options
+                            )
+
+                        } else {
+                            findNavController().navigate(
+                                R.id.resultComposeFrag2,
+                                argumentBundle,
+                                options
+                            )
+                        }
+                    } else {
+                        findNavController().navigate(
+                            R.id.resultComposeFrag,
+                            argumentBundle,
+                            options
+                        )
+                    }
                 } else {
                     findNavController().popBackStack()
 
@@ -1965,7 +2891,29 @@ class TetrisGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
                     }
                     argumentBundle.putInt("rightAnswer", rightAnswer)
                     argumentBundle.putInt("total", total)
-                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                    val route = argumentBundle.getString("route")
+                    if (route.equals("gameRand", true)) {
+                        if (sharedViewModel.roundInteger == 3) {
+                            findNavController().navigate(
+                                R.id.combinedGameResultFragment,
+                                argumentBundle,
+                                options
+                            )
+
+                        } else {
+                            findNavController().navigate(
+                                R.id.resultComposeFrag2,
+                                argumentBundle,
+                                options
+                            )
+                        }
+                    } else {
+                        findNavController().navigate(
+                            R.id.resultComposeFrag,
+                            argumentBundle,
+                            options
+                        )
+                    }
                 } else {
                     findNavController().popBackStack()
 
@@ -2028,7 +2976,29 @@ class TouchTheNumGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
                     }
                     argumentBundle.putInt("rightAnswer", rightAnswer)
                     argumentBundle.putInt("total", total)
-                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                    val route = argumentBundle.getString("route")
+                    if (route.equals("gameRand", true)) {
+                        if (sharedViewModel.roundInteger == 3) {
+                            findNavController().navigate(
+                                R.id.combinedGameResultFragment,
+                                argumentBundle,
+                                options
+                            )
+
+                        } else {
+                            findNavController().navigate(
+                                R.id.resultComposeFrag2,
+                                argumentBundle,
+                                options
+                            )
+                        }
+                    } else {
+                        findNavController().navigate(
+                            R.id.resultComposeFrag,
+                            argumentBundle,
+                            options
+                        )
+                    }
                 } else {
                     findNavController().popBackStack()
 
@@ -2090,7 +3060,29 @@ class TouchTheNumPlusGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
                     }
                     argumentBundle.putInt("rightAnswer", rightAnswer)
                     argumentBundle.putInt("total", total)
-                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                    val route = argumentBundle.getString("route")
+                    if (route.equals("gameRand", true)) {
+                        if (sharedViewModel.roundInteger == 3) {
+                            findNavController().navigate(
+                                R.id.combinedGameResultFragment,
+                                argumentBundle,
+                                options
+                            )
+
+                        } else {
+                            findNavController().navigate(
+                                R.id.resultComposeFrag2,
+                                argumentBundle,
+                                options
+                            )
+                        }
+                    } else {
+                        findNavController().navigate(
+                            R.id.resultComposeFrag,
+                            argumentBundle,
+                            options
+                        )
+                    }
                 } else {
                     findNavController().popBackStack()
 
@@ -2152,7 +3144,29 @@ class UnfollowTheLeaderGameFrag : BaseFragment<FragmentAddressBinding, GameFrags
                     }
                     argumentBundle.putInt("rightAnswer", rightAnswer)
                     argumentBundle.putInt("total", total)
-                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                    val route = argumentBundle.getString("route")
+                    if (route.equals("gameRand", true)) {
+                        if (sharedViewModel.roundInteger == 3) {
+                            findNavController().navigate(
+                                R.id.combinedGameResultFragment,
+                                argumentBundle,
+                                options
+                            )
+
+                        } else {
+                            findNavController().navigate(
+                                R.id.resultComposeFrag2,
+                                argumentBundle,
+                                options
+                            )
+                        }
+                    } else {
+                        findNavController().navigate(
+                            R.id.resultComposeFrag,
+                            argumentBundle,
+                            options
+                        )
+                    }
                 } else {
                     findNavController().popBackStack()
 
@@ -2215,7 +3229,29 @@ class WeatherCastGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
                     }
                     argumentBundle.putInt("rightAnswer", rightAnswer)
                     argumentBundle.putInt("total", total)
-                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                    val route = argumentBundle.getString("route")
+                    if (route.equals("gameRand", true)) {
+                        if (sharedViewModel.roundInteger == 3) {
+                            findNavController().navigate(
+                                R.id.combinedGameResultFragment,
+                                argumentBundle,
+                                options
+                            )
+
+                        } else {
+                            findNavController().navigate(
+                                R.id.resultComposeFrag2,
+                                argumentBundle,
+                                options
+                            )
+                        }
+                    } else {
+                        findNavController().navigate(
+                            R.id.resultComposeFrag,
+                            argumentBundle,
+                            options
+                        )
+                    }
                 } else {
                     findNavController().popBackStack()
 
@@ -2276,7 +3312,29 @@ class ShapeDeceptionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVie
                     }
                     argumentBundle.putInt("rightAnswer", rightAnswer)
                     argumentBundle.putInt("total", total)
-                    findNavController().navigate(R.id.resultComposeFrag, arguments, options)
+                    val route = argumentBundle.getString("route")
+                    if (route.equals("gameRand", true)) {
+                        if (sharedViewModel.roundInteger == 3) {
+                            findNavController().navigate(
+                                R.id.combinedGameResultFragment,
+                                argumentBundle,
+                                options
+                            )
+
+                        } else {
+                            findNavController().navigate(
+                                R.id.resultComposeFrag2,
+                                argumentBundle,
+                                options
+                            )
+                        }
+                    } else {
+                        findNavController().navigate(
+                            R.id.resultComposeFrag,
+                            argumentBundle,
+                            options
+                        )
+                    }
                 } else {
                     findNavController().popBackStack()
 
@@ -2331,6 +3389,8 @@ class StartUpGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
             bundle = Bundle()
         }
         val gameName = bundle?.getString("gameName")
+
+
 
 
         Log.d("123123", "onViewCreated:$gameName ")
@@ -2406,10 +3466,10 @@ class StartUpGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
 
             }
 
-            GamesUID2.Tetris.name -> {
+            /*GamesUID2.Tetris.name -> {
                 painterResource(R.drawable.tetris_icon)
 
-            }
+            }*/
 
             GamesUID2.Concentration.name -> {
 
@@ -2548,10 +3608,10 @@ class StartUpGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
 
             }
 
-            GamesUID2.Tetris.name -> {
-                painterResource(R.drawable.howtoplay_tetris)
+            /* GamesUID2.Tetris.name -> {
+                 painterResource(R.drawable.howtoplay_tetris)
 
-            }
+             }*/
 
             GamesUID2.Concentration.name -> {
 
@@ -2690,10 +3750,10 @@ class StartUpGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
 
             }
 
-            GamesUID2.Tetris.name -> {
+            /*GamesUID2.Tetris.name -> {
                 "painterResource(R.drawable.tetris_icon)"
 
-            }
+            }*/
 
             GamesUID2.Concentration.name -> {
 
@@ -2768,7 +3828,7 @@ class StartUpGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
             }
 
             GamesUID2.ReverseRps.name -> {
-                "Purple : Win against the symbol" +
+                "Purple : Win against the symbol\n" +
                         "Pink : Lose against the symbol"
 
             }
@@ -2848,10 +3908,10 @@ class StartUpGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
 
             }
 
-            GamesUID2.Tetris.name -> {
+            /*GamesUID2.Tetris.name -> {
                 "Tetris"
 
-            }
+            }*/
 
 
             GamesUID2.CardCalculation.name -> {
@@ -2964,7 +4024,15 @@ class StartUpGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
 
     private fun onClickGame(enumNumberEnum: String) {
         Log.d("123123", "onClickGame: ")
+        var bundle = arguments
+        if (bundle == null) {
+            bundle = Bundle()
+        }
 
+        val route = bundle.getString("route")
+        if (route.equals("gameRand")) {
+            sharedViewModel.roundInteger++
+        }
         when (enumNumberEnum) {
             GamesUID2.Matching.name -> {
                 findNavController().navigate(R.id.matchingGameFrag, arguments, options)
@@ -2996,10 +4064,10 @@ class StartUpGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
 
             }
 
-            GamesUID2.Tetris.name -> {
-                findNavController().navigate(R.id.tetrisGameFrag, arguments, options)
+            /* GamesUID2.Tetris.name -> {
+                 findNavController().navigate(R.id.tetrisGameFrag, arguments, options)
 
-            }
+             }*/
 
             GamesUID2.Concentration.name -> {
 

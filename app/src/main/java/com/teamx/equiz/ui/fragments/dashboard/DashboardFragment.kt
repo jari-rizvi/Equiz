@@ -40,6 +40,7 @@ import com.teamx.equiz.ui.fragments.quizes.TitleData
 import com.teamx.equiz.ui.fragments.quizes.adapter.QuizesAdapter
 import com.teamx.equiz.ui.fragments.quizes.adapter.QuizesTitleAdapter
 import com.teamx.equiz.utils.DialogHelperClass
+import com.teamx.equiz.utils.DialogHelperClass.Companion.returnGameName
 import com.teamx.equiz.utils.PrefHelper
 import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -469,7 +470,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         }
 
 //        gameStrArrayList.removeIf { it.name == "Flick" || it.name == "Tetris" || it.name == "High Low" || it.name == "Make Ten" || it.name == "Rapid Sorting" || it.name == "Spinning Block"}
-
+        gameStrArrayList.removeIf {it.name == "Tetris" }
 
         val layoutManager1 =
             LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
@@ -483,6 +484,149 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
 
     companion object {
+        fun returnGameName(enumNumberEnum: String): String {
+
+
+            return when (enumNumberEnum) {
+
+                GamesUID2.AdditionAddiction.name -> {
+                    "Addition Addiction"
+
+                }
+
+                GamesUID2.BirdWatching.name -> {
+                    "Bird Watching"
+
+                }
+
+                GamesUID2.Matching.name -> {
+                    "Matching"
+
+                }
+
+                GamesUID2.Operations.name -> {
+
+                    "Operations"
+                }
+
+                GamesUID2.ColorDeception.name -> {
+                    "ColorDeception"
+
+                }
+
+                /*GamesUID2.Tetris.name -> {
+                    "Tetris"
+
+                }*/
+
+
+                GamesUID2.CardCalculation.name -> {
+                    "Card Calculation"
+
+                }
+
+                GamesUID2.Concentration.name -> {
+                    "Concentration"
+
+                }
+
+                GamesUID2.Flick.name -> {
+                    "Flick"
+
+                }
+
+                GamesUID2.FollowTheLeader.name -> {
+                    "Follow The Leader"
+
+                }
+
+                GamesUID2.UnfollowTheLeader.name -> {
+                    "UnFollow The Leader"
+
+                }
+
+                GamesUID2.GuessTheFlag.name -> {
+                    "Guess The Flag"
+                }
+
+                GamesUID2.HighLow.name -> {
+                    "High Low"
+
+                }
+
+                GamesUID2.MakeTen.name -> {
+                    "Make Ten"
+
+                }
+
+                GamesUID2.MissingPiece.name -> {
+                    "Missing Piece"
+
+                }
+
+
+                GamesUID2.QuickEye.name -> {
+                    "Quick Eye"
+
+                }
+
+                GamesUID2.RainFall.name -> {
+                    "Rain Fall"
+
+                }
+
+                GamesUID2.RapidSorting.name -> {
+                    "Rapid Sorting"
+
+                }
+
+                GamesUID2.ReverseRps.name -> {
+                    "Reverse RPS"
+
+                }
+
+                GamesUID2.Simplicity.name -> {
+                    "Simplicity"
+
+                }
+
+                GamesUID2.SpinningBlock.name -> {
+                    "Spinning Block"
+
+                }
+
+                GamesUID2.ShapeDeception.name -> {
+                    "Shape Deception"
+                }
+
+                GamesUID2.TapTheColor.name -> {
+                    "Tap The Color"
+
+                }
+
+                GamesUID2.TouchTheNum.name -> {
+                    "Touch The Number"
+
+                }
+
+                GamesUID2.TouchTheNumPlus.name -> {
+                    "Touch The Number Plus"
+
+                }
+
+                GamesUID2.WeatherCast.name -> {
+                    "Weather Cast"
+
+                }
+
+
+                else -> {
+                    "Weather Cast"
+                }
+            }
+
+
+        }
         fun returnImg(index: String): Int {
             when (index) {
                 GamesUID2.AdditionAddiction.name -> {
@@ -497,9 +641,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                     return R.drawable.colorofdeception_icon
                 }
 
-                GamesUID2.Tetris.name -> {
+               /* GamesUID2.Tetris.name -> {
                     return R.drawable.tetris_icon
-                }
+                }*/
 
                 GamesUID2.Concentration.name -> {
                     return R.drawable.concentration_icon
@@ -621,149 +765,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
     }
 
-    private fun returnGameName(enumNumberEnum: String): String {
 
 
-        return when (enumNumberEnum) {
-
-            GamesUID2.AdditionAddiction.name -> {
-                "Addition Addiction"
-
-            }
-
-            GamesUID2.BirdWatching.name -> {
-                "Bird Watching"
-
-            }
-
-            GamesUID2.Matching.name -> {
-                "Matching"
-
-            }
-
-            GamesUID2.Operations.name -> {
-
-                "Operations"
-            }
-
-            GamesUID2.ColorDeception.name -> {
-                "ColorDeception"
-
-            }
-
-            GamesUID2.Tetris.name -> {
-                "Tetris"
-
-            }
-
-
-            GamesUID2.CardCalculation.name -> {
-                "Card Calculation"
-
-            }
-
-            GamesUID2.Concentration.name -> {
-                "Concentration"
-
-            }
-
-            GamesUID2.Flick.name -> {
-                "Flick"
-
-            }
-
-            GamesUID2.FollowTheLeader.name -> {
-                "Follow The Leader"
-
-            }
-
-            GamesUID2.UnfollowTheLeader.name -> {
-                "UnFollow The Leader"
-
-            }
-
-            GamesUID2.GuessTheFlag.name -> {
-                "Guess The Flag"
-            }
-
-            GamesUID2.HighLow.name -> {
-                "High Low"
-
-            }
-
-            GamesUID2.MakeTen.name -> {
-                "Make Ten"
-
-            }
-
-            GamesUID2.MissingPiece.name -> {
-                "Missing Piece"
-
-            }
-
-
-            GamesUID2.QuickEye.name -> {
-                "Quick Eye"
-
-            }
-
-            GamesUID2.RainFall.name -> {
-                "Rain Fall"
-
-            }
-
-            GamesUID2.RapidSorting.name -> {
-                "Rapid Sorting"
-
-            }
-
-            GamesUID2.ReverseRps.name -> {
-                "Reverse RPS"
-
-            }
-
-            GamesUID2.Simplicity.name -> {
-                "Simplicity"
-
-            }
-
-            GamesUID2.SpinningBlock.name -> {
-                "Spinning Block"
-
-            }
-
-            GamesUID2.ShapeDeception.name -> {
-                "Shape Deception"
-            }
-
-            GamesUID2.TapTheColor.name -> {
-                "Tap The Color"
-
-            }
-
-            GamesUID2.TouchTheNum.name -> {
-                "Touch The Number"
-
-            }
-
-            GamesUID2.TouchTheNumPlus.name -> {
-                "Touch The Number Plus"
-
-            }
-
-            GamesUID2.WeatherCast.name -> {
-                "Weather Cast"
-
-            }
-
-
-            else -> {
-                "Weather Cast"
-            }
-        }
-
-
-    }
 
     override fun quizTitle(position: Int, previousNumber: Int) {
         val tick = strArrayList.get(position).value
@@ -1199,5 +1202,5 @@ data class GamesModel(
 
 @Keep
 enum class GamesUID2 {
-    AdditionAddiction, BirdWatching, ColorDeception, Tetris, Concentration, CardCalculation, Flick, FollowTheLeader, GuessTheFlag, HighLow, MakeTen, Matching, MissingPiece, Operations, QuickEye, RainFall, RapidSorting, ReverseRps, SpinningBlock, Simplicity, ShapeDeception, TapTheColor, TouchTheNum, TouchTheNumPlus, UnfollowTheLeader, WeatherCast
+    AdditionAddiction, BirdWatching, ColorDeception /*Tetris*/, Concentration, CardCalculation, Flick, FollowTheLeader, GuessTheFlag, HighLow, MakeTen, Matching, MissingPiece, Operations, QuickEye, RainFall, RapidSorting, ReverseRps, SpinningBlock, Simplicity, ShapeDeception, TapTheColor, TouchTheNum, TouchTheNumPlus, UnfollowTheLeader, WeatherCast
 }

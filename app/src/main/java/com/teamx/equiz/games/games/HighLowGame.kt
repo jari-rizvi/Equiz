@@ -101,7 +101,7 @@ fun HighLowComponent(content: (boo:Boolean, rightAnswer:Int, totalAnswer:Int) ->
     if (isGameOver) {
         content(true, rightGameAnswersHigh, totalGameAnswersHigh)
           rightGameAnswersHigh = 0
-          totalGameAnswersHigh = 1
+          totalGameAnswersHigh = 0
     }
     if (isTimeUp) {
 
@@ -112,7 +112,7 @@ fun HighLowComponent(content: (boo:Boolean, rightAnswer:Int, totalAnswer:Int) ->
             } else {
                 content(false, rightGameAnswersHigh, totalGameAnswersHigh)
                 rightGameAnswersHigh = 0
-                totalGameAnswersHigh = 1
+                totalGameAnswersHigh = 0
             }
         }
 

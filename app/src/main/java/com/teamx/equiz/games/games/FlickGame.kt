@@ -92,7 +92,7 @@ fun FlickGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int)
     if (isGameOver) {
         content(true, rightGameAnswersFlick, totalGameAnswersFlick)
         rightGameAnswersFlick=0
-        totalGameAnswersFlick=1
+        totalGameAnswersFlick=0
     }
 
 
@@ -105,7 +105,7 @@ fun FlickGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int)
             } else {
                 content(false, rightGameAnswersFlick, totalGameAnswersFlick)
                 rightGameAnswersFlick=0
-                totalGameAnswersFlick=1
+                totalGameAnswersFlick=0
             }
         }
 

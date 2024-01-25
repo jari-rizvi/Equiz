@@ -5,5 +5,5 @@ import androidx.annotation.Keep
 @Keep
 data class Game(
     val fcmToken: String,
-    val score: Int
+    val score: Int?
 )

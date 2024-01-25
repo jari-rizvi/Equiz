@@ -876,7 +876,7 @@ fun TimeUpDialogCompose(
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight()
-            .background(color = Color.White),
+            .background(color = Color(0xffEFF4F9)),
     ) {
 
         Box(

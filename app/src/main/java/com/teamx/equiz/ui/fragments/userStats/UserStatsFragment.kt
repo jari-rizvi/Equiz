@@ -1,24 +1,23 @@
 package com.teamx.equiz.ui.fragments.userStats
 
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.activity.addCallback
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
-import com.teamx.equiz.databinding.FragmentOrdersBinding
-import com.teamx.equiz.databinding.FragmentProfileBinding
+import com.teamx.equiz.databinding.FragmentUserStatsBinding
 import com.teamx.equiz.ui.fragments.Auth.login.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import androidx.activity.addCallback
-import androidx.core.content.ContextCompat
-import com.teamx.equiz.databinding.FragmentUserStatsBinding
-import com.teamx.equiz.ui.fragments.orders.ViewPagerAdapter
 
 @AndroidEntryPoint
 class UserStatsFragment : BaseFragment<FragmentUserStatsBinding, LoginViewModel>() {
@@ -51,13 +50,28 @@ class UserStatsFragment : BaseFragment<FragmentUserStatsBinding, LoginViewModel>
         }
 
         setupViewPager()
-        setupTabLayout()
+
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
 
     }
 
     private fun setupViewPager() {
         val adapter = UserStatsViewPagerAdapter(requireActivity(), 4)
+
         mViewDataBinding.viewPager.adapter = adapter
+//        mViewDataBinding.viewPager.isUserInputEnabled = false;
+        mViewDataBinding.viewPager.setCurrentItem(sharedViewModel.stateOfGameFrags,false)
+        Log.d("345345", "setupViewPager:${sharedViewModel.stateOfGameFrags} ")
+        setupTabLayout()
+
     }
 
     private fun setupTabLayout() {
@@ -92,6 +106,7 @@ class UserStatsFragment : BaseFragment<FragmentUserStatsBinding, LoginViewModel>
                 }
 
                 3 -> {
+                    Log.d("345345", "setupTabLayout: ")
                     tab.text = "Games"
                     tab.icon = ContextCompat.getDrawable(
                         requireContext(),
@@ -103,5 +118,28 @@ class UserStatsFragment : BaseFragment<FragmentUserStatsBinding, LoginViewModel>
 
 
         }.attach()
+
+        mViewDataBinding.tabLayout.addOnTabSelectedListener(object :
+            TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                sharedViewModel.stateOfGameFrags = tab!!.position
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+
+            }
+        })
+
+//        mViewDataBinding.tabLayout.setScrollPosition(sharedViewModel.stateOfGameFrags, 0f, true)
+        val tab = mViewDataBinding.tabLayout.getTabAt(sharedViewModel.stateOfGameFrags)
+        tab?.select()
+
+//        mViewDataBinding.tabLayout.setScrollPosition(sharedViewModel.stateOfGameFrags,0f,true);
+//        mViewDataBinding.tabLayout.selectTab(tab)
+
     }
 }
