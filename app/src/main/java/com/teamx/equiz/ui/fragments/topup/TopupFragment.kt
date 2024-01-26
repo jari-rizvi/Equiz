@@ -32,7 +32,6 @@ import com.teamx.equiz.utils.DialogHelperClass
 import com.teamx.equiz.utils.PrefHelper
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
-import java.time.temporal.TemporalAmount
 
 @AndroidEntryPoint
 class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTopSellerListener,
@@ -79,11 +78,24 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
         Log.d("TAG", "priceAddTopUppriceAddTopUppriceAddTopUp: $priceAddTopUp")
 
         mViewDataBinding.textView44.setOnClickListener {
+            mViewDataBinding.pts1.isChecked = false
+
+            mViewDataBinding.pts2.isChecked = false
+
+            mViewDataBinding.pts3.isChecked = false
+
+            mViewDataBinding.pts4.isChecked = false
+
+            mViewDataBinding.pts5.isChecked = false
+
+            mViewDataBinding.pts6.isChecked = false
+
             findNavController().navigate(
                 R.id.action_topupFragment_to_cardsFragment,
                 bundle,
                 options
             )
+
         }
 
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
@@ -314,7 +326,21 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
             mViewDataBinding.pts5.isChecked = false
             if (mViewDataBinding.editText.text.toString().isEmpty()) {
                 priceAddTopUp = 0
-                mViewDataBinding.img.text = "0".toString()
+                mViewDataBinding.img.text = "".toString()
+
+
+                mViewDataBinding.pts1.isChecked = false
+
+                mViewDataBinding.pts2.isChecked = false
+
+                mViewDataBinding.pts3.isChecked = false
+
+                mViewDataBinding.pts4.isChecked = false
+
+                mViewDataBinding.pts5.isChecked = false
+
+                mViewDataBinding.pts6.isChecked = false
+
 
             } else {
                 mViewDataBinding.img.text = mViewDataBinding.editText.text.toString()
