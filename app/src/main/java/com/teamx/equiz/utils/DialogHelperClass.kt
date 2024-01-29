@@ -5,7 +5,6 @@ import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.ProgressBar
@@ -14,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
+import com.squareup.picasso.Picasso
 import com.teamx.equiz.R
 import com.teamx.equiz.data.models.topWinnerData.Game
 import com.teamx.equiz.games.games.dialogShareGame
@@ -468,19 +468,19 @@ class DialogHelperClass {
 
                 GamesUID2.AdditionAddiction.name -> {
 
-                   R.drawable.addition_icon
+                    R.drawable.addition_icon
 
 
                 }
 
                 GamesUID2.BirdWatching.name -> {
-                   R.drawable.bird_favicon
+                    R.drawable.bird_favicon
 
                 }
 
 
                 GamesUID2.ColorDeception.name -> {
-                   R.drawable.colorofdeception_icon
+                    R.drawable.colorofdeception_icon
 
                 }
 
@@ -491,106 +491,106 @@ class DialogHelperClass {
 
                 GamesUID2.Concentration.name -> {
 
-                   R.drawable.concentration_icon
+                    R.drawable.concentration_icon
                 }
 
                 GamesUID2.CardCalculation.name -> {
-                   R.drawable.cardscalculations_icon
+                    R.drawable.cardscalculations_icon
 
                 }
 
                 GamesUID2.Flick.name -> {
-                   R.drawable.flick_icon
+                    R.drawable.flick_icon
 
                 }
 
                 GamesUID2.FollowTheLeader.name -> {
-                   R.drawable.follow_the_leder
+                    R.drawable.follow_the_leder
 
                 }
 
                 GamesUID2.UnfollowTheLeader.name -> {
-                   R.drawable.follow_the_leder
+                    R.drawable.follow_the_leder
 
                 }
 
                 GamesUID2.GuessTheFlag.name -> {
-                   R.drawable.guestheflag_icon
+                    R.drawable.guestheflag_icon
                 }
 
                 GamesUID2.HighLow.name -> {
-                   R.drawable.highorlow_icon
+                    R.drawable.highorlow_icon
 
                 }
 
                 GamesUID2.MakeTen.name -> {
-                   R.drawable.maketen_icon
+                    R.drawable.maketen_icon
 
                 }
 
                 GamesUID2.MissingPiece.name -> {
-                   R.drawable.missingpieces_icon
+                    R.drawable.missingpieces_icon
 
                 }
 
 
                 GamesUID2.QuickEye.name -> {
-                   R.drawable.quickeye_icon
+                    R.drawable.quickeye_icon
 
                 }
 
                 GamesUID2.RainFall.name -> {
-                   R.drawable.rainfall_icon
+                    R.drawable.rainfall_icon
 
                 }
 
                 GamesUID2.RapidSorting.name -> {
-                   R.drawable.rapid_sorting_icon
+                    R.drawable.rapid_sorting_icon
 
                 }
 
                 GamesUID2.ReverseRps.name -> {
-                   R.drawable.reverserps_icon
+                    R.drawable.reverserps_icon
 
                 }
 
                 GamesUID2.Simplicity.name -> {
-                   R.drawable.simplicity_icon
+                    R.drawable.simplicity_icon
 
                 }
 
                 GamesUID2.SpinningBlock.name -> {
-                   R.drawable.spinthewheel_icon
+                    R.drawable.spinthewheel_icon
 
                 }
 
                 GamesUID2.ShapeDeception.name -> {
-                   R.drawable.shapedeception_icon
+                    R.drawable.shapedeception_icon
                 }
 
                 GamesUID2.TapTheColor.name -> {
-                   R.drawable.tapthecolor_icon
+                    R.drawable.tapthecolor_icon
 
                 }
 
                 GamesUID2.TouchTheNum.name -> {
-                   R.drawable.touchthenumber_icon
+                    R.drawable.touchthenumber_icon
 
                 }
 
                 GamesUID2.TouchTheNumPlus.name -> {
-                   R.drawable.touchthenumbers_icon
+                    R.drawable.touchthenumbers_icon
 
                 }
 
                 GamesUID2.WeatherCast.name -> {
-                   R.drawable.weathercast_icon
+                    R.drawable.weathercast_icon
 
                 }
 
 
                 else -> {
-                   R.drawable.weathercast_icon
+                    R.drawable.weathercast_icon
                 }
             }
 
@@ -627,10 +627,10 @@ class DialogHelperClass {
 
                 }
 
-               /* GamesUID2.Tetris.name -> {
-                    "Tetris"
+                /* GamesUID2.Tetris.name -> {
+                     "Tetris"
 
-                }*/
+                 }*/
 
 
                 GamesUID2.CardCalculation.name -> {
@@ -851,12 +851,22 @@ class DialogHelperClass {
             )
             dialog.setCancelable(false)
             val cancelBtn = dialog.findViewById<TextView>(R.id.btnClose)
+            val name = dialog.findViewById<TextView>(R.id.textView75)
+            val w_rank = dialog.findViewById<TextView>(R.id.textView76)
+            val img = dialog.findViewById<ImageView>(R.id.img)
             val speedProgress = dialog.findViewById<ProgressBar>(R.id.simpleProgressBar)
             val judgeProgress = dialog.findViewById<ProgressBar>(R.id.simpleProgressBar1)
             val calProgress = dialog.findViewById<ProgressBar>(R.id.simpleProgressBar2)
             val accuracyProgress = dialog.findViewById<ProgressBar>(R.id.simpleProgressBar3)
             val obsProgress = dialog.findViewById<ProgressBar>(R.id.simpleProgressBar4)
             val memoryProgress = dialog.findViewById<ProgressBar>(R.id.simpleProgressBar5)
+
+            name.text = gamesModel.userId.name
+            w_rank.text = gamesModel.rank.toString()
+
+
+            Picasso.get().load(gamesModel.userId.image).placeholder(R.drawable.baseline_person)
+                .error(R.drawable.baseline_person).resize(500, 500).into(img)
 
 
             val speed =

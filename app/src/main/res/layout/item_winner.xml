@@ -56,6 +56,8 @@
             android:layout_height="wrap_content"
             android:elevation="@dimen/_5sdp"
             android:text="Michel"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:textColor="@color/white"
             android:textSize="@dimen/_9ssp"
             app:layout_constraintEnd_toEndOf="parent"

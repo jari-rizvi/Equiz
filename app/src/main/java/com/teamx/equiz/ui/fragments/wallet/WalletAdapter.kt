@@ -1,8 +1,12 @@
 package com.teamx.equiz.ui.fragments.wallet
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.teamx.equiz.MainApplication.Companion.context
+import com.teamx.equiz.R
 import com.teamx.equiz.data.models.getwalletData.Transaction
 import com.teamx.equiz.databinding.ItemWalletBinding
 
@@ -26,10 +30,24 @@ class WalletAdapter(
         holder.binding.textView54.text = "You Earned Points"
 
 //        holder.binding.textView55.text = "You won points by participating in a quiz"
-        holder.binding.textView55.text = "${ wallet.pointType}"
 
-        holder.binding.textView13.text = wallet.timestamp.dropLast(18)
-        holder.binding.textView56.text = wallet.points.toString()+" Pts"
+//        holder.binding.textView55.text = "${ wallet.pointType}"
+
+        if(wallet.pointType == "purchased"){
+            holder.binding.textView55.text = "You Purchase points"
+            holder.binding.textView56.text = "-"+wallet.points.toString()+" Pts"
+            holder.binding.textView56.setTextColor(ContextCompat.getColor(context, R.color.red));
+        }
+
+         if(wallet.pointType == "spend"){
+             holder.binding.textView55.text = "You Spent Wallet  Points For Purchasing"
+             holder.binding.textView56.text = "+"+wallet.points.toString()+" Pts"
+             holder.binding.textView56.setTextColor(ContextCompat.getColor(context, R.color.Green));
+         }
+
+
+        holder.binding.textView13.text = wallet.timestamp.dropLast(14)
+        Log.d("TAG", " wallet.timestamp: ${wallet.timestamp}")
 
 
         holder.itemView.setOnClickListener {}

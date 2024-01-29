@@ -39,6 +39,7 @@ class LoaderBoardFragment : BaseFragment<FragmentLoaderBoardBinding, LoaderBoard
     lateinit var winnerArrayList: ArrayList<Game>
 
     private var isOdd = false
+
     var GameModel: Game? = null
 
     var id: String = ""
@@ -212,22 +213,43 @@ class LoaderBoardFragment : BaseFragment<FragmentLoaderBoardBinding, LoaderBoard
         return isOdd
     }
 
+//    override fun onUserClick(position: Int) {
+//        Log.d("TAG", "onUserClick: ")
+//
+//        GameModel?.let { it1 ->
+//            DialogHelperClass.UserStatsDialog(requireContext(),
+//                object : DialogHelperClass.Companion.ChickenDialogCallBack {
+//                    override fun onCloseClick() {
+//
+//                    }
+//
+//
+//                }, gamesModel = it1
+//            ).show()
+//        }
+//
+//    }
+
     override fun onUserClick(position: Int) {
-        Log.d("TAG", "onUserClick: ")
+        val gameModel = winnerArrayList[position]
 
-        GameModel?.let { it1 ->
-            DialogHelperClass.UserStatsDialog(requireContext(),
-                object : DialogHelperClass.Companion.ChickenDialogCallBack {
-                    override fun onCloseClick() {
-
-                    }
+        Log.d("TAG", "onUserClick:${gameModel}}")
 
 
-                }, gamesModel = it1
-            ).show()
-        }
+
+
+        DialogHelperClass.UserStatsDialog(requireContext(),
+            object : DialogHelperClass.Companion.ChickenDialogCallBack {
+                override fun onCloseClick() {
+
+                }
+
+
+            }, gamesModel = gameModel
+        ).show()
 
     }
+
 
 
 }

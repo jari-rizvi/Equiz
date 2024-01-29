@@ -26,7 +26,9 @@ import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentEcommerceBinding
 import com.teamx.equiz.ui.fragments.dashboard.adapter.ImageSliderAdapter
+import com.teamx.equiz.ui.fragments.dashboard.adapter.OnSliderClickListner
 import com.teamx.equiz.ui.fragments.ecommerce.data.Category
+import com.teamx.equiz.ui.fragments.news.onNewslistner
 import com.teamx.equiz.utils.DialogHelperClass
 import com.teamx.equiz.utils.PrefHelper
 import com.teamx.equiz.utils.snackbar
@@ -37,7 +39,7 @@ import java.util.TimerTask
 
 @AndroidEntryPoint
 class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewModel>(),
-    OnTopCategoriesListener, OnProductListener {
+    OnTopCategoriesListener, OnProductListener, OnSliderClickListner {
 
     override val layoutId: Int
         get() = R.layout.fragment_ecommerce
@@ -438,7 +440,7 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
             // Add more images as needed
         )
 
-        val adapter = ImageSliderAdapter(imageList2)
+        val adapter = ImageSliderAdapter(imageList2,this)
         mViewDataBinding.viewPager.adapter = adapter
 
         addDots(imageList.size)
@@ -816,6 +818,12 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
             }
         }
     }
+
+    override fun onSliderClick(position: Int) {
+
+    }
+
+
 
 
 }

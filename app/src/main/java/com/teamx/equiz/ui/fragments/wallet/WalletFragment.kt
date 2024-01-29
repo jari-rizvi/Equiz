@@ -13,17 +13,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
-import com.teamx.equiz.data.models.getwalletData.Transaction
-import com.teamx.equiz.data.models.wishlistdata.Product
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentWalletBinding
-import com.teamx.equiz.ui.fragments.Auth.login.LoginViewModel
-import com.teamx.equiz.ui.fragments.wishlist.FavouriteAdapter
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.activity.addCallback
 import androidx.annotation.RequiresApi
-import com.teamx.equiz.utils.TimeFormatter
+import com.teamx.equiz.data.models.getwalletData.Transaction
 
 @AndroidEntryPoint
 class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {

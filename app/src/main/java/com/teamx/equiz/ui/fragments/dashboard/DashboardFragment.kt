@@ -1,6 +1,7 @@
 package com.teamx.equiz.ui.fragments.dashboard
 
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -12,6 +13,7 @@ import android.widget.LinearLayout
 import androidx.activity.addCallback
 import androidx.annotation.Keep
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
@@ -26,6 +28,7 @@ import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.constants.NetworkCallPoints
+import com.teamx.equiz.data.models.bannerData.bannews.NewsData
 import com.teamx.equiz.data.models.quizTitleData.Data
 import com.teamx.equiz.data.models.topWinnerData.Game
 import com.teamx.equiz.data.remote.Resource
@@ -33,6 +36,7 @@ import com.teamx.equiz.databinding.FragmentDashboardBinding
 import com.teamx.equiz.ui.fragments.dashboard.adapter.AllGameInterface
 import com.teamx.equiz.ui.fragments.dashboard.adapter.AllGamesAdapter
 import com.teamx.equiz.ui.fragments.dashboard.adapter.ImageSliderAdapter
+import com.teamx.equiz.ui.fragments.dashboard.adapter.OnSliderClickListner
 import com.teamx.equiz.ui.fragments.dashboard.adapter.TopWinnerInterface
 import com.teamx.equiz.ui.fragments.dashboard.adapter.TopWinnersAdapter
 import com.teamx.equiz.ui.fragments.quizes.QuizesInterface
@@ -52,7 +56,7 @@ import java.util.TimerTask
 
 @AndroidEntryPoint
 class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewModel>(),
-    QuizesInterface, TopWinnerInterface, AllGameInterface {
+    QuizesInterface, TopWinnerInterface, AllGameInterface, OnSliderClickListner {
 
     override val layoutId: Int
         get() = R.layout.fragment_dashboard
@@ -70,6 +74,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
     lateinit var winnerAdapter: TopWinnersAdapter
     lateinit var winnerArrayList: ArrayList<Game>
+
+    lateinit var newssDataa: NewsData
 
 
     lateinit var quizAdapter: QuizesAdapter
@@ -341,9 +347,13 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 //                        mViewDataBinding.shimmerLayout.stopShimmer()
 //                        mViewDataBinding.shimmerLayout.visibility = View.GONE
                     mViewDataBinding.mainLayout.visibility = View.VISIBLE
-                    mViewDataBinding.recQuizes.visibility = View.VISIBLE
+
+
 
                     it.data?.let { data ->
+                        if(data.data.isNotEmpty()){
+                            mViewDataBinding.recQuizes.visibility = View.VISIBLE
+                        }
                         data.data.forEach {
                             quizArrayList.add(it)
                         }
@@ -438,7 +448,6 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             }
 
         }
-
 
 
 
@@ -972,7 +981,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             // Add more images as needed
         )
 
-        val adapter = ImageSliderAdapter(imageList2)
+        val adapter = ImageSliderAdapter(imageList2,this)
         mViewDataBinding.viewPager.adapter = adapter
 
         addDots(imageList.size)
@@ -981,6 +990,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             override fun onPageSelected(position: Int) {
                 updateDots(position)
             }
+
         })
 
 
@@ -1153,6 +1163,28 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             }
         }
     }
+
+    @SuppressLint("LogNotTimber")
+    override fun onSliderClick(position: Int) {
+        val newsArraya : ArrayList<NewsData> = ArrayList()
+
+
+        Log.d("TAG", "onSliderClick: ${newsArraya[position]._id}")
+
+
+//        var bundle = arguments
+//        if (bundle == null) {
+//            bundle = Bundle()
+//        }
+//
+//        bundle.putString("id", newsArraya[position]._id)
+//
+//        findNavController().navigate(
+//            R.id.newsDetailFragment,
+//            bundle,
+//            options)
+    }
+
 
 
 //    private fun askNotificationPermission() {
