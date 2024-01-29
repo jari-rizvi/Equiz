@@ -194,6 +194,18 @@ class SignupPhoneFragment : BaseFragment<FragmentSignupPhoneBinding, SignupViewM
             }
             return false
         }
+
+        var phoneNumber: String = mViewDataBinding.etPhone.getText().toString().trim()
+
+        if (phoneNumber.startsWith("0")) {
+            // If it starts with 0, replace 0 with +
+            phoneNumber = " +" + phoneNumber.substring(1);
+
+
+            mViewDataBinding.root.snackbar(getString(R.string.start_with_plus)+phoneNumber)
+
+            return false
+        }
         ApiCall()
         return true
     }

@@ -261,6 +261,7 @@ class LogInEmailFragment : BaseFragment<FragmentLoginEmailBinding, LoginViewMode
         }
 
 
+
         ApiCall()
         return true
     }

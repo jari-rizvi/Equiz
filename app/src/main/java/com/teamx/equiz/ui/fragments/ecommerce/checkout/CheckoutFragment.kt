@@ -95,6 +95,9 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
                                         mViewDataBinding.date.text = ""
                                         mViewDataBinding.orderno.text =
                                             "${data.data[0].totalPoint.toString()} Points"
+
+
+
                                     } catch (e: Exception) {
                                     }
                                 }
@@ -171,6 +174,7 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
                                 mViewDataBinding.qty.text = "0.0"
                                 mViewDataBinding.orderno.text =
                                     "${data.data[0].totalPoint.toString()} Points"
+
                             }
 //                                      mViewDataBinding.orderno.text = it.or
                             cartAdapter?.notifyDataSetChanged()

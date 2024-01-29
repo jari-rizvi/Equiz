@@ -46,6 +46,9 @@ class DialogHelperClass {
         interface DialogInviteAnotherCallBack {
             fun InviteClicked()
         }
+   interface DialogLessAmountCallBack {
+            fun Topup()
+        }
 
         interface OrderCompleteCallBack {
             fun InviteClicked()
@@ -109,6 +112,36 @@ class DialogHelperClass {
             dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             dialog.show()
         }
+
+
+
+
+        fun lessPointsDialog(
+            context: Context,
+            lessAmountCallBack: DialogLessAmountCallBack,
+            boo: Boolean
+        ) {
+            val dialog = Dialog(context)
+            dialog.setContentView(R.layout.amount_less_dialog)
+            dialog.window!!.setLayout(
+                WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT
+            )
+
+
+            val removeBtn = dialog.findViewById<TextView>(R.id.top_up)
+            removeBtn.setOnClickListener {
+                if (boo) {
+                    lessAmountCallBack.Topup()
+                } else {
+                }
+                dialog.dismiss()
+            }
+
+            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.show()
+        }
+
+
 
         fun claimPrizeDialog(
             context: Context,

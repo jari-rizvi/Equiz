@@ -31,7 +31,7 @@ import timber.log.Timber
 @AndroidEntryPoint
 class PaymentMethodsFragment :
     BaseFragment<FragmentPaymentMethodsBinding, PaymentMethodsViewModel>(),
-    DialogHelperClass.Companion.OrderCompleteCallBack {
+    DialogHelperClass.Companion.OrderCompleteCallBack,DialogHelperClass.Companion.DialogLessAmountCallBack {
 
     override val layoutId: Int
         get() = R.layout.fragment_payment_methods
@@ -44,11 +44,17 @@ class PaymentMethodsFragment :
     private lateinit var options: NavOptions
 
     var orderId: String? = ""
+    var points: String? = ""
+    var w_points: String? = ""
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
+
+        w_points = PrefHelper.getInstance(requireContext()).setWalletAmount.toString()
+
+
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
         var bundle = arguments
         if (bundle == null) {
@@ -56,6 +62,7 @@ class PaymentMethodsFragment :
         }
 
         orderId = bundle.getString("order_id")
+        points = bundle.getString("points")
 
 
         options = navOptions {
@@ -77,7 +84,15 @@ class PaymentMethodsFragment :
         mViewDataBinding.paynoW.setOnClickListener {
             if (mViewDataBinding.radioWallet.isChecked || mViewDataBinding.radioPaypal.isChecked || mViewDataBinding.radioVisa.isChecked || mViewDataBinding.radiomaster.isChecked || mViewDataBinding.radiogoogle.isChecked) {
 
-                presentPaymentSheet("$orderId",paymentOption.toString())
+                Log.d("TAG", "onViewCreated1212: $points")
+                Log.d("TAG", "onViewCreated1212: $w_points")
+                if(points!! > w_points!!){
+                    DialogHelperClass.lessPointsDialog(requireContext(),this@PaymentMethodsFragment,true)
+                }
+                else{
+                    presentPaymentSheet("$orderId",paymentOption.toString())
+                }
+
             } else {
                 showToast("Please select payment method")
             }
@@ -387,6 +402,10 @@ class PaymentMethodsFragment :
 
     override fun InviteClicked() {
         findNavController().navigate(R.id.dashboardFragment, arguments, options)
+    }
+
+    override fun Topup() {
+        findNavController().navigate(R.id.topupFragment, arguments, options)
     }
 
 }

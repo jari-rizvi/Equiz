@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -232,6 +233,21 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
             }
             return false
         }
+
+        var phoneNumber: String = mViewDataBinding.etEMail.getText().toString().trim()
+
+        if (phoneNumber.startsWith("0")) {
+            // If it starts with 0, replace 0 with +
+            phoneNumber = " +" + phoneNumber.substring(1);
+
+
+            mViewDataBinding.root.snackbar(getString(R.string.start_with_plus)+phoneNumber)
+
+            return false
+        }
+
+
+
 
 
         ApiCall()

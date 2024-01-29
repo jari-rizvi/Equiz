@@ -176,6 +176,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                         it.data?.let { data ->
 
                             mViewDataBinding.tvCoins.text = data.data.toString()
+                            PrefHelper.getInstance(requireContext()).saveWalletAmount( data.data.toString())
                             Log.d("TAG", "wallramount: ${data.data.toString()}")
                         }
                     }
@@ -208,6 +209,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
         id = PrefHelper.getInstance(requireContext()).setUserId.toString()
 
+
+
         if (id.isNullOrEmpty()){
             id = " "
         }
@@ -238,7 +241,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 //                                winnerArrayList.add(it)
 //                            }
                             data.newsData.forEach {
-                                imageList2.add(it.image)
+                                imageList2.add(com.teamx.equiz.ui.fragments.ecommerce.home.datanews.Data(it._id,it.image))
                             }
 //                            winnerAdapter.notifyDataSetChanged()
 
@@ -967,7 +970,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
 /////////////
 
-    private val imageList2 = arrayListOf<String>()
+//    private val imageList2 = arrayListOf<String>()
+    private val imageList2 = arrayListOf<com.teamx.equiz.ui.fragments.ecommerce.home.datanews.Data>()
     private fun addingSliderAdapter() {
 
 
@@ -1134,7 +1138,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                                 it.data?.let { data ->
 
                                     data.data.forEach {
-                                        imageList2.add(it.image)
+                                        imageList2.add(com.teamx.equiz.ui.fragments.ecommerce.home.datanews.Data(it._id,it.image))
                                     }
 
 
@@ -1166,23 +1170,23 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
     @SuppressLint("LogNotTimber")
     override fun onSliderClick(position: Int) {
-        val newsArraya : ArrayList<NewsData> = ArrayList()
+        val newsArraya = imageList2[position]
 
 
-        Log.d("TAG", "onSliderClick: ${newsArraya[position]._id}")
+        Log.d("TAG", "onSliderClick: ${newsArraya._id}")
 
 
-//        var bundle = arguments
-//        if (bundle == null) {
-//            bundle = Bundle()
-//        }
-//
-//        bundle.putString("id", newsArraya[position]._id)
-//
-//        findNavController().navigate(
-//            R.id.newsDetailFragment,
-//            bundle,
-//            options)
+        var bundle = arguments
+        if (bundle == null) {
+            bundle = Bundle()
+        }
+
+        bundle.putString("id", newsArraya._id)
+
+        findNavController().navigate(
+            R.id.newsDetailFragment,
+            bundle,
+            options)
     }
 
 

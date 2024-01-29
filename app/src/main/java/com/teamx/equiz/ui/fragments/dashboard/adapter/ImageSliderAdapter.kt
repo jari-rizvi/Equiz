@@ -9,10 +9,11 @@ import com.bumptech.glide.Glide
 import com.squareup.picasso.Picasso
 import com.teamx.equiz.R
 import com.teamx.equiz.data.models.bannerData.bannews.NewsData
+import com.teamx.equiz.ui.fragments.ecommerce.home.datanews.Data
 import com.teamx.equiz.ui.fragments.news.onNewslistner
 
 
-class ImageSliderAdapter(private val imageList: List<String>, val onSliderClickListner: OnSliderClickListner) :
+class ImageSliderAdapter(private val imageList: List<Data>, val onSliderClickListner: OnSliderClickListner) :
     RecyclerView.Adapter<ImageSliderAdapter.ImageViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
@@ -22,9 +23,8 @@ class ImageSliderAdapter(private val imageList: List<String>, val onSliderClickL
     }
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
-        holder.bind(imageList[position])
 
-
+        holder.bind(imageList[position].image)
 
         holder.itemView.setOnClickListener {
             onSliderClickListner.onSliderClick(position)

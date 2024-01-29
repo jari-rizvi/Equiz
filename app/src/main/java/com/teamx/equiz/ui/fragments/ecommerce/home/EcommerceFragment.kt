@@ -28,6 +28,7 @@ import com.teamx.equiz.databinding.FragmentEcommerceBinding
 import com.teamx.equiz.ui.fragments.dashboard.adapter.ImageSliderAdapter
 import com.teamx.equiz.ui.fragments.dashboard.adapter.OnSliderClickListner
 import com.teamx.equiz.ui.fragments.ecommerce.data.Category
+import com.teamx.equiz.ui.fragments.ecommerce.home.datanews.Data
 import com.teamx.equiz.ui.fragments.news.onNewslistner
 import com.teamx.equiz.utils.DialogHelperClass
 import com.teamx.equiz.utils.PrefHelper
@@ -66,7 +67,7 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
     private lateinit var handler: Handler
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
@@ -161,9 +162,11 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
                     Resource.Status.LOADING -> {
                         loadingDialog.show()
                     }
+
                     Resource.Status.NOTVERIFY -> {
                         loadingDialog.dismiss()
                     }
+
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         productAdapter.arrayList.clear()
@@ -177,11 +180,13 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
 
                         }
 
-                        mViewDataBinding.popularRecycler.adapter=productAdapter
+                        mViewDataBinding.popularRecycler.adapter = productAdapter
                         mViewDataBinding.popularRecycler.adapter?.notifyDataSetChanged()
                     }
-                    Resource.Status.AUTH -> { loadingDialog.dismiss()
-                         if (isAdded) {
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+                        if (isAdded) {
                             try {
                                 onToSignUpPage()
                             } catch (e: Exception) {
@@ -189,6 +194,7 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
                             }
                         }
                     }
+
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
                         DialogHelperClass.errorDialog(requireContext(), it.message!!)
@@ -209,9 +215,11 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
                     Resource.Status.LOADING -> {
                         loadingDialog.show()
                     }
+
                     Resource.Status.NOTVERIFY -> {
                         loadingDialog.dismiss()
                     }
+
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
@@ -223,8 +231,10 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
 
                         }
                     }
-                    Resource.Status.AUTH -> { loadingDialog.dismiss()
-                         if (isAdded) {
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+                        if (isAdded) {
                             try {
                                 onToSignUpPage()
                             } catch (e: Exception) {
@@ -232,6 +242,7 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
                             }
                         }
                     }
+
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
                         DialogHelperClass.errorDialog(
@@ -268,8 +279,10 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
                             showToast("Added To Wishlist")
                         }
                     }
-                    Resource.Status.AUTH -> { loadingDialog.dismiss()
-                         if (isAdded) {
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+                        if (isAdded) {
                             try {
                                 onToSignUpPage()
                             } catch (e: Exception) {
@@ -277,6 +290,7 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
                             }
                         }
                     }
+
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
                         DialogHelperClass.errorDialog(
@@ -313,8 +327,10 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
 
                         }
                     }
-                    Resource.Status.AUTH -> { loadingDialog.dismiss()
-                         if (isAdded) {
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+                        if (isAdded) {
                             try {
                                 onToSignUpPage()
                             } catch (e: Exception) {
@@ -322,6 +338,7 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
                             }
                         }
                     }
+
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
                         DialogHelperClass.errorDialog(requireContext(), it.message!!)
@@ -357,7 +374,7 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
 //                                winnerArrayList.add(it)
 //                            }
                             data.newsData.forEach {
-                                imageList2.add(it.image)
+                                imageList2.add(Data(it._id, it.image))
                             }
 //                            winnerAdapter.notifyDataSetChanged()
 
@@ -372,7 +389,7 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
 //                        mViewDataBinding.mainLayout.visibility = View.VISIBLE
 //                        mViewDataBinding.shimmerLayout.stopShimmer()
 //                        mViewDataBinding.shimmerLayout.visibility = View.GONE
-                         if (isAdded) {
+                        if (isAdded) {
                             try {
                                 onToSignUpPage()
                             } catch (e: Exception) {
@@ -425,7 +442,9 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
         }
     }
 
-    private val imageList2 = arrayListOf<String>()
+    //    private val imageList2 = arrayListOf<String>()
+    private val imageList2 =
+        arrayListOf<com.teamx.equiz.ui.fragments.ecommerce.home.datanews.Data>()
 
     private fun addingSliderAdapter() {
 
@@ -440,7 +459,7 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
             // Add more images as needed
         )
 
-        val adapter = ImageSliderAdapter(imageList2,this)
+        val adapter = ImageSliderAdapter(imageList2, this)
         mViewDataBinding.viewPager.adapter = adapter
 
         addDots(imageList.size)
@@ -724,7 +743,7 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
                     Resource.Status.AUTH -> {
                         loadingDialog.dismiss()
 
-                         if (isAdded) {
+                        if (isAdded) {
                             try {
                                 onToSignUpPage()
                             } catch (e: Exception) {
@@ -783,7 +802,7 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
                                 it.data?.let { data ->
 
                                     data.data.forEach {
-                                        imageList2.add(it.image)
+                                        imageList2.add(Data(it._id, it.image))
                                     }
 
 
@@ -798,7 +817,7 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
                     Resource.Status.AUTH -> {
                         loadingDialog.dismiss()
 
-                         if (isAdded) {
+                        if (isAdded) {
                             try {
                                 onToSignUpPage()
                             } catch (e: Exception) {
@@ -820,10 +839,20 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
     }
 
     override fun onSliderClick(position: Int) {
+        val newsArraya = imageList2[position]
 
+        var bundle = arguments
+        if (bundle == null) {
+            bundle = Bundle()
+        }
+
+        bundle.putString("id", newsArraya._id)
+
+        findNavController().navigate(
+            R.id.newsDetailFragment,
+            bundle,
+            options)
     }
-
-
 
 
 }

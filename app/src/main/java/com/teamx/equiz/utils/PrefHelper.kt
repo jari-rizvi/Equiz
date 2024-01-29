@@ -23,6 +23,7 @@ class PrefHelper private constructor() {
         private val MERCHANT_ID = "merchant_id"
         private val ORDER_ID = "order_id"
         private val USER_ID = "user_id"
+        private val WALLET_AMOUNT = "wallet_amount"
         private const val dbCardP = "dbCardP"
         private val LANGTYPE = "lang_type"
         private val CARPLATE = "car_plate"
@@ -120,7 +121,6 @@ class PrefHelper private constructor() {
     }
 
 
-
     val getCouponCode: String? get() = sharedPreferences.getString(SAVE_COUPONTOKEN, "")
 
     fun saveCouponCode(save_token: String) {
@@ -145,6 +145,13 @@ class PrefHelper private constructor() {
 
     fun saveUerId(user_id: String) {
         sharedPreferences.edit().putString(USER_ID, user_id).apply()
+
+    }
+
+    val setWalletAmount: String? get() = sharedPreferences.getString(WALLET_AMOUNT, "")
+
+    fun saveWalletAmount(wallet_amount: String) {
+        sharedPreferences.edit().putString(WALLET_AMOUNT, wallet_amount).apply()
 
     }
 

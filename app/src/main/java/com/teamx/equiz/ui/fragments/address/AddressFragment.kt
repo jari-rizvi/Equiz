@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
@@ -47,8 +48,7 @@ import java.io.IOException
 import java.util.Locale
 
 @AndroidEntryPoint
-class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>(),
-    BottomSheetListener {
+class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>() {
 
     override val layoutId: Int
         get() = R.layout.fragment_address
@@ -79,7 +79,8 @@ class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>()
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
-        txtBottomLocation = view.findViewById(R.id.editAddress1)
+//        txtBottomLocation = view.findViewById(R.id.editAddress1)
+
         var bundle = arguments
 
         if (bundle == null) {
@@ -140,8 +141,8 @@ class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>()
 
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
 
-        bottomSheetAddSearchFragment = BottomSheetAddressFragment()
-        bottomSheetAddSearchFragment.setBottomSheetListener(this)
+//        bottomSheetAddSearchFragment = BottomSheetAddressFragment()
+//        bottomSheetAddSearchFragment.setBottomSheetListener(this)
 
 
         mViewDataBinding.btnProceed.setOnClickListener {
@@ -151,12 +152,12 @@ class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>()
 
         mViewDataBinding.editAddress1.setOnClickListener {
 
-            if (!bottomSheetAddSearchFragment.isAdded) {
+          /*  if (!bottomSheetAddSearchFragment.isAdded) {
                 bottomSheetAddSearchFragment.show(
                     parentFragmentManager,
                     bottomSheetAddSearchFragment.tag
                 )
-            }
+            }*/
         }
 //        mViewDataBinding.btnProceed.setOnClickListener {
 //
@@ -345,6 +346,7 @@ class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>()
             if (isAdded) {
                 mViewDataBinding.root.snackbar(getString(R.string.enter_phone))
             }
+
             return false
         }
         if (mViewDataBinding.editAddress1.text.toString().trim().isEmpty()) {
@@ -354,89 +356,106 @@ class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>()
             return false
         }
 
+        var phoneNumber: String = mViewDataBinding.etPhone.getText().toString().trim()
+
+        if (phoneNumber.startsWith("0")) {
+            // If it starts with 0, replace 0 with +
+            phoneNumber = " +" + phoneNumber.substring(1);
+
+
+            mViewDataBinding.root.snackbar(getString(R.string.start_with_plus)+phoneNumber)
+
+            return false
+        }
+
+
+
         ApiCall()
         return true
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
-    val locationPermissionRequest = registerForActivityResult(
-        ActivityResultContracts.RequestMultiplePermissions()
-    ) { permissions ->
-
-        if (LocationPermission.requestPermission(requireContext())) {
-            requestLocation()
-
-
-        } else {
-            Log.d("allowLocation", "locationPermissionRequest: not working")
-        }
-    }
+//    @RequiresApi(Build.VERSION_CODES.N)
+//    val locationPermissionRequest = registerForActivityResult(
+//        ActivityResultContracts.RequestMultiplePermissions()
+//    ) { permissions ->
+//
+//        if (LocationPermission.requestPermission(requireContext())) {
+//            requestLocation()
+//
+//
+//        } else {
+//            Log.d("allowLocation", "locationPermissionRequest: not working")
+//        }
+//    }
 
 
     @SuppressLint("MissingPermission")
-    private fun requestLocation() {
-
-        val fusedLocationClient =
-            LocationServices.getFusedLocationProviderClient(requireActivity())
-
-        fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
-            // Handle the location result
-            if (location != null) {
-                val getAddress =
-                    getAddressFromLocation(LatLng(location.latitude, location.longitude))
-
-
-                Log.e("requestLocation", "getAddress, ${getAddress}")
-            } else {
-
-            }
-        }.addOnFailureListener { exception: Exception ->
-            // Handle exceptions
-            Log.e("requestLocation", "Error getting location, ${exception.message}")
-
-        }
-
-    }
-
-
-    private fun getAddressFromLocation(latLng: LatLng) {
-
-        val geocoder = Geocoder(requireActivity(), Locale.getDefault())
-
-        try {
-            val addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1)
-
-            if (addresses?.isNotEmpty() == true) {
-                val address = addresses[0]
-                val addressLine = address.getAddressLine(0)
-                val city = address.locality
-                val state = address.adminArea
-                val country = address.countryName
-                val postalCode = address.postalCode
+//    private fun requestLocation() {
+//
+//        val fusedLocationClient =
+//            LocationServices.getFusedLocationProviderClient(requireActivity())
+//
+//        fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
+//            // Handle the location result
+//            if (location != null) {
+//                val getAddress =
+//                    getAddressFromLocation(LatLng(location.latitude, location.longitude))
+//
+//
+//                Log.e("requestLocation", "getAddress, ${getAddress}")
+//            } else {
+//
+//            }
+//        }.addOnFailureListener { exception: Exception ->
+//            // Handle exceptions
+//            Log.e("requestLocation", "Error getting location, ${exception.message}")
+//
+//        }
+//
+//    }
 
 
-                val addressStr = "$addressLine, $city\n$state, $country, $postalCode"
+//    private fun getAddressFromLocation(latLng: LatLng) {
+//
+//        val geocoder = Geocoder(requireActivity(), Locale.getDefault())
+//
+//        try {
+//            val addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1)
+//
+//            if (addresses?.isNotEmpty() == true) {
+//                val address = addresses[0]
+//                val addressLine = address.getAddressLine(0)
+//                val city = address.locality
+//                val state = address.adminArea
+//                val country = address.countryName
+//                val postalCode = address.postalCode
+//
+//
+//                val addressStr = "$addressLine, $city\n$state, $country, $postalCode"
+//
+//                mViewDataBinding.editAddress1.setText(addressStr)
+////                mViewDataBinding.country.setText(country)
+////                mViewDataBinding.city.setText(city)
+////                mViewDataBinding.etState.setText(state)
+////                mViewDataBinding.etPostal.setText(postalCode)
+//
+//                // Do something with the address information
+//                Log.d("requestLocation", "addresses: $addresses")
+//            } else {
+//                // No address found
+//                Log.d("requestLocation", "No address found for the given location")
+//
+//
+//            }
+//        } catch (e: IOException) {
+//            // Handle IOException
+//            Log.e("requestLocation", "Error getting address", e)
+//        }
+//
+//    }
 
-                mViewDataBinding.editAddress1.setText(addressStr)
-//                mViewDataBinding.country.setText(country)
-//                mViewDataBinding.city.setText(city)
-//                mViewDataBinding.etState.setText(state)
-//                mViewDataBinding.etPostal.setText(postalCode)
-
-                // Do something with the address information
-                Log.d("requestLocation", "addresses: $addresses")
-            } else {
-                // No address found
-                Log.d("requestLocation", "No address found for the given location")
 
 
-            }
-        } catch (e: IOException) {
-            // Handle IOException
-            Log.e("requestLocation", "Error getting address", e)
-        }
-
-    }
 //    override fun onMapReady(p0: GoogleMap) {
 //        googleMap = p0
 //
@@ -462,39 +481,39 @@ class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>()
 //    }
 
 
-    private lateinit var txtBottomLocation: TextView
-    private var latLngFinal: LatLng? = null
-
-    private fun updateUi(
-        result: String,
-        appartment: String,
-        building: String,
-        additionalInfo: String,
-        label: String
-    ) {
-        mViewDataBinding.editAddress1.setText(result)
-        txtBottomLocation.text = result
-
-
-    }
+//    private lateinit var txtBottomLocation: TextView
+//    private var latLngFinal: LatLng? = null
+//
+//    private fun updateUi(
+//        result: String,
+//        appartment: String,
+//        building: String,
+//        additionalInfo: String,
+//        label: String
+//    ) {
+//        mViewDataBinding.editAddress1.setText(result)
+//        txtBottomLocation.text = result
+//
+//
+//    }
 
     private var addressLabel = "Home"
 
-    override fun onBottomSheetDataReceived(data: String, latLng: LatLng) {
-        isMapBeingDragged = false
-
-        updateUi(data, "", "", "", addressLabel)
-        bottomSheetAddSearchFragment.dismiss()
-
-        latLngFinal = latLng
-
-//        googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng), 1000, null)
-
-//        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17f))
-
-        Log.e("requestLocation", "data, $data")
-        Log.e("requestLocation", "latLng, $latLng")
-    }
+//    override fun onBottomSheetDataReceived(data: String, latLng: LatLng) {
+//        isMapBeingDragged = false
+//
+//        updateUi(data, "", "", "", addressLabel)
+//        bottomSheetAddSearchFragment.dismiss()
+//
+//        latLngFinal = latLng
+//
+////        googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng), 1000, null)
+//
+////        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17f))
+//
+//        Log.e("requestLocation", "data, $data")
+//        Log.e("requestLocation", "latLng, $latLng")
+//    }
 
 
 }

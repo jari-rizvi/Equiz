@@ -2,6 +2,7 @@ package com.teamx.equiz.ui.fragments.address
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.addCallback
 import androidx.annotation.Keep
@@ -221,6 +222,9 @@ class AddressListCheckoutFragment : BaseFragment<FragmentAddressListBinding, Add
                                                 bundle = Bundle()
                                             }
                                             bundle!!.putString("order_id", data.data._id)
+                                            bundle!!.putString("points", data.data.totalPoints.toString())
+
+                                            Log.d("TAG", "onViewCreated2222222: ${data.data.totalPoints}")
 
 
                                             findNavController().navigate(

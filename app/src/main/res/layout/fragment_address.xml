@@ -70,6 +70,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="@+id/editAddress1"
             android:layout_marginEnd="@dimen/_5sdp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/editAddress1"
             app:layout_constraintEnd_toEndOf="@+id/editAddress1"
             android:src="@drawable/baseline_my_location"/>
@@ -155,6 +156,7 @@
             android:inputType="phone"
             android:minHeight="@dimen/_35sdp"
             android:paddingStart="@dimen/_10sdp"
+            android:hint="+971 123 123"
             android:singleLine="true"
             android:textAlignment="viewStart"
             android:textColor="#666666"
