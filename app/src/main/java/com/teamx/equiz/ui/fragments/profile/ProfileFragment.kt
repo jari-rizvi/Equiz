@@ -79,13 +79,14 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
                         it.data?.let { data ->
 
                             try {
-                                mViewDataBinding.textView3.setText(data.user.name)
-                                mViewDataBinding.textView4.setText(data.user.email)
+                                mViewDataBinding.textView3.text = data.user.name
+                                mViewDataBinding.textView4.text = data.user.email
                                 mViewDataBinding.textView4.setText(data.user.phone)
                                 mViewDataBinding.textView52.setText(data.user.chances.toString())
-                                mViewDataBinding.textView51.setText(data.user.score.toString())
+                                mViewDataBinding.textView51.setText(data.user.wallet.toString())
 
                                 Log.d("TAG", "onViewCreated121212: ${data.user.isPremium}")
+                                Log.d("TAG", "onViewCreated121212: ${data.user.wallet}")
 
                                 if (data.user.isPremium) {
                                     Log.d("TAG", "onViewCreated121212: ${data.user.isPremium}")

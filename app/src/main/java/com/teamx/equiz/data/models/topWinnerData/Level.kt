@@ -6,5 +6,5 @@ data class Level(
     val Level: String,
     val Next_Level: String,
     val Next_Range: Int,
-    val Range: Int
+    val Range: Double
 )

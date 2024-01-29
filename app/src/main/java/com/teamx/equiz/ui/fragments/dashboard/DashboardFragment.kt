@@ -170,6 +170,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                         it.data?.let { data ->
 
                             mViewDataBinding.tvCoins.text = data.data.toString()
+                            Log.d("TAG", "wallramount: ${data.data.toString()}")
                         }
                     }
 

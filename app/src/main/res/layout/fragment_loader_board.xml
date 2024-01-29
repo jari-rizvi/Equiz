@@ -27,6 +27,7 @@
             android:id="@+id/btnback"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.05"
@@ -40,6 +41,7 @@
             android:id="@+id/btnback121"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.95"
@@ -56,6 +58,7 @@
             android:text="@string/games_leaderboard"
             android:textColor="@color/white"
             android:textSize="@dimen/_14ssp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/btnback"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.2"
@@ -72,7 +75,7 @@
             app:layout_constraintBottom_toTopOf="@+id/guideline12"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="@+id/layout1"
             app:layout_constraintVertical_bias="0.2">
 
             <ImageView
@@ -110,8 +113,12 @@
         <TextView
             android:id="@+id/textView545"
             style="@style/popins_bold"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_70sdp"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center"
+
+            android:maxLines="1"
             android:text=""
             android:textColor="@color/white"
             android:textSize="@dimen/_14ssp"
@@ -124,8 +131,12 @@
 
         <TextView
             android:id="@+id/textView545455"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_70sdp"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+
             android:text=""
             android:textColor="@color/white"
             android:textSize="@dimen/_14ssp"
@@ -139,6 +150,7 @@
             android:id="@+id/constraintLayout10541"
             android:layout_width="@dimen/_70sdp"
             android:layout_height="@dimen/_70sdp"
+            android:layout_marginTop="@dimen/_15sdp"
             android:background="@drawable/bg_circle_loader_board"
             android:clipToOutline="true"
             app:layout_constraintBottom_toBottomOf="@+id/constraintLayout10"
@@ -181,8 +193,11 @@
         <TextView
             android:id="@+id/textView54545"
             style="@style/popins_bold"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_70sdp"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
             android:text=""
             android:textColor="@color/white"
             android:textSize="@dimen/_12ssp"
@@ -195,8 +210,11 @@
 
         <TextView
             android:id="@+id/textView545545455"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_70sdp"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
             android:text=""
             android:textColor="@color/white"
             android:textSize="@dimen/_12ssp"
@@ -209,6 +227,7 @@
             android:id="@+id/constraintLayout101"
             android:layout_width="@dimen/_70sdp"
             android:layout_height="@dimen/_70sdp"
+            android:layout_marginTop="@dimen/_15sdp"
             android:background="@drawable/bg_circle_loader_board"
             android:clipToOutline="true"
             app:layout_constraintBottom_toBottomOf="@+id/constraintLayout10"
@@ -252,8 +271,11 @@
         <TextView
             android:id="@+id/textView545545445"
             style="@style/popins_bold"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_70sdp"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
             android:text=""
             android:textColor="@color/white"
             android:textSize="@dimen/_12ssp"
@@ -266,8 +288,12 @@
 
         <TextView
             android:id="@+id/textView5455454554545"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_70sdp"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+
+            android:gravity="center"
+            android:maxLines="1"
             android:text=""
             android:textColor="@color/white"
             android:textSize="@dimen/_12ssp"

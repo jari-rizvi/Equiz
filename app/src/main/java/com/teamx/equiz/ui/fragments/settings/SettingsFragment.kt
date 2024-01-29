@@ -138,7 +138,7 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
                                 mViewDataBinding.textView4.setText(data.user.email)
                                 mViewDataBinding.textView4.setText(data.user.phone)
                                 mViewDataBinding.textView52.setText(data.user.chances.toString())
-                                mViewDataBinding.textView51.setText(data.user.score.toString())
+                                mViewDataBinding.textView51.setText(data.user.wallet.toString())
 
 
                                 if (data.user.isPremium) {

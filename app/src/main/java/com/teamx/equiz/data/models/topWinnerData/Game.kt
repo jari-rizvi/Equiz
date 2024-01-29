@@ -6,14 +6,14 @@ import androidx.annotation.Keep
 data class Game(
     val __v: Int,
     val _id: String,
-    val accuracy: Int,
-    val calculation: Int,
-    val judgment: Int,
+    val accuracy: Double,
+    val calculation: Double,
+    val judgment: Double,
     val level: Level,
-    val memory: Int,
-    val observation: Int,
-    val rank: Int,
-    val speed: Int,
+    val memory: Double,
+    val observation: Double,
+    val rank: Double,
+    val speed: Double,
     val totalScore: Int,
     val userId: UserId
 )

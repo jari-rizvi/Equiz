@@ -7,6 +7,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import androidx.activity.addCallback
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
@@ -89,7 +90,6 @@ class UserProgressFragment : BaseFragment<FragmentUserProgressBinding, LoaderBoa
         }
 
         mViewDataBinding.cc1.setOnClickListener {
-
             GameModel?.let { it1 ->
                 DialogHelperClass.UserStatsDialog(requireContext(),
                     object : DialogHelperClass.Companion.ChickenDialogCallBack {
@@ -168,6 +168,7 @@ class UserProgressFragment : BaseFragment<FragmentUserProgressBinding, LoaderBoa
                             mViewDataBinding.textView312.text = "$roundoffcalculation %"
 
                             mViewDataBinding.getRank.text = data.game[0].rank.toString()
+                            Log.d("TAG", "onViewCreated12112: ${data.game[0].rank}")
 
 
                             val chickenProgress =

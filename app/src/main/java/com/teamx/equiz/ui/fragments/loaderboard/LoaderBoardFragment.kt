@@ -1,13 +1,14 @@
 package com.teamx.equiz.ui.fragments.loaderboard
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.addCallback
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
@@ -15,13 +16,14 @@ import com.teamx.equiz.data.models.topWinnerData.Game
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentLoaderBoardBinding
 import com.teamx.equiz.ui.fragments.loaderboard.adapter.LoaderMultiViewAdapter
+import com.teamx.equiz.ui.fragments.loaderboard.adapter.OnUserClickListner
 import com.teamx.equiz.utils.DialogHelperClass
 import com.teamx.equiz.utils.PrefHelper
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
-class LoaderBoardFragment : BaseFragment<FragmentLoaderBoardBinding, LoaderBoardViewModel>() {
+class LoaderBoardFragment : BaseFragment<FragmentLoaderBoardBinding, LoaderBoardViewModel>(),OnUserClickListner {
 
     override val layoutId: Int
         get() = R.layout.fragment_loader_board
@@ -37,6 +39,8 @@ class LoaderBoardFragment : BaseFragment<FragmentLoaderBoardBinding, LoaderBoard
     lateinit var winnerArrayList: ArrayList<Game>
 
     private var isOdd = false
+    var GameModel: Game? = null
+
     var id: String = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,19 +59,20 @@ class LoaderBoardFragment : BaseFragment<FragmentLoaderBoardBinding, LoaderBoard
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+
+
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
 
-        mViewDataBinding.constraintLayout10.setOnClickListener {
+    /*    mViewDataBinding.constraintLayout10.setOnClickListener {
             findNavController().navigate(R.id.userProgressFragment, arguments, options)
 
-        }
+        }*/
 
 //        initializeCategoriesAdapter()
 
 
-
         id = PrefHelper.getInstance(requireContext()).setUserId.toString()
-        if (id.isNullOrEmpty()){
+        if (id.isNullOrEmpty()) {
             id = " "
         }
 
@@ -104,22 +109,31 @@ class LoaderBoardFragment : BaseFragment<FragmentLoaderBoardBinding, LoaderBoard
 //                                Picasso.get().load(data.game[2].image)
 //                                    .into(mViewDataBinding.equizIcon54)
 
-//                                Glide.with(mViewDataBinding.equizIcon.context)
-//                                    .load(data.game[0].userId.image).into(mViewDataBinding.equizIcon)
+                                Glide.with(mViewDataBinding.equizIcon.context)
+                                    .load(data.game[0].userId.image)
+                                    .error(R.drawable.baseline_person)
+                                    .into(mViewDataBinding.equizIcon)
 
-                                Picasso.get().load(data.game[0].userId.image).placeholder(R.drawable.baseline_person).error(R.drawable.baseline_person).resize(500, 500).into(mViewDataBinding.equizIcon)
-                                Picasso.get().load(data.game[1].userId.image).placeholder(R.drawable.baseline_person).error(R.drawable.baseline_person).resize(500, 500).into(mViewDataBinding.equizIcon)
-                                Picasso.get().load(data.game[2].userId.image).placeholder(R.drawable.baseline_person).error(R.drawable.baseline_person).resize(500, 500).into(mViewDataBinding.equizIcon)
+//                                Picasso.get().load(data.game[0].userId.image).placeholder(R.drawable.baseline_person).error(R.drawable.baseline_person).resize(500, 500).into(mViewDataBinding.equizIcon)
+//                                Picasso.get().load(data.game[1].userId.image).placeholder(R.drawable.baseline_person).error(R.drawable.baseline_person).resize(500, 500).into(mViewDataBinding.equizIcon5454)
+//                                Picasso.get().load(data.game[2].userId.image).placeholder(R.drawable.baseline_person).error(R.drawable.baseline_person).resize(500, 500).into(mViewDataBinding.equizIcon54)
 
 //
-//                                Glide.with(mViewDataBinding.equizIcon5454.context)
-//                                    .load(data.game[1].userId.image).into(mViewDataBinding.equizIcon5454)
-//                                Glide.with(mViewDataBinding.equizIcon54.context)
-//                                    .load(data.game[2].userId.image).into(mViewDataBinding.equizIcon54)
+                                Glide.with(mViewDataBinding.equizIcon5454.context)
+                                    .load(data.game[1].userId.image)
+                                    .error(R.drawable.baseline_person)
+                                    .into(mViewDataBinding.equizIcon5454)
+
+                                Glide.with(mViewDataBinding.equizIcon54.context)
+                                    .load(data.game[2].userId.image)
+                                    .error(R.drawable.baseline_person)
+                                    .into(mViewDataBinding.equizIcon54)
 
                                 mViewDataBinding.textView545.text = data.game[0].userId.name
                                 mViewDataBinding.textView545455.text =
                                     data.game[0].userId.wallet.toString()
+
+                                Log.d("TAG", "1111111111: ${data.game}")
 
                                 mViewDataBinding.textView54545.text = data.game[1].userId.name
                                 mViewDataBinding.textView545545455.text =
@@ -136,7 +150,7 @@ class LoaderBoardFragment : BaseFragment<FragmentLoaderBoardBinding, LoaderBoard
 
                     Resource.Status.AUTH -> {
                         loadingDialog.dismiss()
-                         if (isAdded) {
+                        if (isAdded) {
                             try {
                                 onToSignUpPage()
                             } catch (e: Exception) {
@@ -187,7 +201,7 @@ class LoaderBoardFragment : BaseFragment<FragmentLoaderBoardBinding, LoaderBoard
             LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         mViewDataBinding.recyLoaderBoard.layoutManager = layoutManager1
 
-        loaderMultiViewAdapter = LoaderMultiViewAdapter(winnerArrayList)
+        loaderMultiViewAdapter = LoaderMultiViewAdapter(winnerArrayList,this)
         mViewDataBinding.recyLoaderBoard.adapter = loaderMultiViewAdapter
 
 
@@ -198,6 +212,22 @@ class LoaderBoardFragment : BaseFragment<FragmentLoaderBoardBinding, LoaderBoard
         return isOdd
     }
 
+    override fun onUserClick(position: Int) {
+        Log.d("TAG", "onUserClick: ")
+
+        GameModel?.let { it1 ->
+            DialogHelperClass.UserStatsDialog(requireContext(),
+                object : DialogHelperClass.Companion.ChickenDialogCallBack {
+                    override fun onCloseClick() {
+
+                    }
+
+
+                }, gamesModel = it1
+            ).show()
+        }
+
+    }
+
 
 }
-

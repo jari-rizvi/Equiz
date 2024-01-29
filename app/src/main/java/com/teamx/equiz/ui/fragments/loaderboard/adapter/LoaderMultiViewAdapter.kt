@@ -14,7 +14,8 @@ import com.teamx.equiz.R
 import com.teamx.equiz.data.models.topWinnerData.Game
 
 class LoaderMultiViewAdapter(
-    private val dataSet: ArrayList<Game>
+    private val dataSet: ArrayList<Game>,
+    private val onUserClickListner: OnUserClickListner
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -54,6 +55,11 @@ class LoaderMultiViewAdapter(
     ) {
         val data = dataSet[position]
 
+
+        holder.itemView.setOnClickListener {
+            onUserClickListner.onUserClick(position)
+        }
+
         when (true/*dataSet[position].bool*/) {
             true -> {
                 val holderClass2 = holder as OptionalViewHolder
@@ -88,9 +94,7 @@ class LoaderMultiViewAdapter(
                 } catch (e: Exception) {
 
                 }
-
-
-            }
+           }
 
             false -> {
                 val holderClass1 = holder as RequiredViewHolder
@@ -123,8 +127,12 @@ class LoaderMultiViewAdapter(
                 }
 
 
+
             }
         }
+
+
+
     }
 
     override fun getItemCount(): Int {
@@ -180,4 +188,9 @@ class LoaderMultiViewAdapter(
             score = itemView.findViewById(R.id.score)
         }
     }
+}
+
+
+interface OnUserClickListner {
+    fun onUserClick(position: Int)
 }
