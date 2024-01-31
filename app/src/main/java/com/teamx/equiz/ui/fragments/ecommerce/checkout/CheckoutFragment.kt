@@ -17,6 +17,7 @@ import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentCheckoutBinding
 import com.teamx.equiz.utils.DialogHelperClass
+import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONException
 
@@ -54,10 +55,21 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
         }
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
 
+
+
+
         mViewDataBinding.btnApply.setOnClickListener {
 
             val code = mViewDataBinding.autoCompleteTextView.text.toString()
-            mViewModel.applyCoupon(code)
+
+            if(code.isEmpty()){
+                mViewDataBinding.root.snackbar("Please Enter Coupon Code")
+            }
+            else{
+                mViewModel.applyCoupon(code)
+            }
+
+
             if (!mViewModel.applyCouponResponse.hasActiveObservers()) {
                 mViewModel.applyCouponResponse.observe(requireActivity(), Observer {
                     when (it.status) {

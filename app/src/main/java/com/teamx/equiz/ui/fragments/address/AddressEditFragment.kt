@@ -48,7 +48,7 @@ import java.io.IOException
 import java.util.Locale
 
 @AndroidEntryPoint
-class AddressEditFragment : BaseFragment<FragmentEditAddressBinding, AddressViewModel>(),
+class   AddressEditFragment : BaseFragment<FragmentEditAddressBinding, AddressViewModel>(),
     BottomSheetListener {
 
     override val layoutId: Int

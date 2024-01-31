@@ -23,6 +23,7 @@ import com.google.gson.JsonObject
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
+import com.teamx.equiz.constants.NetworkCallPoints
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentEcommerceBinding
 import com.teamx.equiz.ui.fragments.dashboard.adapter.ImageSliderAdapter
@@ -92,11 +93,32 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
 
         mViewDataBinding.btnWishlist.setOnClickListener {
 
+            if (NetworkCallPoints.TOKENER.isNullOrEmpty() || NetworkCallPoints.TOKENER.equals("null", true)) {
+                if (isAdded) {
+                    try {
+                        DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+                return@setOnClickListener
+            }
+
             findNavController().navigate(
                 R.id.wishlistFragment, arguments, options
             )
         }
         mViewDataBinding.managerOders.setOnClickListener {
+            if (NetworkCallPoints.TOKENER.isNullOrEmpty() || NetworkCallPoints.TOKENER.equals("null", true)) {
+                if (isAdded) {
+                    try {
+                        DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+                return@setOnClickListener
+            }
 
             findNavController().navigate(
                 R.id.ordersFragment, arguments, options

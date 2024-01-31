@@ -9,7 +9,7 @@ import com.teamx.equiz.baseclasses.BaseViewModel
 import com.teamx.equiz.data.models.addtocart.AddtoCartData
 import com.teamx.equiz.data.models.addtowishlist.AddToWishlistData
 import com.teamx.equiz.data.models.delete_wishlist.DeleteWishListData
-import com.teamx.equiz.data.models.getProductById.GetProductByIdData
+import com.teamx.equiz.data.models.getProductById.GetProductById
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.data.remote.reporitory.MainRepository
 import com.teamx.equiz.utils.NetworkHelper
@@ -26,8 +26,8 @@ class ProductProfileViewModel @Inject constructor(
 ) : BaseViewModel() {
 
 
-    private val _productbyidResponse = MutableLiveData<Resource<GetProductByIdData>>()
-    val productbyidResponse: LiveData<Resource<GetProductByIdData>>
+    private val _productbyidResponse = MutableLiveData<Resource<GetProductById>>()
+    val productbyidResponse: LiveData<Resource<GetProductById>>
         get() = _productbyidResponse
 
     fun productById(Productid: String) {

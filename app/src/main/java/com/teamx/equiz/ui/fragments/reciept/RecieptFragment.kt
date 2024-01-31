@@ -26,6 +26,9 @@ import java.io.FileOutputStream
 import java.util.Calendar
 import java.util.Date
 import androidx.activity.addCallback
+import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 @AndroidEntryPoint
 class RecieptFragment : BaseFragment<FragmentRecieptBinding, WishlistViewModel>() {
@@ -87,27 +90,58 @@ class RecieptFragment : BaseFragment<FragmentRecieptBinding, WishlistViewModel>(
 
     }
     fun ScreenshotButton() {
-        val v1 = activity!!.window.decorView.rootView
+        val v1 = requireActivity().window.decorView.rootView
         v1.setDrawingCacheEnabled(true)
-        val bitmap: Bitmap = Bitmap.createBitmap(v1.getDrawingCache())
         v1.setDrawingCacheEnabled(false)
-        val filePath = Environment.getExternalStorageDirectory()
-            .toString() + "/Download/" + Calendar.getInstance().getTime().toString() + ".jpg"
-        val fileScreenshot = File(filePath)
+//        val filePath = Environment.getExternalStorageDirectory()
+//            .toString() + "/Download/" + Calendar.getInstance().getTime().toString() + ".jpg"
+//        val fileScreenshot = File(filePath)
         val authority = "com.teamx.equiz.fileprovider"
 //        val fileScreenshot = File(requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES), "screenshot.jpg")
+//        var fileOutputStream: FileOutputStream? = null
+//        try {
+//
+//            fileOutputStream = FileOutputStream(fileScreenshot)
+//            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream)
+//            fileOutputStream.flush()
+//            fileOutputStream.close()
+//        } catch (e: Exception) {
+//            e.printStackTrace()
+//        }
+
+
+
+        v1.isDrawingCacheEnabled = true
+        val bitmap: Bitmap = Bitmap.createBitmap(v1.drawingCache)
+        v1.isDrawingCacheEnabled = false
+
+        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+        val fileName = "screenshot_$timeStamp.jpg"
+        val storageDir = File(requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES), "Download")
+        val filePath = File(storageDir, fileName)
+
         var fileOutputStream: FileOutputStream? = null
         try {
+            if (!storageDir.exists()) {
+                storageDir.mkdirs()
+            }
 
-            fileOutputStream = FileOutputStream(fileScreenshot)
+            fileOutputStream = FileOutputStream(filePath)
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream)
             fileOutputStream.flush()
-            fileOutputStream.close()
         } catch (e: Exception) {
             e.printStackTrace()
+        } finally {
+            try {
+                fileOutputStream?.close()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
         }
+
+
         val intent = Intent(Intent.ACTION_VIEW)
-        val uri = FileProvider.getUriForFile(requireContext(), authority, fileScreenshot)
+        val uri = FileProvider.getUriForFile(requireContext(), authority, filePath)
         intent.setDataAndType(uri, "image/jpeg")
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         startActivity(intent)

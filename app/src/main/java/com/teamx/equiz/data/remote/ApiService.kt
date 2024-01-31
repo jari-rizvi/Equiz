@@ -15,7 +15,7 @@ import com.teamx.equiz.data.models.delete_wishlist.DeleteWishListData
 import com.teamx.equiz.data.models.editProfile.EditProfileData
 import com.teamx.equiz.data.models.forgotpassData.ForgotPassData
 import com.teamx.equiz.data.models.getPlan.GerPlanData
-import com.teamx.equiz.data.models.getProductById.GetProductByIdData
+import com.teamx.equiz.data.models.getProductById.GetProductById
 import com.teamx.equiz.data.models.getProducts.GetProductData
 import com.teamx.equiz.data.models.getcart.GetCartData
 import com.teamx.equiz.data.models.getorderData.GetOrdersData
@@ -180,7 +180,7 @@ interface ApiService {
     suspend fun getProductById(
         @Path("id") Productid: String,
         @Header("token") basicCredentials: String = "$TOKENER"
-    ): Response<GetProductByIdData>
+    ): Response<GetProductById>
 
     @GET(NetworkCallPoints.GET_ALL_CATEGORIES)
     suspend fun getCategories(@Header("token") basicCredentials: String = "$TOKENER"): Response<CategoryEcomData>

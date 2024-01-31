@@ -46,7 +46,8 @@ class DialogHelperClass {
         interface DialogInviteAnotherCallBack {
             fun InviteClicked()
         }
-   interface DialogLessAmountCallBack {
+
+        interface DialogLessAmountCallBack {
             fun Topup()
         }
 
@@ -55,9 +56,7 @@ class DialogHelperClass {
         }
 
         fun InviteDialog(
-            context: Context,
-            dialogLoginCallBack: DialogInviteAnotherCallBack,
-            boo: Boolean
+            context: Context, dialogLoginCallBack: DialogInviteAnotherCallBack, boo: Boolean
         ) {
             val dialog = Dialog(context)
             dialog.setContentView(R.layout.invite_dialog)
@@ -104,8 +103,7 @@ class DialogHelperClass {
 
             val cancelBtn = dialog.findViewById<TextView>(R.id.cancelBtn)
 
-            cancelBtn.text = "You Earned ${price} Points "
-            /*    cancelBtn.setOnClickListener {
+            cancelBtn.text = "You Earned ${price} Points "/*    cancelBtn.setOnClickListener {
                     dialog.dismiss()
                 }*/
 
@@ -114,12 +112,8 @@ class DialogHelperClass {
         }
 
 
-
-
         fun lessPointsDialog(
-            context: Context,
-            lessAmountCallBack: DialogLessAmountCallBack,
-            boo: Boolean
+            context: Context, lessAmountCallBack: DialogLessAmountCallBack, boo: Boolean
         ) {
             val dialog = Dialog(context)
             dialog.setContentView(R.layout.amount_less_dialog)
@@ -140,7 +134,6 @@ class DialogHelperClass {
             dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             dialog.show()
         }
-
 
 
         fun claimPrizeDialog(
@@ -232,8 +225,7 @@ class DialogHelperClass {
             val cancelBtn = dialog.findViewById<TextView>(R.id.cancelBtn)
 
             cancelBtn.text =
-                "You Have Successfully your Confirm \nPayment Send!\n Order Id : $price"
-            /*    cancelBtn.setOnClickListener {
+                "You Have Successfully your Confirm \nPayment Send!\n Order Id : $price"/*    cancelBtn.setOnClickListener {
                     dialog.dismiss()
                 }*/
 
@@ -247,7 +239,8 @@ class DialogHelperClass {
             context: Context,
             dialogLoginCallBack: DialogInviteAnotherCallBack,
             boo: Boolean,
-            price: String, total: Int,
+            price: String,
+            total: Int,
             right: Int,
             time: Int,
             gameName: String,
@@ -873,9 +866,7 @@ class DialogHelperClass {
         }
 
         fun UserStatsDialog(
-            context: Context,
-            dialogCallBack: ChickenDialogCallBack,
-            gamesModel: Game
+            context: Context, dialogCallBack: ChickenDialogCallBack, gamesModel: Game
         ): Dialog {
             val dialog = Dialog(context)
             dialog.setContentView(R.layout.user_stats_dialog)
@@ -897,35 +888,31 @@ class DialogHelperClass {
             name.text = gamesModel.userId.name
             w_rank.text = gamesModel.rank.toString()
 
+            try {
+                Picasso.get().load(gamesModel.userId.image).placeholder(R.drawable.baseline_person)
+                    .error(R.drawable.baseline_person).resize(500, 500).into(img)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
 
-            Picasso.get().load(gamesModel.userId.image).placeholder(R.drawable.baseline_person)
-                .error(R.drawable.baseline_person).resize(500, 500).into(img)
-
-
-            val speed =
-                gamesModel.speed.toDouble() / gamesModel.level.Range.toDouble() * 100
+            val speed = gamesModel.speed.toDouble() / gamesModel.level.Range.toDouble() * 100
             speedProgress.secondaryProgress = speed.toInt()
 
 
-            val judgment =
-                gamesModel.judgment.toDouble() / gamesModel.level.Range.toDouble() * 100
+            val judgment = gamesModel.judgment.toDouble() / gamesModel.level.Range.toDouble() * 100
             judgeProgress.secondaryProgress = judgment.toInt()
 
-            val calul =
-                gamesModel.calculation.toDouble() / gamesModel.level.Range.toDouble() * 100
+            val calul = gamesModel.calculation.toDouble() / gamesModel.level.Range.toDouble() * 100
             calProgress.secondaryProgress = calul.toInt()
 
-            val acc =
-                gamesModel.accuracy.toDouble() / gamesModel.level.Range.toDouble() * 100
+            val acc = gamesModel.accuracy.toDouble() / gamesModel.level.Range.toDouble() * 100
             accuracyProgress.secondaryProgress = acc.toInt()
 
             val observation =
                 gamesModel.observation.toDouble() / gamesModel.level.Range.toDouble() * 100
-            obsProgress.secondaryProgress =
-                observation.toInt()
+            obsProgress.secondaryProgress = observation.toInt()
 
-            val memory =
-                gamesModel.memory.toDouble() / gamesModel.level.Range.toDouble() * 100
+            val memory = gamesModel.memory.toDouble() / gamesModel.level.Range.toDouble() * 100
             memoryProgress.secondaryProgress = memory.toInt()
 
 
@@ -943,9 +930,7 @@ class DialogHelperClass {
 
         @SuppressLint("SetTextI18n")
         fun chickenDialog(
-            context: Context,
-            dialogCallBack: ChickenDialogCallBack,
-            gamesModel: Game
+            context: Context, dialogCallBack: ChickenDialogCallBack, gamesModel: Game
         ): Dialog {
             val dialog = Dialog(context)
             dialog.setContentView(R.layout.level_chicken_dialog)

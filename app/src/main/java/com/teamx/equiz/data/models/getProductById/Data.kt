@@ -1,26 +1,24 @@
 package com.teamx.equiz.data.models.getProductById
-
-import androidx.annotation.Keep
+import com.google.errorprone.annotations.Keep
 
 @Keep
 data class Data(
     val __v: Int,
     val _id: String,
-    val brand: String,
-    val category: String,
-    val color: List<Any>,
+    val category: Category,
     val createdAt: String,
+    val currency: String,
     val description: String,
-    val icon: List<String>,
+    val facilities: List<Facility>,
     val images: List<String>,
-    val price: Double,
-    val point: Double,
+    val isActive: Boolean,
+    val isCancelable: Boolean,
+    val isFavorite: Boolean,
+    val point: Any,
     val product_type: String,
     val quantity: Int,
     val ratings: List<Any>,
-    val slug: String,
-    val isFavorite: Boolean,
-    val sold: Int,
+    val sold: Any,
     val title: String,
     val totalrating: String,
     val updatedAt: String,

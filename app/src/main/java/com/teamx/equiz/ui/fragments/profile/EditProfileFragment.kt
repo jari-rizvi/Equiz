@@ -60,7 +60,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
     var userEmail = ""
     var userDOB = ""
     var userPhone = ""
-    lateinit var userId : String
+    lateinit var userId: String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -80,6 +80,22 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
         mViewDataBinding.btnChangePass.setOnClickListener {
             findNavController().navigate(R.id.changePassFragment, arguments, options)
+        }
+
+        val dateSetListener =
+            DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                cal.set(Calendar.YEAR, year)
+                cal.set(Calendar.MONTH, monthOfYear)
+                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                updateDateInView()
+            }
+
+        mViewDataBinding.dob.setOnClickListener {
+            DatePickerDialog(
+                requireContext(), dateSetListener,
+                // set DatePickerDialog to point to today's date when it loads up
+                cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)
+            ).show()
         }
 
         mViewDataBinding.btnAddPicture.setOnClickListener {
@@ -126,7 +142,14 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                                 mViewDataBinding.userName.setText(data.user.name)
                                 mViewDataBinding.phone.setText(data.user.phone)
                                 mViewDataBinding.email.setText(data.user.email)
-                                mViewDataBinding.dob.text = data.user.dateOfBirth?.replaceAfter("T","")?.replace("T","").toString()
+                                mViewDataBinding.dob.setText(data.user.dateOfBirth)
+
+//                                mViewDataBinding.dob.text =
+//                                    data.user.dateOfBirth?.replaceAfter("T", "")?.replace("T", "")
+//                                        .toString()
+
+
+                                Log.d("TAG", "textttt: ${mViewDataBinding.dob.text}")
 
                                 /*  val userData = PrefHelper.getInstance(requireActivity()).getUserData()
                                   userData!!.name = data.name
@@ -237,7 +260,15 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                                 mViewDataBinding.userName.setText(data.user.name)
                                 mViewDataBinding.phone.setText(data.user.phone)
                                 mViewDataBinding.email.setText(data.user.email)
-                                mViewDataBinding.dob.text = data.user.dateOfBirth?.replaceAfter("T","")?.replace("T","").toString()
+
+                                if (data.user.dateOfBirth.isNullOrEmpty()) {
+                                    mViewDataBinding.dob.text = "_"
+                                } else {
+                                    mViewDataBinding.dob.text =
+                                        data.user.dateOfBirth?.replaceAfter("T", "")
+                                            ?.replace("T", "").toString()
+                                }
+
 //                            mViewDataBinding.dob.setText(data.user.dateOfBirth.toString())
 
 //                                Picasso.get().load(data.user.image).resize(500, 500)
@@ -324,21 +355,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
         }
 
 
-        val dateSetListener =
-            DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                cal.set(Calendar.YEAR, year)
-                cal.set(Calendar.MONTH, monthOfYear)
-                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                updateDateInView()
-            }
 
-        mViewDataBinding.dob.setOnClickListener {
-            DatePickerDialog(
-                requireContext(), dateSetListener,
-                // set DatePickerDialog to point to today's date when it loads up
-                cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)
-            ).show()
-        }
 
         mViewDataBinding.btnSave.setOnClickListener {
             userName = mViewDataBinding.userName.text.toString()
@@ -483,7 +500,8 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
         val sdf = SimpleDateFormat(myFormat, Locale.US)
         dob = sdf.format(cal.getTime())
 
-        mViewDataBinding.dob.setText(dob)
+        mViewDataBinding.dob.text = dob
+        Log.d("", "updateDateInView: $dob")
     }
 
     private fun initialization() {

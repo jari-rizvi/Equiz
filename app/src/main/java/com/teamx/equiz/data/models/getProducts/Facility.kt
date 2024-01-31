@@ -1,6 +1,7 @@
 package com.teamx.equiz.data.models.getProducts
 
-data class Category(
+data class Facility(
     val _id: String,
-    val name: String
+    val icon: String,
+    val title: String
 )

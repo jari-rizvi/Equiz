@@ -1,153 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/bottomSheetStripe"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="bottom"
-    android:background="@drawable/bottomsheet_bg"
-    android:orientation="vertical"
-    android:paddingTop="@dimen/_10sdp"
-    app:behavior_peekHeight="0dp"
-    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
 
-    <!--        <com.stripe.android.view.CardMultilineWidget-->
-    <!--            android:id="@+id/cardInputWidget"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            app:layout_constraintTop_toBottomOf="@+id/tvtvt"-->
-    <!--            app:layout_constraintStart_toStartOf="parent"-->
-    <!--            app:layout_constraintVertical_bias="0.1"-->
-    <!--            app:layout_constraintEnd_toEndOf="parent"-->
-    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--            android:layout_height="@dimen/_40sdp" />-->
+    </data>
 
-
-    <!--  <TextView
-          android:id="@+id/btnVerify"
-          android:layout_width="match_parent"
-          android:layout_height="@dimen/_30sdp"
-          android:layout_margin="@dimen/_20sdp"
-          android:background="@drawable/card_background"
-          android:gravity="center"
-          android:text="@string/verify"
-          app:layout_constraintVertical_bias="0.1"
-          android:textColor="@color/white"
-          android:textSize="@dimen/_12ssp"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintHorizontal_bias="1.0"
-          app:layout_constraintStart_toStartOf="parent" />-->
-
-    <!-- activity_main.xml layout file -->
-    <!-- <LinearLayout
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         app:layout_constraintTop_toBottomOf="@+id/tvtvt"
-         android:orientation="vertical"
-         android:padding="16dp"
-         app:layout_constraintBottom_toBottomOf="parent"
-         tools:context=".MainActivity">
-
-         <EditText
-             android:id="@+id/editTextCardNumber"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:hint="Card Number"
-             android:inputType="number"
-             />
-
-         <EditText
-             android:id="@+id/editTextExpiryDate"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:hint="Expiry Date (MM/YY)"
-             android:inputType="number"
-             />
-
-         <EditText
-             android:id="@+id/editTextCvc"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:hint="CVC"
-             android:inputType="number"
-             />
-
-         <Button
-             android:id="@+id/buttonCreatePaymentMethod"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:text="Create Payment Method"
-             />
-
-         <ProgressBar
-             android:id="@+id/progressBar"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:visibility="invisible"
-             />
-
-         <TextView
-             android:id="@+id/textViewResult"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:text=""
-             android:textColor="@android:color/holo_green_dark"
-             />
-     </LinearLayout>-->
-
-    <View
-        android:id="@+id/view"
-        android:layout_width="@dimen/_50sdp"
-        android:layout_height="@dimen/_2sdp"
-        android:layout_marginTop="28dp"
-        android:background="@color/gray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvtvt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_20sdp"
-        android:text="@string/add_card_details"
-        android:textAlignment="viewStart"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_12ssp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.054"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <com.stripe.android.view.CardInputWidget
-        android:id="@+id/cardInputWidget"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottomSheetStripe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_12sdp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvtvt" />
+        android:background="@drawable/bottomsheet_bg"
+        android:orientation="vertical"
+        app:behavior_hideable="true"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
-    <Button
-        android:id="@+id/btnPay"
-        android:layout_width="@dimen/_80sdp"
-        android:layout_height="@dimen/_30sdp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/card_background"
-        android:backgroundTint="#B7926BFA"
-        android:text="@string/pay"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginVertical="@dimen/_10sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardInputWidget"
-        app:layout_constraintVertical_bias="0.844" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <!--        <com.stripe.android.view.CardMultilineWidget-->
+        <!--            android:id="@+id/cardInputWidget"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/tvtvt"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintVertical_bias="0.1"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            android:layout_height="@dimen/_40sdp" />-->
+
+
+        <!--  <TextView
+              android:id="@+id/btnVerify"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/_30sdp"
+              android:layout_margin="@dimen/_20sdp"
+              android:background="@drawable/card_background"
+              android:gravity="center"
+              android:text="@string/verify"
+              app:layout_constraintVertical_bias="0.1"
+              android:textColor="@color/white"
+              android:textSize="@dimen/_12ssp"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintHorizontal_bias="1.0"
+              app:layout_constraintStart_toStartOf="parent" />-->
+
+        <!-- activity_main.xml layout file -->
+        <!-- <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             app:layout_constraintTop_toBottomOf="@+id/tvtvt"
+             android:orientation="vertical"
+             android:padding="16dp"
+             app:layout_constraintBottom_toBottomOf="parent"
+             tools:context=".MainActivity">
+
+             <EditText
+                 android:id="@+id/editTextCardNumber"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:hint="Card Number"
+                 android:inputType="number"
+                 />
+
+             <EditText
+                 android:id="@+id/editTextExpiryDate"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:hint="Expiry Date (MM/YY)"
+                 android:inputType="number"
+                 />
+
+             <EditText
+                 android:id="@+id/editTextCvc"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:hint="CVC"
+                 android:inputType="number"
+                 />
+
+             <Button
+                 android:id="@+id/buttonCreatePaymentMethod"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="Create Payment Method"
+                 />
+
+             <ProgressBar
+                 android:id="@+id/progressBar"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:visibility="invisible"
+                 />
+
+             <TextView
+                 android:id="@+id/textViewResult"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:text=""
+                 android:textColor="@android:color/holo_green_dark"
+                 />
+         </LinearLayout>-->
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_2sdp"
+            android:layout_marginTop="28dp"
+            android:background="@color/gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvtvt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_20sdp"
+            android:text="@string/add_card_details"
+            android:textAlignment="viewStart"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.054"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <com.stripe.android.view.CardInputWidget
+            android:id="@+id/cardInputWidget"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_12sdp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvtvt" />
+
+        <Button
+            android:id="@+id/btnPay"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginVertical="@dimen/_10sdp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/card_background"
+            android:backgroundTint="#B7926BFA"
+            android:text="@string/pay"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardInputWidget"
+            app:layout_constraintVertical_bias="0.844" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+

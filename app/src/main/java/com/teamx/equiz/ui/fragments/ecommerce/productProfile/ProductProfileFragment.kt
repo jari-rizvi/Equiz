@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
@@ -19,6 +20,7 @@ import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.constants.NetworkCallPoints
+import com.teamx.equiz.data.models.getProductById.Facility
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentProductProfileBinding
 import com.teamx.equiz.utils.DialogHelperClass
@@ -45,17 +47,19 @@ class ProductProfileFragment :
     var productQuantity = 1
 
     lateinit var ProductImageAdapter: ProductImagesAdapter
+    lateinit var FacilitiesAdapter: FacilitiesAdapter
     lateinit var ProductImageArrayList: ArrayList<com.teamx.equiz.data.models.getProductById.Data>
+    lateinit var facilitiesArrayList: ArrayList<Facility>
     private var tabLayoutMediator: TabLayoutMediator? = null
     private lateinit var handler: Handler
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
-        mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
+        mViewDataBinding.btnBack.setOnClickListener { findNavController().popBackStack() }
 
 
         options = navOptions {
@@ -68,7 +72,11 @@ class ProductProfileFragment :
         }
 
         mViewDataBinding.btnWish.setOnClickListener {
-            if (NetworkCallPoints.TOKENER.isNullOrEmpty() || NetworkCallPoints.TOKENER.equals("null", true)) {
+            if (NetworkCallPoints.TOKENER.isNullOrEmpty() || NetworkCallPoints.TOKENER.equals(
+                    "null",
+                    true
+                )
+            ) {
                 if (isAdded) {
                     try {
                         DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
@@ -98,7 +106,11 @@ class ProductProfileFragment :
 
 
         mViewDataBinding.btnCheckout.setOnClickListener {
-            if (NetworkCallPoints.TOKENER.isNullOrEmpty() || NetworkCallPoints.TOKENER.equals("null", true)) {
+            if (NetworkCallPoints.TOKENER.isNullOrEmpty() || NetworkCallPoints.TOKENER.equals(
+                    "null",
+                    true
+                )
+            ) {
                 if (isAdded) {
                     try {
                         DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
@@ -125,9 +137,11 @@ class ProductProfileFragment :
                     Resource.Status.LOADING -> {
                         loadingDialog.show()
                     }
+
                     Resource.Status.NOTVERIFY -> {
                         loadingDialog.dismiss()
                     }
+
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
@@ -135,7 +149,8 @@ class ProductProfileFragment :
                             mViewDataBinding.shimmerLayout.visibility = View.GONE
                             mViewDataBinding.root.visibility = View.VISIBLE
                             mViewDataBinding.productName.text = it.data.data.title
-                            mViewDataBinding.productPrice.text = it.data.data.point.toString() +" Points"
+                            mViewDataBinding.productPrice.text =
+                                it.data.data.point.toString() + " Points"
                             mViewDataBinding.desc.text = it.data.data.description
                             mViewDataBinding.btnWish.isChecked = it.data.data.isFavorite
 
@@ -147,12 +162,20 @@ class ProductProfileFragment :
                                    }*/
 
                             ProductImageArrayList.add(it.data.data)
+
+                            if (!it.data.data.facilities.isEmpty()) {
+                                mViewDataBinding.recyclerFacilities.visibility = View.VISIBLE
+                                facilitiesArrayList.addAll(it.data.data.facilities)
+                            }
+
                             ProductImageAdapter.notifyDataSetChanged()
                         }
 
                     }
-                    Resource.Status.AUTH -> { loadingDialog.dismiss()
-                         if (isAdded) {
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+                        if (isAdded) {
                             try {
                                 onToSignUpPage()
                             } catch (e: Exception) {
@@ -160,6 +183,7 @@ class ProductProfileFragment :
                             }
                         }
                     }
+
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
                         DialogHelperClass.errorDialog(requireContext(), it.message!!)
@@ -172,7 +196,7 @@ class ProductProfileFragment :
         }
 
         initializeFeatureProducts()
-
+        facilityRecyclerview()
     }
 
     fun AddToCart() {
@@ -195,9 +219,11 @@ class ProductProfileFragment :
                         Resource.Status.LOADING -> {
                             loadingDialog.show()
                         }
+
                         Resource.Status.NOTVERIFY -> {
                             loadingDialog.dismiss()
                         }
+
                         Resource.Status.SUCCESS -> {
                             loadingDialog.dismiss()
 
@@ -214,15 +240,18 @@ class ProductProfileFragment :
 
                             }
                         }
-                        Resource.Status.AUTH -> { loadingDialog.dismiss()
-                             if (isAdded) {
-                            try {
-                                onToSignUpPage()
-                            } catch (e: Exception) {
-                                e.printStackTrace()
+
+                        Resource.Status.AUTH -> {
+                            loadingDialog.dismiss()
+                            if (isAdded) {
+                                try {
+                                    onToSignUpPage()
+                                } catch (e: Exception) {
+                                    e.printStackTrace()
+                                }
                             }
                         }
-                        }
+
                         Resource.Status.ERROR -> {
                             loadingDialog.dismiss()
                             DialogHelperClass.errorDialog(requireContext(), it.message!!)
@@ -264,6 +293,7 @@ class ProductProfileFragment :
                         Resource.Status.NOTVERIFY -> {
                             loadingDialog.dismiss()
                         }
+
                         Resource.Status.SUCCESS -> {
                             loadingDialog.dismiss()
 
@@ -274,15 +304,18 @@ class ProductProfileFragment :
 
                             }
                         }
-                        Resource.Status.AUTH -> { loadingDialog.dismiss()
-                             if (isAdded) {
-                            try {
-                                onToSignUpPage()
-                            } catch (e: Exception) {
-                                e.printStackTrace()
+
+                        Resource.Status.AUTH -> {
+                            loadingDialog.dismiss()
+                            if (isAdded) {
+                                try {
+                                    onToSignUpPage()
+                                } catch (e: Exception) {
+                                    e.printStackTrace()
+                                }
                             }
                         }
-                        }
+
                         Resource.Status.ERROR -> {
                             loadingDialog.dismiss()
                             DialogHelperClass.errorDialog(requireContext(), it.message!!)
@@ -314,15 +347,18 @@ class ProductProfileFragment :
 
                             }
                         }
-                        Resource.Status.AUTH -> { loadingDialog.dismiss()
-                             if (isAdded) {
-                            try {
-                                onToSignUpPage()
-                            } catch (e: Exception) {
-                                e.printStackTrace()
+
+                        Resource.Status.AUTH -> {
+                            loadingDialog.dismiss()
+                            if (isAdded) {
+                                try {
+                                    onToSignUpPage()
+                                } catch (e: Exception) {
+                                    e.printStackTrace()
+                                }
                             }
                         }
-                        }
+
                         Resource.Status.ERROR -> {
                             loadingDialog.dismiss()
                             DialogHelperClass.errorDialog(requireContext(), it.message!!)
@@ -380,6 +416,17 @@ class ProductProfileFragment :
             }
         })
 
+
+    }
+
+    private fun facilityRecyclerview() {
+        facilitiesArrayList = ArrayList()
+
+        val linearLayoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+        mViewDataBinding.recyclerFacilities.layoutManager = linearLayoutManager
+
+        FacilitiesAdapter = FacilitiesAdapter(facilitiesArrayList)
+        mViewDataBinding.recyclerFacilities.adapter = FacilitiesAdapter
 
     }
 
