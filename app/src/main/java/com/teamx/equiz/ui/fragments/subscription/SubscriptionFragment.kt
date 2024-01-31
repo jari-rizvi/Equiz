@@ -11,11 +11,14 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.gson.JsonObject
 import com.stripe.android.PaymentConfiguration
 import com.stripe.android.Stripe
 import com.stripe.android.model.ConfirmPaymentIntentParams
+import com.stripe.android.model.PaymentMethodCreateParams
+import com.stripe.android.view.CardInputListener
 import com.stripe.android.view.CardInputWidget
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
@@ -23,6 +26,10 @@ import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentSubscriptionBinding
 import com.teamx.equiz.ui.activity.mainActivity.MainActivity
+import com.teamx.equiz.ui.fragments.address.bottomSheetAddSearch.BottomSheetAddressFragment
+import com.teamx.equiz.ui.fragments.address.bottomSheetAddSearch.BottomSheetListener
+import com.teamx.equiz.ui.fragments.address.bottomSheetAddSearch.BottomSheetStripeListener
+import com.teamx.equiz.ui.fragments.address.bottomSheetAddSearch.BottomStripeFragment
 import com.teamx.equiz.utils.DialogHelperClass
 import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,7 +39,7 @@ import kotlinx.coroutines.launch
 import org.json.JSONException
 
 @AndroidEntryPoint
-class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, SubscriptionViewModel>() {
+class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, SubscriptionViewModel>(),BottomSheetStripeListener{
 
     override val layoutId: Int
         get() = R.layout.fragment_subscription
@@ -40,11 +47,15 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
         get() = SubscriptionViewModel::class.java
     override val bindingVariable: Int
         get() = BR.viewModel
+//    private lateinit var bottomSheetAddSearchFragment: BottomSheetAddressFragment
+    private lateinit var bottomStripeFragment: BottomStripeFragment
+    private var bottomSheetStripeListener: BottomSheetStripeListener? = null
+    lateinit var  cardParams : PaymentMethodCreateParams
 
 
     private lateinit var options: NavOptions
+    private lateinit var stripe: Stripe
 
-    private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -60,9 +71,8 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
             }
         }
 
-//        val bottomSheetStripe: ConstraintLayout = view.findViewById(R.id.bottomSheetStripe)
-        val cardInputWidget: CardInputWidget = view.findViewById(R.id.cardInputWidget)
-        val btnPay: Button = view.findViewById(R.id.btnPay)
+//        val cardInputWidget: CardInputWidget = view.findViewById(R.id.cardInputWidget)
+//        val btnPay: Button = view.findViewById(R.id.btnPay)
 
 
 
@@ -99,35 +109,47 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
 
 
 
+//        mViewDataBinding.btnBuy.setOnClickListener {
+//
+//
+//            bottomSheetBehavior = BottomSheetBehavior.from(mViewDataBinding.bottomsheet.bottomSheetStripe)
+//            bottomSheetBehavior.addBottomSheetCallback(object :
+//                BottomSheetBehavior.BottomSheetCallback() {
+//                override fun onSlide(bottomSheet: View, slideOffset: Float) {
+//
+//                }
+//
+//                override fun onStateChanged(bottomSheet: View, newState: Int) {
+//                    when (newState) {
+//                        BottomSheetBehavior.STATE_EXPANDED -> MainActivity.bottomNav?.visibility =
+//                            View.GONE
+//
+//                        BottomSheetBehavior.STATE_COLLAPSED -> MainActivity.bottomNav?.visibility =
+//                            View.VISIBLE
+//
+//                        else -> "Persistent Bottom Sheet"
+//                    }
+//                }
+//            })
+//
+//            val state =
+//                if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) BottomSheetBehavior.STATE_COLLAPSED
+//                else BottomSheetBehavior.STATE_EXPANDED
+//            bottomSheetBehavior.state = state
+//
+//        }
         mViewDataBinding.btnBuy.setOnClickListener {
 
 
-            bottomSheetBehavior = BottomSheetBehavior.from(mViewDataBinding.bottomsheet.bottomSheetStripe)
-            bottomSheetBehavior.addBottomSheetCallback(object :
-                BottomSheetBehavior.BottomSheetCallback() {
-                override fun onSlide(bottomSheet: View, slideOffset: Float) {
-
-                }
-
-                override fun onStateChanged(bottomSheet: View, newState: Int) {
-                    when (newState) {
-                        BottomSheetBehavior.STATE_EXPANDED -> MainActivity.bottomNav?.visibility =
-                            View.GONE
-
-                        BottomSheetBehavior.STATE_COLLAPSED -> MainActivity.bottomNav?.visibility =
-                            View.VISIBLE
-
-                        else -> "Persistent Bottom Sheet"
-                    }
-                }
-            })
-
-            val state =
-                if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) BottomSheetBehavior.STATE_COLLAPSED
-                else BottomSheetBehavior.STATE_EXPANDED
-            bottomSheetBehavior.state = state
-
+            if (!bottomStripeFragment.isAdded) {
+                bottomStripeFragment.show(
+                    parentFragmentManager,
+                    bottomStripeFragment.tag
+                )
+            }
         }
+        bottomStripeFragment = BottomStripeFragment()
+        bottomStripeFragment.initInterface(this)
 
 
 
@@ -136,186 +158,187 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
             "pk_test_51L1UVCGn3F7BuM88wH1PSuNgc9bX7tq0MkIMB2HU2BbScX3i7VgZw4V8nimfe1zUEF8uQ3Q6PFbzrMacvH5PfA7900PaBHO20E"
         )
 
-        val stripe = Stripe(
+         stripe = Stripe(
             requireContext(),
             "pk_test_51L1UVCGn3F7BuM88wH1PSuNgc9bX7tq0MkIMB2HU2BbScX3i7VgZw4V8nimfe1zUEF8uQ3Q6PFbzrMacvH5PfA7900PaBHO20E"
         )
 
-        //new work
-//        btnPay.setOnClickListener {
-//
-//
-//            val cardParams = cardInputWidget.paymentMethodCreateParams
-//
-//
-//
-//            if (cardParams != null) {
-//
-//                GlobalScope.launch(Dispatchers.IO) {
-//                    try {
-//                        val paymentMethod = Stripe(
-//                            requireContext(),
-//                            "pk_test_51L1UVCGn3F7BuM88wH1PSuNgc9bX7tq0MkIMB2HU2BbScX3i7VgZw4V8nimfe1zUEF8uQ3Q6PFbzrMacvH5PfA7900PaBHO20E"
-//                        )
-//                            .createPaymentMethodSynchronous(cardParams)
-//
-//                        // Handle the PaymentMethod object
-//                        if (paymentMethod != null) {
-//
-//                            val paymentMethodId = paymentMethod.id.orEmpty()
-//
-//                            val params = JsonObject()
-//                            try {
-//                                params.addProperty("payment_methodId", paymentMethodId)
-//
-//                            } catch (e: JSONException) {
-//                                e.printStackTrace()
-//                            }
-//                            mViewModel.subPlan(params)
-//
-//                        } else {
-//                            // Handle null PaymentMethod
-//                        }
-//                    } catch (e: Exception) {
-//                        // Handle exceptions
-//                        e.printStackTrace()
-//                    }
-//                }
-//
-//
-//            } else {
-//                if (isAdded) {
-//                    mViewDataBinding.root.snackbar("Please add details")
-//                }
-//            }
-//        }
-//
-//        mViewModel.getPlan()
-//
-//        if (!mViewModel.getPlanResponse.hasActiveObservers()) {
-//            mViewModel.getPlanResponse.observe(requireActivity()) {
-//                when (it.status) {
-//                    Resource.Status.LOADING -> {
-//                        loadingDialog.show()
-//                    }
-//
-//                    Resource.Status.NOTVERIFY -> {
-//                        loadingDialog.dismiss()
-//                    }
-//
-//                    Resource.Status.SUCCESS -> {
-//                        loadingDialog.dismiss()
-//                        it.data?.let { data ->
-//                            /*    data.data.forEach {
-//                                    couponsArrayList.add(it)
-//                                }*/
-//
-//                            val divide = "${data.dataObject.amount / 100}"+"AED"
-//
-//                            mViewDataBinding.textView61.text = divide.toString()
-//
-//
-//                        }
-//                    }
-//                    Resource.Status.AUTH -> { loadingDialog.dismiss()
-//                         if (isAdded) {
-//                            try {
-//                                onToSignUpPage()
-//                            } catch (e: Exception) {
-//                                e.printStackTrace()
-//                            }
-//                        }
-//                    }
-//                    Resource.Status.ERROR -> {
-//                        loadingDialog.dismiss()
-//                        DialogHelperClass.errorDialog(
-//                            requireContext(),
-//                            it.message!!
-//                        )
-//                    }
-//                }
-//                if (isAdded) {
-//                    mViewModel.getPlanResponse.removeObservers(
-//                        viewLifecycleOwner
-//                    )
-//                }
-//            }
-//        }
-//        if (!mViewModel.subPlanResponse.hasActiveObservers()) {
-//            mViewModel.subPlanResponse.observe(requireActivity()) {
-//                when (it.status) {
-//                    Resource.Status.LOADING -> {
-//                        loadingDialog.show()
-//                    }
-//
-//                    Resource.Status.NOTVERIFY -> {
-//                        loadingDialog.dismiss()
-//                    }
-//
-//                    Resource.Status.SUCCESS -> {
-//                        loadingDialog.dismiss()
-//                        it.data?.let { data ->
-//
-//                            val cardParams =
-//                                cardInputWidget.paymentMethodCreateParams
-//
-//                            if (cardParams != null) {
-//                                val params =
-//                                    ConfirmPaymentIntentParams.createWithPaymentMethodCreateParams(
-//                                        cardParams, "${data.subData.client_secret}"
-//                                    )
-//
-//
-//                                stripe.confirmPayment(requireActivity(), params)
-//
-//                                /*   object : ApiResultCallback<PaymentIntentResult> {
-//                                        override fun onSuccess(result: PaymentIntentResult) {
-//                                            val paymentIntent: PaymentIntent? = result.intent
-//                                            // Handle the PaymentIntent object
-//                                            if (paymentIntent?.status == StripeIntent.Status.Succeeded) {
-//                                                // Payment succeeded, perform necessary actions
-//                                            } else {
-//                                                // Payment failed or was canceled, handle accordingly
-//                                            }
-//                                        }
-//
-//                                        override fun onError(e: Exception) {
-//                                            // Handle errors
-//                                        }
-//                                    }*/
-//                            }
-//
-//
-//                        }
-//                    }
-//
-//                    Resource.Status.AUTH -> {
-//                        loadingDialog.dismiss()
-//                         if (isAdded) {
-//                            try {
-//                                onToSignUpPage()
-//                            } catch (e: Exception) {
-//                                e.printStackTrace()
-//                            }
-//                        }
-//                    }
-//
-//                    Resource.Status.ERROR -> {
-//                        loadingDialog.dismiss()
-//                        DialogHelperClass.errorDialog(
-//                            requireContext(),
-//                            it.message!!
-//                        )
-//                    }
-//                }
-//                if (isAdded) {
-//                    mViewModel.subPlanResponse.removeObservers(
-//                        viewLifecycleOwner
-//                    )
-//                }
-//            }
-//        }
-//
+
+        mViewModel.getPlan()
+
+        if (!mViewModel.getPlanResponse.hasActiveObservers()) {
+            mViewModel.getPlanResponse.observe(requireActivity()) {
+                when (it.status) {
+                    Resource.Status.LOADING -> {
+                        loadingDialog.show()
+                    }
+
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
+                    }
+
+                    Resource.Status.SUCCESS -> {
+                        loadingDialog.dismiss()
+                        it.data?.let { data ->
+                            /*    data.data.forEach {
+                                    couponsArrayList.add(it)
+                                }*/
+
+                            val divide = "${data.dataObject.amount / 100}"+"AED"
+
+                            mViewDataBinding.textView61.text = divide.toString()
+
+
+                        }
+                    }
+                    Resource.Status.AUTH -> { loadingDialog.dismiss()
+                         if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
+                    }
+                    Resource.Status.ERROR -> {
+                        loadingDialog.dismiss()
+                        DialogHelperClass.errorDialog(
+                            requireContext(),
+                            it.message!!
+                        )
+                    }
+                }
+                if (isAdded) {
+                    mViewModel.getPlanResponse.removeObservers(
+                        viewLifecycleOwner
+                    )
+                }
+            }
+        }
+
+
+        if (!mViewModel.subPlanResponse.hasActiveObservers()) {
+            mViewModel.subPlanResponse.observe(requireActivity()) {
+                when (it.status) {
+                    Resource.Status.LOADING -> {
+                        loadingDialog.show()
+                    }
+
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
+                    }
+
+                    Resource.Status.SUCCESS -> {
+                        loadingDialog.dismiss()
+                        it.data?.let { data ->
+
+
+
+                            if (cardParams != null) {
+                                val params =
+                                    ConfirmPaymentIntentParams.createWithPaymentMethodCreateParams(
+                                        cardParams, "${data.subData.client_secret}"
+                                    )
+
+
+                                stripe.confirmPayment(requireActivity(), params)
+                                bottomStripeFragment.dismiss()
+                                /*   object : ApiResultCallback<PaymentIntentResult> {
+                                        override fun onSuccess(result: PaymentIntentResult) {
+                                            val paymentIntent: PaymentIntent? = result.intent
+                                            // Handle the PaymentIntent object
+                                            if (paymentIntent?.status == StripeIntent.Status.Succeeded) {
+                                                // Payment succeeded, perform necessary actions
+                                            } else {
+                                                // Payment failed or was canceled, handle accordingly
+                                            }
+                                        }
+
+                                        override fun onError(e: Exception) {
+                                            // Handle errors
+                                        }
+                                    }*/
+                            }
+
+
+                        }
+                    }
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+                        if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
+                    }
+
+                    Resource.Status.ERROR -> {
+                        loadingDialog.dismiss()
+                        DialogHelperClass.errorDialog(
+                            requireContext(),
+                            it.message!!
+                        )
+                    }
+                }
+                if (isAdded) {
+                    mViewModel.subPlanResponse.removeObservers(
+                        viewLifecycleOwner
+                    )
+                }
+            }
+        }
+
+    }
+
+    override fun onBtnPay(cardInputWidget: CardInputWidget) {
+         cardParams = cardInputWidget.paymentMethodCreateParams!!
+
+
+
+        if (cardParams != null) {
+
+            GlobalScope.launch(Dispatchers.IO) {
+                try {
+                    val paymentMethod = Stripe(
+                        requireContext(),
+                        "pk_test_51L1UVCGn3F7BuM88wH1PSuNgc9bX7tq0MkIMB2HU2BbScX3i7VgZw4V8nimfe1zUEF8uQ3Q6PFbzrMacvH5PfA7900PaBHO20E"
+                    )
+                        .createPaymentMethodSynchronous(cardParams)
+
+                    // Handle the PaymentMethod object
+                    if (paymentMethod != null) {
+
+                        val paymentMethodId = paymentMethod.id.orEmpty()
+
+                        val params = JsonObject()
+                        try {
+                            params.addProperty("payment_methodId", paymentMethodId)
+
+                        } catch (e: JSONException) {
+                            e.printStackTrace()
+                        }
+                        mViewModel.subPlan(params)
+
+
+                    } else {
+                        // Handle null PaymentMethod
+                    }
+                } catch (e: Exception) {
+                    // Handle exceptions
+                    e.printStackTrace()
+                }
+            }
+
+
+        } else {
+            if (isAdded) {
+                mViewDataBinding.root.snackbar("Please add details")
+            }
+        }
+
 
     }
 

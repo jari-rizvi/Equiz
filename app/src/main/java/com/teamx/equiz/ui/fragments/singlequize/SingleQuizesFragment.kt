@@ -260,7 +260,7 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
 
             it.data.let {
                 if (it != null) {
-                    if (quesNo.value == it.data.get(0).question.size) {
+                    if (quesNo.value == it.data[0].question.size) {
                         if (job != null) {
                             job?.cancel()
                             mViewDataBinding.backToHomeBtn.visibility = View.VISIBLE
@@ -293,7 +293,7 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
 
         Log.d("changeIndex", "changeIndex: ${quesNo}/${data.data.size}")
         mViewDataBinding.playAgainBtn.text = try {
-            "${quesNo.value!! + 1}/${data.data.get(0).question.size}"
+            "${quesNo.value!! + 1}/${data.data[0].question.size}"
         } catch (e: Exception) {
             ""
         }
