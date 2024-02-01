@@ -6,6 +6,7 @@ import androidx.annotation.Keep
 data class Question(
     val _id: String,
     val isCorrectIndex: Int,
-    val options: List<String>,
-    val questionText: String
+    val options: List<Options>,
+    val questionText: String,
+    val questionImage: String?
 )

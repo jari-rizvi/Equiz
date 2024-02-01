@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -37,195 +38,383 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.95"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.05" />
-
-        <TextView
-            android:id="@+id/textView"
-            style="@style/popins_bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/quiz"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_14ssp"
-            app:layout_constraintBottom_toBottomOf="@+id/btnback"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/btnback"
-            app:layout_constraintVertical_bias="0.05" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout9"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_radius_corner"
-            android:backgroundTint="@color/white"
-            android:elevation="@dimen/_3sdp"
-            app:layout_constraintBottom_toTopOf="@+id/backToHomeBtn"
-            app:layout_constraintEnd_toEndOf="@+id/btnback121"
-            app:layout_constraintStart_toStartOf="@+id/btnback"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
-            app:layout_constraintVertical_bias="0.7">
-
-            <ImageView
-                android:id="@+id/imgTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/arrow_left"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintHorizontal_bias="0.95"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.05"
-                app:tint="#CDCDCD" />
+                app:layout_constraintVertical_bias="0.05" />
 
             <TextView
-                android:id="@+id/playAgainBtn"
+                android:id="@+id/textView"
+                style="@style/popins_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#CDCDCD"
-                android:textSize="@dimen/_13ssp"
-                app:layout_constraintBottom_toBottomOf="@+id/imgTitle"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.03"
-                app:layout_constraintStart_toEndOf="@+id/imgTitle"
-                app:layout_constraintTop_toTopOf="@+id/imgTitle" />
-
-            <com.google.android.material.progressindicator.CircularProgressIndicator
-                android:id="@+id/progressbar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:progress="50"
-                app:indicatorColor="#C62E27"
-                app:indicatorSize="@dimen/_45sdp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView46545454"
-                app:layout_constraintEnd_toEndOf="@+id/textView46545454"
-                app:layout_constraintStart_toStartOf="@+id/textView46545454"
-                app:layout_constraintTop_toTopOf="@+id/textView46545454"
-                app:trackThickness="@dimen/_3sdp" />
-
-            <TextView
-                android:id="@+id/textView46545454"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:text="30"
+                android:text="@string/quiz"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_13ssp"
+                android:textSize="@dimen/_14ssp"
+                app:layout_constraintBottom_toBottomOf="@+id/btnback"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.2"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/playAgainBtn" />
+                app:layout_constraintTop_toTopOf="@+id/btnback"
+                app:layout_constraintVertical_bias="0.05" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout9"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_radius_corner_red"
+                android:backgroundTint="@color/white"
+                android:elevation="@dimen/_3sdp"
+                app:layout_constraintBottom_toTopOf="@+id/backToHomeBtn"
+                app:layout_constraintEnd_toEndOf="@+id/btnback121"
+                app:layout_constraintStart_toStartOf="@+id/btnback"
+                app:layout_constraintTop_toBottomOf="@+id/textView"
+                app:layout_constraintVertical_bias="0.7">
+
+                <ImageView
+                    android:id="@+id/imgTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/arrow_left"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.05"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.05"
+                    app:tint="#CDCDCD" />
+
+                <TextView
+                    android:id="@+id/playAgainBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#CDCDCD"
+                    android:textSize="@dimen/_13ssp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imgTitle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.03"
+                    app:layout_constraintStart_toEndOf="@+id/imgTitle"
+                    app:layout_constraintTop_toTopOf="@+id/imgTitle" />
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/progressbar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:progress="50"
+                    app:indicatorColor="#C62E27"
+                    app:indicatorSize="@dimen/_45sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView46545454"
+                    app:layout_constraintEnd_toEndOf="@+id/textView46545454"
+                    app:layout_constraintStart_toStartOf="@+id/textView46545454"
+                    app:layout_constraintTop_toTopOf="@+id/textView46545454"
+                    app:trackThickness="@dimen/_3sdp" />
+
+                <ImageView
+                    android:id="@+id/imgQuestion"
+                    android:layout_width="@dimen/_150sdp"
+                    android:layout_height="@dimen/_100sdp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/group_19215"
+                    app:layout_constraintEnd_toEndOf="@+id/textView4654545454"
+                    app:layout_constraintStart_toStartOf="@+id/textView4654545454"
+                    app:layout_constraintTop_toBottomOf="@+id/progressbar" />
+
+                <TextView
+                    android:id="@+id/textView46545454"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:text="30"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_13ssp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/playAgainBtn" />
+
+                <TextView
+                    android:id="@+id/textView4654545454"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:text="What year was the very first model of the iPhone released?"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_13ssp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imgQuestion" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/textLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView4654545454">
+
+
+                    <androidx.appcompat.widget.AppCompatCheckedTextView
+                        android:id="@+id/txtLogin1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_20sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:background="@drawable/button_radius_corner_red"
+                        android:paddingVertical="@dimen/_10sdp"
+                        android:text="2007"
+                        android:textAlignment="center"
+                        android:textColor="#9F81CA"
+                        android:textSize="@dimen/_13ssp"
+                        android:textStyle="bold"
+                        android:visibility="visible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatCheckedTextView
+                        android:id="@+id/txtLogin112"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@drawable/button_radius_corner_red"
+                        android:paddingVertical="@dimen/_10sdp"
+                        android:text="2005"
+                        android:textAlignment="center"
+                        android:textColor="#9F81CA"
+                        android:textSize="@dimen/_13ssp"
+                        android:textStyle="bold"
+                        android:visibility="visible"
+                        app:layout_constraintEnd_toEndOf="@+id/txtLogin1"
+                        app:layout_constraintStart_toStartOf="@+id/txtLogin1"
+                        app:layout_constraintTop_toBottomOf="@+id/txtLogin1" />
+
+                    <androidx.appcompat.widget.AppCompatCheckedTextView
+                        android:id="@+id/txtLogin11542"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@drawable/button_radius_corner_red"
+                        android:paddingVertical="@dimen/_10sdp"
+                        android:text="2008"
+                        android:textAlignment="center"
+                        android:textColor="#9F81CA"
+                        android:textSize="@dimen/_13ssp"
+                        android:textStyle="bold"
+                        android:visibility="visible"
+                        app:layout_constraintEnd_toEndOf="@+id/txtLogin1"
+                        app:layout_constraintStart_toStartOf="@+id/txtLogin1"
+                        app:layout_constraintTop_toBottomOf="@+id/txtLogin112" />
+
+                    <androidx.appcompat.widget.AppCompatCheckedTextView
+                        android:id="@+id/txtLogin1154542"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginBottom="@dimen/_30sdp"
+                        android:background="@drawable/button_radius_corner_red"
+                        android:paddingVertical="@dimen/_10sdp"
+                        android:text="2002"
+                        android:textAlignment="center"
+                        android:textColor="#9F81CA"
+                        android:textSize="@dimen/_13ssp"
+                        android:textStyle="bold"
+                        android:visibility="visible"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/txtLogin1"
+                        app:layout_constraintStart_toStartOf="@+id/txtLogin1"
+                        app:layout_constraintTop_toBottomOf="@+id/txtLogin11542" />
+
+                    <!--                    <ImageView-->
+                    <!--                        android:id="@+id/imgAnswer4"-->
+                    <!--                        android:layout_width="@dimen/_90sdp"-->
+                    <!--                        android:layout_height="@dimen/_60sdp"-->
+                    <!--                        android:scaleType="fitXY"-->
+                    <!--                        android:src="@drawable/group_19215"-->
+                    <!--                        tools:layout_editor_absoluteX="212dp"-->
+                    <!--                        tools:layout_editor_absoluteY="13dp" />-->
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/imageLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView4654545454">
+
+                    <RadioButton
+                        android:id="@+id/radio1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:buttonTint="#C62E27"
+                        android:textAlignment="viewStart"
+                        android:textColor="#010101"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintBottom_toBottomOf="@+id/imgAnswer1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/imgAnswer1" />
+
+                    <ImageView
+                        android:id="@+id/imgAnswer1"
+                        android:layout_width="@dimen/_90sdp"
+                        android:layout_height="@dimen/_60sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/group_19215"
+                        app:layout_constraintStart_toEndOf="@+id/radio1"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/txtAnswer1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:text="2008"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_13ssp"
+                        app:layout_constraintStart_toStartOf="@+id/imgAnswer1"
+                        app:layout_constraintTop_toBottomOf="@+id/imgAnswer1" />
+
+
+                    <RadioButton
+                        android:id="@+id/radio2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:buttonTint="#C62E27"
+                        android:textAlignment="viewStart"
+                        android:textColor="#010101"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintBottom_toBottomOf="@+id/imgAnswer1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/imgAnswer1" />
+
+                    <ImageView
+                        android:id="@+id/imgAnswer2"
+                        android:layout_width="@dimen/_90sdp"
+                        android:layout_height="@dimen/_60sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/group_19215"
+                        app:layout_constraintBottom_toBottomOf="@+id/imgAnswer1"
+                        app:layout_constraintEnd_toStartOf="@+id/radio2"
+                        app:layout_constraintTop_toTopOf="@+id/imgAnswer1" />
+
+                    <TextView
+                        android:id="@+id/txtAnswer2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:text="2009"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_13ssp"
+                        app:layout_constraintStart_toStartOf="@+id/imgAnswer2"
+                        app:layout_constraintTop_toBottomOf="@+id/imgAnswer2" />
+
+                    <RadioButton
+                        android:id="@+id/radio3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="#C62E27"
+                        android:textAlignment="viewStart"
+                        android:textColor="#010101"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintBottom_toBottomOf="@+id/imgAnswer3"
+                        app:layout_constraintEnd_toEndOf="@+id/radio1"
+                        app:layout_constraintStart_toStartOf="@+id/radio1"
+                        app:layout_constraintTop_toTopOf="@+id/imgAnswer3" />
+
+                    <ImageView
+                        android:id="@+id/imgAnswer3"
+                        android:layout_width="@dimen/_90sdp"
+                        android:layout_height="@dimen/_60sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/group_19215"
+                        app:layout_constraintEnd_toEndOf="@+id/imgAnswer1"
+                        app:layout_constraintStart_toStartOf="@+id/imgAnswer1"
+                        app:layout_constraintTop_toBottomOf="@+id/txtAnswer1" />
+
+                    <TextView
+                        android:id="@+id/txtAnswer3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:text="2009"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_13ssp"
+                        app:layout_constraintStart_toStartOf="@+id/imgAnswer3"
+                        app:layout_constraintTop_toBottomOf="@+id/imgAnswer3" />
+
+                    <RadioButton
+                        android:id="@+id/radio4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="#C62E27"
+                        android:textAlignment="viewStart"
+                        android:textColor="#010101"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintBottom_toBottomOf="@+id/imgAnswer3"
+                        app:layout_constraintEnd_toEndOf="@+id/radio2"
+                        app:layout_constraintTop_toTopOf="@+id/imgAnswer3" />
+
+                    <ImageView
+                        android:id="@+id/imgAnswer4"
+                        android:layout_width="@dimen/_90sdp"
+                        android:layout_height="@dimen/_60sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/group_19215"
+                        app:layout_constraintEnd_toEndOf="@+id/imgAnswer2"
+                        app:layout_constraintStart_toStartOf="@+id/imgAnswer2"
+                        app:layout_constraintTop_toBottomOf="@+id/txtAnswer1" />
+
+                    <TextView
+                        android:id="@+id/txtAnswer4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:text="2009"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_13ssp"
+                        app:layout_constraintStart_toStartOf="@+id/imgAnswer4"
+                        app:layout_constraintTop_toBottomOf="@+id/imgAnswer3" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             <TextView
-                android:id="@+id/textView4654545454"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:text="What year was the very first model of the iPhone released?"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_13ssp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/progressbar" />
-
-
-            <androidx.appcompat.widget.AppCompatCheckedTextView
-                android:id="@+id/txtLogin1"
+                android:id="@+id/backToHomeBtn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:background="@drawable/button_radius_corner_red"
-                android:paddingVertical="@dimen/_10sdp"
-                android:text="2007"
+                android:layout_marginHorizontal="@dimen/_30sdp"
+                android:background="@drawable/button_radius_green"
+                android:backgroundTint="#9F81CA"
+                android:paddingVertical="@dimen/_7sdp"
+                android:text="Result"
                 android:textAlignment="center"
-                android:textColor="#9F81CA"
-                android:textSize="@dimen/_13ssp"
-                android:textStyle="bold"
-                android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView4654545454" />
-
-            <androidx.appcompat.widget.AppCompatCheckedTextView
-                android:id="@+id/txtLogin112"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:background="@drawable/button_radius_corner_red"
-                android:paddingVertical="@dimen/_10sdp"
-                android:text="2005"
-                android:textAlignment="center"
-                android:textColor="#9F81CA"
-                android:textSize="@dimen/_13ssp"
-                android:textStyle="bold"
-                android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="@+id/txtLogin1"
-                app:layout_constraintStart_toStartOf="@+id/txtLogin1"
-                app:layout_constraintTop_toBottomOf="@+id/txtLogin1" />
-
-            <androidx.appcompat.widget.AppCompatCheckedTextView
-                android:id="@+id/txtLogin11542"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:background="@drawable/button_radius_corner_red"
-                android:paddingVertical="@dimen/_10sdp"
-                android:text="2008"
-                android:textAlignment="center"
-                android:textColor="#9F81CA"
-                android:textSize="@dimen/_13ssp"
-                android:textStyle="bold"
-                android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="@+id/txtLogin1"
-                app:layout_constraintStart_toStartOf="@+id/txtLogin1"
-                app:layout_constraintTop_toBottomOf="@+id/txtLogin112" />
-
-            <androidx.appcompat.widget.AppCompatCheckedTextView
-                android:id="@+id/txtLogin1154542"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginBottom="@dimen/_30sdp"
-                android:background="@drawable/button_radius_corner_red"
-                android:paddingVertical="@dimen/_10sdp"
-                android:text="2002"
-                android:textAlignment="center"
-                android:textColor="#9F81CA"
-                android:textSize="@dimen/_13ssp"
-                android:textStyle="bold"
-                android:visibility="visible"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_16ssp"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/txtLogin1"
-                app:layout_constraintStart_toStartOf="@+id/txtLogin1"
-                app:layout_constraintTop_toBottomOf="@+id/txtLogin11542" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        <TextView
-            android:id="@+id/backToHomeBtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_radius_green"
-            android:backgroundTint="#9F81CA"
-            android:layout_marginHorizontal="@dimen/_30sdp"
-            android:textAlignment="center"
-            android:paddingVertical="@dimen/_7sdp"
-            android:text="Result"
-            android:textColor="@color/white"
-            android:visibility="gone"
-            android:textSize="@dimen/_16ssp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/constraintLayout9"
-            app:layout_constraintStart_toStartOf="@+id/constraintLayout9"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.95" />
+                app:layout_constraintEnd_toEndOf="@+id/constraintLayout9"
+                app:layout_constraintStart_toStartOf="@+id/constraintLayout9"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout9"
+                app:layout_constraintVertical_bias="0.95" />
 
             <!--        <TextView-->
             <!--            android:id="@+id/textView212"-->

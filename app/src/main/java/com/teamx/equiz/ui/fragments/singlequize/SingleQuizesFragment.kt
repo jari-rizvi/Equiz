@@ -1,18 +1,21 @@
 package com.teamx.equiz.ui.fragments.singlequize
 
 import android.annotation.SuppressLint
+import android.content.res.ColorStateList
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import android.widget.RadioButton
 import androidx.activity.addCallback
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatCheckedTextView
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
+import com.squareup.picasso.Picasso
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
@@ -121,6 +124,59 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
             selectorDisable()
         }
 
+        mViewDataBinding.radio1.setOnClickListener {
+            selectAnswer = 0
+//            mViewDataBinding.radio1.isChecked = true
+//            mViewDataBinding.radio2.isChecked = false
+//            mViewDataBinding.radio3.isChecked = false
+//            mViewDataBinding.radio4.isChecked = false
+            selectedRadioQuize(mViewDataBinding.radio1, true, true)
+            selectedRadioQuize(mViewDataBinding.radio2, false, false)
+            selectedRadioQuize(mViewDataBinding.radio3, false, false)
+            selectedRadioQuize(mViewDataBinding.radio4, false, false)
+            selectorRadio()
+        }
+
+        mViewDataBinding.radio2.setOnClickListener {
+            selectAnswer = 1
+
+//            mViewDataBinding.radio1.isChecked = false
+//            mViewDataBinding.radio2.isChecked = true
+//            mViewDataBinding.radio3.isChecked = false
+//            mViewDataBinding.radio4.isChecked = false
+            selectedRadioQuize(mViewDataBinding.radio1, false, false)
+            selectedRadioQuize(mViewDataBinding.radio2, true, true)
+            selectedRadioQuize(mViewDataBinding.radio3, false, false)
+            selectedRadioQuize(mViewDataBinding.radio4, false, false)
+            selectorRadio()
+        }
+
+        mViewDataBinding.radio3.setOnClickListener {
+            selectAnswer = 2
+//            mViewDataBinding.radio1.isChecked = false
+//            mViewDataBinding.radio2.isChecked = false
+//            mViewDataBinding.radio3.isChecked = true
+//            mViewDataBinding.radio4.isChecked = false
+            selectedRadioQuize(mViewDataBinding.radio1, false, false)
+            selectedRadioQuize(mViewDataBinding.radio2, false, false)
+            selectedRadioQuize(mViewDataBinding.radio3, true, true)
+            selectedRadioQuize(mViewDataBinding.radio4, false, false)
+            selectorRadio()
+        }
+
+        mViewDataBinding.radio4.setOnClickListener {
+            selectAnswer = 3
+//            mViewDataBinding.radio1.isChecked = false
+//            mViewDataBinding.radio2.isChecked = false
+//            mViewDataBinding.radio3.isChecked = false
+//            mViewDataBinding.radio4.isChecked = true
+            selectedRadioQuize(mViewDataBinding.radio1, false, false)
+            selectedRadioQuize(mViewDataBinding.radio2, false, false)
+            selectedRadioQuize(mViewDataBinding.radio3, false, false)
+            selectedRadioQuize(mViewDataBinding.radio4, true, true)
+            selectorRadio()
+        }
+
 
         mViewDataBinding.backToHomeBtn.setOnClickListener {
 
@@ -164,8 +220,10 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
                             changeIndex(data)
                         }
                     }
-                    Resource.Status.AUTH -> { loadingDialog.dismiss()
-                         if (isAdded) {
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+                        if (isAdded) {
                             try {
                                 onToSignUpPage()
                             } catch (e: Exception) {
@@ -173,6 +231,7 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
                             }
                         }
                     }
+
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
                         if (isAdded) {
@@ -193,10 +252,10 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
 
 
         lifecycleScope.launch {
-            mViewDataBinding.txtLogin1.isEnabled = false
-            mViewDataBinding.txtLogin112.isEnabled = false
-            mViewDataBinding.txtLogin11542.isEnabled = false
-            mViewDataBinding.txtLogin1154542.isEnabled = false
+//            mViewDataBinding.txtLogin1.isEnabled = false
+//            mViewDataBinding.txtLogin112.isEnabled = false
+//            mViewDataBinding.txtLogin11542.isEnabled = false
+//            mViewDataBinding.txtLogin1154542.isEnabled = false
 
 
             when (rightAnswer) {
@@ -217,9 +276,7 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
                 }
             }
 
-
-
-            if (selectAnswer != rightAnswer){
+            if (selectAnswer != rightAnswer) {
                 when (selectAnswer) {
                     0 -> {
                         selectedQuize(mViewDataBinding.txtLogin1, true, false)
@@ -237,11 +294,76 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
                         selectedQuize(mViewDataBinding.txtLogin1154542, true, false)
                     }
                 }
-            }else{
+            } else {
                 rightAnswers++
             }
 
             delay(500)
+
+
+            changeObserver()
+
+
+//            quesNo.value = quesNo.value?.plus(1)
+        }
+
+
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    fun selectorRadio() {
+        totalAnswers++
+        job?.cancel()
+
+
+        lifecycleScope.launch {
+//            mViewDataBinding.radio1.isEnabled = false
+//            mViewDataBinding.radio2.isEnabled = false
+//            mViewDataBinding.radio3.isEnabled = false
+//            mViewDataBinding.radio4.isEnabled = false
+
+
+            when (rightAnswer) {
+                0 -> {
+                    selectedRadioQuize(mViewDataBinding.radio1, true, true)
+                }
+
+                1 -> {
+                    selectedRadioQuize(mViewDataBinding.radio2, true, true)
+                }
+
+                2 -> {
+                    selectedRadioQuize(mViewDataBinding.radio3, true, true)
+                }
+
+                3 -> {
+                    selectedRadioQuize(mViewDataBinding.radio4, true, true)
+                }
+            }
+
+            if (selectAnswer != rightAnswer) {
+                when (selectAnswer) {
+                    0 -> {
+                        selectedRadioQuize(mViewDataBinding.radio1, true, false)
+                    }
+
+                    1 -> {
+                        selectedRadioQuize(mViewDataBinding.radio2, true, false)
+                    }
+
+                    2 -> {
+                        selectedRadioQuize(mViewDataBinding.radio3, true, false)
+                    }
+
+                    3 -> {
+                        selectedRadioQuize(mViewDataBinding.radio4, true, false)
+                    }
+                }
+            } else {
+                rightAnswers++
+            }
+
+            delay(2000)
 
 
             changeObserver()
@@ -284,14 +406,23 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
         mViewDataBinding.txtLogin11542.isEnabled = true
         mViewDataBinding.txtLogin1154542.isEnabled = true
 
+        mViewDataBinding.radio1.isEnabled = true
+        mViewDataBinding.radio2.isEnabled = true
+        mViewDataBinding.radio3.isEnabled = true
+        mViewDataBinding.radio4.isEnabled = true
+
         selectedQuize(mViewDataBinding.txtLogin1, false, false)
         selectedQuize(mViewDataBinding.txtLogin112, false, false)
         selectedQuize(mViewDataBinding.txtLogin11542, false, false)
         selectedQuize(mViewDataBinding.txtLogin1154542, false, false)
 
+        selectedRadioQuize(mViewDataBinding.radio1, false, false)
+        selectedRadioQuize(mViewDataBinding.radio2, false, false)
+        selectedRadioQuize(mViewDataBinding.radio3, false, false)
+        selectedRadioQuize(mViewDataBinding.radio4, false, false)
 
 
-        Log.d("changeIndex", "changeIndex: ${quesNo}/${data.data.size}")
+
         mViewDataBinding.playAgainBtn.text = try {
             "${quesNo.value!! + 1}/${data.data[0].question.size}"
         } catch (e: Exception) {
@@ -299,8 +430,6 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
         }
 
         val modelQuiz = data.data[0]
-
-
 
         rightAnswer = modelQuiz.question[quesNo.value!!].isCorrectIndex
 
@@ -311,36 +440,98 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
         }
 
         mViewDataBinding.txtLogin1.text = try {
-            modelQuiz.question[quesNo.value!!].options[0]
+            modelQuiz.question[quesNo.value!!].options[0].text ?: ""
         } catch (e: Exception) {
             ""
         }
 
         mViewDataBinding.txtLogin112.text = try {
-            modelQuiz.question[quesNo.value!!].options[1]
+            modelQuiz.question[quesNo.value!!].options[1].text ?: ""
         } catch (e: Exception) {
             ""
         }
 
         mViewDataBinding.txtLogin11542.text = try {
-            modelQuiz.question[quesNo.value!!].options[2]
+            modelQuiz.question[quesNo.value!!].options[2].text ?: ""
         } catch (e: Exception) {
             ""
         }
 
         mViewDataBinding.txtLogin1154542.text = try {
-            modelQuiz.question[quesNo.value!!].options[3]
+            modelQuiz.question[quesNo.value!!].options[3].text ?: ""
         } catch (e: Exception) {
             ""
         }
 
-//        }
+        if (modelQuiz.question[quesNo.value!!].questionImage.isNullOrBlank()) {
+            mViewDataBinding.imgQuestion.visibility = View.GONE
+        } else {
+            mViewDataBinding.imgQuestion.visibility = View.VISIBLE
+            Picasso.get().load(modelQuiz.question[quesNo.value!!].questionImage)
+                .placeholder(R.drawable.group_19215).error(R.drawable.group_19215).resize(500, 500)
+                .into(mViewDataBinding.imgQuestion)
+        }
+
+        if (!modelQuiz.question[quesNo.value!!].options[0].icon.isNullOrBlank()) {
+            mViewDataBinding.imageLayout.visibility = View.VISIBLE
+            mViewDataBinding.textLayout.visibility = View.GONE
+
+            Picasso.get().load(modelQuiz.question[quesNo.value!!].options[0].icon)
+                .placeholder(R.drawable.group_19215).error(R.drawable.group_19215).resize(500, 500)
+                .into(mViewDataBinding.imgAnswer1)
+
+            Picasso.get().load(modelQuiz.question[quesNo.value!!].options[1].icon)
+                .placeholder(R.drawable.group_19215).error(R.drawable.group_19215).resize(500, 500)
+                .into(mViewDataBinding.imgAnswer2)
+
+            Picasso.get().load(modelQuiz.question[quesNo.value!!].options[2].icon)
+                .placeholder(R.drawable.group_19215).error(R.drawable.group_19215).resize(500, 500)
+                .into(mViewDataBinding.imgAnswer3)
+
+            Picasso.get().load(modelQuiz.question[quesNo.value!!].options[3].icon)
+                .placeholder(R.drawable.group_19215).error(R.drawable.group_19215).resize(500, 500)
+                .into(mViewDataBinding.imgAnswer4)
+
+        } else {
+            mViewDataBinding.imageLayout.visibility = View.GONE
+            mViewDataBinding.textLayout.visibility = View.VISIBLE
+        }
+
+        if (!modelQuiz.question[quesNo.value!!].options[0].text.isNullOrBlank()) {
+            mViewDataBinding.txtAnswer1.text = try {
+                modelQuiz.question[quesNo.value!!].options[0].text
+            } catch (e: Exception) {
+                ""
+            }
+
+            mViewDataBinding.txtAnswer2.text = try {
+                modelQuiz.question[quesNo.value!!].options[1].text
+            } catch (e: Exception) {
+                ""
+            }
+            mViewDataBinding.txtAnswer3.text = try {
+                modelQuiz.question[quesNo.value!!].options[2].text
+            } catch (e: Exception) {
+                ""
+            }
+            mViewDataBinding.txtAnswer4.text = try {
+                modelQuiz.question[quesNo.value!!].options[3].text
+            } catch (e: Exception) {
+                ""
+            }
+            mViewDataBinding.txtAnswer1.visibility = View.VISIBLE
+            mViewDataBinding.txtAnswer2.visibility = View.VISIBLE
+            mViewDataBinding.txtAnswer3.visibility = View.VISIBLE
+            mViewDataBinding.txtAnswer4.visibility = View.VISIBLE
+        } else {
+            mViewDataBinding.txtAnswer1.visibility = View.GONE
+            mViewDataBinding.txtAnswer2.visibility = View.GONE
+            mViewDataBinding.txtAnswer3.visibility = View.GONE
+            mViewDataBinding.txtAnswer4.visibility = View.GONE
+        }
+
 
         quesNo.value = quesNo.value?.plus(1)
-    }
-
-    fun quizResult(select: Int, rightAnswer: Int) {
-
     }
 
 
@@ -359,6 +550,43 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
         } else {
             checkedTextView.setBackgroundResource(R.drawable.button_radius_corner_red)
             checkedTextView.setTextColor(requireActivity().getColor(R.color.theme_color))
+        }
+    }
+
+
+    @SuppressLint("ResourceAsColor")
+    private fun selectedRadioQuize(
+        checkedTextView: RadioButton,
+        isSelected: Boolean,
+        isRight: Boolean
+    ) {
+
+
+//        checkedTextView.isChecked = isSelected
+//
+//        checkedTextView.isChecked = isRight
+
+        if (isSelected) {
+            checkedTextView.isChecked = true
+            val newColor = ContextCompat.getColor(
+                requireActivity(),
+                R.color.red
+            ) // Aap apne pasand ke color resource ka use karein
+            checkedTextView.buttonTintList = ColorStateList.valueOf(newColor)
+            if (isRight) {
+                val newColor = ContextCompat.getColor(
+                    requireActivity(),
+                    R.color.Green
+                ) // Aap apne pasand ke color resource ka use karein
+                checkedTextView.buttonTintList = ColorStateList.valueOf(newColor)
+            }
+        }  else {
+            checkedTextView.isChecked = false
+            val newColor = ContextCompat.getColor(
+                requireActivity(),
+                R.color.red
+            ) // Aap apne pasand ke color resource ka use karein
+            checkedTextView.buttonTintList = ColorStateList.valueOf(newColor)
         }
     }
 

@@ -14,6 +14,6 @@ data class Game(
     val observation: Double,
     val rank: Double,
     val speed: Double,
-    val totalScore: Int,
+    val totalScore: Double,
     val userId: UserId
 )
