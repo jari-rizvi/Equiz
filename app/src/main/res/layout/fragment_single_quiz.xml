@@ -62,6 +62,8 @@
                 android:id="@+id/constraintLayout9"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:paddingBottom="@dimen/_10sdp"
                 android:background="@drawable/button_radius_corner_red"
                 android:backgroundTint="@color/white"
                 android:elevation="@dimen/_3sdp"
@@ -69,7 +71,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/btnback121"
                 app:layout_constraintStart_toStartOf="@+id/btnback"
                 app:layout_constraintTop_toBottomOf="@+id/textView"
-                app:layout_constraintVertical_bias="0.7">
+                app:layout_constraintVertical_bias="0">
 
                 <ImageView
                     android:id="@+id/imgTitle"
@@ -115,6 +117,8 @@
                     android:layout_height="@dimen/_100sdp"
                     android:scaleType="fitXY"
                     android:src="@drawable/group_19215"
+                    android:background="@drawable/button_radius_corner_quiz"
+                    android:clipToOutline="true"
                     app:layout_constraintEnd_toEndOf="@+id/textView4654545454"
                     app:layout_constraintStart_toStartOf="@+id/textView4654545454"
                     app:layout_constraintTop_toBottomOf="@+id/progressbar" />
@@ -124,7 +128,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:text="30"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_13ssp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -149,6 +152,7 @@
                     android:id="@+id/textLayout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -244,32 +248,50 @@
                     android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView4654545454">
+                    app:layout_constraintTop_toBottomOf="@+id/textView4654545454"
+                    app:layout_constraintVertical_bias="0.0">
 
-                    <RadioButton
-                        android:id="@+id/radio1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_5sdp"
-                        android:buttonTint="#C62E27"
-                        android:textAlignment="viewStart"
-                        android:textColor="#010101"
-                        android:textSize="@dimen/_12ssp"
-                        app:layout_constraintBottom_toBottomOf="@+id/imgAnswer1"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/imgAnswer1" />
 
-                    <ImageView
-                        android:id="@+id/imgAnswer1"
-                        android:layout_width="@dimen/_90sdp"
-                        android:layout_height="@dimen/_60sdp"
-                        android:layout_marginStart="@dimen/_5sdp"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constAnswer1"
+                        android:layout_width="@dimen/_120sdp"
+                        android:layout_height="@dimen/_70sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:scaleType="fitXY"
+                        android:background="@drawable/button_radius_corner_quiz"
                         android:src="@drawable/group_19215"
-                        app:layout_constraintStart_toEndOf="@+id/radio1"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <RadioButton
+                            android:id="@+id/radio1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/black"
+                            android:textColor="#010101"
+                            android:clickable="false"
+                            android:textSize="@dimen/_12ssp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/imgAnswer1"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_margin="@dimen/_5sdp"
+                            android:background="@drawable/button_radius_corner_quiz"
+                            android:clipToOutline="true"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/group_19215"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/radio1"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
                         android:id="@+id/txtAnswer1"
@@ -280,33 +302,47 @@
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_13ssp"
-                        app:layout_constraintStart_toStartOf="@+id/imgAnswer1"
-                        app:layout_constraintTop_toBottomOf="@+id/imgAnswer1" />
+                        app:layout_constraintStart_toStartOf="@+id/constAnswer1"
+                        app:layout_constraintTop_toBottomOf="@+id/constAnswer1" />
 
-
-                    <RadioButton
-                        android:id="@+id/radio2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constAnswer2"
+                        android:layout_width="@dimen/_120sdp"
+                        android:layout_height="@dimen/_70sdp"
                         android:layout_marginEnd="@dimen/_5sdp"
-                        android:buttonTint="#C62E27"
-                        android:textAlignment="viewStart"
-                        android:textColor="#010101"
-                        android:textSize="@dimen/_12ssp"
-                        app:layout_constraintBottom_toBottomOf="@+id/imgAnswer1"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/imgAnswer1" />
-
-                    <ImageView
-                        android:id="@+id/imgAnswer2"
-                        android:layout_width="@dimen/_90sdp"
-                        android:layout_height="@dimen/_60sdp"
-                        android:layout_marginEnd="@dimen/_5sdp"
-                        android:scaleType="fitXY"
+                        android:background="@drawable/button_radius_corner_quiz"
                         android:src="@drawable/group_19215"
-                        app:layout_constraintBottom_toBottomOf="@+id/imgAnswer1"
-                        app:layout_constraintEnd_toStartOf="@+id/radio2"
-                        app:layout_constraintTop_toTopOf="@+id/imgAnswer1" />
+                        app:layout_constraintBottom_toBottomOf="@+id/constAnswer1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/constAnswer1">
+
+                        <RadioButton
+                            android:id="@+id/radio2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/black"
+                            android:textColor="#010101"
+                            android:clickable="false"
+                            android:textSize="@dimen/_12ssp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/imgAnswer2"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_margin="@dimen/_5sdp"
+                            android:background="@drawable/button_radius_corner_quiz"
+                            android:clipToOutline="true"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/group_19215"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/radio2"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
                         android:id="@+id/txtAnswer2"
@@ -317,32 +353,49 @@
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_13ssp"
-                        app:layout_constraintStart_toStartOf="@+id/imgAnswer2"
-                        app:layout_constraintTop_toBottomOf="@+id/imgAnswer2" />
+                        app:layout_constraintStart_toStartOf="@+id/constAnswer2"
+                        app:layout_constraintTop_toBottomOf="@+id/constAnswer2" />
 
-                    <RadioButton
-                        android:id="@+id/radio3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="#C62E27"
-                        android:textAlignment="viewStart"
-                        android:textColor="#010101"
-                        android:textSize="@dimen/_12ssp"
-                        app:layout_constraintBottom_toBottomOf="@+id/imgAnswer3"
-                        app:layout_constraintEnd_toEndOf="@+id/radio1"
-                        app:layout_constraintStart_toStartOf="@+id/radio1"
-                        app:layout_constraintTop_toTopOf="@+id/imgAnswer3" />
-
-                    <ImageView
-                        android:id="@+id/imgAnswer3"
-                        android:layout_width="@dimen/_90sdp"
-                        android:layout_height="@dimen/_60sdp"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constAnswer3"
+                        android:layout_width="@dimen/_120sdp"
+                        android:layout_height="@dimen/_70sdp"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:scaleType="fitXY"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:background="@drawable/button_radius_corner_quiz"
                         android:src="@drawable/group_19215"
-                        app:layout_constraintEnd_toEndOf="@+id/imgAnswer1"
-                        app:layout_constraintStart_toStartOf="@+id/imgAnswer1"
-                        app:layout_constraintTop_toBottomOf="@+id/txtAnswer1" />
+                        app:layout_constraintEnd_toEndOf="@+id/constAnswer1"
+                        app:layout_constraintStart_toStartOf="@+id/constAnswer1"
+                        app:layout_constraintTop_toBottomOf="@+id/txtAnswer1">
+
+                        <RadioButton
+                            android:id="@+id/radio3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/black"
+                            android:textColor="#010101"
+                            android:textSize="@dimen/_12ssp"
+                            android:clickable="false"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/imgAnswer3"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_margin="@dimen/_5sdp"
+                            android:background="@drawable/button_radius_corner_quiz"
+                            android:clipToOutline="true"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/group_19215"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/radio3"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
                     <TextView
                         android:id="@+id/txtAnswer3"
@@ -353,31 +406,48 @@
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_13ssp"
-                        app:layout_constraintStart_toStartOf="@+id/imgAnswer3"
-                        app:layout_constraintTop_toBottomOf="@+id/imgAnswer3" />
+                        app:layout_constraintStart_toStartOf="@+id/constAnswer3"
+                        app:layout_constraintTop_toBottomOf="@+id/constAnswer3" />
 
-                    <RadioButton
-                        android:id="@+id/radio4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="#C62E27"
-                        android:textAlignment="viewStart"
-                        android:textColor="#010101"
-                        android:textSize="@dimen/_12ssp"
-                        app:layout_constraintBottom_toBottomOf="@+id/imgAnswer3"
-                        app:layout_constraintEnd_toEndOf="@+id/radio2"
-                        app:layout_constraintTop_toTopOf="@+id/imgAnswer3" />
 
-                    <ImageView
-                        android:id="@+id/imgAnswer4"
-                        android:layout_width="@dimen/_90sdp"
-                        android:layout_height="@dimen/_60sdp"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/group_19215"
-                        app:layout_constraintEnd_toEndOf="@+id/imgAnswer2"
-                        app:layout_constraintStart_toStartOf="@+id/imgAnswer2"
-                        app:layout_constraintTop_toBottomOf="@+id/txtAnswer1" />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constAnswer4"
+                        android:layout_width="@dimen/_120sdp"
+                        android:layout_height="@dimen/_70sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:background="@drawable/button_radius_corner_quiz"
+                        app:layout_constraintBottom_toBottomOf="@+id/constAnswer3"
+                        app:layout_constraintEnd_toEndOf="@+id/constAnswer2"
+                        app:layout_constraintStart_toStartOf="@+id/constAnswer2"
+                        app:layout_constraintTop_toTopOf="@+id/constAnswer3">
+
+                        <RadioButton
+                            android:id="@+id/radio4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/black"
+                            android:textColor="#010101"
+                            android:clickable="false"
+                            android:textSize="@dimen/_12ssp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/imgAnswer4"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_margin="@dimen/_5sdp"
+                            android:background="@drawable/button_radius_corner_quiz"
+                            android:clipToOutline="true"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/group_19215"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/radio4"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
                         android:id="@+id/txtAnswer4"
@@ -388,8 +458,8 @@
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_13ssp"
-                        app:layout_constraintStart_toStartOf="@+id/imgAnswer4"
-                        app:layout_constraintTop_toBottomOf="@+id/imgAnswer3" />
+                        app:layout_constraintStart_toStartOf="@+id/constAnswer4"
+                        app:layout_constraintTop_toBottomOf="@+id/constAnswer3" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

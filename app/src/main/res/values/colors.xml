@@ -14,6 +14,7 @@
     <color name="blue">#000000</color>
     <color name="purple">#5A1D82</color>
     <color name="red">#C62E27</color>
+    <color name="red_quiz">#4DC62E27</color>
 
     <color name="textSecondaryColor">#515c6f</color>
 
@@ -38,6 +39,7 @@
     <color name="Purple200">#FF89CBF8</color>
     <color name="Purple500">#FF3498db</color>
     <color name="Green">#2BC805</color>
+    <color name="Green_quiz">#4D2BC805</color>
     <color name="Purple700">#FF2980b9</color>
     <color name="Teal200">#FF2980b9</color>
 

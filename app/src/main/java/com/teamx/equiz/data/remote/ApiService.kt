@@ -332,7 +332,8 @@ interface ApiService {
 
     @GET(NetworkCallPoints.QUIZ_FIND)
     suspend fun quizFind(
-        @Query("") type: String?,
+//        @Query("") type: String?,
+        @Path("id") id: String?,
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<SingleQuizData>
 

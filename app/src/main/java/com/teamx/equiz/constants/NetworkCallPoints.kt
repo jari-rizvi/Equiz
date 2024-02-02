@@ -17,7 +17,8 @@ class NetworkCallPoints {
 
 
         const val QUIZ_TITLE = "api/quiz/tile"
-        const val QUIZ_FIND = "api/quiz/find"
+//        const val QUIZ_FIND = "api/quiz/find"
+        const val QUIZ_FIND = "api/quiz/attempt/{id}"
         const val QUIZ_RESULT = "api/quiz/point"
 
 
