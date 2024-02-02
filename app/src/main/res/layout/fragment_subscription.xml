@@ -10,23 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:id="@+id/main_content"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:elevation="@dimen/_5sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <include
-                android:id="@+id/bottomsheet"
-                layout="@layout/bottom_sheet_stripe" />
-
-
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-
-
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -137,393 +120,393 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-<!--            <androidx.core.widget.NestedScrollView-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="0dp"-->
-<!--                android:layout_marginTop="@dimen/_5sdp"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">-->
+            <!--            <androidx.core.widget.NestedScrollView-->
+            <!--                android:layout_width="0dp"-->
+            <!--                android:layout_height="0dp"-->
+            <!--                android:layout_marginTop="@dimen/_5sdp"-->
+            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">-->
 
-                <LinearLayout
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/_5sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
+                android:orientation="vertical">
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/one"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_5sdp"
+                    android:layout_marginVertical="@dimen/_5sdp"
+                    android:elevation="@dimen/_1sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/constraintLayout3"
+                    app:layout_constraintStart_toStartOf="@+id/constraintLayout3"
                     app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
-                    android:orientation="vertical">
-
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/one"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/_5sdp"
-                        android:layout_marginVertical="@dimen/_5sdp"
-                        android:elevation="@dimen/_1sdp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/constraintLayout3"
-                        app:layout_constraintStart_toStartOf="@+id/constraintLayout3"
-                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
-                        app:layout_constraintVertical_bias="0.1">
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/container1"
-                            android:layout_width="@dimen/_70sdp"
-                            android:layout_height="0dp"
-                            android:layout_margin="@dimen/_6sdp"
-                            android:backgroundTint="@color/blue"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:padding="@dimen/_9sdp"
-                                android:src="@drawable/increase_chance"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                        <TextView
-                            android:id="@+id/textView544"
-                            style="@style/popins_regular"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Increased Chances in\n Regular Quizzes"
-                            android:textColor="@color/light_gray"
-                            android:textSize="@dimen/_14ssp"
-                            android:textAlignment="viewStart"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.1"
-                            app:layout_constraintStart_toEndOf="@+id/container1"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.1" />
-
-                        <TextView
-                            android:id="@+id/textView5551"
-                            style="@style/popins_regular"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Premium users have more opportunities to\n participate and win prizes in regular quizzes."
-                            android:textColor="@color/light_gray"
-                            android:textSize="@dimen/_10ssp"
-                            android:textAlignment="viewStart"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="@+id/textView544"
-                            app:layout_constraintHorizontal_bias="0"
-                            app:layout_constraintStart_toStartOf="@+id/textView544"
-                            app:layout_constraintTop_toBottomOf="@+id/textView544"
-                            tools:ignore="DuplicateIds" />
-
-                        <View
-                            android:id="@+id/view11"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_1sdp"
-                            android:layout_marginHorizontal="@dimen/_15sdp"
-                            android:background="@color/white"
-                            android:orientation="horizontal"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.5"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView5551" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    app:layout_constraintVertical_bias="0.1">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/two"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/_5sdp"
-                        android:layout_marginVertical="@dimen/_5sdp"
-                        android:elevation="@dimen/_1sdp"
+                        android:id="@+id/container1"
+                        android:layout_width="@dimen/_70sdp"
+                        android:layout_height="0dp"
+                        android:layout_margin="@dimen/_6sdp"
+                        android:backgroundTint="@color/blue"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/constraintLayout3"
-                        app:layout_constraintStart_toStartOf="@+id/constraintLayout3"
-                        app:layout_constraintTop_toBottomOf="@+id/one"
-                        app:layout_constraintVertical_bias="0.1">
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/container2"
-                            android:layout_width="@dimen/_70sdp"
-                            android:layout_height="0dp"
-                            android:layout_margin="@dimen/_6sdp"
-                            android:backgroundTint="@color/blue"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:padding="@dimen/_9sdp"
-                                android:src="@drawable/acces_prmium_quiz"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                        <TextView
-                            android:id="@+id/textView540"
-                            style="@style/popins_regular"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Access to Premium User Quizzes"
-                            android:textColor="@color/light_gray"
-                            android:textSize="@dimen/_14ssp"
-                            android:textStyle="bold"
-                            android:textAlignment="viewStart"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.1"
-                            app:layout_constraintStart_toEndOf="@+id/container2"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.1" />
-
-                        <TextView
-                            android:id="@+id/textView550"
-                            style="@style/popins_regular"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:text="Premium users can participate in specific quizzes designed exclusively for them."
-                            android:textColor="@color/light_gray"
-                            android:textSize="@dimen/_10ssp"
-                            android:textAlignment="viewStart"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="@+id/textView540"
-                            app:layout_constraintHorizontal_bias="0"
-                            app:layout_constraintStart_toStartOf="@+id/textView540"
-                            app:layout_constraintTop_toBottomOf="@+id/textView540" />
-
-                        <View
-                            android:id="@+id/view12"
+                        <ImageView
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_1sdp"
-                            android:layout_marginHorizontal="@dimen/_15sdp"
-                            android:background="@color/white"
-                            android:orientation="horizontal"
+                            android:layout_height="match_parent"
+                            android:padding="@dimen/_9sdp"
+                            android:src="@drawable/increase_chance"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.5"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView550" />
+                            app:layout_constraintTop_toTopOf="parent" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/three"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/_5sdp"
-                        android:layout_marginVertical="@dimen/_5sdp"
-                        android:elevation="@dimen/_1sdp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/constraintLayout3"
-                        app:layout_constraintStart_toStartOf="@+id/constraintLayout3"
-                        app:layout_constraintTop_toBottomOf="@+id/two"
-                        app:layout_constraintVertical_bias="0.1">
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/container3"
-                            android:layout_width="@dimen/_70sdp"
-                            android:layout_height="0dp"
-                            android:layout_margin="@dimen/_6sdp"
-                            android:backgroundTint="@color/blue"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:padding="@dimen/_9sdp"
-                                android:src="@drawable/referral_benefits"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                        <TextView
-                            android:id="@+id/textView541"
-                            style="@style/popins_regular"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Enhanced Referral Benefits"
-                            android:textColor="@color/light_gray"
-                            android:textSize="@dimen/_14ssp"
-                            android:textStyle="bold"
-                            android:textAlignment="viewStart"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.1"
-                            app:layout_constraintStart_toEndOf="@+id/container3"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.1" />
-
-                        <TextView
-                            android:id="@+id/textView555"
-                            style="@style/popins_regular"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:text="Premium users receive additional benefits from their referrals, they will get double the amount of referral benefits compared to normal users."
-                            android:textColor="@color/light_gray"
-                            android:textSize="@dimen/_10ssp"
-                            android:textAlignment="viewStart"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0"
-                            app:layout_constraintStart_toStartOf="@+id/textView541"
-                            app:layout_constraintTop_toBottomOf="@+id/textView541" />
-
-                        <View
-                            android:id="@+id/view13"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_1sdp"
-                            android:layout_marginHorizontal="@dimen/_15sdp"
-                            android:background="@color/white"
-                            android:orientation="horizontal"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.5"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView555" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/four"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/_5sdp"
-                        android:layout_marginVertical="@dimen/_5sdp"
-                        android:elevation="@dimen/_1sdp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/constraintLayout3"
-                        app:layout_constraintStart_toStartOf="@+id/constraintLayout3"
-                        app:layout_constraintTop_toBottomOf="@+id/three"
-                        app:layout_constraintVertical_bias="0.1">
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/container4"
-                            android:layout_width="@dimen/_70sdp"
-                            android:layout_height="0dp"
-                            android:layout_margin="@dimen/_6sdp"
-                            android:backgroundTint="@color/blue"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:padding="@dimen/_9sdp"
-                                android:src="@drawable/extent_wallet_validity"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                        <TextView
-                            android:id="@+id/textView549"
-                            style="@style/popins_regular"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Extended Validity of \nWallet Balance"
-                            android:textColor="@color/light_gray"
-                            android:textSize="@dimen/_14ssp"
-                            android:textStyle="bold"
-                            android:textAlignment="viewStart"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.1"
-                            app:layout_constraintStart_toEndOf="@+id/container4"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.1" />
-
-                        <TextView
-                            android:id="@+id/textView556"
-                            style="@style/popins_regular"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:text="Premium users can extend the expiration date of their wallet balance once."
-                            android:textColor="@color/light_gray"
-                            android:textSize="@dimen/_10ssp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0"
-                            android:textAlignment="viewStart"
-                            app:layout_constraintStart_toStartOf="@+id/textView549"
-                            app:layout_constraintTop_toBottomOf="@+id/textView549" />
-
-                        <View
-                            android:id="@+id/view14"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_1sdp"
-                            android:layout_marginHorizontal="@dimen/_15sdp"
-                            android:background="@color/white"
-                            android:orientation="horizontal"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.5"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView556" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
 
                     <TextView
-                        android:id="@+id/btnBuy"
+                        android:id="@+id/textView544"
                         style="@style/popins_regular"
-                        android:layout_width="286dp"
-                        android:layout_height="@dimen/_40sdp"
-                        android:layout_gravity="center"
-                        android:layout_marginVertical="@dimen/_15sdp"
-                        android:background="@drawable/card_background_border"
-                        android:backgroundTint="@color/white"
-                        android:gravity="center"
-                        android:text="@string/buy"
-                        android:textColor="@color/theme_color"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Increased Chances in\n Regular Quizzes"
+                        android:textColor="@color/light_gray"
                         android:textSize="@dimen/_14ssp"
-                        android:textStyle="bold" />
+                        android:textAlignment="viewStart"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.1"
+                        app:layout_constraintStart_toEndOf="@+id/container1"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.1" />
+
+                    <TextView
+                        android:id="@+id/textView5551"
+                        style="@style/popins_regular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Premium users have more opportunities to\n participate and win prizes in regular quizzes."
+                        android:textColor="@color/light_gray"
+                        android:textSize="@dimen/_10ssp"
+                        android:textAlignment="viewStart"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/textView544"
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintStart_toStartOf="@+id/textView544"
+                        app:layout_constraintTop_toBottomOf="@+id/textView544"
+                        tools:ignore="DuplicateIds" />
+
+                    <View
+                        android:id="@+id/view11"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        android:layout_marginHorizontal="@dimen/_15sdp"
+                        android:background="@color/white"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView5551" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/two"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_5sdp"
+                    android:layout_marginVertical="@dimen/_5sdp"
+                    android:elevation="@dimen/_1sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/constraintLayout3"
+                    app:layout_constraintStart_toStartOf="@+id/constraintLayout3"
+                    app:layout_constraintTop_toBottomOf="@+id/one"
+                    app:layout_constraintVertical_bias="0.1">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/container2"
+                        android:layout_width="@dimen/_70sdp"
+                        android:layout_height="0dp"
+                        android:layout_margin="@dimen/_6sdp"
+                        android:backgroundTint="@color/blue"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="@dimen/_9sdp"
+                            android:src="@drawable/acces_prmium_quiz"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/textView540"
+                        style="@style/popins_regular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Access to Premium User Quizzes"
+                        android:textColor="@color/light_gray"
+                        android:textSize="@dimen/_14ssp"
+                        android:textStyle="bold"
+                        android:textAlignment="viewStart"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.1"
+                        app:layout_constraintStart_toEndOf="@+id/container2"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.1" />
+
+                    <TextView
+                        android:id="@+id/textView550"
+                        style="@style/popins_regular"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Premium users can participate in specific quizzes designed exclusively for them."
+                        android:textColor="@color/light_gray"
+                        android:textSize="@dimen/_10ssp"
+                        android:textAlignment="viewStart"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/textView540"
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintStart_toStartOf="@+id/textView540"
+                        app:layout_constraintTop_toBottomOf="@+id/textView540" />
+
+                    <View
+                        android:id="@+id/view12"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        android:layout_marginHorizontal="@dimen/_15sdp"
+                        android:background="@color/white"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView550" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/three"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_5sdp"
+                    android:layout_marginVertical="@dimen/_5sdp"
+                    android:elevation="@dimen/_1sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/constraintLayout3"
+                    app:layout_constraintStart_toStartOf="@+id/constraintLayout3"
+                    app:layout_constraintTop_toBottomOf="@+id/two"
+                    app:layout_constraintVertical_bias="0.1">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/container3"
+                        android:layout_width="@dimen/_70sdp"
+                        android:layout_height="0dp"
+                        android:layout_margin="@dimen/_6sdp"
+                        android:backgroundTint="@color/blue"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="@dimen/_9sdp"
+                            android:src="@drawable/referral_benefits"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/textView541"
+                        style="@style/popins_regular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Enhanced Referral Benefits"
+                        android:textColor="@color/light_gray"
+                        android:textSize="@dimen/_14ssp"
+                        android:textStyle="bold"
+                        android:textAlignment="viewStart"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.1"
+                        app:layout_constraintStart_toEndOf="@+id/container3"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.1" />
+
+                    <TextView
+                        android:id="@+id/textView555"
+                        style="@style/popins_regular"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Premium users receive additional benefits from their referrals, they will get double the amount of referral benefits compared to normal users."
+                        android:textColor="@color/light_gray"
+                        android:textSize="@dimen/_10ssp"
+                        android:textAlignment="viewStart"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintStart_toStartOf="@+id/textView541"
+                        app:layout_constraintTop_toBottomOf="@+id/textView541" />
+
+                    <View
+                        android:id="@+id/view13"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        android:layout_marginHorizontal="@dimen/_15sdp"
+                        android:background="@color/white"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView555" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/four"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_5sdp"
+                    android:layout_marginVertical="@dimen/_5sdp"
+                    android:elevation="@dimen/_1sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/constraintLayout3"
+                    app:layout_constraintStart_toStartOf="@+id/constraintLayout3"
+                    app:layout_constraintTop_toBottomOf="@+id/three"
+                    app:layout_constraintVertical_bias="0.1">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/container4"
+                        android:layout_width="@dimen/_70sdp"
+                        android:layout_height="0dp"
+                        android:layout_margin="@dimen/_6sdp"
+                        android:backgroundTint="@color/blue"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="@dimen/_9sdp"
+                            android:src="@drawable/extent_wallet_validity"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/textView549"
+                        style="@style/popins_regular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Extended Validity of \nWallet Balance"
+                        android:textColor="@color/light_gray"
+                        android:textSize="@dimen/_14ssp"
+                        android:textStyle="bold"
+                        android:textAlignment="viewStart"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.1"
+                        app:layout_constraintStart_toEndOf="@+id/container4"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.1" />
+
+                    <TextView
+                        android:id="@+id/textView556"
+                        style="@style/popins_regular"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Premium users can extend the expiration date of their wallet balance once."
+                        android:textColor="@color/light_gray"
+                        android:textSize="@dimen/_10ssp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0"
+                        android:textAlignment="viewStart"
+                        app:layout_constraintStart_toStartOf="@+id/textView549"
+                        app:layout_constraintTop_toBottomOf="@+id/textView549" />
+
+                    <View
+                        android:id="@+id/view14"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        android:layout_marginHorizontal="@dimen/_15sdp"
+                        android:background="@color/white"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView556" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/btnBuy"
+                    style="@style/popins_regular"
+                    android:layout_width="286dp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_gravity="center"
+                    android:layout_marginVertical="@dimen/_15sdp"
+                    android:background="@drawable/card_background_border"
+                    android:backgroundTint="@color/white"
+                    android:gravity="center"
+                    android:text="@string/buy"
+                    android:textColor="@color/theme_color"
+                    android:textSize="@dimen/_14ssp"
+                    android:textStyle="bold" />
 
 
-<!--            </androidx.core.widget.NestedScrollView>-->
+            </LinearLayout>
+
+
+            <!--            </androidx.core.widget.NestedScrollView>-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
-<!--        <androidx.coordinatorlayout.widget.CoordinatorLayout-->
-<!--            android:id="@+id/main_content"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent">-->
+        <!--        <androidx.coordinatorlayout.widget.CoordinatorLayout-->
+        <!--            android:id="@+id/main_content"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent">-->
 
 
-<!--            <include-->
-<!--                layout="@layout/bottom_sheet_stripe" />-->
+        <!--            <include-->
+        <!--                layout="@layout/bottom_sheet_stripe" />-->
 
 
-<!--        </androidx.coordinatorlayout.widget.CoordinatorLayout>-->
+        <!--        </androidx.coordinatorlayout.widget.CoordinatorLayout>-->
 
 
 

@@ -29,6 +29,7 @@ import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.constants.NetworkCallPoints
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentLoginPhoneBinding
+import com.teamx.equiz.games.games.arr
 import com.teamx.equiz.utils.DialogHelperClass
 import com.teamx.equiz.utils.PrefHelper
 import com.teamx.equiz.utils.snackbar
@@ -202,11 +203,9 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
     }
 
     fun isPasswordValid(password: String): Boolean {
-        // Check if the password contains at least one special character
         val specialCharacterPattern: Pattern = Pattern.compile("[!@#\$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]+")
         val containsSpecialCharacter = specialCharacterPattern.matcher(password).find()
 
-        // Check if the password length is at least 8 characters
         val isLengthValid = password.trim().length >= 8
 
         return isLengthValid && containsSpecialCharacter
@@ -247,9 +246,6 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
         }
 
 
-
-
-
         ApiCall()
         return true
     }
@@ -264,14 +260,12 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
                 ) == PackageManager.PERMISSION_GRANTED
             ) {
 
-
                 FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
                     if (!task.isSuccessful) {
                         Log.w("123123", "Fetching FCM registration token failed", task.exception)
                         return@OnCompleteListener
                     }
 
-                    // Get new FCM registration token
                     val token = task.result
                     tokenFcmString = task.result
                     val params = JsonObject()

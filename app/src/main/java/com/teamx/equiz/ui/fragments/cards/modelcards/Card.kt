@@ -14,5 +14,5 @@ data class Card(
     val last4: String,
     val networks: Networks,
     val three_d_secure_usage: ThreeDSecureUsage,
-    val wallet: Any
+    val wallet: Double
 )
