@@ -300,7 +300,7 @@
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recQuizes"
                             android:layout_width="0dp"
-                            android:layout_height="@dimen/_200sdp"
+                            android:layout_height="@dimen/_210sdp"
                             android:layout_marginTop="@dimen/_10sdp"
                             android:layout_marginBottom="@dimen/_24sdp"
                             android:maxHeight="@dimen/_200sdp"

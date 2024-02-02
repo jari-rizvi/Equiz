@@ -868,6 +868,16 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
             bundle = Bundle()
         }
 
+        if (NetworkCallPoints.TOKENER.isNullOrEmpty() || NetworkCallPoints.TOKENER.equals(
+                "null",
+                true
+            )
+        ) {
+            DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
+            return
+        }
+
+
         bundle.putString("id", newsArraya._id)
 
         findNavController().navigate(

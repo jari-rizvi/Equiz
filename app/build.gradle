@@ -212,6 +212,8 @@ dependencies {
     implementation "com.google.android.gms:play-services-wallet:19.2.1"
 
     implementation 'com.github.Kaaveh:sdp-compose:1.1.0'
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01"
+
 }
 
 protobuf {

@@ -19,6 +19,7 @@ import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.activity.addCallback
 import androidx.annotation.RequiresApi
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.teamx.equiz.data.models.getwalletData.Transaction
 
 @AndroidEntryPoint
@@ -88,7 +89,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
-
+                            walletArrayList.clear()
                             mViewDataBinding.shimmerLayout.visibility = View.GONE
                             mViewDataBinding.root.visibility = View.VISIBLE
 
@@ -138,7 +139,20 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
         }
 
         walletRecyclerview()
+
+
+        mViewDataBinding.swiperefresh.setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener {
+            mViewDataBinding.swiperefresh.isRefreshing = false
+            RearrangeData()
+        })
+
     }
+
+
+    private fun RearrangeData() {
+        mViewModel.getWallet()
+    }
+
 
     private fun walletRecyclerview() {
         walletArrayList = ArrayList()

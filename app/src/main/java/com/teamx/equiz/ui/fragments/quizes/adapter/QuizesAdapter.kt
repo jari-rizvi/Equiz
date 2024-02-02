@@ -63,8 +63,15 @@ class QuizesAdapter(
     }
 
     override fun getItemCount(): Int {
+
+        if(quizArrayList.size > 3){
+            return 3
+        }
+        else{
+            return quizArrayList.size
+        }
         
-        return quizArrayList.size
+//        return quizArrayList.size
     }
 }
 

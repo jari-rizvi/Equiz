@@ -5,6 +5,6 @@ import androidx.annotation.Keep
 @Keep
 data class TopUpModelData(
     val checkout: String,
-    val `data`: Int,
+    val `data`: Double,
     val message: String
 )

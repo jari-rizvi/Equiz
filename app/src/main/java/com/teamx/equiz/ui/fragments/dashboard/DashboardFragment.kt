@@ -20,6 +20,7 @@ import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import androidx.viewpager2.widget.ViewPager2
+import com.google.common.base.Strings.isNullOrEmpty
 import com.google.firebase.FirebaseApp
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.ktx.initialize
@@ -101,6 +102,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+
 
         mViewDataBinding.btnback.setOnClickListener {
 //            val activity = requireActivity() as MainActivity
@@ -354,9 +356,17 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
 
                     it.data?.let { data ->
-                        if(data.data.isNotEmpty()){
+                      /*  if(data.data.isNotEmpty()){
+                            mViewDataBinding.recQuizes.visibility = View.VISIBLE
+                        }*/
+
+                        if(!data.data.isNullOrEmpty()){
                             mViewDataBinding.recQuizes.visibility = View.VISIBLE
                         }
+                        else{
+                            mViewDataBinding.recQuizes.visibility = View.GONE
+                        }
+
                         data.data.forEach {
                             quizArrayList.add(it)
                         }
@@ -1180,6 +1190,22 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         if (bundle == null) {
             bundle = Bundle()
         }
+
+
+        if (NetworkCallPoints.TOKENER.isNullOrEmpty() || NetworkCallPoints.TOKENER.equals(
+                "null",
+                true
+            )
+        ) {
+            DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
+            return
+        }
+     /*   findNavController().navigate(
+            R.id.quizesFragment, arguments, options
+        )*/
+
+
+
 
         bundle.putString("id", newsArraya._id)
 
