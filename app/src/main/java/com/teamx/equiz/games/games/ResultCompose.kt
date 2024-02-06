@@ -444,7 +444,8 @@ fun ResultScreen(
                     } else {
                         total
                     }
-                    ShowMeantime("Mean Time", " ${time / (to)}s")
+//                    ShowMeantime("Mean Time", " ${time / (to)}s")
+                    ShowMeantime("Mean Time", " ${20/total}s")
 
 
                     /* Row(
@@ -591,7 +592,8 @@ fun ResultScreen2(
                     } else {
                         total
                     }
-                    ShowMeantime("Mean Time", " ${time / (to)}s")
+//                    ShowMeantime("Mean Time", " ${time / (to)}s")
+                    ShowMeantime("Mean Time", " ${20/total}s")
 
 
                     /* Row(
@@ -1256,7 +1258,8 @@ fun dialogShareGame(
                         ShowScoring2("Correct", Color(0xFF9F81CA), "${right.toInt()}")
 
                     }
-                    ShowMeantime("Mean Time", " ${time / to}s")
+//                    ShowMeantime("Mean Time", " ${time / to}s")
+                    ShowMeantime("Mean Time", " ${20/total}s")
 
                     Image(
                         modifier = Modifier

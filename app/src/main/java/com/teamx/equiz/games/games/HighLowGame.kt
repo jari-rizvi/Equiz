@@ -73,10 +73,10 @@ var totalGameAnswersHigh = 0
 
 
 @Composable
-fun HighLowComponent(content: (boo:Boolean, rightAnswer:Int, totalAnswer:Int) -> Unit) {
+fun HighLowComponent(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit) {
 
     var isGameOver by remember { mutableStateOf(false) }
-        var isAlert by remember { mutableStateOf(false) }
+    var isAlert by remember { mutableStateOf(false) }
 
     var isTimeUp by remember { mutableStateOf(false) }
     var timeLeft by remember { mutableStateOf(20L) }
@@ -89,10 +89,10 @@ fun HighLowComponent(content: (boo:Boolean, rightAnswer:Int, totalAnswer:Int) ->
         // Start the timer
         object : CountDownTimer(timeLeft * 1000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                  if (timerRunning) {
+                if (timerRunning) {
                     timeLeft = millisUntilFinished / 1000
                 }
-                if (timeLeft<5){
+                if (timeLeft < 5) {
                     isAlert = true
                 }
             }
@@ -104,8 +104,8 @@ fun HighLowComponent(content: (boo:Boolean, rightAnswer:Int, totalAnswer:Int) ->
     }
     if (isGameOver) {
         content(true, rightGameAnswersHigh, totalGameAnswersHigh)
-          rightGameAnswersHigh = 0
-          totalGameAnswersHigh = 0
+        rightGameAnswersHigh = 0
+        totalGameAnswersHigh = 0
     }
     if (isTimeUp) {
 
@@ -121,7 +121,7 @@ fun HighLowComponent(content: (boo:Boolean, rightAnswer:Int, totalAnswer:Int) ->
         }
 
 
-    }else{
+    } else {
         var swipeStateX by remember { mutableStateOf(false) }
 
         var previousNumber by remember { mutableStateOf(Random.nextInt(0, 100)) }
@@ -156,7 +156,7 @@ fun HighLowComponent(content: (boo:Boolean, rightAnswer:Int, totalAnswer:Int) ->
             })
 
 
-val temp = rightGameAnswersHigh
+        val temp = rightGameAnswersHigh
 
         Box(
             modifier = Modifier
@@ -164,18 +164,18 @@ val temp = rightGameAnswersHigh
                 .fillMaxHeight()
                 .background(color = Color(0xFFEFF4F9)),
         ) {
-            Box(modifier = Modifier
-                .height(48.dp)
-                .background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
+            Box(
+                modifier = Modifier
+                    .height(48.dp)
+                    .background(color = Color(0xFF9F81CA)), contentAlignment = Alignment.CenterStart
+            ) {
 
                 BackButton(onClick = { content(false, 0, 0) }
                 )
                 Text(
                     text = "High Low",
                     modifier = Modifier
-                        .fillMaxWidth()
-
-                        ,
+                        .fillMaxWidth(),
                     textAlign = TextAlign.Center,
                     color = Color.White,
                     fontSize = 17.sp
@@ -218,7 +218,7 @@ val temp = rightGameAnswersHigh
                         .pointerInput(Unit) {
                             detectDragGestures(
                                 onDragEnd = {
-                                    if(temp == rightGameAnswersHigh){
+                                    if (temp == rightGameAnswersHigh) {
                                         incorrectSound(context)
                                     }
                                     totalGameAnswersHigh++
@@ -252,7 +252,10 @@ val temp = rightGameAnswersHigh
 
                                         if (dragged) {
                                             dragged = false
-                                            Log.d("123123", "MyCardDOWN:${dragAmount.y} $swipeStateX")
+                                            Log.d(
+                                                "123123",
+                                                "MyCardDOWN:${dragAmount.y} $swipeStateX"
+                                            )
                                             transitionState.targetState = true
                                             i23 = 1
                                             GlobalScope.launch {
@@ -264,10 +267,11 @@ val temp = rightGameAnswersHigh
                                         }
                                     }
 
-                                    (dragAmount.y >= 2.0 && randomInt == 2)&&dragged -> {
+                                    (dragAmount.y >= 2.0 && randomInt == 2) && dragged -> {
 //                                        totalGameAnswersHigh++
                                     }
-                                    (dragAmount.y <= -2.0 && randomInt == 1)&&dragged -> {
+
+                                    (dragAmount.y <= -2.0 && randomInt == 1) && dragged -> {
 
 //                                        totalGameAnswersHigh++
                                     }
@@ -342,11 +346,8 @@ val temp = rightGameAnswersHigh
                     ) {
 
 
-
                         Text(
-                            modifier = Modifier.wrapContentSize()
-
-                            ,
+                            modifier = Modifier.wrapContentSize(),
                             textAlign = TextAlign.Center, fontWeight = FontWeight.ExtraBold,
 
                             fontSize = 67.sp, color = BirdColor4,
@@ -372,8 +373,6 @@ val temp = rightGameAnswersHigh
     }
 
 
-
-
 }
 
 
@@ -384,7 +383,7 @@ fun HighLowGame() {
         Box(
             modifier = Modifier.fillMaxSize(), Alignment.Center
         ) {
-            HighLowComponent(){bool,rightAnswer,total ->}
+            HighLowComponent() { bool, rightAnswer, total -> }
         }
     }
 }

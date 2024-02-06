@@ -563,4 +563,10 @@
         android:name="com.teamx.equiz.ui.fragments.userprogress.UserStaticsFragment"
         android:label="UserStaticsFragment" />
 
+
+    <fragment
+        android:id="@+id/tapTheColorFragment"
+        android:name="com.teamx.equiz.new_games.TapTheColorFragment"
+        android:label="TapTheColorFragment" />
+
 </navigation>

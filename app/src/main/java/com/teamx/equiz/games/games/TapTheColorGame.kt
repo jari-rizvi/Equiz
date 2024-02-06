@@ -79,10 +79,10 @@ fun TapTheColorGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int)
         // Start the timer
         object : CountDownTimer(timeLeft * 1000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                  if (timerRunning) {
+                if (timerRunning) {
                     timeLeft = millisUntilFinished / 1000
                 }
-                if (timeLeft<5){
+                if (timeLeft < 5) {
                     isAlert = true
                 }
             }
@@ -92,7 +92,6 @@ fun TapTheColorGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int)
             }
         }.start()
     }
-
 
     if (isGameOver) {
 
@@ -113,7 +112,7 @@ fun TapTheColorGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int)
         }
 
 
-    }else{
+    } else {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -126,7 +125,7 @@ fun TapTheColorGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int)
                     .background(color = Color(0xFF9F81CA)), contentAlignment = Alignment.CenterStart
             ) {
 
-                BackButton(onClick = {content(false,0,0) }/*onContinueClicked*/)
+                BackButton(onClick = { content(false, 0, 0) }/*onContinueClicked*/)
                 Text(
                     text = "Tap The Color",
                     modifier = Modifier
@@ -151,8 +150,6 @@ fun TapTheColorGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int)
             }
         }
     }
-
-
 
 
 }
@@ -413,6 +410,8 @@ fun TouchTheNumbersGameScreenTap() {
     var restart by remember { mutableStateOf(false) }
     var timerCheck by remember { mutableStateOf(true) }
 
+    var isMemorized = remember {mutableStateOf("Memorized")}
+
 //    LaunchedEffect(key1 = timerCheck) {
 //        delay(2500)
 //        timerCheck = false
@@ -448,6 +447,7 @@ fun TouchTheNumbersGameScreenTap() {
 
                                 if (!restart) {
                                     boxes = generateBoxesTap()
+                                    isMemorized.value = "Memorized"
                                     restart = true
                                 }
                             }) {
@@ -549,7 +549,9 @@ fun TouchTheNumbersGameScreenTap() {
 
                                     if (arrTap.size == boxes.size) {
                                         boxes = generateBoxesTap()
-                                        boxesTemp = boxes.sortedWith(Comparator.comparingInt { it.number })
+                                        isMemorized.value = "Memorized"
+                                        boxesTemp =
+                                            boxes.sortedWith(Comparator.comparingInt { it.number })
                                         arrTap.clear()
                                         restart = true
                                         timerCheck = true
@@ -580,10 +582,11 @@ fun TouchTheNumbersGameScreenTap() {
                 .background(shape = RoundedCornerShape(12.dp), color = BirdColor4)
                 .clickable {
                     timerCheck = false
+                    isMemorized.value = "Submit"
                 }, contentAlignment = Alignment.Center
         ) {
             Text(
-                text = "Memorized"/*: $score*/, fontWeight = FontWeight.ExtraBold,
+                text = "${isMemorized.value}" /*: $score*/, fontWeight = FontWeight.ExtraBold,
                 style = MaterialTheme.typography.bodyLarge, color = Color.White,
                 modifier = Modifier
             )
