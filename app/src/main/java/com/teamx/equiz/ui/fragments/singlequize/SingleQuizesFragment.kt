@@ -680,23 +680,40 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
     private fun timerStart(data: SingleQuizData) {
 //        var durationSeconds = 30.0
         var durationSeconds = data.data?.get(0)?.timer ?: 0.0
+
+        durationSeconds *= 60
         var progressTime = 100.0
 
         var finalProgress = progressTime / durationSeconds
 
+        val minutes = durationSeconds / 60
+        val seconds = durationSeconds % 60
+
+        val formattedTime = String.format("%02d:%02d", minutes.toInt(), seconds.toInt())
+
         job = lifecycleScope.launch {
-            mViewDataBinding.textView46545454.text = "${durationSeconds.toInt()}"
+
+
+            mViewDataBinding.textView46545454.text = formattedTime
             mViewDataBinding.progressbar.progress = progressTime.toInt()
             while (durationSeconds > 0) {
 
                 delay(1000)
+
+                val minutes = durationSeconds / 60
+                val seconds = durationSeconds % 60
+
                 durationSeconds--
 
                 progressTime = progressTime - finalProgress
 
+                val formattedTime = String.format("%02d:%02d", minutes.toInt(), seconds.toInt())
+
+                Log.d("progressTime", "durationSeconds: $formattedTime")
+
 //                progressTime = progressTime / durationSeconds
-                mViewDataBinding.textView46545454.text = "${durationSeconds.toInt()}"
-                Log.d("progressTime", "timerStart: ${progressTime}")
+                mViewDataBinding.textView46545454.text = formattedTime
+//                Log.d("progressTime", "timerStart: ${progressTime}")
                 mViewDataBinding.progressbar.progress = progressTime.toInt()
 
             }
