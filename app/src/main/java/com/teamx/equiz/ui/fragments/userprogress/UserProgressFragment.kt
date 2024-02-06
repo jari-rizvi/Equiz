@@ -90,17 +90,17 @@ class UserProgressFragment : BaseFragment<FragmentUserProgressBinding, LoaderBoa
         }
 
         mViewDataBinding.cc1.setOnClickListener {
-            GameModel?.let { it1 ->
-                DialogHelperClass.UserStatsDialog(requireContext(),
-                    object : DialogHelperClass.Companion.ChickenDialogCallBack {
-                        override fun onCloseClick() {
-
-                        }
-
-
-                    }, gamesModel = it1
-                ).show()
-            }
+//            GameModel?.let { it1 ->
+//                DialogHelperClass.UserStatsDialog(requireContext(),
+//                    object : DialogHelperClass.Companion.ChickenDialogCallBack {
+//                        override fun onCloseClick() {
+//
+//                        }
+//
+//
+//                    }, gamesModel = it1
+//                ).show()
+//            }
         }
 
 

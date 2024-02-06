@@ -558,5 +558,9 @@
         android:id="@+id/combinedGameResultFragment"
         android:name="com.teamx.equiz.ui.game_fragments.combine_result.CombinedGameResultFragment"
         android:label="CombinedGameResultFragment" />
+    <fragment
+        android:id="@+id/userStaticsFragment"
+        android:name="com.teamx.equiz.ui.fragments.userprogress.UserStaticsFragment"
+        android:label="UserStaticsFragment" />
 
 </navigation>
