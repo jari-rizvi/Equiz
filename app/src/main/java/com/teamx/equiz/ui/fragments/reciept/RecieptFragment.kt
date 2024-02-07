@@ -2,15 +2,21 @@ package com.teamx.equiz.ui.fragments.reciept
 
 
 
+import android.Manifest
+import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.media.MediaScannerConnection
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.text.format.DateFormat
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.core.content.FileProvider
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
@@ -26,6 +32,7 @@ import java.io.FileOutputStream
 import java.util.Calendar
 import java.util.Date
 import androidx.activity.addCallback
+import androidx.core.content.ContextCompat
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -47,6 +54,7 @@ class RecieptFragment : BaseFragment<FragmentRecieptBinding, WishlistViewModel>(
     var total = ""
     var date = ""
 
+    private val REQUEST_CODE_STORAGE_PERMISSION = 1001
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
          super.onViewCreated(view, savedInstanceState)
@@ -63,12 +71,17 @@ class RecieptFragment : BaseFragment<FragmentRecieptBinding, WishlistViewModel>(
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+
+
+
+
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
 
 
 
+
         mViewDataBinding.btnSave.setOnClickListener {
-            ScreenshotButton()
+            requestStoragePermission()
         }
 
         val bundle = arguments
@@ -89,10 +102,23 @@ class RecieptFragment : BaseFragment<FragmentRecieptBinding, WishlistViewModel>(
 
 
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE_STORAGE_PERMISSION && resultCode == Activity.RESULT_OK) {
+            // Handle permission granted
+            val treeUri = data?.data
+            ScreenshotButton()
+            // Use treeUri to access the selected directory
+        }
+    }
+
+    private fun requestStoragePermission() {
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
+        startActivityForResult(intent, REQUEST_CODE_STORAGE_PERMISSION)
+    }
     fun ScreenshotButton() {
-        val v1 = requireActivity().window.decorView.rootView
-        v1.setDrawingCacheEnabled(true)
-        v1.setDrawingCacheEnabled(false)
+   /*     val v1 = requireActivity().window.decorView.rootView
 //        val filePath = Environment.getExternalStorageDirectory()
 //            .toString() + "/Download/" + Calendar.getInstance().getTime().toString() + ".jpg"
 //        val fileScreenshot = File(filePath)
@@ -117,7 +143,11 @@ class RecieptFragment : BaseFragment<FragmentRecieptBinding, WishlistViewModel>(
 
         val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
         val fileName = "screenshot_$timeStamp.jpg"
+
         val storageDir = File(requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES), "Download")
+        if (!storageDir.exists()) {
+            storageDir.mkdirs()
+        }
         val filePath = File(storageDir, fileName)
 
         var fileOutputStream: FileOutputStream? = null
@@ -147,7 +177,68 @@ class RecieptFragment : BaseFragment<FragmentRecieptBinding, WishlistViewModel>(
         startActivity(intent)
 
 
-        this.startActivity(intent)
+        this.startActivity(intent)*/
+
+
+        val v1 = requireActivity().window.decorView.rootView
+
+// Enable drawing cache
+        v1.isDrawingCacheEnabled = true
+
+// Create bitmap from drawing cache
+        val bitmap: Bitmap = Bitmap.createBitmap(v1.drawingCache)
+
+// Disable drawing cache
+        v1.isDrawingCacheEnabled = false
+
+// Generate file name
+        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+        val fileName = "screenshot_$timeStamp.jpg"
+
+// Get external storage directory
+        val storageDir = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "Download")
+
+// Create storage directory if it doesn't exist
+        if (!storageDir.exists()) {
+            storageDir.mkdirs()
+        }
+
+// Create file
+        val filePath = File(storageDir, fileName)
+
+        var fileOutputStream: FileOutputStream? = null
+        try {
+            // Create file output stream
+            fileOutputStream = FileOutputStream(filePath)
+
+            // Compress bitmap and save to file
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream)
+
+            // Flush the stream to ensure all data is written to the file
+            fileOutputStream.flush()
+
+            // Send broadcast to notify the system about the new file
+            MediaScannerConnection.scanFile(
+                requireContext(),
+                arrayOf(filePath.toString()),
+                arrayOf("image/jpeg"),
+                null
+            )
+
+            // Show a toast message indicating successful saving
+            Toast.makeText(requireContext(), "Screenshot saved to gallery", Toast.LENGTH_SHORT).show()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            // Show a toast message indicating failure
+            Toast.makeText(requireContext(), "Failed to save screenshot", Toast.LENGTH_SHORT).show()
+        } finally {
+            // Close the file output stream
+            try {
+                fileOutputStream?.close()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
     }
 
 

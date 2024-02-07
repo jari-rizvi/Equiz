@@ -479,9 +479,6 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
         selectedRadioQuize(mViewDataBinding.constAnswer4, mViewDataBinding.radio4, false, false)
 
 
-
-
-
         mViewDataBinding.playAgainBtn.text = try {
             "${quesNo.value!! + 1}/${data.data?.get(0)?.question?.size}"
         } catch (e: Exception) {
@@ -679,7 +676,8 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
     @RequiresApi(Build.VERSION_CODES.M)
     private fun timerStart(data: SingleQuizData) {
 //        var durationSeconds = 30.0
-        var durationSeconds = data.data?.get(0)?.timer ?: 0.0
+
+        var durationSeconds = data.data?.get(0)?.timer ?: 2.0
 
         durationSeconds *= 60
         var progressTime = 100.0

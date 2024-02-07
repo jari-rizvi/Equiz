@@ -4,6 +4,6 @@ data class Product(
     val _id: String,
     val description: String,
     val images: List<String>,
-    val point: Int,
+    val point: Double,
     val title: String
 )
