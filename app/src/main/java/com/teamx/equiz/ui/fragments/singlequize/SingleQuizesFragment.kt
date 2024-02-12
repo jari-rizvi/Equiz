@@ -51,6 +51,8 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
     private var rightAnswer = -1
     private var rightAnswers = 0
     private var totalAnswers = 0
+    private var totalTime = 1
+    private var remainingTime = 1
     private var selectAnswer = -1
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -427,7 +429,8 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
                             }
                             bundle?.putInt("rightAnswer", rightAnswers)
                             bundle?.putInt("totalAnswer", totalAnswers)
-
+                            bundle?.putInt("totalTime", totalTime)
+                            bundle?.putInt("remainingTime", remainingTime)
 
                             findNavController().navigate(
                                 R.id.action_quizesFragment_to_quizResultFragment,
@@ -691,7 +694,6 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
 
         job = lifecycleScope.launch {
 
-
             mViewDataBinding.textView46545454.text = formattedTime
             mViewDataBinding.progressbar.progress = progressTime.toInt()
             while (durationSeconds > 0) {
@@ -722,6 +724,8 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
             }
             bundle?.putInt("rightAnswer", rightAnswers)
             bundle?.putInt("totalAnswer", totalAnswers)
+            bundle?.putInt("totalTime", totalTime)
+            bundle?.putInt("remainingTime", remainingTime)
 
 
             findNavController().navigate(

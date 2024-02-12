@@ -1,7 +1,9 @@
 package com.teamx.equiz.ui.fragments.quizresult
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.addCallback
 import androidx.annotation.RequiresApi
@@ -32,6 +34,7 @@ class QuizResultFragment : BaseFragment<FragmentQuizResultBinding, SingleQuizesV
     private lateinit var options: NavOptions
 
 
+    @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
          super.onViewCreated(view, savedInstanceState)
@@ -87,9 +90,25 @@ class QuizResultFragment : BaseFragment<FragmentQuizResultBinding, SingleQuizesV
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
-                            mViewDataBinding.chancesTxt.text= data.chances.toString()
+                            var chances = data.chances ?: 0
+
+
+
+
+                            mViewDataBinding.chancesTxt.text= "You Won $chances Chances"
+
+                            if(data.chances.equals(0.0)){
+                                mViewDataBinding.textView4654545454.text= data.populatedQuizScoreData.userId.name
+                            }
+                            else{
+                                mViewDataBinding.textView4654545454.text= "Congratulations "+data.populatedQuizScoreData.userId.name
+
+                            }
+
                             mViewDataBinding.supportResultTxt.text="You answered ${String.format("%.3f", data.populatedQuizScoreData.score).toDouble()}% questions correctly"
 
+                            Log.d("TAG", "resulttt: ${data.chances}")
+                            Log.d("TAG", "resulttt: ${data.populatedQuizScoreData}")
                         }
                     }
                     Resource.Status.AUTH -> { loadingDialog.dismiss()
@@ -123,12 +142,16 @@ class QuizResultFragment : BaseFragment<FragmentQuizResultBinding, SingleQuizesV
         val strId = bundle2.getString("quiz_id")
         val rightAnswer = bundle2.getInt("rightAnswer")
         val totalAnswer = bundle2.getInt("totalAnswer")
+        val totalTime = bundle2.getInt("totalTime")
+        val remainingTime = bundle2.getDouble("remainingTime")
 
         val params = JsonObject()
         try {
             params.addProperty("total", totalAnswer)
             params.addProperty("correct", rightAnswer)
             params.addProperty("quizId", "$strId")
+            params.addProperty("totalTime", totalTime)
+            params.addProperty("remainingTime", remainingTime)
         } catch (e: JSONException) {
             e.printStackTrace()
         }

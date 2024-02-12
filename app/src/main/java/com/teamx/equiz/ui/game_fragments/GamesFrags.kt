@@ -3437,10 +3437,7 @@ class StartUpGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
                     returnGameIcon(GamesUID2.ShapeDeception.name)
                 )*/
         }
-
-
     }
-
 
     @Composable
     private fun returnGameIcon(enumNumberEnum: String): Painter {

@@ -69,7 +69,6 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
                 mViewModel.applyCoupon(code)
             }
 
-
             if (!mViewModel.applyCouponResponse.hasActiveObservers()) {
                 mViewModel.applyCouponResponse.observe(requireActivity(), Observer {
                     when (it.status) {
@@ -91,15 +90,6 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
                             it.data?.let { data ->
 
                                 data.data.forEach {
-                                    /*   if (it != null) {
-                                           cartArrayList2.add(it)
-
-                                           it.product?.let { itt ->
-                                               subTotal += itt.point!! * it.totalPoint
-                                           }
-
-
-                                       }*/
                                     try {
                                         mViewDataBinding.amount.text = data.discount.toString()
                                         mViewDataBinding.qty.text =
@@ -146,6 +136,7 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
 
 
         mViewModel.getCart()
+
         if (!mViewModel.getcartResponse.hasActiveObservers()) {
             mViewModel.getcartResponse.observe(requireActivity(), Observer {
                 when (it.status) {
@@ -218,6 +209,7 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
             })
         }
         cartRecyclerview()
+
         mViewDataBinding.btnProceed.setOnClickListener {
             if (cartArrayList2.isNotEmpty()) {
                 val coupon = mViewDataBinding.autoCompleteTextView.text.toString().ifEmpty { "" }

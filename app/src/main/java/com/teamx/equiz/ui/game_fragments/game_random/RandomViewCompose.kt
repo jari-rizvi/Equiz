@@ -80,7 +80,6 @@ fun RandomViewCompose(roundName: String="", onClick: (position: String) -> Unit 
             }
             Spacer(modifier = Modifier.size(62.dp))
 
-
             Text(
                 text = "Game Select",
                 fontSize = 42.sp,
@@ -229,8 +228,6 @@ fun TimerScreen(onClick: () -> Unit = {}) {
             strokeWidth = 8.dp,
 
             )
-
-
 
         Text(
             modifier = Modifier.wrapContentSize(),

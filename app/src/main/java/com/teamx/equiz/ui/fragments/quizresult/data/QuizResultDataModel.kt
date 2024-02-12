@@ -5,5 +5,5 @@ import androidx.annotation.Keep
 @Keep
 data class QuizResultDataModel(
     val populatedQuizScoreData: QuizScoreData,
-    val chances:Int
+    var chances: Any
 )

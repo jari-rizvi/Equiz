@@ -463,7 +463,6 @@ fun TouchTheNumbersGameScreenTap() {
             Box() {
                 if (timerCheck) {
 
-
                     LazyRow(
                         modifier = Modifier
                             .padding(top = 16.dp)

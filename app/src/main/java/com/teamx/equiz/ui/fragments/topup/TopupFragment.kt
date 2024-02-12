@@ -24,6 +24,7 @@ import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.constants.AppConstants
+import com.teamx.equiz.constants.AppConstants.showSnackBar
 import com.teamx.equiz.data.models.PaymentMethod
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentTopUpBinding
@@ -67,9 +68,6 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
-
-
-
 
 
         val bundle = Bundle()
@@ -478,9 +476,7 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
             paymentSheet = PaymentSheet(this, ::onPaymentSheetResult)
         }
 
-
-
-        if (isAdded) {
+                if (isAdded) {
             PaymentConfiguration.init(
                 this.requireContext(),
                 "pk_test_51L1UVCGn3F7BuM88wH1PSuNgc9bX7tq0MkIMB2HU2BbScX3i7VgZw4V8nimfe1zUEF8uQ3Q6PFbzrMacvH5PfA7900PaBHO20E"
@@ -498,6 +494,7 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
         val params = JsonObject()
         params.addProperty("amount", shopId)
         params.addProperty("topup", true)
+
         if (mViewDataBinding.radioVisa.isChecked) {
             params.addProperty("payment_method", paymentDefaultId)
             if (paymentDefaultId.isEmpty()) {
@@ -520,7 +517,6 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
                         loadingDialog.dismiss()
                         it.data?.let {
 
-                            Log.d("addTopResponse", "addTopResponse: ${it.data}")
 
                             if (mViewDataBinding.radioVisa.isChecked) {
                                 DialogHelperClass.topUpDialog(
@@ -640,7 +636,9 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
         val walletOptions = Wallet.WalletOptions.Builder()
             .setEnvironment(WalletConstants.ENVIRONMENT_TEST) // Use ENVIRONMENT_PRODUCTION in production
             .build()
+
         paymentsClient = Wallet.getPaymentsClient(this.requireActivity(), walletOptions)
+
         googlePayLauncher = GooglePayLauncher(
             fragment = this, config = GooglePayLauncher.Config(
                 environment = GooglePayEnvironment.Test,
@@ -665,7 +663,7 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
 //                it.paymentName != "GOOGLE PAY"
 //            } as ArrayList<PaymentMethod>
 //
-////            showSnackBar("NotReady")
+//            showSnackBar("NotReady")
 //
 //            paymentAdapter.notifyItemChanged(counter)
 //

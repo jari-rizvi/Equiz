@@ -56,7 +56,7 @@ class RandomGameFragment : BaseFragment<FragmentAddressBinding, RandomGameFragsV
         }
         val gameName = bundle.getString("gameName")
 
-
+0
         Log.d("123123", "onViewCreated:$gameName ")
 
         options = navOptions {
