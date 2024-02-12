@@ -51,7 +51,9 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
     private var rightAnswer = -1
     private var rightAnswers = 0
     private var totalAnswers = 0
-    private var totalTime = 1
+//    private var totalTime = 1
+     var  totalTimeVariable : Double = 0.0
+     var remainingTimeSeconds : Double = 0.0
     private var remainingTime = 1
     private var selectAnswer = -1
 
@@ -429,8 +431,8 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
                             }
                             bundle?.putInt("rightAnswer", rightAnswers)
                             bundle?.putInt("totalAnswer", totalAnswers)
-                            bundle?.putInt("totalTime", totalTime)
-                            bundle?.putInt("remainingTime", remainingTime)
+                            bundle?.putString("totalTime", totalTimeVariable.toString())
+                            bundle?.putString("remainingTime", remainingTimeSeconds.toString())
 
                             findNavController().navigate(
                                 R.id.action_quizesFragment_to_quizResultFragment,
@@ -676,56 +678,168 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
 
     private var job: Job? = null
 
+//    @RequiresApi(Build.VERSION_CODES.M)
+//    private fun timerStart(data: SingleQuizData) {
+////        var durationSeconds = 30.0
+//
+//        var durationSeconds = data.data?.get(0)?.timer ?: 2.0
+//
+//        durationSeconds *= 60
+//        var progressTime = 100.0
+//
+//        var finalProgress = progressTime / durationSeconds
+//
+//        val minutes = durationSeconds / 60
+//        val seconds = durationSeconds % 60
+//
+//        val formattedTime = String.format("%02d:%02d", minutes.toInt(), seconds.toInt())
+//
+//        job = lifecycleScope.launch {
+//
+//
+//            mViewDataBinding.textView46545454.text = formattedTime
+//            mViewDataBinding.progressbar.progress = progressTime.toInt()
+//            while (durationSeconds > 0) {
+//
+//                delay(1000)
+//
+//                val minutes = durationSeconds / 60
+//                val seconds = durationSeconds % 60
+//
+//                durationSeconds--
+//
+//                progressTime = progressTime - finalProgress
+//
+//                val formattedTime = String.format("%02d:%02d", minutes.toInt(), seconds.toInt())
+//
+//                Log.d("progressTime", "durationSeconds: $formattedTime")
+//
+////                progressTime = progressTime / durationSeconds
+//                mViewDataBinding.textView46545454.text = formattedTime
+////                Log.d("progressTime", "timerStart: ${progressTime}")
+//                mViewDataBinding.progressbar.progress = progressTime.toInt()
+//
+//            }
+//
+//            var bundle = arguments
+//            if (bundle == null) {
+//                bundle = Bundle()
+//            }
+//            bundle?.putInt("rightAnswer", rightAnswers)
+//            bundle?.putInt("totalAnswer", totalAnswers)
+//            bundle?.putInt("totalTime", totalTime)
+//            bundle?.putInt("remainingTime", remainingTime)
+//
+//
+//            findNavController().navigate(
+//                R.id.action_quizesFragment_to_quizResultFragment,
+//                arguments,
+//                options
+//            )
+//
+////            changeObserver()
+//        }
+//    }
+
+
+
     @RequiresApi(Build.VERSION_CODES.M)
     private fun timerStart(data: SingleQuizData) {
-//        var durationSeconds = 30.0
-
         var durationSeconds = data.data?.get(0)?.timer ?: 2.0
+        totalTimeVariable = data.data?.get(0)?.timer ?: 2.0
+        durationSeconds *= 60.0 // Convert minutes to seconds
 
-        durationSeconds *= 60
         var progressTime = 100.0
+        val finalProgress = progressTime / durationSeconds
 
-        var finalProgress = progressTime / durationSeconds
 
-        val minutes = durationSeconds / 60
-        val seconds = durationSeconds % 60
+//        var remainingTimeSeconds = durationSeconds
 
-        val formattedTime = String.format("%02d:%02d", minutes.toInt(), seconds.toInt())
 
         job = lifecycleScope.launch {
+            mViewDataBinding.progressbar.max = progressTime.toInt()
 
-            mViewDataBinding.textView46545454.text = formattedTime
-            mViewDataBinding.progressbar.progress = progressTime.toInt()
-            while (durationSeconds > 0) {
+            // Initialize remaining time variable
+             remainingTimeSeconds = durationSeconds
 
+          /*  while (remainingTimeSeconds > 0) {
                 delay(1000)
 
-                val minutes = durationSeconds / 60
-                val seconds = durationSeconds % 60
+                // Decrease remainingTimeSeconds by 1
+                remainingTimeSeconds--
 
-                durationSeconds--
-
-                progressTime = progressTime - finalProgress
-
-                val formattedTime = String.format("%02d:%02d", minutes.toInt(), seconds.toInt())
-
-                Log.d("progressTime", "durationSeconds: $formattedTime")
-
-//                progressTime = progressTime / durationSeconds
-                mViewDataBinding.textView46545454.text = formattedTime
-//                Log.d("progressTime", "timerStart: ${progressTime}")
+                // Update progress bar
+                progressTime -= finalProgress
                 mViewDataBinding.progressbar.progress = progressTime.toInt()
 
+                // Convert remaining seconds to minutes and seconds
+                val remainingMinutes = remainingTimeSeconds / 60
+                val remainingSeconds = remainingTimeSeconds % 60
+
+                // Format remaining time as MM:SS
+                val formattedRemainingTime = String.format("%02d:%02d", remainingMinutes.toInt(), remainingSeconds.toInt())
+                totalRemaingTimeVariable = formattedRemainingTime
+                mViewDataBinding.textView46545454.text = formattedRemainingTime
+
+                // Convert total seconds to minutes and seconds
+                val totalMinutes = durationSeconds / 60
+                val totalSeconds = durationSeconds % 60
+
+                // Format total time as MM:SS
+                val formattedTotalTime = String.format("%02d:%02d", totalMinutes.toInt(), totalSeconds.toInt())
+
+                // Store formatted total time in a separate variable
+                 totalTimeVariable = formattedTotalTime
             }
 
+            // Update remaining time after loop finishes
+            val remainingMinutes = remainingTimeSeconds / 60
+            val remainingSeconds = remainingTimeSeconds % 60
+            val formattedTime = String.format("%02d min: %02d sec", remainingMinutes.toInt(), remainingSeconds.toInt())
+            mViewDataBinding.textView46545454.text = formattedTime*/
+
+
+
+            while (remainingTimeSeconds > 0) {
+                delay(1000)
+
+                // Decrease remainingTimeSeconds by 1
+                remainingTimeSeconds--
+
+                // Update progress bar
+                progressTime -= finalProgress
+                mViewDataBinding.progressbar.progress = progressTime.toInt()
+
+                // Calculate remaining minutes and seconds
+                val minutes = remainingTimeSeconds / 60
+                val seconds = remainingTimeSeconds % 60
+
+                // Format remaining time as MM:SS
+                val formattedTime = String.format("%02d:%02d", minutes.toInt(), seconds.toInt())
+                mViewDataBinding.textView46545454.text = formattedTime
+            }
+
+            // Update remaining time after loop finishes
+            val minutes = remainingTimeSeconds / 60
+            val seconds = remainingTimeSeconds % 60
+            val formattedTime = String.format("%02d:%02d", minutes.toInt(), seconds.toInt())
+            mViewDataBinding.textView46545454.text = formattedTime
+
+
+
+
+
+
+
+            // Perform action after timer finishes (e.g., navigate to result fragment)
             var bundle = arguments
             if (bundle == null) {
                 bundle = Bundle()
             }
             bundle?.putInt("rightAnswer", rightAnswers)
             bundle?.putInt("totalAnswer", totalAnswers)
-            bundle?.putInt("totalTime", totalTime)
-            bundle?.putInt("remainingTime", remainingTime)
+            bundle?.putString("totalTime", totalTimeVariable.toString())
+            bundle?.putString("remainingTime", remainingTimeSeconds.toString())
 
 
             findNavController().navigate(
@@ -733,9 +847,6 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
                 arguments,
                 options
             )
-
-//            changeObserver()
         }
     }
-
 }

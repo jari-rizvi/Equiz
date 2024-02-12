@@ -92,9 +92,6 @@ class QuizResultFragment : BaseFragment<FragmentQuizResultBinding, SingleQuizesV
                         it.data?.let { data ->
                             var chances = data.chances ?: 0
 
-
-
-
                             mViewDataBinding.chancesTxt.text= "You Won $chances Chances"
 
                             if(data.chances.equals(0.0)){
@@ -142,8 +139,8 @@ class QuizResultFragment : BaseFragment<FragmentQuizResultBinding, SingleQuizesV
         val strId = bundle2.getString("quiz_id")
         val rightAnswer = bundle2.getInt("rightAnswer")
         val totalAnswer = bundle2.getInt("totalAnswer")
-        val totalTime = bundle2.getInt("totalTime")
-        val remainingTime = bundle2.getDouble("remainingTime")
+        val totalTime = bundle2.getString("totalTime")
+        val remainingTime = bundle2.getString("remainingTime")
 
         val params = JsonObject()
         try {
