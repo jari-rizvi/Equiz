@@ -139,8 +139,8 @@ class QuizResultFragment : BaseFragment<FragmentQuizResultBinding, SingleQuizesV
         val strId = bundle2.getString("quiz_id")
         val rightAnswer = bundle2.getInt("rightAnswer")
         val totalAnswer = bundle2.getInt("totalAnswer")
-        val totalTime = bundle2.getString("totalTime")
-        val remainingTime = bundle2.getString("remainingTime")
+        val totalTime = bundle2.getDouble("totalTime")
+        val remainingTime = bundle2.getDouble("remainingTime")
 
         val params = JsonObject()
         try {
