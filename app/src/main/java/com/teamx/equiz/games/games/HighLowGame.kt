@@ -1,9 +1,19 @@
 package com.teamx.equiz.games.games
 
+import android.content.Context
+import android.os.Build
 import android.os.CountDownTimer
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.util.Log
+import androidx.annotation.RequiresApi
+import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.MutableTransitionState
+import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.keyframes
+import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.Image
@@ -42,6 +52,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat.getSystemService
 import com.teamx.equiz.R
 import com.teamx.equiz.games.games.learningy.musiclearning.correctSound
 import com.teamx.equiz.games.games.learningy.musiclearning.incorrectSound
@@ -54,6 +65,7 @@ import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Preview
 @Composable
 fun HighOrLowGameScreen(content: @Composable () -> Unit = {}, onContinueClicked: () -> Unit = {}) {
@@ -72,6 +84,7 @@ var rightGameAnswersHigh = 0
 var totalGameAnswersHigh = 0
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun HighLowComponent(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit) {
 
@@ -121,11 +134,12 @@ fun HighLowComponent(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
         }
 
 
-    } else {
+    }
+    else {
         var swipeStateX by remember { mutableStateOf(false) }
 
-        var previousNumber by remember { mutableStateOf(Random.nextInt(0, 100)) }
-        var showNumber by remember { mutableStateOf(Random.nextInt(0, 100)) }
+        var previousNumber by remember { mutableStateOf(Random.nextInt(1, 100)) }
+        var showNumber by remember { mutableStateOf(Random.nextInt(1, 100)) }
         var valuesTranslation by remember {
             mutableStateOf(
                 590f
@@ -143,6 +157,29 @@ fun HighLowComponent(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
         val transitionState = remember { MutableTransitionState(false) }
         val transition = updateTransition(transitionState, "cardTransition")
 
+        val context = LocalContext.current
+
+        val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+
+        var shakeOffset by remember { mutableStateOf(0f) }
+
+        val infiniteTransition = rememberInfiniteTransition()
+
+        val animatedShakeOffset = infiniteTransition.animateFloat(
+            initialValue = 0f,
+            targetValue = 10f,
+            animationSpec = infiniteRepeatable(
+                animation = tween(
+                    durationMillis = 100,
+                    easing = LinearEasing
+                ),
+                repeatMode = RepeatMode.Restart
+            ), label = ""
+        )
+
+//        shakeOffset = animatedShakeOffset.value
+
+        Log.d("fadeValuesd", "if: ${fadeValue}")
 
         val offsetTransitionY by transition.animateFloat(label = "cardOffsetTransition",
             transitionSpec = { tween(durationMillis = 500) },
@@ -202,7 +239,8 @@ fun HighLowComponent(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
                                     -offsetTransitionY.dp
                                 }
                             } else {
-                                0.dp
+                                shakeOffset.dp
+//                                0.dp
                             }, y = if (transitionState.targetState) {
                                 if (randomInt == 1) {
                                     offsetTransitionY.dp
@@ -210,10 +248,9 @@ fun HighLowComponent(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
                                     -offsetTransitionY.dp
                                 }
                             } else {
-                                0.dp
+                                shakeOffset.dp
+//                                0.dp
                             }
-
-
                         )
                         .pointerInput(Unit) {
                             detectDragGestures(
@@ -222,19 +259,19 @@ fun HighLowComponent(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
                                         incorrectSound(context)
                                     }
                                     totalGameAnswersHigh++
+
                                 }
                             ) { change, dragAmount ->
 
+//                                Log.d("rightGameAnswersHigh", "HighLowComponent Y: ${dragAmount.y}")
+//                                Log.d("rightGameAnswersHigh", "HighLowComponent X: ${dragAmount.x}")
                                 when {
 
                                     previousNumber <= showNumber && (dragAmount.y <= -2.0 && dragAmount.y < 0) && randomInt == 2 -> {
 
                                         if (dragged) {
                                             dragged = false
-                                            Log.d(
-                                                "123123",
-                                                "MyCardUP: ${dragAmount.y} $swipeStateX"
-                                            )
+
                                             transitionState.targetState = true
                                             i23 = 1
 
@@ -243,6 +280,7 @@ fun HighLowComponent(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
                                                 dragged = true
                                             }
                                             rightGameAnswersHigh++
+//                                            Log.d("rightGameAnswersHigh", "HighLowComponent 1st: $rightGameAnswersHigh tota; $totalGameAnswersHigh")
                                             correctSound(context)
 
                                         }
@@ -252,10 +290,7 @@ fun HighLowComponent(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
 
                                         if (dragged) {
                                             dragged = false
-                                            Log.d(
-                                                "123123",
-                                                "MyCardDOWN:${dragAmount.y} $swipeStateX"
-                                            )
+
                                             transitionState.targetState = true
                                             i23 = 1
                                             GlobalScope.launch {
@@ -263,18 +298,26 @@ fun HighLowComponent(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
                                                 dragged = true
                                             }
                                             rightGameAnswersHigh++
+//                                            Log.d("rightGameAnswersHigh", "HighLowComponent 2nd: $rightGameAnswersHigh tota; $totalGameAnswersHigh")
                                             correctSound(context)
                                         }
                                     }
 
                                     (dragAmount.y >= 2.0 && randomInt == 2) && dragged -> {
-//                                        totalGameAnswersHigh++
+                                         Log.d("rightGameAnswersHigh", "HighLowComponent: if working")
+                                        transitionState.targetState = false
+                                        shakeOffset = animatedShakeOffset.value
+                                        vibrator.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE))
                                     }
 
                                     (dragAmount.y <= -2.0 && randomInt == 1) && dragged -> {
 
-//                                        totalGameAnswersHigh++
+                                        Log.d("rightGameAnswersHigh", "HighLowComponent: else working")
+                                        transitionState.targetState = false
+                                        shakeOffset = animatedShakeOffset.value
+                                        vibrator.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE))
                                     }
+
 
                                 }
                             }
@@ -376,6 +419,7 @@ fun HighLowComponent(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
 }
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Preview
 @Composable
 fun HighLowGame() {

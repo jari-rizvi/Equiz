@@ -51,6 +51,7 @@ import com.teamx.equiz.R
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import com.teamx.equiz.games.utils.RainGameObject
+import ir.kaaveh.sdpcompose.sdp
 import kotlinx.coroutines.GlobalScope
 
 fun LazyListState.isScrolledToEnd() =
@@ -267,21 +268,22 @@ fun rainFallDrops() {
     }
     Column(
         modifier = Modifier
-            .fillMaxSize()
-             ,
-        horizontalAlignment = Alignment.CenterHorizontally,
+            .fillMaxSize(),
         verticalArrangement = Arrangement.Bottom
 
     ) {
         Row(
-            modifier = Modifier/*.fillMaxSize(*//*1f*//*)*/,
-            horizontalArrangement = Arrangement.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+            ,
+            horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.Top
         ) {
 
 
             Column(
-                modifier = Modifier,
+                modifier = Modifier
+                    .width(140.sdp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Bottom
             ) {
@@ -291,11 +293,10 @@ fun rainFallDrops() {
 //            columns = StaggeredGridCells.Adaptive(122.dp),
                     userScrollEnabled = false,
                     modifier = Modifier
-                        .width(150.dp)
-                        .heightIn(500.dp, max = 680.dp)
-
+                        .width(150.sdp)
+                        .heightIn(500.sdp, max = 680.sdp)
                         .clickable(enabled = false, null, null, {}),
-                    contentPadding = PaddingValues(16.dp),
+                    contentPadding = PaddingValues(20.sdp),
 //            horizontalArrangement = Arrangement.spacedBy(86.dp),
                     state = leftScrollState
 //        verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -305,6 +306,8 @@ fun rainFallDrops() {
 
                         AnimatedVisibility(
                             visible = !deletedLeftList.contains(item),
+                            modifier = Modifier
+                                .width(140.sdp),
                             enter = expandVertically(),
                             exit = shrinkVertically(animationSpec = tween(durationMillis = 1000))
                         ) {
@@ -316,7 +319,8 @@ fun rainFallDrops() {
             }
 
             Column(
-                modifier = Modifier/*.fillMaxHeight(0.9f)*/,
+                modifier = Modifier
+                    .width(140.sdp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Bottom
             ) {
@@ -326,10 +330,10 @@ fun rainFallDrops() {
 //            columns = StaggeredGridCells.Adaptive(122.dp),
                     userScrollEnabled = false,
                     modifier = Modifier
-                        .width(150.dp)
-                        .heightIn(500.dp, max = 680.dp)
+                        .width(150.sdp)
+                        .heightIn(500.sdp, max = 680.sdp)
                         .clickable(enabled = false, null, null, {}),
-                    contentPadding = PaddingValues(16.dp),
+                    contentPadding = PaddingValues(16.sdp),
 //            horizontalArrangement = Arrangement.spacedBy(86.dp),
                     state = rightScrollState2
 //        verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -338,6 +342,8 @@ fun rainFallDrops() {
 
                         AnimatedVisibility(
                             visible = !deletedRightList.contains(item),
+                            modifier = Modifier
+                                .width(140.sdp),
                             enter = expandVertically(),
                             exit = shrinkVertically(animationSpec = tween(durationMillis = 1000))
                         ) {
@@ -347,19 +353,21 @@ fun rainFallDrops() {
                 }
             }
         }
+
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(100.dp),
+                .height(100.sdp),
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
 
-
             Box(
                 modifier = Modifier
+                    .height(130.sdp)
+                    .width(130.sdp)
                     .background(Color.Transparent)
-                    .height(130.dp)
                     .clickable {
                         wrongGameAnswersRain++
                         boolOption = true
@@ -372,34 +380,29 @@ fun rainFallDrops() {
                             deletedLeftList.add(leftBoxes[iu])
                             deletedRightList.add(rightBoxes[iu2])
                         } else if (leftBoxes[iu].gameObject == RainGameObject.BLANK && rightBoxes[iu2].gameObject == RainGameObject.THUNDER) {
-//                        return@Button
                             rightGameAnswersRain++
                             deletedLeftList.add(leftBoxes[iu])
                             deletedRightList.add(rightBoxes[iu2])
                         } else {
                             leftIndexCounter--
                             rightIndexCounter--
-//                        return@Button
-//                    score--
                         }
 
                     }, contentAlignment = Alignment.Center
             ) {
-
-
                 Image(
+                    modifier = Modifier.size(130.sdp),
                     painter = painterResource(id = checkDrawableRain(boolOption)),
-                    contentDescription = null,
-                    modifier = Modifier.size(130.dp)
+                    contentDescription = ""
 
                 )
             }
 
             Box(
                 modifier = Modifier
+                    .height(130.sdp)
+                    .width(130.sdp)
                     .background(Color.Transparent)
-
-                    .height(130.dp)
                     .clickable {
                         wrongGameAnswersRain++
                         boolOption = false
@@ -413,12 +416,10 @@ fun rainFallDrops() {
                             deletedLeftList.add(leftBoxes[iu])
                             deletedRightList.add(rightBoxes[iu2])
                         } else if (rightBoxes[iu2].gameObject == RainGameObject.BLANK && leftBoxes[iu].gameObject == RainGameObject.THUNDER) {
-//                    return@Button
                             rightGameAnswersRain++
                             deletedLeftList.add(leftBoxes[iu])
                             deletedRightList.add(rightBoxes[iu2])
                         } else {
-//                    score--
                             leftIndexCounter--
                             rightIndexCounter--
                         }
@@ -426,14 +427,14 @@ fun rainFallDrops() {
                     }, contentAlignment = Alignment.Center
             ) {
                 Image(
+                    modifier = Modifier.size(130.sdp),
                     painter = painterResource(id = checkDrawableRain(!boolOption)),
-                    contentDescription = null,
-                    modifier = Modifier.size(130.dp)
+                    contentDescription = ""
 
                 )
             }
         }
-        Spacer(modifier = Modifier.size(65.dp))
+        Spacer(modifier = Modifier.size(65.sdp))
 //        Text(text = "$score")
     }/* LaunchedEffect(endOfListReached) {
          // do your stuff
@@ -463,7 +464,7 @@ fun drop(item: RainListItem, onClick: () -> Unit) {
         Image(
             painter = painterResource(id = checkStringReturnDrawable(item.gameObject)),
             contentDescription = null,
-            modifier = Modifier.size(150.dp)
+            modifier = Modifier.size(130.sdp)
         )
     }
 }
