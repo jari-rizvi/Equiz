@@ -339,19 +339,23 @@ fun QuickCardCalculationGameScreen(content: () -> Unit) {
                                         .width(70.dp)
                                         .height(110.dp)
                                         .clickable(enabled = true) {
-                                            totalGameAnswersQuickEye++
-                                            if (checkQuickAnswer(
-                                                    quickAnswer.toString(),
-                                                    it.value.toString()
-                                                )
-                                            ) {
-                                                rightGameAnswersQuickEye++
-                                                correctSound(context)
-                                                changeable = true
-                                                gameStarted = false
-                                            } else {
-                                                incorrectSound(context)
-                                            }
+                                            if (it.value.toString() != "0") {
+                                                    totalGameAnswersQuickEye++
+                                                    if (checkQuickAnswer(
+                                                            quickAnswer.toString(),
+                                                            it.value.toString()
+                                                        )
+                                                    ) {
+                                                        rightGameAnswersQuickEye++
+                                                        correctSound(context)
+                                                        changeable = true
+                                                        gameStarted = false
+                                                    } else {
+                                                        incorrectSound(context)
+                                                    }
+                                                }
+                                           
+
 
                                         },
                                     contentAlignment = Alignment.Center

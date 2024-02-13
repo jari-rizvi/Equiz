@@ -42,6 +42,7 @@ import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
 import com.teamx.equiz.games.games.learningy.LockScreenOrientation
 import com.teamx.equiz.games.games.learningy.musiclearning.correctSound
+import com.teamx.equiz.games.games.learningy.musiclearning.incorrectSound
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import com.teamx.equiz.ui.theme.BirdColor3
@@ -102,7 +103,9 @@ fun AdditionAddictionGameMethod(content: (boolean: Boolean, rightAnswer: Int, to
         TimeUpDialogCompose() { i ->
             if (i) {
                 isGameOver = true
-
+                Log.d("000000", "TotalQuestion ${totalGameAnswersAddition}")
+                Log.d("11111", "TotalQRight ${rightGameAnswersAddition}")
+                Log.d("22222", "minus ${totalGameAnswersAddition - rightGameAnswersAddition}")
             } else {
                 content(false, rightGameAnswersAddition, (totalGameAnswersAddition))
             }
@@ -181,84 +184,76 @@ fun AddictGame() {
         randNumber = Random.nextInt(1, 10)
         linkListAddict67.clear()
         linkListAddict67Checker.clear()
+
         for (i in 0..maxCount) {
 
             linkListAddict67.push(i)
-
-        }/* for (i in linkListAddict67) {
-             if (Random.nextBoolean()) {
-                 linkListAddict67Checker.push(i)
-             }
-         }*/
-
-        Log.d("123123", "AscendingObjects:AddictGameabbbbbb $linkListAddict67")
-
-        Log.d("123123", "AscendingObjects:AddictGame ${linkListAddict67.size}")
-        ///
-
-        changable = false
-        Box(
-            modifier = Modifier
-                .padding(16.dp)
-                .fillMaxSize(), contentAlignment = Alignment.Center
-        ) {
-            Column(
-                modifier = Modifier
-                    .wrapContentSize()
-                    .padding(6.dp),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-
-            ) {
-                Text(
-                    modifier = Modifier,
-                    text = randNumber.toString(),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = Color.Black,
-                    fontSize = 60.sp,
-                    fontWeight = FontWeight.ExtraBold,
-                    textAlign = TextAlign.Center
-                )
-
-                Column(
-                    modifier = Modifier
-                        .wrapContentSize()
-                        .padding(6.dp),
-                    verticalArrangement = Arrangement.Center
-
-                ) {
-                    repeat(2) { row ->
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.Center
-                        ) {
-                            repeat(3) { column ->
-                                val index = row * 3 + column
-                                Log.d("123123", "AddictGame:$index ")/*counter*/
-                                AddictObject67(index, randNumber, Color.White) {
-//                                temp.remove(it)
-//                            temp.pop()
-//                                linkListAddict67Checker /*= temp*/
-                                    changable = it
-
-                                    Log.d(
-                                        "123123",
-                                        "AscendingObjects:AddictGame $linkListAddict67Checker"
-                                    )
-                                }
-                            }
-                        }
-                    }
-                    LaunchedEffect(Unit) {
-                        delay(1300)
-                        gameStarted = false
-                        changable = true
-                    }
-                }
-            }
-        }
     }
 
+        linkListAddict67.shuffle()
+
+        changable = false
+//        Box(
+//            modifier = Modifier
+//                .padding(16.dp)
+//                .fillMaxSize(), contentAlignment = Alignment.Center
+//        ) {
+//            Column(
+//                modifier = Modifier
+//                    .wrapContentSize()
+//                    .padding(6.dp),
+//                verticalArrangement = Arrangement.Center,
+//                horizontalAlignment = Alignment.CenterHorizontally
+//
+//            ) {
+//                Text(
+//                    modifier = Modifier,
+//                    text = randNumber.toString(),
+//                    style = MaterialTheme.typography.bodySmall,
+//                    color = Color.Black,
+//                    fontSize = 60.sp,
+//                    fontWeight = FontWeight.ExtraBold,
+//                    textAlign = TextAlign.Center
+//                )
+//
+//                Column(
+//                    modifier = Modifier
+//                        .wrapContentSize()
+//                        .padding(6.dp),
+//                    verticalArrangement = Arrangement.Center
+//
+//                ) {
+//                    repeat(2) { row ->
+//                        Row(
+//                            modifier = Modifier.fillMaxWidth(),
+//                            horizontalArrangement = Arrangement.Center
+//                        ) {
+//                            repeat(3) { column ->
+//
+//                                //Log.d("123123", "AddictGame:$index ")/*counter*/
+//                                AddictObject67(0, randNumber, Color.White) {
+////                                temp.remove(it)
+////                            temp.pop()
+////                                linkListAddict67Checker /*= temp*/
+//                                    changable = it
+//
+//                                    Log.d(
+//                                        "123123",
+//                                        "AscendingObjects:AddictGame $linkListAddict67Checker"
+//                                    )
+//                                }
+//                            }
+//                        }
+//                    }
+//                    LaunchedEffect(Unit) {
+//                        delay(1300)
+//                        gameStarted = false
+//                        changable = true
+//                    }
+//                }
+//            }
+//        }
+    }
 
 
     Box(
@@ -306,16 +301,33 @@ fun AddictGame() {
                     ) {
                         repeat(3) { column ->
                             val index = row * 3 + column
-                            Log.d("123123", "AddictGame:$index ")/*counter*/
-                            AddictObject67(index, randNumber, Color.White) {
+
+                            val item =
+                                linkListAddict67.getOrNull(index) // Get item at current index
+                            item?.let {
+                                Log.d("123123", "AddictGame:$index ")/*counter*/
+                                AddictObject67(index,item, randNumber, Color.White) {
 //                                temp.remove(it)
 //                            temp.pop()
 //                                linkListAddict67Checker /*= temp*/
-                                changable = it
+                                    changable = it
 
-                                Log.d(
-                                    "123123", "AscendingObjects:AddictGame $linkListAddict67Checker"
-                                )
+
+                                    if (!changable) {
+
+                                        randNumber = Random.nextInt(1, 10)
+                                        linkListAddict67.clear()
+                                        linkListAddict67Checker.clear()
+                                        for (i in 0..maxCount) {
+
+                                            linkListAddict67.push(i)
+                                        }
+                                        linkListAddict67.shuffle()
+                                        linkListAddict67.shuffle()
+                                        changable = false
+                                    }
+
+                                }
                             }
                         }
                     }
@@ -332,6 +344,7 @@ fun AddictGame() {
 
 @Composable
 fun AddictObject67(
+    index:Int,
     number: Int,
     randomNum: Int,
     colorState1: Color,
@@ -354,61 +367,102 @@ val context  = LocalContext.current
                 }, shape = RoundedCornerShape(16.dp)
             )
             .clip(RoundedCornerShape(6.dp))
+            .clickable {
+               if (linkListAddict67Checker.contains(number)){
 
-            .clickable(
-                enabled = linkListAddict67Checker.contains(number) || true
-            ) {
-                totalGameAnswersAddition++
-                if (/*colorState == Color.White &&*/ !linkListAddict67Checker.contains(number)) {
-                    colorState = BirdColor4
-                    colorStateTxt = Color.White
-                    linkListAddict67Checker.push(number)
-                    val too =
-                        if (linkListAddict67Checker.size <= linkListAddict67.size && randomNum == linkListAddict67Checker.sum()) {
-                            Log.d("123123", "AddictGame:Right ${linkListAddict67Checker.sum()}")
-
-//                            colorStateTxt = BirdColor3
-//                            colorState = Color.White
-                            rightGameAnswersAddition++
-                            correctSound(context)
-                            true
-                        } else {
-
-                            Log.d("123123", "AddictGame:Wrong ${linkListAddict67Checker.sum()}")
-                            false
-                        }
-
-                    onClick(too)
-
-
-                    Log.d("123123", "AnimatedObject2:$number ::$number ")
-                    return@clickable
-                } else if (linkListAddict67Checker.contains(number)) {
                     linkListAddict67Checker.remove(number)
-//                    colorState = Color.White
-                    colorState = Color.White
                     colorStateTxt = BirdColor3
-                    val too =
-                        if (linkListAddict67Checker.size <= linkListAddict67.size && randomNum == linkListAddict67Checker.sum()) {
-                            Log.d("123123", "AddictGame:Right ${linkListAddict67Checker.sum()}")
+                    colorState = Color.White
 
+                }else{
+                    if (linkListAddict67Checker.size < linkListAddict67.size && linkListAddict67Checker.sum() < randomNum){
+                        linkListAddict67Checker.push(number)
+                        colorState = BirdColor4
+                        colorStateTxt = Color.White
+                        if (linkListAddict67Checker.sum() != 0 && linkListAddict67Checker.sum() ==  randomNum){
 //                            colorStateTxt = BirdColor3
 //                            colorState = Color.White
+                            totalGameAnswersAddition++
                             rightGameAnswersAddition++
                             correctSound(context)
-                            true
-                        } else {
-//                            totalGameAnswersAddition++
-                            Log.d("123123", "AddictGame:Wrong ${linkListAddict67Checker.sum()}")
-                            false
+                           onClick(true)
                         }
+                        else{
+                            if (linkListAddict67Checker.sum() > randomNum){
+                                totalGameAnswersAddition++
+                                incorrectSound(context)
+                                onClick(false)
+                            }
 
-                    onClick(too)
-                    Log.d("123123", "AnimatedObject1:$number ::$number ")
-                } else {
-                    Log.d("123123", "AnimatedObject2:$number ::$number ")
+                        }
+                    }
+
+                    else{
+                        totalGameAnswersAddition++
+                        incorrectSound(context)
+                        onClick(false)
+
+                    }
                 }
-            }, contentAlignment = Alignment.Center
+
+
+
+            }
+//            .clickable(
+//                enabled = linkListAddict67Checker.contains(number) || true
+//            ) {
+//                totalGameAnswersAddition++
+//                if (/*colorState == Color.White &&*/ !linkListAddict67Checker.contains(number)) {
+//                    colorState = BirdColor4
+//                    colorStateTxt = Color.White
+//                    linkListAddict67Checker.push(number)
+//                    val too =
+//                        if (linkListAddict67Checker.size <= linkListAddict67.size && randomNum == linkListAddict67Checker.sum()) {
+//                            Log.d("123123", "AddictGame:Right ${linkListAddict67Checker.sum()}")
+//
+////                            colorStateTxt = BirdColor3
+////                            colorState = Color.White
+//                            rightGameAnswersAddition++
+//                            correctSound(context)
+//                            true
+//                        } else {
+//
+//                            Log.d("123123", "AddictGame:Wrong ${linkListAddict67Checker.sum()}")
+//                            false
+//                        }
+//
+//                    onClick(too)
+//
+//
+//                    Log.d("123123", "AnimatedObject2:$number ::$number ")
+//                    return@clickable
+//                } else if (linkListAddict67Checker.contains(number)) {
+//                    linkListAddict67Checker.remove(number)
+////                    colorState = Color.White
+//                    colorState = Color.White
+//                    colorStateTxt = BirdColor3
+//                    val too =
+//                        if (linkListAddict67Checker.size <= linkListAddict67.size && randomNum == linkListAddict67Checker.sum()) {
+//                            Log.d("123123", "AddictGame:Right ${linkListAddict67Checker.sum()}")
+//
+////                            colorStateTxt = BirdColor3
+////                            colorState = Color.White
+//                            rightGameAnswersAddition++
+//                            correctSound(context)
+//                            true
+//                        } else {
+////                            totalGameAnswersAddition++
+//                            Log.d("123123", "AddictGame:Wrong ${linkListAddict67Checker.sum()}")
+//                            false
+//                        }
+//
+//                    onClick(too)
+//                    Log.d("123123", "AnimatedObject1:$number ::$number ")
+//                } else {
+//                    Log.d("123123", "AnimatedObject2:$number ::$number ")
+//                }
+//            }
+        , contentAlignment = Alignment.Center
 
     ) {
         Column {
