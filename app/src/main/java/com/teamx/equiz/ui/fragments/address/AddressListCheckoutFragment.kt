@@ -95,6 +95,9 @@ class AddressListCheckoutFragment : BaseFragment<FragmentAddressListBinding, Add
                                 addressArrayList.add(it)
                             }
                             addressAdapter.notifyDataSetChanged()
+                            addressArrayList[0].phoneNumber
+                            Log.d("TAG", "addressArray: ${addressArrayList[0].phoneNumber}")
+                            addressAdapter.notifyDataSetChanged()
 
                         }
                     }

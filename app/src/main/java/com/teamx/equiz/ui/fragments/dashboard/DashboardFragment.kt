@@ -90,8 +90,6 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             findNavController().popBackStack()
         }
 
-
-
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {
@@ -115,6 +113,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
             findNavController().navigate(R.id.settingsFragment, bundle, options)
         }
+
         mViewDataBinding.tvCoins.setOnClickListener {
             if (NetworkCallPoints.TOKENER.isNullOrEmpty() || NetworkCallPoints.TOKENER.equals(
                     "null",

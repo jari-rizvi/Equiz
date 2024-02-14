@@ -30,7 +30,6 @@ class CombinedGameResultFragment :
 
     private lateinit var options: NavOptions
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         options = navOptions {

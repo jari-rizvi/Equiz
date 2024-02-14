@@ -180,11 +180,11 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> :
         }
     }
 */
+
 var dialog: Dialog? = null
     override fun onToSignUpPage() {
         if (isAdded) {
             Log.d("123123", "onToSignUpPage: ")
-
 
             if (dialog == null) {
                 dialog = DialogHelperClass.signUpLoginDialog(requireContext(), this@BaseFragment)

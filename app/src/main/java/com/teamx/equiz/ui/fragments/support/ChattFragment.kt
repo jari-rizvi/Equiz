@@ -37,7 +37,6 @@ class ChattFragment : BaseFragment<FragmentChatBinding, SubscriptionViewModel>()
 
     private lateinit var options: NavOptions
 
-
     @SuppressLint("SetJavaScriptEnabled")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
          super.onViewCreated(view, savedInstanceState)

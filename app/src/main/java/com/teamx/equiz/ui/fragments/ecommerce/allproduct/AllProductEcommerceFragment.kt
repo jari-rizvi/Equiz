@@ -40,8 +40,6 @@ class AllProductEcommerceFragment :
     override val bindingVariable: Int
         get() = BR.viewModel
 
-
-
     private lateinit var options: NavOptions
 
     lateinit var productAdapter: ProductAdapter
@@ -64,13 +62,9 @@ class AllProductEcommerceFragment :
             }
         }
 
-
-
-
         mViewDataBinding.btnback.setOnClickListener {
             findNavController().popBackStack()
         }
-
 
         mViewModel.getProducts()
 
@@ -92,10 +86,7 @@ class AllProductEcommerceFragment :
                             data.data.forEach {
                                 productAdapter.arrayList.add(it)
                                 Log.d("TAG", "onViewCreated1212121212: $it")
-
                             }
-
-
                         }
 
                         mViewDataBinding.popularRecycler.adapter = productAdapter
@@ -114,11 +105,6 @@ class AllProductEcommerceFragment :
                 }
             }
         }
-
-
-
-
-
 
 
         if (!mViewModel.addtowishlistResponse.hasActiveObservers()) {

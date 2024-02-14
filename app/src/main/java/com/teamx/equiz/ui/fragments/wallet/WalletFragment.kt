@@ -2,31 +2,43 @@ package com.teamx.equiz.ui.fragments.wallet
 
 
 import android.annotation.SuppressLint
+import android.app.DatePickerDialog
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.TextView
+import androidx.activity.addCallback
+import androidx.annotation.RequiresApi
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
+import com.teamx.equiz.data.models.getwalletData.Transaction
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentWalletBinding
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
-import androidx.activity.addCallback
-import androidx.annotation.RequiresApi
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.teamx.equiz.data.models.getwalletData.Transaction
+import androidx.core.util.Pair;
+
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.play.integrity.internal.t
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar
+import java.util.Date;
+import java.util.Locale;
 
 @AndroidEntryPoint
-class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
+class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>(),DialogHelperClass.Companion.DialogDateCallBack {
 
     override val layoutId: Int
-        get() = R.layout.fragment_wallet
+        get() = com.teamx.equiz.R.layout.fragment_wallet
     override val viewModel: Class<WalletViewModel>
         get() = WalletViewModel::class.java
     override val bindingVariable: Int
@@ -35,6 +47,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
     lateinit var walletAdapter: WalletAdapter
     lateinit var walletArrayList: ArrayList<Transaction>
     private lateinit var options: NavOptions
+    var cal = Calendar.getInstance()
 
     @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
@@ -47,17 +60,17 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
 
         options = navOptions {
             anim {
-                enter = R.anim.enter_from_left
-                exit = R.anim.exit_to_left
-                popEnter = R.anim.nav_default_pop_enter_anim
-                popExit = R.anim.nav_default_pop_exit_anim
+                enter = com.teamx.equiz.R.anim.enter_from_left
+                exit = com.teamx.equiz.R.anim.exit_to_left
+                popEnter = com.teamx.equiz.R.anim.nav_default_pop_enter_anim
+                popExit = com.teamx.equiz.R.anim.nav_default_pop_exit_anim
             }
         }
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
 
         mViewDataBinding.textView9.setOnClickListener {
             findNavController().navigate(
-                R.id.action_walletFragment_to_referralFragment,
+                com.teamx.equiz.R.id.action_walletFragment_to_referralFragment,
                 arguments,
                 options
             )
@@ -65,10 +78,16 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
 
         mViewDataBinding.btnTopUp.setOnClickListener {
             findNavController().navigate(
-                R.id.action_walletFragment_to_topupFragment,
+                com.teamx.equiz.R.id.action_walletFragment_to_topupFragment,
                 arguments,
                 options
             )
+
+        }
+
+
+        mViewDataBinding.btnFilter.setOnClickListener {
+            DialogHelperClass.DatePickerDialog(requireContext(),this,true)
 
         }
 
@@ -164,5 +183,43 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
         mViewDataBinding.walletrecycler.adapter = walletAdapter
 
     }
+
+    override fun startDate(sDate : String) {
+        Log.d("TAG", "endDate: ")
+
+        val dateSetListener =
+            DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                cal.set(Calendar.YEAR, year)
+                cal.set(Calendar.MONTH, monthOfYear)
+                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+            }
+
+        DatePickerDialog(
+            requireContext(), dateSetListener,
+            // set DatePickerDialog to point to today's date when it loads up
+            cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)
+        ).show()
+    }
+
+    override fun endDate(eDate: String) {
+        Log.d("TAG", "endDate: ")
+
+        val dateSetListener =
+            DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                cal.set(Calendar.YEAR, year)
+                cal.set(Calendar.MONTH, monthOfYear)
+                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+//                updateDateInView()
+            }
+
+        DatePickerDialog(
+            requireContext(), dateSetListener,
+            // set DatePickerDialog to point to today's date when it loads up
+            cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)
+        ).show()
+    }
+
+
 
 }

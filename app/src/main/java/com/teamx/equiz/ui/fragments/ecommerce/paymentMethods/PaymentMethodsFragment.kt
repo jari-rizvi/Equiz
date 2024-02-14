@@ -54,7 +54,6 @@ class PaymentMethodsFragment :
 
         w_points = PrefHelper.getInstance(requireContext()).setWalletAmount.toString()
 
-
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
         var bundle = arguments
         if (bundle == null) {

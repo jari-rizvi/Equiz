@@ -51,6 +51,11 @@ class DialogHelperClass {
             fun Topup()
         }
 
+        interface DialogDateCallBack {
+            fun startDate(sDate : String)
+            fun endDate(eDate : String)
+        }
+
         interface OrderCompleteCallBack {
             fun InviteClicked()
         }
@@ -129,6 +134,31 @@ class DialogHelperClass {
                 } else {
                 }
                 dialog.dismiss()
+            }
+
+            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.show()
+        }
+
+        fun DatePickerDialog(
+            context: Context, dateCallBack: DialogDateCallBack, boo: Boolean
+        ) {
+            val dialog = Dialog(context)
+            dialog.setContentView(R.layout.date_dialog)
+            dialog.window!!.setLayout(
+                WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT
+            )
+
+
+            val startdate = dialog.findViewById<TextView>(R.id.startdob)
+            val enddate = dialog.findViewById<TextView>(R.id.enddob)
+
+            startdate.setOnClickListener {
+                dateCallBack.startDate(startdate.text.toString())
+
+            }
+            enddate.setOnClickListener {
+                    dateCallBack.endDate(enddate.text.toString())
             }
 
             dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))

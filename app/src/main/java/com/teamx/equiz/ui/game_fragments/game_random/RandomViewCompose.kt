@@ -46,8 +46,6 @@ import com.teamx.equiz.ui.fragments.dashboard.GamesUID2
 import kotlinx.coroutines.delay
 import kotlin.concurrent.fixedRateTimer
 import kotlin.random.Random
-
-
 @Preview
 @Composable
 fun RandomViewCompose(roundName: String="", onClick: (position: String) -> Unit = {}) {
