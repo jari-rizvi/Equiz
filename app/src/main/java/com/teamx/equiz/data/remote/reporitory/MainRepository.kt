@@ -124,5 +124,11 @@ class MainRepository @Inject constructor(
         @Body params: JsonObject,
     ) = apiService.updateAddress(params)
 
+    suspend fun getTransData(
+        @Query("startDate") startDate: String?,
+        @Query("endDate") endDate: String?
+    ) = apiService.getTransData(startDate, endDate)
+
+
 
 }

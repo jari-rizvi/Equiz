@@ -50,6 +50,7 @@ import com.teamx.equiz.ui.fragments.singlequize.model.SingleQuizData
 import com.teamx.equiz.ui.fragments.subscription.data.SubData
 import com.teamx.equiz.ui.fragments.topup.data.TopUpModelData
 import okhttp3.MultipartBody
+import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -61,6 +62,8 @@ import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
+import java.io.ByteArrayInputStream
+import java.io.InputStream
 
 interface ApiService {
 
@@ -416,6 +419,11 @@ interface ApiService {
         @Body params: JsonObject?,
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<GetAddressById>
-
+    @GET(NetworkCallPoints.GET_WALLET_TRANSACTION)
+    suspend fun getTransData(
+        @Query("startDate") startDate: String?,
+        @Query("endDate") endDate: String?,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<ResponseBody>
 
 }

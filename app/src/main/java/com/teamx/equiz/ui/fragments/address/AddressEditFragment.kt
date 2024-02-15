@@ -186,6 +186,7 @@ class   AddressEditFragment : BaseFragment<FragmentEditAddressBinding, AddressVi
             }
 
             mViewModel.updateAddress(params)
+
             if (!mViewModel.updateAddressResponse.hasActiveObservers()) {
                 mViewModel.updateAddressResponse.observe(requireActivity()) {
                     when (it.status) {

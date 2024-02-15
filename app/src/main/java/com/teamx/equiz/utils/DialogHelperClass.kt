@@ -52,8 +52,9 @@ class DialogHelperClass {
         }
 
         interface DialogDateCallBack {
-            fun startDate(sDate : String)
-            fun endDate(eDate : String)
+            fun startDate(sDate: String)
+            fun endDate(eDate: String)
+            fun btncnfrm(sDate: String, eDate: String)
         }
 
         interface OrderCompleteCallBack {
@@ -134,31 +135,6 @@ class DialogHelperClass {
                 } else {
                 }
                 dialog.dismiss()
-            }
-
-            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            dialog.show()
-        }
-
-        fun DatePickerDialog(
-            context: Context, dateCallBack: DialogDateCallBack, boo: Boolean
-        ) {
-            val dialog = Dialog(context)
-            dialog.setContentView(R.layout.date_dialog)
-            dialog.window!!.setLayout(
-                WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT
-            )
-
-
-            val startdate = dialog.findViewById<TextView>(R.id.startdob)
-            val enddate = dialog.findViewById<TextView>(R.id.enddob)
-
-            startdate.setOnClickListener {
-                dateCallBack.startDate(startdate.text.toString())
-
-            }
-            enddate.setOnClickListener {
-                    dateCallBack.endDate(enddate.text.toString())
             }
 
             dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -996,8 +972,83 @@ class DialogHelperClass {
             return dialog
         }
 
+        @SuppressLint("SetTextI18n")
+        fun DatePickerDialog(
+            context: Context, dateCallBack: DialogDateCallBack, datess: Datess
+        ): Dialog {
+            val dialog = Dialog(context)
+            dialog.setContentView(R.layout.date_dialog)
+            dialog.window!!.setLayout(
+                WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT
+            )
+            dialog.setCancelable(false)
+
+            val startdate = dialog.findViewById<TextView>(R.id.startdob)
+            val enddate = dialog.findViewById<TextView>(R.id.enddob)
+            val btn = dialog.findViewById<TextView>(R.id.btnCnfirm)
+
+
+            startdate.text = datess.sDate
+            enddate.text = datess.eDate
+
+            startdate.setOnClickListener {
+                dateCallBack.startDate(startdate.text.toString())
+
+            }
+            enddate.setOnClickListener {
+                dateCallBack.endDate(enddate.text.toString())
+            }
+
+            btn.setOnClickListener {
+                dateCallBack.btncnfrm(startdate.text.toString(), enddate.text.toString())
+            }
+
+
+            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+            return dialog
+        }
+
+
+        /*  fun DatePickerDialog(
+              context: Context, dateCallBack: DialogDateCallBack, datess: Datess
+          ) {
+              val dialog = Dialog(context)
+              dialog.setContentView(R.layout.date_dialog)
+              dialog.window!!.setLayout(
+                  WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT
+              )
+
+
+
+
+              val startdate = dialog.findViewById<TextView>(R.id.startdob)
+              val enddate = dialog.findViewById<TextView>(R.id.enddob)
+              val btn = dialog.findViewById<TextView>(R.id.btnCnfirm)
+
+
+              startdate.text = datess.sDate
+              enddate.text = datess.eDate
+
+              startdate.setOnClickListener {
+                  dateCallBack.startDate(startdate.text.toString())
+
+              }
+              enddate.setOnClickListener {
+                  dateCallBack.endDate(enddate.text.toString())
+              }
+
+              btn.setOnClickListener {
+                  dateCallBack.btncnfrm(startdate.text.toString(),enddate.text.toString())
+              }
+
+              dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+              dialog.show()
+          }*/
 
     }
 
 
 }
+
+data class Datess(var sDate: String, var eDate: String)

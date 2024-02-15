@@ -81,6 +81,7 @@ class NetworkCallPoints {
         const val DELETE_ADDRESS ="api/users/removeAddress/{addressId}"
         const val GET_ADDRESS_BY_ID ="api/users/findAddessId/{id}"
         const val UPDATE_ADDRESS ="api/users/updateAddress"
+        const val GET_WALLET_TRANSACTION ="api/wallet/getTransaction"
 
 
 

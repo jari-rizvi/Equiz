@@ -41,6 +41,8 @@
             app:layout_constraintTop_toTopOf="parent">
 
 
+
+
             <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:id="@+id/swiperefresh"
                 android:layout_width="match_parent"
@@ -252,6 +254,12 @@
 
 
 
+            <com.github.barteksc.pdfviewer.PDFView
+                android:id="@+id/pdfViewver"
+                android:elevation="@dimen/_10sdp"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
