@@ -48,7 +48,7 @@ class SharedViewModel : BaseViewModel() {
     }
 
 
-    var roundInteger = 0
+    var roundInteger = 1
     var stateOfGameFrags = 0
     var gameName = arrayListOf<String>()
     var gameNameRight = arrayListOf<Double>()

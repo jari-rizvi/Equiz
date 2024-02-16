@@ -65,7 +65,7 @@ fun RandomViewCompose(roundName: String="", onClick: (position: String) -> Unit 
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
-                text = "Round ${roundName.toInt()+1}",
+                text = "Round ${roundName.toInt()}",
                 fontSize = 32.sp,
                 fontWeight = FontWeight.ExtraBold,
                 color = Color.Black

@@ -69,7 +69,7 @@ class RandomGameFragment : BaseFragment<FragmentAddressBinding, RandomGameFragsV
         }
         val roundName = sharedViewModel.roundInteger.toString()
 
-        Log.d("345345", "onViewCreated: $roundName")
+        Log.d("roundInteger", "onViewCreatedds: $roundName")
         composeView.setContent {
             LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             RandomViewCompose(roundName = roundName) { name ->

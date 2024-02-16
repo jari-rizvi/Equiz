@@ -139,17 +139,17 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
 
                 R.id.dashboardFragment -> {
                     mViewDataBinding.bottomNavigationq.setSelectedIndex(0)
-                    mViewDataBinding.bottomNavigationq?.visibility = View.VISIBLE
+                    mViewDataBinding.bottomNavigationq.visibility = View.VISIBLE
 
                 }
                 R.id.ecommerceFragment -> {
                     mViewDataBinding.bottomNavigationq.setSelectedIndex(2)
-                     mViewDataBinding.bottomNavigationq?.visibility = View.VISIBLE
+                     mViewDataBinding.bottomNavigationq.visibility = View.VISIBLE
                 }
 
                 R.id.userStatsFragment -> {
                     mViewDataBinding.bottomNavigationq.setSelectedIndex(1)
-                     mViewDataBinding.bottomNavigationq?.visibility = View.VISIBLE
+                     mViewDataBinding.bottomNavigationq.visibility = View.VISIBLE
                 }
 
                 /*R.id.profileFragment -> {
