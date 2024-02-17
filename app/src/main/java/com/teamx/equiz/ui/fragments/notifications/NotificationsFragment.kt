@@ -1,9 +1,15 @@
 package com.teamx.equiz.ui.fragments.notifications
 
 
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
+import android.widget.Switch
+import android.widget.TextView
 import androidx.navigation.NavOptions
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,7 +30,11 @@ import com.teamx.equiz.ui.fragments.orders.ViewPagerAdapter
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.activity.addCallback
+import androidx.appcompat.widget.SwitchCompat
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.switchmaterial.SwitchMaterial
+import com.google.gson.JsonObject
+import org.json.JSONException
 
 @AndroidEntryPoint
 class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, NotificaitonsViewModel>() {
@@ -42,7 +52,7 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
     lateinit var notificationArrayList: ArrayList<NewNotification>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
@@ -61,7 +71,63 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
             popUpStack()
         }
 
+        mViewDataBinding.btnSetting.setOnClickListener {
+            NotificationDialog().show()
+            mViewModel.getNotificationSetting()
+            if (!mViewModel.getNotificationSettingResponse.hasActiveObservers()) {
+                mViewModel.getNotificationSettingResponse.observe(requireActivity()) {
+                    when (it.status) {
+                        Resource.Status.LOADING -> {
+                            loadingDialog.show()
+                        }
+
+                        Resource.Status.NOTVERIFY -> {
+                            loadingDialog.dismiss()
+                        }
+
+                        Resource.Status.SUCCESS -> {
+                            loadingDialog.dismiss()
+                            it.data?.let { data ->
+
+                                emailSwitch.isChecked = data.data.email
+                                smsSwitch.isChecked = data.data.sms
+                                pushSwitch.isChecked = data.data.push
+
+
+                            }
+                        }
+
+                        Resource.Status.AUTH -> {
+                            loadingDialog.dismiss()
+                            if (isAdded) {
+                                try {
+                                    onToSignUpPage()
+                                } catch (e: Exception) {
+                                    e.printStackTrace()
+                                }
+                            }
+                        }
+
+                        Resource.Status.ERROR -> {
+                            loadingDialog.dismiss()
+                            DialogHelperClass.errorDialog(
+                                requireContext(),
+                                it.message!!
+                            )
+                        }
+                    }
+                    if (isAdded) {
+                        mViewModel.getNotificationSettingResponse.removeObservers(
+                            viewLifecycleOwner
+                        )
+                    }
+                }
+            }
+        }
+
         mViewModel.getNotifications()
+
+
 
         if (!mViewModel.getNotificationsResponse.hasActiveObservers()) {
             mViewModel.getNotificationsResponse.observe(requireActivity()) {
@@ -69,9 +135,11 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
                     Resource.Status.LOADING -> {
                         loadingDialog.show()
                     }
+
                     Resource.Status.NOTVERIFY -> {
                         loadingDialog.dismiss()
                     }
+
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
@@ -90,8 +158,10 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
 
                         }
                     }
-                    Resource.Status.AUTH -> { loadingDialog.dismiss()
-                         if (isAdded) {
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+                        if (isAdded) {
                             try {
                                 onToSignUpPage()
                             } catch (e: Exception) {
@@ -99,6 +169,7 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
                             }
                         }
                     }
+
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
                         DialogHelperClass.errorDialog(
@@ -115,10 +186,8 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
             }
         }
 
-        notificationRecyclerview()
 
-        /*        setupViewPager()
-                setupTabLayout()*/
+        notificationRecyclerview()
 
     }
 
@@ -134,33 +203,115 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
 
     }
 
-
-    /* private fun setupViewPager() {
-         val adapter = ViewPagerAdapter(requireActivity(), 3)
-         mViewDataBinding.viewPagerNotification.adapter = adapter
-     }
-
-     private fun setupTabLayout() {
-         TabLayoutMediator(
-             mViewDataBinding.tabLayout, mViewDataBinding.viewPagerNotification
-         ) { tab, position ->
-
-             when (position) {
-                 0 -> {
-
-                     tab.text = "All"
-                 }
-
-                 1 -> {
-                     tab.text = "Unread"
-                 }
-
-                 2 -> {
-                     tab.text = "Read"
-                 }
-             }
+    lateinit var emailSwitch: SwitchCompat
+    lateinit var pushSwitch: SwitchCompat
+    lateinit var smsSwitch: SwitchCompat
 
 
-         }.attach()
-     }*/
+    var email: Boolean = false
+    var sms: Boolean = false
+    var push: Boolean = false
+
+    fun NotificationDialog(): Dialog {
+        val dialog = Dialog(requireActivity())
+        dialog.setContentView(R.layout.notification_dialog)
+        dialog.window!!.setLayout(
+            WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT
+        )
+        dialog.setCancelable(false)
+
+        emailSwitch = dialog.findViewById(R.id.switchEmail)
+        pushSwitch = dialog.findViewById(R.id.switchPush)
+        smsSwitch = dialog.findViewById(R.id.switchSms)
+        val btn = dialog.findViewById<TextView>(R.id.btnSave)
+
+
+        /* if (emailSwitch.isChecked) {
+             email = true
+         }
+
+         if (pushSwitch.isChecked) {
+             push = true
+         }
+
+         if (smsSwitch.isChecked) {
+             sms = true
+         }*/
+
+
+        btn.setOnClickListener {
+
+            val params = JsonObject()
+            try {
+                params.addProperty("sms", smsSwitch.isChecked)
+                params.addProperty("push", pushSwitch.isChecked)
+                params.addProperty("email", emailSwitch.isChecked)
+            } catch (e: JSONException) {
+                e.printStackTrace()
+
+            }
+
+            mViewModel.updateNotificationSetting(params)
+            if (!mViewModel.updateNotificationSettingResponse.hasActiveObservers()) {
+                mViewModel.updateNotificationSettingResponse.observe(requireActivity()) {
+                    when (it.status) {
+                        Resource.Status.LOADING -> {
+                            loadingDialog.show()
+                        }
+
+                        Resource.Status.NOTVERIFY -> {
+                            loadingDialog.dismiss()
+                        }
+
+                        Resource.Status.SUCCESS -> {
+                            loadingDialog.dismiss()
+                            it.data?.let { data ->
+                                email = data.data.email
+                                push = data.data.push
+                                sms = data.data.sms
+
+                                dialog.dismiss()
+
+
+                            }
+                        }
+
+                        Resource.Status.AUTH -> {
+                            loadingDialog.dismiss()
+                            if (isAdded) {
+                                try {
+                                    onToSignUpPage()
+                                } catch (e: Exception) {
+                                    e.printStackTrace()
+                                }
+                            }
+                        }
+
+                        Resource.Status.ERROR -> {
+                            loadingDialog.dismiss()
+                            DialogHelperClass.errorDialog(
+                                requireContext(),
+                                it.message!!
+                            )
+                        }
+                    }
+                    if (isAdded) {
+                        mViewModel.updateNotificationSettingResponse.removeObservers(
+                            viewLifecycleOwner
+                        )
+                    }
+                }
+            }
+            dialog.dismiss()
+        }
+
+
+
+
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        return dialog
+    }
+
+
 }

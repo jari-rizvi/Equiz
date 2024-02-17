@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_250sdp"
+    android:layout_gravity="center"
+    android:layout_marginHorizontal="@dimen/_35sdp"
+    android:background="@drawable/card_background"
+    android:backgroundTint="@color/colorWhite"
+    android:elevation="@dimen/_5sdp">
+
+
+    <TextView
+        android:id="@+id/removeBtn"
+        style="@style/popins_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/email_notification"
+        android:textAlignment="center"
+        android:textColor="@color/blue"
+        android:textSize="@dimen/_14ssp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.2" />
+
+
+    <TextView
+        android:id="@+id/removeBtn1"
+        style="@style/popins_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:gravity="center"
+        android:text="@string/sms_notification"
+        android:textAlignment="center"
+        android:textColor="@color/blue"
+        android:textSize="@dimen/_14ssp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/removeBtn"
+        app:layout_constraintVertical_bias="0" />
+
+
+    <TextView
+        android:id="@+id/removeBtn2"
+        style="@style/popins_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:gravity="center"
+        android:text="Push Notification"
+        android:textAlignment="center"
+        android:textColor="@color/blue"
+        android:textSize="@dimen/_14ssp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/removeBtn1"
+        app:layout_constraintVertical_bias="0" />
+
+
+    <TextView
+        android:id="@+id/btnSave"
+        style="@style/popins_regular"
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/card_background_border"
+        android:backgroundTint="@color/theme_color"
+        android:gravity="center"
+        android:text="@string/save"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_14ssp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/removeBtn2" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/removeBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toEndOf="@+id/removeBtn"
+        app:layout_constraintTop_toTopOf="@+id/removeBtn" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchSms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/removeBtn1"
+        app:layout_constraintEnd_toEndOf="@+id/switchEmail"
+        app:layout_constraintStart_toStartOf="@+id/switchEmail"
+        app:layout_constraintTop_toTopOf="@+id/removeBtn1" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchPush"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/removeBtn2"
+        app:layout_constraintEnd_toEndOf="@+id/switchSms"
+        app:layout_constraintStart_toStartOf="@+id/switchSms"
+        app:layout_constraintTop_toTopOf="@+id/removeBtn2" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

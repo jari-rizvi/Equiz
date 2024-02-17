@@ -14,8 +14,6 @@ class MainRepository @Inject constructor(
     private val apiService: ApiService,
     localDataSource: AppDao
 ) {
-
-
     suspend fun getWishlist() = apiService.getWishlist()
     suspend fun getBanners(isActive: Boolean) = apiService.getBanners(isActive)
     suspend fun getBannersDashboard(country: String) = apiService.getBannersDashboard(country)
@@ -32,7 +30,7 @@ class MainRepository @Inject constructor(
         apiService.getProducts(keyword = keyword, category = category)
 
     suspend fun getCart() = apiService.getCart()
-    suspend fun applyCoupon(  @Query("code") code: String) = apiService.applyCoupon(code)
+    suspend fun applyCoupon(@Query("code") code: String) = apiService.applyCoupon(code)
     suspend fun getWallet() = apiService.getWallet()
     suspend fun getUpcomingNews(
         @Body params: JsonObject,
@@ -44,7 +42,8 @@ class MainRepository @Inject constructor(
         @Query("current") current: Boolean
     ) = apiService.getCurrentNews(params, current)
 
-    suspend fun getRecentNews(@Body params: JsonObject, @Query("recent") recent: Boolean) = apiService.getRecentNews(params, recent)
+    suspend fun getRecentNews(@Body params: JsonObject, @Query("recent") recent: Boolean) =
+        apiService.getRecentNews(params, recent)
 
     suspend fun getCoupons() = apiService.getCoupons()
     suspend fun stripeDataMethod(@Body params: JsonObject?) = apiService.stripeDataMethod(params)
@@ -88,8 +87,8 @@ class MainRepository @Inject constructor(
         @Query("type") type: String,
     ) = apiService.quizTitle(country, topic, type)
 
-    suspend fun quizFind(id: String? ) = apiService.quizFind(id)
-    suspend fun quizResult(@Body resultQuiz: JsonObject ) = apiService.quizResult(resultQuiz)
+    suspend fun quizFind(id: String?) = apiService.quizFind(id)
+    suspend fun quizResult(@Body resultQuiz: JsonObject) = apiService.quizResult(resultQuiz)
 
     suspend fun getOrders(
         @Query("orderStatus") orderStatus: String,
@@ -115,20 +114,29 @@ class MainRepository @Inject constructor(
     suspend fun unsub() = apiService.unsub()
     suspend fun deleteUser() = apiService.deleteUser()
     suspend fun collectPrizeRaffal() = apiService.collectPrizeRaffal()
-    suspend fun claimedPrizeRaffal(@Query("claimed") claimed: String) = apiService.claimedPrizeRaffal(claimed)
+    suspend fun claimedPrizeRaffal(@Query("claimed") claimed: String) =
+        apiService.claimedPrizeRaffal(claimed)
+
     suspend fun getAddressList() = apiService.getAddressList()
     suspend fun addAddress(@Body param: JsonObject) = apiService.addAddress(param)
-    suspend fun deleteAddress(@Path("addressId") addressId: String) = apiService.deleteAddress(addressId)
+    suspend fun deleteAddress(@Path("addressId") addressId: String) =
+        apiService.deleteAddress(addressId)
+
     suspend fun getAddressById(@Path("id") addressId: String) = apiService.GetAddressById(addressId)
     suspend fun updateAddress(
         @Body params: JsonObject,
     ) = apiService.updateAddress(params)
+ suspend fun updateNotificationSetting(
+        @Body params: JsonObject,
+    ) = apiService.updateNotificationSetting(params)
+
+    suspend fun getNotificationSetting(
+    ) = apiService.getNotificationSetting()
 
     suspend fun getTransData(
         @Query("startDate") startDate: String?,
         @Query("endDate") endDate: String?
     ) = apiService.getTransData(startDate, endDate)
-
 
 
 }

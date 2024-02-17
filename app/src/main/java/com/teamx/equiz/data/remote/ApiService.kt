@@ -26,9 +26,11 @@ import com.teamx.equiz.data.models.modelUploadImages.ModelUploadImage
 import com.teamx.equiz.data.models.newsData.NewsData
 import com.teamx.equiz.data.models.newsbyId.GetNewsByIdData
 import com.teamx.equiz.data.models.notificationData.NotificationData
+import com.teamx.equiz.data.models.notificationSettingsData.NotificationSettingsData
 import com.teamx.equiz.data.models.orderDetailData.OrderDetailData
 import com.teamx.equiz.data.models.otpForgotData.OtpforgotData
 import com.teamx.equiz.data.models.quizTitleData.QuizTitleData
+import com.teamx.equiz.data.models.quizbyidd.GetQuizById
 import com.teamx.equiz.data.models.signupData.SignupData
 import com.teamx.equiz.data.models.sucessData.SuccessData
 import com.teamx.equiz.data.models.sucessData.gamesuccess.GameObj
@@ -62,12 +64,8 @@ import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
-import java.io.ByteArrayInputStream
-import java.io.InputStream
 
 interface ApiService {
-
-
     @GET(NetworkCallPoints.WISHLIST_DATA)
     suspend fun getWishlist(@Header("token") basicCredentials: String = "$TOKENER"): Response<WishlistData>
 
@@ -338,7 +336,7 @@ interface ApiService {
 //        @Query("") type: String?,
         @Path("id") id: String?,
         @Header("token") basicCredentials: String = "$TOKENER"
-    ): Response<SingleQuizData>
+    ): Response<GetQuizById>
 
     @POST(NetworkCallPoints.QUIZ_RESULT)
     suspend fun quizResult(
@@ -386,8 +384,8 @@ interface ApiService {
 
     @GET(NetworkCallPoints.GET_TOP_WINNERS)
     suspend fun getTopWinners(
-        @Path("userId") userId: String="",
-     /*   @Header("token") basicCredentials: String = "$TOKENER"*/
+        @Path("userId") userId: String = "",
+        /*   @Header("token") basicCredentials: String = "$TOKENER"*/
     ): Response<TopWinnerData>
 
 
@@ -419,11 +417,26 @@ interface ApiService {
         @Body params: JsonObject?,
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<GetAddressById>
+
+    @PUT(NetworkCallPoints.UPDATE_NOTIFICATION)
+    suspend fun updateNotificationSetting(
+        @Body params: JsonObject?,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<NotificationSettingsData>
+
+
+    @GET(NetworkCallPoints.GET_NOTIFICATION_SETTING )
+    suspend fun getNotificationSetting(
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<NotificationSettingsData>
+
+
     @GET(NetworkCallPoints.GET_WALLET_TRANSACTION)
     suspend fun getTransData(
         @Query("startDate") startDate: String?,
         @Query("endDate") endDate: String?,
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<ResponseBody>
+
 
 }

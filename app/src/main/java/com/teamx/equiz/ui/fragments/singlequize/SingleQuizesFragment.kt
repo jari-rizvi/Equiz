@@ -13,11 +13,13 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatCheckedTextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
+import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
@@ -31,6 +33,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import javax.crypto.Cipher
+import javax.crypto.spec.IvParameterSpec
+import javax.crypto.spec.SecretKeySpec
 
 @AndroidEntryPoint
 class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuizesViewModel>() {
@@ -55,6 +60,9 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
      var durationSeconds : Double = 0.0
     private var remainingTime = 0.0
     private var selectAnswer = -1
+
+    val _quizFindResponse = MutableLiveData<SingleQuizData>()
+    val quizFindResponse: LiveData<SingleQuizData> get() = _quizFindResponse
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -190,9 +198,9 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
 
         val strId = bundle2.getString("quiz_id")
 
-        if (!mViewModel.quizFindResponse.hasActiveObservers()) {
+        if (!mViewModel.quizFindEncResponse.hasActiveObservers()) {
             mViewModel.quizFind("$strId", "", null)
-            mViewModel.quizFindResponse.observe(requireActivity()) {
+            mViewModel.quizFindEncResponse.observe(requireActivity()) {
                 when (it.status) {
                     Resource.Status.LOADING -> {
                         loadingDialog.show()
@@ -205,12 +213,23 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
-                            try {
-                                timerStart(data)
-                                changeIndex(data)
-                            } catch (e: Exception) {
-                                e.printStackTrace()
-                            }
+
+
+//                            mViewModel._quizFindResponse.value =
+                                var databyte = decryptAESCBC(data.encryptedData,data.iv,"Lg9g1ZUteY0F1HqZline3DhEh9ssyJzPx=")?.decodeToString()
+//                            val decoded = java.lang.String(databyte, charset("UTF-8"))
+
+
+//                            val drinkItemString = "{\"strAlcoholic\":\"Alcohol One\",\"strIngredient1\":\"Ingredient One\"}"
+// And make use of Gson library to convert your JSON String into DrinkItem Object
+                            val drinkItem = Gson().fromJson(databyte,SingleQuizData::class.java)
+
+                            _quizFindResponse.value = drinkItem
+
+                            Log.d("TAG", "onViewCreated121211211111: $drinkItem")
+
+
+
                         }
                     }
 
@@ -232,6 +251,15 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
                         }
                     }
                 }
+            }
+        }
+
+        quizFindResponse.observe(requireActivity()){
+            try {
+                timerStart(it)
+                changeIndex(it)
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
 
@@ -417,11 +445,11 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
     private fun changeObserver() {
 
 
-        mViewModel.quizFindResponse.observe(requireActivity()) {
+        quizFindResponse.observe(requireActivity()) {
 
-            it.data.let {
-                if (it != null) {
-                    if (quesNo.value == it.data?.get(0)?.question?.size) {
+            it.data.let {singleQuizeData->
+                if (singleQuizeData != null) {
+                    if (quesNo.value == singleQuizeData?.get(0)?.question?.size) {
                         if (job != null) {
 //                            job?.cancel()
                             var bundle = arguments
@@ -455,6 +483,9 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
                 }
             }
         }
+
+
+
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -858,4 +889,47 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
 //            )
 //        }
 //    }
+
+
+
+
+    fun convertSecretTo32Bit(secretKey: String): ByteArray {
+        val keyData = secretKey.toByteArray(Charsets.UTF_8)
+        return if (keyData.size >= 32) {
+            keyData.copyOfRange(0, 32)
+        } else {
+            keyData + ByteArray(32 - keyData.size)
+        }
+    }
+
+    fun decryptAESCBC(encryptedDataHexString: String, ivHexString: String, secretKey: String): ByteArray? {
+        val encryptedData = encryptedDataHexString.hexStringToByteArray()
+        val iv = ivHexString.hexStringToByteArray()
+        val keyData = convertSecretTo32Bit(secretKey)
+
+        return try {
+            val cipher = Cipher.getInstance("AES/CBC/PKCS5Padding")
+            val keySpec = SecretKeySpec(keyData, "AES")
+            val ivSpec = IvParameterSpec(iv)
+            cipher.init(Cipher.DECRYPT_MODE, keySpec, ivSpec)
+            cipher.doFinal(encryptedData)
+        } catch (e: Exception) {
+            println("Decryption error: ${e.message}")
+            null
+        }
+    }
+
+    fun String.hexStringToByteArray(): ByteArray {
+        val len = length
+        val data = ByteArray(len / 2)
+        var i = 0
+        while (i < len) {
+            data[i / 2] = ((Character.digit(this[i], 16) shl 4)
+                    + Character.digit(this[i + 1], 16)).toByte()
+            i += 2
+        }
+        return data
+    }
+
+
 }

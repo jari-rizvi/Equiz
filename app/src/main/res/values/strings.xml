@@ -235,6 +235,8 @@
     <string name="manage_order">Manage Order</string>
     <string name="close">Close</string>
     <string name="facilities">Facilities</string>
+    <string name="email_notification">Email Notification</string>
+    <string name="sms_notification">SMS Notification</string>
 
 
 </resources>

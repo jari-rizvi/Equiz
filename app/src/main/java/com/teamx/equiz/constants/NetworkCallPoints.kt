@@ -83,6 +83,10 @@ class NetworkCallPoints {
         const val UPDATE_ADDRESS ="api/users/updateAddress"
         const val GET_WALLET_TRANSACTION ="api/wallet/getTransaction"
 
+        const val UPDATE_NOTIFICATION ="api/users/updateNotification"
+        const val GET_NOTIFICATION_SETTING ="/api/users/findNotifications"
+
+
 
 
         var TOKENER: String? = ""

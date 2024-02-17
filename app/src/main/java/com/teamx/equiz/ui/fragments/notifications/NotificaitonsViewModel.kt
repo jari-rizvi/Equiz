@@ -3,9 +3,12 @@ package com.teamx.equiz.ui.fragments.notifications
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.google.gson.JsonObject
 import com.teamx.equiz.baseclasses.BaseViewModel
+import com.teamx.equiz.data.models.addressbyid.GetAddressById
 import com.teamx.equiz.data.models.getorderData.GetOrdersData
 import com.teamx.equiz.data.models.notificationData.NotificationData
+import com.teamx.equiz.data.models.notificationSettingsData.NotificationSettingsData
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.data.remote.reporitory.MainRepository
 import com.teamx.equiz.utils.NetworkHelper
@@ -66,5 +69,121 @@ class NotificaitonsViewModel @Inject constructor(
             )
         }
     }
+
+
+    private val _updateNotificationSettingResponse =
+        MutableLiveData<Resource<NotificationSettingsData>>()
+    val updateNotificationSettingResponse: LiveData<Resource<NotificationSettingsData>>
+        get() = _updateNotificationSettingResponse
+
+    fun updateNotificationSetting(param: JsonObject) {
+        viewModelScope.launch {
+            _updateNotificationSettingResponse.postValue(Resource.loading(null))
+            if (networkHelper.isNetworkConnected()) {
+                try {
+                    mainRepository.updateNotificationSetting(param).let {
+                        if (it.isSuccessful) {
+                            _updateNotificationSettingResponse.postValue(Resource.success(it.body()!!))
+                        } else if (it.code() == 401) {
+//                            unAuthorizedCallback.onToSignUpPage()
+                            _updateNotificationSettingResponse.postValue(
+                                Resource.error(
+                                    it.message(),
+                                    null
+                                )
+                            )
+                        } else if (it.code() == 401) {
+                            _updateNotificationSettingResponse.postValue(Resource.unAuth("", null))
+                        } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
+//                            _updateNotificationSettingResponse.postValue(Resource.error(it.message(), null))
+                            val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
+                            _updateNotificationSettingResponse.postValue(
+                                Resource.error(
+                                    jsonObj.getString(
+                                        "message"
+                                    )
+                                )
+                            )
+                        } else {
+                            _updateNotificationSettingResponse.postValue(
+                                Resource.error(
+                                    "Some thing went wrong",
+                                    null
+                                )
+                            )
+                        }
+                    }
+                } catch (e: Exception) {
+                    _updateNotificationSettingResponse.postValue(
+                        Resource.error(
+                            "${e.message}",
+                            null
+                        )
+                    )
+                }
+            } else _updateNotificationSettingResponse.postValue(
+                Resource.error(
+                    "No internet connection",
+                    null
+                )
+            )
+        }
+    }
+
+
+    private val _getNotificationSettingResponse =
+        MutableLiveData<Resource<NotificationSettingsData>>()
+    val getNotificationSettingResponse: LiveData<Resource<NotificationSettingsData>>
+        get() = _getNotificationSettingResponse
+
+    fun getNotificationSetting() {
+        viewModelScope.launch {
+            _getNotificationSettingResponse.postValue(Resource.loading(null))
+            if (networkHelper.isNetworkConnected()) {
+                try {
+                    mainRepository.getNotificationSetting().let {
+                        if (it.isSuccessful) {
+                            _getNotificationSettingResponse.postValue(Resource.success(it.body()!!))
+                        } else if (it.code() == 401) {
+//                            unAuthorizedCallback.onToSignUpPage()
+                            _getNotificationSettingResponse.postValue(
+                                Resource.error(
+                                    it.message(),
+                                    null
+                                )
+                            )
+                        } else if (it.code() == 401) {
+                            _getNotificationSettingResponse.postValue(Resource.unAuth("", null))
+                        } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
+//                            _getNotificationSettingResponse.postValue(Resource.error(it.message(), null))
+                            val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
+                            _getNotificationSettingResponse.postValue(
+                                Resource.error(
+                                    jsonObj.getString(
+                                        "message"
+                                    )
+                                )
+                            )
+                        } else {
+                            _getNotificationSettingResponse.postValue(
+                                Resource.error(
+                                    "Some thing went wrong",
+                                    null
+                                )
+                            )
+                        }
+                    }
+                } catch (e: Exception) {
+                    _getNotificationSettingResponse.postValue(Resource.error("${e.message}", null))
+                }
+            } else _getNotificationSettingResponse.postValue(
+                Resource.error(
+                    "No internet connection",
+                    null
+                )
+            )
+        }
+    }
+
 
 }
