@@ -212,6 +212,7 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
     var sms: Boolean = false
     var push: Boolean = false
 
+
     fun NotificationDialog(): Dialog {
         val dialog = Dialog(requireActivity())
         dialog.setContentView(R.layout.notification_dialog)
