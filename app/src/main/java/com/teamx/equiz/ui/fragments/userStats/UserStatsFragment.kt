@@ -49,6 +49,8 @@ class UserStatsFragment : BaseFragment<FragmentUserStatsBinding, LoginViewModel>
             }
         }
 
+        Log.d("UserStatsFragment", "setupViewPager: onViewCreated")
+
         setupViewPager()
 
 
@@ -56,6 +58,7 @@ class UserStatsFragment : BaseFragment<FragmentUserStatsBinding, LoginViewModel>
 
     override fun onResume() {
         super.onResume()
+        Log.d("UserStatsFragment", "setupViewPager: onResume")
     }
 
     override fun onAttach(context: Context) {

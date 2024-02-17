@@ -445,7 +445,7 @@ fun ResultScreen(
                         total
                     }
 //                    ShowMeantime("Mean Time", " ${time / (to)}s")
-                    ShowMeantime("Mean Time", " ${20/total}s")
+                    ShowMeantime("Mean Time", " ${20 / total}s")
 
 
                     /* Row(
@@ -593,7 +593,9 @@ fun ResultScreen2(
                         total
                     }
 //                    ShowMeantime("Mean Time", " ${time / (to)}s")
-                    ShowMeantime("Mean Time", " ${20/total}s")
+                    if (total != 0) {
+                        ShowMeantime("Mean Time", " ${20 / total}s")
+                    }
 
 
                     /* Row(
@@ -1259,7 +1261,7 @@ fun dialogShareGame(
 
                     }
 //                    ShowMeantime("Mean Time", " ${time / to}s")
-                    ShowMeantime("Mean Time", " ${20/total}s")
+                    ShowMeantime("Mean Time", " ${20 / total}s")
 
                     Image(
                         modifier = Modifier

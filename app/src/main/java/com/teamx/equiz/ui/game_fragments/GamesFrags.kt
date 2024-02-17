@@ -1412,7 +1412,6 @@ class RapidSortingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
                 }
 
 
-
             })
         }
 
@@ -1652,13 +1651,13 @@ class ResultComposeFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMode
 
                 Resource.Status.AUTH -> {
                     loadingDialog.dismiss()
-                     if (isAdded) {
-                            try {
-                                onToSignUpPage()
-                            } catch (e: Exception) {
-                                e.printStackTrace()
-                            }
+                    if (isAdded) {
+                        try {
+                            onToSignUpPage()
+                        } catch (e: Exception) {
+                            e.printStackTrace()
                         }
+                    }
                 }
 
                 Resource.Status.ERROR -> {
@@ -1687,6 +1686,7 @@ class ResultComposeFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMode
                 painterResource(R.drawable.bird_favicon)
 
             }
+
             GamesUID2.Operations.name -> {
                 painterResource(R.drawable.operations_icon)
 
@@ -1989,12 +1989,17 @@ class ResultComposeFrag2 : BaseFragment<FragmentAddressBinding, GameFragsViewMod
             val route = bundle?.getString("route")
             if (route.equals("dash", true)) {
                 findNavController().navigate(R.id.dashboardFragment, arguments, options)
+            }else if (route.equals("gameRand", true)) {
+
+                findNavController().popBackStack(R.id.userStatsFragment,false)
             } else {
                 findNavController().navigate(R.id.gamesFragment, arguments, options)
             }
         }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
+                        sharedViewModel.roundInteger++
+        Log.d("ResultScreen2", "onViewCreated: ResultScreen working")
 
         var bundle = arguments
         if (bundle == null) {
@@ -2045,7 +2050,9 @@ class ResultComposeFrag2 : BaseFragment<FragmentAddressBinding, GameFragsViewMod
                         val route = bundle?.getString("route")
                         if (route.equals("dash", true)) {
                             findNavController().navigate(R.id.dashboardFragment, arguments, options)
-                        } else {
+                        } else if (route.equals("gameRand", true)) {
+                            findNavController().popBackStack(R.id.userStatsFragment,false)
+                        }else {
                             findNavController().navigate(R.id.gamesFragment, arguments, options)
                         }
                     }
@@ -2517,7 +2524,6 @@ class ReverseRPSFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
                 }
 
 
-
             })
         }
 
@@ -2601,7 +2607,6 @@ class SimplicityGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
                 }
 
 
-
             })
         }
 
@@ -2683,7 +2688,6 @@ class SpinningBlockGameFrag : BaseFragment<FragmentAddressBinding, GameFragsView
                     findNavController().popBackStack()
 
                 }
-
 
 
             })
@@ -2836,7 +2840,6 @@ class TapTheColorGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
                 }
 
 
-
             })
         }
 
@@ -2918,7 +2921,6 @@ class TetrisGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
                     findNavController().popBackStack()
 
                 }
-
 
 
             })
@@ -3005,7 +3007,6 @@ class TouchTheNumGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
                 }
 
 
-
             })
         }
 
@@ -3089,7 +3090,6 @@ class TouchTheNumPlusGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
                 }
 
 
-
             })
         }
 
@@ -3171,7 +3171,6 @@ class UnfollowTheLeaderGameFrag : BaseFragment<FragmentAddressBinding, GameFrags
                     findNavController().popBackStack()
 
                 }
-
 
 
             })
@@ -3414,6 +3413,8 @@ class StartUpGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
                                     arguments,
                                     options
                                 )
+                            } else if (route.equals("gameRand", true)) {
+                                findNavController().popBackStack()
                             } else {
                                 findNavController().navigate(R.id.gamesFragment, arguments, options)
                             }
@@ -4027,9 +4028,9 @@ class StartUpGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
         }
 
         val route = bundle.getString("route")
-        if (route.equals("gameRand")) {
-            sharedViewModel.roundInteger++
-        }
+//        if (route.equals("gameRand")) {
+//            sharedViewModel.roundInteger++
+//        }
         when (enumNumberEnum) {
             GamesUID2.Matching.name -> {
                 findNavController().navigate(R.id.matchingGameFrag, arguments, options)
