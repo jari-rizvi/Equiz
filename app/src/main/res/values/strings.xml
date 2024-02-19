@@ -237,6 +237,8 @@
     <string name="facilities">Facilities</string>
     <string name="email_notification">Email Notification</string>
     <string name="sms_notification">SMS Notification</string>
+    <string name="happy_birthday">Happy Birthday</string>
+    <string name="you_ve_earned_a_scratch_card">You’ve Earned a Scratch Card!</string>
 
 
 </resources>

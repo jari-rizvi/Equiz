@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation_graph"
-    app:startDestination="@id/tempFragment">
+    app:startDestination="@id/birthdatFragment">
 
 
 
@@ -568,5 +568,9 @@
         android:id="@+id/tapTheColorFragment"
         android:name="com.teamx.equiz.new_games.TapTheColorFragment"
         android:label="TapTheColorFragment" />
+    <fragment
+        android:id="@+id/birthdatFragment"
+        android:name="com.teamx.equiz.ui.fragments.birthday.BirthdayFragment"
+        android:label="BirthdatFragment" />
 
 </navigation>

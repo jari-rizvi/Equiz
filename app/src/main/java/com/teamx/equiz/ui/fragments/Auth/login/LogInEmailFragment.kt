@@ -197,6 +197,9 @@ class LogInEmailFragment : BaseFragment<FragmentLoginEmailBinding, LoginViewMode
                                 }
                                 bundle?.putString("country", country)
 
+
+                                Log.d("TAG", "ApiCall: ${data.token}")
+
                                 findNavController().navigate(
                                     R.id.action_logInEmailFragment_to_dashboardFragment,
                                     bundle,

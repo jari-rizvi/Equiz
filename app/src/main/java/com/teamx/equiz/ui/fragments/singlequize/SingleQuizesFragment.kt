@@ -222,6 +222,7 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
 
 //                            val drinkItemString = "{\"strAlcoholic\":\"Alcohol One\",\"strIngredient1\":\"Ingredient One\"}"
 // And make use of Gson library to convert your JSON String into DrinkItem Object
+
                             val drinkItem = Gson().fromJson(databyte,SingleQuizData::class.java)
 
                             _quizFindResponse.value = drinkItem

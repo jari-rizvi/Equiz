@@ -40,6 +40,7 @@
         android:background="@drawable/contact_input_background"
         android:drawableEnd="@drawable/calendar"
         android:drawableTint="@color/black"
+        android:gravity="center_vertical"
         android:inputType="text"
         android:minHeight="@dimen/_35sdp"
         android:padding="@dimen/_5sdp"
@@ -47,10 +48,12 @@
         android:singleLine="true"
         android:textAlignment="viewStart"
         android:textColor="@color/black"
+        android:textSize="@dimen/_12ssp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/removeBtn"
-        app:layout_constraintVertical_bias="0.92" />
+        app:layout_constraintVertical_bias="0.92"
+        tools:ignore="RtlCompat" />
 
 
     <TextView
@@ -84,6 +87,8 @@
         android:drawableTint="@color/black"
         android:inputType="text"
         android:minHeight="@dimen/_35sdp"
+        android:textSize="@dimen/_12ssp"
+        android:gravity="center_vertical"
         android:padding="@dimen/_5sdp"
         android:paddingStart="@dimen/_10sdp"
         android:singleLine="true"
@@ -93,7 +98,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/removeBtn1"
         app:layout_constraintVertical_bias="0.92" />
-
 
 
     <TextView
