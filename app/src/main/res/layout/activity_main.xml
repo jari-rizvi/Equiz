@@ -41,14 +41,12 @@
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorAccent_indeed">
+        android:layout_height="match_parent">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorAccent_indeed">
+            android:layout_height="match_parent">
 
             <fragment
                 android:id="@+id/nav_host_fragment"
@@ -57,7 +55,7 @@
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/_30sdp"
                 app:defaultNavHost="true"
-                app:layout_constraintBottom_toTopOf="@+id/bottomNavigationq"
+                app:layout_constraintBottom_toTopOf="@+id/guideline"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -76,7 +74,6 @@
                 android:id="@+id/bottomNavigationq"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
                 android:elevation="@dimen/_5sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -91,7 +88,15 @@
                 app:ss_selectedIconColor="@color/white"
                 app:ss_selectedIconTextColor="@color/white"
                 app:ss_shadowColor="#1f212121"
-                app:ss_waveHeight="8" />
+                app:ss_waveHeight="20" />
+
+            <View
+                android:id="@+id/guideline"
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                app:layout_constraintVertical_bias="0.4"
+                app:layout_constraintTop_toTopOf="@+id/bottomNavigationq"
+                app:layout_constraintBottom_toBottomOf="@+id/bottomNavigationq" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

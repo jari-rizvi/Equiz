@@ -101,6 +101,12 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             }
         }
 
+        initializeCategoriesAdapter()
+        initializeGameAdapter()
+        initializeWinnerAdapter()
+        initializeQuizesAdapter()
+        addingSliderAdapter()
+
 
         mViewDataBinding.btnback.setOnClickListener {
 //            val activity = requireActivity() as MainActivity
@@ -156,7 +162,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         val bundle = arguments
         if (bundle != null) {
             id = bundle.getString("id").toString()
-            Timber.tag("TAG").d(id.toString())
+            Timber.tag("TAG").d(id)
         }
 
 
@@ -375,6 +381,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                         }
 
                         data.data.forEach {
+//                            Log.d("quizArrayList", "onViewCreated: $it")
                             quizArrayList.add(it)
                         }
                         quizAdapter.notifyDataSetChanged()
@@ -413,11 +420,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 //        getMeApi()
         addNewBanners()
 
-        initializeCategoriesAdapter()
-        initializeGameAdapter()
-        initializeWinnerAdapter()
-        initializeQuizesAdapter()
-        addingSliderAdapter()
+
 
         mViewDataBinding.swiperefresh.setOnRefreshListener(OnRefreshListener {
             mViewDataBinding.swiperefresh.isRefreshing = false
@@ -789,7 +792,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         mViewDataBinding.recQuizes.layoutManager = layoutManager2
 
-        quizAdapter = QuizesAdapter(quizArrayList, this)
+        quizAdapter = QuizesAdapter(quizArrayList, this,true)
         mViewDataBinding.recQuizes.adapter = quizAdapter
 
 
@@ -799,21 +802,22 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
 
     override fun quizTitle(position: Int, previousNumber: Int) {
-        val tick = strArrayList.get(position).value
+        val tick = strArrayList[position].value
 
         val topic = if (tick.equals("World", true)) {
             ""
         } else {
             ""
         }
+
         mViewModel.getquizTitile("$tick", "$topic", "", this)
 //        strArrayList.forEach{
 //            if (it.isSelected)
 //            it.isSelected = false
 //        }
 
-        strArrayList.get(previousNumber).isSelected = false
-        strArrayList.get(position).isSelected = true
+        strArrayList[previousNumber].isSelected = false
+        strArrayList[position].isSelected = true
         mViewDataBinding.recCategories.adapter?.notifyItemChanged(previousNumber)
         mViewDataBinding.recCategories.adapter?.notifyItemChanged(position)
 

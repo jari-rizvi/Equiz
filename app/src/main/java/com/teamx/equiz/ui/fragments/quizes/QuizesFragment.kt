@@ -1,6 +1,7 @@
 package com.teamx.equiz.ui.fragments.quizes
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.addCallback
 import androidx.annotation.Keep
@@ -62,9 +63,9 @@ class QuizesFragment : BaseFragment<FragmentQuizesBinding, QuizesViewModel>(), Q
         mViewDataBinding.btnback.setOnClickListener {
             findNavController().popBackStack()
         }
-        mViewModel.quizTitle("World", null, "")
-        if (!mViewModel.quizTitleResponse.hasActiveObservers()) {
 
+        if (!mViewModel.quizTitleResponse.hasActiveObservers()) {
+            mViewModel.quizTitle("World", null, "")
             mViewModel.quizTitleResponse.observe(requireActivity()) {
                 when (it.status) {
                     Resource.Status.LOADING -> {
@@ -168,27 +169,28 @@ class QuizesFragment : BaseFragment<FragmentQuizesBinding, QuizesViewModel>(), Q
             LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         mViewDataBinding.recQuizes.layoutManager = layoutManager2
 
-        quizesAdapter = QuizesAdapter(strArrayList, this)
+        quizesAdapter = QuizesAdapter(strArrayList, this,false)
         mViewDataBinding.recQuizes.adapter = quizesAdapter
     }
 
     override fun quizTitle(position: Int, previPos: Int) {
 
-        val tick = strTitleArrayList.get(position).value
+        val tick = strTitleArrayList[position].value
 
         val topic = if (tick.equals("World", true)) {
             "General Knowledge"
         } else {
             ""
         }
-        mViewModel.quizTitle("$tick", "$topic", "")
+        Log.d("quizArrayList", "tick: $tick")
+        mViewModel.quizTitle("$tick", null, "")
 //        strArrayList.forEach{
 //            if (it.isSelected)
 //            it.isSelected = false
 //        }
 
-        strTitleArrayList.get(previPos).isSelected = false
-        strTitleArrayList.get(position).isSelected = true
+        strTitleArrayList[previPos].isSelected = false
+        strTitleArrayList[position].isSelected = true
         mViewDataBinding.recCategories.adapter?.notifyItemChanged(previPos)
         mViewDataBinding.recCategories.adapter?.notifyItemChanged(position)
 

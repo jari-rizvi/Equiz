@@ -126,7 +126,7 @@ class SSCustomBottomNavigation : FrameLayout {
             updateAllIfAllowDraw()
         }
 
-    var waveHeight = 7
+    var waveHeight = 10
         set(value) {
             field = value
             updateAllIfAllowDraw()
@@ -215,8 +215,8 @@ class SSCustomBottomNavigation : FrameLayout {
                     R.styleable.SSCustomBottomNavigation_ss_iconTextSize,
                     dip(context, iconTextSize.toInt())
                 ).toFloat()
-                waveHeight =
-                    getInteger(R.styleable.SSCustomBottomNavigation_ss_waveHeight, waveHeight)
+                waveHeight = heightCell
+//                    getInteger(R.styleable.SSCustomBottomNavigation_ss_waveHeight, waveHeight)
 
                 isReverseCurve = getBoolean(R.styleable.SSCustomBottomNavigation_ss_reverseCurve, isReverseCurve)
                 val iconTextTypeFace =
@@ -242,6 +242,7 @@ class SSCustomBottomNavigation : FrameLayout {
     private fun initializeViews() {
         ll_cells = LinearLayout(context)
         ll_cells.apply {
+            Log.d("heightCell", "heightCell: ${heightCell}")
             val params = LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, heightCell)
             params.gravity = Gravity.BOTTOM
             layoutParams = params
@@ -280,6 +281,20 @@ class SSCustomBottomNavigation : FrameLayout {
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+//        if (selectedIndex == -1) {
+//            bezierView.bezierX =
+//                if (Build.VERSION.SDK_INT >= 21 && layoutDirection == LayoutDirection.RTL) measuredWidth + dipf(
+//                    context,
+//                    72
+//                ) else -dipf(context, 72)
+//        }
+//        if (selectedIndex != -1) {
+//            Log.e("selectedIndex", " $selectedIndex")
+////            val imm: InputMethodManager = getActivity(context)?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//            val imm: InputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//            if (!imm.isAcceptingText) show(selectedIndex, false)
+//        }
+
         if (selectedIndex == -1) {
             bezierView.bezierX =
                 if (Build.VERSION.SDK_INT >= 21 && layoutDirection == LayoutDirection.RTL) measuredWidth + dipf(
@@ -289,10 +304,21 @@ class SSCustomBottomNavigation : FrameLayout {
         }
         if (selectedIndex != -1) {
             Log.e("selectedIndex", " $selectedIndex")
-//            val imm: InputMethodManager = getActivity(context)?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//        val imm: InputMethodManager = getActivity(context)?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             val imm: InputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             if (!imm.isAcceptingText) show(selectedIndex, false)
         }
+        Log.e("selectedIndex", "ll_cells.measuredHeight ${ll_cells.measuredHeight}")
+        Log.e("selectedIndex", "ll_cells.height ${ll_cells.height}")
+        Log.e("selectedIndex", "waveHeight ${waveHeight}")
+
+        // Adjust the height of the custom bottom navigation to match its contents
+        val height = (ll_cells.measuredHeight).coerceAtLeast(suggestedMinimumHeight)
+
+        Log.e("selectedIndex", "height ${height}")
+
+        // Set the measured dimensions to match the adjusted height
+        setMeasuredDimension(widthMeasureSpec, MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY))
     }
 
     fun setMenuItems(models: Array<Model>, activeIndex: Int = 0) {

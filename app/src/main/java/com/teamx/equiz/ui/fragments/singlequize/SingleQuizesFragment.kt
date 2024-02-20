@@ -198,6 +198,8 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
 
         val strId = bundle2.getString("quiz_id")
 
+        Log.d("quizFindEncResponse", "strId: $strId")
+
         if (!mViewModel.quizFindEncResponse.hasActiveObservers()) {
             mViewModel.quizFind("$strId", "", null)
             mViewModel.quizFindEncResponse.observe(requireActivity()) {
@@ -214,6 +216,7 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
                         loadingDialog.dismiss()
                         it.data?.let { data ->
 
+                            Log.d("quizFindEncResponse", "quizFindEncResponse: $data")
 
 //                            mViewModel._quizFindResponse.value =
                                 var databyte = decryptAESCBC(data.encryptedData,data.iv,"Lg9g1ZUteY0F1HqZline3DhEh9ssyJzPx=")?.decodeToString()
@@ -227,7 +230,7 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
 
                             _quizFindResponse.value = drinkItem
 
-                            Log.d("TAG", "onViewCreated121211211111: $drinkItem")
+
 
 
 

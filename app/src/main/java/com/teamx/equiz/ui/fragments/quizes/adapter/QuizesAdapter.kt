@@ -11,7 +11,8 @@ import com.teamx.equiz.utils.snackbar
 
 class QuizesAdapter(
     private val quizArrayList: ArrayList<Data>,
-    val quizesInterface: QuizesInterface
+    val quizesInterface: QuizesInterface,
+    val isDashBoard : Boolean
 ) :
     RecyclerView.Adapter<QuizesAdapterViewHolder>() {
 
@@ -30,8 +31,8 @@ class QuizesAdapter(
         val quizData = quizArrayList[position]
 
 
-        holder.bind.textView2754.text = quizData.topic
-        holder.bind.textView27.text = quizData.type
+        holder.bind.textView2754.text = "${quizData.country} Quiz"
+        holder.bind.textView27.text = quizData.topic
 
         holder.itemView.setOnClickListener {
             if (quizData.played) {
@@ -65,7 +66,7 @@ class QuizesAdapter(
 
     override fun getItemCount(): Int {
 
-        if(quizArrayList.size > 3){
+        if(isDashBoard && quizArrayList.size>2){
             return 3
         }
         else{
