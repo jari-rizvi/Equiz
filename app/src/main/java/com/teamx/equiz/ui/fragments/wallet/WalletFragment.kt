@@ -253,7 +253,10 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
                             mViewDataBinding.root.visibility = View.VISIBLE
 
                             mViewDataBinding.shimmerLayout.stopShimmer()
-                            mViewDataBinding.textView10.text = data.data.toString() + " Points"
+                            val formattedNumber = String.format("%.2f", data.data)
+                            mViewDataBinding.textView10.text = formattedNumber + " Points"
+
+                            Log.d("TAG", "getWalletData:  ${data.data}")
 
                             data.transactions.forEach {
                                 walletArrayList.add(it)

@@ -138,7 +138,10 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
                                 mViewDataBinding.textView4.setText(data.user.email)
                                 mViewDataBinding.textView4.setText(data.user.phone)
                                 mViewDataBinding.textView52.setText(data.user.chances.toString())
-                                mViewDataBinding.textView51.setText(data.user.wallet.toString())
+//                                mViewDataBinding.textView51.setText(data.user.wallet.toString())
+
+                                val formattedNumber = String.format("%.2f", data.user.wallet)
+                                mViewDataBinding.textView51.text = formattedNumber + " Points"
 
 
                                 if (data.user.isPremium) {

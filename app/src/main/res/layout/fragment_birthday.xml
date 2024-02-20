@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg">
+
+        <ImageView
+            android:id="@+id/btnback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.05"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.05"
+            app:srcCompat="@drawable/arrow_left"
+            app:tint="@color/black" />
+
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="@dimen/_300sdp"
+            android:layout_height="@dimen/_132sdp"
+            android:layout_marginVertical="@dimen/_20sdp"
+            android:background="@drawable/card_back_less_rad"
+            android:clipToOutline="true"
+            android:scaleType="fitXY"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout4"
+            app:layout_constraintEnd_toEndOf="@+id/constraintLayout4"
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout4"
+            app:layout_constraintTop_toBottomOf="@+id/btnback"
+            app:tint="@color/white" />
+
+        <ImageView
+            android:id="@+id/img2"
+            android:layout_width="@dimen/_220sdp"
+            android:layout_height="@dimen/_159sdp"
+            android:clipToOutline="true"
+            android:visibility="gone"
+            android:scaleType="fitXY"
+            android:src="@drawable/congratulations_star"
+            app:layout_constraintBottom_toBottomOf="@+id/imgTxt"
+            app:layout_constraintEnd_toEndOf="@+id/imgTxt"
+            app:layout_constraintStart_toStartOf="@+id/imgTxt"
+            app:layout_constraintTop_toTopOf="@+id/imgTxt" />
+
+        <TextView
+            android:id="@+id/imgTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/_25sdp"
+            android:clipToOutline="true"
+            android:gravity="center"
+            android:fontFamily="@font/pacifico_regular"
+            android:scaleType="fitXY"
+            android:text="@string/happy_birthday"
+            android:textColor="@color/theme_color"
+            android:textSize="@dimen/_30ssp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/img"
+            app:layout_constraintStart_toStartOf="@+id/img"
+            app:layout_constraintTop_toBottomOf="@+id/btnback"
+            app:layout_constraintVertical_bias="0.1"
+            app:tint="@color/white" />
+
+        <TextView
+            android:id="@+id/imgTxt2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_7sdp"
+            android:clipToOutline="true"
+            android:gravity="center"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_launcher_background"
+            android:text="@string/you_ve_earned_a_scratch_card"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_14ssp"
+            android:textStyle="bold"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/img"
+            app:layout_constraintStart_toStartOf="@+id/img"
+            app:layout_constraintTop_toBottomOf="@+id/imgTxt"
+            app:layout_constraintVertical_bias="0"
+            app:tint="@color/white" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout4"
+            android:layout_width="@dimen/_250sdp"
+            android:layout_height="@dimen/_180sdp"
+            android:layout_marginHorizontal="@dimen/_6sdp"
+            android:elevation="@dimen/_2sdp"
+            android:background="@drawable/card_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgTxt2"
+            app:layout_constraintVertical_bias="0.2">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToOutline="true"
+                android:background="@drawable/card_background"
+
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <ImageView
+                    android:id="@+id/hiddenImg"
+                    android:layout_width="@dimen/_250sdp"
+                    android:layout_height="@dimen/_200sdp"
+                    android:src="@drawable/winner_leader"
+                    />
+
+                <com.anupkumarpanwar.scratchview.ScratchView
+                    android:id="@+id/scratchView"
+                    android:layout_width="@dimen/_250sdp"
+                    android:layout_height="@dimen/_200sdp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:overlay_height="@dimen/_200sdp"
+                    app:overlay_width="@dimen/_200sdp" />
+
+
+                <TextView
+                    android:id="@+id/scrTxt"
+                    android:layout_width="match_parent"
+                    android:gravity="center"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textColor="@color/black"
+                    android:layout_marginBottom="@dimen/_15sdp"
+                    android:textSize="@dimen/_14ssp"
+                    android:layout_height="wrap_content"
+                    android:text="Scratch to see your reward"
+                    android:layout_alignParentBottom="true"
+                    />
+
+            </RelativeLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+        <!-- <com.cooltechworks.views.ScratchImageView
+                       android:id="@+id/idScratchCardIv"
+                       android:layout_width="0dp"
+                       android:layout_height="0dp"
+                       android:layout_centerInParent="true"
+                       android:background="@color/white"
+                       android:clipToOutline="true"
+                       app:layout_constraintBottom_toBottomOf="parent"
+                       app:layout_constraintEnd_toEndOf="parent"
+                       app:layout_constraintStart_toStartOf="parent"
+                       app:layout_constraintTop_toTopOf="parent" />-->
+
+        <TextView
+            android:id="@+id/btnProceed"
+            style="@style/popins_regular"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginHorizontal="@dimen/_50sdp"
+            android:background="@drawable/card_background_border"
+            android:backgroundTint="@color/theme_color"
+            android:gravity="center"
+            android:text="@string/claim_prize"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout4"
+            app:layout_constraintVertical_bias="0.3" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

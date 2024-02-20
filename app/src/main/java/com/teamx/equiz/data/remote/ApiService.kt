@@ -31,6 +31,7 @@ import com.teamx.equiz.data.models.orderDetailData.OrderDetailData
 import com.teamx.equiz.data.models.otpForgotData.OtpforgotData
 import com.teamx.equiz.data.models.quizTitleData.QuizTitleData
 import com.teamx.equiz.data.models.quizbyidd.GetQuizById
+import com.teamx.equiz.data.models.scratchData.ScratchImgData
 import com.teamx.equiz.data.models.signupData.SignupData
 import com.teamx.equiz.data.models.sucessData.SuccessData
 import com.teamx.equiz.data.models.sucessData.gamesuccess.GameObj
@@ -438,5 +439,11 @@ interface ApiService {
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<ResponseBody>
 
+
+    @GET(NetworkCallPoints.SCRATCH_IMAGE)
+    suspend fun GetScratchImg(
+        @Path("id") id: String,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<ScratchImgData>
 
 }

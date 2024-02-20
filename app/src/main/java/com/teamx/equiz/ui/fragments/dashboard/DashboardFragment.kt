@@ -128,6 +128,12 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             )
         }
 
+        mViewDataBinding.textView16.setOnClickListener {
+            findNavController().navigate(
+                R.id.birthdatFragment, null, options
+            )
+        }
+
         mViewDataBinding.textView155.setOnClickListener {
             if (NetworkCallPoints.TOKENER.isNullOrEmpty() || NetworkCallPoints.TOKENER.equals(
                     "null",
@@ -175,10 +181,12 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 //                        mViewDataBinding.shimmerLayout.visibility = View.GONE
                         mViewDataBinding.mainLayout.visibility = View.VISIBLE
                         it.data?.let { data ->
-
-                            mViewDataBinding.tvCoins.text = data.data.toString()
+                            val formattedNumber = String.format("%.2f", data.data)
+                            mViewDataBinding.tvCoins.text = formattedNumber
+//                            mViewDataBinding.tvCoins.text = data.data.toString()
                             PrefHelper.getInstance(requireContext()).saveWalletAmount( data.data.toString())
                             Log.d("TAG", "wallramount: ${data.data.toString()}")
+                            Log.d("TAG", "wallramount: ${data}")
                         }
                     }
 

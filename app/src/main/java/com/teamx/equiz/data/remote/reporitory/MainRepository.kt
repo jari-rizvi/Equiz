@@ -137,6 +137,7 @@ class MainRepository @Inject constructor(
         @Query("startDate") startDate: String?,
         @Query("endDate") endDate: String?
     ) = apiService.getTransData(startDate, endDate)
+    suspend fun GetScratchImg(@Path("id") id: String) = apiService.GetScratchImg(id)
 
 
 }

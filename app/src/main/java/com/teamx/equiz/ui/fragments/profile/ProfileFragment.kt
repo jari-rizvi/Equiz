@@ -83,7 +83,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
                                 mViewDataBinding.textView4.text = data.user.email
                                 mViewDataBinding.textView4.setText(data.user.phone)
                                 mViewDataBinding.textView52.setText(data.user.chances.toString())
-                                mViewDataBinding.textView51.setText(data.user.wallet.toString())
+
+
+//                                mViewDataBinding.textView51.setText(data.user.wallet.toString())
+                                val formattedNumber = String.format("%.2f", data.user.wallet)
+                                mViewDataBinding.textView51.text = formattedNumber + " Points"
 
                                 Log.d("TAG", "onViewCreated121212: ${data.user.isPremium}")
                                 Log.d("TAG", "onViewCreated121212: ${data.user.wallet}")
