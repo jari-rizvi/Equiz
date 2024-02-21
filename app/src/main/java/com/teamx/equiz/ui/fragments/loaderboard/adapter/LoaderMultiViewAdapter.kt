@@ -55,6 +55,7 @@ class LoaderMultiViewAdapter(
     ) {
         val data = dataSet[position]
 
+//        val formattedNumber = String.format("%.2f", data.totalScore)
 
         holder.itemView.setOnClickListener {
             onUserClickListner.onUserClick(position)
@@ -75,7 +76,7 @@ class LoaderMultiViewAdapter(
 //                holderClass2.hatlyIcon54545454.isChecked = true
 
                 holderClass2.textView16?.text = "${position + 1}"
-                holderClass2.score?.text = data.userId.wallet.toString()
+                holderClass2.score?.text = "${data.totalScore.toInt()}"
 
                 holderClass2.name?.text = data.userId.name.toString()
 
@@ -111,7 +112,7 @@ class LoaderMultiViewAdapter(
                     holderClass1.equizIcon54545454?.isChecked = false
 
                     holderClass1.textView16?.text = "${position + 1}"
-                    holderClass1.score?.text = data.userId.wallet.toString()
+                    holderClass1.score?.text = "${data.totalScore.toInt()}"
 
                     holderClass1.name?.text = data.userId.name.toString()
                 } catch (e: Exception) {

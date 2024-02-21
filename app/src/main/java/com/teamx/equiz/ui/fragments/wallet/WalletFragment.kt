@@ -46,6 +46,8 @@ import java.io.File
 import java.io.InputStream
 import java.nio.charset.Charset
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.Calendar
 import java.util.Locale
 
@@ -363,6 +365,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
 
     lateinit var startdateTxt: TextView
     lateinit var enddateTxt: TextView
+    @RequiresApi(Build.VERSION_CODES.O)
     fun DatePickerDialog(): Dialog {
         val dialog = Dialog(requireActivity())
         dialog.setContentView(R.layout.date_dialog)
@@ -371,9 +374,17 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
         )
         dialog.setCancelable(false)
 
-        startdateTxt = dialog.findViewById<TextView>(R.id.startdob)
-        enddateTxt = dialog.findViewById<TextView>(R.id.enddob)
+        startdateTxt = dialog.findViewById(R.id.startdob)
+        enddateTxt = dialog.findViewById(R.id.enddob)
         val btn = dialog.findViewById<TextView>(R.id.btnCnfirm)
+
+        val currentDate = LocalDate.now()
+
+        val formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy")
+        startDateStr = currentDate.format(formatter)
+        startdateTxt.text = startDateStr
+        endDateStr = startDateStr
+        enddateTxt.text = endDateStr
 
 
         startdateTxt.setOnClickListener {
@@ -436,6 +447,10 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
             // set DatePickerDialog to point to today's date when it loads up
             cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)
         ).show()
+    }
+
+    fun showDate(){
+
     }
 
 }

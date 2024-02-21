@@ -33,14 +33,13 @@ class WalletAdapter(
 
 //        holder.binding.textView55.text = "${ wallet.pointType}"
 
-        if(wallet.pointType == "purchased"){
-            holder.binding.textView55.text = "You Purchase points"
+        if(wallet.pointType == "spend"){
+            holder.binding.textView55.text = "You Spent Points"
             holder.binding.textView56.text = "-"+wallet.points.toString()+" Pts"
             holder.binding.textView56.setTextColor(ContextCompat.getColor(context, R.color.red));
         }
-
-         if(wallet.pointType == "spend"){
-             holder.binding.textView55.text = "You Spent Wallet  Points For Purchasing"
+        else/*(wallet.pointType == "spend")*/{
+             holder.binding.textView55.text = "You Purchased"
              holder.binding.textView56.text = "+"+wallet.points.toString()+" Pts"
              holder.binding.textView56.setTextColor(ContextCompat.getColor(context, R.color.Green));
          }

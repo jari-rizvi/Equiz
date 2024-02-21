@@ -191,6 +191,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
                 }
             }
         }
+
         if (!mViewModel.deleteUserResponse.hasActiveObservers()) {
             mViewModel.deleteUserResponse.observe(requireActivity()) {
                 when (it.status) {

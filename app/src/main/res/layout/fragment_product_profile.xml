@@ -151,9 +151,7 @@
                 android:elevation="@dimen/_1sdp"
                 android:background="@drawable/bg_circle_top_square"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/guideline"
-
-                >
+                app:layout_constraintTop_toBottomOf="@+id/guideline">
 
                 <TextView
                     android:id="@+id/productName"
@@ -299,14 +297,13 @@
                     android:id="@+id/desc"
                     style="@style/popins_regular"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/_200sdp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:layout_weight="1"
                     android:gravity="start"
                     android:text=""
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12sdp"
-                    app:layout_constraintBottom_toTopOf="@+id/btnCheckout"
                     app:layout_constraintEnd_toEndOf="@+id/recyclerPeoples"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/facilities"
@@ -325,8 +322,9 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/_14sdp"
                     android:layout_marginBottom="@dimen/_60sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/desc"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 

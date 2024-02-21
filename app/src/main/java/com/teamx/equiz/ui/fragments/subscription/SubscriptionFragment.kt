@@ -305,8 +305,7 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
                     val paymentMethod = Stripe(
                         requireContext(),
                         "pk_test_51L1UVCGn3F7BuM88wH1PSuNgc9bX7tq0MkIMB2HU2BbScX3i7VgZw4V8nimfe1zUEF8uQ3Q6PFbzrMacvH5PfA7900PaBHO20E"
-                    )
-                        .createPaymentMethodSynchronous(cardParams)
+                    ).createPaymentMethodSynchronous(cardParams)
 
                     // Handle the PaymentMethod object
                     if (paymentMethod != null) {
