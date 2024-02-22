@@ -155,7 +155,7 @@ class SSCustomBottomNavigation : FrameLayout {
     private lateinit var bezierView: BezierView
 
     init {
-        heightCell = dip(context, 100) // bottom navigation height
+        heightCell = dip(context, 90) // bottom navigation height
     }
 
     constructor(context: Context) : super(context) {
@@ -215,10 +215,12 @@ class SSCustomBottomNavigation : FrameLayout {
                     R.styleable.SSCustomBottomNavigation_ss_iconTextSize,
                     dip(context, iconTextSize.toInt())
                 ).toFloat()
-                waveHeight = heightCell
-//                    getInteger(R.styleable.SSCustomBottomNavigation_ss_waveHeight, waveHeight)
+//                waveHeight = heightCell
+                waveHeight =
+                    getInteger(R.styleable.SSCustomBottomNavigation_ss_waveHeight, waveHeight)
 
-                isReverseCurve = getBoolean(R.styleable.SSCustomBottomNavigation_ss_reverseCurve, isReverseCurve)
+                isReverseCurve =
+                    getBoolean(R.styleable.SSCustomBottomNavigation_ss_reverseCurve, isReverseCurve)
                 val iconTextTypeFace =
                     getString(R.styleable.SSCustomBottomNavigation_ss_iconTextTypeface)
                 if (!iconTextTypeFace.isNullOrEmpty())
@@ -250,13 +252,13 @@ class SSCustomBottomNavigation : FrameLayout {
             clipChildren = false
             clipToPadding = false
 
-          /*  // Add a gradient background to the BezierView
-            val gradientDrawable = GradientDrawable(
-                GradientDrawable.Orientation.LEFT_RIGHT,
-                intArrayOf(Color.RED, Color.BLUE) // Replace with your desired gradient colors
-            )
-            gradientDrawable.cornerRadius = 0f // Set corner radius as needed
-            background = gradientDrawable*/
+            /*  // Add a gradient background to the BezierView
+              val gradientDrawable = GradientDrawable(
+                  GradientDrawable.Orientation.LEFT_RIGHT,
+                  intArrayOf(Color.RED, Color.BLUE) // Replace with your desired gradient colors
+              )
+              gradientDrawable.cornerRadius = 0f // Set corner radius as needed
+              background = gradientDrawable*/
         }
 
         bezierView = BezierView(context)
@@ -265,13 +267,13 @@ class SSCustomBottomNavigation : FrameLayout {
             color = backgroundBottomColor
             shadowColor = this@SSCustomBottomNavigation.shadowColor
             isReverseCurve = this@SSCustomBottomNavigation.isReverseCurve
-          /*  // Add a gradient background to the BezierView
-            val gradientDrawable = GradientDrawable(
-                GradientDrawable.Orientation.LEFT_RIGHT,
-                intArrayOf(Color.BLACK, Color.BLUE) // Replace with your desired gradient colors
-            )
-            gradientDrawable.cornerRadius = 0f // Set corner radius as needed
-            background = gradientDrawable*/
+            /*  // Add a gradient background to the BezierView
+              val gradientDrawable = GradientDrawable(
+                  GradientDrawable.Orientation.LEFT_RIGHT,
+                  intArrayOf(Color.BLACK, Color.BLUE) // Replace with your desired gradient colors
+              )
+              gradientDrawable.cornerRadius = 0f // Set corner radius as needed
+              background = gradientDrawable*/
         }
         bezierView.waveHeight = waveHeight
         addView(bezierView)
@@ -305,7 +307,8 @@ class SSCustomBottomNavigation : FrameLayout {
         if (selectedIndex != -1) {
             Log.e("selectedIndex", " $selectedIndex")
 //        val imm: InputMethodManager = getActivity(context)?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            val imm: InputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            val imm: InputMethodManager =
+                context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             if (!imm.isAcceptingText) show(selectedIndex, false)
         }
         Log.e("selectedIndex", "ll_cells.measuredHeight ${ll_cells.measuredHeight}")
@@ -318,7 +321,10 @@ class SSCustomBottomNavigation : FrameLayout {
         Log.e("selectedIndex", "height ${height}")
 
         // Set the measured dimensions to match the adjusted height
-        setMeasuredDimension(widthMeasureSpec, MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY))
+        setMeasuredDimension(
+            widthMeasureSpec,
+            MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY)
+        )
     }
 
     fun setMenuItems(models: Array<Model>, activeIndex: Int = 0) {

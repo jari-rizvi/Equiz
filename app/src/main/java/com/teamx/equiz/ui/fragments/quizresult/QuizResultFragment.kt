@@ -102,7 +102,8 @@ class QuizResultFragment : BaseFragment<FragmentQuizResultBinding, SingleQuizesV
 
                             }
 
-                            mViewDataBinding.supportResultTxt.text="You answered ${String.format("%.3f", data.populatedQuizScoreData.score).toDouble()}% questions correctly"
+                            mViewDataBinding.supportResultTxt.text="You answered ${data.populatedQuizScoreData.score.toInt()} questions correctly"
+                            /*${String.format("%.3f", data.populatedQuizScoreData.score.toInt())}*/
 
                             Log.d("TAG", "resulttt: ${data.chances}")
                             Log.d("TAG", "resulttt: ${data.populatedQuizScoreData}")

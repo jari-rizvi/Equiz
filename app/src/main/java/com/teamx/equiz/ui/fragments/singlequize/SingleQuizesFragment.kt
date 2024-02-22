@@ -56,8 +56,8 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
     private var rightAnswer = -1
     private var rightAnswers = 0
     private var totalAnswers = 0
-     var totalseconds : Double = 1.0
-     var durationSeconds : Double = 0.0
+    var totalseconds: Double = 1.0
+    var durationSeconds: Double = 0.0
     private var remainingTime = 0.0
     private var selectAnswer = -1
 
@@ -219,19 +219,27 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
                             Log.d("quizFindEncResponse", "quizFindEncResponse: $data")
 
 //                            mViewModel._quizFindResponse.value =
-                                var databyte = decryptAESCBC(data.encryptedData,data.iv,"Lg9g1ZUteY0F1HqZline3DhEh9ssyJzPx=")?.decodeToString()
+                            val databyte = decryptAESCBC(
+                                data.encryptedData,
+                                data.iv,
+                                "Lg9g1ZUteY0F1HqZline3DhEh9ssyJzPx="
+                            )?.decodeToString()
 //                            val decoded = java.lang.String(databyte, charset("UTF-8"))
 
 
 //                            val drinkItemString = "{\"strAlcoholic\":\"Alcohol One\",\"strIngredient1\":\"Ingredient One\"}"
 // And make use of Gson library to convert your JSON String into DrinkItem Object
 
-                            val drinkItem = Gson().fromJson(databyte,SingleQuizData::class.java)
+                            val drinkItem = Gson().fromJson(databyte, SingleQuizData::class.java)
+
+                            drinkItem.data?.forEach { item ->
+                                item.question?.forEach { question ->
+                                    question.options.shuffle() // Shuffle options list
+                                }
+                                item.question?.shuffle() // Shuffle question list
+                            }
 
                             _quizFindResponse.value = drinkItem
-
-
-
 
 
                         }
@@ -258,7 +266,7 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
             }
         }
 
-        quizFindResponse.observe(requireActivity()){
+        quizFindResponse.observe(requireActivity()) {
             try {
                 timerStart(it)
                 changeIndex(it)
@@ -451,9 +459,9 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
 
         quizFindResponse.observe(requireActivity()) {
 
-            it.data.let {singleQuizeData->
+            it.data.let { singleQuizeData ->
                 if (singleQuizeData != null) {
-                    if (quesNo.value == singleQuizeData?.get(0)?.question?.size) {
+                    if (quesNo.value == singleQuizeData.get(0).question?.size) {
                         if (job != null) {
 //                            job?.cancel()
                             var bundle = arguments
@@ -487,7 +495,6 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
                 }
             }
         }
-
 
 
     }
@@ -717,10 +724,12 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
     private fun timerStart(data: SingleQuizData) {
 //        var durationSeconds = 30.0
 
-         durationSeconds = data.data?.get(0)?.timer ?: 2.0
+        durationSeconds = data.data?.get(0)?.timer ?: 2.0
+
+        Log.d("durationSeconds", "durationSecondssdsd: $durationSeconds")
 
         durationSeconds *= 60.0
-         totalseconds = durationSeconds
+        totalseconds = durationSeconds
         var progressTime = 100.0
 
         var finalProgress = progressTime / durationSeconds
@@ -768,10 +777,10 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
             if (bundle == null) {
                 bundle = Bundle()
             }
-            bundle?.putInt("rightAnswer", rightAnswers)
-            bundle?.putInt("totalAnswer", totalAnswers)
-            bundle?.putDouble("totalTime", totalseconds)
-            bundle?.putDouble("remainingTime", durationSeconds)
+            bundle.putInt("rightAnswer", rightAnswers)
+            bundle.putInt("totalAnswer", totalAnswers)
+            bundle.putDouble("totalTime", totalseconds)
+            bundle.putDouble("remainingTime", durationSeconds)
             Log.d("TAG", "remainingTime: $remainingTime")
 
             job?.cancel()
@@ -784,7 +793,6 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
 //            changeObserver()
         }
     }
-
 
 
 //    @RequiresApi(Build.VERSION_CODES.M)
@@ -895,8 +903,6 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
 //    }
 
 
-
-
     fun convertSecretTo32Bit(secretKey: String): ByteArray {
         val keyData = secretKey.toByteArray(Charsets.UTF_8)
         return if (keyData.size >= 32) {
@@ -906,7 +912,11 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
         }
     }
 
-    fun decryptAESCBC(encryptedDataHexString: String, ivHexString: String, secretKey: String): ByteArray? {
+    fun decryptAESCBC(
+        encryptedDataHexString: String,
+        ivHexString: String,
+        secretKey: String
+    ): ByteArray? {
         val encryptedData = encryptedDataHexString.hexStringToByteArray()
         val iv = ivHexString.hexStringToByteArray()
         val keyData = convertSecretTo32Bit(secretKey)

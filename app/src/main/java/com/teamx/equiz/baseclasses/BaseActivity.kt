@@ -55,4 +55,6 @@ abstract class BaseActivity<T : ViewDataBinding, V : BaseViewModel> : AppCompatA
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(MainApplication.localeManager!!.setLocale(newBase!!))
     }
+
+
 }

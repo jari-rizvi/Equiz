@@ -6,7 +6,6 @@
     app:startDestination="@id/tempFragment">
 
 
-
     <fragment
         android:id="@+id/tempFragment"
         android:name="com.teamx.equiz.ui.fragments.Auth.temp.TempFragment"
@@ -285,7 +284,7 @@
         android:id="@+id/newsFragment"
         android:name="com.teamx.equiz.ui.fragments.news.NewsFragment"
         android:label="NewsFragment"
-        tools:layout="@layout/fragment_news" >
+        tools:layout="@layout/fragment_news">
         <action
             android:id="@+id/action_newsFragment_to_newsDetailFragment"
             app:destination="@id/newsDetailFragment" />
@@ -304,7 +303,7 @@
     <fragment
         android:id="@+id/topupFragment"
         android:name="com.teamx.equiz.ui.fragments.topup.TopupFragment"
-        android:label="TopupFragment" >
+        android:label="TopupFragment">
         <action
             android:id="@+id/action_topupFragment_to_cardsFragment"
             app:destination="@id/cardsFragment" />
@@ -451,7 +450,7 @@
         android:id="@+id/recieptFragment"
         android:name="com.teamx.equiz.ui.fragments.reciept.RecieptFragment"
         android:label="RecieptFragment"
-        tools:layout="@layout/fragment_reciept"/>
+        tools:layout="@layout/fragment_reciept" />
 
 
     <fragment
@@ -463,7 +462,7 @@
         android:id="@+id/newsDetailFragment"
         android:name="com.teamx.equiz.ui.fragments.news.NewsDetailFragment"
         android:label="NewsDetailFragment"
-        tools:layout="@layout/fragment_news_detail"/>
+        tools:layout="@layout/fragment_news_detail" />
     <fragment
         android:id="@+id/resultComposeFrag"
         android:name="com.teamx.equiz.ui.game_fragments.ResultComposeFrag"
@@ -535,9 +534,9 @@
 
     <fragment
         android:id="@+id/cardsFragment"
-        tools:layout="@layout/fragment_cards"
         android:name="com.teamx.equiz.ui.fragments.cards.CardsFragment"
-        android:label="CardsFragment" />
+        android:label="CardsFragment"
+        tools:layout="@layout/fragment_cards" />
     <fragment
         android:id="@+id/playQuizVideoFragment"
         android:name="com.teamx.equiz.ui.fragments.quiz.QuizVideoFragment"

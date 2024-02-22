@@ -144,14 +144,17 @@
                 android:orientation="horizontal"
                 app:layout_constraintGuide_begin="260dp" />
 
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:elevation="@dimen/_1sdp"
                 android:background="@drawable/bg_circle_top_square"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/guideline">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/productName"
@@ -315,18 +318,19 @@
                     style="@style/popins_regular"
                     android:layout_width="286dp"
                     android:layout_height="@dimen/_40sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:background="@drawable/card_background_border"
                     android:backgroundTint="@color/theme_color"
                     android:gravity="center"
                     android:text="@string/add_to_cart"
                     android:textColor="@color/white"
+                    android:layout_marginBottom="@dimen/_10sdp"
                     android:textSize="@dimen/_14sdp"
-                    android:layout_marginBottom="@dimen/_60sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
                     android:textStyle="bold"
-                    app:layout_constraintTop_toBottomOf="@+id/desc"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/desc" />
 
                 <LinearLayout
                     android:id="@+id/lnSimpleAddRemove"
@@ -378,6 +382,8 @@
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.core.widget.NestedScrollView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

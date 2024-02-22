@@ -50,10 +50,16 @@ class PlayQuizFragment : BaseFragment<PlayQuizLayoutBinding, WishlistViewModel>(
             } else {
                 findNavController().navigate(R.id.quizesFragment, arguments, options)
             }
-
-
-
         }
+
+        var bundle1 = arguments
+        if (bundle1 != null) {
+
+            val quizCountry = bundle1.getString("quiz_country")
+
+            mViewDataBinding.textView4654545454.text = "$quizCountry Quiz"
+        }
+
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         options = navOptions {

@@ -15,7 +15,7 @@ data class Data(
     val isActive: Boolean,
     val points: Int,
     val timer: Double?,
-    val question: List<Question>?,
+    val question: ArrayList<Question>?,
     val replay: Boolean,
     val startDate: String,
     val startTime: String,

@@ -88,7 +88,7 @@
                 app:ss_selectedIconColor="@color/white"
                 app:ss_selectedIconTextColor="@color/white"
                 app:ss_shadowColor="#1f212121"
-                app:ss_waveHeight="20" />
+                app:ss_waveHeight="6" />
 
             <View
                 android:id="@+id/guideline"

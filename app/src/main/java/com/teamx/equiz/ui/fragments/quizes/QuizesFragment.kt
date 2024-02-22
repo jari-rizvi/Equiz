@@ -211,6 +211,7 @@ class QuizesFragment : BaseFragment<FragmentQuizesBinding, QuizesViewModel>(), Q
         }
 
         bundle.putString("quiz_id","${modelQuiz._id}")
+        bundle.putString("quiz_country", modelQuiz.country)
         bundle.putString("routeQuiz", "quiz")
 
         findNavController().navigate(R.id.playQuizFragment, bundle,options)

@@ -829,7 +829,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             bundle = Bundle()
         }
 
-        bundle.putString("quiz_id", "${quizArrayList.get(position)._id}")
+
+        bundle.putString("quiz_id", quizArrayList[position]._id)
+        bundle.putString("quiz_country", quizArrayList[position].country)
         bundle.putString("routeQuiz", "dash")
 
 
