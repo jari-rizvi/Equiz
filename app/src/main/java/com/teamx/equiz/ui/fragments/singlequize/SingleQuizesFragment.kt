@@ -724,9 +724,17 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
     private fun timerStart(data: SingleQuizData) {
 //        var durationSeconds = 30.0
 
-        durationSeconds = data.data?.get(0)?.timer ?: 2.0
+        durationSeconds = if (data.data?.get(0)?.timer == null || data.data?.get(0)?.timer == 0.0){
+            2.0
+        } else{
+            data.data?.get(0)?.timer!!
+        }
 
-        Log.d("durationSeconds", "durationSecondssdsd: $durationSeconds")
+//        durationSeconds = if (data.data?.get(0)?.timer == null && data.data?.get(0)?.timer == 0.0) 2.0 else data.data?.get(0)?.timer ?: 2.0
+
+//        durationSeconds = data.data?.get(0)?.timer ?: 2.0
+
+        Log.d("durationSeconds", "durationSecondssdsd: ${data.data?.get(0)?.timer}")
 
         durationSeconds *= 60.0
         totalseconds = durationSeconds

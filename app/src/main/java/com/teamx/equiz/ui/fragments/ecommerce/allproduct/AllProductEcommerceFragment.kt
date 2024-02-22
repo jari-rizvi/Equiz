@@ -66,7 +66,7 @@ class AllProductEcommerceFragment :
             findNavController().popBackStack()
         }
 
-        mViewModel.getProducts()
+        mViewModel.getProducts(null,null)
 
         if (!mViewModel.getProductsResponse.hasActiveObservers()) {
             mViewModel.getProductsResponse.observe(requireActivity()) {
@@ -202,7 +202,7 @@ class AllProductEcommerceFragment :
         val linearLayoutManager = GridLayoutManager(context, 2, RecyclerView.VERTICAL, false)
         mViewDataBinding.popularRecycler.layoutManager = linearLayoutManager
 
-        productAdapter = ProductAdapter(productArrayList, this)
+        productAdapter = ProductAdapter(productArrayList, this,true)
         mViewDataBinding.popularRecycler.adapter = productAdapter
 
     }

@@ -27,20 +27,24 @@ class WalletAdapter(
 
         val wallet: Transaction = arrayList[position]
 
-        holder.binding.textView54.text = "You Earned Points"
+
 
 //        holder.binding.textView55.text = "You won points by participating in a quiz"
 
 //        holder.binding.textView55.text = "${ wallet.pointType}"
 
+        val formattedNumber = String.format("%.2f", wallet.points)
+
         if(wallet.pointType == "spend"){
-            holder.binding.textView55.text = "You Spent Points"
-            holder.binding.textView56.text = "-"+wallet.points.toString()+" Pts"
+            holder.binding.textView54.text = "Top-up"
+            holder.binding.textView55.text = "You spent wallet points"
+            holder.binding.textView56.text = "-"+formattedNumber+" Pts"
             holder.binding.textView56.setTextColor(ContextCompat.getColor(context, R.color.red));
         }
         else/*(wallet.pointType == "spend")*/{
-             holder.binding.textView55.text = "You Purchased"
-             holder.binding.textView56.text = "+"+wallet.points.toString()+" Pts"
+            holder.binding.textView54.text = "Order"
+             holder.binding.textView55.text = "You have gained"
+             holder.binding.textView56.text = "+"+formattedNumber+" Pts"
              holder.binding.textView56.setTextColor(ContextCompat.getColor(context, R.color.Green));
          }
 

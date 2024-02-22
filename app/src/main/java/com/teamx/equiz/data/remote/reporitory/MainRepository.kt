@@ -26,7 +26,7 @@ class MainRepository @Inject constructor(
     suspend fun getProducts(keyword: String) = apiService.getProducts(keyword = keyword)
     suspend fun getProductsCat(category: String) = apiService.getProductsCat(category = category)
 
-    suspend fun getProducts(keyword: String, category: String) =
+    suspend fun getProducts(keyword: String?, category: String?) =
         apiService.getProducts(keyword = keyword, category = category)
 
     suspend fun getCart() = apiService.getCart()

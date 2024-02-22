@@ -124,8 +124,8 @@ interface ApiService {
 
     @GET(NetworkCallPoints.GET_PRODUCTS)
     suspend fun getProducts(
-        @Query("keyword") keyword: String,
-        @Query("category") category: String,
+        @Query("keyword") keyword: String?,
+        @Query("category") category: String?,
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<GetProductData>
 

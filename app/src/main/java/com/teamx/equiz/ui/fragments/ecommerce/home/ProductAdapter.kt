@@ -11,7 +11,8 @@ import com.teamx.equiz.databinding.ItemProductBinding
 
 class ProductAdapter(
     val arrayList: ArrayList<Data>,
-    private val onTopProductListener: OnProductListener
+    private val onTopProductListener: OnProductListener,
+    val isAll : Boolean
 ) : RecyclerView.Adapter<ProductAdapter.TopProductViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopProductViewHolder {
@@ -81,11 +82,10 @@ class ProductAdapter(
     }
 
     override fun getItemCount(): Int {
-        if(arrayList.size > 4){
-            return 4
-        }
-        else{
-            return arrayList.size
+        return if(arrayList.size > 4 && !isAll){
+            4
+        } else{
+            arrayList.size
         }
     }
 

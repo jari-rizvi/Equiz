@@ -176,7 +176,7 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
          }*/
 
 
-        mViewModel.getProducts()
+        mViewModel.getProducts(null,null)
 
         if (!mViewModel.getProductsResponse.hasActiveObservers()) {
             mViewModel.getProductsResponse.observe(requireActivity()) {
@@ -455,7 +455,7 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
         mViewDataBinding.editSearch.setOnEditorActionListener { _, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH || (event != null && event.action == KeyEvent.ACTION_DOWN && event.keyCode == KeyEvent.KEYCODE_ENTER)) {
                 mViewModel.getProducts(
-                    category = "",
+                    null,
                     keyword = "${mViewDataBinding.editSearch.text.toString()}"
                 )
                 return@setOnEditorActionListener true
@@ -597,7 +597,7 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
         val linearLayoutManager = GridLayoutManager(context, 2, RecyclerView.VERTICAL, false)
         mViewDataBinding.popularRecycler.layoutManager = linearLayoutManager
 
-        productAdapter = ProductAdapter(productArrayList, this)
+        productAdapter = ProductAdapter(productArrayList, this,false)
         mViewDataBinding.popularRecycler.adapter = productAdapter
 
     }
@@ -608,7 +608,7 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
         var catId = tick._id
 
         Log.d("123123", "onTopSellerClick:$catId ")
-        mViewModel.getProducts(category = catId, keyword = "")
+        mViewModel.getProducts(category = catId, keyword = null)
 //        strArrayList.forEach{
 //            if (it.isSelected)
 //            it.isSelected = false
