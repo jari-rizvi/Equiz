@@ -11,7 +11,9 @@ object AppConstants {
     annotation class ApiConfiguration {
         companion object {
 //                        const val BASE_URL = "http://52.220.240.6:3003/"
-            const val BASE_URL = "http://192.168.100.33:3003" /**local**/
+                        const val BASE_URL = "https://dev-api.emiratesq.net/"
+//            const val BASE_URL = "http://192.168.100.33:3003" /**local**/
+//            const val BASE_URL = "https://dev-api.emiratesq.net" /**production**/
 //            const val BASE_URL = "https://qd6m9n13-3003.uks1.devtunnels.ms"
 //            const val BASE_URL = "https://qd6m9n13-3003.uks1.devtunnels.ms"
 //            const val BASE_URL = "https://qd6m9n13-3003.uks1.devtunnels.ms"

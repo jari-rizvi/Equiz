@@ -8,6 +8,7 @@ import com.teamx.equiz.baseclasses.BaseViewModel
 import com.teamx.equiz.data.models.getPlan.GerPlanData
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.data.remote.reporitory.MainRepository
+import com.teamx.equiz.ui.fragments.ecommerce.productProfile.unsub_data.UNSUBDataModel
 import com.teamx.equiz.ui.fragments.subscription.data.SubData
 import com.teamx.equiz.utils.NetworkHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,6 +22,38 @@ class SubscriptionViewModel @Inject constructor(
     private val mainRepository: MainRepository,
     private val networkHelper: NetworkHelper
 ) : BaseViewModel() {
+
+
+    private val _unsubResponse = MutableLiveData<Resource<UNSUBDataModel>>()
+    val unsubResponse: LiveData<Resource<UNSUBDataModel>>
+        get() = _unsubResponse
+
+    fun unsub() {
+        viewModelScope.launch {
+            _unsubResponse.postValue(Resource.loading(null))
+            if (networkHelper.isNetworkConnected()) {
+                try {
+                    mainRepository.unsub().let {
+                        if (it.isSuccessful) {
+                            _unsubResponse.postValue(Resource.success(it.body()!!))
+                        }
+                        /*  else if (it.code() == 401) {
+                              _unsubResponse.postValue(Resource.unAuth("", null))
+                          }*/ else if (it.code() == 500 || it.code() == 404 || it.code() == 400 || it.code() == 422) {
+                            val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
+                            _unsubResponse.postValue(Resource.error(jsonObj.getString("message")))
+                        } else {
+                            val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
+                            _unsubResponse.postValue(Resource.error(jsonObj.getString("message")))
+//                            _meResponse.postValue(Resource.error(it.message(), null))
+                        }
+                    }
+                } catch (e: Exception) {
+                    _unsubResponse.postValue(Resource.error("${e.message}", null))
+                }
+            } else _unsubResponse.postValue(Resource.error("No internet connection", null))
+        }
+    }
 
     private val _getPlanResponse = MutableLiveData<Resource<GerPlanData>>()
     val getPlanResponse: LiveData<Resource<GerPlanData>>

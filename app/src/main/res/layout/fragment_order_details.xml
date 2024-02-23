@@ -5,15 +5,16 @@
 
 
     <RelativeLayout
-        android:layout_width="match_parent" android:background="@color/white"
-        android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/mainLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
-            android:background="@drawable/bg">
+            android:background="@drawable/bg"
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/btnback"
@@ -83,8 +84,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/other_detail"
-                android:textSize="@dimen/_12ssp"
                 android:textColor="@color/black"
+                android:textSize="@dimen/_12ssp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -100,8 +101,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/product_name"
                 android:textColor="@color/black"
-                android:visibility="gone"
                 android:textSize="@dimen/_10ssp"
+                android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@+id/textView23"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0"
@@ -109,6 +110,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView21"
                 app:layout_constraintVertical_bias="0.05"
                 app:layout_constraintVertical_chainStyle="packed" />
+
 
             <TextView
                 android:id="@+id/textView23"
@@ -192,8 +194,8 @@
                 android:layout_height="wrap_content"
                 android:text="sdsddsdsd"
                 android:textColor="@color/black"
-                android:visibility="gone"
                 android:textSize="@dimen/_10ssp"
+                android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@+id/orderId"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.8"
@@ -207,11 +209,11 @@
                 style="@style/popins_regular"
                 android:layout_width="@dimen/_100sdp"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="1"
                 android:layout_marginHorizontal="@dimen/_5sdp"
-                android:text=""
+                android:ellipsize="end"
                 android:gravity="center"
+                android:maxLines="1"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="@dimen/_10ssp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView23"
@@ -283,40 +285,79 @@
 
             <TextView
                 android:id="@+id/btnReOrder"
+                style="@style/popins_regular"
                 android:layout_width="@dimen/_150sdp"
                 android:layout_height="@dimen/_40sdp"
-                android:text="@string/reorder"
+                android:background="@drawable/card_background_border_theme"
                 android:gravity="center"
+                android:text="@string/reorder"
                 android:textColor="@color/theme_color"
-                style="@style/popins_regular"
-                android:visibility="gone"
-                android:textStyle="bold"
-                app:layout_constraintVertical_bias="0.3"
                 android:textSize="@dimen/_12ssp"
+                android:textStyle="bold"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/btnInvoice"
                 app:layout_constraintHorizontal_bias="0.5"
-                android:background="@drawable/card_background_border_theme"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView28" />
+                app:layout_constraintTop_toBottomOf="@+id/textView28"
+                app:layout_constraintVertical_bias="0.3" />
 
             <TextView
                 android:id="@+id/btnInvoice"
+                style="@style/popins_regular"
                 android:layout_width="@dimen/_150sdp"
                 android:layout_height="@dimen/_40sdp"
+                android:background="@drawable/card_background_border"
+                android:backgroundTint="@color/theme_color"
+                android:gravity="center"
                 android:text="@string/invoice"
                 android:textColor="@color/white"
-                style="@style/popins_regular"
-                android:textStyle="bold"
                 android:textSize="@dimen/_12ssp"
-                android:backgroundTint="@color/theme_color"
-                android:background="@drawable/card_background_border"
-                android:gravity="center"
+                android:visibility="gone"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/btnReOrder"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/btnReOrder"
                 app:layout_constraintTop_toTopOf="@+id/btnReOrder" />
+
+            <TextView
+                android:id="@+id/btnCancel"
+                style="@style/popins_regular"
+                android:layout_width="@dimen/_150sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:background="@drawable/card_background_border"
+                android:backgroundTint="@color/theme_color"
+                android:gravity="center"
+                android:text="@string/cancel"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12ssp"
+                android:visibility="gone"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/btnInvoice"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/btnInvoice" />
+
+            <TextView
+                android:id="@+id/btnReOrder1"
+                style="@style/popins_regular"
+                android:layout_width="@dimen/_150sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:background="@drawable/card_background_border"
+                android:backgroundTint="@color/theme_color"
+                android:gravity="center"
+                android:text="@string/reorder"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12ssp"
+                android:visibility="gone"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/btnInvoice"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/btnInvoice" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -338,8 +379,6 @@
 
         </com.facebook.shimmer.ShimmerFrameLayout>
     </RelativeLayout>
-
-
 
 
 </layout>

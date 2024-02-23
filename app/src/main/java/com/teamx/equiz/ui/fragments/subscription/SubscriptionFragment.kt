@@ -39,7 +39,8 @@ import kotlinx.coroutines.launch
 import org.json.JSONException
 
 @AndroidEntryPoint
-class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, SubscriptionViewModel>(),BottomSheetStripeListener{
+class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, SubscriptionViewModel>(),
+    BottomSheetStripeListener {
 
     override val layoutId: Int
         get() = R.layout.fragment_subscription
@@ -47,10 +48,11 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
         get() = SubscriptionViewModel::class.java
     override val bindingVariable: Int
         get() = BR.viewModel
-//    private lateinit var bottomSheetAddSearchFragment: BottomSheetAddressFragment
+
+    //    private lateinit var bottomSheetAddSearchFragment: BottomSheetAddressFragment
     private lateinit var bottomStripeFragment: BottomStripeFragment
     private var bottomSheetStripeListener: BottomSheetStripeListener? = null
-    lateinit var  cardParams : PaymentMethodCreateParams
+    lateinit var cardParams: PaymentMethodCreateParams
 
 
     private lateinit var options: NavOptions
@@ -75,14 +77,12 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
 //        val btnPay: Button = view.findViewById(R.id.btnPay)
 
 
-
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
 
 
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
-
 
 
 //        bottomSheetBehavior.addBottomSheetCallback(object :
@@ -106,7 +106,6 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
 
 
         Log.d("TAG", "onViewCreatesdsdd:sdskdl")
-
 
 
 //        mViewDataBinding.btnBuy.setOnClickListener {
@@ -158,10 +157,89 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
             "pk_test_51L1UVCGn3F7BuM88wH1PSuNgc9bX7tq0MkIMB2HU2BbScX3i7VgZw4V8nimfe1zUEF8uQ3Q6PFbzrMacvH5PfA7900PaBHO20E"
         )
 
-         stripe = Stripe(
+        stripe = Stripe(
             requireContext(),
             "pk_test_51L1UVCGn3F7BuM88wH1PSuNgc9bX7tq0MkIMB2HU2BbScX3i7VgZw4V8nimfe1zUEF8uQ3Q6PFbzrMacvH5PfA7900PaBHO20E"
         )
+
+
+        var bundle = arguments
+        if (bundle == null) {
+            bundle = Bundle()
+        }
+
+
+        val route = bundle?.getString("routeSubs")
+        if (route.equals("setting", true)) {
+
+        } else {
+            mViewDataBinding.unsub.visibility = View.VISIBLE
+            mViewDataBinding.btnBuy.visibility = View.GONE
+        }
+
+
+        mViewDataBinding.unsub.setOnClickListener {
+               DialogHelperClass.unsubUserDialog(requireContext(),
+                object : DialogHelperClass.Companion.DeleteUserDialogCallBack {
+                    override fun onSignInClick1() {
+
+                    }
+
+                    override fun onSignUpClick1() {
+                        mViewModel.unsub()
+                        if (!mViewModel.unsubResponse.hasActiveObservers()) {
+                            mViewModel.unsubResponse.observe(requireActivity()) {
+                                when (it.status) {
+                                    Resource.Status.LOADING -> {
+                                        loadingDialog.show()
+                                    }
+
+                                    Resource.Status.NOTVERIFY -> {
+                                        loadingDialog.dismiss()
+                                    }
+
+                                    Resource.Status.SUCCESS -> {
+                                        loadingDialog.dismiss()
+                                        it.data?.let { data ->
+
+                                            try {
+//                                mViewDataBinding.root.snackbar(data)
+                                                mViewDataBinding.root.snackbar("Subcription will end at the end of the Month")
+
+
+                                            } catch (e: Exception) {
+                                                e.printStackTrace()
+                                            }
+                                        }
+                                    }
+
+                                    Resource.Status.AUTH -> {
+                                        loadingDialog.dismiss()
+                                        if (isAdded) {
+                                            try {
+                                                onToSignUpPage()
+                                            } catch (e: Exception) {
+                                                e.printStackTrace()
+                                            }
+                                        }
+                                    }
+
+                                    Resource.Status.ERROR -> {
+                                        loadingDialog.dismiss()
+                                        if (isAdded) {
+                                            mViewDataBinding.root.snackbar(it.message!!)
+                                        }
+                                        Log.d("TAG", "eeeeeeeeeee: ${it.message}")
+                                    }
+                                }
+                            }
+                        }
+
+
+                    }
+
+                }).show()
+        }
 
 
         mViewModel.getPlan()
@@ -184,15 +262,17 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
                                     couponsArrayList.add(it)
                                 }*/
 
-                            val divide = "${data.dataObject.amount / 100}"+"AED"
+                            val divide = "${data.dataObject.amount / 100}" + "AED"
 
                             mViewDataBinding.textView61.text = divide.toString()
 
 
                         }
                     }
-                    Resource.Status.AUTH -> { loadingDialog.dismiss()
-                         if (isAdded) {
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+                        if (isAdded) {
                             try {
                                 onToSignUpPage()
                             } catch (e: Exception) {
@@ -200,6 +280,7 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
                             }
                         }
                     }
+
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
                         DialogHelperClass.errorDialog(
@@ -231,7 +312,6 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
-
 
 
                             if (cardParams != null) {
@@ -294,7 +374,7 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
     }
 
     override fun onBtnPay(cardInputWidget: CardInputWidget) {
-         cardParams = cardInputWidget.paymentMethodCreateParams!!
+        cardParams = cardInputWidget.paymentMethodCreateParams!!
 
 
 

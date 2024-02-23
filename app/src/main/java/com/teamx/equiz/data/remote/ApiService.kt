@@ -33,6 +33,7 @@ import com.teamx.equiz.data.models.quizTitleData.QuizTitleData
 import com.teamx.equiz.data.models.quizbyidd.GetQuizById
 import com.teamx.equiz.data.models.scratchData.ScratchImgData
 import com.teamx.equiz.data.models.signupData.SignupData
+import com.teamx.equiz.data.models.staticsData.StaticsData
 import com.teamx.equiz.data.models.sucessData.SuccessData
 import com.teamx.equiz.data.models.sucessData.gamesuccess.GameObj
 import com.teamx.equiz.data.models.topWinnerData.TopWinnerData
@@ -426,10 +427,15 @@ interface ApiService {
     ): Response<NotificationSettingsData>
 
 
-    @GET(NetworkCallPoints.GET_NOTIFICATION_SETTING )
+    @GET(NetworkCallPoints.GET_NOTIFICATION_SETTING)
     suspend fun getNotificationSetting(
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<NotificationSettingsData>
+
+    @GET(NetworkCallPoints.GET_STATICS_DATA)
+    suspend fun getUserStatics(
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<StaticsData>
 
 
     @GET(NetworkCallPoints.GET_WALLET_TRANSACTION)

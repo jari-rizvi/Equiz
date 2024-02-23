@@ -14,6 +14,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
+import com.teamx.equiz.data.models.staticsData.StaticsData
 import com.teamx.equiz.data.models.topWinnerData.Game
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentLoaderBoardBinding
@@ -37,7 +38,7 @@ class StaticsFragment : BaseFragment<FragmentStaticsBinding, StaticsViewModel>()
 
     private lateinit var options: NavOptions
 
-
+    lateinit var staticsData: StaticsData
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,19 +55,26 @@ class StaticsFragment : BaseFragment<FragmentStaticsBinding, StaticsViewModel>()
 
 
 
-        mViewDataBinding.tabLayout2.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        if (!mViewModel.getUserStaticsResponse.hasActiveObservers()) {
+            mViewModel.getUserStatics()
+
+        }
+
+
+        changeObserver(0)
+
+
+
+        mViewDataBinding.tabLayout2.addOnTabSelectedListener(object :
+            TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 // Get the selected tab position
                 // Perform actions based on the selected tab
-                when (tab?.position) {
-                    0 -> {
 
-                    }
-                    1 -> {
 
-                    }
-                    // Add more cases for other tabs if needed
-                }
+                Log.d("staticsData", "onTabSelected: ${staticsData}")
+                tab?.position?.let { updateLayout(staticsData,it) }
+
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
@@ -78,6 +86,80 @@ class StaticsFragment : BaseFragment<FragmentStaticsBinding, StaticsViewModel>()
             }
         })
 
+    }
+
+
+    fun changeObserver(index: Int) {
+        mViewModel.getUserStaticsResponse.observe(requireActivity()) {
+            when (it.status) {
+                Resource.Status.LOADING -> {
+//                        loadingDialog.show()
+                } /* Resource.Status.AUTH -> {
+                    loadingDialog.dismiss()
+                    onToSignUpPage()
+                }*/
+                Resource.Status.NOTVERIFY -> {
+                    loadingDialog.dismiss()
+                }
+
+                Resource.Status.SUCCESS -> {
+//                        loadingDialog.dismiss()
+                    it.data?.let { data ->
+
+
+                        staticsData = data
+                        updateLayout(staticsData,index)
+                    }
+                }
+
+                Resource.Status.AUTH -> {
+                    loadingDialog.dismiss()
+                    if (isAdded) {
+                        try {
+                            onToSignUpPage()
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                    }
+                }
+
+                Resource.Status.ERROR -> {
+//                        loadingDialog.dismiss()
+                    DialogHelperClass.errorDialog(
+                        requireContext(),
+                        it.message!!
+                    )
+                }
+            }
+
+        }
+    }
+
+    fun updateLayout(staticsData: StaticsData, index:Int){
+        var wins = 0.0
+        var losses = 0.0
+        var percentage = 0.0
+        var highScore = 0.0
+
+        if (index == 0) {
+            wins = staticsData.todayAccumulator.wins
+            losses = staticsData.todayAccumulator.losses
+            percentage = (wins / (wins + losses) * 100)
+            highScore = staticsData.todayAccumulator.total
+        } else if (index == 1) {
+            wins = staticsData.totalAccumulator.wins
+            losses = staticsData.totalAccumulator.losses
+            percentage = (wins / (wins + losses) * 100)
+            highScore = staticsData.totalAccumulator.total
+        }
+
+
+        mViewDataBinding.simpleProgressBar.progress = percentage.toInt()
+        mViewDataBinding.percentTxt.text = "${"${percentage}".substring(0, 2)}%"
+
+        mViewDataBinding.textView78.text = "Wins\n${wins}"
+        mViewDataBinding.textView77.text = "Losses\n${losses}"
+        mViewDataBinding.textView7787.text = "High Score\n${highScore}"
     }
 
 }

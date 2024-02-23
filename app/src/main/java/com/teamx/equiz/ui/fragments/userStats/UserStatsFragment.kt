@@ -15,8 +15,10 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
+import com.teamx.equiz.constants.NetworkCallPoints
 import com.teamx.equiz.databinding.FragmentUserStatsBinding
 import com.teamx.equiz.ui.fragments.Auth.login.LoginViewModel
+import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -48,6 +50,17 @@ class UserStatsFragment : BaseFragment<FragmentUserStatsBinding, LoginViewModel>
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+
+        if (NetworkCallPoints.TOKENER.isNullOrEmpty() || NetworkCallPoints.TOKENER.equals(
+                "null",
+                true
+            )
+        ) {
+            DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
+            return
+        }
+
+
 
         Log.d("UserStatsFragment", "setupViewPager: onViewCreated")
 
