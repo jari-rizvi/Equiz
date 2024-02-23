@@ -57,11 +57,11 @@ class StaticsFragment : BaseFragment<FragmentStaticsBinding, StaticsViewModel>()
 
         if (!mViewModel.getUserStaticsResponse.hasActiveObservers()) {
             mViewModel.getUserStatics()
-
+            changeObserver(0)
         }
 
 
-        changeObserver(0)
+
 
 
 
@@ -138,24 +138,26 @@ class StaticsFragment : BaseFragment<FragmentStaticsBinding, StaticsViewModel>()
     fun updateLayout(staticsData: StaticsData, index:Int){
         var wins = 0.0
         var losses = 0.0
-        var percentage = 0.0
+        var percentage = 0
         var highScore = 0.0
 
         if (index == 0) {
-            wins = staticsData.todayAccumulator.wins
-            losses = staticsData.todayAccumulator.losses
-            percentage = (wins / (wins + losses) * 100)
-            highScore = staticsData.todayAccumulator.total
+            wins = staticsData.todayAccumulator.wins?:0.0
+            losses = staticsData.todayAccumulator.losses?:0.0
+            percentage = (wins / (wins + losses) * 100).toInt()
+            highScore = staticsData.todayAccumulator.total?:0.0
+
         } else if (index == 1) {
-            wins = staticsData.totalAccumulator.wins
-            losses = staticsData.totalAccumulator.losses
-            percentage = (wins / (wins + losses) * 100)
-            highScore = staticsData.totalAccumulator.total
+            wins = staticsData.totalAccumulator.wins?:0.0
+            losses = staticsData.totalAccumulator.losses?:0.0
+            percentage = (wins / (wins + losses) * 100).toInt()
+            highScore = staticsData.totalAccumulator.total?:0.0
         }
 
 
-        mViewDataBinding.simpleProgressBar.progress = percentage.toInt()
-        mViewDataBinding.percentTxt.text = "${"${percentage}".substring(0, 2)}%"
+        mViewDataBinding.simpleProgressBar.progress = percentage
+//        mViewDataBinding.percentTxt.text = "${"${percentage}".substring(0, 2)}%"
+        mViewDataBinding.percentTxt.text = "$percentage%"
 
         mViewDataBinding.textView78.text = "Wins\n${wins}"
         mViewDataBinding.textView77.text = "Losses\n${losses}"
