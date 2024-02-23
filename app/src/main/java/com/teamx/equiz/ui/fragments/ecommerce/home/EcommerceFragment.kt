@@ -608,7 +608,7 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
         var catId = tick._id
 
         Log.d("123123", "onTopSellerClick:$catId ")
-        mViewModel.getProducts(category = catId, keyword = null)
+        mViewModel.getProducts(catId, "")
 //        strArrayList.forEach{
 //            if (it.isSelected)
 //            it.isSelected = false
