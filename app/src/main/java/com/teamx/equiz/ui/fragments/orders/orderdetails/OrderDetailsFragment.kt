@@ -109,6 +109,21 @@ class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding, OrderDeta
                             val o = data.data.orders.createdAt.toString().replaceAfter('T', "")
                                 .replace("T", "")
 
+
+
+                            if (data.data.orders.orderStatus == "Processing") {
+                                mViewDataBinding.btnCancel.visibility = View.VISIBLE
+                            }
+                            if (data.data.orders.orderStatus == "Cancel") {
+                                mViewDataBinding.btnReOrder1.visibility = View.VISIBLE
+                            }
+
+                            if (data.data.orders.orderStatus == "Delivered") {
+                                mViewDataBinding.btnInvoice.visibility = View.VISIBLE
+                                mViewDataBinding.btnReOrder.visibility = View.VISIBLE
+                            }
+
+
                             mViewDataBinding.date.text = o
                             try {
 
@@ -117,11 +132,10 @@ class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding, OrderDeta
                             } catch (e: Exception) {
                             }
 
-                            if(data.data.orders.coupon == null){
+                            if (data.data.orders.coupon == null) {
                                 mViewDataBinding.total.text =
                                     data.data.orders.totalPoints.toString() + " Points"
-                            }
-                            else{
+                            } else {
                                 mViewDataBinding.total.text =
                                     data.data.orders.discountedPrice.toString() + " Points"
                             }

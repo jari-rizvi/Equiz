@@ -23,7 +23,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
-class LoaderBoardFragment : BaseFragment<FragmentLoaderBoardBinding, LoaderBoardViewModel>(),OnUserClickListner {
+class LoaderBoardFragment : BaseFragment<FragmentLoaderBoardBinding, LoaderBoardViewModel>(),
+    OnUserClickListner {
 
     override val layoutId: Int
         get() = R.layout.fragment_loader_board
@@ -64,10 +65,10 @@ class LoaderBoardFragment : BaseFragment<FragmentLoaderBoardBinding, LoaderBoard
 
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
 
-    /*    mViewDataBinding.constraintLayout10.setOnClickListener {
-            findNavController().navigate(R.id.userProgressFragment, arguments, options)
+        /*    mViewDataBinding.constraintLayout10.setOnClickListener {
+                findNavController().navigate(R.id.userProgressFragment, arguments, options)
 
-        }*/
+            }*/
 
 //        initializeCategoriesAdapter()
 
@@ -76,6 +77,9 @@ class LoaderBoardFragment : BaseFragment<FragmentLoaderBoardBinding, LoaderBoard
         if (id.isNullOrEmpty()) {
             id = " "
         }
+
+
+        Log.d("TAG", "userrrrrrrrrrr9d: $id")
 
         mViewModel.getTopWinners(id)
 
@@ -130,19 +134,30 @@ class LoaderBoardFragment : BaseFragment<FragmentLoaderBoardBinding, LoaderBoard
                                     .error(R.drawable.baseline_person)
                                     .into(mViewDataBinding.equizIcon54)
 
+
+                                val formattedNumber00 =
+                                    String.format("%.2f", data.game[0].userId.wallet)
                                 mViewDataBinding.textView545.text = data.game[0].userId.name
                                 mViewDataBinding.textView545455.text =
-                                    data.game[0].userId.wallet.toString()
+                                    formattedNumber00
 
                                 Log.d("TAG", "1111111111: ${data.game}")
 
+                                val formattedNumber1 =
+                                    String.format("%.2f", data.game[1].userId.wallet)
+
                                 mViewDataBinding.textView54545.text = data.game[1].userId.name
                                 mViewDataBinding.textView545545455.text =
-                                    data.game[1].userId.wallet.toString()
+                                    formattedNumber1
 
                                 mViewDataBinding.textView545545445.text = data.game[2].userId.name
+
+                                val formattedNumber2 =
+                                    String.format("%.2f", data.game[2].userId.wallet)
+
+
                                 mViewDataBinding.textView5455454554545.text =
-                                    data.game[2].userId.wallet.toString()
+                                    formattedNumber2
 
                             } catch (e: Exception) {
                             }
@@ -202,7 +217,7 @@ class LoaderBoardFragment : BaseFragment<FragmentLoaderBoardBinding, LoaderBoard
             LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         mViewDataBinding.recyLoaderBoard.layoutManager = layoutManager1
 
-        loaderMultiViewAdapter = LoaderMultiViewAdapter(winnerArrayList,this)
+        loaderMultiViewAdapter = LoaderMultiViewAdapter(winnerArrayList, this)
         mViewDataBinding.recyLoaderBoard.adapter = loaderMultiViewAdapter
 
 
@@ -238,7 +253,8 @@ class LoaderBoardFragment : BaseFragment<FragmentLoaderBoardBinding, LoaderBoard
 
 
 
-        DialogHelperClass.UserStatsDialog(requireContext(),
+        DialogHelperClass.UserStatsDialog(
+            requireContext(),
             object : DialogHelperClass.Companion.ChickenDialogCallBack {
                 override fun onCloseClick() {
 
@@ -249,7 +265,6 @@ class LoaderBoardFragment : BaseFragment<FragmentLoaderBoardBinding, LoaderBoard
         ).show()
 
     }
-
 
 
 }

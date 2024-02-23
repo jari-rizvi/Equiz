@@ -3,6 +3,7 @@ package com.teamx.equiz.ui.fragments.ecommerce.checkout
 
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import androidx.activity.addCallback
 import androidx.lifecycle.Observer
 import androidx.navigation.NavOptions
@@ -54,6 +55,8 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
             }
         }
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
+
+
 
 
 

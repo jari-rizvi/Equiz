@@ -126,17 +126,22 @@ class MainRepository @Inject constructor(
     suspend fun updateAddress(
         @Body params: JsonObject,
     ) = apiService.updateAddress(params)
- suspend fun updateNotificationSetting(
+
+    suspend fun updateNotificationSetting(
         @Body params: JsonObject,
     ) = apiService.updateNotificationSetting(params)
 
     suspend fun getNotificationSetting(
     ) = apiService.getNotificationSetting()
 
+    suspend fun getUserStatics(
+    ) = apiService.getUserStatics()
+
     suspend fun getTransData(
         @Query("startDate") startDate: String?,
         @Query("endDate") endDate: String?
     ) = apiService.getTransData(startDate, endDate)
+
     suspend fun GetScratchImg(@Path("id") id: String) = apiService.GetScratchImg(id)
 
 

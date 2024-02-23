@@ -29,7 +29,7 @@ class FavouriteAdapter(
 
         holder.binding.qty.text = "${list.quantity.toString()} Qty"
 
-        holder.binding.price.text = "${list.price.toString()} AED"
+        holder.binding.price.text = "${list.price.toString()} Pts"
         if (!list.images.isNullOrEmpty()) {
 //            Picasso.get().load(list.images.get(0)).into(holder.binding.productImage)
             Glide.with(holder.binding.productImage.context).load(list.images.get(0))

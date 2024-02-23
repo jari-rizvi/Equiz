@@ -17,6 +17,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
@@ -220,6 +221,9 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
                         loadingDialog.dismiss()
                         it.data?.let { data ->
 
+                            try {
+
+
                             Log.d("quizFindEncResponse", "quizFindEncResponse: $data")
 
 //                            mViewModel._quizFindResponse.value =
@@ -245,7 +249,17 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
 
                             _quizFindResponse.value = drinkItem
 
+                            }catch (e:Exception){
+                                e.printStackTrace()
 
+                                if (isAdded) {
+                                    mViewDataBinding.root.snackbar("No Question Available")
+                                }
+
+                                    findNavController().popBackStack()
+
+
+                            }
                         }
                     }
 

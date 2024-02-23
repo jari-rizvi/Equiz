@@ -3,10 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white">
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/mainLayout"
@@ -136,6 +133,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:text="0.0"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_10ssp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -149,6 +148,8 @@
                 android:layout_width="@dimen/_100sdp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:text="0.0"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_10ssp"
@@ -196,6 +197,8 @@
                 android:text="0.00"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12ssp"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/tvvv"
                 app:layout_constraintEnd_toEndOf="@+id/qty"
@@ -294,6 +297,7 @@
                 app:layout_constraintTop_toTopOf="@+id/constraintLayout7" />
 
 
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!--        <com.facebook.shimmer.ShimmerFrameLayout-->
@@ -312,7 +316,5 @@
         <!--            </LinearLayout>-->
 
         <!--        </com.facebook.shimmer.ShimmerFrameLayout>-->
-    </RelativeLayout>
-
 
 </layout>

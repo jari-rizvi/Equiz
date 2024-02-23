@@ -191,8 +191,8 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
 
 
     }
-
     private fun addListeners() {
+
         var bundle = arguments
 
         if (bundle == null) {
@@ -428,6 +428,14 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
                 }
 
             }
+         /*   var bundle = arguments
+            if (bundle == null) {
+                bundle = Bundle()
+            }*/
+            bundle?.putString("routeSubs", "setting")
+
+
+
             findNavController().navigate(R.id.subscriptionFragment, arguments, options)
         }
         addLeaderBoard()

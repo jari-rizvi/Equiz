@@ -144,53 +144,53 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
 
 
 
-        if (!mViewModel.unsubResponse.hasActiveObservers()) {
-            mViewModel.unsubResponse.observe(requireActivity()) {
-                when (it.status) {
-                    Resource.Status.LOADING -> {
-                        loadingDialog.show()
-                    }
-
-                    Resource.Status.NOTVERIFY -> {
-                        loadingDialog.dismiss()
-                    }
-
-                    Resource.Status.SUCCESS -> {
-                        loadingDialog.dismiss()
-                        it.data?.let { data ->
-
-                            try {
-//                                mViewDataBinding.root.snackbar(data)
-                                mViewDataBinding.root.snackbar("Subcription will end at the end of the Month")
-
-
-                            } catch (e: Exception) {
-                                e.printStackTrace()
-                            }
-                        }
-                    }
-
-                    Resource.Status.AUTH -> {
-                        loadingDialog.dismiss()
-                        if (isAdded) {
-                            try {
-                                onToSignUpPage()
-                            } catch (e: Exception) {
-                                e.printStackTrace()
-                            }
-                        }
-                    }
-
-                    Resource.Status.ERROR -> {
-                        loadingDialog.dismiss()
-                        if (isAdded) {
-                            mViewDataBinding.root.snackbar(it.message!!)
-                        }
-                        Log.d("TAG", "eeeeeeeeeee: ${it.message}")
-                    }
-                }
-            }
-        }
+//        if (!mViewModel.unsubResponse.hasActiveObservers()) {
+//            mViewModel.unsubResponse.observe(requireActivity()) {
+//                when (it.status) {
+//                    Resource.Status.LOADING -> {
+//                        loadingDialog.show()
+//                    }
+//
+//                    Resource.Status.NOTVERIFY -> {
+//                        loadingDialog.dismiss()
+//                    }
+//
+//                    Resource.Status.SUCCESS -> {
+//                        loadingDialog.dismiss()
+//                        it.data?.let { data ->
+//
+//                            try {
+////                                mViewDataBinding.root.snackbar(data)
+//                                mViewDataBinding.root.snackbar("Subcription will end at the end of the Month")
+//
+//
+//                            } catch (e: Exception) {
+//                                e.printStackTrace()
+//                            }
+//                        }
+//                    }
+//
+//                    Resource.Status.AUTH -> {
+//                        loadingDialog.dismiss()
+//                        if (isAdded) {
+//                            try {
+//                                onToSignUpPage()
+//                            } catch (e: Exception) {
+//                                e.printStackTrace()
+//                            }
+//                        }
+//                    }
+//
+//                    Resource.Status.ERROR -> {
+//                        loadingDialog.dismiss()
+//                        if (isAdded) {
+//                            mViewDataBinding.root.snackbar(it.message!!)
+//                        }
+//                        Log.d("TAG", "eeeeeeeeeee: ${it.message}")
+//                    }
+//                }
+//            }
+//        }
 
         if (!mViewModel.deleteUserResponse.hasActiveObservers()) {
             mViewModel.deleteUserResponse.observe(requireActivity()) {
@@ -292,8 +292,17 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
         }
 
         mViewDataBinding.btnUnSubscribe.setOnClickListener {
+            var bundle = arguments
+            if (bundle == null) {
+                bundle = Bundle()
+            }
+            bundle?.putString("routeSubs", "profile")
 
-            DialogHelperClass.unsubUserDialog(requireContext(),
+
+            findNavController().navigate(R.id.subscriptionFragment, arguments, options)
+
+
+         /*   DialogHelperClass.unsubUserDialog(requireContext(),
                 object : DialogHelperClass.Companion.DeleteUserDialogCallBack {
                     override fun onSignInClick1() {
 
@@ -304,7 +313,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
 
                     }
 
-                }).show()
+                }).show()*/
 
 
         }

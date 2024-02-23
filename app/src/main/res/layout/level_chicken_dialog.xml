@@ -30,7 +30,7 @@
         android:layout_width="@dimen/_50sdp"
         android:layout_height="@dimen/_50sdp"
         android:elevation="@dimen/_7sdp"
-        android:src="@drawable/chicken_rank"
+        android:src="@drawable/camel"
         app:layout_constraintBottom_toBottomOf="@+id/cancelBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
