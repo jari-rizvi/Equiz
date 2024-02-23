@@ -125,7 +125,7 @@
             app:layout_constraintEnd_toEndOf="@+id/textView77"
             app:layout_constraintStart_toStartOf="@+id/textView78"
             app:layout_constraintTop_toBottomOf="@+id/textView78" />
-        
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
