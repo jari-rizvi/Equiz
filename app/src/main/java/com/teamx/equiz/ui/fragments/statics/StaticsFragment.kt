@@ -1,5 +1,7 @@
 package com.teamx.equiz.ui.fragments.statics
 
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -141,6 +143,8 @@ class StaticsFragment : BaseFragment<FragmentStaticsBinding, StaticsViewModel>()
         var percentage = 0
         var highScore = 0.0
 
+        mViewDataBinding.simpleProgressBar.progress = percentage
+
         if (index == 0) {
             wins = staticsData.todayAccumulator.wins?:0.0
             losses = staticsData.todayAccumulator.losses?:0.0
@@ -155,13 +159,38 @@ class StaticsFragment : BaseFragment<FragmentStaticsBinding, StaticsViewModel>()
         }
 
 
-        mViewDataBinding.simpleProgressBar.progress = percentage
+//        mViewDataBinding.simpleProgressBar.progress = percentage
+        startProgressAnimation(percentage)
+        startTextAnimation(percentage)
 //        mViewDataBinding.percentTxt.text = "${"${percentage}".substring(0, 2)}%"
-        mViewDataBinding.percentTxt.text = "$percentage%"
+//        mViewDataBinding.percentTxt.text = "$percentage%"
 
         mViewDataBinding.textView78.text = "Wins\n${wins}"
         mViewDataBinding.textView77.text = "Losses\n${losses}"
         mViewDataBinding.textView7787.text = "High Score\n${highScore}"
+    }
+
+    private fun startProgressAnimation(percentage : Int) {
+        val animator = ObjectAnimator.ofInt(
+            mViewDataBinding.simpleProgressBar,
+            "progress",
+            percentage
+        )
+        animator.duration = 1000 // 1 second in milliseconds
+        animator.start()
+    }
+
+    private fun startTextAnimation(percentage : Int) {
+        val startValue = 0
+        val durationMillis = 1000 // 1 second in milliseconds
+
+        val valueAnimator = ValueAnimator.ofInt(startValue, percentage)
+        valueAnimator.duration = durationMillis.toLong()
+        valueAnimator.addUpdateListener { animator ->
+            val animatedValue = animator.animatedValue as Int
+            mViewDataBinding.percentTxt.text = animatedValue.toString()
+        }
+        valueAnimator.start()
     }
 
 }
