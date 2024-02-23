@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.teamx.equiz.ui.fragments.loaderboard.LoaderBoardFragment
+import com.teamx.equiz.ui.fragments.statics.StaticsFragment
 import com.teamx.equiz.ui.fragments.userprogress.UserProgressFragment
 import com.teamx.equiz.ui.game_fragments.game_random.RandomGameFragment
 
@@ -23,8 +24,8 @@ class UserStatsViewPagerAdapter(
         return when (position) {
             0 -> UserProgressFragment()
             1 -> LoaderBoardFragment()
-            2 -> UserProgressFragment()
-//            3 -> GamesFragment()
+//            2 -> UserProgressFragment()
+            2 -> StaticsFragment()
             3 -> RandomGameFragment()
             else -> UserProgressFragment()
         }

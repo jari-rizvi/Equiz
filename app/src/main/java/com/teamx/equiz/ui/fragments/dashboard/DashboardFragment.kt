@@ -13,14 +13,12 @@ import android.widget.LinearLayout
 import androidx.activity.addCallback
 import androidx.annotation.Keep
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import androidx.viewpager2.widget.ViewPager2
-import com.google.common.base.Strings.isNullOrEmpty
 import com.google.firebase.FirebaseApp
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.ktx.initialize
@@ -45,7 +43,6 @@ import com.teamx.equiz.ui.fragments.quizes.TitleData
 import com.teamx.equiz.ui.fragments.quizes.adapter.QuizesAdapter
 import com.teamx.equiz.ui.fragments.quizes.adapter.QuizesTitleAdapter
 import com.teamx.equiz.utils.DialogHelperClass
-import com.teamx.equiz.utils.DialogHelperClass.Companion.returnGameName
 import com.teamx.equiz.utils.PrefHelper
 import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -1228,6 +1225,23 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             options)
     }
 
+
+
+
+//    fun checkAllDataTypes(data: Any): String {
+////        val dynamicTuple: List<Any> = listOf("Hello", 10, 3.14, true)
+//
+////        dynamicTuple
+//        return when (data) {
+//            is String -> "The data is a String"
+//            is Int -> "The data is an Int"
+//            is Double -> "The data is a Double"
+//            is Float -> "The data is a Float"
+//            is Long -> "The data is a Long"
+//            is Boolean -> "The data is a Boolean"
+//            else -> "The data is of unknown type"
+//        }
+//    }
 
 
 //    private fun askNotificationPermission() {

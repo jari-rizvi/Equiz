@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/consRoot"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:background="@drawable/card_background_less_radius"
+            android:backgroundTint="#ECECEC"
+            android:layout_marginTop="@dimen/_20sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tabContentStart="@dimen/_100sdp"
+            app:tabIndicator="@drawable/card_background_less_radius"
+            app:tabIndicatorAnimationDuration="150"
+            app:tabIndicatorColor="#9F81CA"
+            app:tabIndicatorHeight="@dimen/_35sdp"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@color/white"
+            app:tabTextColor="@color/black"
+            app:tabUnboundedRipple="true">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/card_background_less_radius"
+                android:text="Now" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/card_background_less_radius"
+                android:text="Total" />
+
+        </com.google.android.material.tabs.TabLayout>
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/simpleProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:max="100"
+            android:progress="40"
+            android:rotation="180"
+            app:indicatorColor="#9F81CA"
+            app:indicatorSize="@dimen/_130sdp"
+            app:layout_constraintVertical_bias="0.3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tabLayout2"
+            app:trackColor="#F7D1D1"
+            app:trackCornerRadius="@dimen/_10sdp"
+            app:trackThickness="@dimen/_20sdp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="40%"
+            android:textSize="@dimen/_22ssp"
+            app:layout_constraintBottom_toBottomOf="@+id/simpleProgressBar"
+            app:layout_constraintEnd_toEndOf="@+id/simpleProgressBar"
+            app:layout_constraintStart_toStartOf="@+id/simpleProgressBar"
+            app:layout_constraintTop_toTopOf="@+id/simpleProgressBar" />
+
+        <TextView
+            android:id="@+id/textView78"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:background="@drawable/border_theme"
+            android:paddingVertical="@dimen/_5sdp"
+            android:text="Wins\n30"
+            android:textAlignment="center"
+            android:textColor="#9F81CA"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintEnd_toStartOf="@+id/textView77"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/tabLayout2"
+            app:layout_constraintTop_toBottomOf="@+id/simpleProgressBar" />
+
+        <TextView
+            android:id="@+id/textView77"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:background="@drawable/border_red"
+            android:paddingVertical="@dimen/_5sdp"
+            android:text="Losses\n30"
+            android:textAlignment="center"
+            android:textColor="@color/red"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView78"
+            app:layout_constraintEnd_toEndOf="@+id/tabLayout2"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textView78"
+            app:layout_constraintTop_toTopOf="@+id/textView78" />
+
+        <TextView
+            android:id="@+id/textView7787"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:background="@drawable/border_red"
+            android:backgroundTint="#9F81CA"
+            android:paddingVertical="@dimen/_5sdp"
+            android:text="High Score\n30"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintEnd_toEndOf="@+id/textView77"
+            app:layout_constraintStart_toStartOf="@+id/textView78"
+            app:layout_constraintTop_toBottomOf="@+id/textView78" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -572,4 +572,10 @@
         android:name="com.teamx.equiz.ui.fragments.birthday.BirthdayFragment"
         android:label="BirthdatFragment" />
 
+
+    <fragment
+        android:id="@+id/staticsFragment"
+        android:name="com.teamx.equiz.ui.fragments.statics.StaticsFragment"
+        android:label="StaticsFragment" />
+
 </navigation>

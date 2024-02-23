@@ -15,6 +15,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
@@ -30,6 +31,9 @@ import com.teamx.equiz.ui.fragments.singlequize.model.Data
 import com.teamx.equiz.ui.fragments.singlequize.model.SingleQuizData
 import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.scopes.ViewModelScoped
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -945,6 +949,7 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
         val len = length
         val data = ByteArray(len / 2)
         var i = 0
+
         while (i < len) {
             data[i / 2] = ((Character.digit(this[i], 16) shl 4)
                     + Character.digit(this[i + 1], 16)).toByte()
@@ -952,6 +957,8 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
         }
         return data
     }
+
+
 
 
 }
