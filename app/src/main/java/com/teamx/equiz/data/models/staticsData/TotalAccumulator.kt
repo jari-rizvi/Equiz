@@ -3,7 +3,7 @@ import androidx.annotation.Keep
 
 @Keep
 data class TotalAccumulator(
-    val losses: Double,
-    val total: Double,
-    val wins: Double
+    val losses: Double?,
+    val total: Double?,
+    val wins: Double?
 )

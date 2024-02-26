@@ -94,16 +94,22 @@ class AddressListCheckoutFragment : BaseFragment<FragmentAddressListBinding, Add
 
                                 addressArrayList.add(it)
                             }
+
                             addressAdapter.notifyDataSetChanged()
-                            addressArrayList[0].phoneNumber
-                            Log.d("TAG", "addressArray: ${addressArrayList[0].phoneNumber}")
+                            if (addressArrayList.isNotEmpty()) {
+                                addressArrayList[0].phoneNumber
+                                Log.d("TAG", "addressArray: ${addressArrayList[0].phoneNumber}")
+                            }
                             addressAdapter.notifyDataSetChanged()
 
                         }
                     }
-                    Resource.Status.AUTH -> { loadingDialog.dismiss()
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
                         onToSignUpPage()
                     }
+
                     Resource.Status.ERROR -> {
                         DialogHelperClass.errorDialog(requireContext(), it.message!!)
                     }
@@ -155,120 +161,120 @@ class AddressListCheckoutFragment : BaseFragment<FragmentAddressListBinding, Add
 //        }
 
 
-                mViewDataBinding.btnProceed.setOnClickListener {
-                    if (singleAddress == null) {
-                        mViewDataBinding.root.snackbar("Please select address")
-                    } else {
+        mViewDataBinding.btnProceed.setOnClickListener {
+            if (singleAddress == null) {
+                mViewDataBinding.root.snackbar("Please select address")
+            } else {
 
-                        val bundle = arguments
+                val bundle = arguments
 
-                        val couponCode = bundle?.getString("couponCode") ?: ""
-
-
-                        val label = singleAddress?.label ?: ""
-                        val etPhone = singleAddress?.phoneNumber ?: ""
-                        val address = singleAddress?.address ?: ""
-
-                        val params = JsonObject()
-                        try {
+                val couponCode = bundle?.getString("couponCode") ?: ""
 
 
-                            params.add(
-                                "shippingInfo", Gson().toJsonTree(
-                                    ShippingInfo2(
-                                        address = address,
-                                        phoneNumber = etPhone,
-                                        label = label
-                                    )
-                                )
+                val label = singleAddress?.label ?: ""
+                val etPhone = singleAddress?.phoneNumber ?: ""
+                val address = singleAddress?.address ?: ""
+
+                val params = JsonObject()
+                try {
+
+
+                    params.add(
+                        "shippingInfo", Gson().toJsonTree(
+                            ShippingInfo2(
+                                address = address,
+                                phoneNumber = etPhone,
+                                label = label
                             )
+                        )
+                    )
 
-                            if (couponCode.isNotEmpty()) {
-                                params.addProperty("couponCode", couponCode)
-                            }
-
-
-                        } catch (e: JSONException) {
-                            e.printStackTrace()
-                        }
-                        if (address.isNullOrEmpty()) {
-                            showToast("Please add Address")
-                        } else {
-                            if (etPhone.isNotEmpty()
-                                && address.isNotEmpty()
-                            ) {
-
-                                mViewModel.createOrder(params)
-                            } else {
-                                showToast("Please add Details")
-                            }
-                        }
+                    if (couponCode.isNotEmpty()) {
+                        params.addProperty("couponCode", couponCode)
+                    }
 
 
-                        if (!mViewModel.createOrderResponse.hasActiveObservers()) {
-                            mViewModel.createOrderResponse.observe(requireActivity()) {
-                                when (it.status) {
-                                    Resource.Status.LOADING -> {
-                                        loadingDialog.show()
-                                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+                if (address.isNullOrEmpty()) {
+                    showToast("Please add Address")
+                } else {
+                    if (etPhone.isNotEmpty()
+                        && address.isNotEmpty()
+                    ) {
 
-                                    Resource.Status.NOTVERIFY -> {
-                                        loadingDialog.dismiss()
-                                    }
-
-                                    Resource.Status.SUCCESS -> {
-                                        loadingDialog.dismiss()
-                                        it.data?.let { data ->
-
-                                            var bundle = arguments
-                                            if (bundle == null) {
-                                                bundle = Bundle()
-                                            }
-                                            bundle!!.putString("order_id", data.data._id)
-                                            bundle!!.putString("points", data.data.totalPoints.toString())
-
-                                            Log.d("TAG", "onViewCreated2222222: ${data.data.totalPoints}")
-
-
-                                            findNavController().navigate(
-                                                R.id.paymentMethodsFragment,
-                                                bundle,
-                                                options
-                                            )
-                                        }
-                                    }
-
-
-                                    Resource.Status.AUTH -> {
-                                        loadingDialog.dismiss()
-                                        if (isAdded) {
-                                            try {
-                                                onToSignUpPage()
-                                            } catch (e: Exception) {
-                                                e.printStackTrace()
-                                            }
-                                        }
-                                    }
-
-                                    Resource.Status.ERROR -> {
-                                        loadingDialog.dismiss()
-                                        DialogHelperClass.errorDialog(
-                                            requireContext(),
-                                            it.message!!
-                                        )
-                                    }
-                                }
-                                if (isAdded) {
-                                    mViewModel.createOrderResponse.removeObservers(
-                                        viewLifecycleOwner
-                                    )
-                                }
-                            }
-                        }
-
-
+                        mViewModel.createOrder(params)
+                    } else {
+                        showToast("Please add Details")
                     }
                 }
+
+
+                if (!mViewModel.createOrderResponse.hasActiveObservers()) {
+                    mViewModel.createOrderResponse.observe(requireActivity()) {
+                        when (it.status) {
+                            Resource.Status.LOADING -> {
+                                loadingDialog.show()
+                            }
+
+                            Resource.Status.NOTVERIFY -> {
+                                loadingDialog.dismiss()
+                            }
+
+                            Resource.Status.SUCCESS -> {
+                                loadingDialog.dismiss()
+                                it.data?.let { data ->
+
+                                    var bundle = arguments
+                                    if (bundle == null) {
+                                        bundle = Bundle()
+                                    }
+                                    bundle!!.putString("order_id", data.data._id)
+                                    bundle!!.putString("points", data.data.totalPoints.toString())
+
+                                    Log.d("TAG", "onViewCreated2222222: ${data.data.totalPoints}")
+
+
+                                    findNavController().navigate(
+                                        R.id.paymentMethodsFragment,
+                                        bundle,
+                                        options
+                                    )
+                                }
+                            }
+
+
+                            Resource.Status.AUTH -> {
+                                loadingDialog.dismiss()
+                                if (isAdded) {
+                                    try {
+                                        onToSignUpPage()
+                                    } catch (e: Exception) {
+                                        e.printStackTrace()
+                                    }
+                                }
+                            }
+
+                            Resource.Status.ERROR -> {
+                                loadingDialog.dismiss()
+                                DialogHelperClass.errorDialog(
+                                    requireContext(),
+                                    it.message!!
+                                )
+                            }
+                        }
+                        if (isAdded) {
+                            mViewModel.createOrderResponse.removeObservers(
+                                viewLifecycleOwner
+                            )
+                        }
+                    }
+                }
+
+
+            }
+        }
 
 
         addressRecyclerview()
@@ -331,7 +337,7 @@ class AddressListCheckoutFragment : BaseFragment<FragmentAddressListBinding, Add
                         it.data?.let { data ->
                             addressArrayList.clear()
                             mViewModel.getAddressList()
-                        addressAdapter.notifyDataSetChanged()
+                            addressAdapter.notifyDataSetChanged()
 
                         }
                     }

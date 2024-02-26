@@ -63,6 +63,7 @@ class PaymentMethodsFragment :
         orderId = bundle.getString("order_id")
         points = bundle.getString("points")
 
+        Log.d("pointspoints", "points: $points")
 
         options = navOptions {
             anim {
