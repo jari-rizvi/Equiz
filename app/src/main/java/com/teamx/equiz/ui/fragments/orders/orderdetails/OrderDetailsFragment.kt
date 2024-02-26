@@ -201,6 +201,9 @@ class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding, OrderDeta
 
     }
 
+
+
+
     override fun onCancelItemClick(position: Int) {
 
         var p_id = OArrayList1[position].cartDetail[position]
@@ -212,7 +215,7 @@ class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding, OrderDeta
         } catch (e: JSONException) {
             e.printStackTrace()
         }
-        mViewModel.cancelProduct(p_id, params)
+        mViewModel.cancelProduct("p_id", params)
         if (!mViewModel.cancelProductResponse.hasActiveObservers()) {
             mViewModel.cancelProductResponse.observe(requireActivity(), Observer {
                 when (it.status) {
