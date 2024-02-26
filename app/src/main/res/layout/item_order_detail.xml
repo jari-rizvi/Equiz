@@ -19,19 +19,19 @@
             android:id="@+id/container"
             android:layout_width="@dimen/_80sdp"
             android:layout_height="0dp"
-            android:layout_margin="@dimen/_6sdp"
-            android:elevation="@dimen/_2sdp"
-            android:background="@drawable/card_background_less_radius"
+            android:clipToOutline="true"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:background="@drawable/card_background_less_radius"
+            android:elevation="@dimen/_2sdp">
 
             <ImageView
                 android:id="@+id/img"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="fitXY"
                 android:clipToOutline="true"
+                android:scaleType="fitXY"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +45,7 @@
             android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Dubai"
+            android:text=""
             android:textColor="@color/black"
             android:textSize="@dimen/_14ssp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -72,7 +72,7 @@
 
         <TextView
             android:id="@+id/textView13"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_100sdp"
             android:layout_height="wrap_content"
             android:text=""
             style="@style/popins_regular"
@@ -84,6 +84,24 @@
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="@+id/textView55"
             app:layout_constraintTop_toBottomOf="@+id/textView55" />
+
+
+        <TextView
+            android:id="@+id/btnCncl"
+            android:layout_width="@dimen/_65sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:background="@drawable/border_theme"
+            android:gravity="center"
+            android:text="Cancel"
+            android:textColor="@color/theme_color"
+            app:layout_constraintBottom_toBottomOf="@+id/textView13"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textView13"
+            app:layout_constraintTop_toTopOf="@+id/textView13" />
+
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

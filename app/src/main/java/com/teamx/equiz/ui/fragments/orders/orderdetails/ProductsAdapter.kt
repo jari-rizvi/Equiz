@@ -9,9 +9,9 @@ import com.teamx.equiz.databinding.ItemOrderDetailBinding
 
 
 class ProductsAdapter(
-    val arrayList: ArrayList<ProductDetail>
+    val arrayList: ArrayList<ProductDetail>,
+    private var productCancelListener: ProductCancelListener
 ) : RecyclerView.Adapter<ProductsAdapter.OrderDetailViewHolder>() {
-
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderDetailViewHolder {
@@ -25,16 +25,21 @@ class ProductsAdapter(
         val product: ProductDetail = arrayList[position]
 
 
-        holder.binding.textView54.text =product.product.title
+        holder.binding.textView54.text = product.product.title
         try {
 
-            holder.binding.textView54.text =product.product.point.toString()+" Points"
+            holder.binding.textView54.text = product.product.point.toString() + " Points"
+        } catch (e: Exception) {
         }
-        catch (e:Exception){}
-        holder.binding.textView55.text =product.quantity.toString()
+        holder.binding.textView55.text = product.quantity.toString()
 //        Picasso.get().load(arrayList[position].product.images[0]).into(holder.binding.img)
-        Glide.with(holder.binding.img.context).load(arrayList[position].product.images[0]).into(holder.binding.img)
+        Glide.with(holder.binding.img.context).load(arrayList[position].product.images[0])
+            .into(holder.binding.img)
         holder.itemView.setOnClickListener {
+        }
+
+        holder.binding.btnCncl.setOnClickListener {
+            productCancelListener.onCancelItemClick(position)
         }
 
     }
@@ -48,4 +53,8 @@ class ProductsAdapter(
         val binding = itemOrderDetailBinidng
 
     }
+}
+
+interface ProductCancelListener {
+    fun onCancelItemClick(position: Int)
 }

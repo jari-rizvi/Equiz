@@ -2,6 +2,7 @@ package com.teamx.equiz.ui.fragments.orders.delivered
 
 import android.content.res.ColorStateList
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getColor
@@ -40,7 +41,6 @@ class DeliveredAdapter(
 
         holder.binding.cartBottom.backgroundTintList =
             ColorStateList.valueOf(ContextCompat.getColor(context, R.color.Green))
-
 
         holder.binding.date.text = o
 

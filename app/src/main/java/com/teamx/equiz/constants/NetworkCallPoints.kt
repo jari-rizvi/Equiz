@@ -87,6 +87,7 @@ class NetworkCallPoints {
         const val GET_NOTIFICATION_SETTING ="/api/users/findNotifications"
         const val GET_STATICS_DATA ="/api/game/userWins"
         const val SCRATCH_IMAGE ="api/scratchcard/find/{id}"
+        const val CANCEL_ORDER ="api/orders/cancel-order/{id}"
 
 
 

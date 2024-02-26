@@ -26,7 +26,7 @@ class MainRepository @Inject constructor(
     suspend fun getProducts(keyword: String) = apiService.getProducts(keyword = keyword)
     suspend fun getProductsCat(category: String) = apiService.getProductsCat(category = category)
 
-    suspend fun getProducts(category: String?,keyword: String?) =
+    suspend fun getProducts(category: String?, keyword: String?) =
         apiService.getProducts(category, keyword)
 
     suspend fun getCart() = apiService.getCart()
@@ -143,6 +143,8 @@ class MainRepository @Inject constructor(
     ) = apiService.getTransData(startDate, endDate)
 
     suspend fun GetScratchImg(@Path("id") id: String) = apiService.GetScratchImg(id)
+    suspend fun cancelProductOrder(@Path("id") id: String, params: JsonObject) =
+        apiService.cancelProductOrder(id, params)
 
 
 }

@@ -11,7 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bottomHolder"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_100sdp"
+        android:layout_height="@dimen/_110sdp"
         android:layout_margin="@dimen/_10sdp"
         android:background="@drawable/card_background"
         android:backgroundTint="@color/white"
@@ -26,11 +26,11 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_5sdp"
             android:layout_marginHorizontal="@dimen/_5sdp"
-            android:text=""
-            android:maxLines="1"
             android:ellipsize="end"
-            android:textColor="#A1A1A1"
+            android:maxLines="1"
+            android:text=""
             android:textAlignment="viewStart"
+            android:textColor="#A1A1A1"
             android:textSize="@dimen/_12ssp"
             app:layout_constraintBottom_toBottomOf="@+id/productName"
             app:layout_constraintEnd_toStartOf="@+id/date"
@@ -58,9 +58,9 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_10sdp"
             android:text=""
+            android:textAlignment="viewStart"
             android:textColor="@color/blue"
             android:textStyle="bold"
-            android:textAlignment="viewStart"
             app:layout_constraintBottom_toTopOf="@+id/cartBottom"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.05"
@@ -87,14 +87,14 @@
             android:id="@+id/date"
             android:layout_width="@dimen/_80sdp"
             android:layout_height="wrap_content"
-            android:maxLines="1"
+            android:layout_marginHorizontal="@dimen/_5sdp"
             android:ellipsize="end"
+            android:maxLines="1"
             android:text=""
             android:textSize="@dimen/_12ssp"
-            app:layout_constraintStart_toEndOf="@+id/orderId"
-            android:layout_marginHorizontal="@dimen/_5sdp"
             app:layout_constraintBottom_toBottomOf="@+id/orderId"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/orderId"
             app:layout_constraintTop_toTopOf="@+id/orderId" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -108,8 +108,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView41"
-            app:layout_constraintVertical_bias="0">
+            app:layout_constraintVertical_bias="0.9">
 
 
             <TextView
@@ -127,15 +126,19 @@
 
         <TextView
             android:id="@+id/amount"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_100sdp"
             android:layout_height="wrap_content"
             android:text=""
             android:textColor="@color/blue"
+            android:maxLines="1"
+            android:ellipsize="end"
             app:layout_constraintBottom_toBottomOf="@+id/textView41"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnCncl"
             app:layout_constraintHorizontal_bias="0.07"
             app:layout_constraintStart_toEndOf="@+id/textView41"
             app:layout_constraintTop_toTopOf="@+id/textView41" />
+
+    
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

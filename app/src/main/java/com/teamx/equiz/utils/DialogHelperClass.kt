@@ -129,11 +129,16 @@ class DialogHelperClass {
 
 
             val removeBtn = dialog.findViewById<TextView>(R.id.top_up)
+            val cancelBtn = dialog.findViewById<TextView>(R.id.cancelBtn)
             removeBtn.setOnClickListener {
                 if (boo) {
                     lessAmountCallBack.Topup()
                 } else {
                 }
+                dialog.dismiss()
+            }
+
+            cancelBtn.setOnClickListener {
                 dialog.dismiss()
             }
 

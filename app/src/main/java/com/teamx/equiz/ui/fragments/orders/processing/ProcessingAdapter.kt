@@ -26,10 +26,11 @@ class ProcessingAdapter(
         val orders: Data = arrayList[position]
 
 
-        holder.binding.orderId.text = "Order#"+orders._id
+        holder.binding.orderId.text = "Order#" + orders._id
         try {
-            holder.binding.amount.text = orders.totalPoints.toString()+" Points"
-        }catch (e:Exception){}
+            holder.binding.amount.text = orders.totalPoints.toString() + " Points"
+        } catch (e: Exception) {
+        }
         val o = orders.createdAt.toString().replaceAfter('T', "").replace("T", "")
 
         holder.binding.date.text = o
@@ -38,7 +39,6 @@ class ProcessingAdapter(
         holder.itemView.setOnClickListener {
             orderListener.onItemClick(position)
         }
-
 
     }
 
@@ -52,3 +52,5 @@ class ProcessingAdapter(
 
     }
 }
+
+

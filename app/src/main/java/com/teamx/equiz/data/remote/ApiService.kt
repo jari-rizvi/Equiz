@@ -453,4 +453,12 @@ interface ApiService {
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<ScratchImgData>
 
+
+    @POST(NetworkCallPoints.CANCEL_ORDER)
+    suspend fun cancelProductOrder(
+        @Path("id") id: String?,
+        @Body params: JsonObject?,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<OrderDetailData>
+
 }

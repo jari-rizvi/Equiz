@@ -241,6 +241,8 @@
     <string name="you_ve_earned_a_scratch_card">You’ve Earned a Scratch Card!</string>
     <string name="order_status">Order Status</string>
     <string name="share">Share</string>
+    <string name="profile_completion">Profile completion</string>
+    <string name="social_media_link">Social Media Link</string>
 
 
 </resources>

@@ -19,10 +19,15 @@ import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import androidx.activity.addCallback
+import com.google.gson.JsonObject
+import com.teamx.equiz.data.models.orderDetailData.CartDetail
+import com.teamx.equiz.data.models.orderDetailData.Orders
 import com.teamx.equiz.data.models.orderDetailData.ProductDetail
+import org.json.JSONException
 
 @AndroidEntryPoint
-class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding, OrderDetailsViewModel>() {
+class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding, OrderDetailsViewModel>(),
+    ProductCancelListener {
 
     override val layoutId: Int
         get() = R.layout.fragment_order_details
@@ -38,6 +43,9 @@ class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding, OrderDeta
     lateinit var productAdapter: ProductsAdapter
 
     lateinit var productArrayList: ArrayList<ProductDetail>
+
+     var OArrayList1: ArrayList<Orders> = ArrayList()
+     var CArrayList1: ArrayList<CartDetail> = ArrayList()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -188,8 +196,77 @@ class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding, OrderDeta
         val linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         mViewDataBinding.recyleritems.layoutManager = linearLayoutManager
 
-        productAdapter = ProductsAdapter(productArrayList)
+        productAdapter = ProductsAdapter(productArrayList, this)
         mViewDataBinding.recyleritems.adapter = productAdapter
+
+    }
+
+    override fun onCancelItemClick(position: Int) {
+
+        var p_id = OArrayList1[position].cartDetail[position]
+        var o_id = productArrayList[position]._id
+
+        val params = JsonObject()
+        try {
+            params.addProperty("productId", o_id)
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+        mViewModel.cancelProduct(p_id, params)
+        if (!mViewModel.cancelProductResponse.hasActiveObservers()) {
+            mViewModel.cancelProductResponse.observe(requireActivity(), Observer {
+                when (it.status) {
+                    Resource.Status.LOADING -> {
+//                        loadingDialog.show()
+                        mViewDataBinding.shimmerLayout.startShimmer()
+                        mViewDataBinding.shimmerLayout.visibility = View.VISIBLE
+                    }
+
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
+                    }
+
+                    Resource.Status.SUCCESS -> {
+//                        loadingDialog.dismiss()
+                        mViewDataBinding.shimmerLayout.stopShimmer()
+                        mViewDataBinding.shimmerLayout.visibility = View.GONE
+                        mViewDataBinding.mainLayout.visibility = View.VISIBLE
+                        it.data?.let { data ->
+                            productArrayList.clear()
+
+                            data.data.cartDetail.productDetails.forEach {
+                                productArrayList.add(it)
+                            }
+
+                            productAdapter.notifyDataSetChanged()
+
+
+                        }
+                    }
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+                        if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
+                    }
+
+                    Resource.Status.ERROR -> {
+//                        loadingDialog.dismiss()
+                        mViewDataBinding.shimmerLayout.stopShimmer()
+                        mViewDataBinding.shimmerLayout.visibility = View.GONE
+                        DialogHelperClass.errorDialog(requireContext(), it.message!!)
+                    }
+                }
+                if (isAdded) {
+                    mViewModel.cancelProductResponse.removeObservers(viewLifecycleOwner)
+                }
+            })
+        }
 
     }
 
