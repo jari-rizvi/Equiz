@@ -55,16 +55,10 @@ class StaticsFragment : BaseFragment<FragmentStaticsBinding, StaticsViewModel>()
             }
         }
 
-
-
-        if (!mViewModel.getUserStaticsResponse.hasActiveObservers()) {
-            mViewModel.getUserStatics()
-            changeObserver(0)
-        }
-
-
-
-
+            if (!mViewModel.getUserStaticsResponse.hasActiveObservers()) {
+                mViewModel.getUserStatics()
+                changeObserver(0)
+            }
 
 
         mViewDataBinding.tabLayout2.addOnTabSelectedListener(object :
@@ -73,9 +67,10 @@ class StaticsFragment : BaseFragment<FragmentStaticsBinding, StaticsViewModel>()
                 // Get the selected tab position
                 // Perform actions based on the selected tab
 
-
-                Log.d("staticsData", "onTabSelected: ${staticsData}")
-                tab?.position?.let { updateLayout(staticsData,it) }
+                try {
+                    tab?.position?.let { updateLayout(staticsData, it) }
+                } catch (e: Exception) {
+                }
 
             }
 
@@ -110,7 +105,7 @@ class StaticsFragment : BaseFragment<FragmentStaticsBinding, StaticsViewModel>()
 
 
                         staticsData = data
-                        updateLayout(staticsData,index)
+                        updateLayout(staticsData, index)
                     }
                 }
 
@@ -137,7 +132,7 @@ class StaticsFragment : BaseFragment<FragmentStaticsBinding, StaticsViewModel>()
         }
     }
 
-    fun updateLayout(staticsData: StaticsData, index:Int){
+    fun updateLayout(staticsData: StaticsData, index: Int) {
         var wins = 0.0
         var losses = 0.0
         var percentage = 0
@@ -146,16 +141,16 @@ class StaticsFragment : BaseFragment<FragmentStaticsBinding, StaticsViewModel>()
         mViewDataBinding.simpleProgressBar.progress = percentage
 
         if (index == 0) {
-            wins = staticsData.todayAccumulator.wins?:0.0
-            losses = staticsData.todayAccumulator.losses?:0.0
+            wins = staticsData.todayAccumulator.wins ?: 0.0
+            losses = staticsData.todayAccumulator.losses ?: 0.0
             percentage = (wins / (wins + losses) * 100).toInt()
-            highScore = staticsData.todayAccumulator.total?:0.0
+            highScore = staticsData.todayAccumulator.total ?: 0.0
 
         } else if (index == 1) {
-            wins = staticsData.totalAccumulator.wins?:0.0
-            losses = staticsData.totalAccumulator.losses?:0.0
+            wins = staticsData.totalAccumulator.wins ?: 0.0
+            losses = staticsData.totalAccumulator.losses ?: 0.0
             percentage = (wins / (wins + losses) * 100).toInt()
-            highScore = staticsData.totalAccumulator.total?:0.0
+            highScore = staticsData.totalAccumulator.total ?: 0.0
         }
 
 
@@ -170,7 +165,7 @@ class StaticsFragment : BaseFragment<FragmentStaticsBinding, StaticsViewModel>()
         mViewDataBinding.textView7787.text = "High Score\n${highScore}"
     }
 
-    private fun startProgressAnimation(percentage : Int) {
+    private fun startProgressAnimation(percentage: Int) {
         val animator = ObjectAnimator.ofInt(
             mViewDataBinding.simpleProgressBar,
             "progress",
@@ -180,7 +175,7 @@ class StaticsFragment : BaseFragment<FragmentStaticsBinding, StaticsViewModel>()
         animator.start()
     }
 
-    private fun startTextAnimation(percentage : Int) {
+    private fun startTextAnimation(percentage: Int) {
         val startValue = 0
         val durationMillis = 1000 // 1 second in milliseconds
 

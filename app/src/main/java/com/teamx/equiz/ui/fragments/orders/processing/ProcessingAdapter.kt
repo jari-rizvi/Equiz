@@ -1,5 +1,6 @@
 package com.teamx.equiz.ui.fragments.orders.processing
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -26,11 +27,19 @@ class ProcessingAdapter(
         val orders: Data = arrayList[position]
 
 
-        holder.binding.orderId.text = "Order#" + orders._id
-        try {
+        holder.binding.orderId.text = "Order No# " + orders._id
+
+   /*     try {
             holder.binding.amount.text = orders.totalPoints.toString() + " Points"
         } catch (e: Exception) {
-        }
+        }*/
+
+        holder.binding.amount.text = orders.totalPoints.toString()+" Points"
+
+
+        Log.d("TAG", "onBindViewHolder111: ${orders.totalPoints.toString()}")
+
+
         val o = orders.createdAt.toString().replaceAfter('T', "").replace("T", "")
 
         holder.binding.date.text = o

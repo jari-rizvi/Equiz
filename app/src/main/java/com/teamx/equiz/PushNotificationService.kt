@@ -14,7 +14,7 @@ class PushNotificationService : FirebaseMessagingService() {
             val description = remoteMessage.notification!!.body
             Log.d("123123", "onMessageReceived:$description ")
             Log.d("123123", "onMessageReceived:$title ")
-            NotificationHelper.displayNotification(applicationContext, title, description ?: "")
+            NotificationHelper.displayNotification( title, description ?: "")
         }
         Firebase.messaging.isAutoInitEnabled = true
         Log.d("123123", "onMessageReceived: ")

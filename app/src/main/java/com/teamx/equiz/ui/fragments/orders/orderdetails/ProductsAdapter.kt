@@ -27,11 +27,19 @@ class ProductsAdapter(
 
         holder.binding.textView54.text = product.product.title
         try {
+            val doubleValue = product.product.point
+            val intValue = doubleValue.toInt()
 
-            holder.binding.textView54.text = product.product.point.toString() + " Points"
+
+
+            holder.binding.textView13.text = intValue.toString() + " Points"
         } catch (e: Exception) {
         }
-        holder.binding.textView55.text = product.quantity.toString()
+        val doubleValue1 = product.quantity
+        val intValue1 = doubleValue1.toInt()
+
+
+        holder.binding.textView55.text = "Qty " + intValue1.toString()
 //        Picasso.get().load(arrayList[position].product.images[0]).into(holder.binding.img)
         Glide.with(holder.binding.img.context).load(arrayList[position].product.images[0])
             .into(holder.binding.img)

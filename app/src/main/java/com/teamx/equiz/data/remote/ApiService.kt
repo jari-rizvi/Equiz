@@ -50,7 +50,6 @@ import com.teamx.equiz.ui.fragments.ecommerce.paymentMethods.model.stripeanother
 import com.teamx.equiz.ui.fragments.ecommerce.productProfile.unsub_data.UNSUBDataModel
 import com.teamx.equiz.ui.fragments.profile.data.DELETEUSERModel
 import com.teamx.equiz.ui.fragments.quizresult.data.QuizResultDataModel
-import com.teamx.equiz.ui.fragments.singlequize.model.SingleQuizData
 import com.teamx.equiz.ui.fragments.subscription.data.SubData
 import com.teamx.equiz.ui.fragments.topup.data.TopUpModelData
 import okhttp3.MultipartBody

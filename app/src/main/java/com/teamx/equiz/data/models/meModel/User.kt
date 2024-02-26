@@ -33,6 +33,7 @@ data class User(
     val street: String,
     val uniqueID: String,
     val updatedAt: String,
+    val profileProgress: Int,
     val wallet: Double,
     val wishlist: List<Any>,
     val zip: String

@@ -133,7 +133,7 @@
     <string name="date">تاريخ</string>
     <string name="oder_no">رقم الطلب</string>
     <string name="oder_qty">كمية الطلب</string>
-    <string name="total_amount">المبلغ الإجمالي</string>
+    <string name="total_amount">المبلغ الإجمالي:</string>
     <string name="you_need_to_be_verify">أنت بحاجة إلى التحقق</string>
     <string name="cancel">إلغاء</string>
 

@@ -44,8 +44,8 @@ class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding, OrderDeta
 
     lateinit var productArrayList: ArrayList<ProductDetail>
 
-     var OArrayList1: ArrayList<Orders> = ArrayList()
-     var CArrayList1: ArrayList<CartDetail> = ArrayList()
+//     var OArrayList1: ArrayList<Orders> = ArrayList()
+//     var CArrayList1: ArrayList<CartDetail> = ArrayList()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -119,7 +119,7 @@ class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding, OrderDeta
 
 
 
-                            if (data.data.orders.orderStatus == "Processing") {
+                      /*      if (data.data.orders.orderStatus == "Processing") {
                                 mViewDataBinding.btnCancel.visibility = View.VISIBLE
                             }
                             if (data.data.orders.orderStatus == "Cancel") {
@@ -129,10 +129,11 @@ class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding, OrderDeta
                             if (data.data.orders.orderStatus == "Delivered") {
                                 mViewDataBinding.btnInvoice.visibility = View.VISIBLE
                                 mViewDataBinding.btnReOrder.visibility = View.VISIBLE
-                            }
+                            }*/
 
 
                             mViewDataBinding.date.text = o
+
                             try {
 
                                 mViewDataBinding.discount.text =
@@ -206,16 +207,21 @@ class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding, OrderDeta
 
     override fun onCancelItemClick(position: Int) {
 
-        var p_id = OArrayList1[position].cartDetail[position]
+
+        var p_id = productArrayList[position].product._id
         var o_id = productArrayList[position]._id
+
+
+        Log.d("TAG", "onCancelItemClick: $p_id")
+        Log.d("TAG", "onCancelItemClick: $o_id")
 
         val params = JsonObject()
         try {
-            params.addProperty("productId", o_id)
+            params.addProperty(p_id, o_id)
         } catch (e: JSONException) {
             e.printStackTrace()
         }
-        mViewModel.cancelProduct("p_id", params)
+        mViewModel.cancelProduct(p_id, params)
         if (!mViewModel.cancelProductResponse.hasActiveObservers()) {
             mViewModel.cancelProductResponse.observe(requireActivity(), Observer {
                 when (it.status) {

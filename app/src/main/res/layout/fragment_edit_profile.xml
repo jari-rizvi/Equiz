@@ -11,7 +11,7 @@
         android:id="@+id/consRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorAccent_indeed">
+        android:background="@drawable/bg">
 
         <com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/shimmerLayout"

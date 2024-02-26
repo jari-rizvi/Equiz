@@ -47,11 +47,11 @@ class PushNotificationService : FirebaseMessagingService() {
                 Log.d("123123", "onMessageReceived0:${jsonData.get("actionText")} ")
                 if (data3 == null) {
                     NotificationHelper.displayNotification(
-                        applicationContext, title, description.toString() ?: ""
+                         title, description.toString() ?: ""
                     )
                 } else {
                     NotificationHelper.displayNotification(
-                        applicationContext, title, description.toString() ?: ""
+                         title, description.toString() ?: ""
                     )
                 }
             } catch (e: Exception) {
@@ -59,7 +59,7 @@ class PushNotificationService : FirebaseMessagingService() {
                 Log.d("123123", "onMessageReceived: ")
                 e.printStackTrace()
                 NotificationHelper.displayNotification(
-                    applicationContext, title, description.toString() ?: ""
+                     title, description.toString() ?: ""
                 )
 
             }

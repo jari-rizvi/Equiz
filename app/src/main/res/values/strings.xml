@@ -147,7 +147,7 @@
     <string name="date">Date</string>
     <string name="oder_no">Oder No :</string>
     <string name="oder_qty">Oder Qty :</string>
-    <string name="total_amount">Total Amount</string>
+    <string name="total_amount">Total Amount: </string>
     <string name="you_need_to_be_verify">You need to be verify</string>
     <string name="cancel">Cancel</string>
 

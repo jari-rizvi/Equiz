@@ -261,6 +261,9 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                                 mViewDataBinding.phone.setText(data.user.phone)
                                 mViewDataBinding.email.setText(data.user.email)
 
+                                mViewDataBinding.simpleProgressBar.secondaryProgress = data.user.profileProgress
+
+
                                 if (data.user.dateOfBirth.isNullOrEmpty()) {
                                     mViewDataBinding.dob.text = "_"
                                 } else {

@@ -6,6 +6,5 @@
         android:color="@color/gray"
         android:width="@dimen/_1sdp" />
 
-    <solid android:color="@color/colorAccent_indeed" />
 
 </shape>
