@@ -40,6 +40,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
 
     override fun attachBaseContext(newBase: Context?) =
         super.attachBaseContext(MainApplication.localeManager!!.setLocale(newBase!!))
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -140,16 +141,20 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
                 R.id.dashboardFragment -> {
                     mViewDataBinding.bottomNavigationq.setSelectedIndex(0)
                     mViewDataBinding.bottomNavigationq.visibility = View.VISIBLE
+                    mViewDataBinding.bgShow.visibility = View.VISIBLE
 
                 }
+
                 R.id.ecommerceFragment -> {
                     mViewDataBinding.bottomNavigationq.setSelectedIndex(2)
-                     mViewDataBinding.bottomNavigationq.visibility = View.VISIBLE
+                    mViewDataBinding.bottomNavigationq.visibility = View.VISIBLE
+                    mViewDataBinding.bgShow.visibility = View.VISIBLE
                 }
 
                 R.id.userStatsFragment -> {
                     mViewDataBinding.bottomNavigationq.setSelectedIndex(1)
-                     mViewDataBinding.bottomNavigationq.visibility = View.VISIBLE
+                    mViewDataBinding.bottomNavigationq.visibility = View.VISIBLE
+                    mViewDataBinding.bgShow.visibility = View.VISIBLE
                 }
 
                 /*R.id.profileFragment -> {
@@ -157,51 +162,41 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
                      mViewDataBinding.bottomNavigationq?.visibility = View.VISIBLE
                 }*/
 
-              /*  R.id.quizesFragment -> {
-                     mViewDataBinding.bottomNavigationq?.visibility = View.VISIBLE
-                }*/
+                /*  R.id.quizesFragment -> {
+                       mViewDataBinding.bottomNavigationq?.visibility = View.VISIBLE
+                  }*/
 
 //                R.id.editProfileFragment -> {
 //                     mViewDataBinding.bottomNavigationq?.visibility = View.VISIBLE
 //                }
 
-            /*    R.id.qr -> {
-                     mViewDataBinding.bottomNavigationq?.visibility = View.VISIBLE
-                }
+                /*    R.id.qr -> {
+                         mViewDataBinding.bottomNavigationq?.visibility = View.VISIBLE
+                    }
 
-                R.id.shopHomePageFragment -> {
-                     mViewDataBinding.bottomNavigationq?.visibility = View.VISIBLE
-                }
+                    R.id.shopHomePageFragment -> {
+                         mViewDataBinding.bottomNavigationq?.visibility = View.VISIBLE
+                    }
 
-                R.id.productPreviewFragment -> {
-                     mViewDataBinding.bottomNavigationq?.visibility = View.VISIBLE
-                }*/
+                    R.id.productPreviewFragment -> {
+                         mViewDataBinding.bottomNavigationq?.visibility = View.VISIBLE
+                    }*/
 
                 else -> {
-                     mViewDataBinding.bottomNavigationq?.visibility = View.GONE
+                    mViewDataBinding.bottomNavigationq.visibility = View.GONE
+                    mViewDataBinding.bgShow.visibility = View.GONE
                 }
             }
-          /*  mViewDataBinding.bottomNavigationq?.menu?.getItem(2)?.isVisible =
-                !(NetworkCallPoints.TOKENER == null || NetworkCallPoints.TOKENER.equals("null") || NetworkCallPoints.TOKENER.equals(
-                    ""
-                ))
-            mViewDataBinding.bottomNavigationq?.menu?.getItem(1)?.isVisible =
-                !(NetworkCallPoints.TOKENER == null || NetworkCallPoints.TOKENER.equals("null") || NetworkCallPoints.TOKENER.equals(
-                    ""
-                ))*/
+            /*  mViewDataBinding.bottomNavigationq?.menu?.getItem(2)?.isVisible =
+                  !(NetworkCallPoints.TOKENER == null || NetworkCallPoints.TOKENER.equals("null") || NetworkCallPoints.TOKENER.equals(
+                      ""
+                  ))
+              mViewDataBinding.bottomNavigationq?.menu?.getItem(1)?.isVisible =
+                  !(NetworkCallPoints.TOKENER == null || NetworkCallPoints.TOKENER.equals("null") || NetworkCallPoints.TOKENER.equals(
+                      ""
+                  ))*/
 //            setupBottomNavMenu(navController!!)
         }
-
-
-
-
-
-
-
-
-
-
-
 
 
     }
@@ -229,6 +224,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
     override fun OkClick() {
 
     }
+
     companion object {
         private const val STATE_SAVE_STATE = "save_state"
         private const val STATE_KEEP_FRAGS = "keep_frags"
@@ -292,9 +288,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
         }
 
     }
-
-
-
 
 
 }

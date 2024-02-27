@@ -36,7 +36,7 @@ class RandomGameFragment : BaseFragment<FragmentAddressBinding, RandomGameFragsV
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        mViewDataBinding = com.teamx.equiz.databinding.FragmentAddressBinding.inflate(inflater)
+        mViewDataBinding = FragmentAddressBinding.inflate(inflater)
         return ComposeView(requireContext()).also {
             composeView = it
         }

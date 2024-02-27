@@ -58,9 +58,11 @@ class CombinedGameResultFragment :
         val rightAnswer = bundle!!.getInt("rightAnswer", 0)
         val total = bundle!!.getInt("total", 0)
 
-        Log.d("123123", "onViewCreated: $gameName ")
-        Log.d("123123", "onViewCreated: $rightAnswer ")
-        Log.d("123123", "onViewCreated: $total ")
+        Log.d("gameNamesds", "gameName: $gameName ")
+        Log.d("gameNamesds", "rightAnswer: $rightAnswer ")
+        Log.d("gameNamesds", "total: $total ")
+
+
         sharedViewModel.gameNameRight.add(rightAnswer.toDouble())
         sharedViewModel.gameNameTotal.add(total.toDouble())
         sharedViewModel.gameName.add(gameName.toString())

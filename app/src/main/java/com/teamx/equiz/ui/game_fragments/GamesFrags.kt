@@ -99,7 +99,7 @@ class AdditionAddictionGameFrag : BaseFragment<FragmentAddressBinding, GameFrags
         val gameName = bundle.getString("gameName")
 
 
-        Log.d("123123", "onViewCreated:$gameName ")
+
 
         options = navOptions {
             anim {
@@ -121,6 +121,7 @@ class AdditionAddictionGameFrag : BaseFragment<FragmentAddressBinding, GameFrags
                     argumentBundle.putInt("total", total)
 
                     val route = argumentBundle.getString("route")
+                    Log.d("routeroute", "route:$route ")
                     if (route.equals("gameRand", true)) {
                         if (sharedViewModel.roundInteger == 3) {
                             findNavController().navigate(
@@ -130,6 +131,16 @@ class AdditionAddictionGameFrag : BaseFragment<FragmentAddressBinding, GameFrags
                             )
 
                         } else {
+                            sharedViewModel.gameNameRight.add(rightAnswer.toDouble())
+                            sharedViewModel.gameNameTotal.add(total.toDouble())
+                            sharedViewModel.gameName.add(gameName.toString())
+                            sharedViewModel.roundInteger++
+                            findNavController().navigate(
+                                R.id.randomGameFragment2,
+                                argumentBundle,
+                                options
+                            )
+
                             findNavController().navigate(
                                 R.id.resultComposeFrag2,
                                 argumentBundle,
@@ -191,6 +202,13 @@ class BirdWatchingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+
+        var bundle = arguments
+        if (bundle == null) {
+            bundle = Bundle()
+        }
+        val gameName = bundle.getString("gameName")
+
         composeView.setContent {
             LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             Box {
@@ -207,11 +225,30 @@ class BirdWatchingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
                         argumentBundle.putInt("total", total)
                         val route = argumentBundle.getString("route")
                         if (route.equals("gameRand", true)) {
-                            findNavController().navigate(
-                                R.id.resultComposeFrag2,
-                                argumentBundle,
-                                options
-                            )
+                            if (sharedViewModel.roundInteger == 3) {
+                                findNavController().navigate(
+                                    R.id.combinedGameResultFragment,
+                                    argumentBundle,
+                                    options
+                                )
+
+                            } else {
+                                sharedViewModel.gameNameRight.add(rightAnswer.toDouble())
+                                sharedViewModel.gameNameTotal.add(total.toDouble())
+                                sharedViewModel.gameName.add(gameName.toString())
+                                sharedViewModel.roundInteger++
+                                findNavController().navigate(
+                                    R.id.randomGameFragment2,
+                                    argumentBundle,
+                                    options
+                                )
+
+                                findNavController().navigate(
+                                    R.id.resultComposeFrag2,
+                                    argumentBundle,
+                                    options
+                                )
+                            }
                         } else {
                             findNavController().navigate(
                                 R.id.resultComposeFrag,
@@ -273,6 +310,11 @@ class CardCalculationGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+        var bundle = arguments
+        if (bundle == null) {
+            bundle = Bundle()
+        }
+        val gameName = bundle.getString("gameName")
         composeView.setContent {
             LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             CardCalculationGameScreen(content = { bool, rightAnswer, total ->
@@ -294,6 +336,16 @@ class CardCalculationGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
                             )
 
                         } else {
+                            sharedViewModel.gameNameRight.add(rightAnswer.toDouble())
+                            sharedViewModel.gameNameTotal.add(total.toDouble())
+                            sharedViewModel.gameName.add(gameName.toString())
+                            sharedViewModel.roundInteger++
+                            findNavController().navigate(
+                                R.id.randomGameFragment2,
+                                argumentBundle,
+                                options
+                            )
+
                             findNavController().navigate(
                                 R.id.resultComposeFrag2,
                                 argumentBundle,
@@ -358,6 +410,11 @@ class ColorOfDecepGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
             }
         }
 
+        var bundle = arguments
+        if (bundle == null) {
+            bundle = Bundle()
+        }
+        val gameName = bundle.getString("gameName")
 
 
         composeView.setContent {
@@ -380,6 +437,16 @@ class ColorOfDecepGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
                             )
 
                         } else {
+                            sharedViewModel.gameNameRight.add(rightAnswer.toDouble())
+                            sharedViewModel.gameNameTotal.add(total.toDouble())
+                            sharedViewModel.gameName.add(gameName.toString())
+                            sharedViewModel.roundInteger++
+                            findNavController().navigate(
+                                R.id.randomGameFragment2,
+                                argumentBundle,
+                                options
+                            )
+
                             findNavController().navigate(
                                 R.id.resultComposeFrag2,
                                 argumentBundle,
@@ -442,6 +509,11 @@ class ConcentrationGameFrag : BaseFragment<FragmentAddressBinding, GameFragsView
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+        var bundle = arguments
+        if (bundle == null) {
+            bundle = Bundle()
+        }
+        val gameName = bundle.getString("gameName")
         composeView.setContent {
             LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             ConcentrationGame(content = { bool, rightAnswer, total ->
@@ -462,6 +534,16 @@ class ConcentrationGameFrag : BaseFragment<FragmentAddressBinding, GameFragsView
                             )
 
                         } else {
+                            sharedViewModel.gameNameRight.add(rightAnswer.toDouble())
+                            sharedViewModel.gameNameTotal.add(total.toDouble())
+                            sharedViewModel.gameName.add(gameName.toString())
+                            sharedViewModel.roundInteger++
+                            findNavController().navigate(
+                                R.id.randomGameFragment2,
+                                argumentBundle,
+                                options
+                            )
+
                             findNavController().navigate(
                                 R.id.resultComposeFrag2,
                                 argumentBundle,
@@ -527,6 +609,12 @@ class FlickGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>()
             }
         }
 
+        var bundle = arguments
+        if (bundle == null) {
+            bundle = Bundle()
+        }
+        val gameName = bundle.getString("gameName")
+
         composeView.setContent {
             LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             FlicksSc(content = { bool, rightAnswer, total ->
@@ -547,6 +635,16 @@ class FlickGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>()
                             )
 
                         } else {
+                            sharedViewModel.gameNameRight.add(rightAnswer.toDouble())
+                            sharedViewModel.gameNameTotal.add(total.toDouble())
+                            sharedViewModel.gameName.add(gameName.toString())
+                            sharedViewModel.roundInteger++
+                            findNavController().navigate(
+                                R.id.randomGameFragment2,
+                                argumentBundle,
+                                options
+                            )
+
                             findNavController().navigate(
                                 R.id.resultComposeFrag2,
                                 argumentBundle,
@@ -611,6 +709,11 @@ class FollowTheLeaderGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+        var bundle = arguments
+        if (bundle == null) {
+            bundle = Bundle()
+        }
+        val gameName = bundle.getString("gameName")
         composeView.setContent {
             LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             followTouchTheNumGamePlus(content = { bool, rightAnswer, total ->
@@ -631,6 +734,16 @@ class FollowTheLeaderGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
                             )
 
                         } else {
+                            sharedViewModel.gameNameRight.add(rightAnswer.toDouble())
+                            sharedViewModel.gameNameTotal.add(total.toDouble())
+                            sharedViewModel.gameName.add(gameName.toString())
+                            sharedViewModel.roundInteger++
+                            findNavController().navigate(
+                                R.id.randomGameFragment2,
+                                argumentBundle,
+                                options
+                            )
+
                             findNavController().navigate(
                                 R.id.resultComposeFrag2,
                                 argumentBundle,
@@ -695,6 +808,11 @@ class GuessTheFlagGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+        var bundle = arguments
+        if (bundle == null) {
+            bundle = Bundle()
+        }
+        val gameName = bundle.getString("gameName")
         composeView.setContent {
             LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             GuessTheFlagGame(content = { bool, rightAnswer, total ->
@@ -715,6 +833,16 @@ class GuessTheFlagGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
                             )
 
                         } else {
+                            sharedViewModel.gameNameRight.add(rightAnswer.toDouble())
+                            sharedViewModel.gameNameTotal.add(total.toDouble())
+                            sharedViewModel.gameName.add(gameName.toString())
+                            sharedViewModel.roundInteger++
+                            findNavController().navigate(
+                                R.id.randomGameFragment2,
+                                argumentBundle,
+                                options
+                            )
+
                             findNavController().navigate(
                                 R.id.resultComposeFrag2,
                                 argumentBundle,
@@ -779,6 +907,12 @@ class HighLowGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
             }
         }
 
+        var bundle = arguments
+        if (bundle == null) {
+            bundle = Bundle()
+        }
+        val gameName = bundle.getString("gameName")
+
         composeView.setContent {
             LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             HighLowComponent(content = { bool, rightAnswer, total ->
@@ -799,6 +933,16 @@ class HighLowGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
                             )
 
                         } else {
+                            sharedViewModel.gameNameRight.add(rightAnswer.toDouble())
+                            sharedViewModel.gameNameTotal.add(total.toDouble())
+                            sharedViewModel.gameName.add(gameName.toString())
+                            sharedViewModel.roundInteger++
+                            findNavController().navigate(
+                                R.id.randomGameFragment2,
+                                argumentBundle,
+                                options
+                            )
+
                             findNavController().navigate(
                                 R.id.resultComposeFrag2,
                                 argumentBundle,
@@ -863,6 +1007,12 @@ class Make10GameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+
+        var bundle = arguments
+        if (bundle == null) {
+            bundle = Bundle()
+        }
+        val gameName = bundle.getString("gameName")
         composeView.setContent {
             LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             Rain10Game(content = { bool, rightAnswer, total ->
@@ -883,6 +1033,16 @@ class Make10GameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
                             )
 
                         } else {
+                            sharedViewModel.gameNameRight.add(rightAnswer.toDouble())
+                            sharedViewModel.gameNameTotal.add(total.toDouble())
+                            sharedViewModel.gameName.add(gameName.toString())
+                            sharedViewModel.roundInteger++
+                            findNavController().navigate(
+                                R.id.randomGameFragment2,
+                                argumentBundle,
+                                options
+                            )
+
                             findNavController().navigate(
                                 R.id.resultComposeFrag2,
                                 argumentBundle,
@@ -948,6 +1108,11 @@ class MatchingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+        var bundle = arguments
+        if (bundle == null) {
+            bundle = Bundle()
+        }
+        val gameName = bundle.getString("gameName")
         composeView.setContent {
             LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             ViewMatching(content = { bool, rightAnswer, total ->
@@ -968,6 +1133,16 @@ class MatchingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
                             )
 
                         } else {
+                            sharedViewModel.gameNameRight.add(rightAnswer.toDouble())
+                            sharedViewModel.gameNameTotal.add(total.toDouble())
+                            sharedViewModel.gameName.add(gameName.toString())
+                            sharedViewModel.roundInteger++
+                            findNavController().navigate(
+                                R.id.randomGameFragment2,
+                                argumentBundle,
+                                options
+                            )
+
                             findNavController().navigate(
                                 R.id.resultComposeFrag2,
                                 argumentBundle,
@@ -1033,6 +1208,12 @@ class MissingPieceGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
             }
         }
 
+        var bundle = arguments
+        if (bundle == null) {
+            bundle = Bundle()
+        }
+        val gameName = bundle.getString("gameName")
+
         composeView.setContent {
             LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             MissingPieceGameScreen(content = { bool, rightAnswer, total ->
@@ -1053,6 +1234,16 @@ class MissingPieceGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
                             )
 
                         } else {
+                            sharedViewModel.gameNameRight.add(rightAnswer.toDouble())
+                            sharedViewModel.gameNameTotal.add(total.toDouble())
+                            sharedViewModel.gameName.add(gameName.toString())
+                            sharedViewModel.roundInteger++
+                            findNavController().navigate(
+                                R.id.randomGameFragment2,
+                                argumentBundle,
+                                options
+                            )
+
                             findNavController().navigate(
                                 R.id.resultComposeFrag2,
                                 argumentBundle,
@@ -1119,6 +1310,11 @@ class OperationsGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+        var bundle = arguments
+        if (bundle == null) {
+            bundle = Bundle()
+        }
+        val gameName = bundle.getString("gameName")
         composeView.setContent {
             LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             OperationGame(content = { bool, rightAnswer, total ->
@@ -1139,6 +1335,16 @@ class OperationsGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
                             )
 
                         } else {
+                            sharedViewModel.gameNameRight.add(rightAnswer.toDouble())
+                            sharedViewModel.gameNameTotal.add(total.toDouble())
+                            sharedViewModel.gameName.add(gameName.toString())
+                            sharedViewModel.roundInteger++
+                            findNavController().navigate(
+                                R.id.randomGameFragment2,
+                                argumentBundle,
+                                options
+                            )
+
                             findNavController().navigate(
                                 R.id.resultComposeFrag2,
                                 argumentBundle,
@@ -1204,6 +1410,11 @@ class QuickEyeGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+        var bundle = arguments
+        if (bundle == null) {
+            bundle = Bundle()
+        }
+        val gameName = bundle.getString("gameName")
         composeView.setContent {
             LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             QuickEyeGame(content = { bool, rightAnswer, total ->
@@ -1224,6 +1435,16 @@ class QuickEyeGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
                             )
 
                         } else {
+                            sharedViewModel.gameNameRight.add(rightAnswer.toDouble())
+                            sharedViewModel.gameNameTotal.add(total.toDouble())
+                            sharedViewModel.gameName.add(gameName.toString())
+                            sharedViewModel.roundInteger++
+                            findNavController().navigate(
+                                R.id.randomGameFragment2,
+                                argumentBundle,
+                                options
+                            )
+
                             findNavController().navigate(
                                 R.id.resultComposeFrag2,
                                 argumentBundle,
@@ -1288,6 +1509,11 @@ class RainFallGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+        var bundle = arguments
+        if (bundle == null) {
+            bundle = Bundle()
+        }
+        val gameName = bundle.getString("gameName")
         composeView.setContent {
             LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             RainFallGame(content = { bool, rightAnswer, total ->
@@ -1308,6 +1534,16 @@ class RainFallGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
                             )
 
                         } else {
+                            sharedViewModel.gameNameRight.add(rightAnswer.toDouble())
+                            sharedViewModel.gameNameTotal.add(total.toDouble())
+                            sharedViewModel.gameName.add(gameName.toString())
+                            sharedViewModel.roundInteger++
+                            findNavController().navigate(
+                                R.id.randomGameFragment2,
+                                argumentBundle,
+                                options
+                            )
+
                             findNavController().navigate(
                                 R.id.resultComposeFrag2,
                                 argumentBundle,
@@ -1372,6 +1608,12 @@ class RapidSortingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+
+        var bundle = arguments
+        if (bundle == null) {
+            bundle = Bundle()
+        }
+        val gameName = bundle.getString("gameName")
         composeView.setContent {
             LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             RapidSortingGame(content = { bool, rightAnswer, total ->
@@ -1392,13 +1634,22 @@ class RapidSortingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
                             )
 
                         } else {
+                            sharedViewModel.gameNameRight.add(rightAnswer.toDouble())
+                            sharedViewModel.gameNameTotal.add(total.toDouble())
+                            sharedViewModel.gameName.add(gameName.toString())
+                            sharedViewModel.roundInteger++
+                            findNavController().navigate(
+                                R.id.randomGameFragment2,
+                                argumentBundle,
+                                options
+                            )
+
                             findNavController().navigate(
                                 R.id.resultComposeFrag2,
                                 argumentBundle,
                                 options
                             )
                         }
-
                     } else {
                         findNavController().navigate(
                             R.id.resultComposeFrag,
@@ -1989,16 +2240,16 @@ class ResultComposeFrag2 : BaseFragment<FragmentAddressBinding, GameFragsViewMod
             val route = bundle?.getString("route")
             if (route.equals("dash", true)) {
                 findNavController().navigate(R.id.dashboardFragment, arguments, options)
-            }else if (route.equals("gameRand", true)) {
+            } else if (route.equals("gameRand", true)) {
 
-                findNavController().popBackStack(R.id.userStatsFragment,false)
+                findNavController().popBackStack(R.id.userStatsFragment, false)
             } else {
                 findNavController().navigate(R.id.gamesFragment, arguments, options)
             }
         }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
-                        sharedViewModel.roundInteger++
+        sharedViewModel.roundInteger++
         Log.d("ResultScreen2", "onViewCreated: ResultScreen working")
 
         var bundle = arguments
@@ -2051,8 +2302,8 @@ class ResultComposeFrag2 : BaseFragment<FragmentAddressBinding, GameFragsViewMod
                         if (route.equals("dash", true)) {
                             findNavController().navigate(R.id.dashboardFragment, arguments, options)
                         } else if (route.equals("gameRand", true)) {
-                            findNavController().popBackStack(R.id.userStatsFragment,false)
-                        }else {
+                            findNavController().popBackStack(R.id.userStatsFragment, false)
+                        } else {
                             findNavController().navigate(R.id.gamesFragment, arguments, options)
                         }
                     }
@@ -2485,6 +2736,11 @@ class ReverseRPSFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+        var bundle = arguments
+        if (bundle == null) {
+            bundle = Bundle()
+        }
+        val gameName = bundle.getString("gameName")
         composeView.setContent {
             LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             rpsCastGamePlot(content = { bool, rightAnswer, total ->
@@ -2505,6 +2761,16 @@ class ReverseRPSFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
                             )
 
                         } else {
+                            sharedViewModel.gameNameRight.add(rightAnswer.toDouble())
+                            sharedViewModel.gameNameTotal.add(total.toDouble())
+                            sharedViewModel.gameName.add(gameName.toString())
+                            sharedViewModel.roundInteger++
+                            findNavController().navigate(
+                                R.id.randomGameFragment2,
+                                argumentBundle,
+                                options
+                            )
+
                             findNavController().navigate(
                                 R.id.resultComposeFrag2,
                                 argumentBundle,
@@ -2568,6 +2834,11 @@ class SimplicityGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+        var bundle = arguments
+        if (bundle == null) {
+            bundle = Bundle()
+        }
+        val gameName = bundle.getString("gameName")
         composeView.setContent {
             LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             ImplicityGameScreen(content = { bool, rightAnswer, total ->
@@ -2588,6 +2859,16 @@ class SimplicityGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
                             )
 
                         } else {
+                            sharedViewModel.gameNameRight.add(rightAnswer.toDouble())
+                            sharedViewModel.gameNameTotal.add(total.toDouble())
+                            sharedViewModel.gameName.add(gameName.toString())
+                            sharedViewModel.roundInteger++
+                            findNavController().navigate(
+                                R.id.randomGameFragment2,
+                                argumentBundle,
+                                options
+                            )
+
                             findNavController().navigate(
                                 R.id.resultComposeFrag2,
                                 argumentBundle,
@@ -2651,6 +2932,11 @@ class SpinningBlockGameFrag : BaseFragment<FragmentAddressBinding, GameFragsView
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+        var bundle = arguments
+        if (bundle == null) {
+            bundle = Bundle()
+        }
+        val gameName = bundle.getString("gameName")
         composeView.setContent {
             LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             SpinningBlockGame(content = { bool, rightAnswer, total ->
@@ -2671,6 +2957,16 @@ class SpinningBlockGameFrag : BaseFragment<FragmentAddressBinding, GameFragsView
                             )
 
                         } else {
+                            sharedViewModel.gameNameRight.add(rightAnswer.toDouble())
+                            sharedViewModel.gameNameTotal.add(total.toDouble())
+                            sharedViewModel.gameName.add(gameName.toString())
+                            sharedViewModel.roundInteger++
+                            findNavController().navigate(
+                                R.id.randomGameFragment2,
+                                argumentBundle,
+                                options
+                            )
+
                             findNavController().navigate(
                                 R.id.resultComposeFrag2,
                                 argumentBundle,
@@ -2801,6 +3097,11 @@ class TapTheColorGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+        var bundle = arguments
+        if (bundle == null) {
+            bundle = Bundle()
+        }
+        val gameName = bundle.getString("gameName")
         composeView.setContent {
             LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             TapTheColorGame(content = { bool, rightAnswer, total ->
@@ -2821,6 +3122,16 @@ class TapTheColorGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
                             )
 
                         } else {
+                            sharedViewModel.gameNameRight.add(rightAnswer.toDouble())
+                            sharedViewModel.gameNameTotal.add(total.toDouble())
+                            sharedViewModel.gameName.add(gameName.toString())
+                            sharedViewModel.roundInteger++
+                            findNavController().navigate(
+                                R.id.randomGameFragment2,
+                                argumentBundle,
+                                options
+                            )
+
                             findNavController().navigate(
                                 R.id.resultComposeFrag2,
                                 argumentBundle,
@@ -2884,6 +3195,11 @@ class TetrisGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+        var bundle = arguments
+        if (bundle == null) {
+            bundle = Bundle()
+        }
+        val gameName = bundle.getString("gameName")
         composeView.setContent {
             LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             TetrisGame(content = { bool, rightAnswer, total ->
@@ -2904,6 +3220,16 @@ class TetrisGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
                             )
 
                         } else {
+                            sharedViewModel.gameNameRight.add(rightAnswer.toDouble())
+                            sharedViewModel.gameNameTotal.add(total.toDouble())
+                            sharedViewModel.gameName.add(gameName.toString())
+                            sharedViewModel.roundInteger++
+                            findNavController().navigate(
+                                R.id.randomGameFragment2,
+                                argumentBundle,
+                                options
+                            )
+
                             findNavController().navigate(
                                 R.id.resultComposeFrag2,
                                 argumentBundle,
@@ -2968,6 +3294,11 @@ class TouchTheNumGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+        var bundle = arguments
+        if (bundle == null) {
+            bundle = Bundle()
+        }
+        val gameName = bundle.getString("gameName")
         composeView.setContent {
             LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             TouchTheNumGamePlus(content = { bool, rightAnswer, total ->
@@ -2988,6 +3319,16 @@ class TouchTheNumGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
                             )
 
                         } else {
+                            sharedViewModel.gameNameRight.add(rightAnswer.toDouble())
+                            sharedViewModel.gameNameTotal.add(total.toDouble())
+                            sharedViewModel.gameName.add(gameName.toString())
+                            sharedViewModel.roundInteger++
+                            findNavController().navigate(
+                                R.id.randomGameFragment2,
+                                argumentBundle,
+                                options
+                            )
+
                             findNavController().navigate(
                                 R.id.resultComposeFrag2,
                                 argumentBundle,
@@ -3051,6 +3392,11 @@ class TouchTheNumPlusGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+        var bundle = arguments
+        if (bundle == null) {
+            bundle = Bundle()
+        }
+        val gameName = bundle.getString("gameName")
         composeView.setContent {
             LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             NumPlus(content = { bool, rightAnswer, total ->
@@ -3071,6 +3417,16 @@ class TouchTheNumPlusGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
                             )
 
                         } else {
+                            sharedViewModel.gameNameRight.add(rightAnswer.toDouble())
+                            sharedViewModel.gameNameTotal.add(total.toDouble())
+                            sharedViewModel.gameName.add(gameName.toString())
+                            sharedViewModel.roundInteger++
+                            findNavController().navigate(
+                                R.id.randomGameFragment2,
+                                argumentBundle,
+                                options
+                            )
+
                             findNavController().navigate(
                                 R.id.resultComposeFrag2,
                                 argumentBundle,
@@ -3134,6 +3490,11 @@ class UnfollowTheLeaderGameFrag : BaseFragment<FragmentAddressBinding, GameFrags
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+        var bundle = arguments
+        if (bundle == null) {
+            bundle = Bundle()
+        }
+        val gameName = bundle.getString("gameName")
         composeView.setContent {
             LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             UnfollowTouchTheNumGamePlus(content = { bool, rightAnswer, total ->
@@ -3154,6 +3515,16 @@ class UnfollowTheLeaderGameFrag : BaseFragment<FragmentAddressBinding, GameFrags
                             )
 
                         } else {
+                            sharedViewModel.gameNameRight.add(rightAnswer.toDouble())
+                            sharedViewModel.gameNameTotal.add(total.toDouble())
+                            sharedViewModel.gameName.add(gameName.toString())
+                            sharedViewModel.roundInteger++
+                            findNavController().navigate(
+                                R.id.randomGameFragment2,
+                                argumentBundle,
+                                options
+                            )
+
                             findNavController().navigate(
                                 R.id.resultComposeFrag2,
                                 argumentBundle,
@@ -3218,6 +3589,12 @@ class WeatherCastGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
             }
         }
 
+        var bundle = arguments
+        if (bundle == null) {
+            bundle = Bundle()
+        }
+        val gameName = bundle.getString("gameName")
+
         composeView.setContent {
             LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             WeatherCastGame(content = { bool, rightAnswer, total ->
@@ -3238,6 +3615,16 @@ class WeatherCastGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
                             )
 
                         } else {
+                            sharedViewModel.gameNameRight.add(rightAnswer.toDouble())
+                            sharedViewModel.gameNameTotal.add(total.toDouble())
+                            sharedViewModel.gameName.add(gameName.toString())
+                            sharedViewModel.roundInteger++
+                            findNavController().navigate(
+                                R.id.randomGameFragment2,
+                                argumentBundle,
+                                options
+                            )
+
                             findNavController().navigate(
                                 R.id.resultComposeFrag2,
                                 argumentBundle,
@@ -3301,6 +3688,12 @@ class ShapeDeceptionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVie
             }
         }
 
+        var bundle = arguments
+        if (bundle == null) {
+            bundle = Bundle()
+        }
+        val gameName = bundle.getString("gameName")
+
         composeView.setContent {
             LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             TouchTheShapesGameScreen(content = { bool, rightAnswer, total ->
@@ -3321,6 +3714,16 @@ class ShapeDeceptionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVie
                             )
 
                         } else {
+                            sharedViewModel.gameNameRight.add(rightAnswer.toDouble())
+                            sharedViewModel.gameNameTotal.add(total.toDouble())
+                            sharedViewModel.gameName.add(gameName.toString())
+                            sharedViewModel.roundInteger++
+                            findNavController().navigate(
+                                R.id.randomGameFragment2,
+                                argumentBundle,
+                                options
+                            )
+
                             findNavController().navigate(
                                 R.id.resultComposeFrag2,
                                 argumentBundle,

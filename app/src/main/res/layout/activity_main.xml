@@ -43,6 +43,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <RelativeLayout
+            android:id="@+id/bgShow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:background="@drawable/bg"/>
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -55,7 +62,7 @@
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/_30sdp"
                 app:defaultNavHost="true"
-                app:layout_constraintBottom_toTopOf="@+id/guideline"
+                app:layout_constraintBottom_toTopOf="@+id/bottomNavigationq"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
