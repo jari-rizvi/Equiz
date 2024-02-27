@@ -91,11 +91,13 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
 
         mViewDataBinding.textView9.setOnClickListener {
-            findNavController().navigate(
-                com.teamx.equiz.R.id.action_walletFragment_to_referralFragment,
-                arguments,
-                options
-            )
+            if (isAdded) {
+                findNavController().navigate(
+                    R.id.action_walletFragment_to_referralFragment,
+                    arguments,
+                    options
+                )
+            }
         }
 
         mViewDataBinding.btnTopUp.setOnClickListener {
@@ -366,6 +368,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
 
     lateinit var startdateTxt: TextView
     lateinit var enddateTxt: TextView
+
     @RequiresApi(Build.VERSION_CODES.O)
     fun DatePickerDialog(): Dialog {
         val dialog = Dialog(requireActivity())
@@ -456,7 +459,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
         ).show()
     }
 
-    fun showDate(){
+    fun showDate() {
 
     }
 

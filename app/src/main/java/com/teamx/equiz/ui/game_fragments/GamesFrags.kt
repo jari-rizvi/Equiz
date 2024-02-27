@@ -140,12 +140,6 @@ class AdditionAddictionGameFrag : BaseFragment<FragmentAddressBinding, GameFrags
                                 argumentBundle,
                                 options
                             )
-
-                            findNavController().navigate(
-                                R.id.resultComposeFrag2,
-                                argumentBundle,
-                                options
-                            )
                         }
                     } else {
                         findNavController().navigate(
@@ -239,12 +233,6 @@ class BirdWatchingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
                                 sharedViewModel.roundInteger++
                                 findNavController().navigate(
                                     R.id.randomGameFragment2,
-                                    argumentBundle,
-                                    options
-                                )
-
-                                findNavController().navigate(
-                                    R.id.resultComposeFrag2,
                                     argumentBundle,
                                     options
                                 )
@@ -345,12 +333,6 @@ class CardCalculationGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
                                 argumentBundle,
                                 options
                             )
-
-                            findNavController().navigate(
-                                R.id.resultComposeFrag2,
-                                argumentBundle,
-                                options
-                            )
                         }
                     } else {
                         findNavController().navigate(
@@ -446,12 +428,6 @@ class ColorOfDecepGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
                                 argumentBundle,
                                 options
                             )
-
-                            findNavController().navigate(
-                                R.id.resultComposeFrag2,
-                                argumentBundle,
-                                options
-                            )
                         }
                     } else {
                         findNavController().navigate(
@@ -540,12 +516,6 @@ class ConcentrationGameFrag : BaseFragment<FragmentAddressBinding, GameFragsView
                             sharedViewModel.roundInteger++
                             findNavController().navigate(
                                 R.id.randomGameFragment2,
-                                argumentBundle,
-                                options
-                            )
-
-                            findNavController().navigate(
-                                R.id.resultComposeFrag2,
                                 argumentBundle,
                                 options
                             )
@@ -645,11 +615,6 @@ class FlickGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>()
                                 options
                             )
 
-                            findNavController().navigate(
-                                R.id.resultComposeFrag2,
-                                argumentBundle,
-                                options
-                            )
                         }
                     } else {
                         findNavController().navigate(
@@ -740,12 +705,6 @@ class FollowTheLeaderGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
                             sharedViewModel.roundInteger++
                             findNavController().navigate(
                                 R.id.randomGameFragment2,
-                                argumentBundle,
-                                options
-                            )
-
-                            findNavController().navigate(
-                                R.id.resultComposeFrag2,
                                 argumentBundle,
                                 options
                             )
@@ -843,11 +802,6 @@ class GuessTheFlagGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
                                 options
                             )
 
-                            findNavController().navigate(
-                                R.id.resultComposeFrag2,
-                                argumentBundle,
-                                options
-                            )
                         }
                     } else {
                         findNavController().navigate(
@@ -943,11 +897,6 @@ class HighLowGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>
                                 options
                             )
 
-                            findNavController().navigate(
-                                R.id.resultComposeFrag2,
-                                argumentBundle,
-                                options
-                            )
                         }
                     } else {
                         findNavController().navigate(
@@ -1043,11 +992,6 @@ class Make10GameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
                                 options
                             )
 
-                            findNavController().navigate(
-                                R.id.resultComposeFrag2,
-                                argumentBundle,
-                                options
-                            )
                         }
                     } else {
                         findNavController().navigate(
@@ -1139,12 +1083,6 @@ class MatchingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
                             sharedViewModel.roundInteger++
                             findNavController().navigate(
                                 R.id.randomGameFragment2,
-                                argumentBundle,
-                                options
-                            )
-
-                            findNavController().navigate(
-                                R.id.resultComposeFrag2,
                                 argumentBundle,
                                 options
                             )
@@ -1240,12 +1178,6 @@ class MissingPieceGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
                             sharedViewModel.roundInteger++
                             findNavController().navigate(
                                 R.id.randomGameFragment2,
-                                argumentBundle,
-                                options
-                            )
-
-                            findNavController().navigate(
-                                R.id.resultComposeFrag2,
                                 argumentBundle,
                                 options
                             )
@@ -1345,11 +1277,6 @@ class OperationsGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
                                 options
                             )
 
-                            findNavController().navigate(
-                                R.id.resultComposeFrag2,
-                                argumentBundle,
-                                options
-                            )
                         }
                     } else {
                         findNavController().navigate(
@@ -1445,11 +1372,6 @@ class QuickEyeGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
                                 options
                             )
 
-                            findNavController().navigate(
-                                R.id.resultComposeFrag2,
-                                argumentBundle,
-                                options
-                            )
                         }
                     } else {
                         findNavController().navigate(
@@ -1540,12 +1462,6 @@ class RainFallGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel
                             sharedViewModel.roundInteger++
                             findNavController().navigate(
                                 R.id.randomGameFragment2,
-                                argumentBundle,
-                                options
-                            )
-
-                            findNavController().navigate(
-                                R.id.resultComposeFrag2,
                                 argumentBundle,
                                 options
                             )
@@ -1644,11 +1560,6 @@ class RapidSortingGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewM
                                 options
                             )
 
-                            findNavController().navigate(
-                                R.id.resultComposeFrag2,
-                                argumentBundle,
-                                options
-                            )
                         }
                     } else {
                         findNavController().navigate(
@@ -2771,11 +2682,6 @@ class ReverseRPSFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
                                 options
                             )
 
-                            findNavController().navigate(
-                                R.id.resultComposeFrag2,
-                                argumentBundle,
-                                options
-                            )
                         }
                     } else {
                         findNavController().navigate(
@@ -2869,11 +2775,6 @@ class SimplicityGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
                                 options
                             )
 
-                            findNavController().navigate(
-                                R.id.resultComposeFrag2,
-                                argumentBundle,
-                                options
-                            )
                         }
                     } else {
                         findNavController().navigate(
@@ -2967,11 +2868,6 @@ class SpinningBlockGameFrag : BaseFragment<FragmentAddressBinding, GameFragsView
                                 options
                             )
 
-                            findNavController().navigate(
-                                R.id.resultComposeFrag2,
-                                argumentBundle,
-                                options
-                            )
                         }
                     } else {
                         findNavController().navigate(
@@ -3132,11 +3028,6 @@ class TapTheColorGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
                                 options
                             )
 
-                            findNavController().navigate(
-                                R.id.resultComposeFrag2,
-                                argumentBundle,
-                                options
-                            )
                         }
                     } else {
                         findNavController().navigate(
@@ -3230,11 +3121,6 @@ class TetrisGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewModel>(
                                 options
                             )
 
-                            findNavController().navigate(
-                                R.id.resultComposeFrag2,
-                                argumentBundle,
-                                options
-                            )
                         }
                     } else {
                         findNavController().navigate(
@@ -3329,11 +3215,6 @@ class TouchTheNumGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
                                 options
                             )
 
-                            findNavController().navigate(
-                                R.id.resultComposeFrag2,
-                                argumentBundle,
-                                options
-                            )
                         }
                     } else {
                         findNavController().navigate(
@@ -3427,11 +3308,6 @@ class TouchTheNumPlusGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVi
                                 options
                             )
 
-                            findNavController().navigate(
-                                R.id.resultComposeFrag2,
-                                argumentBundle,
-                                options
-                            )
                         }
                     } else {
                         findNavController().navigate(
@@ -3525,11 +3401,6 @@ class UnfollowTheLeaderGameFrag : BaseFragment<FragmentAddressBinding, GameFrags
                                 options
                             )
 
-                            findNavController().navigate(
-                                R.id.resultComposeFrag2,
-                                argumentBundle,
-                                options
-                            )
                         }
                     } else {
                         findNavController().navigate(
@@ -3625,11 +3496,6 @@ class WeatherCastGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
                                 options
                             )
 
-                            findNavController().navigate(
-                                R.id.resultComposeFrag2,
-                                argumentBundle,
-                                options
-                            )
                         }
                     } else {
                         findNavController().navigate(
@@ -3724,11 +3590,6 @@ class ShapeDeceptionGameFrag : BaseFragment<FragmentAddressBinding, GameFragsVie
                                 options
                             )
 
-                            findNavController().navigate(
-                                R.id.resultComposeFrag2,
-                                argumentBundle,
-                                options
-                            )
                         }
                     } else {
                         findNavController().navigate(
