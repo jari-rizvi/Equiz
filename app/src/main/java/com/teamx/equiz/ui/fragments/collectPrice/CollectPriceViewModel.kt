@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.teamx.equiz.baseclasses.BaseViewModel
-import com.teamx.equiz.data.models.meModel.MeModel
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.data.remote.reporitory.MainRepository
 import com.teamx.equiz.ui.fragments.collectPrice.data.CollectDataModel

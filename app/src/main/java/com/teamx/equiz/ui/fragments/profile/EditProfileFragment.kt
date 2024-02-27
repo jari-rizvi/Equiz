@@ -9,13 +9,13 @@ import android.view.View
 import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.annotation.Keep
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.bumptech.glide.Glide
+import com.google.gson.Gson
 import com.google.gson.JsonObject
-import com.squareup.picasso.Picasso
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
@@ -31,7 +31,9 @@ import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import org.json.JSONArray
 import org.json.JSONException
+import org.json.JSONObject
 import java.io.File
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
@@ -61,6 +63,8 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
     var userDOB = ""
     var userPhone = ""
     lateinit var userId: String
+     var linkInsta = ""
+    var linkFb = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -81,6 +85,10 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
         mViewDataBinding.btnChangePass.setOnClickListener {
             findNavController().navigate(R.id.changePassFragment, arguments, options)
         }
+
+
+        linkFb = mViewDataBinding.instagram.text.toString()
+        linkInsta = mViewDataBinding.instagram.text.toString()
 
         val dateSetListener =
             DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
@@ -260,6 +268,12 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                                 mViewDataBinding.userName.setText(data.user.name)
                                 mViewDataBinding.phone.setText(data.user.phone)
                                 mViewDataBinding.email.setText(data.user.email)
+                                mViewDataBinding.facebook.setText(data.user.social[0].link)
+                                mViewDataBinding.instagram.setText(data.user.social[1].link)
+
+                                data.user.social.forEach {
+                                    it.link
+                                }
 
                                 mViewDataBinding.simpleProgressBar.secondaryProgress = data.user.profileProgress
 
@@ -360,7 +374,15 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
 
 
 
+
+
+
         mViewDataBinding.btnSave.setOnClickListener {
+            linkFb = mViewDataBinding.facebook.text.toString()
+            linkInsta = mViewDataBinding.instagram.text.toString()
+
+
+
             userName = mViewDataBinding.userName.text.toString()
             if (userName.isNotEmpty()) {
                 val params = JsonObject()
@@ -369,9 +391,47 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                     params.addProperty("DOB", dob)
                     params.addProperty("username", userName)
                     params.addProperty("image", imageUrl)
+
+
+                    val socials = listOf(
+                        Socials(
+                            label = "Facebook",
+                            link = linkFb
+                        ),
+                        Socials(
+                            label = "Insta",
+                            link = linkInsta
+                        )
+                    )
+
+                    params.add(
+                        "social", Gson().toJsonTree(socials)
+                    )
+
+
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
+
+
+/*
+                val mainObject = JSONObject()
+                mainObject.put("image", imageUrl)
+                mainObject.put("DOB", dob)
+
+                val socialArray = JSONArray()
+                val homeObject = JSONObject()
+                homeObject.put("label", "Facebook")
+                homeObject.put("link", linkFb)
+                socialArray.put(homeObject)
+
+                val instaObject = JSONObject()
+                instaObject.put("label", "Insta")
+                instaObject.put("link", linkInsta)
+                socialArray.put(instaObject)
+
+                mainObject.put("social", socialArray)*/
+
 
                 mViewModel.updateProfile(params)
             } else {
@@ -558,5 +618,9 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
         return MultipartBody.Part.createFormData(partName, fileUri.name, requestFile)
     }
 
-
 }
+@Keep
+open class Socials(
+    open val label: String,
+    open val link: String,
+)

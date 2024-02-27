@@ -1,4 +1,4 @@
-package com.teamx.equiz.data.models.orderDetailData
+package com.teamx.equiz.data.models.cancelOrder
 
 data class User(
     val email: String,

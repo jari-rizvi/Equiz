@@ -179,7 +179,7 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
 
 
         mViewDataBinding.unsub.setOnClickListener {
-               DialogHelperClass.unsubUserDialog(requireContext(),
+            DialogHelperClass.unsubUserDialog(requireContext(),
                 object : DialogHelperClass.Companion.DeleteUserDialogCallBack {
                     override fun onSignInClick1() {
 
@@ -323,6 +323,9 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
 
                                 stripe.confirmPayment(requireActivity(), params)
                                 bottomStripeFragment.dismiss()
+                                mViewDataBinding.root.snackbar("Successfully Subscribed")
+                                findNavController().popBackStack()
+
                                 /*   object : ApiResultCallback<PaymentIntentResult> {
                                         override fun onSuccess(result: PaymentIntentResult) {
                                             val paymentIntent: PaymentIntent? = result.intent

@@ -233,13 +233,13 @@
 
                             <ImageView
                                 android:id="@+id/btnFilter"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
                                 app:layout_constraintBottom_toBottomOf="@+id/textView59"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toEndOf="@+id/textView59"
                                 app:layout_constraintTop_toTopOf="@+id/textView59"
-                                app:srcCompat="@drawable/add" />
+                                app:srcCompat="@drawable/filter" />
 
 
                         </androidx.constraintlayout.widget.ConstraintLayout>

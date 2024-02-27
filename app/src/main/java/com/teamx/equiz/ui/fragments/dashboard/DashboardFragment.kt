@@ -127,7 +127,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                 return@setOnClickListener
             }
             findNavController().navigate(
-                R.id.topupFragment, arguments, options
+                R.id.walletFragment, arguments, options
             )
         }
 

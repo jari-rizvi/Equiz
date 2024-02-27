@@ -355,9 +355,6 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
     }
 
 
-    ///////
-
-
     override fun onAddClickListener(position: Int) {
 
         cartArrayList2!![position].quantity = cartArrayList2!![position].quantity + 1

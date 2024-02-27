@@ -84,7 +84,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout5"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/_84sdp"
             android:layout_marginHorizontal="@dimen/_10sdp"
             android:background="@drawable/card_back_less_rad"
             android:elevation="@dimen/_1sdp"

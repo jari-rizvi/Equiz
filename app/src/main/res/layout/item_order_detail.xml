@@ -11,21 +11,21 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/_85sdp"
         android:layout_marginHorizontal="@dimen/_5sdp"
-        android:background="@drawable/card_background"
         android:layout_marginVertical="@dimen/_5sdp"
+        android:background="@drawable/card_background"
         android:elevation="@dimen/_2sdp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/container"
             android:layout_width="@dimen/_80sdp"
             android:layout_height="0dp"
-            android:clipToOutline="true"
             android:layout_margin="@dimen/_5sdp"
-            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/card_background_less_radius"
+            android:clipToOutline="true"
+            android:elevation="@dimen/_2sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:background="@drawable/card_background_less_radius"
-            android:elevation="@dimen/_2sdp">
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/img"
@@ -43,14 +43,14 @@
         <TextView
             android:id="@+id/textView54"
             style="@style/popins_regular"
-            android:textStyle="bold"
             android:layout_width="@dimen/_100sdp"
             android:layout_height="wrap_content"
-            android:text=""
-            android:maxLines="1"
             android:ellipsize="end"
+            android:maxLines="1"
+            android:text=""
             android:textColor="@color/black"
             android:textSize="@dimen/_14ssp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.1"
@@ -60,13 +60,13 @@
 
         <TextView
             android:id="@+id/textView55"
+            style="@style/popins_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLines="1"
-            style="@style/popins_regular"
+            android:text="1"
             android:textColor="@color/black"
             android:textSize="@dimen/_10ssp"
-            android:text="1"
             app:layout_constraintBottom_toTopOf="@+id/textView13"
             app:layout_constraintEnd_toEndOf="@+id/textView54"
             app:layout_constraintHorizontal_bias="0"
@@ -78,9 +78,9 @@
             style="@style/popins_regular"
             android:layout_width="@dimen/_100sdp"
             android:layout_height="wrap_content"
-            android:text=""
-            android:maxLines="1"
             android:ellipsize="end"
+            android:maxLines="1"
+            android:text=""
             android:textColor="@color/black"
             android:textSize="@dimen/_14ssp"
             android:textStyle="bold"
@@ -105,6 +105,21 @@
             app:layout_constraintStart_toEndOf="@+id/textView54"
             app:layout_constraintTop_toTopOf="@+id/textView54" />
 
+        <TextView
+            android:id="@+id/btnCnclFalse"
+            android:layout_width="@dimen/_65sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:background="@drawable/border_theme"
+            android:gravity="center"
+            android:text="Cancelled"
+            android:visibility="gone"
+            android:backgroundTint="@color/light_gray"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/textView54"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.7"
+            app:layout_constraintStart_toEndOf="@+id/textView54"
+            app:layout_constraintTop_toTopOf="@+id/textView54" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

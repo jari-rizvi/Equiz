@@ -42,8 +42,7 @@
             android:layout_height="@dimen/_30sdp"
             app:layout_constraintBottom_toBottomOf="@+id/btnWishlist"
             app:layout_constraintEnd_toStartOf="@+id/btnWishlist"
-            android:backgroundTint="@color/theme_color"
-            android:background="@drawable/txt_radius_corner_purple"
+            android:background="@drawable/button_gradient"
             app:layout_constraintHorizontal_bias="0.95"
             app:layout_constraintStart_toEndOf="@+id/btnmenu"
             app:layout_constraintTop_toTopOf="@+id/btnWishlist">

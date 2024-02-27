@@ -1,16 +1,16 @@
-package com.teamx.equiz.data.models.orderDetailData
+package com.teamx.equiz.data.models.cancelOrder
 
 data class Orders(
     val __v: Int,
     val _id: String,
-    val coupon: Coupon,
+    val cartDetail: CartDetail,
+    val conversionRate: Int,
     val createdAt: String,
-    val discountedPrice: Double,
     val orderID: Int,
     val orderItems: List<String>,
     val orderStatus: String,
     val paymentIntent: String,
     val shippingInfo: ShippingInfo,
-    val totalPoints: Double,
+    val totalPoints: Int,
     val user: User
 )
