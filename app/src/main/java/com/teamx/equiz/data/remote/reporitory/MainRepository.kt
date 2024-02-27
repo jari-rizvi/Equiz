@@ -4,6 +4,7 @@ import com.google.gson.JsonObject
 import com.teamx.equiz.data.local.db.AppDao
 import com.teamx.equiz.data.remote.ApiService
 import okhttp3.MultipartBody
+import org.json.JSONObject
 import retrofit2.http.Body
 import retrofit2.http.Part
 import retrofit2.http.Path

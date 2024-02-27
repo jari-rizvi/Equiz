@@ -17,6 +17,7 @@ import android.view.TextureView
 import android.view.View
 import android.view.WindowManager
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.annotation.RequiresApi
@@ -377,6 +378,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
         startdateTxt = dialog.findViewById(R.id.startdob)
         enddateTxt = dialog.findViewById(R.id.enddob)
         val btn = dialog.findViewById<TextView>(R.id.btnCnfirm)
+        val closeDialog = dialog.findViewById<ImageView>(R.id.closeDialog)
 
         val currentDate = LocalDate.now()
 
@@ -401,6 +403,11 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
             dialog.dismiss()
 
         }
+
+        closeDialog.setOnClickListener {
+            dialog.dismiss()
+        }
+
 
 
         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
