@@ -1,5 +1,7 @@
 package com.teamx.equiz.data.models.meModel
+import androidx.annotation.Keep
 
+@Keep
 data class User(
     val __v: Int,
     val _id: String,
