@@ -1,4 +1,4 @@
-package com.teamx.equiz.data.models.orderDetailData
+package com.teamx.equiz.data.models.cancelOrder
 
 data class Product(
     val _id: String,
@@ -6,6 +6,6 @@ data class Product(
     val images: List<String>,
     val isCancelable: Boolean,
     val isCancelled: Boolean,
-    val point: Double,
+    val point: Int,
     val title: String
 )

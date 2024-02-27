@@ -20,8 +20,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import androidx.activity.addCallback
 import com.google.gson.JsonObject
-import com.teamx.equiz.data.models.orderDetailData.CartDetail
-import com.teamx.equiz.data.models.orderDetailData.Orders
 import com.teamx.equiz.data.models.orderDetailData.ProductDetail
 import org.json.JSONException
 
@@ -104,6 +102,12 @@ class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding, OrderDeta
                         mViewDataBinding.shimmerLayout.visibility = View.GONE
                         mViewDataBinding.mainLayout.visibility = View.VISIBLE
                         it.data?.let { data ->
+//                            productArrayList.add(it.data.data)
+
+
+                            data.data.cartDetail.productDetails.forEach {
+                                it.orderStatus = data.data.orders.orderStatus
+                            }
 
                             data.data.cartDetail.productDetails.forEach {
                                 productArrayList.add(it)
@@ -118,18 +122,17 @@ class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding, OrderDeta
                                 .replace("T", "")
 
 
+                            /*      if (data.data.orders.orderStatus == "Processing") {
+                                      mViewDataBinding.btnCancel.visibility = View.VISIBLE
+                                  }
+                                  if (data.data.orders.orderStatus == "Cancel") {
+                                      mViewDataBinding.btnReOrder1.visibility = View.VISIBLE
+                                  }
 
-                      /*      if (data.data.orders.orderStatus == "Processing") {
-                                mViewDataBinding.btnCancel.visibility = View.VISIBLE
-                            }
-                            if (data.data.orders.orderStatus == "Cancel") {
-                                mViewDataBinding.btnReOrder1.visibility = View.VISIBLE
-                            }
-
-                            if (data.data.orders.orderStatus == "Delivered") {
-                                mViewDataBinding.btnInvoice.visibility = View.VISIBLE
-                                mViewDataBinding.btnReOrder.visibility = View.VISIBLE
-                            }*/
+                                  if (data.data.orders.orderStatus == "Delivered") {
+                                      mViewDataBinding.btnInvoice.visibility = View.VISIBLE
+                                      mViewDataBinding.btnReOrder.visibility = View.VISIBLE
+                                  }*/
 
 
                             mViewDataBinding.date.text = o
@@ -202,26 +205,17 @@ class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding, OrderDeta
 
     }
 
-
-
-
     override fun onCancelItemClick(position: Int) {
 
-
         var p_id = productArrayList[position].product._id
-        var o_id = productArrayList[position]._id
-
-
-        Log.d("TAG", "onCancelItemClick: $p_id")
-        Log.d("TAG", "onCancelItemClick: $o_id")
 
         val params = JsonObject()
         try {
-            params.addProperty(p_id, o_id)
+            params.addProperty("productId", p_id)
         } catch (e: JSONException) {
             e.printStackTrace()
         }
-        mViewModel.cancelProduct(p_id, params)
+        mViewModel.cancelProduct(id, params)
         if (!mViewModel.cancelProductResponse.hasActiveObservers()) {
             mViewModel.cancelProductResponse.observe(requireActivity(), Observer {
                 when (it.status) {
@@ -242,12 +236,7 @@ class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding, OrderDeta
                         mViewDataBinding.mainLayout.visibility = View.VISIBLE
                         it.data?.let { data ->
                             productArrayList.clear()
-
-                            data.data.cartDetail.productDetails.forEach {
-                                productArrayList.add(it)
-                            }
-
-                            productAdapter.notifyDataSetChanged()
+                            mViewModel.orderDetail(id)
 
 
                         }
