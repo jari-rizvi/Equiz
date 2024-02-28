@@ -114,7 +114,7 @@ class ClaimPrizeFragment : BaseFragment<FragmentClaimprizeBinding, ClaimPrizeVie
 
 
         if (!mViewModel.claimPrizeResponse.hasActiveObservers()) {
-            mViewModel.claimPrize(winnerid)
+            mViewModel.claimPrize("659b9353c78cbfb6e22e0c24")
             mViewModel.claimPrizeResponse.observe(requireActivity()) {
                 when (it.status) {
                     Resource.Status.LOADING -> {
@@ -170,7 +170,7 @@ class ClaimPrizeFragment : BaseFragment<FragmentClaimprizeBinding, ClaimPrizeVie
                                 "scratchcard" -> {
                                     mViewDataBinding.layoutMainScratched.visibility = View.VISIBLE
                                     mViewDataBinding.userChoice.visibility = View.GONE
-                                    scratchViewInit(winnerid)
+                                    scratchViewInit("659b9353c78cbfb6e22e0c24")
                                 }
                             }
                         }
@@ -338,8 +338,8 @@ class ClaimPrizeFragment : BaseFragment<FragmentClaimprizeBinding, ClaimPrizeVie
         try {
             params.addProperty("winnerId", winnerId)
             params.addProperty("prizeId", prizeId)
-            params.addProperty("raffleId", raffleId)
             params.addProperty("type", resType)
+            params.addProperty("value", 23)
 
         } catch (e: JSONException) {
             e.printStackTrace()
