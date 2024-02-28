@@ -49,7 +49,6 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
     override val bindingVariable: Int
         get() = BR.viewModel
 
-    //    private lateinit var bottomSheetAddSearchFragment: BottomSheetAddressFragment
     private lateinit var bottomStripeFragment: BottomStripeFragment
     private var bottomSheetStripeListener: BottomSheetStripeListener? = null
     lateinit var cardParams: PaymentMethodCreateParams

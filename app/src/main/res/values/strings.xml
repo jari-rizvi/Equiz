@@ -244,6 +244,10 @@
     <string name="profile_completion">Profile completion</string>
     <string name="social_media_link">Social Media Link</string>
     <string name="are_you_sure_you_want_to_remove_this_product_from_your_order_this_action_cannot_be_undone_removing_this_item_may_affect_delivery_times_and_overall_order_cost_please_confirm_to_proceed_or_cancel_to_keep_the_item_in_your_order">Are you sure you want to remove this product from your order? This action cannot be undone. Removing this item may affect delivery times and overall order cost. Please confirm to proceed or cancel to keep the item in your order.</string>
+    <string name="subscription_plans">Subscription Plans</string>
+    <string name="select_prize">Select Prize</string>
+    <string name="tangible_items">(Tangible Items)</string>
+    <string name="wallet_points">Wallet Points</string>
 
 
 </resources>

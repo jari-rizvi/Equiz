@@ -52,8 +52,11 @@ class CollectPriceFragment() : BaseFragment<FragmentCollectPriceBinding, Collect
             popUpStack()
         }
         mViewDataBinding.btnProceed.setOnClickListener {
+            findNavController().navigate(
+                R.id.claimPrizeFragment, arguments, options
+            )
 
-            DialogHelperClass.claimPrizeDialog(requireContext(), this, true, "")
+//            DialogHelperClass.claimPrizeDialog(requireContext(), this, true, "")
 
         }
 

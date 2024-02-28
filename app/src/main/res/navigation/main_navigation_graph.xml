@@ -577,5 +577,13 @@
         android:id="@+id/staticsFragment"
         android:name="com.teamx.equiz.ui.fragments.statics.StaticsFragment"
         android:label="StaticsFragment" />
+    <fragment
+        android:id="@+id/subscriptionListFragment"
+        android:name="com.teamx.equiz.ui.fragments.subscription.SubscriptionListFragment"
+        android:label="SubscriptionListFragment" />
+    <fragment
+        android:id="@+id/claimPrizeFragment"
+        android:name="com.teamx.equiz.ui.fragments.claimPrize.ClaimPrizeFragment"
+        android:label="ClaimPrizeFragment" />
 
 </navigation>
