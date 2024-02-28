@@ -107,7 +107,6 @@
             android:layout_height="@dimen/_275sdp"
             android:layout_marginHorizontal="@dimen/_6sdp"
             android:layout_marginTop="@dimen/_20sdp"
-            android:background="@drawable/raffelstatic"
             android:elevation="@dimen/_2sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
