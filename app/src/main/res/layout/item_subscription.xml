@@ -7,88 +7,159 @@
 
     </data>
 
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="@dimen/_85sdp"-->
+<!--        android:layout_marginHorizontal="@dimen/_5sdp"-->
+<!--        android:layout_marginVertical="@dimen/_5sdp"-->
+<!--        android:elevation="@dimen/_1sdp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/constraintLayout3"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/constraintLayout3"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"-->
+<!--        app:layout_constraintVertical_bias="0.1">-->
+
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:id="@+id/container"-->
+<!--            android:layout_width="@dimen/_70sdp"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_margin="@dimen/_6sdp"-->
+<!--            android:backgroundTint="@color/blue"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent">-->
+
+<!--            <ImageView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:padding="@dimen/_9sdp"-->
+<!--                android:src="@drawable/question"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/textView54"-->
+<!--            style="@style/popins_regular"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Increased Chances in\n Regular Quizzes"-->
+<!--            android:textColor="@color/light_gray"-->
+<!--            android:textSize="@dimen/_14ssp"-->
+<!--            android:textAlignment="viewStart"-->
+<!--            android:gravity="center_vertical|start"-->
+<!--            android:textStyle="bold"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.1"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/container"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintVertical_bias="0.1" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/textView55"-->
+<!--            style="@style/popins_regular"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Premium users have more opportunities to\n participate and win prizes in regular quizzes."-->
+<!--            android:textColor="@color/light_gray"-->
+<!--            android:textSize="@dimen/_10ssp"-->
+<!--            android:textAlignment="viewStart"-->
+<!--            android:gravity="center_vertical|start"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/textView54"-->
+<!--            app:layout_constraintHorizontal_bias="0"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/textView54"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/textView54" />-->
+
+<!--        <View-->
+<!--            android:id="@+id/view1"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="@dimen/_1sdp"-->
+<!--            android:background="@color/white"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:layout_marginHorizontal="@dimen/_15sdp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.5"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/textView55" />-->
+
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout3"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_85sdp"
-        android:layout_marginHorizontal="@dimen/_5sdp"
-        android:layout_marginVertical="@dimen/_5sdp"
+        android:layout_height="@dimen/_100sdp"
+        android:layout_margin="@dimen/_10sdp"
+        android:background="@drawable/card_background"
+        android:backgroundTint="@color/colorAccent_indeed"
         android:elevation="@dimen/_1sdp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/constraintLayout3"
-        app:layout_constraintStart_toStartOf="@+id/constraintLayout3"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
-        app:layout_constraintVertical_bias="0.1">
+        app:layout_constraintTop_toBottomOf="@id/btnback"
+        app:layout_constraintVertical_bias="0.05"
+        tools:layout_editor_absoluteX="13dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/container"
-            android:layout_width="@dimen/_70sdp"
-            android:layout_height="0dp"
-            android:layout_margin="@dimen/_6sdp"
-            android:backgroundTint="@color/blue"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="@dimen/_9sdp"
-                android:src="@drawable/question"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <TextView
-            android:id="@+id/textView54"
-            style="@style/popins_regular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Increased Chances in\n Regular Quizzes"
-            android:textColor="@color/light_gray"
-            android:textSize="@dimen/_14ssp"
-            android:textAlignment="viewStart"
-            android:gravity="center_vertical|start"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:src="@drawable/premium_icon"
+            app:layout_constraintBottom_toTopOf="@+id/textView58"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.1"
-            app:layout_constraintStart_toEndOf="@+id/container"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.1" />
+            app:layout_constraintVertical_chainStyle="packed"
+            app:tint="@color/theme_color" />
 
         <TextView
-            android:id="@+id/textView55"
+            android:id="@+id/textView58"
             style="@style/popins_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Premium users have more opportunities to\n participate and win prizes in regular quizzes."
-            android:textColor="@color/light_gray"
-            android:textSize="@dimen/_10ssp"
-            android:textAlignment="viewStart"
-            android:gravity="center_vertical|start"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/textView54"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toStartOf="@+id/textView54"
-            app:layout_constraintTop_toBottomOf="@+id/textView54" />
+            android:layout_marginTop="@dimen/_5sdp"
+            android:text="@string/premium"
+            android:textColor="@color/theme_color"
+            android:textSize="@dimen/_15ssp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/textView60"
+            app:layout_constraintStart_toStartOf="@+id/imageView7"
+            app:layout_constraintTop_toBottomOf="@+id/imageView7" />
 
-        <View
-            android:id="@+id/view1"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_1sdp"
-            android:background="@color/white"
-            android:orientation="horizontal"
-            android:layout_marginHorizontal="@dimen/_15sdp"
+        <TextView
+            android:id="@+id/textView60"
+            style="@style/popins_regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:text="@string/more_benifits"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12ssp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toEndOf="@+id/textView58"
+            app:layout_constraintStart_toStartOf="@+id/textView58"
+            app:layout_constraintTop_toBottomOf="@+id/textView58" />
+
+        <TextView
+            android:id="@+id/textView61"
+            style="@style/popins_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="20 $"
+            android:textColor="@color/red"
+            android:textSize="@dimen/_22ssp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView55" />
-
+            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
 </layout>

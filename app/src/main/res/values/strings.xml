@@ -248,6 +248,7 @@
     <string name="select_prize">Select Prize</string>
     <string name="tangible_items">(Tangible Items)</string>
     <string name="wallet_points">Wallet Points</string>
+    <string name="notification_setting">Notification Setting</string>
 
 
 </resources>

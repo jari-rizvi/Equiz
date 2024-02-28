@@ -6,17 +6,12 @@ import androidx.activity.addCallback
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
-import com.teamx.equiz.data.models.wishlistdata.Product
-import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.PlayQuizLayoutBinding
 import com.teamx.equiz.ui.fragments.wishlist.FavouriteAdapter
 import com.teamx.equiz.ui.fragments.wishlist.WishlistViewModel
-import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -32,9 +27,6 @@ class PlayQuizFragment : BaseFragment<PlayQuizLayoutBinding, WishlistViewModel>(
 
     private lateinit var options: NavOptions
 
-
-    lateinit var favouriteAdapter: FavouriteAdapter
-    lateinit var favouriteArrayList: ArrayList<Product>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
          super.onViewCreated(view, savedInstanceState)

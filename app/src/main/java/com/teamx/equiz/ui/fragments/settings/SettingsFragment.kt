@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.addCallback
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
@@ -27,8 +28,8 @@ import com.teamx.equiz.utils.PrefHelper
 import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.invoke
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @AndroidEntryPoint
 class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsViewModel>() {
@@ -52,7 +53,7 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
     var referralCode = ""
     var userId = ""
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
@@ -150,7 +151,10 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
 
 //                                Picasso.get().load(data.user.image).resize(500, 500).into(mViewDataBinding.profilePicture)
                                 Log.d("profilePicture", "onViewCreated: ${data.user.image}")
-                                Glide.with(mViewDataBinding.profilePicture.context).load(data.user.image).placeholder(R.drawable.baseline_person_white).into(mViewDataBinding.profilePicture)
+                                Glide.with(mViewDataBinding.profilePicture.context)
+                                    .load(data.user.image)
+                                    .placeholder(R.drawable.baseline_person_white)
+                                    .into(mViewDataBinding.profilePicture)
 
                                 if (!data.user.isPremium) {
                                     mViewDataBinding.btnSubscribe.visibility = View.VISIBLE
@@ -191,6 +195,7 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
 
 
     }
+
     private fun addListeners() {
 
         var bundle = arguments
@@ -210,23 +215,29 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
 
 
         mViewDataBinding.btnLogout.setOnClickListener {
+            DialogHelperClass.LogoutDialog(requireContext(),
+                object : DialogHelperClass.Companion.LogoutCallBack {
+                    override fun OkClick() {
+                        lifecycleScope.launch(Dispatchers.IO) {
+                            dataStoreProvider.removeAll()
 
+                        }
+                        PrefHelper.getInstance(requireContext())
+                            .setFavouriteShop(listOf<String>())
+                        PrefHelper.getInstance(requireContext()).clearAll()
+
+                        navController = Navigation.findNavController(
+                            requireActivity(), R.id.nav_host_fragment
+                        )
+
+                        findNavController().popBackStack(R.id.settingsFragment, true)
+                        findNavController().navigate(R.id.temp2Fragment, arguments, null)
+                    }
+
+
+                }).show()
 
 //            mViewModel.logOutUser()
-            lifecycleScope.launch(Dispatchers.IO) {
-                dataStoreProvider.removeAll()
-
-            }
-            PrefHelper.getInstance(requireContext())
-                .setFavouriteShop(listOf<String>())
-            PrefHelper.getInstance(requireContext()).clearAll()
-
-            navController = Navigation.findNavController(
-                requireActivity(), R.id.nav_host_fragment
-            )
-
-            findNavController().popBackStack(R.id.settingsFragment, true)
-            findNavController().navigate(R.id.temp2Fragment, arguments, null)
 
 
         }
@@ -428,10 +439,10 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
                 }
 
             }
-         /*   var bundle = arguments
-            if (bundle == null) {
-                bundle = Bundle()
-            }*/
+            /*   var bundle = arguments
+               if (bundle == null) {
+                   bundle = Bundle()
+               }*/
             bundle?.putString("routeSubs", "setting")
 
 
@@ -445,7 +456,7 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
 
         id = PrefHelper.getInstance(requireContext()).setUserId.toString()
 
-        if (id.isNullOrEmpty()){
+        if (id.isNullOrEmpty()) {
             id = " "
         }
 
@@ -469,9 +480,9 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
 
                             try {
                                 mViewDataBinding.textView50.text = data.userRank.rank.toString()
-                              /*  {
-                                    mViewDataBinding.textView50.text = it.rank.toString()
-                                }*/
+                                /*  {
+                                      mViewDataBinding.textView50.text = it.rank.toString()
+                                  }*/
 
                             } catch (e: Exception) {
                                 e.printStackTrace()

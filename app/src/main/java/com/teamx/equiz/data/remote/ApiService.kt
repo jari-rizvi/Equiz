@@ -51,10 +51,10 @@ import com.teamx.equiz.ui.fragments.ecommerce.productProfile.unsub_data.UNSUBDat
 import com.teamx.equiz.ui.fragments.profile.data.DELETEUSERModel
 import com.teamx.equiz.ui.fragments.quizresult.data.QuizResultDataModel
 import com.teamx.equiz.ui.fragments.subscription.data.SubData
+import com.teamx.equiz.ui.fragments.subscription.plansData.GetPlansData
 import com.teamx.equiz.ui.fragments.topup.data.TopUpModelData
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
-import org.json.JSONObject
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -445,6 +445,12 @@ interface ApiService {
         @Query("endDate") endDate: String?,
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<ResponseBody>
+
+ @GET(NetworkCallPoints.GET_SUB_PLANS)
+    suspend fun getSubPlans(
+        @Query("archive") archive: Boolean?,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<GetPlansData>
 
 
     @GET(NetworkCallPoints.SCRATCH_IMAGE)

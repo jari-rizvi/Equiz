@@ -117,6 +117,14 @@ class CollectPriceFragment() : BaseFragment<FragmentCollectPriceBinding, Collect
                                     Log.d("TAG", "addImagesOver: $winnerid")
                                 }
 
+                                if(data.winnerData.isEmpty()){
+                                    mViewDataBinding.main1.visibility = View.VISIBLE
+                                    mViewDataBinding.main.visibility = View.GONE
+                                }
+                                else{
+                                    mViewDataBinding.main.visibility = View.VISIBLE
+                                    mViewDataBinding.main1.visibility = View.GONE
+                                }
 
 
                                 data.winnerData.forEach {

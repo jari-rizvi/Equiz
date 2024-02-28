@@ -20,6 +20,7 @@ import com.teamx.equiz.ui.fragments.singlequize.SingleQuizesViewModel
 import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONException
+import kotlin.properties.Delegates
 
 @AndroidEntryPoint
 class QuizResultFragment : BaseFragment<FragmentQuizResultBinding, SingleQuizesViewModel>() {
@@ -32,6 +33,8 @@ class QuizResultFragment : BaseFragment<FragmentQuizResultBinding, SingleQuizesV
         get() = BR.viewModel
 
     private lateinit var options: NavOptions
+
+    var rightAnswer by Delegates.notNull<Int>()
 
 
     @SuppressLint("SetTextI18n")
@@ -102,10 +105,14 @@ class QuizResultFragment : BaseFragment<FragmentQuizResultBinding, SingleQuizesV
 
                             }
 
-                            mViewDataBinding.supportResultTxt.text="You answered ${data.populatedQuizScoreData.score.toInt()} questions correctly"
+                            mViewDataBinding.supportResultTxt.text="You answered ${rightAnswer} questions correctly"
+
+
+
                             /*${String.format("%.3f", data.populatedQuizScoreData.score.toInt())}*/
 
                             Log.d("TAG", "resulttt: ${data.chances}")
+                            Log.d("TAG", "resulttt: ${data}")
                             Log.d("TAG", "resulttt: ${data.populatedQuizScoreData}")
                         }
                     }
@@ -138,7 +145,7 @@ class QuizResultFragment : BaseFragment<FragmentQuizResultBinding, SingleQuizesV
         }
 
         val strId = bundle2.getString("quiz_id")
-        val rightAnswer = bundle2.getInt("rightAnswer")
+         rightAnswer = bundle2.getInt("rightAnswer")
         val totalAnswer = bundle2.getInt("totalAnswer")
         val totalTime = bundle2.getDouble("totalTime")
         val remainingTime = bundle2.getDouble("remainingTime")

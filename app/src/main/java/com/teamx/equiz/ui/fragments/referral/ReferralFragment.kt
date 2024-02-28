@@ -8,14 +8,18 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.addCallback
+import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
+import com.google.android.material.color.utilities.MaterialDynamicColors.background
 import com.teamx.equiz.BR
+import com.teamx.equiz.MainApplication
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.databinding.FragmentReferralBinding
 import com.teamx.equiz.utils.DialogHelperClass
+import com.teamx.equiz.utils.localization.LocaleManager
 import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -50,6 +54,9 @@ class ReferralFragment : BaseFragment<FragmentReferralBinding, ReferralViewModel
             }
         }
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
+
+
+
 
         mViewDataBinding.btnInvite.setOnClickListener {
 

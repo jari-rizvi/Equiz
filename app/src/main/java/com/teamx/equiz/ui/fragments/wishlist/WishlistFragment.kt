@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.addCallback
-import androidx.lifecycle.Observer
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
@@ -19,7 +18,6 @@ import com.teamx.equiz.data.models.wishlistdata.Product
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentWishlistBinding
 import com.teamx.equiz.utils.DialogHelperClass
-import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONException
 
@@ -82,6 +80,8 @@ class WishlistFragment : BaseFragment<FragmentWishlistBinding, WishlistViewModel
                             data.data.forEach {
                                 favouriteArrayList.add(it.product)
                             }
+
+                            Log.d("TAG", "wishlist: ${data.data}")
 
                             favouriteAdapter.notifyDataSetChanged()
 

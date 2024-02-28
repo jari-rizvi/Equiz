@@ -302,7 +302,7 @@ class DialogHelperClass {
             fun OkClick()
         }
 
-        fun LogoutDialog(context: Context, dialogLogoutCallBack: LogoutCallBack, boo: Boolean) {
+        fun LogoutDialog(context: Context, dialogLogoutCallBack: LogoutCallBack): Dialog {
             val dialog = Dialog(context)
             dialog.setContentView(R.layout.logout_dialog)
             dialog.window!!.setLayout(
@@ -317,17 +317,13 @@ class DialogHelperClass {
                 dialog.dismiss()
             }
             removeBtn.setOnClickListener {
-                if (boo) {
                     dialogLogoutCallBack.OkClick()
-                } else {
-
-                }
                 dialog.dismiss()
             }
 
 
             dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            dialog.show()
+            return dialog
         }
 
 
