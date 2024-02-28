@@ -1,10 +1,10 @@
 package com.teamx.equiz.ui.fragments.wishlist
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.squareup.picasso.Picasso
 import com.teamx.equiz.data.models.wishlistdata.Product
 import com.teamx.equiz.databinding.ItemWishlistBinding
 
@@ -27,9 +27,16 @@ class FavouriteAdapter(
 
         holder.binding.productName.text = list.title
 
+
+        Log.d("TAG", "onBindViewHolderWishlist: ${list}")
+
+
+
         holder.binding.qty.text = "${list.quantity.toString()} Qty"
 
-        holder.binding.price.text = "${list.price.toString()} Pts"
+        holder.binding.price.text = "${list.point} Pts"
+
+
         if (!list.images.isNullOrEmpty()) {
 //            Picasso.get().load(list.images.get(0)).into(holder.binding.productImage)
             Glide.with(holder.binding.productImage.context).load(list.images.get(0))

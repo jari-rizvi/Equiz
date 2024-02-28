@@ -74,7 +74,56 @@ class SubscriptionListFragment : BaseFragment<FragmentSubscriptionListBinding, S
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
 
 
+        mViewModel.getPlan()
 
+        if (!mViewModel.getPlanResponse.hasActiveObservers()) {
+            mViewModel.getPlanResponse.observe(requireActivity()) {
+                when (it.status) {
+                    Resource.Status.LOADING -> {
+                        loadingDialog.show()
+                    }
+
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
+                    }
+
+                    Resource.Status.SUCCESS -> {
+                        loadingDialog.dismiss()
+                        it.data?.let { data ->
+
+
+
+
+
+                        }
+                    }
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+                        if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
+                    }
+
+                    Resource.Status.ERROR -> {
+                        loadingDialog.dismiss()
+                        DialogHelperClass.errorDialog(
+                            requireContext(),
+                            it.message!!
+                        )
+                    }
+                }
+                if (isAdded) {
+                    mViewModel.getPlanResponse.removeObservers(
+                        viewLifecycleOwner
+                    )
+                }
+            }
+        }
 
 
     }

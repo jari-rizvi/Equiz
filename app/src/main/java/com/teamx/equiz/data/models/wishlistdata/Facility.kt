@@ -1,6 +1,7 @@
 package com.teamx.equiz.data.models.wishlistdata
 
-data class Data(
+data class Facility(
     val _id: String,
-    val product: Product
+    val icon: String,
+    val title: String
 )

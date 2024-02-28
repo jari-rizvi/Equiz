@@ -13,7 +13,6 @@ import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.data.models.wishlistdata.Product
-import com.teamx.equiz.data.models.wishlistdata.WishlistData
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentWishlistBinding
 import com.teamx.equiz.ui.fragments.wishlist.FavouriteAdapter

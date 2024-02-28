@@ -143,6 +143,9 @@ class MainRepository @Inject constructor(
         @Query("startDate") startDate: String?,
         @Query("endDate") endDate: String?
     ) = apiService.getTransData(startDate, endDate)
+ suspend fun getSubPlans(
+        @Query("archive") archive: Boolean?
+    ) = apiService.getSubPlans(archive)
 
     suspend fun GetScratchImg(@Path("id") id: String) = apiService.GetScratchImg(id)
     suspend fun submitClaim(@Body params: JsonObject?) = apiService.submitClaim(params)
