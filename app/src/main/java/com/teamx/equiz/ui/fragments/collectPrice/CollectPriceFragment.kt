@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.cooltechworks.views.ScratchImageView
+import com.google.android.play.integrity.internal.w
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
@@ -40,7 +41,11 @@ class CollectPriceFragment() : BaseFragment<FragmentCollectPriceBinding, Collect
     override val bindingVariable: Int
         get() = BR.viewModel
 
+    lateinit var winnerid: String
+
     private lateinit var options: NavOptions
+
+    lateinit var bundle: Bundle
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,8 +57,11 @@ class CollectPriceFragment() : BaseFragment<FragmentCollectPriceBinding, Collect
             popUpStack()
         }
         mViewDataBinding.btnProceed.setOnClickListener {
+            bundle = Bundle()
+            bundle.putString("winnerid", winnerid)
+
             findNavController().navigate(
-                R.id.claimPrizeFragment, arguments, options
+                R.id.claimPrizeFragment, bundle, options
             )
 
 //            DialogHelperClass.claimPrizeDialog(requireContext(), this, true, "")
@@ -61,6 +69,7 @@ class CollectPriceFragment() : BaseFragment<FragmentCollectPriceBinding, Collect
         }
 
         mViewDataBinding.btnCalim.setOnClickListener {
+
             findNavController().navigate(
                 R.id.rewardsFragment, arguments, options
             )
@@ -97,9 +106,22 @@ class CollectPriceFragment() : BaseFragment<FragmentCollectPriceBinding, Collect
                         loadingDialog.dismiss()
                         it.data?.let { data ->
 
+
                             try {
                                 imageList2.clear()
+
+
+                                if( data.winnerData.isNotEmpty()){
+                                    winnerid =  data.winnerData[0]._id
+
+                                    Log.d("TAG", "addImagesOver: $winnerid")
+                                }
+
+
+
                                 data.winnerData.forEach {
+
+
 //                                mViewDataBinding.textView3.setText(data.user.name)
 //                                mViewDataBinding.textView4.setText(data.user.email)
 //                                mViewDataBinding.textView52.setText(data.user.chances.toString())
@@ -121,7 +143,7 @@ class CollectPriceFragment() : BaseFragment<FragmentCollectPriceBinding, Collect
 
                     Resource.Status.AUTH -> {
                         loadingDialog.dismiss()
-                         if (isAdded) {
+                        if (isAdded) {
                             try {
                                 onToSignUpPage()
                             } catch (e: Exception) {

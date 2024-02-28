@@ -79,15 +79,23 @@ class ClaimPrizeFragment : BaseFragment<FragmentClaimprizeBinding, ClaimPrizeVie
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
 
 
-        if (mViewDataBinding.radioChances.isChecked) {
-            mViewDataBinding.raffles.visibility = View.VISIBLE
+
+        var bundle = arguments
+
+        if (bundle == null) {
+            bundle = Bundle()
         }
+
+        val winnerid =  bundle.getString("winnerid").toString()
+
+        Log.d("TAG", "onViewCreated: $winnerid")
 
 
         mViewDataBinding.radioChances.setOnClickListener {
             mViewDataBinding.radioTangible.isChecked = false
             mViewDataBinding.radioWallet.isChecked = false
             mViewDataBinding.radioChances.isChecked = true
+            mViewDataBinding.raffles.visibility = View.VISIBLE
 
         }
 
@@ -95,11 +103,13 @@ class ClaimPrizeFragment : BaseFragment<FragmentClaimprizeBinding, ClaimPrizeVie
             mViewDataBinding.radioTangible.isChecked = true
             mViewDataBinding.radioWallet.isChecked = false
             mViewDataBinding.radioChances.isChecked = false
+            mViewDataBinding.raffles.visibility = View.GONE
         }
         mViewDataBinding.radioWallet.setOnClickListener {
             mViewDataBinding.radioTangible.isChecked = false
             mViewDataBinding.radioWallet.isChecked = true
             mViewDataBinding.radioChances.isChecked = false
+            mViewDataBinding.raffles.visibility = View.GONE
         }
 
 
