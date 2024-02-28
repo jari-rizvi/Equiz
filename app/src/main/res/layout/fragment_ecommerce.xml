@@ -52,6 +52,8 @@
                 android:layout_height="0dp"
                 android:text="@string/manage_order"
                 app:layout_constraintTop_toTopOf="parent"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:paddingHorizontal="@dimen/_5sdp"
                 android:drawableStart="@drawable/manage_order"
                 app:layout_constraintStart_toStartOf="parent"

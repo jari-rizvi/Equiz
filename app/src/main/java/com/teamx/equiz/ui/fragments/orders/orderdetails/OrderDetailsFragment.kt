@@ -1,8 +1,15 @@
 package com.teamx.equiz.ui.fragments.orders.orderdetails
 
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
@@ -19,9 +26,12 @@ import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import androidx.activity.addCallback
+import androidx.annotation.RequiresApi
 import com.google.gson.JsonObject
 import com.teamx.equiz.data.models.orderDetailData.ProductDetail
 import org.json.JSONException
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 @AndroidEntryPoint
 class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding, OrderDetailsViewModel>(),
@@ -39,6 +49,8 @@ class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding, OrderDeta
 
 
     lateinit var productAdapter: ProductsAdapter
+
+    lateinit var params: JsonObject
 
     lateinit var productArrayList: ArrayList<ProductDetail>
 
@@ -205,67 +217,105 @@ class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding, OrderDeta
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCancelItemClick(position: Int) {
+
+        CancelOrderDialog().show()
 
         var p_id = productArrayList[position].product._id
 
-        val params = JsonObject()
+        params = JsonObject()
         try {
             params.addProperty("productId", p_id)
         } catch (e: JSONException) {
             e.printStackTrace()
         }
-        mViewModel.cancelProduct(id, params)
-        if (!mViewModel.cancelProductResponse.hasActiveObservers()) {
-            mViewModel.cancelProductResponse.observe(requireActivity(), Observer {
-                when (it.status) {
-                    Resource.Status.LOADING -> {
+
+
+    }
+
+
+    lateinit var cancel: TextView
+    lateinit var ok: TextView
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun CancelOrderDialog(): Dialog {
+        val dialog = Dialog(requireActivity())
+        dialog.setContentView(R.layout.order_cancel_dialog)
+        dialog.window!!.setLayout(
+            WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT
+        )
+        dialog.setCancelable(false)
+
+        cancel = dialog.findViewById(R.id.cancelBtn)
+        ok = dialog.findViewById(R.id.ok)
+
+
+        ok.setOnClickListener {
+            mViewModel.cancelProduct(id, params)
+            if (!mViewModel.cancelProductResponse.hasActiveObservers()) {
+                mViewModel.cancelProductResponse.observe(requireActivity(), Observer {
+                    when (it.status) {
+                        Resource.Status.LOADING -> {
 //                        loadingDialog.show()
-                        mViewDataBinding.shimmerLayout.startShimmer()
-                        mViewDataBinding.shimmerLayout.visibility = View.VISIBLE
-                    }
-
-                    Resource.Status.NOTVERIFY -> {
-                        loadingDialog.dismiss()
-                    }
-
-                    Resource.Status.SUCCESS -> {
-//                        loadingDialog.dismiss()
-                        mViewDataBinding.shimmerLayout.stopShimmer()
-                        mViewDataBinding.shimmerLayout.visibility = View.GONE
-                        mViewDataBinding.mainLayout.visibility = View.VISIBLE
-                        it.data?.let { data ->
-                            productArrayList.clear()
-                            mViewModel.orderDetail(id)
-
-
+                            mViewDataBinding.shimmerLayout.startShimmer()
+                            mViewDataBinding.shimmerLayout.visibility = View.VISIBLE
                         }
-                    }
 
-                    Resource.Status.AUTH -> {
-                        loadingDialog.dismiss()
-                        if (isAdded) {
-                            try {
-                                onToSignUpPage()
-                            } catch (e: Exception) {
-                                e.printStackTrace()
+                        Resource.Status.NOTVERIFY -> {
+                            loadingDialog.dismiss()
+                        }
+
+                        Resource.Status.SUCCESS -> {
+//                        loadingDialog.dismiss()
+                            mViewDataBinding.shimmerLayout.stopShimmer()
+                            mViewDataBinding.shimmerLayout.visibility = View.GONE
+                            mViewDataBinding.mainLayout.visibility = View.VISIBLE
+                            it.data?.let { data ->
+                                productArrayList.clear()
+                                mViewModel.orderDetail(id)
+
+                                dialog.dismiss()
+
                             }
                         }
-                    }
 
-                    Resource.Status.ERROR -> {
+                        Resource.Status.AUTH -> {
+                            loadingDialog.dismiss()
+                            if (isAdded) {
+                                try {
+                                    onToSignUpPage()
+                                } catch (e: Exception) {
+                                    e.printStackTrace()
+                                }
+                            }
+                        }
+
+                        Resource.Status.ERROR -> {
 //                        loadingDialog.dismiss()
-                        mViewDataBinding.shimmerLayout.stopShimmer()
-                        mViewDataBinding.shimmerLayout.visibility = View.GONE
-                        DialogHelperClass.errorDialog(requireContext(), it.message!!)
+                            mViewDataBinding.shimmerLayout.stopShimmer()
+                            mViewDataBinding.shimmerLayout.visibility = View.GONE
+                            DialogHelperClass.errorDialog(requireContext(), it.message!!)
+                        }
                     }
-                }
-                if (isAdded) {
-                    mViewModel.cancelProductResponse.removeObservers(viewLifecycleOwner)
-                }
-            })
+                    if (isAdded) {
+                        mViewModel.cancelProductResponse.removeObservers(viewLifecycleOwner)
+                    }
+                })
+            }
+
         }
 
+
+        cancel.setOnClickListener {
+            dialog.dismiss()
+        }
+
+
+
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        return dialog
     }
 
 
