@@ -6,12 +6,18 @@ import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.Button
+import android.widget.RadioButton
+import android.widget.RadioGroup
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.isVisible
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
+import com.anupkumarpanwar.scratchview.ScratchView
+import com.bumptech.glide.Glide
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.gson.JsonObject
@@ -22,6 +28,7 @@ import com.stripe.android.model.PaymentMethodCreateParams
 import com.stripe.android.view.CardInputListener
 import com.stripe.android.view.CardInputWidget
 import com.teamx.equiz.BR
+import com.teamx.equiz.MainApplication
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.data.remote.Resource
@@ -51,6 +58,16 @@ class ClaimPrizeFragment : BaseFragment<FragmentClaimprizeBinding, ClaimPrizeVie
     override val bindingVariable: Int
         get() = BR.viewModel
 
+//    lateinit var scratchImageView: ScratchView
+
+
+    var winnerId = ""
+    var prizeId = ""
+    var resValue = 300
+    var raffleId = ""
+    var resType = ""
+    var selectedRaffleId = ""
+
 
     private lateinit var options: NavOptions
     private lateinit var stripe: Stripe
@@ -78,6 +95,13 @@ class ClaimPrizeFragment : BaseFragment<FragmentClaimprizeBinding, ClaimPrizeVie
 
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
 
+        mViewDataBinding.txtDropDown.setOnClickListener {
+            if (mViewDataBinding.chancesRec.isVisible) {
+                mViewDataBinding.chancesRec.visibility = View.GONE
+            } else {
+                mViewDataBinding.chancesRec.visibility = View.VISIBLE
+            }
+        }
 
 
         var bundle = arguments
@@ -86,7 +110,127 @@ class ClaimPrizeFragment : BaseFragment<FragmentClaimprizeBinding, ClaimPrizeVie
             bundle = Bundle()
         }
 
-        val winnerid =  bundle.getString("winnerid").toString()
+        val winnerid = bundle.getString("winnerid").toString()
+
+
+        if (!mViewModel.claimPrizeResponse.hasActiveObservers()) {
+            mViewModel.claimPrize(winnerid)
+            mViewModel.claimPrizeResponse.observe(requireActivity()) {
+                when (it.status) {
+                    Resource.Status.LOADING -> {
+                        loadingDialog.show()
+                    }
+
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
+                    }
+
+                    Resource.Status.SUCCESS -> {
+                        loadingDialog.dismiss()
+                        it.data?.let { data ->
+
+                            winnerId = data.prizeObj.winnerId ?: ""
+                            prizeId = data.prizeObj.prizeId ?: ""
+                            resValue = data.prizeObj.value ?: 300
+                            raffleId = data.prizeObj.raffleId ?: ""
+                            resType = data.prizeObj.type ?: ""
+
+
+                            when (data.prizeObj.type) {
+                                "chances" -> {
+                                    mViewDataBinding.radioChances.visibility = View.VISIBLE
+                                    mViewDataBinding.radioWallet.visibility = View.GONE
+                                    mViewDataBinding.radioTangible.visibility = View.GONE
+                                    mViewDataBinding.view2.visibility = View.GONE
+                                    mViewDataBinding.view1.visibility = View.GONE
+                                }
+
+                                "wallet" -> {
+                                    mViewDataBinding.radioChances.visibility = View.GONE
+                                    mViewDataBinding.radioWallet.visibility = View.VISIBLE
+                                    mViewDataBinding.radioTangible.visibility = View.GONE
+                                    mViewDataBinding.view2.visibility = View.GONE
+                                    mViewDataBinding.view1.visibility = View.GONE
+                                }
+
+                                "users_choice" -> {
+                                    mViewDataBinding.userChoice.visibility = View.VISIBLE
+                                    mViewDataBinding.layoutMainScratched.visibility = View.GONE
+                                }
+
+                                "items" -> {
+                                    mViewDataBinding.radioChances.visibility = View.GONE
+                                    mViewDataBinding.radioWallet.visibility = View.GONE
+                                    mViewDataBinding.radioTangible.visibility = View.VISIBLE
+                                    mViewDataBinding.view2.visibility = View.GONE
+                                    mViewDataBinding.view1.visibility = View.GONE
+                                    mViewDataBinding.layoutSocials.visibility = View.VISIBLE
+                                }
+
+                                "scratchcard" -> {
+                                    mViewDataBinding.layoutMainScratched.visibility = View.VISIBLE
+                                    mViewDataBinding.userChoice.visibility = View.GONE
+                                    scratchViewInit(winnerid)
+                                }
+                            }
+                        }
+                    }
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+                        if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
+                    }
+
+                    Resource.Status.ERROR -> {
+                        loadingDialog.dismiss()
+                        if (isAdded) {
+                            mViewDataBinding.root.snackbar(it.message!!)
+                        }
+                        Log.d("TAG", "eeeeeeeeeee: ${it.message}")
+                    }
+                }
+            }
+        }
+
+        if (!mViewModel.submitClaimResponse.hasActiveObservers()) {
+            mViewModel.submitClaimResponse.observe(requireActivity()) {
+                when (it.status) {
+                    Resource.Status.LOADING -> {
+                        loadingDialog.show()
+                    }
+
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
+                    }
+
+                    Resource.Status.SUCCESS -> {
+                        loadingDialog.dismiss()
+                        it.data?.let { data ->
+
+                        }
+                    }
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+                        onToSignUpPage()
+                    }
+
+                    Resource.Status.ERROR -> {
+                        loadingDialog.dismiss()
+                        DialogHelperClass.errorDialog(
+                            requireContext(),
+                            it.message!!
+                        )
+                    }
+                }
+            }
+        }
 
         Log.d("TAG", "onViewCreated: $winnerid")
 
@@ -95,7 +239,7 @@ class ClaimPrizeFragment : BaseFragment<FragmentClaimprizeBinding, ClaimPrizeVie
             mViewDataBinding.radioTangible.isChecked = false
             mViewDataBinding.radioWallet.isChecked = false
             mViewDataBinding.radioChances.isChecked = true
-            mViewDataBinding.raffles.visibility = View.VISIBLE
+            mViewDataBinding.txtDropDown.visibility = View.VISIBLE
 
         }
 
@@ -103,13 +247,13 @@ class ClaimPrizeFragment : BaseFragment<FragmentClaimprizeBinding, ClaimPrizeVie
             mViewDataBinding.radioTangible.isChecked = true
             mViewDataBinding.radioWallet.isChecked = false
             mViewDataBinding.radioChances.isChecked = false
-            mViewDataBinding.raffles.visibility = View.GONE
+            mViewDataBinding.txtDropDown.visibility = View.GONE
         }
         mViewDataBinding.radioWallet.setOnClickListener {
             mViewDataBinding.radioTangible.isChecked = false
             mViewDataBinding.radioWallet.isChecked = true
             mViewDataBinding.radioChances.isChecked = false
-            mViewDataBinding.raffles.visibility = View.GONE
+            mViewDataBinding.txtDropDown.visibility = View.GONE
         }
 
 
@@ -123,7 +267,86 @@ class ClaimPrizeFragment : BaseFragment<FragmentClaimprizeBinding, ClaimPrizeVie
         }
 
 
+        mViewDataBinding.btnLogin.setOnClickListener {
+            submitClaim()
+        }
+
     }
 
+    private fun scratchViewInit(id: String) {
+        mViewModel.scratchimg(id)
+        if (!mViewModel.scratchimgResponse.hasActiveObservers()) {
+            mViewModel.scratchimgResponse.observe(requireActivity()) {
+                when (it.status) {
+                    Resource.Status.LOADING -> {
+                        loadingDialog.show()
+                    }
+
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
+                    }
+
+                    Resource.Status.SUCCESS -> {
+                        loadingDialog.dismiss()
+                        it.data?.let { data ->
+                            Glide.with(MainApplication.context).load(data.data.image)
+                                .into(mViewDataBinding.layoutScratched.hiddenImg);
+
+
+                        }
+                    }
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+                        onToSignUpPage()
+                    }
+
+                    Resource.Status.ERROR -> {
+                        loadingDialog.dismiss()
+                        DialogHelperClass.errorDialog(
+                            requireContext(),
+                            it.message!!
+                        )
+                    }
+                }
+            }
+        }
+
+
+        mViewDataBinding.layoutScratched.scratchView.setRevealListener(object :
+            ScratchView.IRevealListener {
+            override fun onRevealed(scratchView: ScratchView) {
+                Toast.makeText(requireContext(), "Revealed", Toast.LENGTH_SHORT).show()
+                mViewDataBinding.layoutScratched.scrTxt.visibility = View.GONE
+                mViewDataBinding.layoutScratched.imgTxt2.visibility = View.GONE
+                mViewDataBinding.layoutScratched.scratchView.visibility = View.GONE
+                mViewDataBinding.layoutScratched.img2.visibility = View.VISIBLE
+            }
+
+            override fun onRevealPercentChangedListener(scratchView: ScratchView, percent: Float) {
+
+                if (percent >= .8f) {
+                    scratchView.reveal()
+                }
+
+            }
+        })
+    }
+
+    fun submitClaim(){
+        val params = JsonObject()
+        try {
+            params.addProperty("winnerId", winnerId)
+            params.addProperty("prizeId", prizeId)
+            params.addProperty("raffleId", raffleId)
+            params.addProperty("type", resType)
+
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+
+        mViewModel.submitClaim(params)
+
+    }
 
 }

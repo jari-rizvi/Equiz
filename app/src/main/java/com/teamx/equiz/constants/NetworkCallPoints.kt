@@ -19,6 +19,7 @@ class NetworkCallPoints {
         const val QUIZ_TITLE = "api/quiz/tile"
 //        const val QUIZ_FIND = "api/quiz/find"
         const val QUIZ_FIND = "api/quiz/attempt/{id}"
+        const val CLAIM_PRIZE = "api/raffle/usersclaim/{id}"
         const val QUIZ_RESULT = "api/quiz/point"
 
 
@@ -87,6 +88,7 @@ class NetworkCallPoints {
         const val GET_NOTIFICATION_SETTING ="/api/users/findNotifications"
         const val GET_STATICS_DATA ="/api/game/userWins"
         const val SCRATCH_IMAGE ="api/scratchcard/find/{id}"
+        const val SUBMIT_CLAIM ="api/raffle/claimed"
         const val CANCEL_ORDER ="api/orders/cancel-order/{id}"
 
 

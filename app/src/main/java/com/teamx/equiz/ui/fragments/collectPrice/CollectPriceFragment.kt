@@ -41,7 +41,7 @@ class CollectPriceFragment() : BaseFragment<FragmentCollectPriceBinding, Collect
     override val bindingVariable: Int
         get() = BR.viewModel
 
-    lateinit var winnerid: String
+    var winnerid = ""
 
     private lateinit var options: NavOptions
 
@@ -60,10 +60,11 @@ class CollectPriceFragment() : BaseFragment<FragmentCollectPriceBinding, Collect
             bundle = Bundle()
             bundle.putString("winnerid", winnerid)
 
-            findNavController().navigate(
-                R.id.claimPrizeFragment, bundle, options
-            )
-
+            if (winnerid.isNotEmpty()) {
+                findNavController().navigate(
+                    R.id.claimPrizeFragment, bundle, options
+                )
+            }
 //            DialogHelperClass.claimPrizeDialog(requireContext(), this, true, "")
 
         }
@@ -111,8 +112,8 @@ class CollectPriceFragment() : BaseFragment<FragmentCollectPriceBinding, Collect
                                 imageList2.clear()
 
 
-                                if( data.winnerData.isNotEmpty()){
-                                    winnerid =  data.winnerData[0]._id
+                                if (data.winnerData.isNotEmpty()) {
+                                    winnerid = data.winnerData[0]._id
 
                                     Log.d("TAG", "addImagesOver: $winnerid")
                                 }

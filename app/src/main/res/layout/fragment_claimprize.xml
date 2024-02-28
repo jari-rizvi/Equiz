@@ -11,309 +11,337 @@
         android:layout_height="match_parent"
         android:background="@drawable/bg">
 
-
-        <ImageView
-            android:id="@+id/btnback"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.05"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.05"
-            app:srcCompat="@drawable/arrow_left"
-            app:tint="@color/black" />
-
-        <TextView
-            android:id="@+id/textView"
-            style="@style/popins_regular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/claim_prize"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_14ssp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/btnback"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/btnback"
-            app:layout_constraintVertical_bias="0.05" />
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_15sdp"
-            android:elevation="@dimen/_3sdp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
-            app:layout_constraintVertical_bias="0.02"
-            app:tabBackground="@drawable/tab_background"
-            app:tabRippleColor="@null"
-            app:tabTextAppearance="@style/tabTextColor"
-            app:tabTextColor="@color/white" />
-
-
-        <TextView
-            android:id="@+id/textView1"
-            style="@style/popins_regular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/select_prize"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_14ssp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/textView"
-            app:layout_constraintHorizontal_bias="0.161"
-            app:layout_constraintStart_toStartOf="@+id/btnback"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
-            app:layout_constraintVertical_bias="0.03" />
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/containr"
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/userChoice"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_20sdp"
-            android:background="@drawable/card_background"
-            android:elevation="@dimen/_1sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView1"
-            app:layout_constraintVertical_bias="0.1">
+            android:layout_height="match_parent"
+            android:visibility="visible">
 
-
-            <RadioGroup
-                android:id="@+id/radioGroup"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/_7sdp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_height="wrap_content">
 
-                <RadioButton
-                    android:id="@+id/radioTangible"
+
+                <ImageView
+                    android:id="@+id/btnback"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.05"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.05"
+                    app:srcCompat="@drawable/arrow_left"
+                    app:tint="@color/black" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    style="@style/popins_regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/claim_prize"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14ssp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/btnback"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/btnback"
+                    app:layout_constraintVertical_bias="0.05" />
+
+                <TextView
+                    android:id="@+id/textView1"
+                    style="@style/popins_regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/select_prize"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14ssp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/textView"
+                    app:layout_constraintHorizontal_bias="0.161"
+                    app:layout_constraintStart_toStartOf="@+id/btnback"
+                    app:layout_constraintTop_toBottomOf="@+id/textView"
+                    app:layout_constraintVertical_bias="0.03" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/containr"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layoutDirection="rtl"
-                    android:checked="true"
-                    android:minHeight="48dp"
-                    android:padding="@dimen/_7sdp"
-                    android:text="@string/tangible_items"
-                    android:textColor="#020A53"
-                    android:textSize="@dimen/_13ssp"
-
-                    android:textStyle="bold" />
+                    android:layout_marginHorizontal="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/card_background"
+                    android:elevation="@dimen/_1sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView1">
 
 
-                <View
+                    <RadioGroup
+                        android:id="@+id/radioGroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_7sdp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <RadioButton
+                            android:id="@+id/radioTangible"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:layoutDirection="rtl"
+                            android:minHeight="48dp"
+                            android:padding="@dimen/_7sdp"
+                            android:text="@string/tangible_items"
+                            android:textColor="#020A53"
+                            android:textSize="@dimen/_13ssp"
+                            android:textStyle="bold" />
+
+                        <View
+                            android:id="@+id/view1"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginStart="@dimen/_7sdp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="@dimen/_7sdp"
+                            android:layout_marginBottom="5dp"
+                            android:alpha="0.2"
+                            android:background="@color/textSecondaryColor" />
+
+                        <RadioButton
+                            android:id="@+id/radioWallet"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layoutDirection="rtl"
+                            android:minHeight="48dp"
+                            android:padding="@dimen/_7sdp"
+                            android:text="@string/wallet_points"
+                            android:textColor="#020A53"
+                            android:textSize="@dimen/_13ssp"
+                            android:textStyle="bold" />
+
+
+                        <View
+                            android:id="@+id/view2"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginStart="@dimen/_7sdp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="@dimen/_7sdp"
+                            android:layout_marginBottom="5dp"
+                            android:alpha="0.2"
+                            android:background="@color/textSecondaryColor" />
+
+                        <RadioButton
+                            android:id="@+id/radioChances"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layoutDirection="rtl"
+                            android:minHeight="48dp"
+                            android:padding="@dimen/_7sdp"
+                            android:text="@string/chances"
+                            android:textColor="#020A53"
+                            android:textSize="@dimen/_13ssp"
+                            android:textStyle="bold" />
+
+                    </RadioGroup>
+
+                    <TextView
+                        android:id="@+id/txtDropDown"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_10sdp"
+                        android:drawableEnd="@drawable/round_keyboard_arrow_down_24"
+                        android:drawableTint="@color/black"
+                        android:paddingVertical="@dimen/_10sdp"
+                        android:text="Select Raffle"
+                        android:textColor="#020A53"
+                        android:textSize="@dimen/_13ssp"
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="@+id/containr"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/chancesRec"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_150sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/card_background"
+                    android:elevation="@dimen/_1sdp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@+id/containr"
+                    app:layout_constraintStart_toStartOf="@+id/containr"
+                    app:layout_constraintTop_toBottomOf="@+id/containr"
+                    app:layout_constraintVertical_bias="0.1" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutSocials"
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="@dimen/_7sdp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="@dimen/_7sdp"
-                    android:layout_marginBottom="5dp"
-                    android:alpha="0.2"
-                    android:background="@color/textSecondaryColor" />
+                    android:layout_height="@dimen/_110sdp"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="@dimen/_35sdp"
+                    android:background="@drawable/card_background"
+                    android:backgroundTint="#80FFFFFF"
+                    android:elevation="@dimen/_1sdp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@+id/chancesRec"
+                    app:layout_constraintStart_toStartOf="@+id/chancesRec"
+                    app:layout_constraintTop_toBottomOf="@+id/chancesRec">
 
-                <RadioButton
-                    android:id="@+id/radioWallet"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layoutDirection="rtl"
-                    android:minHeight="48dp"
-                    android:padding="@dimen/_7sdp"
-                    android:text="@string/wallet_points"
-                    android:textColor="#020A53"
-                    android:textSize="@dimen/_13ssp"
-                    android:textStyle="bold" />
-
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="@dimen/_7sdp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="@dimen/_7sdp"
-                    android:layout_marginBottom="5dp"
-                    android:alpha="0.2"
-                    android:background="@color/textSecondaryColor" />
-
-                <RadioButton
-                    android:id="@+id/radioChances"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layoutDirection="rtl"
-                    android:minHeight="48dp"
-                    android:padding="@dimen/_7sdp"
-                    android:text="@string/chances"
-                    android:textColor="#020A53"
-                    android:textSize="@dimen/_13ssp"
-                    android:textStyle="bold" />
-
-            </RadioGroup>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:orientation="horizontal"
+                        android:weightSum="5"
+                        app:layout_constraintTop_toBottomOf="@+id/removeBtn">
 
 
+                        <ImageView
+                            android:id="@+id/btn_social_fb1"
+                            android:layout_width="@dimen/_24sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/_3sdp"
+                            android:layout_weight="1"
+
+                            android:gravity="center"
+                            android:src="@drawable/group_fb"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/_13ssp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/btn_social_fb2"
+                            android:layout_width="@dimen/_24sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/_3sdp"
+                            android:layout_weight="1"
+
+                            android:gravity="center"
+                            android:src="@drawable/group_insta"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/_13ssp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/btn_social_fb3"
+                            android:layout_width="@dimen/_24sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/_3sdp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:src="@drawable/group_x"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/_13ssp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/btn_social_fb4"
+                            android:layout_width="@dimen/_24sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/_3sdp"
+                            android:layout_weight="1"
+
+                            android:gravity="center"
+                            android:src="@drawable/group_wa"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/_13ssp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/btn_social_fb"
+                            android:layout_width="@dimen/_24sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/_3sdp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:src="@drawable/group_tem"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/_13ssp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </LinearLayout>
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        android:id="@+id/removeBtn"
+                        style="@style/popins_regular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/contact_support_team"
+                        android:textAlignment="center"
+                        android:textColor="@color/blue"
+                        android:textSize="@dimen/_14ssp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.2" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/btnLogin"
+                    style="@style/popins_regular"
+                    android:layout_width="286dp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginVertical="@dimen/_20sdp"
+                    android:background="@drawable/card_background_border"
+                    android:backgroundTint="@color/theme_color"
+                    android:gravity="center"
+                    android:text="Submit"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_14ssp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.496"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layoutSocials" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/raffles"
+            android:id="@+id/layoutMainScratched"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_150sdp"
-            android:layout_marginHorizontal="@dimen/_20sdp"
-            android:background="@drawable/card_background"
             android:visibility="gone"
-            android:elevation="@dimen/_1sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/containr"
-            app:layout_constraintVertical_bias="0.1">
+            android:layout_height="match_parent">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_margin="@dimen/_5sdp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_110sdp"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="@dimen/_35sdp"
-            android:background="@drawable/card_background"
-            android:backgroundTint="@color/colorWhite"
-            android:elevation="@dimen/_5sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/raffles"
-            app:layout_constraintStart_toStartOf="@+id/raffles"
-            app:layout_constraintTop_toBottomOf="@+id/raffles">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:orientation="horizontal"
-                android:weightSum="5"
-                app:layout_constraintTop_toBottomOf="@+id/removeBtn">
-
-
-                <ImageView
-                    android:id="@+id/btn_social_fb1"
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_3sdp"
-                    android:layout_weight="1"
-
-                    android:gravity="center"
-                    android:src="@drawable/group_fb"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="@dimen/_13ssp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/btn_social_fb2"
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_3sdp"
-                    android:layout_weight="1"
-
-                    android:gravity="center"
-                    android:src="@drawable/group_insta"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="@dimen/_13ssp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/btn_social_fb3"
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_3sdp"
-                    android:layout_weight="1"
-
-                    android:gravity="center"
-                    android:src="@drawable/group_x"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="@dimen/_13ssp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/btn_social_fb4"
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_3sdp"
-                    android:layout_weight="1"
-
-                    android:gravity="center"
-                    android:src="@drawable/group_wa"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="@dimen/_13ssp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/btn_social_fb"
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_3sdp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:src="@drawable/group_tem"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="@dimen/_13ssp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </LinearLayout>
-
-
-            <TextView
-                android:id="@+id/removeBtn"
-                style="@style/popins_regular"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/contact_support_team"
-                android:textAlignment="center"
-                android:textColor="@color/blue"
-                android:textSize="@dimen/_14ssp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.2" />
-
+            <include
+                android:id="@+id/layoutScratched"
+                layout="@layout/fragment_birthday" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

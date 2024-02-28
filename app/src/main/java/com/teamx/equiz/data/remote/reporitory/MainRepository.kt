@@ -115,6 +115,7 @@ class MainRepository @Inject constructor(
     suspend fun unsub() = apiService.unsub()
     suspend fun deleteUser() = apiService.deleteUser()
     suspend fun collectPrizeRaffal() = apiService.collectPrizeRaffal()
+    suspend fun claimPrize(id: String) = apiService.claimPrize(id)
     suspend fun claimedPrizeRaffal(@Query("claimed") claimed: String) =
         apiService.claimedPrizeRaffal(claimed)
 
@@ -144,6 +145,7 @@ class MainRepository @Inject constructor(
     ) = apiService.getTransData(startDate, endDate)
 
     suspend fun GetScratchImg(@Path("id") id: String) = apiService.GetScratchImg(id)
+    suspend fun submitClaim(@Body params: JsonObject?) = apiService.submitClaim(params)
     suspend fun cancelProductOrder(@Path("id") id: String, params: JsonObject) =
         apiService.cancelProductOrder(id, params)
 

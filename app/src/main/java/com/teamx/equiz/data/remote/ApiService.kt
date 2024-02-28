@@ -43,6 +43,7 @@ import com.teamx.equiz.ui.fragments.address.dataclasses.AddressOrderCreate
 import com.teamx.equiz.ui.fragments.address.dataclasses.getAddressList.GetAddressListData
 import com.teamx.equiz.ui.fragments.cards.modelcards.CardsModel
 import com.teamx.equiz.ui.fragments.chances.data.ChancesModelData
+import com.teamx.equiz.ui.fragments.claimPrize.model.ClaimPrizeModel
 import com.teamx.equiz.ui.fragments.collectPrice.data.CollectDataModel
 import com.teamx.equiz.ui.fragments.ecommerce.data.CategoryEcomData
 import com.teamx.equiz.ui.fragments.ecommerce.home.datanews.NewsImagesDataModel
@@ -341,6 +342,12 @@ interface ApiService {
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<GetQuizById>
 
+    @GET(NetworkCallPoints.CLAIM_PRIZE)
+    suspend fun claimPrize(
+        @Path("id") id: String?,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<ClaimPrizeModel>
+
     @POST(NetworkCallPoints.QUIZ_RESULT)
     suspend fun quizResult(
         @Body params: JsonObject,
@@ -450,6 +457,12 @@ interface ApiService {
     @GET(NetworkCallPoints.SCRATCH_IMAGE)
     suspend fun GetScratchImg(
         @Path("id") id: String,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<ScratchImgData>
+
+    @PUT(NetworkCallPoints.SUBMIT_CLAIM)
+    suspend fun submitClaim(
+        @Body params: JsonObject?,
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<ScratchImgData>
 

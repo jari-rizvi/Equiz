@@ -9,8 +9,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorAccent_indeed"
-            android:paddingBottom="@dimen/_25sdp">
+            android:background="@color/colorAccent_indeed">
 
 
             <ImageView
@@ -475,7 +474,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginVertical="@dimen/_10sdp"
                 android:background="@drawable/card_background"
                 android:backgroundTint="#9F81CA"
                 android:gravity="center"
