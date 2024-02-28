@@ -72,6 +72,7 @@ class UserStatsFragment : BaseFragment<FragmentUserStatsBinding, LoginViewModel>
     override fun onResume() {
         super.onResume()
         Log.d("UserStatsFragment", "setupViewPager: onResume")
+        mViewDataBinding.viewPager.setCurrentItem(0,true)
     }
 
     override fun onAttach(context: Context) {

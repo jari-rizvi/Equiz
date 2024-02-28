@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.ComposeView
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
@@ -14,16 +15,16 @@ import androidx.navigation.navOptions
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
-import com.teamx.equiz.databinding.FragmentAddressBinding
+import com.teamx.equiz.databinding.FragmentRandomGamesBinding
 import com.teamx.equiz.games.games.learningy.LockScreenOrientation
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class RandomGameFragment : BaseFragment<FragmentAddressBinding, RandomGameFragsViewModel>() {
+class RandomGameFragment : BaseFragment<FragmentRandomGamesBinding, RandomGameFragsViewModel>() {
 
     override val layoutId: Int
-        get() = R.layout.fragment_address
+        get() = R.layout.fragment_random_games
     override val viewModel: Class<RandomGameFragsViewModel>
         get() = RandomGameFragsViewModel::class.java
     override val bindingVariable: Int
@@ -31,16 +32,14 @@ class RandomGameFragment : BaseFragment<FragmentAddressBinding, RandomGameFragsV
 
 
     private lateinit var options: NavOptions
-    private lateinit var composeView: ComposeView
+//    private lateinit var composeView: ComposeView
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        mViewDataBinding = FragmentAddressBinding.inflate(inflater)
-        return ComposeView(requireContext()).also {
-            composeView = it
-        }
-    }
+//    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+//        mViewDataBinding = FragmentRandomGamesBinding.inflate(inflater)
+//        return ComposeView(requireContext()).also {
+//            composeView = it
+//        }
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -56,7 +55,7 @@ class RandomGameFragment : BaseFragment<FragmentAddressBinding, RandomGameFragsV
         }
         val gameName = bundle.getString("gameName")
 
-0
+
         Log.d("123123", "onViewCreated:$gameName ")
 
         options = navOptions {
@@ -67,10 +66,33 @@ class RandomGameFragment : BaseFragment<FragmentAddressBinding, RandomGameFragsV
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+
+//        MyComposableComponent()
+
+        if (sharedViewModel.roundInteger == 1){
+            mViewDataBinding.mainLayout.visibility = View.VISIBLE
+        }else{
+            mViewDataBinding.mainLayout.visibility = View.GONE
+            MyComposableComponent()
+        }
+
+        mViewDataBinding.btnProceed.setOnClickListener {
+            MyComposableComponent()
+        }
+
+
+
+
+    }
+
+
+    fun MyComposableComponent() {
+
+        mViewDataBinding.mainLayout.visibility = View.GONE
         val roundName = sharedViewModel.roundInteger.toString()
 
         Log.d("roundInteger", "onViewCreatedds: $roundName")
-        composeView.setContent {
+        mViewDataBinding.composeView.setContent {
             LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             RandomViewCompose(roundName = roundName) { name ->
                 Log.d("123123", "onClickGame: ")
@@ -89,7 +111,5 @@ class RandomGameFragment : BaseFragment<FragmentAddressBinding, RandomGameFragsV
             }
 
         }
-
-
     }
 }

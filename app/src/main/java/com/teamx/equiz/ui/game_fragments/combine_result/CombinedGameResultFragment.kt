@@ -4,17 +4,23 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.addCallback
+import androidx.lifecycle.Observer
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
+import com.google.gson.JsonObject
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
+import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.CombineResultGameFragmentBinding
+import com.teamx.equiz.ui.activity.mainActivity.MainActivity
 import com.teamx.equiz.ui.fragments.dashboard.DashboardFragment.Companion.returnGameName
 import com.teamx.equiz.ui.game_fragments.game_random.RandomGameFragsViewModel
+import com.teamx.equiz.utils.DialogHelperClass
 import com.teamx.equiz.utils.DialogHelperClass.Companion.returnGameIconRes
 import dagger.hilt.android.AndroidEntryPoint
+import org.json.JSONException
 
 @AndroidEntryPoint
 class CombinedGameResultFragment :
@@ -47,6 +53,15 @@ class CombinedGameResultFragment :
 
         mViewDataBinding.btnback.setOnClickListener {
             findNavController().navigate(R.id.userStatsFragment, arguments, options)
+        }
+
+        mViewDataBinding.btnLoginsd654.setOnClickListener {
+            findNavController().navigate(R.id.userStatsFragment, arguments, options)
+        }
+
+        mViewDataBinding.btnLoginsd.setOnClickListener {
+            findNavController().navigate(R.id.dashboardFragment, arguments, options)
+//            findNavController().popBackStack(R.id.dashboardFragment,false)
         }
 
         var bundle = arguments
@@ -104,14 +119,76 @@ class CombinedGameResultFragment :
             )
         }
 
+        resultGame(total,rightAnswer)
 
-
-        sharedViewModel.roundInteger = 0
+        sharedViewModel.roundInteger = 1
         sharedViewModel.gameName = arrayListOf()
         sharedViewModel.gameNameRight = arrayListOf()
         sharedViewModel.gameNameTotal = arrayListOf()
         sharedViewModel.gamesRightScore = 0
         sharedViewModel.gamesTotalScore = 0
 
+    }
+
+    private fun resultGame(total: Int, right: Int, time: Int = 20) {
+
+
+        val params = JsonObject()
+        try {
+            params.addProperty("correct", right)
+            if (total == 0) {
+                params.addProperty("total", 1)
+            } else {
+                params.addProperty("total", total)
+            }
+            params.addProperty("time", time)
+
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+
+        mViewModel.resultGame(params)
+
+        mViewModel.resultResponseGameOB.observe(requireActivity(), Observer {
+            when (it.status) {
+                Resource.Status.LOADING -> {
+                    loadingDialog.show()
+                }
+
+                Resource.Status.NOTVERIFY -> {
+                    loadingDialog.dismiss()
+                }
+
+                Resource.Status.SUCCESS -> {
+                    loadingDialog.dismiss()
+                    it.data?.let { data ->
+
+                        val score = data.game?.score ?: ""
+
+                        MainActivity.service?.showNotification1(
+                            "Score",
+                            "$score"
+                        )
+//                         findNavController().navigate(R.id.resultComposeFrag)
+                    }
+                }
+
+                Resource.Status.AUTH -> {
+                    loadingDialog.dismiss()
+                    if (isAdded) {
+                        try {
+                            onToSignUpPage()
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                    }
+                }
+
+                Resource.Status.ERROR -> {
+                    loadingDialog.dismiss()
+                    DialogHelperClass.errorDialog(requireContext(), it.message!!)
+                }
+            }
+        })
     }
 }
