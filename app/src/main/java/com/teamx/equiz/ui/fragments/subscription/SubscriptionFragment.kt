@@ -2,27 +2,35 @@ package com.teamx.equiz.ui.fragments.subscription
 
 
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.Button
 import androidx.activity.addCallback
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
+import com.bumptech.glide.Glide
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.stripe.android.PaymentConfiguration
 import com.stripe.android.Stripe
 import com.stripe.android.model.ConfirmPaymentIntentParams
 import com.stripe.android.model.PaymentMethodCreateParams
+import com.stripe.android.paymentsheet.PaymentSheet
+import com.stripe.android.paymentsheet.PaymentSheetResult
 import com.stripe.android.view.CardInputListener
 import com.stripe.android.view.CardInputWidget
 import com.teamx.equiz.BR
+import com.teamx.equiz.MainApplication
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
+import com.teamx.equiz.constants.NetworkCallPoints
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentSubscriptionBinding
 import com.teamx.equiz.ui.activity.mainActivity.MainActivity
@@ -30,7 +38,9 @@ import com.teamx.equiz.ui.fragments.address.bottomSheetAddSearch.BottomSheetAddr
 import com.teamx.equiz.ui.fragments.address.bottomSheetAddSearch.BottomSheetListener
 import com.teamx.equiz.ui.fragments.address.bottomSheetAddSearch.BottomSheetStripeListener
 import com.teamx.equiz.ui.fragments.address.bottomSheetAddSearch.BottomStripeFragment
+import com.teamx.equiz.ui.fragments.subscription.plansData.Data
 import com.teamx.equiz.utils.DialogHelperClass
+import com.teamx.equiz.utils.PrefHelper
 import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -78,6 +88,11 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
+        }
+
+
+        if (isAdded) {
+            paymentSheet = PaymentSheet(this, ::onPaymentSheetResult)
         }
 
 
@@ -168,6 +183,83 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
         }
 
 
+        val json = arguments?.getString("subscription")
+        val subscription = Gson().fromJson(json, Data::class.java)
+
+        Log.d("TAG", "onViewCreated111111111: $subscription")
+        Log.d("TAG", "onViewCreated111111111: ${subscription.price}")
+
+
+        mViewDataBinding.textView61.text = subscription.price.toString() + "AED/Monthly"
+        mViewDataBinding.textView58.text = subscription.name.toString()
+        Glide.with(MainApplication.context).load(subscription.image)
+            .into(mViewDataBinding.imageView7)
+
+
+
+        mViewDataBinding.btnBuy.setOnClickListener {
+
+
+            val params = JsonObject()
+            try {
+                params.addProperty("planId", subscription._id)
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
+
+            mViewModel.buySubscription(params)
+
+            if (!mViewModel.buySubscriptionResponse.hasActiveObservers()) {
+                mViewModel.buySubscriptionResponse.observe(requireActivity()) {
+                    when (it.status) {
+                        Resource.Status.LOADING -> {
+                            loadingDialog.show()
+                        }
+
+                        Resource.Status.NOTVERIFY -> {
+                            loadingDialog.dismiss()
+                            if (isAdded) {
+                                mViewDataBinding.root.snackbar(it.message!!)
+                            }
+
+                        }
+
+                        Resource.Status.SUCCESS -> {
+                            loadingDialog.dismiss()
+
+                            it.data?.let { data ->
+
+
+                                showStripeSheet(data.subscriber.client_secret)
+
+
+                            }
+                        }
+
+                        Resource.Status.AUTH -> {
+                            loadingDialog.dismiss()
+                            if (isAdded) {
+                                try {
+                                    onToSignUpPage()
+                                } catch (e: Exception) {
+                                    e.printStackTrace()
+                                }
+                            }
+                        }
+
+                        Resource.Status.ERROR -> {
+                            loadingDialog.dismiss()
+                            DialogHelperClass.errorDialog(requireContext(), it.message!!)
+                        }
+                    }
+                    if (isAdded) {
+                        mViewModel.buySubscriptionResponse.removeObservers(viewLifecycleOwner)
+                    }
+                }
+            }
+        }
+
+
         val route = bundle?.getString("routeSubs")
         if (route.equals("setting", true)) {
 
@@ -177,89 +269,89 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
         }
 
 
-        mViewDataBinding.unsub.setOnClickListener {
-            DialogHelperClass.unsubUserDialog(requireContext(),
-                object : DialogHelperClass.Companion.DeleteUserDialogCallBack {
-                    override fun onSignInClick1() {
+        /*        mViewDataBinding.unsub.setOnClickListener {
+                    DialogHelperClass.unsubUserDialog(requireContext(),
+                        object : DialogHelperClass.Companion.DeleteUserDialogCallBack {
+                            override fun onSignInClick1() {
 
-                    }
+                            }
 
-                    override fun onSignUpClick1() {
-                        mViewModel.unsub()
-                        if (!mViewModel.unsubResponse.hasActiveObservers()) {
-                            mViewModel.unsubResponse.observe(requireActivity()) {
-                                when (it.status) {
-                                    Resource.Status.LOADING -> {
-                                        loadingDialog.show()
-                                    }
+                            override fun onSignUpClick1() {
+                                mViewModel.unsub()
+                                if (!mViewModel.unsubResponse.hasActiveObservers()) {
+                                    mViewModel.unsubResponse.observe(requireActivity()) {
+                                        when (it.status) {
+                                            Resource.Status.LOADING -> {
+                                                loadingDialog.show()
+                                            }
 
-                                    Resource.Status.NOTVERIFY -> {
-                                        loadingDialog.dismiss()
-                                    }
+                                            Resource.Status.NOTVERIFY -> {
+                                                loadingDialog.dismiss()
+                                            }
 
-                                    Resource.Status.SUCCESS -> {
-                                        loadingDialog.dismiss()
-                                        it.data?.let { data ->
+                                            Resource.Status.SUCCESS -> {
+                                                loadingDialog.dismiss()
+                                                it.data?.let { data ->
 
-                                            try {
-//                                mViewDataBinding.root.snackbar(data)
-                                                mViewDataBinding.root.snackbar("Subcription will end at the end of the Month")
+                                                    try {
+        //                                mViewDataBinding.root.snackbar(data)
+                                                        mViewDataBinding.root.snackbar("Subcription will end at the end of the Month")
 
 
-                                            } catch (e: Exception) {
-                                                e.printStackTrace()
+                                                    } catch (e: Exception) {
+                                                        e.printStackTrace()
+                                                    }
+                                                }
+                                            }
+
+                                            Resource.Status.AUTH -> {
+                                                loadingDialog.dismiss()
+                                                if (isAdded) {
+                                                    try {
+                                                        onToSignUpPage()
+                                                    } catch (e: Exception) {
+                                                        e.printStackTrace()
+                                                    }
+                                                }
+                                            }
+
+                                            Resource.Status.ERROR -> {
+                                                loadingDialog.dismiss()
+                                                if (isAdded) {
+                                                    mViewDataBinding.root.snackbar(it.message!!)
+                                                }
+                                                Log.d("TAG", "eeeeeeeeeee: ${it.message}")
                                             }
                                         }
-                                    }
-
-                                    Resource.Status.AUTH -> {
-                                        loadingDialog.dismiss()
-                                        if (isAdded) {
-                                            try {
-                                                onToSignUpPage()
-                                            } catch (e: Exception) {
-                                                e.printStackTrace()
-                                            }
-                                        }
-                                    }
-
-                                    Resource.Status.ERROR -> {
-                                        loadingDialog.dismiss()
-                                        if (isAdded) {
-                                            mViewDataBinding.root.snackbar(it.message!!)
-                                        }
-                                        Log.d("TAG", "eeeeeeeeeee: ${it.message}")
                                     }
                                 }
+
+
                             }
+
+                        }).show()
+                }*/
+
+
+        /*    mViewModel.getPlan()
+
+            if (!mViewModel.getPlanResponse.hasActiveObservers()) {
+                mViewModel.getPlanResponse.observe(requireActivity()) {
+                    when (it.status) {
+                        Resource.Status.LOADING -> {
+                            loadingDialog.show()
                         }
 
+                        Resource.Status.NOTVERIFY -> {
+                            loadingDialog.dismiss()
+                        }
 
-                    }
-
-                }).show()
-        }
-
-
-        mViewModel.getPlan()
-
-        if (!mViewModel.getPlanResponse.hasActiveObservers()) {
-            mViewModel.getPlanResponse.observe(requireActivity()) {
-                when (it.status) {
-                    Resource.Status.LOADING -> {
-                        loadingDialog.show()
-                    }
-
-                    Resource.Status.NOTVERIFY -> {
-                        loadingDialog.dismiss()
-                    }
-
-                    Resource.Status.SUCCESS -> {
-                        loadingDialog.dismiss()
-                        it.data?.let { data ->
-                            /*    data.data.forEach {
+                        Resource.Status.SUCCESS -> {
+                            loadingDialog.dismiss()
+                            it.data?.let { data ->
+                                *//*    data.data.forEach {
                                     couponsArrayList.add(it)
-                                }*/
+                                }*//*
 
                             val divide = "${data.dataObject.amount / 100}" + "AED"
 
@@ -294,86 +386,87 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
                     )
                 }
             }
-        }
+        }*/
 
 
-        if (!mViewModel.subPlanResponse.hasActiveObservers()) {
-            mViewModel.subPlanResponse.observe(requireActivity()) {
-                when (it.status) {
-                    Resource.Status.LOADING -> {
-                        loadingDialog.show()
-                    }
-
-                    Resource.Status.NOTVERIFY -> {
-                        loadingDialog.dismiss()
-                    }
-
-                    Resource.Status.SUCCESS -> {
-                        loadingDialog.dismiss()
-                        it.data?.let { data ->
-
-
-                            if (cardParams != null) {
-                                val params =
-                                    ConfirmPaymentIntentParams.createWithPaymentMethodCreateParams(
-                                        cardParams, "${data.subData.client_secret}"
-                                    )
-
-
-                                stripe.confirmPayment(requireActivity(), params)
-                                bottomStripeFragment.dismiss()
-                                mViewDataBinding.root.snackbar("Successfully Subscribed")
-                                findNavController().popBackStack()
-
-                                /*   object : ApiResultCallback<PaymentIntentResult> {
-                                        override fun onSuccess(result: PaymentIntentResult) {
-                                            val paymentIntent: PaymentIntent? = result.intent
-                                            // Handle the PaymentIntent object
-                                            if (paymentIntent?.status == StripeIntent.Status.Succeeded) {
-                                                // Payment succeeded, perform necessary actions
-                                            } else {
-                                                // Payment failed or was canceled, handle accordingly
-                                            }
-                                        }
-
-                                        override fun onError(e: Exception) {
-                                            // Handle errors
-                                        }
-                                    }*/
-                            }
-
-
-                        }
-                    }
-
-                    Resource.Status.AUTH -> {
-                        loadingDialog.dismiss()
-                        if (isAdded) {
-                            try {
-                                onToSignUpPage()
-                            } catch (e: Exception) {
-                                e.printStackTrace()
-                            }
-                        }
-                    }
-
-                    Resource.Status.ERROR -> {
-                        loadingDialog.dismiss()
-                        DialogHelperClass.errorDialog(
-                            requireContext(),
-                            it.message!!
-                        )
-                    }
-                }
-                if (isAdded) {
-                    mViewModel.subPlanResponse.removeObservers(
-                        viewLifecycleOwner
-                    )
-                }
-            }
-        }
+//        if (!mViewModel.subPlanResponse.hasActiveObservers()) {
+//            mViewModel.subPlanResponse.observe(requireActivity()) {
+//                when (it.status) {
+//                    Resource.Status.LOADING -> {
+//                        loadingDialog.show()
+//                    }
+//
+//                    Resource.Status.NOTVERIFY -> {
+//                        loadingDialog.dismiss()
+//                    }
+//
+//                    Resource.Status.SUCCESS -> {
+//                        loadingDialog.dismiss()
+//                        it.data?.let { data ->
+//
+//
+//                            if (cardParams != null) {
+//                                val params =
+//                                    ConfirmPaymentIntentParams.createWithPaymentMethodCreateParams(
+//                                        cardParams, "${data.subData.client_secret}"
+//                                    )
+//
+//
+//                                stripe.confirmPayment(requireActivity(), params)
+//                                bottomStripeFragment.dismiss()
+//                                mViewDataBinding.root.snackbar("Successfully Subscribed")
+//                                findNavController().popBackStack()
+//
+//                                /*   object : ApiResultCallback<PaymentIntentResult> {
+//                                        override fun onSuccess(result: PaymentIntentResult) {
+//                                            val paymentIntent: PaymentIntent? = result.intent
+//                                            // Handle the PaymentIntent object
+//                                            if (paymentIntent?.status == StripeIntent.Status.Succeeded) {
+//                                                // Payment succeeded, perform necessary actions
+//                                            } else {
+//                                                // Payment failed or was canceled, handle accordingly
+//                                            }
+//                                        }
+//
+//                                        override fun onError(e: Exception) {
+//                                            // Handle errors
+//                                        }
+//                                    }*/
+//                            }
+//
+//
+//                        }
+//                    }
+//
+//                    Resource.Status.AUTH -> {
+//                        loadingDialog.dismiss()
+//                        if (isAdded) {
+//                            try {
+//                                onToSignUpPage()
+//                            } catch (e: Exception) {
+//                                e.printStackTrace()
+//                            }
+//                        }
+//                    }
+//
+//                    Resource.Status.ERROR -> {
+//                        loadingDialog.dismiss()
+//                        DialogHelperClass.errorDialog(
+//                            requireContext(),
+//                            it.message!!
+//                        )
+//                    }
+//                }
+//                if (isAdded) {
+//                    mViewModel.subPlanResponse.removeObservers(
+//                        viewLifecycleOwner
+//                    )
+//                }
+//            }
+//        }
 
     }
+
 
     override fun onBtnPay(cardInputWidget: CardInputWidget) {
         cardParams = cardInputWidget.paymentMethodCreateParams!!
@@ -540,4 +633,56 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
 //    }
 
 
+    private lateinit var paymentSheet: PaymentSheet
+
+    private var paymentMethodid = ""
+
+    private var amount = ""
+
+    private var selectedPaymentMethod = PaymentMethod.STRIPE_SAVED_PAYMENT
+    private fun showStripeSheet(clientSecret: String) {
+        PaymentConfiguration.init(
+            requireActivity().applicationContext,
+//            stripPublicKey
+            "pk_test_51L1UVCGn3F7BuM88wH1PSuNgc9bX7tq0MkIMB2HU2BbScX3i7VgZw4V8nimfe1zUEF8uQ3Q6PFbzrMacvH5PfA7900PaBHO20E"
+        )
+
+        paymentSheet.presentWithPaymentIntent(
+            clientSecret, PaymentSheet.Configuration(
+                merchantDisplayName = "Emirates-Quiz",
+//                customer = customerConfig,
+                // Set `allowsDelayedPaymentMethods` to true if your business
+                // can handle payment methods that complete payment after a delay, like SEPA Debit and Sofort.
+                allowsDelayedPaymentMethods = true
+            )
+        )
+    }
+
+    private fun onPaymentSheetResult(paymentSheetResult: PaymentSheetResult) {
+        when (paymentSheetResult) {
+            is PaymentSheetResult.Canceled -> {
+                Log.d("placeOrderResponse", "onPaymentSheetResult: Canceled")
+            }
+
+            is PaymentSheetResult.Failed -> {
+                Log.d("placeOrderResponse", "onPaymentSheetResult: Failed")
+            }
+
+            is PaymentSheetResult.Completed -> {
+                findNavController().popBackStack()
+                Log.d("placeOrderResponse", "onPaymentSheetResult: Completed")
+//                DialogHelperClass.wallettDialog(requireActivity(), amount, this)
+//                if (isAdded) {
+//                    findNavController().navigate(R.id.action_checkOutFragment_to_orderPlacedFragment)
+//                }
+            }
+        }
+    }
+
+    enum class PaymentMethod {
+        CASH_ON_DELIVERY,
+        STRIPE_PAYMENT,
+        STRIPE_SAVED_PAYMENT,
+        PAYPAL
+    }
 }

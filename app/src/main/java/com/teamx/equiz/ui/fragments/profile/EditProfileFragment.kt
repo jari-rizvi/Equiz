@@ -16,6 +16,7 @@ import androidx.navigation.navOptions
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.google.gson.JsonObject
+import com.squareup.picasso.Picasso
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
@@ -39,6 +40,7 @@ import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import kotlin.properties.Delegates
 
 @AndroidEntryPoint
 class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfileViewModel>() {
@@ -57,13 +59,14 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
     var cal = Calendar.getInstance()
     var textview_date: TextView? = null
 
-    var imageUrl = ""
-    var userName = ""
-    var userEmail = ""
-    var userDOB = ""
-    var userPhone = ""
+    private lateinit var imageUrl: String
+    private lateinit var userName: String
+    private lateinit var userEmail: String
+    private var progress by Delegates.notNull<Int>()
+    private  var imgDocUrl = ""
+    private lateinit var userPhone: String
     lateinit var userId: String
-     var linkInsta = ""
+    var linkInsta = ""
     var linkFb = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -110,6 +113,10 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
             fetchImageFromGallery()
         }
 
+        mViewDataBinding.carImgLayout.setOnClickListener {
+            fetchImageFromGallery1()
+        }
+
         GlobalScope.launch(Dispatchers.Main) {
             mViewDataBinding.shimmerLayout.visibility = View.GONE
             mViewDataBinding.root.visibility = View.VISIBLE
@@ -117,174 +124,88 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
 
         }
 
-
-
-
-        mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
-
-
-        if (!mViewModel.updateProfileResponse.hasActiveObservers()) {
-            mViewModel.updateProfileResponse.observe(requireActivity()) {
-                when (it.status) {
-                    Resource.Status.LOADING -> {
-                        loadingDialog.show()
-                    }
-
-                    Resource.Status.NOTVERIFY -> {
-                        loadingDialog.dismiss()
-                    }
-
-                    Resource.Status.SUCCESS -> {
-                        loadingDialog.dismiss()
-                        it.data?.let { data ->
-                            if (data.user.image.isNotEmpty()) {
-                                Glide.with(mViewDataBinding.profilePicture.context)
-                                    .load(data.user.image).into(mViewDataBinding.profilePicture)
-                                if (data.user.image.isNotEmpty()) {
-                                    Glide.with(mViewDataBinding.profilePicture.context)
-                                        .load(data.user.image)
-                                        .placeholder(R.drawable.baseline_person_white)
-                                        .into(mViewDataBinding.profilePicture)
-                                }
-
-                                mViewDataBinding.userName.setText(data.user.name)
-                                mViewDataBinding.phone.setText(data.user.phone)
-                                mViewDataBinding.email.setText(data.user.email)
-                                mViewDataBinding.dob.setText(data.user.dateOfBirth)
-
-//                                mViewDataBinding.dob.text =
-//                                    data.user.dateOfBirth?.replaceAfter("T", "")?.replace("T", "")
-//                                        .toString()
-
-
-                                Log.d("TAG", "textttt: ${mViewDataBinding.dob.text}")
-
-                                /*  val userData = PrefHelper.getInstance(requireActivity()).getUserData()
-                                  userData!!.name = data.name
-                                  userData!!.profileImage = data.profileImage
-                                  PrefHelper.getInstance(requireActivity()).setUserData(userData)*/
-                                if (isAdded) {
-                                    mViewDataBinding.root.snackbar("Profile updated")
-                                }
-
-                                /*       val bundle = arguments
-                                       if (bundle != null) {
-                                           bundle.putString("userimg", data.profileImage)
-                                           bundle.putString("username", data.name)
-                                       }*/
-
-
-                                findNavController().navigate(
-                                    R.id.action_editProfileFragment_to_dashboardFragment,
-                                    arguments,
-                                    options
-                                )
-
-
-                            }
-                        }
-                    }
-
-
-                    Resource.Status.AUTH -> {
-                        loadingDialog.dismiss()
-                        if (isAdded) {
-                            try {
-                                onToSignUpPage()
-                            } catch (e: Exception) {
-                                e.printStackTrace()
-                            }
-                        }
-                    }
-
-                    Resource.Status.ERROR -> {
-
-                        loadingDialog.dismiss()
-                        if (isAdded) {
-                            mViewDataBinding.root.snackbar(it.message!!)
-                        }
-                    }
-                }
-            }
-        }
-
-
         mViewModel.me()
-        if (!mViewModel.meResponse.hasActiveObservers()) {
-            mViewModel.meResponse.observe(requireActivity()) {
-                when (it.status) {
-                    Resource.Status.LOADING -> {
-                        loadingDialog.show()
-                    }
+        mViewModel.meResponse.observe(requireActivity()) {
+            when (it.status) {
+                Resource.Status.LOADING -> {
+                    loadingDialog.show()
+                }
 
-                    Resource.Status.NOTVERIFY -> {
-                        loadingDialog.dismiss()
-                    }
+                Resource.Status.NOTVERIFY -> {
+                    loadingDialog.dismiss()
+                }
 
-                    Resource.Status.SUCCESS -> {
-                        loadingDialog.dismiss()
-                        it.data?.let { data ->
-                            try {
+                Resource.Status.SUCCESS -> {
+                    loadingDialog.dismiss()
+                    it.data?.let { data ->
+                        try {
 
-                                Log.d("TAG", "onViewCreatedemail: ${data.user.isEmailValid}")
-                                Log.d("TAG", "onViewCreatedphone: ${data.user.isPhoneValid}")
+                            Log.d("TAG", "onViewCreatedemail: ${data.user.isEmailValid}")
+                            Log.d("TAG", "onViewCreatedphone: ${data.user.isPhoneValid}")
 
-                                if (data.user.isEmailValid) {
-                                    mViewDataBinding.btnVerifyEmail.visibility = View.GONE
-                                    mViewDataBinding.emailImgVerify.visibility = View.VISIBLE
-                                }
-                                if (!data.user.isEmailValid) {
-                                    mViewDataBinding.btnVerifyEmail.visibility = View.VISIBLE
-                                    mViewDataBinding.emailImgNotVerify.visibility = View.VISIBLE
-                                }
+                            if (data.user.isEmailValid) {
+                                mViewDataBinding.btnVerifyEmail.visibility = View.GONE
+                                mViewDataBinding.emailImgVerify.visibility = View.VISIBLE
+                            }
+                            if (!data.user.isEmailValid) {
+                                mViewDataBinding.btnVerifyEmail.visibility = View.VISIBLE
+                                mViewDataBinding.emailImgNotVerify.visibility = View.VISIBLE
+                            }
 
-                                if (data.user.isPhoneValid) {
-                                    mViewDataBinding.btnVerifyPhone.visibility = View.GONE
-                                    mViewDataBinding.phoneImgVerify.visibility = View.VISIBLE
-                                }
-                                if (!data.user.isPhoneValid) {
-                                    mViewDataBinding.btnVerifyPhone.visibility = View.VISIBLE
-                                    mViewDataBinding.phoneImgNotVerify.visibility = View.VISIBLE
-                                }
-
-
-                                var bundle = arguments
-                                if (bundle == null) {
-                                    bundle = Bundle()
-                                }
-                                bundle?.putString("phone", data.user.phone)
-                                bundle?.putString("email", data.user.email)
-
-                                userId = data.user._id
+                            if (data.user.isPhoneValid) {
+                                mViewDataBinding.btnVerifyPhone.visibility = View.GONE
+                                mViewDataBinding.phoneImgVerify.visibility = View.VISIBLE
+                            }
+                            if (!data.user.isPhoneValid) {
+                                mViewDataBinding.btnVerifyPhone.visibility = View.VISIBLE
+                                mViewDataBinding.phoneImgNotVerify.visibility = View.VISIBLE
+                            }
 
 
-                                Glide.with(mViewDataBinding.profilePicture.context)
-                                    .load(data.user.image).into(mViewDataBinding.profilePicture)
-                                imageUrl = data.user.image
-//                            userDOB = data.user.dateOfBirth.toString()
-                                userEmail = data.user.email
-                                userPhone = data.user.phone
-                                userName = data.user.name
-                                mViewDataBinding.userName.setText(data.user.name)
-                                mViewDataBinding.phone.setText(data.user.phone)
-                                mViewDataBinding.email.setText(data.user.email)
-                                mViewDataBinding.facebook.setText(data.user.social[0].link)
-                                mViewDataBinding.instagram.setText(data.user.social[1].link)
+                            var bundle = arguments
+                            if (bundle == null) {
+                                bundle = Bundle()
+                            }
+                            bundle?.putString("phone", data.user.phone)
+                            bundle?.putString("email", data.user.email)
 
-                                data.user.social.forEach {
-                                    it.link
-                                }
-
-                                mViewDataBinding.simpleProgressBar.secondaryProgress = data.user.profileProgress
+                            userId = data.user._id
 
 
-                                if (data.user.dateOfBirth.isNullOrEmpty()) {
-                                    mViewDataBinding.dob.text = "_"
-                                } else {
-                                    mViewDataBinding.dob.text =
-                                        data.user.dateOfBirth?.replaceAfter("T", "")
-                                            ?.replace("T", "").toString()
-                                }
+                            Glide.with(mViewDataBinding.profilePicture.context)
+                                .load(data.user.image)
+                                .error(R.drawable.baseline_person)
+                                .into(mViewDataBinding.profilePicture)
+
+
+                            imageUrl = data.user.image
+                            userEmail = data.user.email
+                            userPhone = data.user.phone
+                            userName = data.user.name
+                            progress = data.user.profileProgress
+                            mViewDataBinding.simpleProgressBar.secondaryProgress = progress
+
+
+                            mViewDataBinding.userName.setText(data.user.name)
+                            mViewDataBinding.dob.text = data.user.dateOfBirth
+                            mViewDataBinding.phone.setText(data.user.phone)
+                            mViewDataBinding.email.setText(data.user.email)
+                            mViewDataBinding.facebook.setText(data.user.social[0].link)
+                            mViewDataBinding.instagram.setText(data.user.social[1].link)
+
+                            data.user.social.forEach {
+                                it.link
+                            }
+
+
+
+                            if (data.user.dateOfBirth.isNullOrEmpty()) {
+                                mViewDataBinding.dob.text = "_"
+                            } else {
+                                mViewDataBinding.dob.text =
+                                    data.user.dateOfBirth?.replaceAfter("T", "")
+                                        ?.replace("T", "").toString()
+                            }
 
 //                            mViewDataBinding.dob.setText(data.user.dateOfBirth.toString())
 
@@ -292,34 +213,122 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
 //                                    .into(mViewDataBinding.profilePicture)
 
 
-                            } catch (e: Exception) {
+                        } catch (e: Exception) {
 
-                            }
+                        }
 
+                    }
+                }
+
+
+                Resource.Status.AUTH -> {
+                    loadingDialog.dismiss()
+                    if (isAdded) {
+                        try {
+                            onToSignUpPage()
+                        } catch (e: Exception) {
+                            e.printStackTrace()
                         }
                     }
+                }
 
-
-                    Resource.Status.AUTH -> {
-                        loadingDialog.dismiss()
-                        if (isAdded) {
-                            try {
-                                onToSignUpPage()
-                            } catch (e: Exception) {
-                                e.printStackTrace()
-                            }
-                        }
-                    }
-
-                    Resource.Status.ERROR -> {
-                        loadingDialog.dismiss()
-                        if (isAdded) {
-                            mViewDataBinding.root.snackbar(it.message!!)
-                        }
+                Resource.Status.ERROR -> {
+                    loadingDialog.dismiss()
+                    if (isAdded) {
+                        mViewDataBinding.root.snackbar(it.message!!)
                     }
                 }
             }
         }
+
+
+
+        mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
+
+
+        mViewModel.updateProfileResponse.observe(requireActivity()) {
+            when (it.status) {
+                Resource.Status.LOADING -> {
+                    loadingDialog.show()
+                }
+
+                Resource.Status.NOTVERIFY -> {
+                    loadingDialog.dismiss()
+                }
+
+                Resource.Status.SUCCESS -> {
+                    loadingDialog.dismiss()
+                    it.data?.let { data ->
+                        if (data.user.image.isNotEmpty()) {
+                            Glide.with(mViewDataBinding.profilePicture.context)
+                                .load(data.user.image).into(mViewDataBinding.profilePicture)
+                            if (data.user.image.isNotEmpty()) {
+                                Glide.with(mViewDataBinding.profilePicture.context)
+                                    .load(data.user.image)
+                                    .placeholder(R.drawable.baseline_person_white)
+                                    .into(mViewDataBinding.profilePicture)
+                            }
+
+                            mViewDataBinding.userName.setText(data.user.name)
+                            mViewDataBinding.phone.setText(data.user.phone)
+                            mViewDataBinding.email.setText(data.user.email)
+                            mViewDataBinding.dob.setText(data.user.dateOfBirth)
+
+
+//                                mViewDataBinding.dob.text =
+//                                    data.user.dateOfBirth?.replaceAfter("T", "")?.replace("T", "")
+//                                        .toString()
+
+
+                            Log.d("TAG", "textttt: ${mViewDataBinding.dob.text}")
+
+                            /*  val userData = PrefHelper.getInstance(requireActivity()).getUserData()
+                              userData!!.name = data.name
+                              userData!!.profileImage = data.profileImage
+                              PrefHelper.getInstance(requireActivity()).setUserData(userData)*/
+                            if (isAdded) {
+                                mViewDataBinding.root.snackbar("Profile updated")
+                            }
+
+                            /*       val bundle = arguments
+                                   if (bundle != null) {
+                                       bundle.putString("userimg", data.profileImage)
+                                       bundle.putString("username", data.name)
+                                   }*/
+
+
+                        }
+
+                        findNavController().navigate(
+                            R.id.action_editProfileFragment_to_dashboardFragment,
+                            arguments,
+                            options
+                        )
+                    }
+                }
+
+
+                Resource.Status.AUTH -> {
+                    loadingDialog.dismiss()
+                    if (isAdded) {
+                        try {
+                            onToSignUpPage()
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                    }
+                }
+
+                Resource.Status.ERROR -> {
+
+                    loadingDialog.dismiss()
+                    if (isAdded) {
+                        mViewDataBinding.root.snackbar(it.message!!)
+                    }
+                }
+            }
+        }
+
 
 
         if (!mViewModel.uploadReviewImgResponse.hasActiveObservers()) {
@@ -373,8 +382,57 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
 
 
 
+        mViewModel.uploadDocImgResponse.observe(requireActivity()) {
+            when (it.status) {
+                Resource.Status.LOADING -> {
+                    loadingDialog.show()
+                }
+
+                Resource.Status.NOTVERIFY -> {
+                    loadingDialog.dismiss()
+                }
+
+                Resource.Status.SUCCESS -> {
+                    loadingDialog.dismiss()
+                    it.data?.let { data ->
+                        imgDocUrl = data.image
+                        try {
+                            Glide.with(mViewDataBinding.imgDoc.context).load(imgDocUrl)
+                                .into(mViewDataBinding.imgDoc)
+
+                            Picasso.get().load(imgDocUrl)
+                                .into(mViewDataBinding.imgDoc)
 
 
+                        } catch (e: Exception) {
+
+                        }
+                        mViewDataBinding.doccx.visibility = View.GONE
+                        mViewDataBinding.imgDoc.visibility = View.VISIBLE
+                    }
+                }
+
+
+                Resource.Status.AUTH -> {
+                    loadingDialog.dismiss()
+                    if (isAdded) {
+                        try {
+                            onToSignUpPage()
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                    }
+                }
+
+                Resource.Status.ERROR -> {
+                    loadingDialog.dismiss()
+                    Log.d("uploadReviewIm", "onViewCreated: ${it.message}")
+                    if (isAdded) {
+                        mViewDataBinding.root.snackbar(it.message!!)
+                    }
+                }
+            }
+        }
 
 
         mViewDataBinding.btnSave.setOnClickListener {
@@ -391,6 +449,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                     params.addProperty("DOB", dob)
                     params.addProperty("username", userName)
                     params.addProperty("image", imageUrl)
+                    params.addProperty("identification", imgDocUrl)
 
 
                     val socials = listOf(
@@ -413,24 +472,6 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                     e.printStackTrace()
                 }
 
-
-/*
-                val mainObject = JSONObject()
-                mainObject.put("image", imageUrl)
-                mainObject.put("DOB", dob)
-
-                val socialArray = JSONArray()
-                val homeObject = JSONObject()
-                homeObject.put("label", "Facebook")
-                homeObject.put("link", linkFb)
-                socialArray.put(homeObject)
-
-                val instaObject = JSONObject()
-                instaObject.put("label", "Insta")
-                instaObject.put("link", linkInsta)
-                socialArray.put(instaObject)
-
-                mainObject.put("social", socialArray)*/
 
 
                 mViewModel.updateProfile(params)
@@ -576,6 +617,10 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
         startForResult.launch("image/*")
     }
 
+    private fun fetchImageFromGallery1() {
+        startForResult1.launch("image/*")
+    }
+
     private val startForResult =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
             uri?.let {
@@ -603,6 +648,34 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
             }
         }
 
+    private val startForResult1 =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+            uri?.let {
+                val str = "${requireContext().filesDir}/file.jpg"
+
+                Log.d("startForResult", "Profile image: $it")
+
+
+//                uploadWithRetrofit(it)
+
+                val imageUri = uri
+
+                val bitmap = MediaStore.Images.Media.getBitmap(
+                    requireActivity().contentResolver, imageUri
+                )
+
+// Compress the bitmap to a JPEG format with 80% quality and save it to a file
+                val outputStream = FileOutputStream(str)
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 50, outputStream)
+                outputStream.close()
+
+//                Picasso.get().load(it).into(mViewDataBinding.hatlyIcon)
+
+                uploadWithRetrofit1(File(str))
+            }
+        }
+
+
     private fun uploadWithRetrofit(file: File) {
 
         val imagesList = mutableListOf<MultipartBody.Part>()
@@ -613,12 +686,23 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
 
     }
 
+    private fun uploadWithRetrofit1(file: File) {
+
+        val imagesList = mutableListOf<MultipartBody.Part>()
+
+        imagesList.add(prepareFilePart("images", file))
+
+        mViewModel.uploadDocImg(imagesList)
+
+    }
+
     private fun prepareFilePart(partName: String, fileUri: File): MultipartBody.Part {
         val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), fileUri)
         return MultipartBody.Part.createFormData(partName, fileUri.name, requestFile)
     }
 
 }
+
 @Keep
 open class Socials(
     open val label: String,

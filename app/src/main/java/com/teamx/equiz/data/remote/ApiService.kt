@@ -51,6 +51,7 @@ import com.teamx.equiz.ui.fragments.ecommerce.paymentMethods.model.stripeanother
 import com.teamx.equiz.ui.fragments.ecommerce.productProfile.unsub_data.UNSUBDataModel
 import com.teamx.equiz.ui.fragments.profile.data.DELETEUSERModel
 import com.teamx.equiz.ui.fragments.quizresult.data.QuizResultDataModel
+import com.teamx.equiz.ui.fragments.subscription.buySubscription.BuySubscription
 import com.teamx.equiz.ui.fragments.subscription.data.SubData
 import com.teamx.equiz.ui.fragments.subscription.plansData.GetPlansData
 import com.teamx.equiz.ui.fragments.topup.data.TopUpModelData
@@ -62,6 +63,7 @@ import retrofit2.http.GET
 import retrofit2.http.HTTP
 import retrofit2.http.Header
 import retrofit2.http.Multipart
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Part
@@ -269,6 +271,12 @@ interface ApiService {
         @Part images: List<MultipartBody.Part>,
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<ModelUploadImage>
+ @Multipart
+    @POST(NetworkCallPoints.UPLOAD_DOC_IMG)
+    suspend fun uploadDocImg(
+        @Part images: List<MultipartBody.Part>,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<ModelUploadImage>
 
     @POST(NetworkCallPoints.OTP_VERIFY)
     suspend fun otpVerify(
@@ -433,6 +441,11 @@ interface ApiService {
         @Body params: JsonObject?,
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<NotificationSettingsData>
+  @PATCH(NetworkCallPoints.BUY_SUBSCRIPTION)
+    suspend fun buySubscription(
+        @Body params: JsonObject?,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<BuySubscription>
 
 
     @GET(NetworkCallPoints.GET_NOTIFICATION_SETTING)

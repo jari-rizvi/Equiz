@@ -78,6 +78,10 @@ class MainRepository @Inject constructor(
         @Part images: List<MultipartBody.Part>
     ) = apiService.uploadReviewImg(images)
 
+    suspend fun uploadDocImg(
+        @Part images: List<MultipartBody.Part>
+    ) = apiService.uploadDocImg(images)
+
     suspend fun updateProfile(
         @Body params: JsonObject,
     ) = apiService.updateProfile(params)
@@ -133,6 +137,10 @@ class MainRepository @Inject constructor(
         @Body params: JsonObject,
     ) = apiService.updateNotificationSetting(params)
 
+    suspend fun buySubscription(
+        @Body params: JsonObject,
+    ) = apiService.buySubscription(params)
+
     suspend fun getNotificationSetting(
     ) = apiService.getNotificationSetting()
 
@@ -143,7 +151,8 @@ class MainRepository @Inject constructor(
         @Query("startDate") startDate: String?,
         @Query("endDate") endDate: String?
     ) = apiService.getTransData(startDate, endDate)
- suspend fun getSubPlans(
+
+    suspend fun getSubPlans(
         @Query("archive") archive: Boolean?
     ) = apiService.getSubPlans(archive)
 

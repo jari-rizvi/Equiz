@@ -64,6 +64,7 @@ class NetworkCallPoints {
         const val GET_QUIZ_TITLE ="api/quiz/tile"
         const val GET_NOTIFICATION ="api/notification/find"
         const val GET_PLAN ="api/payment/getPlan"
+        const val BUY_SUBSCRIPTION ="api/subscription/plan/buy"
         const val SUB_PLAN ="api/payment/subscription"
         const val CREATE_ORDER ="api/orders/add"
 
@@ -77,6 +78,7 @@ class NetworkCallPoints {
 
 
         const val UPLOAD_IMGS = "api/users/upload"
+        const val UPLOAD_DOC_IMG = "api/upload/image"
         const val GET_ADDRESS_LIST = "api/users/findAddress"
         const val ADD_ADDRESS = "/api/users/addAddress"
         const val DELETE_ADDRESS ="api/users/removeAddress/{addressId}"

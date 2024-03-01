@@ -62,13 +62,6 @@ class EditProfileViewModel @Inject constructor(
 
 
 
-
-
-
-
-
-
-
     private val _updateProfileResponse = MutableLiveData<Resource<EditProfileData>>()
     val updateProfileResponse: LiveData<Resource<EditProfileData>>
         get() = _updateProfileResponse
@@ -137,7 +130,6 @@ class EditProfileViewModel @Inject constructor(
 
 
 
-
     private val _uploadReviewImgResponse = MutableLiveData<Resource<ModelUploadImage>>()
     val uploadReviewImgResponse: LiveData<Resource<ModelUploadImage>>
         get() = _uploadReviewImgResponse
@@ -168,6 +160,42 @@ class EditProfileViewModel @Inject constructor(
                 }
             } else{
                 _uploadReviewImgResponse.postValue(Resource.error("No internet connection", null))
+            }
+        }
+    }
+
+
+
+ private val _uploadDocImgResponse = MutableLiveData<Resource<ModelUploadImage>>()
+    val uploadDocImgResponse: LiveData<Resource<ModelUploadImage>>
+        get() = _uploadDocImgResponse
+
+    fun uploadDocImg(imageParts: List<MultipartBody.Part>) {
+        viewModelScope.launch {
+            _uploadDocImgResponse.postValue(Resource.loading(null))
+            if (networkHelper.isNetworkConnected()) {
+                try {
+                    mainRepository.uploadDocImg(imageParts).let {
+                        if (it.isSuccessful) {
+                            _uploadDocImgResponse.postValue(Resource.success(it.body()!!))
+                        } else if (it.code() == 401) {
+                            _uploadDocImgResponse.postValue(Resource.unAuth("", null))
+                        } else if (it.code() == 500 || it.code() == 404 || it.code() == 400 || it.code() == 422) {
+                            val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
+                            _uploadDocImgResponse.postValue(Resource.error(jsonObj.getString("message")))
+                            Log.d("uploadDocImg", "jsonObj ${it.code()}: ${jsonObj.getString("message")}")
+                        } else {
+                            val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
+                            _uploadDocImgResponse.postValue(Resource.error(jsonObj.getString("message")))
+                            Log.d("uploadDocImg", "jsonObj: ${jsonObj.getString("message")}")
+                        }
+                    }
+                } catch (e: Exception) {
+                    Log.d("uploadDocImg", "Exception: ${e.message}")
+                    _uploadDocImgResponse.postValue(Resource.error("${e.message}", null))
+                }
+            } else{
+                _uploadDocImgResponse.postValue(Resource.error("No internet connection", null))
             }
         }
     }
