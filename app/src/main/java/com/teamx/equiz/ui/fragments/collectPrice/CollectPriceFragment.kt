@@ -41,7 +41,7 @@ class CollectPriceFragment() : BaseFragment<FragmentCollectPriceBinding, Collect
     override val bindingVariable: Int
         get() = BR.viewModel
 
-    var winnerid = ""
+    var winnerid = "65d74dfc728be749e1a78634"
 
     private lateinit var options: NavOptions
 
@@ -118,14 +118,14 @@ class CollectPriceFragment() : BaseFragment<FragmentCollectPriceBinding, Collect
                                     Log.d("TAG", "addImagesOver: $winnerid")
                                 }
 
-                                if(data.winnerData.isEmpty()){
-                                    mViewDataBinding.main1.visibility = View.VISIBLE
-                                    mViewDataBinding.main.visibility = View.GONE
-                                }
-                                else{
-                                    mViewDataBinding.main.visibility = View.VISIBLE
-                                    mViewDataBinding.main1.visibility = View.GONE
-                                }
+//                                if(data.winnerData.isEmpty()){
+//                                    mViewDataBinding.main1.visibility = View.VISIBLE
+//                                    mViewDataBinding.main.visibility = View.GONE
+//                                }
+//                                else{
+//                                    mViewDataBinding.main.visibility = View.VISIBLE
+//                                    mViewDataBinding.main1.visibility = View.GONE
+//                                }
 
 
                                 data.winnerData.forEach {
@@ -199,6 +199,8 @@ class CollectPriceFragment() : BaseFragment<FragmentCollectPriceBinding, Collect
         mViewDataBinding.viewPager.registerOnPageChangeCallback(object :
             ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
+                winnerid = imageList2[position]._id
+//                Log.d("winneriddsdsd", "winnerid: ${imageList2[position]._id}")
                 updateDots(position)
             }
         })

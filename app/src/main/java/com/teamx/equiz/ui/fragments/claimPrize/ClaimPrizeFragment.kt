@@ -4,52 +4,40 @@ package com.teamx.equiz.ui.fragments.claimPrize
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.WindowManager
-import android.widget.Button
-import android.widget.RadioButton
-import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.activity.addCallback
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.anupkumarpanwar.scratchview.ScratchView
 import com.bumptech.glide.Glide
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.gson.JsonObject
-import com.stripe.android.PaymentConfiguration
 import com.stripe.android.Stripe
-import com.stripe.android.model.ConfirmPaymentIntentParams
-import com.stripe.android.model.PaymentMethodCreateParams
-import com.stripe.android.view.CardInputListener
-import com.stripe.android.view.CardInputWidget
 import com.teamx.equiz.BR
 import com.teamx.equiz.MainApplication
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentClaimprizeBinding
-import com.teamx.equiz.databinding.FragmentSubscriptionBinding
-import com.teamx.equiz.ui.activity.mainActivity.MainActivity
-import com.teamx.equiz.ui.fragments.address.bottomSheetAddSearch.BottomSheetAddressFragment
-import com.teamx.equiz.ui.fragments.address.bottomSheetAddSearch.BottomSheetListener
-import com.teamx.equiz.ui.fragments.address.bottomSheetAddSearch.BottomSheetStripeListener
-import com.teamx.equiz.ui.fragments.address.bottomSheetAddSearch.BottomStripeFragment
-import com.teamx.equiz.ui.fragments.subscription.SubscriptionViewModel
+import com.teamx.equiz.ui.fragments.claimPrize.adapter.ClaimPrizeChancesAdapter
+import com.teamx.equiz.ui.fragments.claimPrize.adapter.ClaimPrizeInterface
+import com.teamx.equiz.ui.fragments.claimPrize.model.ClaimPrizeModel
+import com.teamx.equiz.ui.fragments.claimPrize.model.Raffle
 import com.teamx.equiz.utils.DialogHelperClass
 import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.json.JSONException
 
 @AndroidEntryPoint
-class ClaimPrizeFragment : BaseFragment<FragmentClaimprizeBinding, ClaimPrizeViewModel>() {
+class ClaimPrizeFragment : BaseFragment<FragmentClaimprizeBinding, ClaimPrizeViewModel>(),
+    ClaimPrizeInterface {
 
     override val layoutId: Int
         get() = R.layout.fragment_claimprize
@@ -68,9 +56,14 @@ class ClaimPrizeFragment : BaseFragment<FragmentClaimprizeBinding, ClaimPrizeVie
     var resType = ""
     var selectedRaffleId = ""
 
+    lateinit var claimPrizeModel: ClaimPrizeModel
+
 
     private lateinit var options: NavOptions
     private lateinit var stripe: Stripe
+
+    private lateinit var claimPrizeChancesAdapter: ClaimPrizeChancesAdapter
+    private lateinit var claimPrizeArrayList: ArrayList<Raffle>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -85,6 +78,15 @@ class ClaimPrizeFragment : BaseFragment<FragmentClaimprizeBinding, ClaimPrizeVie
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+
+        claimPrizeArrayList = ArrayList()
+
+        val layoutManager2 =
+            LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+        mViewDataBinding.chancesRec.layoutManager = layoutManager2
+
+        claimPrizeChancesAdapter = ClaimPrizeChancesAdapter(claimPrizeArrayList, this)
+        mViewDataBinding.chancesRec.adapter = claimPrizeChancesAdapter
 
 
 
@@ -114,7 +116,7 @@ class ClaimPrizeFragment : BaseFragment<FragmentClaimprizeBinding, ClaimPrizeVie
 
 
         if (!mViewModel.claimPrizeResponse.hasActiveObservers()) {
-            mViewModel.claimPrize("659b9353c78cbfb6e22e0c24")
+            mViewModel.claimPrize(winnerid)
             mViewModel.claimPrizeResponse.observe(requireActivity()) {
                 when (it.status) {
                     Resource.Status.LOADING -> {
@@ -129,11 +131,14 @@ class ClaimPrizeFragment : BaseFragment<FragmentClaimprizeBinding, ClaimPrizeVie
                         loadingDialog.dismiss()
                         it.data?.let { data ->
 
+                            claimPrizeArrayList.clear()
+                            claimPrizeModel = data
+
                             winnerId = data.prizeObj.winnerId ?: ""
                             prizeId = data.prizeObj.prizeId ?: ""
                             resValue = data.prizeObj.value ?: 300
                             raffleId = data.prizeObj.raffleId ?: ""
-                            resType = data.prizeObj.type ?: ""
+
 
 
                             when (data.prizeObj.type) {
@@ -143,6 +148,18 @@ class ClaimPrizeFragment : BaseFragment<FragmentClaimprizeBinding, ClaimPrizeVie
                                     mViewDataBinding.radioTangible.visibility = View.GONE
                                     mViewDataBinding.view2.visibility = View.GONE
                                     mViewDataBinding.view1.visibility = View.GONE
+
+                                    CoroutineScope(Dispatchers.Main).launch {
+                                        for (i in 0..10) {
+                                            delay(300)
+                                            claimPrizeArrayList.add(claimPrizeModel.prizeObj.raffles!![0])
+                                            claimPrizeChancesAdapter.notifyItemInserted(i)
+                                        }
+//                                        data.prizeObj.raffles?.forEachIndexed { index, raffle ->
+//                                            claimPrizeArrayList.add(raffle)
+//                                            claimPrizeChancesAdapter.notifyItemInserted(index)
+//                                        }
+                                    }
                                 }
 
                                 "wallet" -> {
@@ -156,6 +173,20 @@ class ClaimPrizeFragment : BaseFragment<FragmentClaimprizeBinding, ClaimPrizeVie
                                 "users_choice" -> {
                                     mViewDataBinding.userChoice.visibility = View.VISIBLE
                                     mViewDataBinding.layoutMainScratched.visibility = View.GONE
+
+
+                                    data.prizeObj.raffles?.let { it1 ->
+                                        claimPrizeArrayList.addAll(
+                                            it1
+                                        )
+                                    }
+
+//                                    data.prizeObj.raffles!!.forEach {
+//                                        it.isChecked = false
+//                                        claimPrizeArrayList.add(it)
+//                                        claimPrizeArrayList.add(it)
+//                                    }
+                                    claimPrizeChancesAdapter.notifyDataSetChanged()
                                 }
 
                                 "items" -> {
@@ -169,9 +200,11 @@ class ClaimPrizeFragment : BaseFragment<FragmentClaimprizeBinding, ClaimPrizeVie
 
                                 "scratchcard" -> {
                                     mViewDataBinding.layoutMainScratched.visibility = View.VISIBLE
-                                    mViewDataBinding.userChoice.visibility = View.GONE
-                                    scratchViewInit("659b9353c78cbfb6e22e0c24")
+//                                    mViewDataBinding.userChoice.visibility = View.GONE
+                                    scratchViewInit(winnerid)
                                 }
+
+                                else -> {}
                             }
                         }
                     }
@@ -240,7 +273,7 @@ class ClaimPrizeFragment : BaseFragment<FragmentClaimprizeBinding, ClaimPrizeVie
             mViewDataBinding.radioWallet.isChecked = false
             mViewDataBinding.radioChances.isChecked = true
             mViewDataBinding.txtDropDown.visibility = View.VISIBLE
-
+            resType = "chances"
         }
 
         mViewDataBinding.radioTangible.setOnClickListener {
@@ -248,12 +281,14 @@ class ClaimPrizeFragment : BaseFragment<FragmentClaimprizeBinding, ClaimPrizeVie
             mViewDataBinding.radioWallet.isChecked = false
             mViewDataBinding.radioChances.isChecked = false
             mViewDataBinding.txtDropDown.visibility = View.GONE
+            resType = "items"
         }
         mViewDataBinding.radioWallet.setOnClickListener {
             mViewDataBinding.radioTangible.isChecked = false
             mViewDataBinding.radioWallet.isChecked = true
             mViewDataBinding.radioChances.isChecked = false
             mViewDataBinding.txtDropDown.visibility = View.GONE
+            resType = "wallet"
         }
 
 
@@ -333,7 +368,7 @@ class ClaimPrizeFragment : BaseFragment<FragmentClaimprizeBinding, ClaimPrizeVie
         })
     }
 
-    fun submitClaim(){
+    private fun submitClaim() {
         val params = JsonObject()
         try {
             params.addProperty("winnerId", winnerId)
@@ -346,6 +381,25 @@ class ClaimPrizeFragment : BaseFragment<FragmentClaimprizeBinding, ClaimPrizeVie
         }
 
         mViewModel.submitClaim(params)
+
+    }
+
+    override fun claimPrize(position: Int) {
+        claimPrizeArrayList.forEach {
+            it.isSelected = false
+        }
+        Log.d("winneriddsdsd", "winnerid: ${claimPrizeArrayList[position]}")
+//        claimPrizeArrayList[position].isSelected = true
+        Log.d("winneriddsdsd", "winnerid: ${claimPrizeArrayList[position]}")
+
+
+        claimPrizeChancesAdapter.notifyDataSetChanged()
+//        claimPrizeChancesAdapter.notifyItemChanged(position)
+//        claimPrizeChancesAdapter.notifyItemRangeChanged(
+//            position,
+//            claimPrizeArrayList.size
+//        )
+
 
     }
 
