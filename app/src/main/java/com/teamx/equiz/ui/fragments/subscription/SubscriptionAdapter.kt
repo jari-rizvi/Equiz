@@ -38,7 +38,7 @@ class SubscriptionAdapter(
 
 
         holder.binding.textView58.text = subs.name
-        holder.binding.textView61.text = subs.price.toString() + "AED/Monthly"
+        holder.binding.textView61.text = subs.price.toString()
 
 
         holder.itemView.setOnClickListener {
