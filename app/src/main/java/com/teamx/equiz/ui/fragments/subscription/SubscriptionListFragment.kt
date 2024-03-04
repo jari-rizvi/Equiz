@@ -4,43 +4,27 @@ package com.teamx.equiz.ui.fragments.subscription
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.WindowManager
 import android.widget.Button
 import androidx.activity.addCallback
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.NavOptions
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.gson.JsonObject
-import com.stripe.android.PaymentConfiguration
-import com.stripe.android.Stripe
-import com.stripe.android.model.ConfirmPaymentIntentParams
-import com.stripe.android.model.PaymentMethodCreateParams
-import com.stripe.android.view.CardInputListener
-import com.stripe.android.view.CardInputWidget
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.data.remote.Resource
-import com.teamx.equiz.databinding.FragmentSubscriptionBinding
 import com.teamx.equiz.databinding.FragmentSubscriptionListBinding
-import com.teamx.equiz.ui.activity.mainActivity.MainActivity
-import com.teamx.equiz.ui.fragments.address.bottomSheetAddSearch.BottomSheetAddressFragment
-import com.teamx.equiz.ui.fragments.address.bottomSheetAddSearch.BottomSheetListener
-import com.teamx.equiz.ui.fragments.address.bottomSheetAddSearch.BottomSheetStripeListener
-import com.teamx.equiz.ui.fragments.address.bottomSheetAddSearch.BottomStripeFragment
+import com.teamx.equiz.ui.fragments.orders.delivered.DeliveredAdapter
+import com.teamx.equiz.ui.fragments.subscription.plansData.Data
 import com.teamx.equiz.utils.DialogHelperClass
-import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import org.json.JSONException
 
 @AndroidEntryPoint
-class SubscriptionListFragment : BaseFragment<FragmentSubscriptionListBinding, SubscriptionViewModel>(){
+class SubscriptionListFragment : BaseFragment<FragmentSubscriptionListBinding, SubscriptionViewModel>(),onSubsClick{
 
     override val layoutId: Int
         get() = R.layout.fragment_subscription_list
@@ -49,7 +33,9 @@ class SubscriptionListFragment : BaseFragment<FragmentSubscriptionListBinding, S
     override val bindingVariable: Int
         get() = BR.viewModel
 
+    lateinit var subsAdapter: SubscriptionAdapter
 
+    lateinit var subsArrayList: ArrayList<Data>
 
     private lateinit var options: NavOptions
 
@@ -74,10 +60,10 @@ class SubscriptionListFragment : BaseFragment<FragmentSubscriptionListBinding, S
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
 
 
-        mViewModel.getPlan()
+        mViewModel.getSubscPlans(true)
 
-        if (!mViewModel.getPlanResponse.hasActiveObservers()) {
-            mViewModel.getPlanResponse.observe(requireActivity()) {
+        if (!mViewModel.getSubscPlansResponse.hasActiveObservers()) {
+            mViewModel.getSubscPlansResponse.observe(requireActivity()) {
                 when (it.status) {
                     Resource.Status.LOADING -> {
                         loadingDialog.show()
@@ -91,7 +77,11 @@ class SubscriptionListFragment : BaseFragment<FragmentSubscriptionListBinding, S
                         loadingDialog.dismiss()
                         it.data?.let { data ->
 
+                            data.data.forEach {
+                                subsArrayList.add(it)
+                            }
 
+                            subsAdapter.notifyDataSetChanged()
 
 
 
@@ -118,13 +108,43 @@ class SubscriptionListFragment : BaseFragment<FragmentSubscriptionListBinding, S
                     }
                 }
                 if (isAdded) {
-                    mViewModel.getPlanResponse.removeObservers(
+                    mViewModel.getSubscPlansResponse.removeObservers(
                         viewLifecycleOwner
                     )
                 }
             }
         }
 
+        subsRecyclerview()
+    }
+
+    private fun subsRecyclerview() {
+        subsArrayList = ArrayList()
+
+        val linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        mViewDataBinding.recrecc.layoutManager = linearLayoutManager
+
+        subsAdapter = SubscriptionAdapter(subsArrayList,this)
+        mViewDataBinding.recrecc.adapter = subsAdapter
+
+    }
+
+    override fun onSubItemClick(position: Int) {
+        var id =subsArrayList[position]._id
+        val subscription = subsArrayList[position] // Get the subscription object at the clicked position
+        val json = Gson().toJson(subscription)
+        var bundle = arguments
+        if (bundle == null) {
+            bundle = Bundle()
+        }
+        bundle.putString("subscription", json) // Put the JSON string in the bundle
+
+
+
+        navController = Navigation.findNavController(
+            requireActivity(), R.id.nav_host_fragment
+        )
+        navController.navigate(R.id.subscriptionFragment, bundle, options)
 
     }
 

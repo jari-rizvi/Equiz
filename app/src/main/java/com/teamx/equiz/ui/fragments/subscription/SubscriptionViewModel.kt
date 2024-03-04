@@ -9,6 +9,7 @@ import com.teamx.equiz.data.models.getPlan.GerPlanData
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.data.remote.reporitory.MainRepository
 import com.teamx.equiz.ui.fragments.ecommerce.productProfile.unsub_data.UNSUBDataModel
+import com.teamx.equiz.ui.fragments.subscription.buySubscription.BuySubscription
 import com.teamx.equiz.ui.fragments.subscription.data.SubData
 import com.teamx.equiz.ui.fragments.subscription.plansData.GetPlansData
 import com.teamx.equiz.utils.NetworkHelper
@@ -149,14 +150,11 @@ class SubscriptionViewModel @Inject constructor(
     }
 
 
-
-
-
     private val _getSubscPlansResponse = MutableLiveData<Resource<GetPlansData>>()
     val getSubscPlansResponse: LiveData<Resource<GetPlansData>>
         get() = _getSubscPlansResponse
 
-    fun getSubscPlans(archive : Boolean) {
+    fun getSubscPlans(archive: Boolean) {
         viewModelScope.launch {
             _getSubscPlansResponse.postValue(Resource.loading(null))
             if (networkHelper.isNetworkConnected()) {
@@ -198,6 +196,52 @@ class SubscriptionViewModel @Inject constructor(
         }
     }
 
+
+    private val _buySubscriptionResponse = MutableLiveData<Resource<BuySubscription>>()
+    val buySubscriptionResponse: LiveData<Resource<BuySubscription>>
+        get() = _buySubscriptionResponse
+
+    fun buySubscription(params: JsonObject) {
+        viewModelScope.launch {
+            _buySubscriptionResponse.postValue(Resource.loading(null))
+            if (networkHelper.isNetworkConnected()) {
+                try {
+                    Timber.tag("87878787887").d("starta")
+
+                    mainRepository.buySubscription(params).let {
+                        if (it.isSuccessful) {
+                            _buySubscriptionResponse.postValue(Resource.success(it.body()!!))
+                            Timber.tag("87878787887").d(it.body()!!.toString())
+                        } /*else if (it.code() == 401) {
+                            _buySubscriptionResponse.postValue(Resource.unAuth("", null))
+                        }*/ else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
+                            Timber.tag("87878787887").d("secoonnddd")
+
+//                            _buySubscriptionResponse.postValue(Resource.error(it.message(), null))
+                            val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
+                            _buySubscriptionResponse.postValue(Resource.error(jsonObj.getString("message")))
+                        } else {
+                            _buySubscriptionResponse.postValue(
+                                Resource.error(
+                                    "Some thing went wrong",
+                                    null
+                                )
+                            )
+                            Timber.tag("87878787887").d("third")
+
+                        }
+                    }
+                } catch (e: Exception) {
+                    _buySubscriptionResponse.postValue(Resource.error("${e.message}", null))
+                }
+            } else _buySubscriptionResponse.postValue(
+                Resource.error(
+                    "No internet connection",
+                    null
+                )
+            )
+        }
+    }
 
 
 }

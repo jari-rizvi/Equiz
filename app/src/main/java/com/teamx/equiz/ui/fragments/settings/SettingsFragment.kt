@@ -447,7 +447,7 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
 
 
 
-            findNavController().navigate(R.id.subscriptionFragment, arguments, options)
+            findNavController().navigate(R.id.subscriptionListFragment, arguments, options)
         }
         addLeaderBoard()
     }
