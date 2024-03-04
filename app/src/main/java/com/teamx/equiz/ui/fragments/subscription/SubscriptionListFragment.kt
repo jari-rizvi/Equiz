@@ -69,6 +69,7 @@ class SubscriptionListFragment : BaseFragment<FragmentSubscriptionListBinding, S
                         loadingDialog.show()
                     }
 
+
                     Resource.Status.NOTVERIFY -> {
                         loadingDialog.dismiss()
                     }
