@@ -12,6 +12,7 @@ import com.teamx.equiz.data.models.ResendOtpData
 import com.teamx.equiz.data.models.editProfile.EditProfileData
 import com.teamx.equiz.data.models.meModel.MeModel
 import com.teamx.equiz.data.models.modelUploadImages.ModelUploadImage
+import com.teamx.equiz.data.models.uploadImgDoc.UploadImgDoc
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.data.remote.reporitory.MainRepository
 import com.teamx.equiz.utils.NetworkHelper
@@ -166,8 +167,8 @@ class EditProfileViewModel @Inject constructor(
 
 
 
- private val _uploadDocImgResponse = MutableLiveData<Resource<ModelUploadImage>>()
-    val uploadDocImgResponse: LiveData<Resource<ModelUploadImage>>
+ private val _uploadDocImgResponse = MutableLiveData<Resource<UploadImgDoc>>()
+    val uploadDocImgResponse: LiveData<Resource<UploadImgDoc>>
         get() = _uploadDocImgResponse
 
     fun uploadDocImg(imageParts: List<MultipartBody.Part>) {

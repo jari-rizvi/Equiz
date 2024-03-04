@@ -37,6 +37,7 @@ import com.teamx.equiz.data.models.staticsData.StaticsData
 import com.teamx.equiz.data.models.sucessData.SuccessData
 import com.teamx.equiz.data.models.sucessData.gamesuccess.GameObj
 import com.teamx.equiz.data.models.topWinnerData.TopWinnerData
+import com.teamx.equiz.data.models.uploadImgDoc.UploadImgDoc
 import com.teamx.equiz.data.models.wishlistdata.WishlistData
 import com.teamx.equiz.ui.fragments.Auth.datanotify.DataFCMModel
 import com.teamx.equiz.ui.fragments.address.dataclasses.AddressOrderCreate
@@ -276,7 +277,7 @@ interface ApiService {
     suspend fun uploadDocImg(
         @Part images: List<MultipartBody.Part>,
         @Header("token") basicCredentials: String = "$TOKENER"
-    ): Response<ModelUploadImage>
+    ): Response<UploadImgDoc>
 
     @POST(NetworkCallPoints.OTP_VERIFY)
     suspend fun otpVerify(

@@ -63,7 +63,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
     private lateinit var userName: String
     private lateinit var userEmail: String
     private var progress by Delegates.notNull<Int>()
-    private  var imgDocUrl = ""
+    private var imgDocUrl = ""
     private lateinit var userPhone: String
     lateinit var userId: String
     var linkInsta = ""
@@ -176,6 +176,24 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                                 .load(data.user.image)
                                 .error(R.drawable.baseline_person)
                                 .into(mViewDataBinding.profilePicture)
+
+
+//                                    Picasso.get().load(product.quizId.icon.toString()).into(mViewDataBinding.profilePicture)
+
+
+                            if(data.user.identification.isNotEmpty()){
+                                mViewDataBinding.doccx.visibility = View.GONE
+                                mViewDataBinding.imgDoc.visibility = View.VISIBLE
+                            }
+                            else{
+                                mViewDataBinding.doccx.visibility = View.VISIBLE
+                                mViewDataBinding.imgDoc.visibility = View.GONE
+                            }
+
+                            Glide.with(mViewDataBinding.imgDoc.context)
+                                .load(data.user.identification)
+                                .error(R.drawable.baseline_person)
+                                .into(mViewDataBinding.imgDoc)
 
 
                             imageUrl = data.user.image
@@ -395,12 +413,12 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                 Resource.Status.SUCCESS -> {
                     loadingDialog.dismiss()
                     it.data?.let { data ->
-                        imgDocUrl = data.image
+                        imgDocUrl = data.data[0]
+
+                        Log.d("TAG", "imgDocUrl: $imgDocUrl")
+
                         try {
                             Glide.with(mViewDataBinding.imgDoc.context).load(imgDocUrl)
-                                .into(mViewDataBinding.imgDoc)
-
-                            Picasso.get().load(imgDocUrl)
                                 .into(mViewDataBinding.imgDoc)
 
 

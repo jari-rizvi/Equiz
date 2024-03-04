@@ -243,8 +243,10 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
         }
         mViewDataBinding.btneccomernce.setOnClickListener {
 
+//            findNavController().navigate(R.id.ecommerceFragment, arguments, options)
             findNavController().navigate(R.id.ecommerceFragment, arguments, options)
         }
+
         mViewDataBinding.btnHome.setOnClickListener {
             findNavController().navigate(R.id.dashboardFragment, arguments, options)
         }
