@@ -25,6 +25,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.gson.Gson
 import com.google.gson.JsonObject
+import com.hbb20.CountryCodePicker
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
@@ -48,7 +49,8 @@ import java.io.IOException
 import java.util.Locale
 
 @AndroidEntryPoint
-class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>() {
+class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>(),
+    CountryCodePicker.OnCountryChangeListener {
 
     override val layoutId: Int
         get() = R.layout.fragment_address
@@ -56,12 +58,10 @@ class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>()
         get() = AddressViewModel::class.java
     override val bindingVariable: Int
         get() = BR.viewModel
-    private lateinit var googleMap: GoogleMap
-    private var isMapBeingDragged = true
-    private lateinit var bottomSheetAddSearchFragment: BottomSheetAddressFragment
     private lateinit var options: NavOptions
-    private var myJob: Job? = null
     lateinit var addressId: String
+    private var countryName = "United Arab Emirates"
+    private var ccp: CountryCodePicker? = null
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -92,54 +92,64 @@ class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>()
 
         mViewModel.addresById(addressId)
 
-            mViewModel.addresByIdResponse.observe(requireActivity()) {
-                when (it.status) {
-                    Resource.Status.LOADING -> {
-                        loadingDialog.show()
-                    }
+        mViewModel.addresByIdResponse.observe(requireActivity()) {
+            when (it.status) {
+                Resource.Status.LOADING -> {
+                    loadingDialog.show()
+                }
 
-                    Resource.Status.NOTVERIFY -> {
-                        loadingDialog.dismiss()
-                    }
+                Resource.Status.NOTVERIFY -> {
+                    loadingDialog.dismiss()
+                }
 
-                    Resource.Status.SUCCESS -> {
-                        loadingDialog.dismiss()
-                        it.data?.let { data ->
-                            try {
-                                mViewDataBinding.editAddress1.setText(data.data.address)
-                                mViewDataBinding.etLabel.setText(data.data.label)
-                                mViewDataBinding.etPhone.setText(data.data.phoneNumber)
+                Resource.Status.SUCCESS -> {
+                    loadingDialog.dismiss()
+                    it.data?.let { data ->
+                        try {
+                            mViewDataBinding.editAddress1.setText(data.data.address)
+                            mViewDataBinding.etLabel.setText(data.data.label)
+                            mViewDataBinding.etPhone.setText(data.data.phoneNumber)
+                            mViewDataBinding.editAddressCity.setText(data.data.city)
+                            mViewDataBinding.countryCode.setDefaultCountryUsingNameCode(data.data.country)
 
-                                Log.d("TAG", "onViewCrea121212ted: ${data.data.address}")
-                            }
-                            catch (e:Exception){}
-
-
+                            Log.d("TAG", "onViewCrea121212ted: ${data.data.address}")
+                        } catch (e: Exception) {
                         }
-                    }
 
-                    Resource.Status.AUTH -> {
-                        loadingDialog.dismiss()
-                        onToSignUpPage()
-                    }
 
-                    Resource.Status.ERROR -> {
-                        loadingDialog.dismiss()
-                        DialogHelperClass.errorDialog(
-                            requireContext(),
-                            it.message!!
-                        )
                     }
                 }
-                if (isAdded) {
-                    mViewModel.addresByIdResponse.removeObservers(
-                        viewLifecycleOwner
+
+                Resource.Status.AUTH -> {
+                    loadingDialog.dismiss()
+                    onToSignUpPage()
+                }
+
+                Resource.Status.ERROR -> {
+                    loadingDialog.dismiss()
+                    DialogHelperClass.errorDialog(
+                        requireContext(),
+                        it.message!!
                     )
                 }
+            }
+            if (isAdded) {
+                mViewModel.addresByIdResponse.removeObservers(
+                    viewLifecycleOwner
+                )
+            }
 
         }
 
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
+
+        ccp = mViewDataBinding.countryCode
+        ccp!!.setOnCountryChangeListener(this)
+
+
+        mViewDataBinding.countryCode.setOnClickListener {
+
+        }
 
 //        bottomSheetAddSearchFragment = BottomSheetAddressFragment()
 //        bottomSheetAddSearchFragment.setBottomSheetListener(this)
@@ -152,12 +162,12 @@ class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>()
 
         mViewDataBinding.editAddress1.setOnClickListener {
 
-          /*  if (!bottomSheetAddSearchFragment.isAdded) {
-                bottomSheetAddSearchFragment.show(
-                    parentFragmentManager,
-                    bottomSheetAddSearchFragment.tag
-                )
-            }*/
+            /*  if (!bottomSheetAddSearchFragment.isAdded) {
+                  bottomSheetAddSearchFragment.show(
+                      parentFragmentManager,
+                      bottomSheetAddSearchFragment.tag
+                  )
+              }*/
         }
 //        mViewDataBinding.btnProceed.setOnClickListener {
 //
@@ -273,14 +283,18 @@ class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>()
         val label = mViewDataBinding.etLabel.text.toString()
         val address = mViewDataBinding.editAddress1.text.toString()
         val phoneNumber = mViewDataBinding.etPhone.text.toString()
+        val city = mViewDataBinding.editAddressCity.text.toString()
+        val country = countryName
 
 
-        if (!label!!.isEmpty() || !address!!.isEmpty() || !phoneNumber!!.isEmpty()) {
+        if (!label!!.isEmpty() || !address!!.isEmpty() || !phoneNumber!!.isEmpty() || !city!!.isEmpty() || !country!!.isEmpty()) {
 
             val addressses = Address2(
                 label = label,
                 address = address,
-                phoneNumber = phoneNumber
+                phoneNumber = phoneNumber,
+                city = city,
+                country = countryName.toString()
             )
             Log.d("TAG", "labellabellabel: $label")
             val params = JsonObject()
@@ -355,6 +369,12 @@ class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>()
             }
             return false
         }
+        if (mViewDataBinding.editAddressCity.text.toString().trim().isEmpty()) {
+            if (isAdded) {
+                mViewDataBinding.root.snackbar(getString(R.string.enter_city))
+            }
+            return false
+        }
 
         var phoneNumber: String = mViewDataBinding.etPhone.getText().toString().trim()
 
@@ -363,7 +383,7 @@ class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>()
             phoneNumber = " +" + phoneNumber.substring(1);
 
 
-            mViewDataBinding.root.snackbar(getString(R.string.start_with_plus)+phoneNumber)
+            mViewDataBinding.root.snackbar(getString(R.string.start_with_plus) + phoneNumber)
 
             return false
         }
@@ -455,7 +475,6 @@ class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>()
 //    }
 
 
-
 //    override fun onMapReady(p0: GoogleMap) {
 //        googleMap = p0
 //
@@ -498,22 +517,10 @@ class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>()
 //    }
 
     private var addressLabel = "Home"
+    override fun onCountrySelected() {
+        countryName = ccp!!.selectedCountryName
 
-//    override fun onBottomSheetDataReceived(data: String, latLng: LatLng) {
-//        isMapBeingDragged = false
-//
-//        updateUi(data, "", "", "", addressLabel)
-//        bottomSheetAddSearchFragment.dismiss()
-//
-//        latLngFinal = latLng
-//
-////        googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng), 1000, null)
-//
-////        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17f))
-//
-//        Log.e("requestLocation", "data, $data")
-//        Log.e("requestLocation", "latLng, $latLng")
-//    }
+    }
 
 
 }

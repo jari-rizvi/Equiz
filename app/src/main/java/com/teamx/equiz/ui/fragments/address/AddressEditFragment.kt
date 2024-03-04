@@ -24,6 +24,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.gson.Gson
 import com.google.gson.JsonObject
+import com.hbb20.CountryCodePicker
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
@@ -48,7 +49,7 @@ import java.io.IOException
 import java.util.Locale
 
 @AndroidEntryPoint
-class   AddressEditFragment : BaseFragment<FragmentEditAddressBinding, AddressViewModel>(),
+class   AddressEditFragment : BaseFragment<FragmentEditAddressBinding, AddressViewModel>(),CountryCodePicker.OnCountryChangeListener,
     BottomSheetListener {
 
     override val layoutId: Int
@@ -63,7 +64,8 @@ class   AddressEditFragment : BaseFragment<FragmentEditAddressBinding, AddressVi
     private lateinit var options: NavOptions
     private var myJob: Job? = null
     lateinit var addressId: String
-
+    private var countryName = "United Arab Emirates"
+    private var ccp: CountryCodePicker? = null
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -109,6 +111,8 @@ class   AddressEditFragment : BaseFragment<FragmentEditAddressBinding, AddressVi
                                 mViewDataBinding.editAddress1.setText(data.data.address)
                                 mViewDataBinding.etLabel.setText(data.data.label)
                                 mViewDataBinding.etPhone.setText(data.data.phoneNumber)
+                                mViewDataBinding.editAddressCity.setText(data.data.city)
+                                mViewDataBinding.countryCode.setDefaultCountryUsingNameCode(data.data.country)
 
                                 Log.d("TAG", "onViewCrea121212ted: ${data.data.address}")
                             }
@@ -390,6 +394,10 @@ class   AddressEditFragment : BaseFragment<FragmentEditAddressBinding, AddressVi
 
         Log.e("requestLocation", "data, $data")
         Log.e("requestLocation", "latLng, $latLng")
+    }
+
+    override fun onCountrySelected() {
+        countryName = ccp!!.selectedCountryName
     }
 
 

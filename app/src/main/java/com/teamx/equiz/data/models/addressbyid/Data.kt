@@ -6,5 +6,7 @@ data class Data(
     val _id: String,
     val address: String,
     val label: String,
-    val phoneNumber: String
+    val phoneNumber: String,
+    val city: String,
+    val country: String
 )

@@ -374,5 +374,7 @@ class AddressesClass : ArrayList<Address2>()
 open class Address2(
     open val label: String,
     open val address: String,
-    open val phoneNumber: String
+    open val phoneNumber: String,
+    open val city: String,
+    open val country: String
 )

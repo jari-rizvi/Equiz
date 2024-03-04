@@ -4,27 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools">
 
 
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorAccent_indeed">
 
 
-
         <ImageView
             android:id="@+id/btnback"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:tint="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.05"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.05"
-            app:srcCompat="@drawable/arrow_left" />
+            app:srcCompat="@drawable/arrow_left"
+            app:tint="@color/black" />
 
         <TextView
             android:id="@+id/textView"
@@ -43,7 +40,6 @@
             app:layout_constraintVertical_bias="0.05" />
 
 
-
         <EditText
             android:id="@+id/editAddress1"
             android:layout_width="0dp"
@@ -52,10 +48,10 @@
             android:background="@drawable/contact_input_background"
             android:marqueeRepeatLimit="marquee_forever"
             android:minHeight="@dimen/_35sdp"
-            android:paddingEnd="@dimen/_30sdp"
-            android:textAlignment="viewStart"
             android:paddingStart="@dimen/_10sdp"
+            android:paddingEnd="@dimen/_30sdp"
             android:singleLine="true"
+            android:textAlignment="viewStart"
             android:textColor="#666666"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/etLabel"
@@ -64,16 +60,6 @@
             app:layout_constraintTop_toBottomOf="@+id/Address"
             app:layout_constraintVertical_bias="0" />
 
-        <ImageView
-            android:id="@+id/imgLocation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@+id/editAddress1"
-            android:layout_marginEnd="@dimen/_5sdp"
-            app:layout_constraintBottom_toBottomOf="@+id/editAddress1"
-            app:layout_constraintEnd_toEndOf="@+id/editAddress1"
-            android:src="@drawable/baseline_my_location"/>
-
 
         <TextView
             android:id="@+id/Address"
@@ -81,14 +67,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:text="@string/address"
             android:textColor="@color/black"
             android:textSize="@dimen/_10ssp"
-            android:layout_marginTop="@dimen/_10sdp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etPhone" />
+            app:layout_constraintTop_toBottomOf="@+id/editAddressCity" />
 
 
         <TextView
@@ -113,8 +99,8 @@
             android:layout_height="@dimen/_30sdp"
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_5sdp"
-            android:editable="false"
             android:background="@drawable/contact_input_background"
+            android:editable="false"
             android:minHeight="@dimen/_35sdp"
             android:paddingStart="@dimen/_10sdp"
             android:singleLine="true"
@@ -154,13 +140,13 @@
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:background="@drawable/contact_input_background"
-            android:inputType="phone"
-            android:minHeight="@dimen/_35sdp"
-            android:text=""
-            android:maxLength="17"
             android:hint="+971 ********"
+            android:inputType="phone"
+            android:maxLength="17"
+            android:minHeight="@dimen/_35sdp"
             android:paddingStart="@dimen/_10sdp"
             android:singleLine="true"
+            android:text=""
             android:textAlignment="viewStart"
             android:textColor="#666666"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -187,6 +173,101 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editAddress1" />
+
+
+        <TextView
+            android:id="@+id/textView80"
+            style="@style/popins_regular"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/city"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_10ssp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/textView3877"
+            app:layout_constraintTop_toBottomOf="@+id/etPhone" />
+
+
+        <com.hbb20.CountryCodePicker
+            android:id="@+id/countryCode"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@drawable/contact_input_background"
+            android:clickable="true"
+            android:focusable="true"
+            app:ccp_arrowColor="@color/black"
+            app:ccp_defaultNameCode="AE"
+            app:ccp_showFlag="false"
+            app:ccp_showFullName="true"
+            app:ccp_showNameCode="true"
+            app:ccp_showPhoneCode="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0."
+            app:layout_constraintStart_toStartOf="@+id/textView81"
+            app:layout_constraintTop_toBottomOf="@+id/textView80"
+            app:layout_constraintVertical_bias="0" />
+
+
+        <EditText
+            android:id="@+id/editAddressCity"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@drawable/contact_input_background"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:minHeight="@dimen/_35sdp"
+            android:paddingStart="@dimen/_10sdp"
+            android:paddingEnd="@dimen/_30sdp"
+            android:singleLine="true"
+            android:textAlignment="viewStart"
+            android:textColor="#666666"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/countryCode"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="@+id/textView80"
+            app:layout_constraintTop_toBottomOf="@+id/textView80"
+            app:layout_constraintVertical_bias="0" />
+
+
+        <EditText
+            android:id="@+id/editAddressContry"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@drawable/contact_input_background"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:minHeight="@dimen/_35sdp"
+            android:paddingStart="@dimen/_10sdp"
+            android:paddingEnd="@dimen/_30sdp"
+            android:singleLine="true"
+            android:textAlignment="viewStart"
+            android:textColor="#666666"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0."
+            app:layout_constraintStart_toStartOf="@+id/textView81"
+            app:layout_constraintTop_toBottomOf="@+id/textView80"
+            app:layout_constraintVertical_bias="0" />
+
+
+        <TextView
+            android:id="@+id/textView81"
+            style="@style/popins_regular"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="wrap_content"
+            android:text="@string/country"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_10ssp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/textView80"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView80"
+            app:layout_constraintTop_toTopOf="@+id/textView80" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
