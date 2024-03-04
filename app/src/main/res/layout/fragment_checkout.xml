@@ -78,7 +78,7 @@
                 app:layout_constraintHorizontal_bias="0.05"
                 app:layout_constraintStart_toStartOf="@+id/recyclerView2"
                 app:layout_constraintTop_toBottomOf="@+id/imageView8"
-                app:layout_constraintVertical_bias="0.1"
+                app:layout_constraintVertical_bias="0"
                 app:layout_constraintVertical_chainStyle="packed" />
 
             <TextView
@@ -123,7 +123,7 @@
                 app:layout_constraintHorizontal_bias="0.8"
                 app:layout_constraintStart_toEndOf="@+id/textView18"
                 app:layout_constraintTop_toBottomOf="@+id/imageView8"
-                app:layout_constraintVertical_bias="0.1"
+                app:layout_constraintVertical_bias="0"
                 app:layout_constraintVertical_chainStyle="packed" />
 
             <TextView
@@ -220,7 +220,7 @@
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvvv"
-                app:layout_constraintVertical_bias="0.2">
+                app:layout_constraintVertical_bias="0.1">
 
                 <EditText
                     android:id="@+id/autoCompleteTextView"
@@ -242,24 +242,45 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!-- <TextView
-                 android:id="@+id/btnApply"
-                 style="@style/popins_regular"
-                 android:layout_width="@dimen/_90sdp"
-                 android:layout_height="@dimen/_35sdp"
-                 android:background="@drawable/card_background_border"
-                 android:backgroundTint="@color/theme_color"
-                 android:gravity="center"
-                 android:textColor="@color/white"
-                 android:text="@string/apply"
-                 android:textSize="@dimen/_12ssp"
-                 android:textStyle="bold"
-                 app:layout_constraintBottom_toBottomOf="@+id/constraintLayout7"
-                 app:layout_constraintEnd_toEndOf="parent"
-                 app:layout_constraintStart_toEndOf="@+id/constraintLayout7"
-                 app:layout_constraintTop_toTopOf="@+id/constraintLayout7" />-->
+
+            <FrameLayout
+                android:id="@+id/fview"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_30sdp"
+                android:background="@drawable/button_border_solid"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout7"
+                app:layout_constraintVertical_bias="0.1">
+
+                <Spinner
+                    android:id="@+id/spinnerr"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="@dimen/_1sdp"
+                    android:padding="@dimen/_2sdp"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </FrameLayout>
 
 
+            <TextView
+                android:id="@+id/addAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_address"
+                android:textColor="@color/theme_color"
+                android:fontFamily="@font/poppin_regular"
+                app:layout_constraintVertical_bias="0"
+                android:layout_marginTop="@dimen/_5sdp"
+                app:layout_constraintHorizontal_bias="0.95"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fview" />
             <TextView
                 android:id="@+id/btnProceed"
                 style="@style/popins_regular"
@@ -276,7 +297,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout7" />
+                app:layout_constraintTop_toBottomOf="@+id/fview" />
 
             <TextView
                 android:id="@+id/btnApply"

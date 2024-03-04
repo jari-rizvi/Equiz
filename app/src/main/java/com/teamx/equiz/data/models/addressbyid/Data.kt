@@ -8,5 +8,5 @@ data class Data(
     val label: String,
     val phoneNumber: String,
     val city: String,
-    val country: String
+    var country: String
 )

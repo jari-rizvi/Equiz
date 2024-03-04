@@ -31,7 +31,13 @@
         <item name="android:fontFamily">@font/poppins_bold</item>
     </style>
 
+    <style name="spinnerItemStyle" parent="android:Widget.TextView.SpinnerItem">
 
+    </style>
+
+    <style name="spinnerDropDownItemStyle" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
+
+    </style>
 
     <color  name="gradient_color_dash">
         <gradient

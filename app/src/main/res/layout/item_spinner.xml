@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<data>
+
+</data>
+
+    <TextView
+        android:id="@android:id/text1"
+        style="@style/spinnerItemStyle"
+        android:maxLines="1"
+        android:text=""
+        android:paddingHorizontal="@dimen/_4sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="marquee" />
+
+</layout>

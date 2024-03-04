@@ -110,7 +110,8 @@ class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>()
                             mViewDataBinding.etLabel.setText(data.data.label)
                             mViewDataBinding.etPhone.setText(data.data.phoneNumber)
                             mViewDataBinding.editAddressCity.setText(data.data.city)
-                            mViewDataBinding.countryCode.setDefaultCountryUsingNameCode(data.data.country)
+                            mViewDataBinding.countryCode.setCountryForNameCode(data.data.country)
+
 
                             Log.d("TAG", "onViewCrea121212ted: ${data.data.address}")
                         } catch (e: Exception) {
@@ -147,9 +148,6 @@ class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>()
         ccp!!.setOnCountryChangeListener(this)
 
 
-        mViewDataBinding.countryCode.setOnClickListener {
-
-        }
 
 //        bottomSheetAddSearchFragment = BottomSheetAddressFragment()
 //        bottomSheetAddSearchFragment.setBottomSheetListener(this)

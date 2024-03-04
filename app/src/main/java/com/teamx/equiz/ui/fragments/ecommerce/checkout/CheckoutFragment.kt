@@ -2,8 +2,10 @@ package com.teamx.equiz.ui.fragments.ecommerce.checkout
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import android.view.WindowManager
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.activity.addCallback
 import androidx.lifecycle.Observer
 import androidx.navigation.NavOptions
@@ -11,12 +13,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
+import com.teamx.equiz.data.models.getorderData.ShippingInfo2
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentCheckoutBinding
+import com.teamx.equiz.ui.fragments.address.adapter.AddressesListAdapter
+import com.teamx.equiz.ui.fragments.address.dataclasses.getAddressList.Data
 import com.teamx.equiz.utils.DialogHelperClass
 import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,9 +42,17 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
     private lateinit var options: NavOptions
     var cartAdapter: CartAdapter? = null
 
+    var addressArrayList: ArrayList<Data> = ArrayList()
+
     lateinit var cartArrayList2: ArrayList<com.teamx.equiz.data.models.getcart.Data>
+    lateinit var adapter: ArrayAdapter<String>
+
     var totalPrice = 0.0
     var subTotal = 0.0
+    lateinit var selectAddress: String
+    private var singleAddress: Data? = null
+
+    lateinit var items: ArrayList<String>
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
@@ -54,21 +68,123 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+
+
+        mViewDataBinding.addAddress.setOnClickListener {
+            findNavController().navigate(
+                R.id.addressListFragment, arguments, options
+            )
+        }
+
+        items = ArrayList()
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
 
 
+        mViewModel.getAddressList()
+
+        if (!mViewModel.addressList.hasActiveObservers()) {
+            mViewModel.addressList.observe(requireActivity(), Observer {
+                when (it.status) {
+                    Resource.Status.LOADING -> {
+                    }
+
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
+                    }
+
+                    Resource.Status.SUCCESS -> {
+                        loadingDialog.dismiss()
+                        it.data?.let { data ->
 
 
+                            data.data.forEach {
+
+                                Log.d("TAG", "dataaaa: $it")
+                                addressArrayList.add(it)
+                            }
+
+                            addressArrayList.forEach {
+
+                                items.add(it.label)
+                                Log.d("TAG", "dataaaa: $it")
+                            }
+                            adapter.notifyDataSetChanged()
+//                            addressAdapter.notifyDataSetChanged()
+
+                        }
+                    }
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+                        onToSignUpPage()
+                    }
+
+                    Resource.Status.ERROR -> {
+                        DialogHelperClass.errorDialog(requireContext(), it.message!!)
+                    }
+                }
+                if (isAdded) {
+                    mViewModel.addressList.removeObservers(viewLifecycleOwner)
+                }
+            })
+        }
+
+
+        val spinner = mViewDataBinding.spinnerr
+        try {
+
+//            items = arrayOf(addressArrayList)
+
+            Log.d("TAG", "dataaaa: $items")
+            Log.d("TAG", "dataaaa: ${addressArrayList.size}")
+
+            adapter = ArrayAdapter(requireContext(), R.layout.item_spinner, items)
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinner.adapter = adapter
+
+
+        } catch (e: Exception) {
+
+        }
+
+
+        try {
+            spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>, view: View, position: Int, id: Long
+                ) {
+//                     selectAddress = parent.getItemAtPosition(position) as String
+
+                    addressArrayList.forEach {
+                        it.value = false
+                    }
+
+                    addressArrayList[position].value = true
+
+                    singleAddress = addressArrayList.get(position)
+
+
+                    adapter.notifyDataSetChanged()
+
+
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {
+
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
 
         mViewDataBinding.btnApply.setOnClickListener {
 
             val code = mViewDataBinding.autoCompleteTextView.text.toString()
 
-            if(code.isEmpty()){
+            if (code.isEmpty()) {
                 mViewDataBinding.root.snackbar("Please Enter Coupon Code")
-            }
-            else{
+            } else {
                 mViewModel.applyCoupon(code)
             }
 
@@ -100,7 +216,6 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
                                         mViewDataBinding.date.text = ""
                                         mViewDataBinding.orderno.text =
                                             "${data.data[0].totalPoint.toString()} Points"
-
 
 
                                     } catch (e: Exception) {
@@ -223,8 +338,100 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
                 }
                 bundle.putString("couponCode", coupon)
 
+                val label = singleAddress?.label ?: ""
+                val etPhone = singleAddress?.phoneNumber ?: ""
+                val address = singleAddress?.address ?: ""
 
-                findNavController().navigate(R.id.addressListCheckoutFragment, bundle, options)
+                val params = JsonObject()
+                try {
+                    params.add(
+                        "shippingInfo", Gson().toJsonTree(
+                            ShippingInfo2(
+                                address = address, phoneNumber = etPhone, label = label
+                            )
+                        )
+                    )
+
+                    if (coupon.isNotEmpty()) {
+                        params.addProperty("couponCode", coupon)
+                    }
+
+
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+                if (address.isNullOrEmpty()) {
+                    showToast("Please add Address")
+                } else {
+                    if (etPhone.isNotEmpty() && address.isNotEmpty()) {
+
+                        mViewModel.createOrder(params)
+                    } else {
+                        showToast("Please add Details")
+                    }
+                }
+
+
+                if (!mViewModel.createOrderResponse.hasActiveObservers()) {
+                    mViewModel.createOrderResponse.observe(requireActivity()) {
+                        when (it.status) {
+                            Resource.Status.LOADING -> {
+                                loadingDialog.show()
+                            }
+
+                            Resource.Status.NOTVERIFY -> {
+                                loadingDialog.dismiss()
+                            }
+
+                            Resource.Status.SUCCESS -> {
+                                loadingDialog.dismiss()
+                                it.data?.let { data ->
+
+                                    var bundle = arguments
+                                    if (bundle == null) {
+                                        bundle = Bundle()
+                                    }
+                                    bundle!!.putString("order_id", data.data._id)
+                                    bundle!!.putString("points", data.data.totalPoints.toString())
+
+                                    Log.d("TAG", "onViewCreated2222222: ${data.data.totalPoints}")
+
+
+                                    findNavController().navigate(
+                                        R.id.paymentMethodsFragment, bundle, options
+                                    )
+                                }
+                            }
+
+
+                            Resource.Status.AUTH -> {
+                                loadingDialog.dismiss()
+                                if (isAdded) {
+                                    try {
+                                        onToSignUpPage()
+                                    } catch (e: Exception) {
+                                        e.printStackTrace()
+                                    }
+                                }
+                            }
+
+                            Resource.Status.ERROR -> {
+                                loadingDialog.dismiss()
+                                DialogHelperClass.errorDialog(
+                                    requireContext(), it.message!!
+                                )
+                            }
+                        }
+                        if (isAdded) {
+                            mViewModel.createOrderResponse.removeObservers(
+                                viewLifecycleOwner
+                            )
+                        }
+                    }
+                }
+
+
+//                findNavController().navigate(R.id.addressListCheckoutFragment, bundle, options)
             } else {
                 showToast("Cart is Empty")
             }
