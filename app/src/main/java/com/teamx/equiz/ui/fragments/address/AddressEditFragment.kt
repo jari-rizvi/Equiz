@@ -145,7 +145,6 @@ class   AddressEditFragment : BaseFragment<FragmentEditAddressBinding, AddressVi
         countryName = ccp!!.selectedCountryName
         Log.d("TAG", "onCountrySelected: ${ccp!!.selectedCountryName}")
 
-
     }
 
     fun ApiCall() {
@@ -156,8 +155,6 @@ class   AddressEditFragment : BaseFragment<FragmentEditAddressBinding, AddressVi
 
 
         if (!address!!.isEmpty() || !phoneNumber!!.isEmpty()) {
-
-
             val params = JsonObject()
             try {
                 params.addProperty("address", address)

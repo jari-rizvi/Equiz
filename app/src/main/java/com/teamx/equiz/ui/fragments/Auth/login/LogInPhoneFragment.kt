@@ -11,6 +11,10 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricPrompt
+import androidx.core.app.ActivityCompat.shouldShowRequestPermissionRationale
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
@@ -67,8 +71,6 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
 
-
-
         mViewModel.viewModelScope.launch(Dispatchers.IO) {
             addClientCountry()
         }
@@ -81,6 +83,13 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+
+       /* if (isBiometricSupported()) {
+            showBiometricPrompt()
+        } else {
+            // Handle the case when biometric authentication is not supported
+
+        }*/
 
         FirebaseApp.initializeApp(requireContext())
         Firebase.initialize(requireContext())
@@ -112,6 +121,7 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
         }
 
         askNotificationPermission()
+//        isBiometricSupported()
     }
 
     private fun initialization() {
@@ -247,6 +257,9 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
 
 
         ApiCall()
+
+
+
         return true
     }
 
@@ -365,4 +378,66 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
        }
        }
     }
+
+
+    private fun showBiometricPrompt() {
+        val promptInfo = BiometricPrompt.PromptInfo.Builder()
+            .setTitle("Biometric Authentication")
+            .setSubtitle("Log in using your biometric credential")
+            .setNegativeButtonText("Cancel")
+            .build()
+
+        val biometricPrompt = BiometricPrompt(this@LogInPhoneFragment, ContextCompat.getMainExecutor(requireContext()),
+            object : BiometricPrompt.AuthenticationCallback() {
+                override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+                    super.onAuthenticationError(errorCode, errString)
+                    // Handle authentication error
+                    showMessage("Authentication error: $errString")
+                }
+
+                override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                    super.onAuthenticationSucceeded(result)
+                    ApiCall()
+
+                    // Handle authentication success
+                    showMessage("Authentication succeeded!")
+                }
+
+                override fun onAuthenticationFailed() {
+                    super.onAuthenticationFailed()
+                    // Handle authentication failure
+                    showMessage("Authentication failed.")
+                }
+            })
+
+        biometricPrompt.authenticate(promptInfo)
+    }
+
+
+    private fun showMessage(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
+
+    private fun isBiometricSupported(): Boolean {
+        val biometricManager = BiometricManager.from(requireContext())
+        val canAuthenticate = biometricManager.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_WEAK)
+        when (canAuthenticate) {
+            BiometricManager.BIOMETRIC_SUCCESS -> {
+                // The user can authenticate with biometrics, continue with the authentication process
+                return true
+            }
+
+            BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE, BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE, BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> {
+                // Handle the error cases as needed in your app
+                return false
+            }
+
+            else -> {
+                // Biometric status unknown or another error occurred
+                return false
+            }
+        }
+    }
+
 }
