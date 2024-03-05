@@ -191,6 +191,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_110sdp"
                     android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginHorizontal="@dimen/_35sdp"
                     android:background="@drawable/card_background"
                     android:backgroundTint="#80FFFFFF"

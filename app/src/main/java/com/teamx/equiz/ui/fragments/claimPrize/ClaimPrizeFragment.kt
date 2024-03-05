@@ -58,7 +58,7 @@ class ClaimPrizeFragment : BaseFragment<FragmentClaimprizeBinding, ClaimPrizeVie
     var resValue = 300
     var raffleId = ""
     var resType = ""
-    lateinit var scratchcard_type : String
+    lateinit var scratchcard_type: String
     var selectedRaffleId = ""
 
     lateinit var claimPrizeModel: ClaimPrizeModel
@@ -143,7 +143,11 @@ class ClaimPrizeFragment : BaseFragment<FragmentClaimprizeBinding, ClaimPrizeVie
                             prizeId = data.prizeObj.prizeId ?: ""
                             resValue = data.prizeObj.value ?: 300
                             raffleId = data.prizeObj.raffleId ?: ""
-                            scratchcard_type = data.prizeObj.scratchcard_type!!
+
+                            if (data.prizeObj.scratchcard_type != null){
+
+                            scratchcard_type = data.prizeObj.scratchcard_type
+                            }
 
 
 
@@ -202,6 +206,7 @@ class ClaimPrizeFragment : BaseFragment<FragmentClaimprizeBinding, ClaimPrizeVie
                                     mViewDataBinding.view2.visibility = View.GONE
                                     mViewDataBinding.view1.visibility = View.GONE
                                     mViewDataBinding.layoutSocials.visibility = View.VISIBLE
+                                    mViewDataBinding.btnLogin.visibility = View.GONE
                                     CoroutineScope(Dispatchers.Main).launch {
 //                                        for (i in 0..10) {
 //                                            delay(300)
@@ -217,6 +222,7 @@ class ClaimPrizeFragment : BaseFragment<FragmentClaimprizeBinding, ClaimPrizeVie
 
                                 "scratchcard" -> {
                                     mViewDataBinding.layoutMainScratched.visibility = View.VISIBLE
+                                    mViewDataBinding.btnLogin.visibility = View.GONE
 //                                    mViewDataBinding.userChoice.visibility = View.GONE
 //                                    scratchViewInit(winnerid)
                                     Glide.with(MainApplication.context).load(data.prizeObj.image)
@@ -430,12 +436,32 @@ class ClaimPrizeFragment : BaseFragment<FragmentClaimprizeBinding, ClaimPrizeVie
             if (mViewDataBinding.radioChances.isChecked) {
                 params.add(
                     "prizeObj",
-                    Gson().toJsonTree(PrizeObj(nextRaffles, prizeId, raffleId,resType,resValue,winnerId,scratchcard_type))
+                    Gson().toJsonTree(
+                        PrizeObj(
+                            nextRaffles,
+                            prizeId,
+                            raffleId,
+                            resType,
+                            resValue,
+                            winnerId,
+                            scratchcard_type
+                        )
+                    )
                 )
-            }else{
+            } else {
                 params.add(
                     "prizeObj",
-                    Gson().toJsonTree(PrizeObj(null, prizeId, raffleId,resType,resValue,winnerId,scratchcard_type))
+                    Gson().toJsonTree(
+                        PrizeObj(
+                            null,
+                            prizeId,
+                            raffleId,
+                            resType,
+                            resValue,
+                            winnerId,
+                            scratchcard_type
+                        )
+                    )
                 )
             }
 
