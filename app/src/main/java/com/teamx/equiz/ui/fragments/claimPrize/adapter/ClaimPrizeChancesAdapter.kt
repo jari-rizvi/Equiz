@@ -1,5 +1,6 @@
 package com.teamx.equiz.ui.fragments.claimPrize.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -8,7 +9,7 @@ import com.teamx.equiz.ui.fragments.claimPrize.model.Raffle
 
 class ClaimPrizeChancesAdapter(
     private val quizArrayList: ArrayList<Raffle>,
-    val claimPrizeInterface: ClaimPrizeInterface
+    private val claimPrizeInterface: ClaimPrizeInterface
 ) :
     RecyclerView.Adapter<ClaimPrizeChancesAdapterAdapterViewHolder>() {
 
@@ -35,11 +36,13 @@ class ClaimPrizeChancesAdapter(
 
 
 
-        holder.itemView.setOnClickListener {
+        holder.bind.textView2754.setOnClickListener {
 //            holder.bind.textView2754.isChecked = true
+            holder.bind.textView2754.isChecked = false
             claimPrizeInterface.claimPrize(position)
         }
-        holder.bind.textView2754.isChecked = claimPrizeModel.isSelected
+        Log.d("winneriddsdsd", "isSelected: ${claimPrizeModel.isSelected}")
+        holder.bind.textView2754.isChecked = claimPrizeModel.isSelected?:false
 
     }
 

@@ -14,6 +14,7 @@ import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.anupkumarpanwar.scratchview.ScratchView
 import com.bumptech.glide.Glide
+import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.stripe.android.Stripe
 import com.teamx.equiz.BR
@@ -26,6 +27,9 @@ import com.teamx.equiz.ui.fragments.claimPrize.adapter.ClaimPrizeChancesAdapter
 import com.teamx.equiz.ui.fragments.claimPrize.adapter.ClaimPrizeInterface
 import com.teamx.equiz.ui.fragments.claimPrize.model.ClaimPrizeModel
 import com.teamx.equiz.ui.fragments.claimPrize.model.Raffle
+import com.teamx.equiz.ui.fragments.claimPrize.putmodel.HitClaimedModel
+import com.teamx.equiz.ui.fragments.claimPrize.putmodel.NextRaffles
+import com.teamx.equiz.ui.fragments.claimPrize.putmodel.PrizeObj
 import com.teamx.equiz.utils.DialogHelperClass
 import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -54,6 +58,7 @@ class ClaimPrizeFragment : BaseFragment<FragmentClaimprizeBinding, ClaimPrizeVie
     var resValue = 300
     var raffleId = ""
     var resType = ""
+    lateinit var scratchcard_type : String
     var selectedRaffleId = ""
 
     lateinit var claimPrizeModel: ClaimPrizeModel
@@ -138,6 +143,7 @@ class ClaimPrizeFragment : BaseFragment<FragmentClaimprizeBinding, ClaimPrizeVie
                             prizeId = data.prizeObj.prizeId ?: ""
                             resValue = data.prizeObj.value ?: 300
                             raffleId = data.prizeObj.raffleId ?: ""
+                            scratchcard_type = data.prizeObj.scratchcard_type!!
 
 
 
@@ -150,15 +156,15 @@ class ClaimPrizeFragment : BaseFragment<FragmentClaimprizeBinding, ClaimPrizeVie
                                     mViewDataBinding.view1.visibility = View.GONE
 
                                     CoroutineScope(Dispatchers.Main).launch {
-                                        for (i in 0..10) {
-                                            delay(300)
-                                            claimPrizeArrayList.add(claimPrizeModel.prizeObj.raffles!![0])
-                                            claimPrizeChancesAdapter.notifyItemInserted(i)
-                                        }
-//                                        data.prizeObj.raffles?.forEachIndexed { index, raffle ->
-//                                            claimPrizeArrayList.add(raffle)
-//                                            claimPrizeChancesAdapter.notifyItemInserted(index)
+//                                        for (i in 0..10) {
+//                                            delay(300)
+//                                            claimPrizeArrayList.add(claimPrizeModel.prizeObj.raffles!![0])
+//                                            claimPrizeChancesAdapter.notifyItemInserted(i)
 //                                        }
+                                        data.prizeObj.raffles?.forEachIndexed { index, raffle ->
+                                            claimPrizeArrayList.add(raffle)
+                                            claimPrizeChancesAdapter.notifyItemInserted(index)
+                                        }
                                     }
                                 }
 
@@ -196,12 +202,25 @@ class ClaimPrizeFragment : BaseFragment<FragmentClaimprizeBinding, ClaimPrizeVie
                                     mViewDataBinding.view2.visibility = View.GONE
                                     mViewDataBinding.view1.visibility = View.GONE
                                     mViewDataBinding.layoutSocials.visibility = View.VISIBLE
+                                    CoroutineScope(Dispatchers.Main).launch {
+//                                        for (i in 0..10) {
+//                                            delay(300)
+//                                            claimPrizeArrayList.add(claimPrizeModel.prizeObj.raffles!![0])
+//                                            claimPrizeChancesAdapter.notifyItemInserted(i)
+//                                        }
+                                        data.prizeObj.raffles?.forEachIndexed { index, raffle ->
+                                            claimPrizeArrayList.add(raffle)
+                                            claimPrizeChancesAdapter.notifyItemInserted(index)
+                                        }
+                                    }
                                 }
 
                                 "scratchcard" -> {
                                     mViewDataBinding.layoutMainScratched.visibility = View.VISIBLE
 //                                    mViewDataBinding.userChoice.visibility = View.GONE
-                                    scratchViewInit(winnerid)
+//                                    scratchViewInit(winnerid)
+                                    Glide.with(MainApplication.context).load(data.prizeObj.image)
+                                        .into(mViewDataBinding.layoutScratched.hiddenImg);
                                 }
 
                                 else -> {}
@@ -245,7 +264,7 @@ class ClaimPrizeFragment : BaseFragment<FragmentClaimprizeBinding, ClaimPrizeVie
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
-
+                            findNavController().popBackStack()
                         }
                     }
 
@@ -273,6 +292,7 @@ class ClaimPrizeFragment : BaseFragment<FragmentClaimprizeBinding, ClaimPrizeVie
             mViewDataBinding.radioWallet.isChecked = false
             mViewDataBinding.radioChances.isChecked = true
             mViewDataBinding.txtDropDown.visibility = View.VISIBLE
+            mViewDataBinding.chancesRec.visibility = View.GONE
             resType = "chances"
         }
 
@@ -281,6 +301,7 @@ class ClaimPrizeFragment : BaseFragment<FragmentClaimprizeBinding, ClaimPrizeVie
             mViewDataBinding.radioWallet.isChecked = false
             mViewDataBinding.radioChances.isChecked = false
             mViewDataBinding.txtDropDown.visibility = View.GONE
+            mViewDataBinding.chancesRec.visibility = View.GONE
             resType = "items"
         }
         mViewDataBinding.radioWallet.setOnClickListener {
@@ -288,6 +309,7 @@ class ClaimPrizeFragment : BaseFragment<FragmentClaimprizeBinding, ClaimPrizeVie
             mViewDataBinding.radioWallet.isChecked = true
             mViewDataBinding.radioChances.isChecked = false
             mViewDataBinding.txtDropDown.visibility = View.GONE
+            mViewDataBinding.chancesRec.visibility = View.GONE
             resType = "wallet"
         }
 
@@ -306,48 +328,6 @@ class ClaimPrizeFragment : BaseFragment<FragmentClaimprizeBinding, ClaimPrizeVie
             submitClaim()
         }
 
-    }
-
-    private fun scratchViewInit(id: String) {
-        mViewModel.scratchimg(id)
-        if (!mViewModel.scratchimgResponse.hasActiveObservers()) {
-            mViewModel.scratchimgResponse.observe(requireActivity()) {
-                when (it.status) {
-                    Resource.Status.LOADING -> {
-                        loadingDialog.show()
-                    }
-
-                    Resource.Status.NOTVERIFY -> {
-                        loadingDialog.dismiss()
-                    }
-
-                    Resource.Status.SUCCESS -> {
-                        loadingDialog.dismiss()
-                        it.data?.let { data ->
-                            Glide.with(MainApplication.context).load(data.data.image)
-                                .into(mViewDataBinding.layoutScratched.hiddenImg);
-
-
-                        }
-                    }
-
-                    Resource.Status.AUTH -> {
-                        loadingDialog.dismiss()
-                        onToSignUpPage()
-                    }
-
-                    Resource.Status.ERROR -> {
-                        loadingDialog.dismiss()
-                        DialogHelperClass.errorDialog(
-                            requireContext(),
-                            it.message!!
-                        )
-                    }
-                }
-            }
-        }
-
-
         mViewDataBinding.layoutScratched.scratchView.setRevealListener(object :
             ScratchView.IRevealListener {
             override fun onRevealed(scratchView: ScratchView) {
@@ -356,25 +336,109 @@ class ClaimPrizeFragment : BaseFragment<FragmentClaimprizeBinding, ClaimPrizeVie
                 mViewDataBinding.layoutScratched.imgTxt2.visibility = View.GONE
                 mViewDataBinding.layoutScratched.scratchView.visibility = View.GONE
                 mViewDataBinding.layoutScratched.img2.visibility = View.VISIBLE
+                submitClaim()
             }
 
             override fun onRevealPercentChangedListener(scratchView: ScratchView, percent: Float) {
 
                 if (percent >= .8f) {
                     scratchView.reveal()
+//                    submitClaim()
+
                 }
 
             }
         })
+
     }
+
+//    private fun scratchViewInit(id: String) {
+//        mViewModel.scratchimg(id)
+//        if (!mViewModel.scratchimgResponse.hasActiveObservers()) {
+//            mViewModel.scratchimgResponse.observe(requireActivity()) {
+//                when (it.status) {
+//                    Resource.Status.LOADING -> {
+//                        loadingDialog.show()
+//                    }
+//
+//                    Resource.Status.NOTVERIFY -> {
+//                        loadingDialog.dismiss()
+//                    }
+//
+//                    Resource.Status.SUCCESS -> {
+//                        loadingDialog.dismiss()
+//                        it.data?.let { data ->
+//                            Glide.with(MainApplication.context).load(data.data.image)
+//                                .into(mViewDataBinding.layoutScratched.hiddenImg);
+//
+//
+//                        }
+//                    }
+//
+//                    Resource.Status.AUTH -> {
+//                        loadingDialog.dismiss()
+//                        onToSignUpPage()
+//                    }
+//
+//                    Resource.Status.ERROR -> {
+//                        loadingDialog.dismiss()
+//                        DialogHelperClass.errorDialog(
+//                            requireContext(),
+//                            it.message!!
+//                        )
+//                    }
+//                }
+//            }
+//        }
+//
+//
+//        mViewDataBinding.layoutScratched.scratchView.setRevealListener(object :
+//            ScratchView.IRevealListener {
+//            override fun onRevealed(scratchView: ScratchView) {
+//                Toast.makeText(requireContext(), "Revealed", Toast.LENGTH_SHORT).show()
+//                mViewDataBinding.layoutScratched.scrTxt.visibility = View.GONE
+//                mViewDataBinding.layoutScratched.imgTxt2.visibility = View.GONE
+//                mViewDataBinding.layoutScratched.scratchView.visibility = View.GONE
+//                mViewDataBinding.layoutScratched.img2.visibility = View.VISIBLE
+//                submitClaim()
+//            }
+//
+//            override fun onRevealPercentChangedListener(scratchView: ScratchView, percent: Float) {
+//
+//                if (percent >= .8f) {
+//                    scratchView.reveal()
+////                    submitClaim()
+//
+//                }
+//
+//            }
+//        })
+//    }
 
     private fun submitClaim() {
         val params = JsonObject()
         try {
-            params.addProperty("winnerId", winnerId)
-            params.addProperty("prizeId", prizeId)
-            params.addProperty("type", resType)
-            params.addProperty("value", 23)
+//            params.addProperty("winnerId", winnerId)
+//            params.addProperty("prizeId", prizeId)
+//            params.addProperty("type", resType)
+//            params.addProperty("raffleId", raffleId)
+//            params.addProperty("value", resValue)
+//            params.add(
+//                "prizeObj",
+//                Gson().toJsonTree(HitClaimedModel(PrizeObj(nextRaffles, prizeId, raffleId,resType,resValue,winnerId)))
+//            )
+            if (mViewDataBinding.radioChances.isChecked) {
+                params.add(
+                    "prizeObj",
+                    Gson().toJsonTree(PrizeObj(nextRaffles, prizeId, raffleId,resType,resValue,winnerId,scratchcard_type))
+                )
+            }else{
+                params.add(
+                    "prizeObj",
+                    Gson().toJsonTree(PrizeObj(null, prizeId, raffleId,resType,resValue,winnerId,scratchcard_type))
+                )
+            }
+
 
         } catch (e: JSONException) {
             e.printStackTrace()
@@ -384,14 +448,21 @@ class ClaimPrizeFragment : BaseFragment<FragmentClaimprizeBinding, ClaimPrizeVie
 
     }
 
+    lateinit var nextRaffles: NextRaffles
+
     override fun claimPrize(position: Int) {
         claimPrizeArrayList.forEach {
             it.isSelected = false
         }
         Log.d("winneriddsdsd", "winnerid: ${claimPrizeArrayList[position]}")
-//        claimPrizeArrayList[position].isSelected = true
+        claimPrizeArrayList[position].isSelected = true
         Log.d("winneriddsdsd", "winnerid: ${claimPrizeArrayList[position]}")
 
+        val raffle = claimPrizeArrayList[position]
+
+        nextRaffles = NextRaffles(raffle._id, raffle.name, raffle.quiz!!)
+
+//        raffle.isSelected = null
 
         claimPrizeChancesAdapter.notifyDataSetChanged()
 //        claimPrizeChancesAdapter.notifyItemChanged(position)

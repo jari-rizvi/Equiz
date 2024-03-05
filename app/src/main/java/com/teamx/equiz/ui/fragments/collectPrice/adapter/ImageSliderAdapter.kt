@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.squareup.picasso.Picasso
 import com.teamx.equiz.R
 import com.teamx.equiz.ui.fragments.collectPrice.data.WinnerData
 
@@ -23,9 +24,9 @@ class ImageSliderAdapter(private val imageList: List<WinnerData>) :
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
 
-        val it = imageList.get(position)
+        val it = imageList[position]
 
-        if (it.raffle.prize.image.isNotEmpty()) {
+        if (it.raffle?.prize?.image?.isNotEmpty() == true) {
 
             holder.bind(it.raffle.prize.image, it.raffle.prize.title, it.raffle.prize.description)
         }
@@ -47,7 +48,11 @@ class ImageSliderAdapter(private val imageList: List<WinnerData>) :
             if (imageResId.isNotEmpty()) {
 //                Picasso.get().load(imageResId).into(imageView)
 
-                Glide.with(imageView.context).load(imageResId).into(imageView)
+                Glide.with(imageView.context)
+                    .load(imageResId)
+                    .error(R.drawable.baseline_person)
+                    .into(imageView)
+//                Glide.with(imageView.context).load(imageResId).into(imageView)
             }
         }
     }

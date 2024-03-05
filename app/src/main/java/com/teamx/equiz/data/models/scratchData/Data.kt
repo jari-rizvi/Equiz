@@ -1,5 +1,7 @@
 package com.teamx.equiz.data.models.scratchData
+import androidx.annotation.Keep
 
+@Keep
 data class Data(
     val __v: Int,
     val _id: String,

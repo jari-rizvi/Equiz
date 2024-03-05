@@ -5,5 +5,5 @@ import androidx.annotation.Keep
 @Keep
 data class WinnerData(
     val _id: String,
-    val raffle: Raffle
+    val raffle: Raffle?
 )

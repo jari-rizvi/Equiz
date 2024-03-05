@@ -75,7 +75,7 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, CollectPriceViewMod
                             it.data?.let { data ->
 
                                 data.winnerData.forEach {
-                                    rewardsModelData.add(it.raffle)
+                                    it.raffle?.let { it1 -> rewardsModelData.add(it1) }
                                 }
 
                                 rewardsAdapter.notifyDataSetChanged()

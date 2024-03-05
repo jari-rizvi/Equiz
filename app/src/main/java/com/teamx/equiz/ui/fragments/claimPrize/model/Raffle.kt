@@ -5,6 +5,7 @@ import androidx.annotation.Keep
 data class Raffle(
     val _id: String,
     val name: String,
-    val quiz: List<String>,
-    var isSelected: Boolean = false
+    var quiz: List<String>?,
+    var quizId: List<String>,
+    var isSelected: Boolean?
 )

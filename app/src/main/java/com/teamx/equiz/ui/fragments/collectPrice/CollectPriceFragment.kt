@@ -135,11 +135,14 @@ class CollectPriceFragment() : BaseFragment<FragmentCollectPriceBinding, Collect
 //                                mViewDataBinding.textView4.setText(data.user.email)
 //                                mViewDataBinding.textView52.setText(data.user.chances.toString())
 //                                mViewDataBinding.textView51.setText(data.user.score.toString())
-                                    if (it.raffle.prize.image.isNotEmpty()) {
-                                        imageList2.add(it)
+
+                                    imageList2.add(it)
+
+//                                    if (it.raffle?.prize?.image?.isNotEmpty() == true) {
+
 //                                        Picasso.get().load(it.raffle.prize.image).resize(500, 500)
 //                                            .into(mViewDataBinding.profilePicture)
-                                    }
+//                                    }
                                 }
 //
 

@@ -10,5 +10,6 @@ data class PrizeObj(
     val type: String?,
     val scratchcard_type: String?,
     val value: Int?,
-    val winnerId: String?
+    val winnerId: String?,
+    val image: String?
 )
