@@ -1,5 +1,8 @@
 package com.teamx.equiz.data.models.meModel
+import com.google.errorprone.annotations.Keep
 
+
+@Keep
 data class User(
     val __v: Int,
     val _id: String,

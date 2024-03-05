@@ -4,13 +4,18 @@ package com.teamx.equiz.ui.fragments.wallet
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.Dialog
+import android.app.DownloadManager
+import android.content.ActivityNotFoundException
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.util.Base64
 import android.util.Log
 import android.view.TextureView
@@ -21,15 +26,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.annotation.RequiresApi
-import androidx.navigation.NavDeepLinkRequest.Builder.Companion.fromUri
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener
 import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle
 import com.github.barteksc.pdfviewer.util.FitPolicy
+import com.google.common.io.ByteStreams
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
@@ -40,11 +46,23 @@ import com.teamx.equiz.databinding.FragmentWalletBinding
 import com.teamx.equiz.utils.Datess
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.apache.pdfbox.pdmodel.PDDocument
 import org.apache.pdfbox.text.PDFTextStripper
 import org.checkerframework.checker.units.qual.s
 import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.io.IOException
 import java.io.InputStream
+import java.net.HttpURLConnection
+import java.net.MalformedURLException
+import java.net.URL
 import java.nio.charset.Charset
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -68,7 +86,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
     private lateinit var options: NavOptions
     var cal = Calendar.getInstance()
     var GameModel: Game? = null
-
+    lateinit var pdflink: InputStream
     var DatessModel: Datess? = null
 
     @SuppressLint("SetTextI18n", "SetJavaScriptEnabled")
@@ -79,6 +97,8 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
             findNavController().popBackStack()
         }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
+
+
 
         options = navOptions {
             anim {
@@ -108,9 +128,6 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
             )
 
         }
-
-
-
 
 
         DatessModel = Datess("", "")
@@ -177,33 +194,17 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
-//                            val inputStream: InputStream = data
-
-                            mViewDataBinding.pdfViewver.visibility = View.VISIBLE
-
-                            displayPDF(data.byteStream())
 
 
-//
-//                            val pdfFile = File(data.string())
-//
-//                            val extractedText = extractTextFromPDF(pdfFile)
-//                            Log.d("getTransResponse", "dataRecive1: ${extractedText}")
+                            CoroutineScope(Dispatchers.Main).launch {
 
-//                            val decodedBytes = decodeBase64(data.string())
-//                            val decodedString = decodedBytes.toString(Charset.defaultCharset())
-//
-//
-//                            mViewDataBinding.webView.settings.javaScriptEnabled = true
-//                            mViewDataBinding.webView.settings.allowFileAccessFromFileURLs = true
-//                            mViewDataBinding.webView.settings.allowUniversalAccessFromFileURLs = true
-//                            mViewDataBinding.webView.loadUrl("data:application/pdf;base64,${data.string()}")
-//
-//                            Log.d("getTransResponse", "dataRecive1: ${decodedString}")
+                                val inputStream: InputStream =
+                                    data.byteStream()  // da Your InputStream containing the PDF file
+                                val fileName = "TransactionHistory.pdf"
 
-//                            val pdfImageView = mViewDataBinding.imageView3
-//                            val pdfBitmap = decodePDFDataToBitmap(data.toString())
-//                            pdfImageView.setImageBitmap(pdfBitmap)
+                                downloadPDF(inputStream, fileName)
+                            }
+
 
                         }
                     }
@@ -332,32 +333,43 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
 
     }
 
+    private fun downloadPDF(inputStream: InputStream, fileName: String) {
+        try {
+            val outputFile = File(
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+                fileName
+            )
+            val outputStream = FileOutputStream(outputFile)
+            inputStream.use { input ->
+                outputStream.use { output ->
+                    input.copyTo(output)
+                }
+            }
 
-    fun extractTextFromPDF(pdfFile: File): String {
-        val document = PDDocument.load(pdfFile)
-        val pdfStripper = PDFTextStripper()
-        val text = pdfStripper.getText(document)
-        document.close()
-        return text
+            Log.d("downloadPDF", "File downloaded successfully: ${outputFile.absolutePath}")
+            showToast("Downloaded successfully. Opening PDF...")
+
+            mViewDataBinding.pdfViewver.visibility = View.VISIBLE
+
+            displayPDF(outputFile)
+        } catch (e: Exception) {
+            Log.e("downloadPDF", "Error downloading file: ${e.message}")
+            showToast("Failed to download PDF")
+        }
     }
 
-    private fun decodePDFDataToBitmap(pdfData: String): Bitmap {
-        // Implement PDF decoding logic here
-        // For demonstration purposes, we'll just return a placeholder bitmap
-        return BitmapFactory.decodeResource(resources, R.drawable.facebookrain)
-    }
-
-    fun decodeBase64(encodedString: String): ByteArray {
-        return Base64.decode(encodedString, Base64.DEFAULT)
-    }
-
-    private fun displayPDF(fileUri: InputStream) {
-        mViewDataBinding.pdfViewver.fromStream(fileUri)
+    private fun displayPDF(fileUri: File) {
+        mViewDataBinding.pdfViewver.fromFile(fileUri)
             .defaultPage(0)
             .enableSwipe(true)
             .enableDoubletap(true)
             .swipeHorizontal(false)
-            .onLoad { nbPages -> }
+            .onLoad(object : OnLoadCompleteListener {
+                override fun loadComplete(nbPages: Int) {
+                    Log.d("nbPages", "displayPDF: ")
+
+                }
+            })
             .onPageChange { page, pageCount -> }
             .scrollHandle(DefaultScrollHandle(requireContext()))
             .enableAnnotationRendering(true)
@@ -422,7 +434,6 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
     var startDateStr = ""
     var endDateStr = ""
 
-
     fun picker() {
 
         val dateSetListener =
@@ -459,8 +470,5 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
         ).show()
     }
 
-    fun showDate() {
-
-    }
 
 }

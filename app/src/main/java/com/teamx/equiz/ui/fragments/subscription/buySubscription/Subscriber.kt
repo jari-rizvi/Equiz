@@ -1,5 +1,8 @@
 package com.teamx.equiz.ui.fragments.subscription.buySubscription
+import com.google.errorprone.annotations.Keep
 
+
+@Keep
 data class Subscriber(
     val _id: String,
     val client_secret: String,
