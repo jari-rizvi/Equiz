@@ -2,9 +2,11 @@ package com.teamx.equiz.ui.fragments.singlequize
 
 import android.annotation.SuppressLint
 import android.content.res.ColorStateList
+import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.SurfaceHolder
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.RadioButton
@@ -15,9 +17,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
@@ -32,18 +32,19 @@ import com.teamx.equiz.ui.fragments.singlequize.model.Data
 import com.teamx.equiz.ui.fragments.singlequize.model.SingleQuizData
 import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.time.Duration
 import javax.crypto.Cipher
 import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
 
 @AndroidEntryPoint
-class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuizesViewModel>() {
+class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuizesViewModel>(),
+    SurfaceHolder.Callback {
 
     override val layoutId: Int
         get() = R.layout.fragment_single_quiz
@@ -69,6 +70,8 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
     val _quizFindResponse = MutableLiveData<SingleQuizData>()
     val quizFindResponse: LiveData<SingleQuizData> get() = _quizFindResponse
 
+    private var mediaPlayer: MediaPlayer? = null
+
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -93,6 +96,7 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+
 
 //        NetworkCallPoints.TOKENER =
 //            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTFlNWZiOGM3NjU2MDdlNzE0NjNiZGYiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3MDE2ODg4ODAsImV4cCI6MTcwMTc3NTI4MH0.th7AmVunSuxLeq8XP5oe-JywCZGijWOAtrqPmImIKzM"
@@ -224,39 +228,40 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
                             try {
 
 
-                            Log.d("quizFindEncResponse", "quizFindEncResponse: $data")
+                                Log.d("quizFindEncResponse", "quizFindEncResponse: $data")
 
 //                            mViewModel._quizFindResponse.value =
-                            val databyte = decryptAESCBC(
-                                data.encryptedData,
-                                data.iv,
-                                "Lg9g1ZUteY0F1HqZline3DhEh9ssyJzPx="
-                            )?.decodeToString()
+                                val databyte = decryptAESCBC(
+                                    data.encryptedData,
+                                    data.iv,
+                                    "Lg9g1ZUteY0F1HqZline3DhEh9ssyJzPx="
+                                )?.decodeToString()
 //                            val decoded = java.lang.String(databyte, charset("UTF-8"))
 
 
 //                            val drinkItemString = "{\"strAlcoholic\":\"Alcohol One\",\"strIngredient1\":\"Ingredient One\"}"
 // And make use of Gson library to convert your JSON String into DrinkItem Object
 
-                            val drinkItem = Gson().fromJson(databyte, SingleQuizData::class.java)
+                                val drinkItem =
+                                    Gson().fromJson(databyte, SingleQuizData::class.java)
 
-                            drinkItem.data?.forEach { item ->
-                                item.question?.forEach { question ->
-                                    question.options.shuffle() // Shuffle options list
+                                drinkItem.data?.forEach { item ->
+                                    item.question?.forEach { question ->
+                                        question.options.shuffle() // Shuffle options list
+                                    }
+                                    item.question?.shuffle() // Shuffle question list
                                 }
-                                item.question?.shuffle() // Shuffle question list
-                            }
 
-                            _quizFindResponse.value = drinkItem
+                                _quizFindResponse.value = drinkItem
 
-                            }catch (e:Exception){
+                            } catch (e: Exception) {
                                 e.printStackTrace()
 
                                 if (isAdded) {
                                     mViewDataBinding.root.snackbar("No Question Available")
                                 }
 
-                                    findNavController().popBackStack()
+                                findNavController().popBackStack()
 
 
                             }
@@ -284,10 +289,78 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
             }
         }
 
-        quizFindResponse.observe(requireActivity()) {
+        mViewDataBinding.surfaceView.holder.addCallback(this)
+
+        quizFindResponse.observe(requireActivity()) { singleQuiz ->
             try {
-                timerStart(it)
-                changeIndex(it)
+
+                var alreadySkip = false
+
+                val videoUrl = singleQuiz.data?.get(0)?.video
+//                var videoUrl: String? = null
+                if (videoUrl != null) {
+                    CoroutineScope(Dispatchers.Main).launch {
+                        Log.d("quizFindResponse", "onViewCreated: ${videoUrl}")
+                        mViewDataBinding.videoTxt.isEnabled = false
+                        mediaPlayer?.setDataSource(videoUrl)
+                        mediaPlayer?.setOnPreparedListener { mp ->
+                            val durationInSeconds = mp.duration / 1000
+                            videoTimer(durationInSeconds)
+                            Log.d(
+                                "quizFindResponse",
+                                "onViewCreated: setOnCompletionListener ${durationInSeconds}"
+                            )
+                            mp.start()
+
+                        }
+                        mediaPlayer?.setOnCompletionListener { mp ->
+                            if (!alreadySkip) {
+                                Log.d("quizFindResponse", "onViewCreated: setOnCompletionListener")
+                                mViewDataBinding.mainVideoView.visibility = View.GONE
+                                timerStart(singleQuiz)
+                                changeIndex(singleQuiz)
+                            }
+                        }
+                        mediaPlayer?.prepareAsync()
+                    }
+
+                    mViewDataBinding.videoTxt.setOnClickListener {
+                        mViewDataBinding.mainVideoView.visibility = View.GONE
+                        alreadySkip = true
+                        timerStart(singleQuiz)
+                        changeIndex(singleQuiz)
+                    }
+                } else {
+                    mViewDataBinding.mainVideoView.visibility = View.GONE
+                    timerStart(singleQuiz)
+                    changeIndex(singleQuiz)
+                }
+
+
+//                mediaPlayer = MediaPlayer().apply {
+//                    setDataSource(videoUrl)
+//                    setOnPreparedListener { mediaPlayer ->
+//                        Log.d("quizFindResponse", "setOnPreparedListener: holder")
+//                        mediaPlayer.start()
+//                    }
+//                    prepareAsync()
+//                }
+
+                // Set the video URI
+//                val videoUri = Uri.parse(videoUrl)
+//                mViewDataBinding.videoView.setVideoURI(videoUri)
+//
+//                // Create media controller
+//                val mediaController = MediaController(requireActivity())
+//                mediaController.setAnchorView(mViewDataBinding.videoView)
+//
+//                // Set media controller to video view
+//                mViewDataBinding.videoView.setMediaController(mediaController)
+//
+//                // Start playing the video
+//                mViewDataBinding.videoView.start()
+
+
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -742,9 +815,9 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
     private fun timerStart(data: SingleQuizData) {
 //        var durationSeconds = 30.0
 
-        durationSeconds = if (data.data?.get(0)?.timer == null || data.data?.get(0)?.timer == 0.0){
+        durationSeconds = if (data.data?.get(0)?.timer == null || data.data?.get(0)?.timer == 0.0) {
             2.0
-        } else{
+        } else {
             data.data?.get(0)?.timer!!
         }
 
@@ -820,115 +893,6 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
         }
     }
 
-
-//    @RequiresApi(Build.VERSION_CODES.M)
-//    private fun timerStart(data: SingleQuizData) {
-//        var durationSeconds = data.data?.get(0)?.timer ?: 2.0
-//        totalTimeVariable = data.data?.get(0)?.timer ?: 2.0
-//        durationSeconds *= 60.0 // Convert minutes to seconds
-//
-//        var progressTime = 100.0
-//        val finalProgress = progressTime / durationSeconds
-//
-//
-////        var remainingTimeSeconds = durationSeconds
-//
-//
-//        job = lifecycleScope.launch {
-//            mViewDataBinding.progressbar.max = progressTime.toInt()
-//
-//            // Initialize remaining time variable
-//             remainingTimeSeconds = durationSeconds
-//
-//          /*  while (remainingTimeSeconds > 0) {
-//                delay(1000)
-//
-//                // Decrease remainingTimeSeconds by 1
-//                remainingTimeSeconds--
-//
-//                // Update progress bar
-//                progressTime -= finalProgress
-//                mViewDataBinding.progressbar.progress = progressTime.toInt()
-//
-//                // Convert remaining seconds to minutes and seconds
-//                val remainingMinutes = remainingTimeSeconds / 60
-//                val remainingSeconds = remainingTimeSeconds % 60
-//
-//                // Format remaining time as MM:SS
-//                val formattedRemainingTime = String.format("%02d:%02d", remainingMinutes.toInt(), remainingSeconds.toInt())
-//                totalRemaingTimeVariable = formattedRemainingTime
-//                mViewDataBinding.textView46545454.text = formattedRemainingTime
-//
-//                // Convert total seconds to minutes and seconds
-//                val totalMinutes = durationSeconds / 60
-//                val totalSeconds = durationSeconds % 60
-//
-//                // Format total time as MM:SS
-//                val formattedTotalTime = String.format("%02d:%02d", totalMinutes.toInt(), totalSeconds.toInt())
-//
-//                // Store formatted total time in a separate variable
-//                 totalTimeVariable = formattedTotalTime
-//            }
-//
-//            // Update remaining time after loop finishes
-//            val remainingMinutes = remainingTimeSeconds / 60
-//            val remainingSeconds = remainingTimeSeconds % 60
-//            val formattedTime = String.format("%02d min: %02d sec", remainingMinutes.toInt(), remainingSeconds.toInt())
-//            mViewDataBinding.textView46545454.text = formattedTime*/
-//
-//
-//
-//            while (remainingTimeSeconds > 0) {
-//                delay(1000)
-//
-//                // Decrease remainingTimeSeconds by 1
-//                remainingTimeSeconds--
-//
-//                // Update progress bar
-//                progressTime -= finalProgress
-//                mViewDataBinding.progressbar.progress = progressTime.toInt()
-//
-//                // Calculate remaining minutes and seconds
-//                val minutes = remainingTimeSeconds / 60
-//                val seconds = remainingTimeSeconds % 60
-//
-//                // Format remaining time as MM:SS
-//                val formattedTime = String.format("%02d:%02d", minutes.toInt(), seconds.toInt())
-//                mViewDataBinding.textView46545454.text = formattedTime
-//            }
-//
-//            // Update remaining time after loop finishes
-//            val minutes = remainingTimeSeconds / 60
-//            val seconds = remainingTimeSeconds % 60
-//            val formattedTime = String.format("%02d:%02d", minutes.toInt(), seconds.toInt())
-//            mViewDataBinding.textView46545454.text = formattedTime
-//
-//
-//
-//
-//
-//
-//
-//            // Perform action after timer finishes (e.g., navigate to result fragment)
-//            var bundle = arguments
-//            if (bundle == null) {
-//                bundle = Bundle()
-//            }
-//            bundle?.putInt("rightAnswer", rightAnswers)
-//            bundle?.putInt("totalAnswer", totalAnswers)
-//            bundle?.putString("totalTime", totalTimeVariable.toString())
-//            bundle?.putString("remainingTime", remainingTimeSeconds.toString())
-//
-//
-//            findNavController().navigate(
-//                R.id.action_quizesFragment_to_quizResultFragment,
-//                arguments,
-//                options
-//            )
-//        }
-//    }
-
-
     fun convertSecretTo32Bit(secretKey: String): ByteArray {
         val keyData = secretKey.toByteArray(Charsets.UTF_8)
         return if (keyData.size >= 32) {
@@ -972,7 +936,39 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
         return data
     }
 
+    override fun surfaceCreated(holder: SurfaceHolder) {
+        Log.d("quizFindResponse", "onViewCreated: holder")
+        mediaPlayer = MediaPlayer()
+//        mediaPlayer?.setDataSource("https://equiz-images.s3.ap-southeast-1.amazonaws.com/72c969d5d26d53518779947b91fddbb0.mp4")
+        mediaPlayer?.setDisplay(holder)
+
+    }
+
+    override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
+
+    }
+
+    override fun surfaceDestroyed(holder: SurfaceHolder) {
+        mediaPlayer?.release()
+    }
+
+    fun videoTimer(duration: Int) {
+        var finalDur = duration - 5
+        mViewDataBinding.videoTxt.text = "Sec ${finalDur}"
+        lifecycleScope.launch {
+            while (finalDur > 0) {
+
+                delay(1000)
 
 
+                finalDur--
+
+                mViewDataBinding.videoTxt.text = "Sec ${finalDur}"
+
+            }
+            mViewDataBinding.videoTxt.text = "Skip"
+            mViewDataBinding.videoTxt.isEnabled = true
+        }
+    }
 
 }

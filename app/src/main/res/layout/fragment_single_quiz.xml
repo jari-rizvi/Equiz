@@ -8,7 +8,6 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorAccent_indeed">
@@ -63,10 +62,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:paddingBottom="@dimen/_10sdp"
                 android:background="@drawable/button_radius_corner_red"
                 android:backgroundTint="@color/white"
                 android:elevation="@dimen/_3sdp"
+                android:paddingBottom="@dimen/_10sdp"
                 app:layout_constraintBottom_toTopOf="@+id/backToHomeBtn"
                 app:layout_constraintEnd_toEndOf="@+id/btnback121"
                 app:layout_constraintStart_toStartOf="@+id/btnback"
@@ -115,10 +114,10 @@
                     android:id="@+id/imgQuestion"
                     android:layout_width="@dimen/_150sdp"
                     android:layout_height="@dimen/_100sdp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/group_19215"
                     android:background="@drawable/button_radius_corner_quiz"
                     android:clipToOutline="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/group_19215"
                     app:layout_constraintEnd_toEndOf="@+id/textView4654545454"
                     app:layout_constraintStart_toStartOf="@+id/textView4654545454"
                     app:layout_constraintTop_toBottomOf="@+id/progressbar" />
@@ -318,8 +317,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:buttonTint="@color/quizes_radio_gray_purple"
-                            android:textColor="#010101"
                             android:clickable="false"
+                            android:textColor="#010101"
                             android:textSize="@dimen/_12ssp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -369,9 +368,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:buttonTint="@color/quizes_radio_gray_purple"
+                            android:clickable="false"
                             android:textColor="#010101"
                             android:textSize="@dimen/_12ssp"
-                            android:clickable="false"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -421,8 +420,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:buttonTint="@color/quizes_radio_gray_purple"
-                            android:textColor="#010101"
                             android:clickable="false"
+                            android:textColor="#010101"
                             android:textSize="@dimen/_12ssp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -494,6 +493,55 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--        <VideoView-->
+        <!--            android:id="@+id/videoView"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent"/>-->
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/mainVideoView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.3" />
+
+            <SurfaceView
+                android:id="@+id/surfaceView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline1541"
+                app:layout_constraintTop_toBottomOf="@+id/guideline11" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline1541"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.7" />
+
+            <TextView
+                android:id="@+id/videoTxt"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_15ssp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.9"
+                app:layout_constraintVertical_bias="0.05" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

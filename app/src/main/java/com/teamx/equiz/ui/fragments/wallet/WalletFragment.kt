@@ -1,31 +1,29 @@
 package com.teamx.equiz.ui.fragments.wallet
 
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity.RESULT_OK
 import android.app.DatePickerDialog
 import android.app.Dialog
-import android.app.DownloadManager
-import android.content.ActivityNotFoundException
-import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
-import android.util.Base64
+import android.provider.Settings
 import android.util.Log
-import android.view.TextureView
 import android.view.View
 import android.view.WindowManager
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.addCallback
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
@@ -35,8 +33,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener
 import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle
 import com.github.barteksc.pdfviewer.util.FitPolicy
-import com.google.common.io.ByteStreams
 import com.teamx.equiz.BR
+import com.teamx.equiz.BuildConfig
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.data.models.getwalletData.Transaction
@@ -48,22 +46,11 @@ import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import org.apache.pdfbox.pdmodel.PDDocument
-import org.apache.pdfbox.text.PDFTextStripper
-import org.checkerframework.checker.units.qual.s
+import okhttp3.ResponseBody
 import java.io.File
-import java.io.FileInputStream
 import java.io.FileOutputStream
-import java.io.IOException
 import java.io.InputStream
-import java.net.HttpURLConnection
-import java.net.MalformedURLException
-import java.net.URL
-import java.nio.charset.Charset
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -88,6 +75,8 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
     var GameModel: Game? = null
     lateinit var pdflink: InputStream
     var DatessModel: Datess? = null
+
+    lateinit var responseBody: ResponseBody
 
     @SuppressLint("SetTextI18n", "SetJavaScriptEnabled")
     @RequiresApi(Build.VERSION_CODES.O)
@@ -195,14 +184,27 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
 
+                            responseBody = data
 
                             CoroutineScope(Dispatchers.Main).launch {
 
-                                val inputStream: InputStream =
-                                    data.byteStream()  // da Your InputStream containing the PDF file
-                                val fileName = "TransactionHistory.pdf"
+                                if (Build.VERSION.SDK_INT >= 33) {
+                                    requestPermissionLauncher1.launch(
+                                        arrayOf(
+                                            Manifest.permission.READ_MEDIA_VIDEO,
+                                            Manifest.permission.READ_MEDIA_IMAGES,
+                                            Manifest.permission.READ_MEDIA_AUDIO
+                                        )
+                                    )
+                                } else {
+                                    requestPermissionLauncher1.launch(
+                                        arrayOf(
+                                            Manifest.permission.READ_EXTERNAL_STORAGE,
+                                            Manifest.permission.WRITE_EXTERNAL_STORAGE
+                                        )
+                                    )
+                                }
 
-                                downloadPDF(inputStream, fileName)
                             }
 
 
@@ -470,5 +472,50 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
         ).show()
     }
 
+
+    fun checkFilePermission(): Boolean {
+        val permissionResult = ContextCompat.checkSelfPermission(
+            requireActivity(),
+            Manifest.permission.MANAGE_EXTERNAL_STORAGE
+        )
+
+
+        return when (permissionResult) {
+            PackageManager.PERMISSION_GRANTED -> {
+                true
+            }
+
+            else -> {
+                false
+            }
+        }
+    }
+
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == RESULT_OK) {
+            Log.d("worklingodkf", "requestPermissionLauncher: allowed")
+        } else {
+            Log.d("worklingodkf", "requestPermissionLauncher: not allowed")
+        }
+    }
+
+    private val requestPermissionLauncher1 = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { isGranted ->
+        if (isGranted.containsValue(true)) {
+            // Permission granted, proceed with storage access (e.g., open PDF)
+            Log.d("worklingodkf", "requestPermissionLauncher: allowed")
+            val inputStream: InputStream =
+                responseBody.byteStream()  // da Your InputStream containing the PDF file
+            val fileName = "TransactionHistory.pdf"
+
+            downloadPDF(inputStream, fileName)
+        } else {
+            // Permission denied, handle the case
+            Log.d("worklingodkf", "requestPermissionLauncher: not allowed")
+        }
+    }
 
 }
