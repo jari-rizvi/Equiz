@@ -189,11 +189,18 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
                             CoroutineScope(Dispatchers.Main).launch {
 
                                 if (Build.VERSION.SDK_INT >= 33) {
+//                                    val u = Uri.parse("package:" + BuildConfig.APPLICATION_ID)
+//                                    val intent = Intent(
+//                                        Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION,
+//                                        u
+//                                    )
+////                                    ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION
+//                                    requestPermissionLauncher.launch(intent)
+//                                    startActivity(intent)
                                     requestPermissionLauncher1.launch(
                                         arrayOf(
-                                            Manifest.permission.READ_MEDIA_VIDEO,
                                             Manifest.permission.READ_MEDIA_IMAGES,
-                                            Manifest.permission.READ_MEDIA_AUDIO
+                                            Manifest.permission.WRITE_EXTERNAL_STORAGE
                                         )
                                     )
                                 } else {
@@ -506,7 +513,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
     ) { isGranted ->
         if (isGranted.containsValue(true)) {
             // Permission granted, proceed with storage access (e.g., open PDF)
-            Log.d("worklingodkf", "requestPermissionLauncher: allowed")
+            Log.d("worklingodkf", "requestPermissionLauncher1: allowed")
             val inputStream: InputStream =
                 responseBody.byteStream()  // da Your InputStream containing the PDF file
             val fileName = "TransactionHistory.pdf"
@@ -514,7 +521,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
             downloadPDF(inputStream, fileName)
         } else {
             // Permission denied, handle the case
-            Log.d("worklingodkf", "requestPermissionLauncher: not allowed")
+            Log.d("worklingodkf", "requestPermissionLauncher1: not allowed")
         }
     }
 
