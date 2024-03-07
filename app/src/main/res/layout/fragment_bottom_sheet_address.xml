@@ -6,6 +6,14 @@
     android:background="@drawable/shape_top_round_fill_white"
     android:orientation="vertical">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:src="@drawable/app_bg"
+        android:scaleType="fitXY"
+        android:clipToOutline="true"
+        android:background="@drawable/shape_top_round_fill_white"
+        android:layout_height="match_parent"/>
+
     <EditText
         android:id="@+id/inpSearch"
         android:layout_width="0dp"

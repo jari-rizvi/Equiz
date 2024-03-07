@@ -9,7 +9,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:background="@color/white"
+        android:background="@drawable/app_bg"
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"
-            android:background="@drawable/iconbg">
+            android:background="@drawable/app_bg">
 
             <ImageView
                 android:id="@+id/btnback"

@@ -27,7 +27,6 @@
             android:id="@+id/btnback"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.05"
@@ -55,10 +54,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
-            android:text="@string/games_leaderboard"
+            android:text="Active User Ranking"
             android:textColor="@color/white"
             android:textSize="@dimen/_14ssp"
-            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/btnback"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.2"
@@ -75,7 +73,7 @@
             app:layout_constraintBottom_toTopOf="@+id/guideline12"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/layout1"
+            app:layout_constraintTop_toBottomOf="@+id/btnback"
             app:layout_constraintVertical_bias="0.2">
 
             <ImageView
@@ -319,6 +317,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/guideline12">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:src="@drawable/app_bg"
+                android:scaleType="fitXY"
+                android:clipToOutline="true"
+                android:background="@drawable/bg_circle_top_square"
+                android:layout_height="match_parent"/>
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline14254"

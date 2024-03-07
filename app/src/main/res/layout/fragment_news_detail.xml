@@ -7,13 +7,13 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorAccent_indeed"
+        android:background="@drawable/app_bg"
         android:elevation="@dimen/_5sdp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/iconbg"
+            android:background="@drawable/app_bg"
             android:elevation="@dimen/_5sdp">
 
 
@@ -71,6 +71,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
+            android:background="@drawable/app_bg"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/guideline"
             app:layout_constraintVertical_bias="0.0">

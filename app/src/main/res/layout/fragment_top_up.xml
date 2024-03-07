@@ -4,12 +4,12 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
+        android:background="@drawable/app_bg"
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorAccent_indeed">
+            android:layout_height="match_parent">
 
 
             <ImageView

@@ -6,7 +6,7 @@
         android:id="@+id/musicPlayerController"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/rectangular_side_rounded"
+        android:background="@drawable/app_bg"
         android:clickable="true"
         android:paddingStart="8dp"
         android:paddingEnd="8dp"

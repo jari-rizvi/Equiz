@@ -7,6 +7,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:background="@drawable/app_bg"
         android:layout_height="match_parent">
 
         <com.google.android.material.tabs.TabLayout
@@ -19,7 +20,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.02"
+            app:layout_constraintVertical_bias="0.05"
             app:tabBackground="@drawable/tab_background_stats"
 
             app:tabIndicatorColor="@android:color/transparent"

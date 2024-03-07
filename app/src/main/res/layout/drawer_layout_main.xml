@@ -18,6 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clickable="false"
+        android:background="@drawable/app_bg"
         android:focusable="false">
 
         <androidx.constraintlayout.widget.Guideline
@@ -35,13 +36,13 @@
             app:layout_constraintEnd_toStartOf="@+id/guidelin1e"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/app_bg"
             app:layout_constraintVertical_bias="1.0"
             tools:layout_editor_absoluteX="0dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
                 app:layout_constraintTop_toTopOf="parent">
 
 

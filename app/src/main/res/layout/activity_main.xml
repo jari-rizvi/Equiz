@@ -48,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"
-            android:background="@drawable/bg"/>
+            android:background="@drawable/app_bg"/>
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -60,9 +60,8 @@
                 android:name="androidx.navigation.fragment.NavHostFragment"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginTop="@dimen/_30sdp"
                 app:defaultNavHost="true"
-                app:layout_constraintBottom_toTopOf="@+id/bottomNavigationq"
+                app:layout_constraintBottom_toTopOf="@+id/guideline"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -101,7 +100,6 @@
                 android:id="@+id/guideline"
                 android:layout_width="match_parent"
                 android:layout_height="0.1dp"
-                app:layout_constraintVertical_bias="0.4"
                 app:layout_constraintTop_toTopOf="@+id/bottomNavigationq"
                 app:layout_constraintBottom_toBottomOf="@+id/bottomNavigationq" />
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -65,6 +65,18 @@
             app:layout_constraintStart_toStartOf="@+id/btnback"
             app:layout_constraintTop_toTopOf="parent">
 
+            <ImageView
+                android:layout_width="0dp"
+                android:src="@drawable/app_bg"
+                android:scaleType="fitXY"
+                android:background="@drawable/dialog_bg"
+                android:clipToOutline="true"
+                app:layout_constraintTop_toTopOf="@+id/constraintLayout9"
+                app:layout_constraintBottom_toBottomOf="@+id/constraintLayout9"
+                app:layout_constraintStart_toStartOf="@+id/constraintLayout9"
+                app:layout_constraintEnd_toEndOf="@+id/constraintLayout9"
+                android:layout_height="0dp"/>
+
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline12"
                 android:layout_width="wrap_content"

@@ -10,6 +10,14 @@
     android:backgroundTint="@color/colorWhite"
     android:elevation="@dimen/_5sdp">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:src="@drawable/app_bg"
+        android:background="@drawable/card_background"
+        android:clipToOutline="true"
+        android:scaleType="centerCrop"
+        android:layout_height="match_parent"/>
+
 
     <ImageView
         android:id="@+id/tv_title_text"
