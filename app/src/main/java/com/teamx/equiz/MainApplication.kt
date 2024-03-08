@@ -4,12 +4,18 @@ import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Build
+import android.util.Log
+import android.view.MotionEvent
+import android.view.View
+import android.view.View.OnTouchListener
 import com.teamx.equiz.utils.CounterNotificationService
 import com.teamx.equiz.utils.localization.LocaleManager
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
+
 
 @HiltAndroidApp
 class MainApplication : Application() {
@@ -62,7 +68,6 @@ class MainApplication : Application() {
             notificationManager.createNotificationChannel(channel)
         }
     }
-
 
 
 }

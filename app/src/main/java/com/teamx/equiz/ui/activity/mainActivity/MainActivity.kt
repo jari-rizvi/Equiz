@@ -2,18 +2,24 @@ package com.teamx.equiz.ui.activity.mainActivity
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.teamx.equiz.BR
 import com.teamx.equiz.MainApplication
 import com.teamx.equiz.R
+import com.teamx.equiz.SharedViewModel
 import com.teamx.equiz.baseclasses.BaseActivity
 import com.teamx.equiz.databinding.ActivityMainBinding
 import com.teamx.equiz.games.games.tetris.logic.SoundUtil
@@ -21,6 +27,7 @@ import com.teamx.equiz.games.games.tetris.logic.StatusBarUtil
 import com.teamx.equiz.utils.CounterNotificationService
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
@@ -38,6 +45,16 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
     lateinit var progress_bar: ProgressBar
     private var navController: NavController? = null
 
+    lateinit var sharedViewModel: SharedViewModel
+
+    private var totalActiveTime: Long = 0
+    private var lastClickTime: Long = 0
+    private var isTimerRunning = false
+    private val handler = Handler()
+    private lateinit var runnable: Runnable
+
+
+
     override fun attachBaseContext(newBase: Context?) =
         super.attachBaseContext(MainApplication.localeManager!!.setLocale(newBase!!))
 
@@ -47,7 +64,26 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
         StatusBarUtil.transparentStatusBar(this)
         SoundUtil.init(this)
 
+        val khArray = getStringArrayByName("IN")
 
+        khArray?.forEach {
+            Log.d("khArray", "onCreate: $it")
+        }
+
+        sharedViewModel = ViewModelProvider(this)[SharedViewModel::class.java]
+
+        sharedViewModel.activeUser.observe(this){
+//            Log.d("activeUserds", "activeUser: $it")
+            startTimer()
+        }
+
+        runnable = Runnable {
+            totalActiveTime += 1000 // Increment the total active time
+            // Update UI or perform any other actions with the total active time
+            Log.d("activeUserds", "activeUser: $totalActiveTime")
+            handler.postDelayed(runnable, 1000) // Schedule the task again
+            autoStopTimer() // Check if the timer should be stopped
+        }
 
         service = CounterNotificationService(applicationContext)
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
@@ -198,7 +234,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
 //            setupBottomNavMenu(navController!!)
         }
 
-
     }
 
     fun openDrawer() {
@@ -289,5 +324,65 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
 
     }
 
+    private fun getStringArrayByName(arrayName: String): Array<String>? {
+        val resId = resources.getIdentifier(arrayName, "array", packageName)
+        return if (resId != 0) {
+            resources.getStringArray(resId)
+        } else {
+            null
+        }
+    }
+
+    private fun startTimer() {
+        lastClickTime = System.currentTimeMillis() // Update the last click time
+        if (!isTimerRunning) {
+            handler.postDelayed(runnable, 1000)
+            isTimerRunning = true
+        }
+    }
+
+    private fun stopTimer() {
+        handler.removeCallbacks(runnable)
+        isTimerRunning = false
+    }
+
+    private fun autoStopTimer() {
+        val currentTime = System.currentTimeMillis()
+        if (currentTime - lastClickTime >= 5000 && isTimerRunning) {
+            // Stop the timer if no click event has occurred for AUTO_STOP_DELAY milliseconds
+            stopTimer()
+        }
+    }
+
+    private fun startAutoStopTimerLoop() {
+        handler.postDelayed(autoStopRunnable, 1000)
+    }
+
+    private fun stopAutoStopTimerLoop() {
+        handler.removeCallbacks(autoStopRunnable)
+    }
+
+    private val autoStopRunnable = object : Runnable {
+        override fun run() {
+            autoStopTimer()
+            handler.postDelayed(this, 1000)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Start the timer when the activity is resumed
+        startTimer()
+        // Start auto-stop timer loop
+        startAutoStopTimerLoop()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // Stop the timer when the activity is paused
+        stopTimer()
+        // Stop auto-stop timer loop
+        stopAutoStopTimerLoop()
+    }
 
 }

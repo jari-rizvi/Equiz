@@ -21,6 +21,7 @@ object AppConstants {
         }
     }
 
+
     @StringDef(DbConfiguration.DB_NAME)
     annotation class DbConfiguration {
         companion object {
