@@ -190,6 +190,7 @@ class LogInEmailFragment : BaseFragment<FragmentLoginEmailBinding, LoginViewMode
                                 }
 
                                 PrefHelper.getInstance(requireContext()).saveUerId(it.data.user._id)
+                                PrefHelper.getInstance(requireContext()).savePremium(it.data.user.isPremium)
 
                                 var bundle = arguments
                                 if (bundle == null) {
@@ -197,8 +198,6 @@ class LogInEmailFragment : BaseFragment<FragmentLoginEmailBinding, LoginViewMode
                                 }
                                 bundle?.putString("country", country)
 
-
-                                Log.d("TAG", "ApiCall: ${data.token}")
 
                                 findNavController().navigate(
                                     R.id.action_logInEmailFragment_to_dashboardFragment,

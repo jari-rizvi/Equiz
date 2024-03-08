@@ -30,6 +30,7 @@ import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentSingleQuizBinding
 import com.teamx.equiz.ui.fragments.singlequize.model.Data
 import com.teamx.equiz.ui.fragments.singlequize.model.SingleQuizData
+import com.teamx.equiz.utils.PrefHelper
 import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -297,8 +298,9 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
                 var alreadySkip = false
 
                 val videoUrl = singleQuiz.data?.get(0)?.video
+                val isPremieum = PrefHelper.getInstance(requireContext()).isPremieum
 //                var videoUrl: String? = null
-                if (videoUrl != null) {
+                if (videoUrl != null && !isPremieum) {
                     CoroutineScope(Dispatchers.Main).launch {
                         Log.d("quizFindResponse", "onViewCreated: ${videoUrl}")
                         mViewDataBinding.videoTxt.isEnabled = false
@@ -335,30 +337,6 @@ class SingleQuizesFragment : BaseFragment<FragmentSingleQuizBinding, SingleQuize
                     timerStart(singleQuiz)
                     changeIndex(singleQuiz)
                 }
-
-
-//                mediaPlayer = MediaPlayer().apply {
-//                    setDataSource(videoUrl)
-//                    setOnPreparedListener { mediaPlayer ->
-//                        Log.d("quizFindResponse", "setOnPreparedListener: holder")
-//                        mediaPlayer.start()
-//                    }
-//                    prepareAsync()
-//                }
-
-                // Set the video URI
-//                val videoUri = Uri.parse(videoUrl)
-//                mViewDataBinding.videoView.setVideoURI(videoUri)
-//
-//                // Create media controller
-//                val mediaController = MediaController(requireActivity())
-//                mediaController.setAnchorView(mViewDataBinding.videoView)
-//
-//                // Set media controller to video view
-//                mViewDataBinding.videoView.setMediaController(mediaController)
-//
-//                // Start playing the video
-//                mViewDataBinding.videoView.start()
 
 
             } catch (e: Exception) {

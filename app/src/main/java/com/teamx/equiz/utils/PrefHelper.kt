@@ -23,6 +23,7 @@ class PrefHelper private constructor() {
         private val MERCHANT_ID = "merchant_id"
         private val ORDER_ID = "order_id"
         private val USER_ID = "user_id"
+        private val USER_PREM = "user_prem"
         private val WALLET_AMOUNT = "wallet_amount"
         private const val dbCardP = "dbCardP"
         private val LANGTYPE = "lang_type"
@@ -145,6 +146,13 @@ class PrefHelper private constructor() {
 
     fun saveUerId(user_id: String) {
         sharedPreferences.edit().putString(USER_ID, user_id).apply()
+
+    }
+
+    val isPremieum: Boolean get() = sharedPreferences.getBoolean(USER_PREM, false)
+
+    fun savePremium(premium: Boolean) {
+        sharedPreferences.edit().putBoolean(USER_PREM, premium).apply()
 
     }
 

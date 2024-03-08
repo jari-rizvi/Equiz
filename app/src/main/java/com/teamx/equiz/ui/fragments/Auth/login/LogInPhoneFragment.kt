@@ -185,6 +185,8 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
                                     NetworkCallPoints.TOKENER = data.token
                                 }
                                 PrefHelper.getInstance(requireContext()).saveUerId(it.data.user._id)
+                                PrefHelper.getInstance(requireContext()).savePremium(it.data.user.isPremium)
+
 
                                 findNavController().navigate(R.id.action_logInFragment_to_dashboardFragment,arguments,options)
                             }
