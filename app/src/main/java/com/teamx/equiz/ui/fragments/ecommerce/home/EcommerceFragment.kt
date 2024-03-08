@@ -11,6 +11,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.activity.addCallback
+import androidx.compose.ui.text.font.FontSynthesis.Companion.All
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
@@ -93,7 +94,11 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
 
         mViewDataBinding.btnWishlist.setOnClickListener {
 
-            if (NetworkCallPoints.TOKENER.isNullOrEmpty() || NetworkCallPoints.TOKENER.equals("null", true)) {
+            if (NetworkCallPoints.TOKENER.isNullOrEmpty() || NetworkCallPoints.TOKENER.equals(
+                    "null",
+                    true
+                )
+            ) {
                 if (isAdded) {
                     try {
                         DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
@@ -109,7 +114,11 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
             )
         }
         mViewDataBinding.managerOders.setOnClickListener {
-            if (NetworkCallPoints.TOKENER.isNullOrEmpty() || NetworkCallPoints.TOKENER.equals("null", true)) {
+            if (NetworkCallPoints.TOKENER.isNullOrEmpty() || NetworkCallPoints.TOKENER.equals(
+                    "null",
+                    true
+                )
+            ) {
                 if (isAdded) {
                     try {
                         DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
@@ -176,7 +185,7 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
          }*/
 
 
-        mViewModel.getProducts(null,null)
+        mViewModel.getProducts(null, null)
 
         if (!mViewModel.getProductsResponse.hasActiveObservers()) {
             mViewModel.getProductsResponse.observe(requireActivity()) {
@@ -193,6 +202,7 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
                         loadingDialog.dismiss()
                         productAdapter.arrayList.clear()
                         it.data?.let { data ->
+                            productArrayList.clear()
                             data.data.forEach {
                                 productAdapter.arrayList.add(it)
                                 Log.d("TAG", "onViewCreated1212121212: $it")
@@ -245,6 +255,8 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
+                            categoriesArrayList2.clear()
+                            categoriesArrayList2.add(Category(0, "0", "", "All", "", true))
                             data.category.forEach {
                                 categoriesArrayList2.add(it)
                             }
@@ -597,12 +609,23 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
         val linearLayoutManager = GridLayoutManager(context, 2, RecyclerView.VERTICAL, false)
         mViewDataBinding.popularRecycler.layoutManager = linearLayoutManager
 
-        productAdapter = ProductAdapter(productArrayList, this,false)
+        productAdapter = ProductAdapter(productArrayList, this, false)
         mViewDataBinding.popularRecycler.adapter = productAdapter
 
     }
 
     override fun onTopSellerClick(position: Int, PrePos: Int) {
+        categoriesArrayList2.forEach {
+            it.isChecked = false
+        }
+        if(position == 0){
+
+            mViewModel.getProducts(null, null)
+            categoriesArrayList2[0].isChecked = true
+            mViewDataBinding.categoriesRecycler.adapter?.notifyDataSetChanged()
+            return
+        }
+
         val tick = categoriesArrayList2.get(position)
 
         var catId = tick._id
@@ -613,12 +636,13 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
 //            if (it.isSelected)
 //            it.isSelected = false
 //        }
-        if (PrePos != -1) {
+        /*if (PrePos != -1) {
             categoriesArrayList2.get(PrePos).isChecked = false
             mViewDataBinding.categoriesRecycler.adapter?.notifyItemChanged(PrePos)
-        }
-        categoriesArrayList2.get(position).isChecked = true
-        mViewDataBinding.categoriesRecycler.adapter?.notifyItemChanged(position)
+        }*/
+        categoriesArrayList2[position].isChecked = true
+//        mViewDataBinding.categoriesRecycler.adapter?.notifyItemChanged(position)
+        mViewDataBinding.categoriesRecycler.adapter?.notifyDataSetChanged()
     }
 
     override fun onproductClick(position: Int) {
@@ -883,7 +907,8 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
         findNavController().navigate(
             R.id.newsDetailFragment,
             bundle,
-            options)
+            options
+        )
     }
 
 

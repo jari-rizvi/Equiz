@@ -290,6 +290,8 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
                                     countPrice += it.totalPoint
                                 }
 
+
+
                                 mViewDataBinding.amount.text = "$countPrice Points"
                                 mViewDataBinding.date.text = ""
                                 mViewDataBinding.qty.text = "0.0"
@@ -297,8 +299,13 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
                                     "${data.data[0].totalPoint.toString()} Points"
 
                             }
-//                                      mViewDataBinding.orderno.text = it.or
-                            cartAdapter?.notifyDataSetChanged()
+
+                            mViewDataBinding.amount.text = data.cartPrice.toString()
+                            mViewDataBinding.orderno.text = data.cartPrice.toString()
+
+
+
+                                cartAdapter?.notifyDataSetChanged()
 
                         }
                     }

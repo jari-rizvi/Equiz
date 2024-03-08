@@ -38,8 +38,15 @@ class ChancesAdapter(
 
             holder.binding.textView54.text = product.quizId.title
 
+
+
             holder.binding.textView56.text = "+${product.chances}"
 
+            if(product.chances == 0){
+                holder.binding.textView55.text =
+                    "Oops! You did not earn any chance"
+            }
+            else{
 
             if (product.chanceType == "Raffle") {
                 Log.d("TAG", "onBindViewHolder1212122: ${product.chanceType}")
@@ -56,7 +63,7 @@ class ChancesAdapter(
                     "Awesome! You've won a chance by taking part in a quiz!"
             }
 
-
+            }
 
             val timestamp = product.timestamp
             val instant = Instant.parse(timestamp)

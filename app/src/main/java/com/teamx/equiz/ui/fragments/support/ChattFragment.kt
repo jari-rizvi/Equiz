@@ -41,7 +41,7 @@ class ChattFragment : BaseFragment<FragmentChatBinding, SubscriptionViewModel>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
          super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            findNavController().popBackStack()
+            findNavController().navigate(R.id.dashboardFragment)
         }
         mViewDataBinding.lifecycleOwner = viewLifecycleOwner
 
