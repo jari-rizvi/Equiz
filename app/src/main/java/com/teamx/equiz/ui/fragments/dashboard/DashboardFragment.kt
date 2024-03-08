@@ -32,6 +32,7 @@ import com.teamx.equiz.data.models.quizTitleData.Data
 import com.teamx.equiz.data.models.topWinnerData.Game
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentDashboardBinding
+import com.teamx.equiz.ui.activity.mainActivity.MainActivity
 import com.teamx.equiz.ui.fragments.dashboard.adapter.AllGameInterface
 import com.teamx.equiz.ui.fragments.dashboard.adapter.AllGamesAdapter
 import com.teamx.equiz.ui.fragments.dashboard.adapter.ImageSliderAdapter
@@ -80,6 +81,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
     lateinit var quizArrayList: ArrayList<Data>
     var id: String = ""
 
+    @SuppressLint("ClickableViewAccessibility")
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -97,6 +99,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+
+
 
         initializeCategoriesAdapter()
         initializeGameAdapter()

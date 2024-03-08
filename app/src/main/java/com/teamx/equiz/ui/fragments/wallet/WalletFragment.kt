@@ -2,6 +2,8 @@ package com.teamx.equiz.ui.fragments.wallet
 
 
 import android.Manifest
+import android.Manifest.permission.READ_EXTERNAL_STORAGE
+import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
 import android.app.DatePickerDialog
@@ -12,6 +14,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
+import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
@@ -37,6 +40,7 @@ import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle
 import com.github.barteksc.pdfviewer.util.FitPolicy
 import com.google.common.io.ByteStreams
 import com.teamx.equiz.BR
+import com.teamx.equiz.BuildConfig
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.data.models.getwalletData.Transaction
@@ -190,6 +194,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
                         loadingDialog.dismiss()
                     }
 
+                    
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
@@ -199,20 +204,29 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
                             CoroutineScope(Dispatchers.Main).launch {
 
                                 if (Build.VERSION.SDK_INT >= 33) {
-//                                    val u = Uri.parse("package:" + BuildConfig.APPLICATION_ID)
-//                                    val intent = Intent(
-//                                        Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION,
-//                                        u
-//                                    )
+
+                                    if (!checkPermission()){
+                                        val u = Uri.parse("package:" + BuildConfig.APPLICATION_ID)
+                                        val intent = Intent(
+                                            Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION,
+                                            u
+                                        )
 ////                                    ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION
 //                                    requestPermissionLauncher.launch(intent)
 //                                    startActivity(intent)
-                                    requestPermissionLauncher1.launch(
-                                        arrayOf(
-                                            Manifest.permission.READ_MEDIA_IMAGES,
-                                            Manifest.permission.WRITE_EXTERNAL_STORAGE
+//                                    val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
+                                        requestPermissionLauncher.launch(intent)
+                                    }else{
+                                        requestPermissionLauncher1.launch(
+                                            arrayOf(
+                                                Manifest.permission.READ_MEDIA_IMAGES,
+                                                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                            )
                                         )
-                                    )
+                                    }
+
+
+
                                 } else {
                                     requestPermissionLauncher1.launch(
                                         arrayOf(
@@ -365,6 +379,8 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
                 }
             }
 
+            outputStream.close()
+
             Log.d("downloadPDF", "File downloaded successfully: ${outputFile.absolutePath}")
             showToast("Downloaded successfully. Opening PDF...")
 
@@ -513,6 +529,12 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
     ) { result ->
         if (result.resultCode == RESULT_OK) {
             Log.d("worklingodkf", "requestPermissionLauncher: allowed")
+            requestPermissionLauncher1.launch(
+                arrayOf(
+                    Manifest.permission.READ_MEDIA_IMAGES,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                )
+            )
         } else {
             Log.d("worklingodkf", "requestPermissionLauncher: not allowed")
         }
@@ -532,6 +554,18 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
         } else {
             // Permission denied, handle the case
             Log.d("worklingodkf", "requestPermissionLauncher1: not allowed")
+        }
+    }
+
+    private fun checkPermission(): Boolean {
+        return if (SDK_INT >= Build.VERSION_CODES.R) {
+            Environment.isExternalStorageManager()
+        } else {
+            val result =
+                ContextCompat.checkSelfPermission(requireActivity(), READ_EXTERNAL_STORAGE)
+            val result1 =
+                ContextCompat.checkSelfPermission(requireActivity(), WRITE_EXTERNAL_STORAGE)
+            result == PackageManager.PERMISSION_GRANTED && result1 == PackageManager.PERMISSION_GRANTED
         }
     }
 
