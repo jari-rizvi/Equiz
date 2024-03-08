@@ -118,9 +118,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             }
             bundle.putString("userId", userId)
 
-//            findNavController().navigate(R.id.settingsFragment, bundle, options)
-            findNavController().navigate(R.id.subscriptionListFragment, bundle, options)
-
+            findNavController().navigate(R.id.settingsFragment, bundle, options)
         }
 
         mViewDataBinding.tvCoins.setOnClickListener {

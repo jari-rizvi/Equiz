@@ -44,6 +44,7 @@ class SubscriptionAdapter(
             onSubsClick.onSubItemClick(position)
         }
 
+
     }
 
     override fun getItemCount(): Int {
