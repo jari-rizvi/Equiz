@@ -2,45 +2,37 @@ package com.teamx.equiz.ui.fragments.subscription
 
 
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.view.View
-import android.view.WindowManager
-import android.widget.Button
 import androidx.activity.addCallback
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.stripe.android.PaymentConfiguration
 import com.stripe.android.Stripe
-import com.stripe.android.model.ConfirmPaymentIntentParams
 import com.stripe.android.model.PaymentMethodCreateParams
 import com.stripe.android.paymentsheet.PaymentSheet
 import com.stripe.android.paymentsheet.PaymentSheetResult
-import com.stripe.android.view.CardInputListener
 import com.stripe.android.view.CardInputWidget
 import com.teamx.equiz.BR
 import com.teamx.equiz.MainApplication
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
-import com.teamx.equiz.constants.NetworkCallPoints
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentSubscriptionBinding
-import com.teamx.equiz.ui.activity.mainActivity.MainActivity
-import com.teamx.equiz.ui.fragments.address.bottomSheetAddSearch.BottomSheetAddressFragment
-import com.teamx.equiz.ui.fragments.address.bottomSheetAddSearch.BottomSheetListener
 import com.teamx.equiz.ui.fragments.address.bottomSheetAddSearch.BottomSheetStripeListener
 import com.teamx.equiz.ui.fragments.address.bottomSheetAddSearch.BottomStripeFragment
-import com.teamx.equiz.ui.fragments.subscription.plansData.Data
+import com.teamx.equiz.ui.fragments.coupons.CouponsAdapter
+import com.teamx.equiz.ui.fragments.subscription.catPlanById.Attribute
+import com.teamx.equiz.ui.fragments.subscription.catPlanById.Plan
+import com.teamx.equiz.ui.fragments.subscription.catPlansData.Data
 import com.teamx.equiz.utils.DialogHelperClass
-import com.teamx.equiz.utils.PrefHelper
 import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -50,7 +42,7 @@ import org.json.JSONException
 
 @AndroidEntryPoint
 class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, SubscriptionViewModel>(),
-    BottomSheetStripeListener {
+    BottomSheetStripeListener, OnCatPlanListener {
 
     override val layoutId: Int
         get() = R.layout.fragment_subscription
@@ -67,6 +59,14 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
     private lateinit var options: NavOptions
     private lateinit var stripe: Stripe
 
+    lateinit var planid: String
+    lateinit var catAdapter: CatPlansAdapter
+    lateinit var subCatAdapter: SubCatPlanAdapter
+
+    lateinit var catArrayList: ArrayList<Plan>
+
+    lateinit var subCatArrayList: ArrayList<Attribute>
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -81,6 +81,8 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+        catPlansRecyclerview()
+        SubCatPlansRecyclerview()
 
 //        val cardInputWidget: CardInputWidget = view.findViewById(R.id.cardInputWidget)
 //        val btnPay: Button = view.findViewById(R.id.btnPay)
@@ -99,28 +101,76 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
 
 
-//        bottomSheetBehavior.addBottomSheetCallback(object :
-//            BottomSheetBehavior.BottomSheetCallback() {
-//            override fun onSlide(bottomSheet: View, slideOffset: Float) {
-//
-//            }
-//
-//            override fun onStateChanged(bottomSheet: View, newState: Int) {
-//                when (newState) {
-//                    BottomSheetBehavior.STATE_EXPANDED -> MainActivity.bottomNav?.visibility =
-//                        View.GONE
-//
-//                    BottomSheetBehavior.STATE_COLLAPSED -> MainActivity.bottomNav?.visibility =
-//                        View.VISIBLE
-//
-//                    else -> "Persistent Bottom Sheet"
-//                }
-//            }
-//        })
+        var bundle = arguments
+        if (bundle == null) {
+            bundle = Bundle()
+        }
 
 
-        Log.d("TAG", "onViewCreatesdsdd:sdskdl")
+        val id = arguments?.getString("subscription")
 
+
+        if (id != null) {
+            mViewModel.getCatPlanbyId(id)
+        }
+
+        if (!mViewModel.getCatPlanbyIdResponse.hasActiveObservers()) {
+            mViewModel.getCatPlanbyIdResponse.observe(requireActivity()) {
+                when (it.status) {
+                    Resource.Status.LOADING -> {
+                        loadingDialog.show()
+                    }
+
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
+                    }
+
+                    Resource.Status.SUCCESS -> {
+                        loadingDialog.dismiss()
+                        it.data?.let { data ->
+
+                            catArrayList.clear()
+                            subCatArrayList.clear()
+                            data.plans.forEach {
+                                catArrayList.add(it)
+                            }
+
+                            data.attributes.forEach {
+                                subCatArrayList.add(it)
+                            }
+
+                            catAdapter.notifyDataSetChanged()
+                            subCatAdapter.notifyDataSetChanged()
+
+                        }
+                    }
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+                        if (isAdded) {
+                            try {
+                                onToSignUpPage()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
+                    }
+
+                    Resource.Status.ERROR -> {
+                        loadingDialog.dismiss()
+                        DialogHelperClass.errorDialog(
+                            requireContext(),
+                            it.message!!
+                        )
+                    }
+                }
+                if (isAdded) {
+                    mViewModel.getCatPlanbyIdResponse.removeObservers(
+                        viewLifecycleOwner
+                    )
+                }
+            }
+        }
 
 //        mViewDataBinding.btnBuy.setOnClickListener {
 //
@@ -151,16 +201,16 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
 //            bottomSheetBehavior.state = state
 //
 //        }
-        mViewDataBinding.btnBuy.setOnClickListener {
-
-
-            if (!bottomStripeFragment.isAdded) {
-                bottomStripeFragment.show(
-                    parentFragmentManager,
-                    bottomStripeFragment.tag
-                )
-            }
-        }
+//        mViewDataBinding.btnBuy.setOnClickListener {
+//
+//
+//            if (!bottomStripeFragment.isAdded) {
+//                bottomStripeFragment.show(
+//                    parentFragmentManager,
+//                    bottomStripeFragment.tag
+//                )
+//            }
+//        }
         bottomStripeFragment = BottomStripeFragment()
         bottomStripeFragment.initInterface(this)
 
@@ -176,33 +226,10 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
             "pk_test_51L1UVCGn3F7BuM88wH1PSuNgc9bX7tq0MkIMB2HU2BbScX3i7VgZw4V8nimfe1zUEF8uQ3Q6PFbzrMacvH5PfA7900PaBHO20E"
         )
 
-
-        var bundle = arguments
-        if (bundle == null) {
-            bundle = Bundle()
-        }
-
-
-        val json = arguments?.getString("subscription")
-        val subscription = Gson().fromJson(json, Data::class.java)
-
-        Log.d("TAG", "onViewCreated111111111: $subscription")
-        Log.d("TAG", "onViewCreated111111111: ${subscription.price}")
-
-
-        mViewDataBinding.textView61.text = subscription.price.toString() + "AED/Monthly"
-        mViewDataBinding.textView58.text = subscription.name.toString()
-        Glide.with(MainApplication.context).load(subscription.image)
-            .into(mViewDataBinding.imageView7)
-
-
-
         mViewDataBinding.btnBuy.setOnClickListener {
-
-
             val params = JsonObject()
             try {
-                params.addProperty("planId", subscription._id)
+                params.addProperty("planId", planid)
             } catch (e: JSONException) {
                 e.printStackTrace()
             }
@@ -679,10 +706,50 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
         }
     }
 
+
+    private fun catPlansRecyclerview() {
+        catArrayList = ArrayList()
+
+        val linearLayoutManager = GridLayoutManager(context, 2)
+        mViewDataBinding.recCatPlans.layoutManager = linearLayoutManager
+
+        catAdapter = CatPlansAdapter(catArrayList, this)
+        mViewDataBinding.recCatPlans.adapter = catAdapter
+
+    }
+
+    private fun SubCatPlansRecyclerview() {
+        subCatArrayList = ArrayList()
+
+        val linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        mViewDataBinding.recCatPlans1.layoutManager = linearLayoutManager
+
+        subCatAdapter = SubCatPlanAdapter(subCatArrayList)
+        mViewDataBinding.recCatPlans1.adapter = subCatAdapter
+
+    }
+
     enum class PaymentMethod {
         CASH_ON_DELIVERY,
         STRIPE_PAYMENT,
         STRIPE_SAVED_PAYMENT,
         PAYPAL
+    }
+
+    override fun onPlanClick(position: Int, PrePos: Int) {
+        planid = catArrayList[position]._id
+        Log.d("TAG", "onPlanClick: ")
+        Log.d("TAG", "${catArrayList[position].isChecked}: ")
+        Log.d("TAG", "${catArrayList[PrePos].isChecked}: ")
+
+
+        catArrayList.forEach {
+            it.isChecked = false
+        }
+
+        catArrayList[position].isChecked = true
+        mViewDataBinding.recCatPlans.adapter?.notifyDataSetChanged()
+
+
     }
 }

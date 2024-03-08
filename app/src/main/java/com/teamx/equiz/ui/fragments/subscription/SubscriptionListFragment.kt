@@ -4,7 +4,6 @@ package com.teamx.equiz.ui.fragments.subscription
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
 import androidx.activity.addCallback
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
@@ -18,8 +17,7 @@ import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentSubscriptionListBinding
-import com.teamx.equiz.ui.fragments.orders.delivered.DeliveredAdapter
-import com.teamx.equiz.ui.fragments.subscription.plansData.Data
+import com.teamx.equiz.ui.fragments.subscription.catPlansData.Data
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -60,10 +58,10 @@ class SubscriptionListFragment : BaseFragment<FragmentSubscriptionListBinding, S
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
 
 
-        mViewModel.getSubscPlans(true)
+        mViewModel.getCatPlans()
 
-        if (!mViewModel.getSubscPlansResponse.hasActiveObservers()) {
-            mViewModel.getSubscPlansResponse.observe(requireActivity()) {
+        if (!mViewModel.getCatPlansResponse.hasActiveObservers()) {
+            mViewModel.getCatPlansResponse.observe(requireActivity()) {
                 when (it.status) {
                     Resource.Status.LOADING -> {
                         loadingDialog.show()
@@ -77,7 +75,9 @@ class SubscriptionListFragment : BaseFragment<FragmentSubscriptionListBinding, S
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
+                            Log.d("TAG", "ayaaa: ${it.data}")
 
+                            subsArrayList.clear()
                             data.data.forEach {
                                 subsArrayList.add(it)
                             }
@@ -109,7 +109,7 @@ class SubscriptionListFragment : BaseFragment<FragmentSubscriptionListBinding, S
                     }
                 }
                 if (isAdded) {
-                    mViewModel.getSubscPlansResponse.removeObservers(
+                    mViewModel.getCatPlansResponse.removeObservers(
                         viewLifecycleOwner
                     )
                 }
@@ -132,13 +132,16 @@ class SubscriptionListFragment : BaseFragment<FragmentSubscriptionListBinding, S
 
     override fun onSubItemClick(position: Int) {
         var id =subsArrayList[position]._id
+
+
         val subscription = subsArrayList[position] // Get the subscription object at the clicked position
         val json = Gson().toJson(subscription)
+
         var bundle = arguments
         if (bundle == null) {
             bundle = Bundle()
         }
-        bundle.putString("subscription", json) // Put the JSON string in the bundle
+        bundle.putString("subscription", id) // Put the JSON string in the bundle
 
 
 

@@ -114,7 +114,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             }
             bundle.putString("userId", userId)
 
-            findNavController().navigate(R.id.settingsFragment, bundle, options)
+//            findNavController().navigate(R.id.settingsFragment, bundle, options)
+            findNavController().navigate(R.id.subscriptionListFragment, bundle, options)
+
         }
 
         mViewDataBinding.tvCoins.setOnClickListener {
@@ -468,8 +470,6 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             }
 
         }
-
-
 
         strArrayList.add(TitleData("World", true))
         strArrayList.add(TitleData(country.toString(), false))

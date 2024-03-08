@@ -32,8 +32,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.05"
-                app:tint="@color/white"
-                app:srcCompat="@drawable/arrow_left" />
+                app:srcCompat="@drawable/arrow_left"
+                app:tint="@color/white" />
 
             <TextView
                 android:id="@+id/textView"
@@ -51,431 +51,49 @@
                 app:layout_constraintTop_toTopOf="@+id/btnback"
                 app:layout_constraintVertical_bias="0.05" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout3"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_100sdp"
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recCatPlans"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:layout_marginHorizontal="@dimen/_10sdp"
-                android:background="@drawable/card_background"
-                android:backgroundTint="@color/colorAccent_indeed"
-                android:elevation="@dimen/_1sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btnback"
-                app:layout_constraintVertical_bias="0.05"
-                tools:layout_editor_absoluteX="13dp">
-
-                <ImageView
-                    android:id="@+id/imageView7"
-                    android:layout_width="@dimen/_40sdp"
-                    android:layout_height="@dimen/_40sdp"
-                    android:src="@drawable/premium_icon"
-                    app:layout_constraintBottom_toTopOf="@+id/textView58"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.1"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_chainStyle="packed"
-                    app:tint="@color/theme_color" />
-
-                <TextView
-                    android:id="@+id/textView58"
-                    style="@style/popins_regular"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:text="@string/premium"
-                    android:textColor="@color/theme_color"
-                    android:textSize="@dimen/_15ssp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/textView60"
-                    app:layout_constraintStart_toStartOf="@+id/imageView7"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView7" />
-
-                <TextView
-                    android:id="@+id/textView60"
-                    style="@style/popins_regular"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:text="@string/more_benifits"
-                    android:textColor="@color/black"
-                    android:visibility="gone"
-                    android:textSize="@dimen/_12ssp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/textView58"
-                    app:layout_constraintStart_toStartOf="@+id/textView58"
-                    app:layout_constraintTop_toBottomOf="@+id/textView58" />
-
-                <TextView
-                    android:id="@+id/textView61"
-                    style="@style/popins_bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="20 $/monthlyaed"
-                    android:textColor="@color/red"
-                    android:textSize="@dimen/_18ssp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.9"
-                    app:layout_constraintStart_toEndOf="@+id/textView58"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            <!--            <androidx.core.widget.NestedScrollView-->
-            <!--                android:layout_width="0dp"-->
-            <!--                android:layout_height="0dp"-->
-            <!--                android:layout_marginTop="@dimen/_5sdp"-->
-            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--                app:layout_constraintEnd_toEndOf="parent"-->
-            <!--                app:layout_constraintStart_toStartOf="parent"-->
-            <!--                app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">-->
-
-            <LinearLayout
-                android:id="@+id/linearLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/guideguline3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
-                app:layout_constraintVertical_bias="0.1">
+                app:layout_constraintTop_toBottomOf="@+id/textView"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2"
+                android:layout_marginVertical="@dimen/_5sdp"
+                app:layout_constraintVertical_bias="0"
+                tools:listitem="@layout/item_plan_cat" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideguline3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.45" />
 
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/one"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_5sdp"
-                    android:layout_marginVertical="@dimen/_5sdp"
-                    android:elevation="@dimen/_1sdp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/constraintLayout3"
-                    app:layout_constraintStart_toStartOf="@+id/constraintLayout3"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
-                    app:layout_constraintVertical_bias="0.1">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recCatPlans1"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                app:layout_constraintBottom_toTopOf="@+id/guideguline2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:listitem="@layout/item_sub_cat_plans"
+                app:layout_constraintTop_toBottomOf="@+id/guideguline3"
+                android:layout_marginVertical="@dimen/_5sdp"
+                app:layout_constraintVertical_bias="0"/>
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/container1"
-                        android:layout_width="@dimen/_70sdp"
-                        android:layout_height="0dp"
-                        android:layout_margin="@dimen/_6sdp"
-                        android:backgroundTint="@color/blue"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:padding="@dimen/_9sdp"
-                            android:src="@drawable/increase_chance"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <TextView
-                        android:id="@+id/textView544"
-                        style="@style/popins_regular"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Increased Chances in\n Regular Quizzes"
-                        android:textAlignment="viewStart"
-                        android:textColor="@color/light_gray"
-                        android:textSize="@dimen/_14ssp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.1"
-                        app:layout_constraintStart_toEndOf="@+id/container1"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.1" />
-
-                    <TextView
-                        android:id="@+id/textView5551"
-                        style="@style/popins_regular"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Premium users have more opportunities to\n participate and win prizes in regular quizzes."
-                        android:textAlignment="viewStart"
-                        android:textColor="@color/light_gray"
-                        android:textSize="@dimen/_10ssp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/textView544"
-                        app:layout_constraintHorizontal_bias="0"
-                        app:layout_constraintStart_toStartOf="@+id/textView544"
-                        app:layout_constraintTop_toBottomOf="@+id/textView544"
-                        tools:ignore="DuplicateIds" />
-
-                    <View
-                        android:id="@+id/view11"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_1sdp"
-                        android:layout_marginHorizontal="@dimen/_15sdp"
-                        android:background="@color/white"
-                        android:orientation="horizontal"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView5551" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/two"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_5sdp"
-                    android:layout_marginVertical="@dimen/_5sdp"
-                    android:elevation="@dimen/_1sdp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/constraintLayout3"
-                    app:layout_constraintStart_toStartOf="@+id/constraintLayout3"
-                    app:layout_constraintTop_toBottomOf="@+id/one"
-                    app:layout_constraintVertical_bias="0.1">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/container2"
-                        android:layout_width="@dimen/_70sdp"
-                        android:layout_height="0dp"
-                        android:layout_margin="@dimen/_6sdp"
-                        android:backgroundTint="@color/blue"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:padding="@dimen/_9sdp"
-                            android:src="@drawable/acces_prmium_quiz"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <TextView
-                        android:id="@+id/textView540"
-                        style="@style/popins_regular"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Access to Premium User Quizzes"
-                        android:textAlignment="viewStart"
-                        android:textColor="@color/light_gray"
-                        android:textSize="@dimen/_14ssp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.1"
-                        app:layout_constraintStart_toEndOf="@+id/container2"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.1" />
-
-                    <TextView
-                        android:id="@+id/textView550"
-                        style="@style/popins_regular"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="Premium users can participate in specific quizzes designed exclusively for them."
-                        android:textAlignment="viewStart"
-                        android:textColor="@color/light_gray"
-                        android:textSize="@dimen/_10ssp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/textView540"
-                        app:layout_constraintHorizontal_bias="0"
-                        app:layout_constraintStart_toStartOf="@+id/textView540"
-                        app:layout_constraintTop_toBottomOf="@+id/textView540" />
-
-                    <View
-                        android:id="@+id/view12"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_1sdp"
-                        android:layout_marginHorizontal="@dimen/_15sdp"
-                        android:background="@color/white"
-                        android:orientation="horizontal"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView550" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/three"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_5sdp"
-                    android:layout_marginVertical="@dimen/_5sdp"
-                    android:elevation="@dimen/_1sdp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/constraintLayout3"
-                    app:layout_constraintStart_toStartOf="@+id/constraintLayout3"
-                    app:layout_constraintTop_toBottomOf="@+id/two"
-                    app:layout_constraintVertical_bias="0.1">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/container3"
-                        android:layout_width="@dimen/_70sdp"
-                        android:layout_height="0dp"
-                        android:layout_margin="@dimen/_6sdp"
-                        android:backgroundTint="@color/blue"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:padding="@dimen/_9sdp"
-                            android:src="@drawable/referral_benefits"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <TextView
-                        android:id="@+id/textView541"
-                        style="@style/popins_regular"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Enhanced Referral Benefits"
-                        android:textAlignment="viewStart"
-                        android:textColor="@color/light_gray"
-                        android:textSize="@dimen/_14ssp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.1"
-                        app:layout_constraintStart_toEndOf="@+id/container3"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.1" />
-
-                    <TextView
-                        android:id="@+id/textView555"
-                        style="@style/popins_regular"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="Premium users receive additional benefits from their referrals, they will get double the amount of referral benefits compared to normal users."
-                        android:textAlignment="viewStart"
-                        android:textColor="@color/light_gray"
-                        android:textSize="@dimen/_10ssp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0"
-                        app:layout_constraintStart_toStartOf="@+id/textView541"
-                        app:layout_constraintTop_toBottomOf="@+id/textView541" />
-
-                    <View
-                        android:id="@+id/view13"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_1sdp"
-                        android:layout_marginHorizontal="@dimen/_15sdp"
-                        android:background="@color/white"
-                        android:orientation="horizontal"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView555" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/four"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_5sdp"
-                    android:layout_marginVertical="@dimen/_5sdp"
-                    android:elevation="@dimen/_1sdp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/constraintLayout3"
-                    app:layout_constraintStart_toStartOf="@+id/constraintLayout3"
-                    app:layout_constraintTop_toBottomOf="@+id/three"
-                    app:layout_constraintVertical_bias="0.1">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/container4"
-                        android:layout_width="@dimen/_70sdp"
-                        android:layout_height="0dp"
-                        android:layout_margin="@dimen/_6sdp"
-                        android:backgroundTint="@color/blue"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:padding="@dimen/_9sdp"
-                            android:src="@drawable/extent_wallet_validity"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <TextView
-                        android:id="@+id/textView549"
-                        style="@style/popins_regular"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Extended Validity of \nWallet Balance"
-                        android:textAlignment="viewStart"
-                        android:textColor="@color/light_gray"
-                        android:textSize="@dimen/_14ssp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.1"
-                        app:layout_constraintStart_toEndOf="@+id/container4"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.1" />
-
-                    <TextView
-                        android:id="@+id/textView556"
-                        style="@style/popins_regular"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="Premium users can extend the expiration date of their wallet balance once."
-                        android:textAlignment="viewStart"
-                        android:textColor="@color/light_gray"
-                        android:textSize="@dimen/_10ssp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0"
-                        app:layout_constraintStart_toStartOf="@+id/textView549"
-                        app:layout_constraintTop_toBottomOf="@+id/textView549" />
-
-                    <View
-                        android:id="@+id/view14"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_1sdp"
-                        android:layout_marginHorizontal="@dimen/_15sdp"
-                        android:background="@color/white"
-                        android:orientation="horizontal"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView556" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            </LinearLayout>
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideguline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.85" />
 
 
             <TextView
@@ -495,7 +113,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                app:layout_constraintTop_toBottomOf="@+id/guideguline2"
                 app:layout_constraintVertical_bias="0.493" />
 
             <TextView
@@ -508,69 +126,21 @@
                 android:background="@drawable/card_background_border"
                 android:backgroundTint="@color/white"
                 android:gravity="center"
-                android:visibility="gone"
                 android:text="@string/unsubscribe"
                 android:textColor="@color/theme_color"
                 android:textSize="@dimen/_14ssp"
                 android:textStyle="bold"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout"
                 app:layout_constraintVertical_bias="0.493" />
 
 
-            <!--            </androidx.core.widget.NestedScrollView>-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <!--        <androidx.coordinatorlayout.widget.CoordinatorLayout-->
-        <!--            android:id="@+id/main_content"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            app:layout_constraintBottom_toBottomOf="parent">-->
-
-
-        <!--            <include-->
-        <!--                layout="@layout/bottom_sheet_stripe" />-->
-
-
-        <!--        </androidx.coordinatorlayout.widget.CoordinatorLayout>-->
-
-
-        <!--        <androidx.recyclerview.widget.RecyclerView-->
-        <!--            android:id="@+id/recyclerView3"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginHorizontal="@dimen/_10sdp"-->
-        <!--            android:layout_marginTop="@dimen/_5sdp"-->
-        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toBottomOf="@id/constraintLayout3"-->
-        <!--            app:layout_constraintVertical_bias="0"-->
-        <!--            tools:itemCount="3"-->
-        <!--            tools:listitem="@layout/item_subscription" />-->
-
-        <!--        <TextView-->
-        <!--            android:id="@+id/btnSignup"-->
-        <!--            style="@style/popins_regular"-->
-        <!--            android:layout_width="286dp"-->
-        <!--            android:layout_height="@dimen/_40sdp"-->
-        <!--            android:layout_marginTop="@dimen/_10sdp"-->
-        <!--            android:background="@drawable/card_background_border"-->
-        <!--            android:backgroundTint="@color/white"-->
-        <!--            android:gravity="center"-->
-        <!--            android:text="@string/buy"-->
-        <!--            android:textColor="@color/theme_color"-->
-        <!--            android:textSize="@dimen/_14ssp"-->
-        <!--            android:textStyle="bold"-->
-        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toBottomOf="@+id/recyclerView3"-->
-        <!--            app:layout_constraintVertical_bias="0" />-->
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

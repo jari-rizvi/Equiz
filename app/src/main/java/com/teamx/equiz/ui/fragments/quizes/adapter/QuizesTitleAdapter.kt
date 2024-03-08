@@ -27,6 +27,7 @@ class QuizesTitleAdapter(
     override fun onBindViewHolder(holder: QuizesTitleAdapterViewHolder, position: Int) {
 
         val arrayData = addressArrayList[position]
+
         if (arrayData.isSelected) {
             previous = position
         }

@@ -1,22 +1,20 @@
-package com.teamx.equiz.ui.fragments.subscription.plansData
-import com.google.errorprone.annotations.Keep
+package com.teamx.equiz.ui.fragments.subscription.catPlanById
 
-
-@Keep
-data class Data(
+data class Plan(
     val __v: Int,
     val _id: String,
-    val bullets: List<String>,
+    val categoryId: String,
     val createdAt: String,
     val freeTrialDay: Int,
-    val image: String,
     val interval: String,
     val intervalCount: Int,
     val isActive: Boolean,
+    val isBase: Boolean,
     val isFree: Boolean,
     val name: String,
     val price: Int,
     val stripeId: String,
     val stripePlaneId: String,
-    val updatedAt: String
+    val updatedAt: String,
+    var isChecked: Boolean
 )

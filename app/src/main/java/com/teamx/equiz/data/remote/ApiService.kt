@@ -53,8 +53,9 @@ import com.teamx.equiz.ui.fragments.ecommerce.productProfile.unsub_data.UNSUBDat
 import com.teamx.equiz.ui.fragments.profile.data.DELETEUSERModel
 import com.teamx.equiz.ui.fragments.quizresult.data.QuizResultDataModel
 import com.teamx.equiz.ui.fragments.subscription.buySubscription.BuySubscription
+import com.teamx.equiz.ui.fragments.subscription.catPlanById.CatPlanById
+import com.teamx.equiz.ui.fragments.subscription.catPlansData.CatPlanData
 import com.teamx.equiz.ui.fragments.subscription.data.SubData
-import com.teamx.equiz.ui.fragments.subscription.plansData.GetPlansData
 import com.teamx.equiz.ui.fragments.topup.data.TopUpModelData
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
@@ -467,11 +468,16 @@ interface ApiService {
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<ResponseBody>
 
- @GET(NetworkCallPoints.GET_SUB_PLANS)
-    suspend fun getSubPlans(
-        @Query("archive") archive: Boolean?,
+ @GET(NetworkCallPoints.GET_CAT_PLANS)
+    suspend fun getCatPlans(
         @Header("token") basicCredentials: String = "$TOKENER"
-    ): Response<GetPlansData>
+    ): Response<CatPlanData>
+
+    @GET(NetworkCallPoints.GET_PLAN_CAT_BY_ID)
+    suspend fun getCatPlansById(
+        @Path("id") id: String,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<CatPlanById>
 
 
     @GET(NetworkCallPoints.SCRATCH_IMAGE)

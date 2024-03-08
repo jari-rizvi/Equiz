@@ -107,14 +107,12 @@
             android:id="@+id/imageView7"
             android:layout_width="@dimen/_40sdp"
             android:layout_height="@dimen/_40sdp"
-            android:src="@drawable/premium_icon"
             app:layout_constraintBottom_toTopOf="@+id/textView58"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
-            app:tint="@color/theme_color" />
+            app:layout_constraintVertical_chainStyle="packed" />
 
         <TextView
             android:id="@+id/textView58"
