@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
@@ -18,6 +19,7 @@ import com.teamx.equiz.databinding.FragmentUnsubscriptionBinding
 import com.teamx.equiz.ui.fragments.Auth.login.LoginViewModel
 import com.teamx.equiz.ui.fragments.subscription.catPlanById.Attribute
 import com.teamx.equiz.utils.DialogHelperClass
+import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -73,11 +75,22 @@ class UnsubsFragment : BaseFragment<FragmentUnsubscriptionBinding, LoginViewMode
                         loadingDialog.dismiss()
                         it.data?.let { data ->
 
-                                data.user.stripProductId?.categoryId!!.attributes!!.forEach {
-                                    subCatArrayList.add(it)
-                                }
+                            data.user.stripProductId?.categoryId!!.attributes!!.forEach {
+                                subCatArrayList.add(it)
+                            }
+                            subCatAdapter.notifyDataSetChanged()
 
-                                subCatAdapter.notifyDataSetChanged()
+                            Glide.with(mViewDataBinding.imageView16.context)
+                                .load(data.user.stripProductId.categoryId.image)
+                                .into(mViewDataBinding.imageView16)
+                            mViewDataBinding.textView58.text =
+                                data.user.stripProductId.categoryId.title
+                            mViewDataBinding.price.text = data.user.stripProductId.price.toString()
+                            val date = data.user.updatedAt.toString().replaceAfter('T', "")
+                                .replace("T", "")
+
+                            mViewDataBinding.validity.text = "Valid till " + date
+
 
                         }
                     }
@@ -107,6 +120,73 @@ class UnsubsFragment : BaseFragment<FragmentUnsubscriptionBinding, LoginViewMode
                     )
                 }
             }
+        }
+
+
+        mViewDataBinding.unsub.setOnClickListener {
+
+                  DialogHelperClass.unsubUserDialog(requireContext(),
+                      object : DialogHelperClass.Companion.DeleteUserDialogCallBack {
+                          override fun onSignInClick1() {
+
+                          }
+
+                          override fun onSignUpClick1() {
+                              mViewModel.unsub()
+                              if (!mViewModel.unsubResponse.hasActiveObservers()) {
+                                  mViewModel.unsubResponse.observe(requireActivity()) {
+                                      when (it.status) {
+                                          Resource.Status.LOADING -> {
+                                              loadingDialog.show()
+                                          }
+
+                                          Resource.Status.NOTVERIFY -> {
+                                              loadingDialog.dismiss()
+                                          }
+
+                                          Resource.Status.SUCCESS -> {
+                                              loadingDialog.dismiss()
+                                              it.data?.let { data ->
+
+                                                  try {
+      //                                mViewDataBinding.root.snackbar(data)
+                                                      mViewDataBinding.root.snackbar("Subcription will end at the end of the Month")
+
+
+                                                  } catch (e: Exception) {
+                                                      e.printStackTrace()
+                                                  }
+                                              }
+                                          }
+
+                                          Resource.Status.AUTH -> {
+                                              loadingDialog.dismiss()
+                                              if (isAdded) {
+                                                  try {
+                                                      onToSignUpPage()
+                                                  } catch (e: Exception) {
+                                                      e.printStackTrace()
+                                                  }
+                                              }
+                                          }
+
+                                          Resource.Status.ERROR -> {
+                                              loadingDialog.dismiss()
+                                              if (isAdded) {
+                                                  mViewDataBinding.root.snackbar(it.message!!)
+                                              }
+                                              Log.d("TAG", "eeeeeeeeeee: ${it.message}")
+                                          }
+                                      }
+                                  }
+                              }
+
+
+                          }
+
+                      }).show()
+
+
         }
 
         SubCatPlansRecyclerview()

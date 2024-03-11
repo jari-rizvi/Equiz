@@ -185,14 +185,15 @@
             android:textColor="@color/black"
             android:textSize="@dimen/_10ssp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/textView3877"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView81"
             app:layout_constraintTop_toBottomOf="@+id/etPhone" />
 
 
         <com.hbb20.CountryCodePicker
             android:id="@+id/countryCode"
             android:layout_width="@dimen/_100sdp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_30sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:background="@drawable/contact_input_background"
             android:clickable="true"
@@ -204,14 +205,14 @@
             app:ccp_showNameCode="false"
             app:ccp_showPhoneCode="false"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/textView81"
             app:layout_constraintHorizontal_bias="0."
             app:layout_constraintStart_toStartOf="@+id/textView81"
             app:layout_constraintTop_toBottomOf="@+id/textView80"
             app:layout_constraintVertical_bias="0" />
 
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/editAddressCity"
             android:layout_width="@dimen/_100sdp"
             android:layout_height="@dimen/_30sdp"
@@ -225,7 +226,7 @@
             android:textAlignment="viewStart"
             android:textColor="#666666"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/countryCode"
+            app:layout_constraintEnd_toEndOf="@+id/textView80"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="@+id/textView80"
             app:layout_constraintTop_toBottomOf="@+id/textView80"
@@ -261,11 +262,12 @@
             android:layout_height="wrap_content"
             android:text="@string/country"
             android:textColor="@color/black"
+            app:layout_constraintHorizontal_bias="0"
             android:textSize="@dimen/_10ssp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/textView80"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView80"
+            app:layout_constraintStart_toStartOf="@+id/etPhone"
             app:layout_constraintTop_toTopOf="@+id/textView80" />
 
 

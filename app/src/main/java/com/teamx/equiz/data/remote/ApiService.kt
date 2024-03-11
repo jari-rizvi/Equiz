@@ -61,6 +61,7 @@ import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.HTTP
 import retrofit2.http.Header
@@ -308,10 +309,10 @@ interface ApiService {
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<MeModel>
 
-    @GET(NetworkCallPoints.UNSUB)
+    @HTTP(method = "DELETE", path = NetworkCallPoints.UNSUB, hasBody = true)
     suspend fun unsub(
         @Header("token") basicCredentials: String = "$TOKENER"
-    ): Response<UNSUBDataModel>
+    ): Response<SuccessData>
 
     @GET(NetworkCallPoints.DELETE_USER)
     suspend fun deleteUser(

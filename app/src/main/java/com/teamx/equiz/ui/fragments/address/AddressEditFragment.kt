@@ -4,6 +4,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
 import androidx.activity.addCallback
 import androidx.annotation.RequiresApi
 import androidx.navigation.NavOptions
@@ -40,6 +41,18 @@ class   AddressEditFragment : BaseFragment<FragmentEditAddressBinding, AddressVi
     lateinit var addressId: String
     private var countryName = ""
     private var ccp: CountryCodePicker? = null
+    lateinit var citiesArray: ArrayList<String>
+    lateinit var citiesAdapter: ArrayAdapter<String>
+
+
+    private fun getStringArrayByName(arrayName: String): Array<String>? {
+        val resId = resources.getIdentifier(arrayName, "array", requireContext().packageName)
+        return if (resId != 0) {
+            resources.getStringArray(resId)
+        } else {
+            null
+        }
+    }
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,6 +71,7 @@ class   AddressEditFragment : BaseFragment<FragmentEditAddressBinding, AddressVi
             }
         }
 
+
         ccp = mViewDataBinding.countryCode
         ccp!!.setOnCountryChangeListener(this)
 
@@ -66,6 +80,7 @@ class   AddressEditFragment : BaseFragment<FragmentEditAddressBinding, AddressVi
         if (bundle == null) {
             bundle = Bundle()
         }
+
 
         addressId = bundle.getString("id").toString()
         Log.d("TAG", "addressId: $addressId")
@@ -133,7 +148,8 @@ class   AddressEditFragment : BaseFragment<FragmentEditAddressBinding, AddressVi
             isValidate()
 
         }
-
+        citiesArray = ArrayList()
+        onCountrySelected()
 
     }
 
@@ -142,8 +158,33 @@ class   AddressEditFragment : BaseFragment<FragmentEditAddressBinding, AddressVi
 
 
     override fun onCountrySelected() {
-        countryName = ccp!!.selectedCountryName
+        countryName = ccp?.selectedCountryName?:"United Arab Emirates"
         Log.d("TAG", "onCountrySelected: ${ccp!!.selectedCountryName}")
+
+        getCountryCode(countryName)
+
+        citiesArray.clear()
+//        citiesAdapter.clear()
+        getCountryCode(countryName)?.let {
+            Log.d("countryCode", "onCountrySelected: $it")
+            getStringArrayByName(it)?.let {
+
+                citiesArray.addAll(
+                    it
+                )
+                citiesAdapter = ArrayAdapter<String>(
+                    requireActivity(),
+                    android.R.layout.simple_dropdown_item_1line,
+                    citiesArray
+                )
+                mViewDataBinding.editAddressCity.threshold = 0
+                mViewDataBinding.editAddressCity.setAdapter(citiesAdapter)
+                Log.d("countryCode", "getStringArrayByName: $citiesArray")
+
+            }
+
+
+        }
 
     }
 

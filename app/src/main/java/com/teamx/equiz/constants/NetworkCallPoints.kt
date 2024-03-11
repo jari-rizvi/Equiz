@@ -11,7 +11,7 @@ class NetworkCallPoints {
         const val RESEND_OTP ="/api/auth/resendOTP"
         const val ME = "api/users/find"
 //        const val UNSUB = "api/users/find"
-        const val UNSUB = "api/payment/unsubscribe"
+        const val UNSUB = "api/subscription/cancel"
         const val DELETE_USER = "api/users/remove"
         const val UPDATE_PROFILE = "api/users/update"
 

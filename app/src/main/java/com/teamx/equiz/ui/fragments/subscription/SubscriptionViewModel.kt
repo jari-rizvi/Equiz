@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.gson.JsonObject
 import com.teamx.equiz.baseclasses.BaseViewModel
 import com.teamx.equiz.data.models.getPlan.GerPlanData
+import com.teamx.equiz.data.models.sucessData.SuccessData
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.data.remote.reporitory.MainRepository
 import com.teamx.equiz.ui.fragments.ecommerce.productProfile.unsub_data.UNSUBDataModel
@@ -27,8 +28,8 @@ class SubscriptionViewModel @Inject constructor(
 ) : BaseViewModel() {
 
 
-    private val _unsubResponse = MutableLiveData<Resource<UNSUBDataModel>>()
-    val unsubResponse: LiveData<Resource<UNSUBDataModel>>
+    private val _unsubResponse = MutableLiveData<Resource<SuccessData>>()
+    val unsubResponse: LiveData<Resource<SuccessData>>
         get() = _unsubResponse
 
     fun unsub() {
