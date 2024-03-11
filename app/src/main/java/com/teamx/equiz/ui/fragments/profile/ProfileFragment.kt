@@ -292,14 +292,14 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
         }
 
         mViewDataBinding.btnUnSubscribe.setOnClickListener {
-            var bundle = arguments
-            if (bundle == null) {
-                bundle = Bundle()
-            }
-            bundle?.putString("routeSubs", "profile")
+//            var bundle = arguments
+//            if (bundle == null) {
+//                bundle = Bundle()
+//            }
+//            bundle?.putString("routeSubs", "profile")
 
 
-            findNavController().navigate(R.id.subscriptionFragment, arguments, options)
+            findNavController().navigate(R.id.unsubsFragment, arguments, options)
 
 
          /*   DialogHelperClass.unsubUserDialog(requireContext(),

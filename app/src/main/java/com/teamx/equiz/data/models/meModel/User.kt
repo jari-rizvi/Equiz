@@ -1,14 +1,12 @@
 package com.teamx.equiz.data.models.meModel
-import com.google.errorprone.annotations.Keep
 
-
-@Keep
 data class User(
     val __v: Int,
     val _id: String,
-    val addresses: List<Any>,
+    val addresses: List<Addresse>,
+    val bank: Bank,
     val cart: List<Any>,
-    val chances: Int,
+    val chances: Double,
     val country: String,
     val createdAt: String,
     val dateOfBirth: String,
@@ -17,6 +15,7 @@ data class User(
     val fcmToken: String,
     val id: String,
     val identification: String,
+    val identityDocuments: List<Any>,
     val image: String,
     val isActive: Boolean,
     val isAdmin: Boolean,
@@ -33,13 +32,13 @@ data class User(
     val referralCode: String,
     val resetTokenExpiration: String,
     val roles: String,
-    val score: Int,
+    val score: Double,
     val social: List<Social>,
     val street: String,
-    val stripProductId: StripProductId,
+    val stripProductId: StripProductId?,
     val stripeID: String,
     val uniqueID: String,
     val updatedAt: String,
-    val wallet: Any,
+    val wallet: Double,
     val wishlist: List<Any>
 )

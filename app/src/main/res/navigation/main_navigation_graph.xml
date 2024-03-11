@@ -585,5 +585,10 @@
         android:id="@+id/claimPrizeFragment"
         android:name="com.teamx.equiz.ui.fragments.claimPrize.ClaimPrizeFragment"
         android:label="ClaimPrizeFragment" />
+    <fragment
+        android:id="@+id/unsubsFragment"
+        android:name="com.teamx.equiz.ui.fragments.subscription.UnsubsFragment"
+        android:label="UnsubsFragment" />
+
 
 </navigation>

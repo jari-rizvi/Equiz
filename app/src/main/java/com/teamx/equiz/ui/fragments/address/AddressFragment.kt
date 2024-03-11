@@ -1,59 +1,39 @@
 package com.teamx.equiz.ui.fragments.address
 
-import android.Manifest
+import android.R
 import android.annotation.SuppressLint
-import android.location.Geocoder
-import android.location.Location
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import androidx.activity.addCallback
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.databinding.ViewDataBinding
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.model.LatLng
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.hbb20.CountryCodePicker
 import com.teamx.equiz.BR
-import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentAddressBinding
-import com.teamx.equiz.games.games.arr
-import com.teamx.equiz.ui.fragments.address.bottomSheetAddSearch.BottomSheetAddressFragment
-import com.teamx.equiz.ui.fragments.address.bottomSheetAddSearch.BottomSheetListener
-import com.teamx.equiz.ui.fragments.address.dataclasses.ShippingInfo
 import com.teamx.equiz.utils.DialogHelperClass
-import com.teamx.equiz.utils.LocationPermission
 import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import okhttp3.internal.notifyAll
 import org.json.JSONException
-import java.io.IOException
 import java.util.Locale
+
 
 @AndroidEntryPoint
 class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>(),
     CountryCodePicker.OnCountryChangeListener {
 
     override val layoutId: Int
-        get() = R.layout.fragment_address
+        get() = com.teamx.equiz.R.layout.fragment_address
     override val viewModel: Class<AddressViewModel>
         get() = AddressViewModel::class.java
     override val bindingVariable: Int
@@ -62,6 +42,19 @@ class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>()
     lateinit var addressId: String
     private var countryName = "United Arab Emirates"
     private var ccp: CountryCodePicker? = null
+
+    lateinit var citiesArray: ArrayList<String>
+    lateinit var citiesAdapter: ArrayAdapter<String>
+
+
+    private fun getStringArrayByName(arrayName: String): Array<String>? {
+        val resId = resources.getIdentifier(arrayName, "array", requireContext().packageName)
+        return if (resId != 0) {
+            resources.getStringArray(resId)
+        } else {
+            null
+        }
+    }
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -73,10 +66,10 @@ class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>()
 
         options = navOptions {
             anim {
-                enter = R.anim.enter_from_left
-                exit = R.anim.exit_to_left
-                popEnter = R.anim.nav_default_pop_enter_anim
-                popExit = R.anim.nav_default_pop_exit_anim
+                enter = com.teamx.equiz.R.anim.enter_from_left
+                exit = com.teamx.equiz.R.anim.exit_to_left
+                popEnter = com.teamx.equiz.R.anim.nav_default_pop_enter_anim
+                popExit = com.teamx.equiz.R.anim.nav_default_pop_exit_anim
             }
         }
 //        txtBottomLocation = view.findViewById(R.id.editAddress1)
@@ -89,6 +82,23 @@ class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>()
 
         addressId = bundle.getString("id").toString()
         Log.d("TAG", "addressId: $addressId")
+
+
+        citiesArray = ArrayList()
+
+//        val khArray = getStringArrayByName(mViewDataBinding.countryCode.defaultCountryName)
+
+
+        /*getStringArrayByName(mViewDataBinding.countryCode.defaultCountryName)?.let {
+            citiesArray.addAll(
+                it
+            )
+        }*/
+
+
+
+
+        onCountrySelected()
 
         mViewModel.addresById(addressId)
 
@@ -146,7 +156,6 @@ class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>()
 
         ccp = mViewDataBinding.countryCode
         ccp!!.setOnCountryChangeListener(this)
-
 
 
 //        bottomSheetAddSearchFragment = BottomSheetAddressFragment()
@@ -238,7 +247,7 @@ class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>()
 
 
                             findNavController().navigate(
-                                R.id.paymentMethodsFragment,
+                                com.teamx.equiz.R.id.paymentMethodsFragment,
                                 bundle,
                                 options
                             )
@@ -349,27 +358,27 @@ class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>()
     fun isValidate(): Boolean {
         if (mViewDataBinding.etLabel.text.toString().trim().isEmpty()) {
             if (isAdded) {
-                mViewDataBinding.root.snackbar(getString(R.string.enter_label))
+                mViewDataBinding.root.snackbar(getString(com.teamx.equiz.R.string.enter_label))
             }
             return false
         }
 
         if (mViewDataBinding.etPhone.text.toString().trim().isEmpty()) {
             if (isAdded) {
-                mViewDataBinding.root.snackbar(getString(R.string.enter_phone))
+                mViewDataBinding.root.snackbar(getString(com.teamx.equiz.R.string.enter_phone))
             }
 
             return false
         }
         if (mViewDataBinding.editAddress1.text.toString().trim().isEmpty()) {
             if (isAdded) {
-                mViewDataBinding.root.snackbar(getString(R.string.enter_address))
+                mViewDataBinding.root.snackbar(getString(com.teamx.equiz.R.string.enter_address))
             }
             return false
         }
         if (mViewDataBinding.editAddressCity.text.toString().trim().isEmpty()) {
             if (isAdded) {
-                mViewDataBinding.root.snackbar(getString(R.string.enter_city))
+                mViewDataBinding.root.snackbar(getString(com.teamx.equiz.R.string.enter_city))
             }
             return false
         }
@@ -381,7 +390,7 @@ class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>()
             phoneNumber = " +" + phoneNumber.substring(1);
 
 
-            mViewDataBinding.root.snackbar(getString(R.string.start_with_plus) + phoneNumber)
+            mViewDataBinding.root.snackbar(getString(com.teamx.equiz.R.string.start_with_plus) + phoneNumber)
 
             return false
         }
@@ -516,9 +525,37 @@ class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>()
 
     private var addressLabel = "Home"
     override fun onCountrySelected() {
-        countryName = ccp!!.selectedCountryName
+        countryName = ccp?.selectedCountryName?:"United Arab Emirates"
+
+
+        getCountryCode(countryName)
+
+        citiesArray.clear()
+//        citiesAdapter.clear()
+        getCountryCode(countryName)?.let {
+            Log.d("countryCode", "onCountrySelected: $it")
+            getStringArrayByName(it)?.let {
+
+                citiesArray.addAll(
+                    it
+                )
+                citiesAdapter = ArrayAdapter<String>(
+                    requireActivity(),
+                    R.layout.simple_dropdown_item_1line,
+                    citiesArray
+                )
+                mViewDataBinding.editAddressCity.threshold = 0
+                mViewDataBinding.editAddressCity.setAdapter(citiesAdapter)
+                Log.d("countryCode", "getStringArrayByName: $citiesArray")
+
+            }
+
+
+        }
 
     }
 
+    fun getCountryCode(countryName: String) =
+        Locale.getISOCountries().find { Locale("", it).displayCountry == countryName }
 
 }
