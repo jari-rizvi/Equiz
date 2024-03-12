@@ -29,6 +29,7 @@ import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
@@ -139,47 +140,6 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
         mViewDataBinding.btnFilter.setOnClickListener {
             DatePickerDialog().show()
 
-
-            /*          Log.d("TAG", "click: ")
-
-                      DatessModel?.let { it1 ->
-                          DialogHelperClass.DatePickerDialog(requireContext(),
-                              object : DialogHelperClass.Companion.DialogDateCallBack {
-                                  override fun startDate(sDate: String) {
-
-
-                                      DatessModel= Datess(sDate,"")
-                                  }
-
-                                  override fun endDate(eDate: String) {
-                                      val dateSetListener =
-                                          DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                                              cal.set(Calendar.YEAR, year)
-                                              cal.set(Calendar.MONTH, monthOfYear)
-                                              cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-
-                                              DatessModel= Datess("",eDate)
-
-                                          }
-
-                                      DatePickerDialog(
-                                          requireContext(), dateSetListener,
-                                          // set DatePickerDialog to point to today's date when it loads up
-                                          cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)
-                                      ).show()
-                                  }
-
-                                  override fun btncnfrm(sDate: String, eDate: String) {
-
-                                  }
-
-
-                              }, datess = it1
-                          ).show()
-                      }
-          */
-
-
         }
 
 
@@ -201,42 +161,65 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
 
                             responseBody = data
 
-                            CoroutineScope(Dispatchers.Main).launch {
-
-                                if (Build.VERSION.SDK_INT >= 33) {
-
-                                    if (!checkPermission()){
-                                        val u = Uri.parse("package:" + BuildConfig.APPLICATION_ID)
-                                        val intent = Intent(
-                                            Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION,
-                                            u
-                                        )
-////                                    ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION
-//                                    requestPermissionLauncher.launch(intent)
-//                                    startActivity(intent)
-//                                    val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
-                                        requestPermissionLauncher.launch(intent)
-                                    }else{
-                                        requestPermissionLauncher1.launch(
-                                            arrayOf(
-                                                Manifest.permission.READ_MEDIA_IMAGES,
-                                                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                            )
-                                        )
-                                    }
+                            val inputStream: InputStream =
+                                responseBody.byteStream()  // da Your InputStream containing the PDF file
+                            val fileName = "TransactionHistory.pdf"
 
 
-
-                                } else {
-                                    requestPermissionLauncher1.launch(
-                                        arrayOf(
-                                            Manifest.permission.READ_EXTERNAL_STORAGE,
-                                            Manifest.permission.WRITE_EXTERNAL_STORAGE
-                                        )
-                                    )
-                                }
-
+                            val file = File(context?.filesDir, "TransactionHistory.pdf")
+                            file.outputStream().use { outputStream ->
+                                inputStream.copyTo(outputStream)
                             }
+
+                            val pdfUri = FileProvider.getUriForFile(
+                                requireContext(),
+                                context?.packageName + ".fileprovider",
+                                file
+                            )
+
+                            val intent = Intent(Intent.ACTION_VIEW).apply {
+                                setDataAndType(pdfUri, "application/pdf")
+                                flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+                            }
+                            context?.startActivity(intent)
+
+
+//                            CoroutineScope(Dispatchers.Main).launch {
+//
+//                                if (Build.VERSION.SDK_INT >= 33) {
+//
+//                                    if (!checkPermission()){
+//                                        val u = Uri.parse("package:" + BuildConfig.APPLICATION_ID)
+//                                        val intent = Intent(
+//                                            Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION,
+//                                            u
+//                                        )
+//////                                    ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION
+////                                    requestPermissionLauncher.launch(intent)
+////                                    startActivity(intent)
+////                                    val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
+//                                        requestPermissionLauncher.launch(intent)
+//                                    }else{
+//                                        requestPermissionLauncher1.launch(
+//                                            arrayOf(
+//                                                Manifest.permission.READ_MEDIA_IMAGES,
+//                                                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+//                                            )
+//                                        )
+//                                    }
+//
+//
+//
+//                                } else {
+//                                    requestPermissionLauncher1.launch(
+//                                        arrayOf(
+//                                            Manifest.permission.READ_EXTERNAL_STORAGE,
+//                                            Manifest.permission.WRITE_EXTERNAL_STORAGE
+//                                        )
+//                                    )
+//                                }
+//
+//                            }
 
 
                         }
@@ -366,7 +349,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
 
     }
 
-    private fun downloadPDF(inputStream: InputStream, fileName: String) {
+    /*  private fun downloadPDF(inputStream: InputStream, fileName: String) {
         try {
             val outputFile = File(
                 Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
@@ -411,7 +394,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
             .password(null)
             .pageFitPolicy(FitPolicy.WIDTH)
             .load()
-    }
+    }*/
 
     lateinit var startdateTxt: TextView
     lateinit var enddateTxt: TextView
@@ -506,25 +489,25 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
     }
 
 
-    fun checkFilePermission(): Boolean {
-        val permissionResult = ContextCompat.checkSelfPermission(
-            requireActivity(),
-            Manifest.permission.MANAGE_EXTERNAL_STORAGE
-        )
+//    fun checkFilePermission(): Boolean {
+//        val permissionResult = ContextCompat.checkSelfPermission(
+//            requireActivity(),
+//            Manifest.permission.MANAGE_EXTERNAL_STORAGE
+//        )
+//
+//
+//        return when (permissionResult) {
+//            PackageManager.PERMISSION_GRANTED -> {
+//                true
+//            }
+//
+//            else -> {
+//                false
+//            }
+//        }
+//    }
 
-
-        return when (permissionResult) {
-            PackageManager.PERMISSION_GRANTED -> {
-                true
-            }
-
-            else -> {
-                false
-            }
-        }
-    }
-
-    private val requestPermissionLauncher = registerForActivityResult(
+    /*    private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
         if (result.resultCode == RESULT_OK) {
@@ -567,6 +550,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
                 ContextCompat.checkSelfPermission(requireActivity(), WRITE_EXTERNAL_STORAGE)
             result == PackageManager.PERMISSION_GRANTED && result1 == PackageManager.PERMISSION_GRANTED
         }
-    }
+    }*/
+
 
 }

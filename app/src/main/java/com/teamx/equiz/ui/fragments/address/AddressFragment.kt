@@ -95,9 +95,6 @@ class AddressFragment : BaseFragment<FragmentAddressBinding, AddressViewModel>()
             )
         }*/
 
-
-
-
         onCountrySelected()
 
         mViewModel.addresById(addressId)

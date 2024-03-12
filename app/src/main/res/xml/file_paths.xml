@@ -3,5 +3,7 @@
     <external-path
         name="external_files"
         path="." />
+
+    <files-path name="pdfs" path="." />
 </paths>
 
