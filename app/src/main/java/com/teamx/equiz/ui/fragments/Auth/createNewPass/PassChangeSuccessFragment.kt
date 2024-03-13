@@ -51,6 +51,8 @@ class PassChangeSuccessFragment : BaseFragment<FragmentPassChangeSuccessBinding,
             }
         }
 
+        sharedViewModel.setActiveUser("")
+
         mViewDataBinding.btnVerify.setOnClickListener {
             findNavController().navigate(R.id.temp2Fragment, arguments, options)
 

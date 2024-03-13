@@ -67,6 +67,8 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
             }
         }
 
+        sharedViewModel.setActiveUser("")
+
         mViewDataBinding.btnback.setOnClickListener {
             popUpStack()
         }

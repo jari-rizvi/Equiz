@@ -109,6 +109,9 @@ class AdditionAddictionGameFrag : BaseFragment<FragmentAddressBinding, GameFrags
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+
+        sharedViewModel.setActiveUser("")
+
         composeView.setContent {
             LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             AdditionAddictionGameMethod(content = { bool, rightAnswer, total ->

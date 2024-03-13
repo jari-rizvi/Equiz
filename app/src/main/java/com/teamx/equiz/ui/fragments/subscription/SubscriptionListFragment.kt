@@ -50,6 +50,8 @@ class SubscriptionListFragment : BaseFragment<FragmentSubscriptionListBinding, S
             }
         }
 
+        sharedViewModel.setActiveUser("")
+
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()

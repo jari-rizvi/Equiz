@@ -83,6 +83,8 @@ class LogInEmailFragment : BaseFragment<FragmentLoginEmailBinding, LoginViewMode
             }
         }
 
+        sharedViewModel.setActiveUser("")
+
 
         var isEnable = false
         var prefUser = PrefHelper.getUSerInstance(requireContext()).getCredentials()

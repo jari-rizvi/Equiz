@@ -59,6 +59,8 @@ class OtpPhoneFragment : BaseFragment<FragmentOtpPhoneBinding, OtpViewModel>() {
             }
         }
 
+        sharedViewModel.setActiveUser("")
+
         mViewDataBinding.btnVerify.setOnClickListener {
             verifyotpForgot()
         }

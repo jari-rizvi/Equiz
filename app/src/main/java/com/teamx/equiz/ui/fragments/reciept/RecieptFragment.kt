@@ -72,6 +72,7 @@ class RecieptFragment : BaseFragment<FragmentRecieptBinding, WishlistViewModel>(
             }
         }
 
+        sharedViewModel.setActiveUser("")
 
 
 

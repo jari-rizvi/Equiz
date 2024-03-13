@@ -49,6 +49,9 @@ class LanguageFragment : BaseFragment<FragmentLanguageBinding, AddressViewModel>
                 popExit = R.anim.exit_to_left
             }
         }
+
+        sharedViewModel.setActiveUser("")
+
         if (PrefHelper.getInstance(requireContext()).langType!! == com.teamx.equiz.utils.localization.LocaleManager.LANGUAGE_ENGLISH) {
             mViewDataBinding.radioEnglish.isChecked = true
             mViewDataBinding.radioArabic.isChecked = false

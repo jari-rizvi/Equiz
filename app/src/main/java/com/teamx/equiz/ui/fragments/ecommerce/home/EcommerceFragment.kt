@@ -84,6 +84,8 @@ class EcommerceFragment : BaseFragment<FragmentEcommerceBinding, EcommerceViewMo
             }
         }
 
+        sharedViewModel.setActiveUser("")
+
 
         mViewDataBinding.btnmenu.setOnClickListener {
 

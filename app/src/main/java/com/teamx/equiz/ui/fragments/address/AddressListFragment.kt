@@ -59,6 +59,8 @@ class AddressListFragment : BaseFragment<FragmentAddressListBinding, AddressView
             }
         }
 
+        sharedViewModel.setActiveUser("")
+
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
 
         mViewDataBinding.addAddress.setOnClickListener {

@@ -50,6 +50,8 @@ class SupportFragment : BaseFragment<FragmentSupportBinding, SubscriptionViewMod
             }
         }
 
+        sharedViewModel.setActiveUser("")
+
 
 
         mViewDataBinding.textView39.setOnClickListener {

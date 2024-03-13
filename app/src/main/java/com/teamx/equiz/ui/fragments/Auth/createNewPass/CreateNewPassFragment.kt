@@ -52,6 +52,8 @@ class CreateNewPassFragment : BaseFragment<FragmentCreatePasswordBinding, Create
             }
         }
 
+        sharedViewModel.setActiveUser("")
+
 
         mViewDataBinding.btnReset.setOnClickListener {
             validate()

@@ -69,6 +69,8 @@ class CollectPriceFragment() : BaseFragment<FragmentCollectPriceBinding, Collect
 
         }
 
+        sharedViewModel.setActiveUser("")
+
         mViewDataBinding.btnCalim.setOnClickListener {
 
             findNavController().navigate(

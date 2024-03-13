@@ -84,6 +84,8 @@ class ClaimPrizeFragment : BaseFragment<FragmentClaimprizeBinding, ClaimPrizeVie
             }
         }
 
+        sharedViewModel.setActiveUser("")
+
         claimPrizeArrayList = ArrayList()
 
         val layoutManager2 =

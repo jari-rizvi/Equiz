@@ -45,6 +45,8 @@ class SuccessFragment : BaseFragment<FragmentSuccessBinding, SignupViewModel>() 
             }
         }
 
+        sharedViewModel.setActiveUser("")
+
         mViewDataBinding.btnVerify.setOnClickListener {
 
             var bundle = arguments

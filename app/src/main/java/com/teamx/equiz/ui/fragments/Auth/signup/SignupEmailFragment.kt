@@ -63,6 +63,9 @@ class SignupEmailFragment : BaseFragment<FragmentSignupEmailBinding, SignupViewM
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+
+        sharedViewModel.setActiveUser("")
+
         mViewModel.viewModelScope.launch(Dispatchers.IO) {
             addClientCountry()
         }

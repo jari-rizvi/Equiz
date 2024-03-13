@@ -58,6 +58,8 @@ class UnsubsFragment : BaseFragment<FragmentUnsubscriptionBinding, LoginViewMode
             }
         }
 
+        sharedViewModel.setActiveUser("")
+
         mViewModel.me()
 
         if (!mViewModel.meResponse.hasActiveObservers()) {

@@ -50,6 +50,9 @@ class VerifyOtpForgotFragment : BaseFragment<FragmentOtpEmailBinding, OtpViewMod
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+
+        sharedViewModel.setActiveUser("")
+
         mViewDataBinding.btnVerify.setOnClickListener {
             verifyotpForgot()
         }

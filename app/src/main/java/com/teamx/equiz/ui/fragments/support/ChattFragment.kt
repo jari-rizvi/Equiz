@@ -54,6 +54,8 @@ class ChattFragment : BaseFragment<FragmentChatBinding, SubscriptionViewModel>()
             }
         }
 
+        sharedViewModel.setActiveUser("")
+
             val webView =  mViewDataBinding.webView
 
 

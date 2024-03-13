@@ -81,6 +81,9 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+
+        sharedViewModel.setActiveUser("")
+
         catPlansRecyclerview()
         SubCatPlansRecyclerview()
 

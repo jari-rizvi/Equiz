@@ -51,6 +51,8 @@ class ForgotPassFragment : BaseFragment<FragmentForgotPassBinding, ForgotPassVie
             }
         }
 
+        sharedViewModel.setActiveUser("")
+
         mViewDataBinding.btnSendCode.setOnClickListener {
             isValidate()
         }

@@ -52,6 +52,8 @@ class ChancesFragment : BaseFragment<FragmentChancesBinding, ChancesViewModel>()
             }
         }
 
+        sharedViewModel.setActiveUser("")
+
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
 
 

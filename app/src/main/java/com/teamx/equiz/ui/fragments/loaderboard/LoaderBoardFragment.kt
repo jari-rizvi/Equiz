@@ -62,6 +62,7 @@ class LoaderBoardFragment : BaseFragment<FragmentLoaderBoardBinding, LoaderBoard
             }
         }
 
+        sharedViewModel.setActiveUser("")
 
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
 

@@ -53,6 +53,8 @@ class GamesFragment : BaseFragment<FragmentGamesBinding, GamesViewModel>(), AllG
             }
         }
 
+        sharedViewModel.setActiveUser("")
+
         mViewDataBinding.btnback.setOnClickListener {
             findNavController().popBackStack(R.id.dashboardFragment, true)
             findNavController().navigate(R.id.dashboardFragment, arguments, options)

@@ -46,6 +46,9 @@ class CombinedGameResultFragment :
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+
+        sharedViewModel.setActiveUser("")
+
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().navigate(R.id.userStatsFragment, arguments, options)
         }

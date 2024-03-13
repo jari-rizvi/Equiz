@@ -62,6 +62,8 @@ class AllProductEcommerceFragment :
             }
         }
 
+        sharedViewModel.setActiveUser("")
+
         mViewDataBinding.btnback.setOnClickListener {
             findNavController().popBackStack()
         }

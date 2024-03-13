@@ -62,6 +62,9 @@ class PlayQuizFragment : BaseFragment<PlayQuizLayoutBinding, WishlistViewModel>(
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+
+        sharedViewModel.setActiveUser("")
+
         mViewDataBinding.btnback.setOnClickListener {
             var bundle = arguments
             if (bundle == null) {

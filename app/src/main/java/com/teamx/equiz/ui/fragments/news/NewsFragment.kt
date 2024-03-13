@@ -64,6 +64,8 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(), onNewsl
             }
         }
 
+        sharedViewModel.setActiveUser("")
+
         mViewDataBinding.btnback.setOnClickListener {
             findNavController().popBackStack()
         }

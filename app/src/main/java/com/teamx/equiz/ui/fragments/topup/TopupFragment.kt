@@ -69,6 +69,7 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
             }
         }
 
+        sharedViewModel.setActiveUser("")
 
         val bundle = Bundle()
         bundle.putString("amount", priceAddTopUp.toString())

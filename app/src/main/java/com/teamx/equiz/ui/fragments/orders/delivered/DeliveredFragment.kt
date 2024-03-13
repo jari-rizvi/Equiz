@@ -52,6 +52,8 @@ class DeliveredFragment : BaseFragment<FragmentDeliveredBinding, DeliveredViewMo
             }
         }
 
+        sharedViewModel.setActiveUser("")
+
         try {
             mViewModel.getOrders( "Delivered")
         } catch (e: Exception) {

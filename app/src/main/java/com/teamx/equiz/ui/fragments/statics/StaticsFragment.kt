@@ -55,6 +55,8 @@ class StaticsFragment : BaseFragment<FragmentStaticsBinding, StaticsViewModel>()
             }
         }
 
+        sharedViewModel.setActiveUser("")
+
             if (!mViewModel.getUserStaticsResponse.hasActiveObservers()) {
                 mViewModel.getUserStatics()
                 changeObserver(0)

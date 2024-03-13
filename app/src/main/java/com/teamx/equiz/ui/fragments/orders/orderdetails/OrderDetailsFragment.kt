@@ -74,6 +74,8 @@ class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding, OrderDeta
             }
         }
 
+        sharedViewModel.setActiveUser("")
+
         mViewDataBinding.btnback.setOnClickListener {
             popUpStack()
         }

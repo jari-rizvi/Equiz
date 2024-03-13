@@ -62,6 +62,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
             }
         }
 
+        sharedViewModel.setActiveUser("")
+
         mViewDataBinding.btnback.setOnClickListener {
             popUpStack()
         }

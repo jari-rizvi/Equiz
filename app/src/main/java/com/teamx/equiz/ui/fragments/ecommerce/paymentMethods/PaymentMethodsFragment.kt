@@ -73,6 +73,9 @@ class PaymentMethodsFragment :
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+
+        sharedViewModel.setActiveUser("")
+
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
 
 

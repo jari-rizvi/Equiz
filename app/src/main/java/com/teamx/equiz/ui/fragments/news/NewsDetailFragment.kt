@@ -52,6 +52,8 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding, NewsViewModel
             }
         }
 
+        sharedViewModel.setActiveUser("")
+
         mViewDataBinding.imgLogo.setOnClickListener {
             findNavController().popBackStack()
         }

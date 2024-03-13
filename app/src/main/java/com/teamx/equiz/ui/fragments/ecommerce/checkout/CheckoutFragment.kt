@@ -69,6 +69,8 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding, CheckoutViewModel
             }
         }
 
+        sharedViewModel.setActiveUser("")
+
 
         mViewDataBinding.addAddress.setOnClickListener {
             findNavController().navigate(

@@ -49,6 +49,8 @@ class CardsFragment : BaseFragment<FragmentCardsBinding, CardsViewModel>(), OnTo
             }
         }
 
+        sharedViewModel.setActiveUser("")
+
         mViewDataBinding.btnback.setOnClickListener {
             findNavController().popBackStack()
         }

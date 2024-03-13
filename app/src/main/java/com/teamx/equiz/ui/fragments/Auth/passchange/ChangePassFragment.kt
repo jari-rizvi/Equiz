@@ -54,6 +54,7 @@ class ChangePassFragment : BaseFragment<FragmentChangePasswordBinding, CreateNew
             }
         }
 
+        sharedViewModel.setActiveUser("")
 
         mViewDataBinding.textView.text = "Change Password"
 

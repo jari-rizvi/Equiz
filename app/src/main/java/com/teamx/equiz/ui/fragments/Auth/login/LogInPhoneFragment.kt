@@ -90,6 +90,8 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
             }
         }
 
+        sharedViewModel.setActiveUser("")
+
 
         if(isEnable){
             if (isBiometricSupported()) {

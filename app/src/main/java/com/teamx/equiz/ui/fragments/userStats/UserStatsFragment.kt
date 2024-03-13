@@ -51,6 +51,8 @@ class UserStatsFragment : BaseFragment<FragmentUserStatsBinding, LoginViewModel>
             }
         }
 
+        sharedViewModel.setActiveUser("")
+
         if (NetworkCallPoints.TOKENER.isNullOrEmpty() || NetworkCallPoints.TOKENER.equals(
                 "null",
                 true

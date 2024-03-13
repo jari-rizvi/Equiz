@@ -54,6 +54,7 @@ class ProcessingFragment : BaseFragment<FragmentProcessingBinding, ProcessingVie
             }
         }
 
+        sharedViewModel.setActiveUser("")
 
         try {
             mViewModel.getOrders("Processing")

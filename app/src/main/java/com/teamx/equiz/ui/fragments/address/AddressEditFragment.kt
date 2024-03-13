@@ -71,6 +71,8 @@ class   AddressEditFragment : BaseFragment<FragmentEditAddressBinding, AddressVi
             }
         }
 
+        sharedViewModel.setActiveUser("")
+
 
         ccp = mViewDataBinding.countryCode
         ccp!!.setOnCountryChangeListener(this)

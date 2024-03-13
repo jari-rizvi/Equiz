@@ -107,6 +107,8 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, CollectPriceViewMod
             }
         }
 
+        sharedViewModel.setActiveUser("")
+
 
     }
 

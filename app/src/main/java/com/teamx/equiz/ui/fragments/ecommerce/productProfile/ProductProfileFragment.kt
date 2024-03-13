@@ -71,6 +71,8 @@ class ProductProfileFragment :
             }
         }
 
+        sharedViewModel.setActiveUser("")
+
         mViewDataBinding.btnWish.setOnClickListener {
             if (NetworkCallPoints.TOKENER.isNullOrEmpty() || NetworkCallPoints.TOKENER.equals(
                     "null",

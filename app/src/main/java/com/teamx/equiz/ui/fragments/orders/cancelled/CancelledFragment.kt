@@ -53,6 +53,8 @@ class CancelledFragment : BaseFragment<FragmentCanclledBinding, CancelledViewMod
             }
         }
 
+        sharedViewModel.setActiveUser("")
+
         try {
             mViewModel.getOrders("Cancelled")
         } catch (e: Exception) {

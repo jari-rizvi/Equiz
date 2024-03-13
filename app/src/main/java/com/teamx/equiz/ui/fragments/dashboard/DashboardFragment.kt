@@ -100,6 +100,10 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             }
         }
 
+        sharedViewModel.setActiveUser("")
+
+        sharedViewModel.setActiveUser("")
+
 
 
         initializeCategoriesAdapter()
@@ -136,7 +140,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         }
 
         mViewDataBinding.textView16.setOnClickListener {
-            sharedViewModel.setActiveUser("")
+//            sharedViewModel.setActiveUser("")
             findNavController().navigate(
                 R.id.birthdatFragment, null, options
             )

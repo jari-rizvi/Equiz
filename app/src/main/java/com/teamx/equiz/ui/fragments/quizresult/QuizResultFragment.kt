@@ -56,6 +56,7 @@ class QuizResultFragment : BaseFragment<FragmentQuizResultBinding, SingleQuizesV
             }
         }
 
+        sharedViewModel.setActiveUser("")
 
         mViewDataBinding.btnback.setOnClickListener {
 

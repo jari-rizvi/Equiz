@@ -41,7 +41,6 @@ import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle
 import com.github.barteksc.pdfviewer.util.FitPolicy
 import com.google.common.io.ByteStreams
 import com.teamx.equiz.BR
-import com.teamx.equiz.BuildConfig
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.data.models.getwalletData.Transaction
@@ -112,6 +111,9 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
                 popExit = com.teamx.equiz.R.anim.nav_default_pop_exit_anim
             }
         }
+
+        sharedViewModel.setActiveUser("")
+
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
 
         mViewDataBinding.textView9.setOnClickListener {

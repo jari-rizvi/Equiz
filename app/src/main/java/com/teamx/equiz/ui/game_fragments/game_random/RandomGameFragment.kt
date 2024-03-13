@@ -67,6 +67,8 @@ class RandomGameFragment : BaseFragment<FragmentRandomGamesBinding, RandomGameFr
             }
         }
 
+        sharedViewModel.setActiveUser("")
+
 //        MyComposableComponent()
 
         if (sharedViewModel.roundInteger == 1){

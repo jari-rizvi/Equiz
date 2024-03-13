@@ -52,6 +52,8 @@ class BirthdayFragment : BaseFragment<FragmentBirthdayBinding, BirthdayViewModel
             }
         }
 
+        sharedViewModel.setActiveUser("")
+
         mViewDataBinding.btnback.setOnClickListener {
             popUpStack()
         }

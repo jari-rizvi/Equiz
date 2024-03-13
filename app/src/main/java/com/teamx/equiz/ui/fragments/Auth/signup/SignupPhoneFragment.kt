@@ -63,6 +63,8 @@ class SignupPhoneFragment : BaseFragment<FragmentSignupPhoneBinding, SignupViewM
             }
         }
 
+        sharedViewModel.setActiveUser("")
+
         mViewDataBinding.btnLogin.setOnClickListener {
 
             findNavController().navigate(R.id.action_signupPhoneFragment_to_logInFragment,arguments,options)
