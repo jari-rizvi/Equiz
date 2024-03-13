@@ -63,6 +63,54 @@ class OtpPhoneFragment : BaseFragment<FragmentOtpPhoneBinding, OtpViewModel>() {
             verifyotpForgot()
         }
 
+
+        mViewDataBinding.btnResend.setOnClickListener {
+            val params = JsonObject()
+            try {
+                params.addProperty("phone", phoneNumber)
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
+            mViewModel.resendOtp(params)
+            if (!mViewModel.resendOtpResponse.hasActiveObservers()) {
+                mViewModel.resendOtpResponse.observe(requireActivity()) {
+                    when (it.status) {
+                        Resource.Status.LOADING -> {
+                            loadingDialog.show()
+                        }
+
+                        Resource.Status.NOTVERIFY -> {
+                            loadingDialog.dismiss()
+                        }
+
+                        Resource.Status.SUCCESS -> {
+                            loadingDialog.dismiss()
+
+                        }
+
+                        Resource.Status.AUTH -> {
+                            loadingDialog.dismiss()
+                            if (isAdded) {
+                                try {
+                                    onToSignUpPage()
+                                } catch (e: Exception) {
+                                    e.printStackTrace()
+                                }
+                            }
+                        }
+
+                        Resource.Status.ERROR -> {
+                            loadingDialog.dismiss()
+                            DialogHelperClass.errorDialog(requireContext(), it.message!!)
+                        }
+                    }
+                    if (isAdded) {
+                        mViewModel.resendOtpResponse.removeObservers(viewLifecycleOwner)
+                    }
+                }
+            }
+        }
+
     }
 
 

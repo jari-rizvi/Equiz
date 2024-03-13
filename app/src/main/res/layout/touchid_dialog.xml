@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_100sdp"
+    android:layout_gravity="center"
+    android:layout_marginHorizontal="@dimen/_35sdp"
+    android:background="@drawable/card_background"
+    android:backgroundTint="@color/colorWhite"
+    android:elevation="@dimen/_5sdp">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:src="@drawable/app_bg"
+        android:background="@drawable/card_background"
+        android:clipToOutline="true"
+        android:scaleType="centerCrop"
+        android:layout_height="match_parent"/>
+
+
+    <TextView
+        android:id="@+id/removeBtn122"
+        style="@style/popins_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/setting"
+        android:textAlignment="center"
+        android:textColor="@color/blue"
+        android:textStyle="bold"
+        android:textSize="@dimen/_14ssp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/_15sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0" />
+
+
+    <TextView
+        android:id="@+id/removeBtn"
+        style="@style/popins_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/enable_touchid"
+        android:textAlignment="center"
+        android:textColor="@color/blue"
+        android:textSize="@dimen/_14ssp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/removeBtn122"
+     />
+
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchEnable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/removeBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toEndOf="@+id/removeBtn"
+        app:layout_constraintTop_toTopOf="@+id/removeBtn" />
+
+    <ImageView
+        android:id="@+id/imageView17"
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_20sdp"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintBottom_toBottomOf="@+id/removeBtn122"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/removeBtn122"
+        app:layout_constraintTop_toTopOf="@+id/removeBtn122"
+        app:srcCompat="@drawable/cancel_share" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -91,25 +91,6 @@ class PrefHelper private constructor() {
             sharedPreferences.edit().putString(PAYTYPE, "CASH_ON_DELIVERY").apply()
         }
 
-        /*when (pay_type) {
-            "0" -> {
-                sharedPreferences.edit().putString(PAYTYPE, "STRIPE").apply()
-
-            }
-            "1" -> {
-                sharedPreferences.edit().putString(PAYTYPE, "PAYPAL").apply()
-
-            }
-            "2" -> {
-                sharedPreferences.edit().putString(PAYTYPE, "PAY_ON_ARRIVAL").apply()
-
-            }
-            "3" -> {
-                sharedPreferences.edit().putString(PAYTYPE, "CASH_ON_DELIVERY").apply()
-
-            }
-
-        }*/
     }
 
     val checkEnableNotification: Boolean?
@@ -119,20 +100,6 @@ class PrefHelper private constructor() {
 
     fun enableNotification(redeem: Boolean) {
         sharedPreferences.edit().putBoolean(NOTIFICATION_ENABLE, redeem).apply()
-    }
-
-
-    val getCouponCode: String? get() = sharedPreferences.getString(SAVE_COUPONTOKEN, "")
-
-    fun saveCouponCode(save_token: String) {
-        sharedPreferences.edit().putString(SAVE_COUPONTOKEN, save_token).apply()
-    }
-
-    val specialInstructions: String? get() = sharedPreferences.getString(SPECIAL_INSTRUCATIONS, "")
-
-    fun saveSpecialInstruction(special_inst: String) {
-        sharedPreferences.edit().putString(SPECIAL_INSTRUCATIONS, special_inst).apply()
-
     }
 
     val order_id: String? get() = sharedPreferences.getString(ORDER_ID, "")
@@ -260,7 +227,7 @@ class PrefHelper private constructor() {
 
 
     @Keep
-    data class UserCredential(var email: String, var Password: String)
+    data class UserCredential(var email: String, var Password: String, var isDetection : Boolean)
 
     fun setCarDetails(carDetails: CarDetails?) {
         val gson = Gson()

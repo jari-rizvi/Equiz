@@ -1,12 +1,19 @@
 package com.teamx.equiz.ui.fragments.profile
 
 
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.addCallback
+import androidx.appcompat.widget.SwitchCompat
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
@@ -18,6 +25,7 @@ import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentProfileBinding
 import com.teamx.equiz.ui.fragments.Auth.login.LoginViewModel
 import com.teamx.equiz.utils.DialogHelperClass
+import com.teamx.equiz.utils.PrefHelper
 import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -33,7 +41,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
 
 
     private lateinit var options: NavOptions
-
+    var useremaill = ""
+    var userpasswordd = ""
+    var isEnable = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -53,6 +63,24 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
 
         mViewDataBinding.btnback.setOnClickListener {
             popUpStack()
+        }
+
+        mViewDataBinding.btnTouchId.setOnClickListener {
+            TouchIdDialog().show()
+
+        }
+
+
+        var prefUser = PrefHelper.getUSerInstance(requireContext()).getCredentials()
+        if (prefUser == null) {
+            prefUser = PrefHelper.getUSerInstance(requireContext()).getCredentials()
+        }
+        prefUser?.let {
+
+            useremaill = it.email
+            userpasswordd = it.Password
+            isEnable = it.isDetection
+
         }
 
 
@@ -340,4 +368,50 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
 
 
     }
+
+
+    lateinit var touchEnable: SwitchCompat
+
+
+    fun TouchIdDialog(): Dialog {
+        val dialog = Dialog(requireActivity())
+        dialog.setContentView(R.layout.touchid_dialog)
+        dialog.window!!.setLayout(
+            WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT
+        )
+        dialog.setCancelable(false)
+
+        touchEnable = dialog.findViewById(R.id.switchEnable)
+        val btn = dialog.findViewById<ImageView>(R.id.imageView17)
+
+
+
+        btn.setOnClickListener {
+            dialog.dismiss()
+            Log.d("TAG", "TouchIdDialog:")
+        }
+
+
+        touchEnable.setOnCheckedChangeListener { compoundButton, b ->
+            Log.d("TAG", "TouchIdDialog:$b")
+
+            if(b == true){
+                PrefHelper.getUSerInstance(requireContext()).setCredentials(
+                    PrefHelper.UserCredential(
+                        useremaill,
+                        userpasswordd,
+                        true
+                    )
+                )
+            }
+
+
+        }
+
+
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        return dialog
+    }
+
 }

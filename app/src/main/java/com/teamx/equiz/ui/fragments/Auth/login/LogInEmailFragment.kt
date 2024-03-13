@@ -58,8 +58,9 @@ class LogInEmailFragment : BaseFragment<FragmentLoginEmailBinding, LoginViewMode
     private lateinit var options: NavOptions
     private lateinit var fcmToken: String
     var country: String = ""
+    var email: String = ""
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
@@ -73,6 +74,25 @@ class LogInEmailFragment : BaseFragment<FragmentLoginEmailBinding, LoginViewMode
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+
+
+        var useremaill = ""
+        var userpasswordd = ""
+        var isEnable = false
+        var prefUser = PrefHelper.getUSerInstance(requireContext()).getCredentials()
+        if (prefUser == null) {
+            prefUser = PrefHelper.getUSerInstance(requireContext()).getCredentials()
+        }
+        prefUser?.let {
+
+            useremaill = it.email
+            userpasswordd = it.Password
+            isEnable = it.isDetection
+            Log.d("TAG", "hasValue: ${it.email}")
+            Log.d("TAG", "hasValue: ${it.Password}")
+
+        }
+
 
 
 
@@ -160,21 +180,23 @@ class LogInEmailFragment : BaseFragment<FragmentLoginEmailBinding, LoginViewMode
 
                         Resource.Status.NOTVERIFY -> {
                             loadingDialog.dismiss()
-                              if(isAdded){
-                            mViewDataBinding.root.snackbar(it.message!!)
-                             }
+                            if (isAdded) {
+//                                mViewDataBinding.root.snackbar(it.message!!)
+                            }
 
                             Handler().postDelayed({
-                                var bundle = arguments
-                                if (bundle == null) {
-                                    bundle = Bundle()
+                                var bundle1 = arguments
+                                if (bundle1 == null) {
+                                    bundle1 = Bundle()
                                 }
-                                bundle?.putString("country", country)
+                                bundle1?.putString("country", country)
+                                bundle1?.putString("email", userEmail)
                                 findNavController().navigate(
                                     R.id.action_logInEmailFragment_to_otpEmailFragment,
-                                    bundle,
+                                    bundle1,
                                     options
                                 )
+                                Log.d("TAG", "hasValue: ${userEmail}")
                             }, 1000)
 
                         }
@@ -190,7 +212,17 @@ class LogInEmailFragment : BaseFragment<FragmentLoginEmailBinding, LoginViewMode
                                 }
 
                                 PrefHelper.getInstance(requireContext()).saveUerId(it.data.user._id)
-                                PrefHelper.getInstance(requireContext()).savePremium(it.data.user.isPremium)
+                                PrefHelper.getInstance(requireContext())
+                                    .savePremium(it.data.user.isPremium)
+
+
+                                PrefHelper.getUSerInstance(requireContext()).setCredentials(
+                                    PrefHelper.UserCredential(
+                                        mViewDataBinding.etEMail.text.toString(),
+                                        mViewDataBinding.etPass.text.toString(),
+                                        false
+                                    )
+                                )
 
                                 var bundle = arguments
                                 if (bundle == null) {
@@ -206,15 +238,18 @@ class LogInEmailFragment : BaseFragment<FragmentLoginEmailBinding, LoginViewMode
                                 )
                             }
                         }
-                        Resource.Status.AUTH -> { loadingDialog.dismiss()
-                             if (isAdded) {
-                            try {
-                                onToSignUpPage()
-                            } catch (e: Exception) {
-                                e.printStackTrace()
+
+                        Resource.Status.AUTH -> {
+                            loadingDialog.dismiss()
+                            if (isAdded) {
+                                try {
+                                    onToSignUpPage()
+                                } catch (e: Exception) {
+                                    e.printStackTrace()
+                                }
                             }
                         }
-                        }
+
                         Resource.Status.ERROR -> {
                             loadingDialog.dismiss()
                             DialogHelperClass.errorDialog(requireContext(), it.message!!)
@@ -231,7 +266,8 @@ class LogInEmailFragment : BaseFragment<FragmentLoginEmailBinding, LoginViewMode
 
     fun isPasswordValid(password: String): Boolean {
         // Check if the password contains at least one special character
-        val specialCharacterPattern: Pattern = Pattern.compile("[!@#\$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]+")
+        val specialCharacterPattern: Pattern =
+            Pattern.compile("[!@#\$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]+")
         val containsSpecialCharacter = specialCharacterPattern.matcher(password).find()
 
         // Check if the password length is at least 8 characters
@@ -243,16 +279,16 @@ class LogInEmailFragment : BaseFragment<FragmentLoginEmailBinding, LoginViewMode
     fun isValidate(): Boolean {
 
         if (mViewDataBinding.etEMail.text.toString().trim().isEmpty()) {
-              if(isAdded){
-            mViewDataBinding.root.snackbar(getString(R.string.enter_email))
-             }
+            if (isAdded) {
+                mViewDataBinding.root.snackbar(getString(R.string.enter_email))
+            }
             return false
         }
 
         if (mViewDataBinding.etPass.text.toString().trim().isEmpty()) {
-              if(isAdded){
-            mViewDataBinding.root.snackbar(getString(R.string.enter_your_pasword))
-             }
+            if (isAdded) {
+                mViewDataBinding.root.snackbar(getString(R.string.enter_your_pasword))
+            }
             return false
         }
         if (!isPasswordValid(mViewDataBinding.etPass.text.toString())) {
@@ -352,37 +388,39 @@ class LogInEmailFragment : BaseFragment<FragmentLoginEmailBinding, LoginViewMode
 
     }
 
-   private fun addClientCountry() {
-       mViewModel.viewModelScope.launch(Dispatchers.IO) {    try {
+    private fun addClientCountry() {
+        mViewModel.viewModelScope.launch(Dispatchers.IO) {
+            try {
 
 
-               val client = OkHttpClient()
-               val request = Request.Builder()
-                   .url("https://ipwho.is/")
-                   .build()
-               val response = client.newCall(request).execute()
-               var responseCode = 0;
-               if (response.code.also { responseCode = it } == 200) {
-                   // Get response
-                   val jsonData: String = response!!.body!!.string()
-                   Log.d("TAG", "addClientCountry: $jsonData")
+                val client = OkHttpClient()
+                val request = Request.Builder()
+                    .url("https://ipwho.is/")
+                    .build()
+                val response = client.newCall(request).execute()
+                var responseCode = 0;
+                if (response.code.also { responseCode = it } == 200) {
+                    // Get response
+                    val jsonData: String = response!!.body!!.string()
+                    Log.d("TAG", "addClientCountry: $jsonData")
 
-                   // Transform reponse to JSon Object
-                   val json = JSONObject(jsonData)
+                    // Transform reponse to JSon Object
+                    val json = JSONObject(jsonData)
 
-                   // Use the JSon Object
-                   var ip = json.getString("ip")
-                   var country2 = json.getString("country")
+                    // Use the JSon Object
+                    var ip = json.getString("ip")
+                    var country2 = json.getString("country")
 
-                   country = country2
+                    country = country2
 
-                   PrefHelper.getInstance(requireContext()).setCountry(country2)
-               }
-               Log.d("123123", "addClientCountry: ${response}")
+                    PrefHelper.getInstance(requireContext()).setCountry(country2)
+                }
+                Log.d("123123", "addClientCountry: ${response}")
 
-       } catch (e:Exception){
-           e.printStackTrace()
-       } }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 
 

@@ -1,6 +1,7 @@
 package com.teamx.equiz.ui.fragments.Auth.otp
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.addCallback
 import androidx.lifecycle.Observer
@@ -16,6 +17,7 @@ import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentOtpEmailBinding
 import com.teamx.equiz.utils.DialogHelperClass
 import com.teamx.equiz.utils.PrefHelper
+import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONException
 
@@ -30,6 +32,7 @@ class OtpEmailFragment : BaseFragment<FragmentOtpEmailBinding, OtpViewModel>() {
         get() = BR.viewModel
 
     private lateinit var options: NavOptions
+    var email = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
          super.onViewCreated(view, savedInstanceState)
@@ -47,6 +50,62 @@ class OtpEmailFragment : BaseFragment<FragmentOtpEmailBinding, OtpViewModel>() {
         }
         mViewDataBinding.btnVerify.setOnClickListener {
             verifyotpForgot()
+        }
+
+        var bundle1 = arguments
+
+        if (bundle1 == null) {
+            bundle1 = Bundle()
+        }
+
+        email = bundle1.getString("email").toString()
+
+
+        mViewDataBinding.btnResend.setOnClickListener {
+            val params = JsonObject()
+            try {
+                params.addProperty("email", email)
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
+            mViewModel.resendOtp(params)
+            if (!mViewModel.resendOtpResponse.hasActiveObservers()) {
+                mViewModel.resendOtpResponse.observe(requireActivity()) {
+                    when (it.status) {
+                        Resource.Status.LOADING -> {
+                            loadingDialog.show()
+                        }
+
+                        Resource.Status.NOTVERIFY -> {
+                            loadingDialog.dismiss()
+                        }
+
+                        Resource.Status.SUCCESS -> {
+                            loadingDialog.dismiss()
+
+                        }
+
+                        Resource.Status.AUTH -> {
+                            loadingDialog.dismiss()
+                            if (isAdded) {
+                                try {
+                                    onToSignUpPage()
+                                } catch (e: Exception) {
+                                    e.printStackTrace()
+                                }
+                            }
+                        }
+
+                        Resource.Status.ERROR -> {
+                            loadingDialog.dismiss()
+                            DialogHelperClass.errorDialog(requireContext(), it.message!!)
+                        }
+                    }
+                    if (isAdded) {
+                        mViewModel.resendOtpResponse.removeObservers(viewLifecycleOwner)
+                    }
+                }
+            }
         }
 
 

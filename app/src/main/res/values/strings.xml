@@ -251,6 +251,8 @@
     <string name="tangible_items">(Tangible Items)</string>
     <string name="wallet_points">Wallet Points</string>
     <string name="notification_setting">Notification Setting</string>
+    <string name="setting">Setting</string>
+    <string name="enable_touchid">Enable TouchId</string>
 
 
 </resources>

@@ -187,6 +187,14 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
                                 PrefHelper.getInstance(requireContext()).saveUerId(it.data.user._id)
                                 PrefHelper.getInstance(requireContext()).savePremium(it.data.user.isPremium)
 
+                                PrefHelper.getUSerInstance(requireContext()).setCredentials(
+                                    PrefHelper.UserCredential(
+                                        mViewDataBinding.etEMail.text.toString(),
+                                        mViewDataBinding.etPass.text.toString(),
+                                        false
+                                    )
+                                )
+
 
                                 findNavController().navigate(R.id.action_logInFragment_to_dashboardFragment,arguments,options)
                             }

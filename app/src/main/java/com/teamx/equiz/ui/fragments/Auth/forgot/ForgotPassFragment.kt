@@ -33,6 +33,7 @@ class ForgotPassFragment : BaseFragment<FragmentForgotPassBinding, ForgotPassVie
     private lateinit var options: NavOptions
 
     private var UserCredentials: String? = null
+    val bundle1 = Bundle()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
          super.onViewCreated(view, savedInstanceState)
@@ -86,7 +87,7 @@ class ForgotPassFragment : BaseFragment<FragmentForgotPassBinding, ForgotPassVie
             }
 
             val bundle = Bundle()
-            bundle.putString("credentials", UserCredentials)
+            bundle1.putString("credentials", UserCredentials)
 
 
    /*         if (isValidEmail(userEmail.toString())) {
@@ -112,10 +113,11 @@ class ForgotPassFragment : BaseFragment<FragmentForgotPassBinding, ForgotPassVie
 
                                 it.data?.let { data ->
 
-
+                                    bundle1?.putString("email", UserCredentials)
+                                    bundle1.putString("credentials", UserCredentials)
                                     findNavController().navigate(
                                         R.id.action_forgotPassFragment2_to_verifyOtpForgotFragment2,
-                                        bundle
+                                        bundle1
                                     )
                                 }
                             }
@@ -153,7 +155,10 @@ class ForgotPassFragment : BaseFragment<FragmentForgotPassBinding, ForgotPassVie
                                 loadingDialog.dismiss()
 
                                 it.data?.let { data ->
-                                    findNavController().navigate(R.id.action_forgotPassFragment2_to_verifyOtpForgotFragment2,arguments,options)
+                                    bundle1?.putString("phone", UserCredentials)
+                                    bundle1.putString("credentials", UserCredentials)
+
+                                    findNavController().navigate(R.id.action_forgotPassFragment2_to_verifyOtpForgotFragment2,bundle1,options)
                                 }
                             }
                             Resource.Status.AUTH -> { loadingDialog.dismiss()
