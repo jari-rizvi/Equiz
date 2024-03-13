@@ -23,6 +23,7 @@ import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentProfileBinding
+import com.teamx.equiz.ui.activity.mainActivity.MainActivity.Companion.isEnable
 import com.teamx.equiz.ui.fragments.Auth.login.LoginViewModel
 import com.teamx.equiz.utils.DialogHelperClass
 import com.teamx.equiz.utils.PrefHelper
@@ -42,8 +43,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
 
     private lateinit var options: NavOptions
     var useremaill = ""
+    var userphonee = ""
     var userpasswordd = ""
-    var isEnable = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -77,7 +78,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
         }
         prefUser?.let {
 
-            useremaill = it.email
+            useremaill = it.email.toString()
+            userphonee = it.phone.toString()
             userpasswordd = it.Password
             isEnable = it.isDetection
 
@@ -169,7 +171,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
                 }
             }
         }
-
 
 
 //        if (!mViewModel.unsubResponse.hasActiveObservers()) {
@@ -330,18 +331,18 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
             findNavController().navigate(R.id.unsubsFragment, arguments, options)
 
 
-         /*   DialogHelperClass.unsubUserDialog(requireContext(),
-                object : DialogHelperClass.Companion.DeleteUserDialogCallBack {
-                    override fun onSignInClick1() {
+            /*   DialogHelperClass.unsubUserDialog(requireContext(),
+                   object : DialogHelperClass.Companion.DeleteUserDialogCallBack {
+                       override fun onSignInClick1() {
 
-                    }
+                       }
 
-                    override fun onSignUpClick1() {
-                        mViewModel.unsub()
+                       override fun onSignUpClick1() {
+                           mViewModel.unsub()
 
-                    }
+                       }
 
-                }).show()*/
+                   }).show()*/
 
 
         }
@@ -391,19 +392,39 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
             Log.d("TAG", "TouchIdDialog:")
         }
 
+        if (isEnable) {
+            touchEnable.isChecked = true
+        }
+
 
         touchEnable.setOnCheckedChangeListener { compoundButton, b ->
             Log.d("TAG", "TouchIdDialog:$b")
 
-            if(b == true){
+            if (b == true) {
                 PrefHelper.getUSerInstance(requireContext()).setCredentials(
                     PrefHelper.UserCredential(
                         useremaill,
+                        userphonee,
                         userpasswordd,
                         true
                     )
                 )
+                isEnable = true
+
+            } else {
+                PrefHelper.getUSerInstance(requireContext()).setCredentials(
+                    PrefHelper.UserCredential(
+                        useremaill,
+                        userphonee,
+                        userpasswordd,
+                        false
+                    )
+                )
+                isEnable = false
             }
+
+
+            Log.d("TAG", "TouchIdDialog: $isEnable}")
 
 
         }

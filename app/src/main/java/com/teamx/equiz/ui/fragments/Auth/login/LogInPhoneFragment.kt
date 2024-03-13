@@ -34,6 +34,7 @@ import com.teamx.equiz.constants.NetworkCallPoints
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentLoginPhoneBinding
 import com.teamx.equiz.games.games.arr
+import com.teamx.equiz.ui.activity.mainActivity.MainActivity.Companion.isEnable
 import com.teamx.equiz.utils.DialogHelperClass
 import com.teamx.equiz.utils.PrefHelper
 import com.teamx.equiz.utils.snackbar
@@ -63,6 +64,11 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
     private lateinit var fcmToken: String
     var country: String = ""
 
+
+    //PrefValues
+    var userphonee = ""
+    var userpasswordd = ""
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
@@ -84,12 +90,31 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
             }
         }
 
-       /* if (isBiometricSupported()) {
-            showBiometricPrompt()
-        } else {
-            // Handle the case when biometric authentication is not supported
 
-        }*/
+        if(isEnable){
+            if (isBiometricSupported()) {
+                showBiometricPrompt()
+            } else {
+
+            }
+        }
+
+        var isEnable = false
+        var prefUser = PrefHelper.getUSerInstance(requireContext()).getCredentials()
+        if (prefUser == null) {
+            prefUser = PrefHelper.getUSerInstance(requireContext()).getCredentials()
+        }
+        prefUser?.let {
+
+            userphonee = it.phone.toString()
+            userpasswordd = it.Password
+            isEnable = it.isDetection
+            Log.d("TAG", "hasValue: ${it.phone}")
+            Log.d("TAG", "hasValue: ${it.Password}")
+
+        }
+
+
 
         FirebaseApp.initializeApp(requireContext())
         Firebase.initialize(requireContext())
@@ -121,7 +146,7 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
         }
 
         askNotificationPermission()
-//        isBiometricSupported()
+        isBiometricSupported()
     }
 
     private fun initialization() {
@@ -189,6 +214,7 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
 
                                 PrefHelper.getUSerInstance(requireContext()).setCredentials(
                                     PrefHelper.UserCredential(
+                                        mViewDataBinding.etEMail.text.toString(),
                                         mViewDataBinding.etEMail.text.toString(),
                                         mViewDataBinding.etPass.text.toString(),
                                         false
@@ -401,32 +427,108 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
             object : BiometricPrompt.AuthenticationCallback() {
                 override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
                     super.onAuthenticationError(errorCode, errString)
-                    // Handle authentication error
-                    showMessage("Authentication error: $errString")
                 }
 
                 override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
                     super.onAuthenticationSucceeded(result)
-                    ApiCall()
 
-                    // Handle authentication success
-                    showMessage("Authentication succeeded!")
+                    val params = JsonObject()
+                    try {
+                        params.addProperty("phone", userphonee)
+                        params.addProperty("password", userpasswordd)
+                        params.addProperty("fcmToken", fcmToken)
+                        params.addProperty("country", country)
+                    } catch (e: JSONException) {
+                        e.printStackTrace()
+                    }
+
+                    mViewModel.loginPhone(params)
+
+                    if (!mViewModel.loginResponse.hasActiveObservers()) {
+                        mViewModel.loginResponse.observe(requireActivity()) {
+                            when (it.status) {
+                                Resource.Status.LOADING -> {
+                                    loadingDialog.show()
+                                }
+                                Resource.Status.NOTVERIFY -> {
+                                    loadingDialog.dismiss()
+                                    if (isAdded) {
+                                        mViewDataBinding.root.snackbar(it.message!!)
+                                    }
+
+                                    var bundle = arguments
+
+                                    if (bundle == null) {
+                                        bundle = Bundle()
+                                    }
+
+                                    bundle?.putString("phone", userPhone)
+                                    Handler().postDelayed({
+                                        findNavController().navigate(
+                                            R.id.action_logInFragment_to_otpPhoneFragment,
+                                            bundle,
+                                            options
+                                        )
+                                    }, 1000)
+//                            onToOtpPage()
+                                }
+                                Resource.Status.SUCCESS -> {
+                                    loadingDialog.dismiss()
+
+                                    it.data?.let { data ->
+
+                                        lifecycleScope.launch(Dispatchers.IO) {
+                                            dataStoreProvider.saveUserToken(data.token)
+                                            NetworkCallPoints.TOKENER = data.token
+                                        }
+                                        PrefHelper.getInstance(requireContext()).saveUerId(it.data.user._id)
+                                        PrefHelper.getInstance(requireContext()).savePremium(it.data.user.isPremium)
+
+                                        PrefHelper.getUSerInstance(requireContext()).setCredentials(
+                                            PrefHelper.UserCredential(
+                                               userphonee,
+                                               userphonee,
+                                                userpasswordd,
+                                                isEnable
+                                            )
+                                        )
+
+
+                                        findNavController().navigate(R.id.action_logInFragment_to_dashboardFragment,arguments,options)
+                                    }
+                                }
+                                Resource.Status.AUTH -> { loadingDialog.dismiss()
+                                    if (isAdded) {
+                                        try {
+                                            onToSignUpPage()
+                                        } catch (e: Exception) {
+                                            e.printStackTrace()
+                                        }
+                                    }
+                                }
+                                Resource.Status.ERROR -> {
+                                    loadingDialog.dismiss()
+                                    DialogHelperClass.errorDialog(requireContext(), it.message!!)
+                                }
+                            }
+                            if (isAdded) {
+                                mViewModel.loginResponse.removeObservers(viewLifecycleOwner)
+                            }
+                        }
+                    }
+
                 }
 
                 override fun onAuthenticationFailed() {
                     super.onAuthenticationFailed()
-                    // Handle authentication failure
-                    showMessage("Authentication failed.")
+
+                    showToast("Authentication failed.")
                 }
             })
 
         biometricPrompt.authenticate(promptInfo)
     }
 
-
-    private fun showMessage(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-    }
 
 
     private fun isBiometricSupported(): Boolean {

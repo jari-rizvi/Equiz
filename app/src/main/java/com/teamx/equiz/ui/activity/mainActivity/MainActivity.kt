@@ -266,6 +266,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
         private const val STATE_HELPER = "helper"
         var bottomNav: BottomNavigationView? = null
         var service: CounterNotificationService? = null
+        var isEnable = false
+
 
     }
 

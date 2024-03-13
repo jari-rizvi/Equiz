@@ -20,6 +20,8 @@ import com.teamx.equiz.constants.NetworkCallPoints.Companion.TOKENER
 import com.teamx.equiz.data.models.quizTitleData.Data
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.SettingsFragmentLayoutBinding
+import com.teamx.equiz.ui.activity.mainActivity.MainActivity
+import com.teamx.equiz.ui.activity.mainActivity.MainActivity.Companion.isEnable
 import com.teamx.equiz.ui.fragments.quizes.TitleData
 import com.teamx.equiz.ui.fragments.quizes.adapter.QuizesAdapter
 import com.teamx.equiz.ui.fragments.quizes.adapter.QuizesTitleAdapter
@@ -52,6 +54,12 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
 
     var referralCode = ""
     var userId = ""
+
+
+    var userphonee = ""
+    var useremaill = ""
+    var userpasswordd = ""
+    var isDetect = ""
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
@@ -205,14 +213,11 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
         }
         bundle.putString("referralCode", referralCode)
 
-        mViewDataBinding.btnLogout.setOnClickListener {}
 
         if (TOKENER.isNullOrEmpty() || TOKENER.equals("null", true)) {
             mViewDataBinding.btnLogout.visibility = View.GONE
 
         }
-
-
 
         mViewDataBinding.btnLogout.setOnClickListener {
             DialogHelperClass.LogoutDialog(requireContext(),
@@ -225,6 +230,36 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
                         PrefHelper.getInstance(requireContext())
                             .setFavouriteShop(listOf<String>())
                         PrefHelper.getInstance(requireContext()).clearAll()
+
+
+                        if (!MainActivity.isEnable) {
+                            PrefHelper.getUSerInstance(requireContext()).clearAll()
+                        }
+
+                       /* var prefUser = PrefHelper.getUSerInstance(requireContext()).getCredentials()
+                        if (prefUser == null) {
+                            prefUser = PrefHelper.getUSerInstance(requireContext()).getCredentials()
+                        }
+                        prefUser?.let {
+
+                            userphonee = it.phone.toString()
+                            useremaill = it.email.toString()
+                            userpasswordd = it.Password
+                            isEnable = it.isDetection
+                            Log.d("TAG", "hasValue: ${it.phone}")
+                            Log.d("TAG", "hasValue: ${it.Password}")
+
+                        }
+
+
+                        PrefHelper.getUSerInstance(requireContext()).setCredentials(
+                            PrefHelper.UserCredential(
+                                useremaill,
+                                userphonee,
+                                userpasswordd,
+                                isEnable
+                            )
+                        )*/
 
                         navController = Navigation.findNavController(
                             requireActivity(), R.id.nav_host_fragment

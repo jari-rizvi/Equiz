@@ -227,7 +227,7 @@ class PrefHelper private constructor() {
 
 
     @Keep
-    data class UserCredential(var email: String, var Password: String, var isDetection : Boolean)
+    data class UserCredential(var email: String?,var phone: String?, var Password: String, var isDetection : Boolean)
 
     fun setCarDetails(carDetails: CarDetails?) {
         val gson = Gson()
