@@ -49,7 +49,7 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(), onNewsl
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
@@ -106,9 +106,11 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(), onNewsl
                         mViewDataBinding.shimmerLayout.visibility = View.VISIBLE
 
                     }
+
                     Resource.Status.NOTVERIFY -> {
                         loadingDialog.dismiss()
                     }
+
                     Resource.Status.SUCCESS -> {
 //                        loadingDialog.dismiss()
                         it.data?.let { data ->
@@ -116,6 +118,13 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(), onNewsl
                             mViewDataBinding.shimmerLayout.stopShimmer()
                             mViewDataBinding.shimmerLayout.visibility = View.GONE
                             mViewDataBinding.mainLayout.visibility = View.VISIBLE
+
+
+
+                            if (data.newsData.isEmpty()) {
+                                mViewDataBinding.recylertodaysnews.visibility = View.GONE
+                                mViewDataBinding.textView1.visibility = View.GONE
+                            }
 
                             newsArrayListcurrent.clear()
                             newsArrayListcurrent.addAll(data.newsData)
@@ -128,8 +137,10 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(), onNewsl
 
                         }
                     }
-                    Resource.Status.AUTH -> { loadingDialog.dismiss()
-                         if (isAdded) {
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+                        if (isAdded) {
                             try {
                                 onToSignUpPage()
                             } catch (e: Exception) {
@@ -137,6 +148,7 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(), onNewsl
                             }
                         }
                     }
+
                     Resource.Status.ERROR -> {
 //                        loadingDialog.dismiss()
                         mViewDataBinding.shimmerLayout.stopShimmer()
@@ -162,12 +174,19 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(), onNewsl
                         loadingDialog.show()
 
                     }
+
                     Resource.Status.NOTVERIFY -> {
                         loadingDialog.dismiss()
                     }
+
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
+
+                            if (data.newsData.isEmpty()) {
+                                mViewDataBinding.recylerupcomingnews.visibility = View.GONE
+                                mViewDataBinding.textView12.visibility = View.GONE
+                            }
 
                             newsArrayListupcoming.clear()
                             newsArrayListupcoming.addAll(data.newsData)
@@ -181,8 +200,10 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(), onNewsl
 
                         }
                     }
-                    Resource.Status.AUTH -> { loadingDialog.dismiss()
-                         if (isAdded) {
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+                        if (isAdded) {
                             try {
                                 onToSignUpPage()
                             } catch (e: Exception) {
@@ -190,6 +211,7 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(), onNewsl
                             }
                         }
                     }
+
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
                         DialogHelperClass.errorDialog(
@@ -213,12 +235,19 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(), onNewsl
                         loadingDialog.show()
 
                     }
+
                     Resource.Status.NOTVERIFY -> {
                         loadingDialog.dismiss()
                     }
+
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
+
+                            if (data.newsData.isEmpty()) {
+                                mViewDataBinding.recylerrecentnews.visibility = View.GONE
+                                mViewDataBinding.textView122.visibility = View.GONE
+                            }
 
                             newsArrayListrecents.clear()
                             newsArrayListrecents.addAll(data.newsData)
@@ -231,8 +260,10 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(), onNewsl
 
                         }
                     }
-                    Resource.Status.AUTH -> { loadingDialog.dismiss()
-                         if (isAdded) {
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+                        if (isAdded) {
                             try {
                                 onToSignUpPage()
                             } catch (e: Exception) {
@@ -240,6 +271,7 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(), onNewsl
                             }
                         }
                     }
+
                     Resource.Status.ERROR -> {
                         loadingDialog.dismiss()
                         DialogHelperClass.errorDialog(
@@ -274,7 +306,7 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(), onNewsl
         val linearLayoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
         mViewDataBinding.recylertodaysnews.layoutManager = linearLayoutManager
 
-        newsAdaptercurrent = NewsAdapter(newsArrayListcurrent,this)
+        newsAdaptercurrent = NewsAdapter(newsArrayListcurrent, this)
         mViewDataBinding.recylertodaysnews.adapter = newsAdaptercurrent
 
     }

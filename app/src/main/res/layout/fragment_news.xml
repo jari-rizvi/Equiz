@@ -51,7 +51,6 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12ssp"
                 android:textStyle="bold"
-
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0"
@@ -66,6 +65,7 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:maxHeight="@dimen/_130sdp"
                 android:minHeight="@dimen/_130sdp"
+
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -85,14 +85,14 @@
                 android:text="@string/upcoming_news"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12ssp"
-
+                android:layout_marginTop="@dimen/_5sdp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toStartOf="@+id/textView1"
                 app:layout_constraintTop_toBottomOf="@+id/recylertodaysnews"
-                app:layout_constraintVertical_bias="0.05" />
+                app:layout_constraintVertical_bias="0" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recylerupcomingnews"
@@ -100,6 +100,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:maxHeight="@dimen/_130sdp"
+
                 android:minHeight="@dimen/_130sdp"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -118,13 +119,14 @@
                 android:layout_height="wrap_content"
                 android:text="@string/recent_news"
                 android:textSize="@dimen/_12ssp"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toStartOf="@+id/textView12"
                 app:layout_constraintTop_toBottomOf="@+id/recylerupcomingnews"
-                app:layout_constraintVertical_bias="0.05" />
+                app:layout_constraintVertical_bias="0" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recylerrecentnews"

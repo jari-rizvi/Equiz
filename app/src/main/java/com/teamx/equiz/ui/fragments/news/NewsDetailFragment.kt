@@ -1,7 +1,9 @@
 package com.teamx.equiz.ui.fragments.news
 
 
+import android.os.Build
 import android.os.Bundle
+import android.text.Html
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.navigation.NavOptions
@@ -21,6 +23,8 @@ import com.teamx.equiz.databinding.FragmentNewsDetailBinding
 import com.teamx.equiz.utils.DialogHelperClass
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.activity.addCallback
+import androidx.annotation.RequiresApi
+
 @AndroidEntryPoint
 class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding, NewsViewModel>() {
 
@@ -36,6 +40,7 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding, NewsViewModel
     private var id: String? = null
 
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
          super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
@@ -80,7 +85,8 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding, NewsViewModel
                             val o = data.data.createdAt.toString().replaceAfter('T', "").replace("T", "")
                             val time = data.data.updatedAt.toString().replaceAfter('T', "").replace("T", "")
 
-                            mViewDataBinding.details.text = data.data.description
+                            val spanned = Html.fromHtml( data.data.description, Html.FROM_HTML_MODE_LEGACY)
+                            mViewDataBinding.details.text = spanned
                             mViewDataBinding.date.text = o
                             mViewDataBinding.text1.text = data.data.title
                             mViewDataBinding.time.text = time
