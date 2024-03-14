@@ -1,14 +1,13 @@
 package com.teamx.equiz.ui.activity.mainActivity
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.os.Looper
 import android.util.Log
-import android.view.MotionEvent
 import android.view.View
 import android.widget.ProgressBar
-import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
@@ -16,11 +15,13 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.gson.JsonObject
 import com.teamx.equiz.BR
 import com.teamx.equiz.MainApplication
 import com.teamx.equiz.R
 import com.teamx.equiz.SharedViewModel
 import com.teamx.equiz.baseclasses.BaseActivity
+import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.ActivityMainBinding
 import com.teamx.equiz.games.games.tetris.logic.SoundUtil
 import com.teamx.equiz.games.games.tetris.logic.StatusBarUtil
@@ -48,11 +49,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
     lateinit var sharedViewModel: SharedViewModel
 
     private var totalActiveTime: Long = 0
-    private var lastClickTime: Long = 0
-    private var isTimerRunning = false
     private val handler = Handler()
     private lateinit var runnable: Runnable
-
 
 
     override fun attachBaseContext(newBase: Context?) =
@@ -72,17 +70,18 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
 
         sharedViewModel = ViewModelProvider(this)[SharedViewModel::class.java]
 
-        sharedViewModel.activeUser.observe(this){
-//            Log.d("activeUserds", "activeUser: $it")
-            startTimer()
+        if (!sharedViewModel.activeUser.hasActiveObservers()) {
+            sharedViewModel.activeUser.observe(this) {
+                Log.d("activeUserds", "activeUser: $it")
+                stopTimer()
+                startTimer()
+            }
         }
 
         runnable = Runnable {
-            totalActiveTime += 1000 // Increment the total active time
-            // Update UI or perform any other actions with the total active time
+            totalActiveTime += 1
             Log.d("activeUserds", "activeUser: $totalActiveTime")
-            handler.postDelayed(runnable, 1000) // Schedule the task again
-            autoStopTimer() // Check if the timer should be stopped
+            handler.postDelayed(runnable, 1000)
         }
 
         service = CounterNotificationService(applicationContext)
@@ -168,9 +167,48 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
 
         setBottomNavigationWithNavController(savedInstanceState)
 
+        if (!mViewModel.activeUserResponse.hasActiveObservers()) {
+            mViewModel.activeUserResponse.observe(this) {
+                when (it.status) {
+                    Resource.Status.LOADING -> {
+                        Log.d("destinationsdsd", "LOADING: ")
+                    }
+
+                    Resource.Status.NOTVERIFY -> {
+                        Log.d("destinationsdsd", "NOTVERIFY: ")
+                    }
+
+                    Resource.Status.SUCCESS -> {
+                        Log.d("destinationsdsd", "SUCCESS: ${it.data?.activeLevel}")
+                        it.data?.let { data ->
+                            Log.d("destinationsdsd", "destination: ${data.activeLevel}")
+
+                        }
+                    }
+
+                    Resource.Status.AUTH -> {
+                        Log.d("destinationsdsd", "AUTH: ")
+                    }
+
+                    Resource.Status.ERROR -> {
+                        Log.d("destinationsdsd", "ERROR: ${it.message}")
+                    }
+                }
+            }
+        }
 
 
         navController!!.addOnDestinationChangedListener { _, destination, _ ->
+
+            stopTimer()
+
+            if (totalActiveTime.toInt() != 0) {
+                Log.d("destinationsdsd", "totalActiveTime: ${totalActiveTime} ")
+                val jsonObject = JsonObject()
+                jsonObject.addProperty("time", totalActiveTime)
+                totalActiveTime = 0
+                mViewModel.activeUser(jsonObject)
+            }
 
             when (destination.id) {
 
@@ -336,55 +374,28 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
     }
 
     private fun startTimer() {
-        lastClickTime = System.currentTimeMillis() // Update the last click time
-        if (!isTimerRunning) {
-            handler.postDelayed(runnable, 1000)
-            isTimerRunning = true
-        }
+        handler.post(runnable)
     }
 
     private fun stopTimer() {
         handler.removeCallbacks(runnable)
-        isTimerRunning = false
     }
 
-    private fun autoStopTimer() {
-        val currentTime = System.currentTimeMillis()
-        if (currentTime - lastClickTime >= 5000 && isTimerRunning) {
-            // Stop the timer if no click event has occurred for AUTO_STOP_DELAY milliseconds
-            stopTimer()
-        }
-    }
 
-    private fun startAutoStopTimerLoop() {
-        handler.postDelayed(autoStopRunnable, 1000)
-    }
-
-    private fun stopAutoStopTimerLoop() {
-        handler.removeCallbacks(autoStopRunnable)
-    }
-
-    private val autoStopRunnable = object : Runnable {
-        override fun run() {
-            autoStopTimer()
-            handler.postDelayed(this, 1000)
-        }
-    }
-
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onResume() {
         super.onResume()
-        // Start the timer when the activity is resumed
         startTimer()
-        // Start auto-stop timer loop
-        startAutoStopTimerLoop()
+//        if (!handler.hasCallbacks { runnable }) {
+//        }
+
     }
 
     override fun onPause() {
         super.onPause()
-        // Stop the timer when the activity is paused
+
         stopTimer()
-        // Stop auto-stop timer loop
-        stopAutoStopTimerLoop()
+
     }
 
 }

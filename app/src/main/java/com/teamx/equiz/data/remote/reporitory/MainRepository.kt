@@ -51,6 +51,7 @@ class MainRepository @Inject constructor(
     suspend fun getProductById(@Path("id") Productid: String) = apiService.getProductById(Productid)
     suspend fun getCategories() = apiService.getCategories()
     suspend fun loginPhone(@Body param: JsonObject) = apiService.loginPhone(param)
+    suspend fun activeUser(@Body param: JsonObject) = apiService.activeUser(param)
     suspend fun forgotpass(@Body param: JsonObject) = apiService.forgotpass(param)
     suspend fun resendOtp(@Body param: JsonObject) = apiService.resendOtp(param)
     suspend fun Signup(@Body param: JsonObject) = apiService.Signup(param)

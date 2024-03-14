@@ -39,6 +39,7 @@ import com.teamx.equiz.data.models.sucessData.gamesuccess.GameObj
 import com.teamx.equiz.data.models.topWinnerData.TopWinnerData
 import com.teamx.equiz.data.models.uploadImgDoc.UploadImgDoc
 import com.teamx.equiz.data.models.wishlistdata.WishlistData
+import com.teamx.equiz.ui.activity.mainActivity.activeusermodel.ModelActiveUser
 import com.teamx.equiz.ui.fragments.Auth.datanotify.DataFCMModel
 import com.teamx.equiz.ui.fragments.address.dataclasses.AddressOrderCreate
 import com.teamx.equiz.ui.fragments.address.dataclasses.getAddressList.GetAddressListData
@@ -218,6 +219,12 @@ interface ApiService {
         @Body params: JsonObject?,
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<AddToWishlistData>
+
+    @PUT(NetworkCallPoints.ACTIVE_USER)
+    suspend fun activeUser(
+        @Body params: JsonObject?,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<ModelActiveUser>
 
 
     //    @HTTP(method = "DELETE",path=NetworkCallPoints.DELETE_WISHLIST)
