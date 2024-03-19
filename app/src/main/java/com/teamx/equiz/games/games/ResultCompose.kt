@@ -445,7 +445,9 @@ fun ResultScreen(
                         total
                     }
 //                    ShowMeantime("Mean Time", " ${time / (to)}s")
-                    ShowMeantime("Mean Time", " ${20 / total}s")
+                    if (total != 0) {
+                        ShowMeantime("Mean Time", " ${20 / total}s")
+                    }
 
 
                     /* Row(
