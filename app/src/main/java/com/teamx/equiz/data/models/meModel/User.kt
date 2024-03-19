@@ -1,5 +1,7 @@
 package com.teamx.equiz.data.models.meModel
 
+import com.teamx.equiz.data.models.editProfile.IdentityDocument
+
 data class User(
     val __v: Int,
     val _id: String,
@@ -15,10 +17,10 @@ data class User(
     val fcmToken: String,
     val id: String,
     val identification: String,
-    val identityDocuments: List<Any>,
     val image: String,
     val isActive: Boolean,
     val isAdmin: Boolean,
+    val identityDocuments: List<IdentityDocument>,
     val isEmailValid: Boolean,
     val isPhoneValid: Boolean,
     val isPremium: Boolean,

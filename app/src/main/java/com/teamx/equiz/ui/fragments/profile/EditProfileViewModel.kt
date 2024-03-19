@@ -97,8 +97,6 @@ class EditProfileViewModel @Inject constructor(
         }
     }
 
-
-
     private val _meResponse = MutableLiveData<Resource<MeModel>>()
     val meResponse: LiveData<Resource<MeModel>>
         get() = _meResponse

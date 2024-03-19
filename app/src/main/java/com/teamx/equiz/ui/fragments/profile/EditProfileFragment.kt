@@ -2,6 +2,7 @@ package com.teamx.equiz.ui.fragments.profile
 
 import android.app.DatePickerDialog
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -13,6 +14,8 @@ import androidx.annotation.Keep
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.google.gson.JsonObject
@@ -20,8 +23,13 @@ import com.squareup.picasso.Picasso
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
+import com.teamx.equiz.data.models.editProfile.IdentityDocument
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentEditProfileBinding
+import com.teamx.equiz.ui.fragments.coupons.CouponsAdapter
+import com.teamx.equiz.ui.fragments.subscription.SubCatPlanAdapter
+import com.teamx.equiz.ui.fragments.subscription.catPlanById.Attribute
+import com.teamx.equiz.ui.fragments.subscription.catPlanById.Plan
 import com.teamx.equiz.utils.DialogHelperClass
 import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -69,6 +77,13 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
     var linkInsta = ""
     var linkFb = ""
 
+    lateinit var uploadDocuments: UploadDocuments
+
+    lateinit var docsAdapter: DocsAdapter
+    lateinit var docsArrayList: ArrayList<IdentityDocument>
+
+//     var idenArrayList: ArrayList<com.teamx.equiz.ui.fragments.profile.IdentityDocument> = ArrayList()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
@@ -84,6 +99,8 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+
+        imageFiles = ArrayList()
 
         sharedViewModel.setActiveUser("")
 
@@ -142,6 +159,13 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                     loadingDialog.dismiss()
                     it.data?.let { data ->
                         try {
+                            if (data.user.identityDocuments.isNotEmpty()) {
+                                mViewDataBinding.recDocs.visibility = View.VISIBLE
+                                docsArrayList.clear()
+
+                                docsArrayList.addAll(data.user.identityDocuments)
+                                docsAdapter.notifyDataSetChanged()
+                            }
 
                             Log.d("TAG", "onViewCreatedemail: ${data.user.isEmailValid}")
                             Log.d("TAG", "onViewCreatedphone: ${data.user.isPhoneValid}")
@@ -184,19 +208,18 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
 //                                    Picasso.get().load(product.quizId.icon.toString()).into(mViewDataBinding.profilePicture)
 
 
-                            if(data.user.identification.isNotEmpty()){
-                                mViewDataBinding.doccx.visibility = View.GONE
-                                mViewDataBinding.imgDoc.visibility = View.VISIBLE
-                            }
-                            else{
-                                mViewDataBinding.doccx.visibility = View.VISIBLE
-                                mViewDataBinding.imgDoc.visibility = View.GONE
-                            }
+                            /*     if (data.user.identification.isNotEmpty()) {
+                                     mViewDataBinding.doccx.visibility = View.GONE
+                                     mViewDataBinding.imgDoc.visibility = View.VISIBLE
+                                 } else {
+                                     mViewDataBinding.doccx.visibility = View.VISIBLE
+                                     mViewDataBinding.imgDoc.visibility = View.GONE
+                                 }
 
-                            Glide.with(mViewDataBinding.imgDoc.context)
-                                .load(data.user.identification)
-                                .error(R.drawable.baseline_person)
-                                .into(mViewDataBinding.imgDoc)
+                                 Glide.with(mViewDataBinding.imgDoc.context)
+                                     .load(data.user.identification)
+                                     .error(R.drawable.baseline_person)
+                                     .into(mViewDataBinding.imgDoc)*/
 
 
                             imageUrl = data.user.image
@@ -211,14 +234,6 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                             mViewDataBinding.dob.text = data.user.dateOfBirth
                             mViewDataBinding.phone.setText(data.user.phone)
                             mViewDataBinding.email.setText(data.user.email)
-                            mViewDataBinding.facebook.setText(data.user.social[0].link)
-                            mViewDataBinding.instagram.setText(data.user.social[1].link)
-
-                            data.user.social.forEach {
-                                it.link
-                            }
-
-
 
                             if (data.user.dateOfBirth.isNullOrEmpty()) {
                                 mViewDataBinding.dob.text = "_"
@@ -283,6 +298,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                         if (data.user.image.isNotEmpty()) {
                             Glide.with(mViewDataBinding.profilePicture.context)
                                 .load(data.user.image).into(mViewDataBinding.profilePicture)
+
                             if (data.user.image.isNotEmpty()) {
                                 Glide.with(mViewDataBinding.profilePicture.context)
                                     .load(data.user.image)
@@ -296,26 +312,13 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                             mViewDataBinding.dob.setText(data.user.dateOfBirth)
 
 
-//                                mViewDataBinding.dob.text =
-//                                    data.user.dateOfBirth?.replaceAfter("T", "")?.replace("T", "")
-//                                        .toString()
-
 
                             Log.d("TAG", "textttt: ${mViewDataBinding.dob.text}")
 
-                            /*  val userData = PrefHelper.getInstance(requireActivity()).getUserData()
-                              userData!!.name = data.name
-                              userData!!.profileImage = data.profileImage
-                              PrefHelper.getInstance(requireActivity()).setUserData(userData)*/
+
                             if (isAdded) {
                                 mViewDataBinding.root.snackbar("Profile updated")
                             }
-
-                            /*       val bundle = arguments
-                                   if (bundle != null) {
-                                       bundle.putString("userimg", data.profileImage)
-                                       bundle.putString("username", data.name)
-                                   }*/
 
 
                         }
@@ -416,10 +419,21 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                 Resource.Status.SUCCESS -> {
                     loadingDialog.dismiss()
                     it.data?.let { data ->
-                        imgDocUrl = data.data[0]
+
+                        docsArrayList.clear()
+//
+                        data.data.forEach {
+                            docsArrayList.add(IdentityDocument(null,null,it,null))
+                        }
+
+
+                        docsAdapter.notifyDataSetChanged()
+
+//                        imgDocUrl = data.data[0]
 
                         Log.d("TAG", "imgDocUrl: $imgDocUrl")
-
+//                        Log.d("TAG", "imgDocUrl: $idenArrayList")
+/*
                         try {
                             Glide.with(mViewDataBinding.imgDoc.context).load(imgDocUrl)
                                 .into(mViewDataBinding.imgDoc)
@@ -429,7 +443,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
 
                         }
                         mViewDataBinding.doccx.visibility = View.GONE
-                        mViewDataBinding.imgDoc.visibility = View.VISIBLE
+                        mViewDataBinding.imgDoc.visibility = View.VISIBLE*/
                     }
                 }
 
@@ -470,23 +484,28 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                     params.addProperty("DOB", dob)
                     params.addProperty("username", userName)
                     params.addProperty("image", imageUrl)
-                    params.addProperty("identification", imgDocUrl)
+
+                    if (docsArrayList.isNotEmpty()) {
+                        params.add(
+                            "identityDocuments", Gson().toJsonTree(
+                                docsArrayList
+                            )
+                        )
+                    }
 
 
-                    val socials = listOf(
+                /*    val socials = listOf(
                         Socials(
-                            label = "Facebook",
                             link = linkFb
                         ),
                         Socials(
-                            label = "Insta",
                             link = linkInsta
                         )
                     )
 
                     params.add(
-                        "social", Gson().toJsonTree(socials)
-                    )
+                        "identityDocuments", Gson().toJsonTree(socials)
+                    )*/
 
 
                 } catch (e: JSONException) {
@@ -617,6 +636,10 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
 
         }
 
+
+
+
+        docsRecyclerview()
     }
 
 
@@ -639,7 +662,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
     }
 
     private fun fetchImageFromGallery1() {
-        startForResult1.launch("image/*")
+        pickImagesLauncher.launch("image/*")
     }
 
     private val startForResult =
@@ -669,7 +692,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
             }
         }
 
-    private val startForResult1 =
+  /*  private val startForResult1 =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
             uri?.let {
                 val str = "${requireContext().filesDir}/file.jpg"
@@ -694,7 +717,54 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
 
                 uploadWithRetrofit1(File(str))
             }
+        }*/
+
+
+
+    private lateinit var imageFiles: ArrayList<File>
+
+    private val pickImagesLauncher =
+        registerForActivityResult(ActivityResultContracts.GetMultipleContents()) { uris: List<Uri>? ->
+            // Handle the result here
+
+
+            if (uris != null) {
+                imageFiles.clear()
+
+                uris.forEachIndexed { index, uri ->
+
+                    val str = "${requireContext().filesDir}/$index.jpg"
+
+                    val bitmap = MediaStore.Images.Media.getBitmap(
+                        requireActivity().contentResolver,
+                        uri
+                    )
+
+
+                    val outputStream = FileOutputStream(str)
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 50, outputStream)
+                    outputStream.close()
+
+                    if (File(str).exists()) {
+                        Log.d("uploadImageArrayList", "exist: $str")
+                    }
+
+                    imageFiles.add(File(str))
+
+                }
+
+                if(imageFiles.isNotEmpty()){
+
+                    uploadWithRetrofit1(imageFiles)
+                }
+
+
+                docsAdapter.notifyDataSetChanged()
+            }
+
         }
+
+
 
 
     private fun uploadWithRetrofit(file: File) {
@@ -707,7 +777,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
 
     }
 
-    private fun uploadWithRetrofit1(file: File) {
+/*    private fun uploadWithRetrofit1(file: File) {
 
         val imagesList = mutableListOf<MultipartBody.Part>()
 
@@ -715,17 +785,41 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
 
         mViewModel.uploadDocImg(imagesList)
 
-    }
+    }*/
 
     private fun prepareFilePart(partName: String, fileUri: File): MultipartBody.Part {
         val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), fileUri)
         return MultipartBody.Part.createFormData(partName, fileUri.name, requestFile)
+    }
+    private fun uploadWithRetrofit1(imageFiles: List<File>) {
+
+
+        val imagesList = mutableListOf<MultipartBody.Part>()
+
+        for (imageUri in imageFiles) {
+            imagesList.add(prepareFilePart("images", imageUri))
+        }
+
+        mViewModel.uploadDocImg(imagesList)
+
+
+    }
+
+
+    private fun docsRecyclerview() {
+        docsArrayList = ArrayList()
+
+        val linearLayoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+        mViewDataBinding.recDocs.layoutManager = linearLayoutManager
+
+        docsAdapter = DocsAdapter(docsArrayList)
+        mViewDataBinding.recDocs.adapter = docsAdapter
+
     }
 
 }
 
 @Keep
 open class Socials(
-    open val label: String,
     open val link: String,
 )
