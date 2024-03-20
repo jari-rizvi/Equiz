@@ -238,6 +238,17 @@ dependencies {
 
     implementation 'com.hbb20:ccp:2.6.0'
     implementation 'androidx.biometric:biometric:1.2.0-alpha05'
+    implementation  'com.snapchat.kit.sdk:login:1.1.4'
+    implementation  'com.snapchat.kit.sdk:core:1.1.4'
+
+    implementation 'com.facebook.android:facebook-android-sdk:latest.release'
+
+
+//    implementation 'com.tiktok.open.sdk:tiktok-open-sdk-core:latest.release'
+//    implementation 'com.tiktok.open.sdk:tiktok-open-sdk-auth:latest.release'   // to use authorization api
+//    implementation 'com.tiktok.open.sdk:tiktok-open-sdk-share:latest.release'
+//    implementation 'com.bytedance.ies.ugc.aweme:opensdk-oversea-external:0.2.1.2'
+
 
 }
 

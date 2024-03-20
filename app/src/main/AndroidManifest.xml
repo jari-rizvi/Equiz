@@ -16,6 +16,8 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID" tools:node="remove"/>
+
 
 
 
@@ -38,6 +40,7 @@
         android:supportsRtl="true"
         android:theme="@style/NoAppTheme"
         android:usesCleartextTraffic="true">
+
         <activity
             android:name=".MainActivitytttt"
             android:exported="true"
@@ -48,6 +51,24 @@
 <!--                <category android:name="android.intent.category.LAUNCHER" />-->
 <!--            </intent-filter>-->
         </activity>
+
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+        <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
+
+
+
+
+        <meta-data android:name="com.snapchat.kit.sdk.clientId"
+        android:value="d221aa97-89d9-4ced-befe-f15ae538bd8f" />
+
+        <meta-data android:name="com.snapchat.kit.sdk.scopes"
+            android:resource= "@array/snap_connect_scopes" />
+
+        <meta-data
+            android:name="com.snapchat.kit.sdk.redirectUrl"
+            android:value="loginkitsample://snap-kit/oauth2" />
+
+
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -81,6 +102,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
 
         <receiver android:name=".ui.activity.mainActivity.MainActivity" />
         <service android:name=".ui.activity.mainActivity.MainActivity" />

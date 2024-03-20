@@ -59,7 +59,7 @@ class ChattFragment : BaseFragment<FragmentChatBinding, SubscriptionViewModel>()
             val webView =  mViewDataBinding.webView
 
 
-            webView.settings.javaScriptEnabled = true
+            webView .settings.javaScriptEnabled = true
             webView.settings.domStorageEnabled = true // Tawk.to uses local storage
 
 // Load Tawk.to chat widget URL

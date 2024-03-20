@@ -31,6 +31,14 @@
 
                 </com.facebook.shimmer.ShimmerFrameLayout>
 
+        <WebView
+            android:id="@+id/web_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/root"
@@ -619,7 +627,7 @@
                             <TextView
                                 android:id="@+id/btnFb"
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content"
+                                android:layout_height="@dimen/_25sdp"
                                 android:layout_marginHorizontal="@dimen/_5sdp"
                                 android:layout_marginVertical="@dimen/_5sdp"
                                 android:background="@drawable/card_background_border"
@@ -670,7 +678,7 @@
                                 android:layout_width="@dimen/_30sdp"
                                 android:layout_height="@dimen/_30sdp"
                                 android:scaleType="centerCrop"
-                                android:src="@drawable/facebookrain"
+                                android:src="@drawable/group_insta"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -680,7 +688,7 @@
                             <TextView
                                 android:id="@+id/btnInsta"
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content"
+                                android:layout_height="@dimen/_25sdp"
                                 android:layout_marginHorizontal="@dimen/_5sdp"
                                 android:layout_marginVertical="@dimen/_5sdp"
                                 android:background="@drawable/card_background_border"
@@ -718,7 +726,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:text="Linkedin"
+                                android:text="Tiktok"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -731,7 +739,7 @@
                                 android:layout_width="@dimen/_30sdp"
                                 android:layout_height="@dimen/_30sdp"
                                 android:scaleType="centerCrop"
-                                android:src="@drawable/facebookrain"
+                                android:src="@drawable/tiktok"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -741,7 +749,7 @@
                             <TextView
                                 android:id="@+id/btnLinkedin"
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content"
+                                android:layout_height="@dimen/_25sdp"
                                 android:layout_marginHorizontal="@dimen/_5sdp"
                                 android:layout_marginVertical="@dimen/_5sdp"
 
@@ -792,7 +800,7 @@
                                 android:layout_width="@dimen/_30sdp"
                                 android:layout_height="@dimen/_30sdp"
                                 android:scaleType="centerCrop"
-                                android:src="@drawable/facebookrain"
+                                android:src="@drawable/snapchat"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -802,7 +810,7 @@
                             <TextView
                                 android:id="@+id/btnSc"
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content"
+                                android:layout_height="@dimen/_25sdp"
                                 android:layout_marginHorizontal="@dimen/_5sdp"
                                 android:layout_marginTop="@dimen/_6sdp"
                                 android:background="@drawable/card_background_border"

@@ -14,6 +14,7 @@ object AppConstants {
 //                        const val BASE_URL = "https://dev-api.emiratesq.net/"
             const val BASE_URL = "http://192.168.100.33:3003" /**local**/
 //            const val BASE_URL = "http://192.168.100.49:3003" /**Sohail'slocal**/
+//            const val BASE_URL = "http://192.168.100.79:3003" /**Tooba'slocal**/
 //            const val BASE_URL = "https://qd6m9n13-3003.uks1.devtunnels.ms"
 //            const val BASE_URL = "https://qd6m9n13-3003.uks1.devtunnels.ms"
 //            const val BASE_URL = "https://qd6m9n13-3003.uks1.devtunnels.ms"

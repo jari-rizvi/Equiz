@@ -255,4 +255,9 @@
     <string name="enable_touchid">Enable TouchId</string>
 
 
+
+    <string name="facebook_app_id">428659309635685</string>
+    <string name="facebook_client_token">887864bbee69b53e7b27205cea4d8354</string>
+
+
 </resources>
