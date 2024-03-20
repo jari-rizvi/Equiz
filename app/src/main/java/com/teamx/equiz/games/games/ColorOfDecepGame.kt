@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.annotation.Keep
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -63,8 +64,6 @@ var rightGameAnswersColor = 0
 var totalGameAnswersColor = 0
 
 
-
-
 @Composable
 fun TouchTheColorGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit) {
     var isGameOver by remember { mutableStateOf(false) }
@@ -81,10 +80,10 @@ fun TouchTheColorGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnsw
         // Start the timer
         object : CountDownTimer(timeLeft * 1000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                  if (timerRunning) {
+                if (timerRunning) {
                     timeLeft = millisUntilFinished / 1000
                 }
-                if (timeLeft<5){
+                if (timeLeft < 5) {
                     isAlert = true
                 }
             }
@@ -94,7 +93,6 @@ fun TouchTheColorGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnsw
             }
         }.start()
     }
-
 
 
     var score by remember { mutableStateOf(0) }
@@ -125,7 +123,7 @@ fun TouchTheColorGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnsw
         }
 
 
-    }else{
+    } else {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -141,18 +139,18 @@ fun TouchTheColorGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnsw
                 contentDescription = "bg"
             )
 
-            Box(modifier = Modifier
-                .height(48.dp)
-                .background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
+            Box(
+                modifier = Modifier
+                    .height(48.dp)
+                    .background(color = Color(0xFF9F81CA)), contentAlignment = Alignment.CenterStart
+            ) {
 
-                BackButton(onClick = { content(false,0,0) }
+                BackButton(onClick = { content(false, 0, 0) }
                 )
                 Text(
                     text = "Color Deception",
                     modifier = Modifier
-                        .fillMaxWidth()
-
-                        ,
+                        .fillMaxWidth(),
                     textAlign = TextAlign.Center,
                     color = Color.White,
                     fontSize = 17.sp
@@ -179,16 +177,21 @@ fun TouchTheColorGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnsw
                     itemsIndexed(boxes) { index, box ->
 
                         var isEffectLaunched by remember { mutableStateOf(false) }
-                        var isBoxRight by remember { mutableStateOf(false) }
+                        var isBoxRight by remember { mutableStateOf(2) }
 
                         Box(
                             modifier = Modifier
-                                .padding(14.dp)
+                                .border(
+                                    width = 4.dp,
+                                    color = if (isBoxRight == 1) Color.Green else if (isBoxRight == 0) Color.Red else Color.Transparent,
+                                    shape = RoundedCornerShape(9.dp)
+                                )
+                                .padding(10.dp)
                                 .clip(
                                     RoundedCornerShape(9.dp)
                                 )
                                 .size(140.dp)
-                                .background(color = if (!isBoxRight) box.color else Color.Red)
+                                .background(color = box.color)
                                 .clickable {
 //                                    totalGameAnswersColor++
 //                                    val temp = rightGameAnswersColor
@@ -245,9 +248,9 @@ fun TouchTheColorGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnsw
                                     }
                                     if (temp == rightGameAnswersColor) {
                                         incorrectSound(context)
-                                        isBoxRight = true
+                                        isBoxRight = 0
                                         delay(300)
-                                        isBoxRight = false
+                                        isBoxRight = 2
                                         boxes = generateBoxes()
                                         restart = true
                                     }
@@ -255,11 +258,13 @@ fun TouchTheColorGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnsw
                                         Log.d("rightGameAnswersColor", "TouchTheColorGameScreen: working 1")
                                         Log.d("rightGameAnswersColor", "TouchTheColorGameScreen: working 2")
 //                                        isBoxRight = false
+                                        isBoxRight = 1
                                         boxes = generateBoxes()
                                         delay(300)
+                                        isBoxRight = 2
                                         restart = true
                                     }
-                                     // Delay the change of background color for 1 second
+                                    // Delay the change of background color for 1 second
 
                                     isEffectLaunched = false
                                 }
@@ -278,7 +283,7 @@ fun TouchTheColorGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnsw
 
                                     Color.White
                                 },
-                                text = box.colorName.toString(),fontSize = 28.sp,
+                                text = box.colorName.toString(), fontSize = 28.sp,
                                 style = MaterialTheme.typography.bodyLarge,
                             )
                             /*}*/
@@ -286,7 +291,6 @@ fun TouchTheColorGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnsw
                     }
 
                 }
-
 
 
                 /*Text(
@@ -302,7 +306,6 @@ fun TouchTheColorGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnsw
         }
 
     }
-
 
 
 }
@@ -395,7 +398,6 @@ private fun updateScore(
 ) {
 
 
-
     val selectedColors = mutableListOf<ColorBundle>()
 
     for (i in ColorBundle.values()) {
@@ -423,5 +425,5 @@ private fun updateScore(
 @Preview
 @Composable
 fun PreviewTouchTheColorGameScreen() {
-    TouchTheColorGameScreen() {bool,rightAnswer,total ->}
+    TouchTheColorGameScreen() { bool, rightAnswer, total -> }
 }

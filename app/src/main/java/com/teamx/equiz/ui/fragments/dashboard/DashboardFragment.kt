@@ -196,7 +196,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                             val formattedNumber = String.format("%.2f", data.data)
                             mViewDataBinding.tvCoins.text = formattedNumber
 //                            mViewDataBinding.tvCoins.text = data.data.toString()
-                            PrefHelper.getInstance(requireContext()).saveWalletAmount( data.data.toString())
+                            PrefHelper.getInstance(requireContext())
+                                .saveWalletAmount(data.data.toString())
                             Log.d("TAG", "wallramount: ${data.data.toString()}")
                             Log.d("TAG", "wallramount: ${data}")
                         }
@@ -232,10 +233,10 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
 
 
-        if (id.isNullOrEmpty()){
+        if (id.isNullOrEmpty()) {
             id = " "
         }
-            mViewModel.getTopWinners(id, this)
+        mViewModel.getTopWinners(id, this)
 
 
         if (!mViewModel.getBannerResponse.hasActiveObservers()) {
@@ -262,7 +263,12 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 //                                winnerArrayList.add(it)
 //                            }
                             data.newsData.forEach {
-                                imageList2.add(com.teamx.equiz.ui.fragments.ecommerce.home.datanews.Data(it._id,it.image))
+                                imageList2.add(
+                                    com.teamx.equiz.ui.fragments.ecommerce.home.datanews.Data(
+                                        it._id,
+                                        it.image
+                                    )
+                                )
                             }
 //                            winnerAdapter.notifyDataSetChanged()
 
@@ -375,14 +381,13 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
 
                     it.data?.let { data ->
-                      /*  if(data.data.isNotEmpty()){
-                            mViewDataBinding.recQuizes.visibility = View.VISIBLE
-                        }*/
+                        /*  if(data.data.isNotEmpty()){
+                              mViewDataBinding.recQuizes.visibility = View.VISIBLE
+                          }*/
 
-                        if(!data.data.isNullOrEmpty()){
+                        if (!data.data.isNullOrEmpty()) {
                             mViewDataBinding.recQuizes.visibility = View.VISIBLE
-                        }
-                        else{
+                        } else {
                             mViewDataBinding.recQuizes.visibility = View.GONE
                         }
 
@@ -493,7 +498,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
+
     private fun initializeGameAdapter() {
         gameStrArrayList = ArrayList()
 
@@ -507,7 +512,14 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         }
 
 //        gameStrArrayList.removeIf { it.name == "Flick" || it.name == "Tetris" || it.name == "High Low" || it.name == "Make Ten" || it.name == "Rapid Sorting" || it.name == "Spinning Block"}
-        gameStrArrayList.removeIf {it.name == "Tetris" }
+        try {
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                gameStrArrayList.removeIf { it.name == "Tetris" }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
         val layoutManager1 =
             LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
@@ -664,6 +676,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
 
         }
+
         fun returnImg(index: String): Int {
             when (index) {
                 GamesUID2.AdditionAddiction.name -> {
@@ -678,9 +691,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                     return R.drawable.colorofdeception_icon
                 }
 
-               /* GamesUID2.Tetris.name -> {
-                    return R.drawable.tetris_icon
-                }*/
+                /* GamesUID2.Tetris.name -> {
+                     return R.drawable.tetris_icon
+                 }*/
 
                 GamesUID2.Concentration.name -> {
                     return R.drawable.concentration_icon
@@ -796,13 +809,11 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         mViewDataBinding.recQuizes.layoutManager = layoutManager2
 
-        quizAdapter = QuizesAdapter(quizArrayList, this,true)
+        quizAdapter = QuizesAdapter(quizArrayList, this, true)
         mViewDataBinding.recQuizes.adapter = quizAdapter
 
 
     }
-
-
 
 
     override fun quizTitle(position: Int, previousNumber: Int) {
@@ -997,8 +1008,10 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
 /////////////
 
-//    private val imageList2 = arrayListOf<String>()
-    private val imageList2 = arrayListOf<com.teamx.equiz.ui.fragments.ecommerce.home.datanews.Data>()
+    //    private val imageList2 = arrayListOf<String>()
+    private val imageList2 =
+        arrayListOf<com.teamx.equiz.ui.fragments.ecommerce.home.datanews.Data>()
+
     private fun addingSliderAdapter() {
 
 
@@ -1012,7 +1025,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             // Add more images as needed
         )
 
-        val adapter = ImageSliderAdapter(imageList2,this)
+        val adapter = ImageSliderAdapter(imageList2, this)
         mViewDataBinding.viewPager.adapter = adapter
 
         addDots(imageList.size)
@@ -1165,7 +1178,12 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                                 it.data?.let { data ->
 
                                     data.data.forEach {
-                                        imageList2.add(com.teamx.equiz.ui.fragments.ecommerce.home.datanews.Data(it._id,it.image))
+                                        imageList2.add(
+                                            com.teamx.equiz.ui.fragments.ecommerce.home.datanews.Data(
+                                                it._id,
+                                                it.image
+                                            )
+                                        )
                                     }
 
 
@@ -1217,9 +1235,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             DialogHelperClass.signUpLoginDialog(requireContext(), this).show()
             return
         }
-     /*   findNavController().navigate(
-            R.id.quizesFragment, arguments, options
-        )*/
+        /*   findNavController().navigate(
+               R.id.quizesFragment, arguments, options
+           )*/
 
 
 
@@ -1229,10 +1247,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         findNavController().navigate(
             R.id.newsDetailFragment,
             bundle,
-            options)
+            options
+        )
     }
-
-
 
 
 //    fun checkAllDataTypes(data: Any): String {
