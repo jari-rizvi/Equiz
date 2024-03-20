@@ -2,6 +2,7 @@ package com.teamx.equiz.games.games
 
 
 import android.os.CountDownTimer
+import android.util.Log
 import androidx.annotation.Keep
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -47,6 +48,7 @@ import com.teamx.equiz.games.ui.theme.DeceptionPink
 import com.teamx.equiz.games.ui.theme.DeceptionPurple
 import com.teamx.equiz.games.ui.theme.DeceptionYellow
 import com.teamx.equiz.ui.theme.DeceptionBlue
+import kotlinx.coroutines.delay
 import kotlin.random.Random
 
 @Keep
@@ -131,6 +133,14 @@ fun TouchTheColorGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnsw
                 .background(color = Color(0xFFE1E1E1)),
         ) {
 
+            Image(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(),
+                painter = painterResource(id = R.drawable.iconbg),
+                contentDescription = "bg"
+            )
+
             Box(modifier = Modifier
                 .height(48.dp)
                 .background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
@@ -168,6 +178,8 @@ fun TouchTheColorGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnsw
 
                     itemsIndexed(boxes) { index, box ->
 
+                        var isEffectLaunched by remember { mutableStateOf(false) }
+                        var isBoxRight by remember { mutableStateOf(false) }
 
                         Box(
                             modifier = Modifier
@@ -176,11 +188,42 @@ fun TouchTheColorGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnsw
                                     RoundedCornerShape(9.dp)
                                 )
                                 .size(140.dp)
-
-                                .background(color = box.color)
-
-
+                                .background(color = if (!isBoxRight) box.color else Color.Red)
                                 .clickable {
+//                                    totalGameAnswersColor++
+//                                    val temp = rightGameAnswersColor
+//                                    updateScore(boxes, box, index) { i, bool ->
+//                                        rightGameAnswersColor++
+//                                        correctSound(context)
+//                                        score++
+//                                        restart = true
+//                                        val arr = ArrayList<ColorBox>()
+//                                        boxes.forEach {
+//                                            if (i != it.colorName) {
+//                                                arr.add(it)
+//                                            }
+//                                        }
+//                                        boxes = arr
+//                                        if (bool) {
+//                                            restart = false
+//                                        }
+//
+//                                    }
+//                                    if (temp == rightGameAnswersColor) {
+//                                        incorrectSound(context)
+//                                    }
+//                                    if (!restart) {
+//                                        boxes = generateBoxes()
+//                                        restart = true
+//                                    }
+                                    isEffectLaunched = true
+                                },
+
+
+                            ) {
+
+                            if (isEffectLaunched) {
+                                LaunchedEffect(Unit) {
                                     totalGameAnswersColor++
                                     val temp = rightGameAnswersColor
                                     updateScore(boxes, box, index) { i, bool ->
@@ -202,15 +245,25 @@ fun TouchTheColorGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnsw
                                     }
                                     if (temp == rightGameAnswersColor) {
                                         incorrectSound(context)
-                                    }
-                                    if (!restart) {
+                                        isBoxRight = true
+                                        delay(300)
+                                        isBoxRight = false
                                         boxes = generateBoxes()
                                         restart = true
                                     }
-                                },
+                                    if (!restart) {
+                                        Log.d("rightGameAnswersColor", "TouchTheColorGameScreen: working 1")
+                                        Log.d("rightGameAnswersColor", "TouchTheColorGameScreen: working 2")
+//                                        isBoxRight = false
+                                        boxes = generateBoxes()
+                                        delay(300)
+                                        restart = true
+                                    }
+                                     // Delay the change of background color for 1 second
 
-
-                            ) {
+                                    isEffectLaunched = false
+                                }
+                            }
 
                             Text(
 
@@ -242,13 +295,7 @@ fun TouchTheColorGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnsw
                     modifier = Modifier.padding(top = 16.dp)
                 )*/
             }
-            Image(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight(),
-                painter = painterResource(id = R.drawable.iconbg),
-                contentDescription = "bg"
-            )
+
             if (isAlert) {
                 GameAlertingTime()
             }
