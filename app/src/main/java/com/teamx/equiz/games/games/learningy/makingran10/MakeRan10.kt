@@ -10,6 +10,7 @@ import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.MutatePriority
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -29,6 +30,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -55,13 +57,16 @@ import com.teamx.equiz.games.games.BackButton
 import com.teamx.equiz.games.games.disableScrolling
 import com.teamx.equiz.games.games.learningy.musiclearning.correctSound
 import com.teamx.equiz.games.games.learningy.musiclearning.incorrectSound
+import com.teamx.equiz.games.games.learningy.unfolw.rightGameAnswersTheNum
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import com.teamx.equiz.ui.theme.BirdColor4
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlin.random.Random
 
-fun LazyListState.isScrolledToEnd() = layoutInfo.visibleItemsInfo.lastOrNull()?.index == layoutInfo.totalItemsCount - 1
+fun LazyListState.isScrolledToEnd() =
+    layoutInfo.visibleItemsInfo.lastOrNull()?.index == layoutInfo.totalItemsCount - 1
 
 
 var rightGameAnswersRain = 0
@@ -147,7 +152,7 @@ fun Rain10Game(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: Int) -
                         contentAlignment = Alignment.CenterStart
                     ) {
 
-                        BackButton(onClick = {content(false,0,0) }/*onContinueClicked*/)
+                        BackButton(onClick = { content(false, 0, 0) }/*onContinueClicked*/)
                         Text(
                             text = "Make Ten",
                             modifier = Modifier
@@ -281,6 +286,7 @@ fun rain10Drops() {
                             enter = expandVertically(),
                             exit = shrinkVertically(animationSpec = tween(durationMillis = 500))
                         ) {
+                            Log.d("AnimatedVisiy", "rain10Drops: 1")
                             drop(item = item, index = index) {
                                 val iu = leftItems.lastIndex - leftIndexCounter
                                 val iu2 = midItems.lastIndex - leftIndexCounter
@@ -288,7 +294,7 @@ fun rain10Drops() {
                                 if (it) {
                                     correctSound(context)
                                     rightGameAnswersRain++
-                                }else{
+                                } else {
                                     incorrectSound(context)
                                 }
                                 wrongGameAnswersRain++
@@ -333,6 +339,7 @@ fun rain10Drops() {
                             enter = expandVertically(),
                             exit = shrinkVertically(animationSpec = tween(durationMillis = 500))
                         ) {
+                            Log.d("AnimatedVisiy", "rain10Drops: 2")
                             drop(item = item, index = index) {
                                 val iu = leftItems.lastIndex - leftIndexCounter
                                 val iu2 = midItems.lastIndex - leftIndexCounter
@@ -341,7 +348,7 @@ fun rain10Drops() {
                                 if (it) {
                                     correctSound(context)
                                     rightGameAnswersRain++
-                                }else{
+                                } else {
                                     incorrectSound(context)
 
                                 }
@@ -382,16 +389,17 @@ fun rain10Drops() {
                             enter = expandVertically(),
                             exit = shrinkVertically(animationSpec = tween(durationMillis = 500))
                         ) {
+                            Log.d("AnimatedVisiy", "rain10Drops: 3")
                             drop(item = item, index = index) {
                                 val iu = leftItems.lastIndex - leftIndexCounter
                                 val iu2 = midItems.lastIndex - leftIndexCounter
                                 val iu3 = rightItems.lastIndex - leftIndexCounter
 
                                 if (it) {
-correctSound(context)
+                                    correctSound(context)
                                     rightGameAnswersRain++
-                                }else{
-incorrectSound(context)
+                                } else {
+                                    incorrectSound(context)
 
                                 }
                                 wrongGameAnswersRain++
@@ -423,6 +431,8 @@ fun drop(index: Int, item: RainListItem, onClick: (boo: Boolean) -> Unit) {
 
     var colorState by remember { mutableStateOf(R.drawable.white_card) }
 
+    var isBoxRight by remember { mutableStateOf(2) }
+    var isEffectLaunched by remember { mutableStateOf(false) }
 
     Box(
         modifier = Modifier
@@ -457,14 +467,15 @@ fun drop(index: Int, item: RainListItem, onClick: (boo: Boolean) -> Unit) {
                 }
                 Log.d("123123", "drop 123123: $sum ")
 
-                if (sum % 10 == 0) {
-                    sum = 0
-                    onClick(true)
-
-                } else if (sum > 10) {
-                    sum = 0
-                    onClick(false)
-                }
+                isEffectLaunched = true
+//                if (sum % 10 == 0) {
+//                    sum = 0
+//                    onClick(true)
+//
+//                } else if (sum > 10) {
+//                    sum = 0
+//                    onClick(false)
+//                }
 
             }/*.clickable {
                 onClick()
@@ -473,12 +484,38 @@ fun drop(index: Int, item: RainListItem, onClick: (boo: Boolean) -> Unit) {
 
     ) {
 
+        if (isEffectLaunched){
+            LaunchedEffect(key1 = Unit) {
+                if (sum % 10 == 0) {
+                    sum = 0
+                    isBoxRight = 1
+                    delay(200)
+                    isBoxRight = 2
+                    onClick(true)
+
+                } else if (sum > 10) {
+                    sum = 0
+                    isBoxRight = 0
+                    delay(200)
+                    isBoxRight = 2
+                    onClick(false)
+                }
+                isEffectLaunched = false
+            }
+        }
+
+
         Image(
             painter = painterResource(
                 colorState
             ),
             contentDescription = null, modifier = Modifier
                 .fillMaxSize()
+                .border(
+                    width = 2.dp, // Width of the border
+                    color = if (isBoxRight == 1) Color.Green else if (isBoxRight == 0) Color.Red else Color.Transparent,
+                    shape = RoundedCornerShape(8.dp) // Optionally, set a shape for the border
+                )
                 .padding(
                     top = if (item.isClickable) {
                         0.dp
@@ -488,11 +525,8 @@ fun drop(index: Int, item: RainListItem, onClick: (boo: Boolean) -> Unit) {
                 )
         )
 
-
-
         Text(
             modifier = Modifier
-
                 .wrapContentSize(),
             text = item.name,
             color = if (colorState == R.drawable.purple_card) {
@@ -503,7 +537,6 @@ fun drop(index: Int, item: RainListItem, onClick: (boo: Boolean) -> Unit) {
             textAlign = TextAlign.Center, fontWeight = FontWeight.ExtraBold,
             fontSize = 46.sp
         )
-
 
     }
 }

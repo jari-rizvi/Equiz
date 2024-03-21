@@ -319,7 +319,7 @@ fun NumAnimatedObject2(number: Int, itemCompared: Int, onClick: (Item: Int) -> U
         } else {
             Color.Transparent
         },
-        shape = RectangleShape,
+        shape = RoundedCornerShape(6.dp),
         modifier = Modifier
             .size(85.dp)
             .offset(
@@ -340,13 +340,14 @@ fun NumAnimatedObject2(number: Int, itemCompared: Int, onClick: (Item: Int) -> U
                     (/*-number*/1 * 40).dp
                 }/*(-number * 60).dp*/
             )
-            .clip(RoundedCornerShape(6.dp))
+
             .border(
-                width = 4.dp,
+                width = 3.dp,
                 color = if (isBoxRight == 1) Color.Green else if (isBoxRight == 0) Color.Red else Color.Transparent,
                 shape = RoundedCornerShape(6.dp)
             )
-            .padding(10.dp)
+            .clip(RoundedCornerShape(6.dp))
+            .padding(7.dp)
             .clickable(
                 enabled = numLinkListAdded32.contains(number)
             ) {
@@ -381,9 +382,9 @@ fun NumAnimatedObject2(number: Int, itemCompared: Int, onClick: (Item: Int) -> U
 
                 if (colorState == Color.Transparent) {
 
-                    Log.d("foolowtheLe", "AnimatedObjectWrong2: ")
+                    Log.d("foolowtheLe", "AnimatedObjectWrong2: Transparent")
 //                    isEffectLaunched = false
-                    return@LaunchedEffect
+//                    return@LaunchedEffect
                 } else if (number == numLinkListAdded32.last) {
                     colorState = Color.Transparent
                     isBoxRight = 1
@@ -398,9 +399,10 @@ fun NumAnimatedObject2(number: Int, itemCompared: Int, onClick: (Item: Int) -> U
                     incorrectSound(context)
                     delay(200)
                     isBoxRight = 2
-//                    isEffectLaunched = false
                     Log.d("foolowtheLe", "AnimatedObjectWrong2: wrong")
                 }
+
+                isEffectLaunched = false
             }
         }
 

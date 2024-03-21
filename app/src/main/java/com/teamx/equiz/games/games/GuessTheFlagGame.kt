@@ -5,9 +5,11 @@ import android.os.CountDownTimer
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -15,8 +17,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -27,6 +31,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -44,6 +49,7 @@ import com.teamx.equiz.games.games.learningy.musiclearning.incorrectSound
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import com.teamx.equiz.games.ui.theme.BirdColor4
+import kotlinx.coroutines.delay
 
 var rightGameAnswersGuess = 0
 var wrongGameAnswersGuess = 0
@@ -138,23 +144,23 @@ fun GuessTheFlagGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
         options = tempList.shuffled()
     }
 
-    fun checkAnswer() {
-            wrongGameAnswersGuess++
-        if (guessedCountry.text.equals(getCountryName(currentFlagIndex), ignoreCase = true)) {
-            rightGameAnswersGuess++
-            correctSound(context)
-            score++
-        } else {
-            incorrectSound(context)
-        }
-        currentFlagIndex++
-        if (currentFlagIndex >= flags.size) {
-            currentFlagIndex = 0
-        }
-        guessedCountry = TextFieldValue()
-        generateOptions()
-        isOptionSelected = false
-    }
+//    fun checkAnswer() {
+//        wrongGameAnswersGuess++
+//        if (guessedCountry.text.equals(getCountryName(currentFlagIndex), ignoreCase = true)) {
+//            rightGameAnswersGuess++
+//            correctSound(context)
+//            score++
+//        } else {
+//            incorrectSound(context)
+//        }
+//        currentFlagIndex++
+//        if (currentFlagIndex >= flags.size) {
+//            currentFlagIndex = 0
+//        }
+//        guessedCountry = TextFieldValue()
+//        generateOptions()
+//        isOptionSelected = false
+//    }
 
     LaunchedEffect(true) {
         generateOptions()
@@ -162,10 +168,10 @@ fun GuessTheFlagGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
         // Start the timer
         object : CountDownTimer(timeLeft * 1000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                  if (timerRunning) {
+                if (timerRunning) {
                     timeLeft = millisUntilFinished / 1000
                 }
-                if (timeLeft<5){
+                if (timeLeft < 5) {
                     isAlert = true
                 }
             }
@@ -179,19 +185,19 @@ fun GuessTheFlagGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
         content(
             true,
             rightGameAnswersGuess,
-           wrongGameAnswersGuess
+            wrongGameAnswersGuess
         )
 
-          rightGameAnswersGuess = 0
-          wrongGameAnswersGuess = 0
+        rightGameAnswersGuess = 0
+        wrongGameAnswersGuess = 0
     }
 
     if (isTimeUp) {
-       /* AnimatedVisibility(
-            visible = isTimeUp,
-            enter = slideInHorizontally(),
-            exit = slideOutHorizontally(animationSpec = tween(durationMillis = 500))
-        ) {*/
+        /* AnimatedVisibility(
+             visible = isTimeUp,
+             enter = slideInHorizontally(),
+             exit = slideOutHorizontally(animationSpec = tween(durationMillis = 500))
+         ) {*/
 
         TimeUpDialogCompose() { i ->
             if (i) {
@@ -201,23 +207,47 @@ fun GuessTheFlagGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
                 content(
                     false,
                     rightGameAnswersGuess,
-                   wrongGameAnswersGuess
+                    wrongGameAnswersGuess
                 )
                 rightGameAnswersGuess = 0
                 wrongGameAnswersGuess = 0
             }
         }
-    /*}*/
+        /*}*/
 
 
     } else {
 
 
-        LaunchedEffect(guessedCountry.text) {
-            if (isOptionSelected) {
-                checkAnswer()
-            }
-        }
+//        LaunchedEffect(guessedCountry.text) {
+//            if (isOptionSelected) {
+//                wrongGameAnswersGuess++
+//                if (guessedCountry.text.equals(
+//                        getCountryName(currentFlagIndex),
+//                        ignoreCase = true
+//                    )
+//                ) {
+//                    rightGameAnswersGuess++
+//                    score++
+//                    correctSound(context)
+//                    isBoxRight = 1
+//                    delay(200)
+//                    isBoxRight = 2
+//                } else {
+//                    incorrectSound(context)
+//                    isBoxRight = 0
+//                    delay(200)
+//                    isBoxRight = 2
+//                }
+//                currentFlagIndex++
+//                if (currentFlagIndex >= flags.size) {
+//                    currentFlagIndex = 0
+//                }
+//                guessedCountry = TextFieldValue()
+//                generateOptions()
+//                isOptionSelected = false
+//            }
+//        }
 
         Box(
             modifier = Modifier
@@ -293,21 +323,24 @@ fun GuessTheFlagGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
 
                 Column(
                     modifier = Modifier
-                        .wrapContentSize()
-                        .padding(6.dp),
+                        .wrapContentSize(),
                     verticalArrangement = Arrangement.Center
 
                 ) {
                     repeat(2) { row ->
                         Row(
-                            modifier = Modifier.fillMaxWidth(),
+                            modifier = Modifier
+                                .fillMaxWidth(),
                             horizontalArrangement = Arrangement.Center
                         ) {
                             repeat(2) { column ->
+
+                                var isBoxRight by remember { mutableStateOf(2) }
+                                var isEffectLaunched by remember { mutableStateOf(false) }
+
                                 val index = row * 2 + column
                                 if (options.isNotEmpty()) {
-                                    val country = options.get(index)
-                                    Log.d("123123", "AddictGame:$index ")/*counter*/
+                                    val country = options[index]
                                     /*   RadioButton(
                                            selected = guessedCountry.text.equals(country, ignoreCase = true),
                                            onClick = null,
@@ -318,21 +351,76 @@ fun GuessTheFlagGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
                                                }
                                        )*/
 //                            Text(text = country)
-                                    Image(
-                                        painter = painterResource(id = getCountryImage(country)),
-                                        contentDescription = null,
-                                        contentScale = ContentScale.Crop,
+                                    BoxWithConstraints(
                                         modifier = Modifier
-                                            .width(160.dp)
-                                            .height(110.dp)
-                                            .padding(11.dp)
-                                            .clickable {
-                                                guessedCountry = TextFieldValue(country)
-                                                isOptionSelected = true
+                                            .padding(3.dp)
+                                    ) {
+                                        Box(
+                                            modifier = Modifier
+                                                .size(160.dp, 110.dp)
+                                                .clip(RoundedCornerShape(6.dp))
+                                                .border(
+                                                    width = 3.dp,
+                                                    color = if (isBoxRight == 1) Color.Green else if (isBoxRight == 0) Color.Red else Color.Transparent,
+                                                    shape = RoundedCornerShape(6.dp)
+                                                ),
+                                            contentAlignment = Alignment.Center
+                                        ) {
+                                            Image(
+//                                        painter = painterResource(id = getCountryImage(country)),
+                                                painter = painterResource(
+                                                    id = getCountryImage(
+                                                        country
+                                                    )
+                                                ),
+                                                contentDescription = null,
+                                                contentScale = ContentScale.Crop,
+                                                modifier = Modifier
+                                                    .size(140.dp, 90.dp)
+                                                    .clip(RoundedCornerShape(6.dp))
+                                                    .clickable {
+                                                        guessedCountry = TextFieldValue(country)
+//                                                isOptionSelected = true
+                                                        isEffectLaunched = true
+                                                    }
+                                            )
+                                            if (isEffectLaunched) {
+                                                LaunchedEffect(guessedCountry) {
+//                                            if (isOptionSelected) {
+                                                    wrongGameAnswersGuess++
+                                                    if (guessedCountry.text.equals(
+                                                            getCountryName(
+                                                                currentFlagIndex
+                                                            ), ignoreCase = true
+                                                        )
+                                                    ) {
+                                                        rightGameAnswersGuess++
+                                                        score++
+                                                        correctSound(context)
+                                                        isBoxRight = 1
+                                                        delay(200)
+                                                        isBoxRight = 2
+                                                    } else {
+                                                        incorrectSound(context)
+                                                        isBoxRight = 0
+                                                        delay(200)
+                                                        isBoxRight = 2
+                                                    }
+                                                    currentFlagIndex++
+                                                    if (currentFlagIndex >= flags.size) {
+                                                        currentFlagIndex = 0
+                                                    }
+                                                    guessedCountry = TextFieldValue()
+                                                    generateOptions()
+                                                    isOptionSelected = false
+//                                            }
+                                                    isEffectLaunched = false
+                                                }
                                             }
-                                    )
-                                }
+                                        }
 
+                                    }
+                                }
                             }
                         }
                     }
@@ -346,7 +434,7 @@ fun GuessTheFlagGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
                     content(
                         true,
                         rightGameAnswersGuess,
-                       wrongGameAnswersGuess
+                        wrongGameAnswersGuess
                     )
                     rightGameAnswersGuess = 0
                     wrongGameAnswersGuess = 0
@@ -365,7 +453,6 @@ fun GuessTheFlagGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
         }
     }
 }
-
 
 
 fun getCountryImage(index: String): Int {
