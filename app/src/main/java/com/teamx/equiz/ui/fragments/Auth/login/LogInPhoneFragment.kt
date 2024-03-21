@@ -211,8 +211,10 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
                                     dataStoreProvider.saveUserToken(data.token)
                                     NetworkCallPoints.TOKENER = data.token
                                 }
-                                PrefHelper.getInstance(requireContext()).saveUerId(it.data.user._id)
-                                PrefHelper.getInstance(requireContext()).savePremium(it.data.user.isPremium)
+                                PrefHelper.getInstance(requireContext()).saveUerId(it.data.user?._id
+                                    ?: "")
+                                PrefHelper.getInstance(requireContext()).savePremium(it.data.user?.isPremium
+                                    ?: false)
                                 PrefHelper.getInstance(requireActivity()).setUserData(data)
 
 
@@ -485,8 +487,10 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
                                             dataStoreProvider.saveUserToken(data.token)
                                             NetworkCallPoints.TOKENER = data.token
                                         }
-                                        PrefHelper.getInstance(requireContext()).saveUerId(it.data.user._id)
-                                        PrefHelper.getInstance(requireContext()).savePremium(it.data.user.isPremium)
+                                        PrefHelper.getInstance(requireContext()).saveUerId(it.data.user?._id
+                                            ?: "")
+                                        PrefHelper.getInstance(requireContext()).savePremium(it.data.user?.isPremium
+                                            ?: false)
 
                                         PrefHelper.getUSerInstance(requireContext()).setCredentials(
                                             PrefHelper.UserCredential(

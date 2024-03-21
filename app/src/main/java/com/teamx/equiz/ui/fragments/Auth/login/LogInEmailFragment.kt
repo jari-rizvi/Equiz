@@ -226,9 +226,10 @@ class LogInEmailFragment : BaseFragment<FragmentLoginEmailBinding, LoginViewMode
                                     TOKENER = data.token
                                 }
 
-                                PrefHelper.getInstance(requireContext()).saveUerId(it.data.user._id)
+                                PrefHelper.getInstance(requireContext()).saveUerId(it.data.user?._id
+                                    ?: "")
                                 PrefHelper.getInstance(requireContext())
-                                    .savePremium(it.data.user.isPremium)
+                                    .savePremium(it.data.user?.isPremium ?: false)
 
                                 PrefHelper.getInstance(requireActivity()).setUserData(data)
 
@@ -511,9 +512,9 @@ class LogInEmailFragment : BaseFragment<FragmentLoginEmailBinding, LoginViewMode
                                         }
 
                                         PrefHelper.getInstance(requireContext())
-                                            .saveUerId(it.data.user._id)
+                                            .saveUerId(it.data.user?._id ?: "")
                                         PrefHelper.getInstance(requireContext())
-                                            .savePremium(it.data.user.isPremium)
+                                            .savePremium(it.data.user?.isPremium ?: false)
 
 
                                         PrefHelper.getUSerInstance(requireContext()).setCredentials(

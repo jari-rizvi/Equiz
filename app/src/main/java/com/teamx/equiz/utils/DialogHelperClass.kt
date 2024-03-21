@@ -1004,15 +1004,15 @@ class DialogHelperClass {
 
             val userData = PrefHelper.getInstance(context).getUserData()
 
-            if (userData?.user?.email!!.isEmpty()) {
-                email.text = userData?.user?.phone
+            if (userData?.user?.email?.isEmpty() == true) {
+                email.text = userData.user?.phone
             } else {
                 email.text = userData?.user?.email
             }
 
             name.text = userData?.user?.name
 
-            prog_prec.text = userData?.user?.profileProgress.toString() + " %"
+            prog_prec.text = "${userData?.user?.profileProgress?:0} %"
 
             Log.d("TAG", "UserProgressDialog: $userData ")
 
@@ -1022,7 +1022,7 @@ class DialogHelperClass {
                     .error(R.drawable.baseline_person).resize(500, 500).into(level)
 
 
-                Picasso.get().load(userData.user.image)
+                Picasso.get().load(userData?.user?.image)
                     .placeholder(R.drawable.baseline_person)
                     .error(R.drawable.baseline_person).resize(500, 500).into(img)
 
@@ -1035,8 +1035,8 @@ class DialogHelperClass {
                 e.printStackTrace()
             }
 
-            val speed = userData?.user?.profileProgress.toString()
-            speedProgress.secondaryProgress = speed.toInt()
+            val speed = userData?.user?.profileProgress
+            speedProgress.secondaryProgress = speed?:0
 
             cancelBtn.setOnClickListener {
                 dialogCallBack.onCloseClick()

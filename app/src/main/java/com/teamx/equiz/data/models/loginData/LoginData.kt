@@ -5,5 +5,5 @@ import androidx.annotation.Keep
 @Keep
 data class LoginData(
     val token: String,
-    var user: User
+    var user: User?
 )

@@ -144,7 +144,7 @@ class OtpPhoneFragment : BaseFragment<FragmentOtpPhoneBinding, OtpViewModel>() {
                     Resource.Status.SUCCESS -> {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
-                            PrefHelper.getInstance(requireContext()).saveUerId(it.data.user._id)
+                            PrefHelper.getInstance(requireContext()).saveUerId(it.data.user?._id ?: "")
 
                             var bundle = arguments
 

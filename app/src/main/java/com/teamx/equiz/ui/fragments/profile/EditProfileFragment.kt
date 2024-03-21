@@ -437,7 +437,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                 Resource.Status.SUCCESS -> {
                     loadingDialog.dismiss()
                     it.data?.let { data ->
-                        if (data.user.image.isNotEmpty()) {
+                        if (data.user?.image?.isNotEmpty() == true) {
                             Glide.with(mViewDataBinding.profilePicture.context)
                                 .load(data.user.image).into(mViewDataBinding.profilePicture)
 
@@ -448,14 +448,18 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                                     .into(mViewDataBinding.profilePicture)
                             }
 
-                            mViewDataBinding.userName.setText(data.user.name)
-                            mViewDataBinding.phone.setText(data.user.phone)
-                            mViewDataBinding.email.setText(data.user.email)
-                            mViewDataBinding.dob.setText(data.user.dateOfBirth)
+                            mViewDataBinding.userName.setText(data.user.name ?: "")
+                            mViewDataBinding.phone.setText(data.user.phone ?: "")
+                            mViewDataBinding.email.setText(data.user.email ?: "")
+                            mViewDataBinding.dob.setText(data.user.dateOfBirth ?: "")
 
-                             var uData = PrefHelper.getInstance(requireActivity()).getUserData()
-                            uData!!.user.image = data.user.image
-                            PrefHelper.getInstance(requireActivity()).setUserData(uData)
+                            try {
+                                val uData = PrefHelper.getInstance(requireActivity()).getUserData()
+                                uData!!.user?.image = data.user.image
+                                PrefHelper.getInstance(requireActivity()).setUserData(uData)
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
 
 
 
@@ -567,7 +571,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
 //                        docsArrayList.clear()
 //
                         data.data.forEach {
-                            docsArrayList.add(IdentityDocument(null,it, null, it, null))
+                            docsArrayList.add(IdentityDocument(null, it, null, it, null))
                         }
 
 

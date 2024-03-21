@@ -9,7 +9,7 @@ data class User(
     val apartment: String,
     val cart: List<Any>,
     val chances: Int,
-    val profileProgress: Int,
+    val profileProgress: Int?,
     val city: String,
     val country: String,
     val dateOfBirth: Any,
