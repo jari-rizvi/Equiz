@@ -33,6 +33,8 @@ import com.teamx.equiz.data.models.topWinnerData.Game
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentDashboardBinding
 import com.teamx.equiz.ui.activity.mainActivity.MainActivity
+import com.teamx.equiz.ui.activity.mainActivity.MainActivity.Companion.isiaDialog
+import com.teamx.equiz.ui.activity.mainActivity.activeusermodel.ModelActiveUser
 import com.teamx.equiz.ui.fragments.dashboard.adapter.AllGameInterface
 import com.teamx.equiz.ui.fragments.dashboard.adapter.AllGamesAdapter
 import com.teamx.equiz.ui.fragments.dashboard.adapter.ImageSliderAdapter
@@ -81,6 +83,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
     lateinit var quizArrayList: ArrayList<Data>
     var id: String = ""
 
+
+    lateinit var activeUser: ModelActiveUser
     @SuppressLint("ClickableViewAccessibility")
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -103,6 +107,35 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         sharedViewModel.setActiveUser("")
 
         sharedViewModel.setActiveUser("")
+
+
+            sharedViewModel.activeUserResponse.observe(requireActivity()) {
+                when (it.status) {
+                    Resource.Status.LOADING -> {
+                        Log.d("destinationsdsd", "LOADING: ")
+                    }
+
+                    Resource.Status.NOTVERIFY -> {
+                        Log.d("destinationsdsd", "NOTVERIFY: ")
+                    }
+
+                    Resource.Status.SUCCESS -> {
+                        it.data?.let { data ->
+                            activeUser = data
+
+                        }
+                    }
+
+                    Resource.Status.AUTH -> {
+                        Log.d("destinationsdsd", "AUTH: ")
+                    }
+
+                    Resource.Status.ERROR -> {
+                        Log.d("destinationsdsd", "ERROR: ${it.message}")
+                    }
+                }
+            }
+
 
 
 
@@ -236,7 +269,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         if (id.isNullOrEmpty()) {
             id = " "
         }
-        mViewModel.getTopWinners(id, this)
+
 
 
         if (!mViewModel.getBannerResponse.hasActiveObservers()) {
@@ -302,7 +335,10 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                 }
             }
         }
+
+
         if (!mViewModel.getTopWinnersResponse.hasActiveObservers()) {
+            mViewModel.getTopWinners(id, this)
             mViewModel.getTopWinnersResponse.observe(requireActivity()) {
                 when (it.status) {
                     Resource.Status.LOADING -> {
@@ -325,8 +361,33 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                                 winnerArrayList.add(it)
                             }
 
+
+
                             winnerAdapter.notifyDataSetChanged()
 
+                            Log.d("TAG", "chalaaa: ")
+
+                            if(!isiaDialog){
+                                DialogHelperClass.UserProgressDialog(
+                                    requireContext(),
+                                    object : DialogHelperClass.Companion.UserProgressCallBack {
+                                        override fun onCloseClick() {
+
+                                        }
+
+                                        override fun onEditClick() {
+                                            findNavController().navigate(R.id.editProfileFragment, bundle, options)
+
+                                        }
+
+
+                                    }, activeUserModel = activeUser
+                                ).show()
+                            }
+
+
+
+                            isiaDialog = true
 
                         }
                     }
@@ -433,15 +494,16 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
 
 
-        mViewDataBinding.swiperefresh.setOnRefreshListener(OnRefreshListener {
+        mViewDataBinding.swiperefresh.setOnRefreshListener {
             mViewDataBinding.swiperefresh.isRefreshing = false
             RearrangeData()
-        })
+        }
 
     }
 
     private fun RearrangeData() {
         mViewModel.getWallet(this)
+        isiaDialog = false
         mViewModel.getTopWinners(id, this)
         mViewModel.getquizTitile("World", "", "", this)
         addNewBanners()
@@ -559,7 +621,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                 }
 
                 GamesUID2.ColorDeception.name -> {
-                    "ColorDeception"
+                    "Color Of Deception"
 
                 }
 

@@ -275,8 +275,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
         }
 
 
-
-
         mViewDataBinding.btnEditProfile.setOnClickListener {
             findNavController().navigate(
                 R.id.action_profileFragment_to_editProfileFragment,

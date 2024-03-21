@@ -13,23 +13,23 @@
         android:layout_height="match_parent"
         android:background="@drawable/app_bg">
 
-                <com.facebook.shimmer.ShimmerFrameLayout
-                    android:id="@+id/shimmerLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-                    <LinearLayout
+            <LinearLayout
 
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-                        <include layout="@layout/item_editprofile_shimmer" />
+                <include layout="@layout/item_editprofile_shimmer" />
 
 
-                    </LinearLayout>
+            </LinearLayout>
 
-                </com.facebook.shimmer.ShimmerFrameLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
 
         <WebView
             android:id="@+id/web_view"
@@ -37,7 +37,6 @@
             android:layout_height="match_parent"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent" />
-
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -468,7 +467,7 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/carImgLayout"
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/_120sdp"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:background="@drawable/upload_doc_bg"
                         android:padding="@dimen/_3sdp"
@@ -479,24 +478,7 @@
                         app:layout_constraintVertical_bias="0">
 
 
-                        <ImageView
-                            android:id="@+id/imgDoc"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_margin="@dimen/_5sdp"
-                            android:clipToOutline="true"
-                            android:elevation="@dimen/_10sdp"
-                            android:visibility="gone"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
 
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/doccx"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
 
 
                             <ImageView
@@ -506,9 +488,10 @@
                                 android:src="@drawable/upload_icon"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
+                                android:layout_marginTop="@dimen/_10sdp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintVertical_bias="0.2" />
+                                app:layout_constraintVertical_bias="0" />
 
 
                             <TextView
@@ -525,34 +508,32 @@
                                 app:layout_constraintVertical_bias="0" />
 
                             <TextView
+                                android:id="@+id/txxxt"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginVertical="@dimen/_5sdp"
                                 android:text="Supported formats: JPEG"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/txtBrowse"
-                                app:layout_constraintVertical_bias="0.4" />
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+                                app:layout_constraintVertical_bias="0" />
 
 
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recDocs"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/txxxt"
+                            app:layout_constraintVertical_bias="0"
+                            tools:itemCount="5"
+                            tools:listitem="@layout/item_docs" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recDocs"
-                        android:layout_width="0dp"
-                        android:visibility="gone"
-                        tools:itemCount="5"
-                        tools:listitem="@layout/item_docs"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/password"
-                        app:layout_constraintStart_toStartOf="@+id/password"
-                        app:layout_constraintTop_toBottomOf="@+id/carImgLayout"
-                        app:layout_constraintVertical_bias="0" />
 
 
                     <TextView
@@ -569,7 +550,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/btnVerifyEmail"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/recDocs"
+                        app:layout_constraintTop_toBottomOf="@+id/carImgLayout"
                         app:layout_constraintVertical_bias="0" />
 
 

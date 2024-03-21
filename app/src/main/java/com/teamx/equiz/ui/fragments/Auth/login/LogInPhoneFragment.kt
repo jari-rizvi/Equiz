@@ -213,6 +213,8 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
                                 }
                                 PrefHelper.getInstance(requireContext()).saveUerId(it.data.user._id)
                                 PrefHelper.getInstance(requireContext()).savePremium(it.data.user.isPremium)
+                                PrefHelper.getInstance(requireActivity()).setUserData(data)
+
 
                                 PrefHelper.getUSerInstance(requireContext()).setCredentials(
                                     PrefHelper.UserCredential(

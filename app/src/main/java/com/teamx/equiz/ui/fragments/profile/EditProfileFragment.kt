@@ -30,6 +30,7 @@ import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
 import com.facebook.FacebookSdk
+import com.facebook.GraphRequest
 import com.facebook.LoginStatusCallback
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
@@ -46,6 +47,7 @@ import com.teamx.equiz.data.models.editProfile.IdentityDocument
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentEditProfileBinding
 import com.teamx.equiz.utils.DialogHelperClass
+import com.teamx.equiz.utils.PrefHelper
 import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -74,8 +76,10 @@ import java.util.Locale
 import kotlin.properties.Delegates
 import java.security.SecureRandom
 import java.util.Base64
+
 @AndroidEntryPoint
-class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfileViewModel>() {
+class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfileViewModel>(),
+    OnRemoveImg {
 
     override val layoutId: Int
         get() = com.teamx.equiz.R.layout.fragment_edit_profile
@@ -113,9 +117,9 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
     lateinit var docsAdapter: DocsAdapter
     lateinit var docsArrayList: ArrayList<IdentityDocument>
 
- /*   val authApi = AuthApi(
-        activity = requireActivity()
-    )*/
+    /*   val authApi = AuthApi(
+           activity = requireActivity()
+       )*/
 
 //     var idenArrayList: ArrayList<com.teamx.equiz.ui.fragments.profile.IdentityDocument> = ArrayList()
 
@@ -150,6 +154,58 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
 //
 //    }
 
+
+    fun fetchInstagramProfile() {
+        val request = GraphRequest.newMeRequest(
+            AccessToken.getCurrentAccessToken()
+        ) { _, result ->
+            if (result != null) {
+
+
+//                val emailObject = result.getJSONObject()?.optJSONObject("email")
+//                val email = emailObject?.getString("email")
+
+
+                val response = result.getJSONObject()
+                val email = response?.getString("email")
+                val userID = response?.getString("id")
+                val lastName = response?.getString("last_name")
+                val firstName = response?.getString("first_name")
+                val fullName = response?.getString("name")
+
+                var profilePictureUrl: String? = null
+
+//                  val pictureData = result.optJSONObject("picture")?.optJSONObject("data")
+
+                val pictureData = response?.getJSONObject("picture")?.getJSONObject("data")
+//                val profilePictureUrl = pictureData.getString("url")
+
+                val url = pictureData?.optString("url")
+                if (!url.isNullOrEmpty()) {
+                    profilePictureUrl = url
+                }
+
+                Log.d("TAG", "fetchInstagramProfile: $email")
+                Log.d("TAG", "fetchInstagramProfile: $userID")
+                Log.d("TAG", "fetchInstagramProfile: $lastName")
+                Log.d("TAG", "fetchInstagramProfile: $firstName")
+                Log.d("TAG", "fetchInstagramProfile: $fullName")
+                Log.d("TAG", "fetchInstagramProfile: $profilePictureUrl")
+
+            }
+        }
+
+        val parameters = Bundle()
+        parameters.putString(
+            "fields",
+            "id, name, first_name, last_name, picture.type(large), email"
+        )
+        request.parameters = parameters
+
+        request.executeAsync()
+    }
+
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -179,13 +235,12 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
         }
 
         mViewDataBinding.btnInsta.setOnClickListener {
-            loginToInstagram()
+            fetchInstagramProfile()
         }
-  mViewDataBinding.btnFb.setOnClickListener {
+
+        mViewDataBinding.btnFb.setOnClickListener {
             fb()
         }
-
-
 
         imageFiles = ArrayList()
 
@@ -249,7 +304,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                     it.data?.let { data ->
                         try {
                             if (data.user.identityDocuments.isNotEmpty()) {
-                                mViewDataBinding.recDocs.visibility = View.VISIBLE
+//                                mViewDataBinding.recDocs.visibility = View.VISIBLE
                                 docsArrayList.clear()
 
                                 docsArrayList.addAll(data.user.identityDocuments)
@@ -366,8 +421,6 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
             }
         }
 
-
-
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
 
 
@@ -399,6 +452,10 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                             mViewDataBinding.phone.setText(data.user.phone)
                             mViewDataBinding.email.setText(data.user.email)
                             mViewDataBinding.dob.setText(data.user.dateOfBirth)
+
+                             var uData = PrefHelper.getInstance(requireActivity()).getUserData()
+                            uData!!.user.image = data.user.image
+                            PrefHelper.getInstance(requireActivity()).setUserData(uData)
 
 
 
@@ -441,7 +498,6 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                 }
             }
         }
-
 
 
         if (!mViewModel.uploadReviewImgResponse.hasActiveObservers()) {
@@ -494,7 +550,6 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
         }
 
 
-
         mViewModel.uploadDocImgResponse.observe(requireActivity()) {
             when (it.status) {
                 Resource.Status.LOADING -> {
@@ -512,7 +567,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
 //                        docsArrayList.clear()
 //
                         data.data.forEach {
-                            docsArrayList.add(IdentityDocument(null, null, it, null))
+                            docsArrayList.add(IdentityDocument(null,it, null, it, null))
                         }
 
 
@@ -562,8 +617,6 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
         mViewDataBinding.btnSave.setOnClickListener {
             linkFb = mViewDataBinding.facebook.text.toString()
             linkInsta = mViewDataBinding.instagram.text.toString()
-
-
 
             userName = mViewDataBinding.userName.text.toString()
             if (userName.isNotEmpty()) {
@@ -915,10 +968,10 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
     private fun docsRecyclerview() {
         docsArrayList = ArrayList()
 
-        val linearLayoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+        val linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         mViewDataBinding.recDocs.layoutManager = linearLayoutManager
 
-        docsAdapter = DocsAdapter(docsArrayList)
+        docsAdapter = DocsAdapter(docsArrayList, this)
         mViewDataBinding.recDocs.adapter = docsAdapter
 
     }
@@ -1103,7 +1156,6 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                     val idTokenFb = accessToken.token.toString()
 
 
-
                 }
 
                 override fun onFailure() {
@@ -1117,7 +1169,6 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
 
 
     }
-
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -1177,8 +1228,11 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
         })
     }
 
-
-
+    override fun onRemoveClick(position: Int) {
+        val abc = docsArrayList[position]
+        docsArrayList.remove(abc)
+        docsAdapter.notifyDataSetChanged()
+    }
 
 
 }

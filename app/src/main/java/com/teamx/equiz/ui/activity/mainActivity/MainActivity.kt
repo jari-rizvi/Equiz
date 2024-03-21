@@ -167,8 +167,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
 
         setBottomNavigationWithNavController(savedInstanceState)
 
-        if (!mViewModel.activeUserResponse.hasActiveObservers()) {
-            mViewModel.activeUserResponse.observe(this) {
+        if (!sharedViewModel.activeUserResponse.hasActiveObservers()) {
+            sharedViewModel.activeUserResponse.observe(this) {
                 when (it.status) {
                     Resource.Status.LOADING -> {
                         Log.d("destinationsdsd", "LOADING: ")
@@ -181,7 +181,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
                     Resource.Status.SUCCESS -> {
                         Log.d("destinationsdsd", "SUCCESS: ${it.data?.activeLevel}")
                         it.data?.let { data ->
-                            Log.d("destinationsdsd", "destination: ${data.activeLevel}")
 
                         }
                     }
@@ -207,7 +206,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
                 val jsonObject = JsonObject()
                 jsonObject.addProperty("time", totalActiveTime)
                 totalActiveTime = 0
-                mViewModel.activeUser(jsonObject)
+                sharedViewModel.activeUser(jsonObject)
             }
 
             when (destination.id) {
@@ -305,7 +304,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
         var bottomNav: BottomNavigationView? = null
         var service: CounterNotificationService? = null
         var isEnable = false
-
+        var isiaDialog = false
 
     }
 

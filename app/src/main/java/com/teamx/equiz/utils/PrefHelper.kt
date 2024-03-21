@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import androidx.annotation.Keep
 import com.google.android.gms.maps.model.LatLng
 import com.google.gson.Gson
+import com.teamx.equiz.data.models.loginData.LoginData
 
 class PrefHelper private constructor() {
 
@@ -23,6 +24,7 @@ class PrefHelper private constructor() {
         private val MERCHANT_ID = "merchant_id"
         private val ORDER_ID = "order_id"
         private val USER_ID = "user_id"
+        private const val USER_DATA = "USERDATA"
         private val USER_PREM = "user_prem"
         private val WALLET_AMOUNT = "wallet_amount"
         private const val dbCardP = "dbCardP"
@@ -302,6 +304,20 @@ class PrefHelper private constructor() {
             sharedPreferences.getString(favouriteShop, "[]"),
             UserFavouriteShop::class.java
         )
+    }
+
+
+    fun getUserData(): LoginData? {
+        val gson = Gson()
+        return gson.fromJson(
+            sharedPreferences.getString(USER_DATA, ""), LoginData::class.java
+        )
+    }
+
+    fun setUserData(shippingAddress: LoginData?) {
+        val gson = Gson()
+        val str = gson.toJson(shippingAddress)
+        sharedPreferences.edit().putString(USER_DATA, str).apply()
     }
 
     fun setFavouriteProduct(shippingAddress: List<String>) {

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_210sdp"
+    android:layout_gravity="center"
+    android:layout_marginHorizontal="@dimen/_20sdp"
+    android:background="@drawable/card_background"
+    android:backgroundTint="@color/white"
+    android:elevation="@dimen/_5sdp">
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/card_background"
+        android:clipToOutline="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/app_bg" />
+
+
+    <ImageView
+        android:id="@+id/closeDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/cancel_share"
+        app:layout_constraintBottom_toBottomOf="@+id/img"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toEndOf="@+id/textView74"
+        app:layout_constraintTop_toTopOf="@+id/img"
+        app:layout_constraintVertical_bias="0" />
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img"
+        android:layout_width="@dimen/_70sdp"
+        android:layout_height="@dimen/_70sdp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/border_background"
+        android:padding="@dimen/_2sdp"
+        android:src="@drawable/baseline_person_white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.05" />
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/premium"
+        android:layout_width="@dimen/_25sdp"
+        android:layout_height="@dimen/_25sdp"
+        android:elevation="@dimen/_5sdp"
+        android:clipToOutline="true"
+        app:layout_constraintBottom_toBottomOf="@+id/img"
+        app:layout_constraintEnd_toEndOf="@+id/img"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@+id/img"
+        app:layout_constraintTop_toTopOf="@+id/img"
+        app:layout_constraintVertical_bias="0"
+        />
+
+    <TextView
+        android:id="@+id/textView74"
+        style="@style/popins_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="jari"
+        android:textSize="@dimen/_12ssp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/img"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintVertical_bias="0.3"
+        app:layout_constraintStart_toEndOf="@+id/img"
+        app:layout_constraintTop_toTopOf="@+id/img"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/textView75"
+        style="@style/popins_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="jari@x"
+        android:textSize="@dimen/_11ssp"
+        app:layout_constraintVertical_bias="0"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/img"
+        app:layout_constraintEnd_toEndOf="@+id/textView74"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@+id/textView74"
+        app:layout_constraintTop_toBottomOf="@+id/textView74" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout11"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:background="@drawable/card_background"
+        android:elevation="@dimen/_2sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img"
+        app:layout_constraintVertical_bias="0.1">
+
+
+        <TextView
+            android:id="@+id/textView30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/poppins_bold"
+            android:text="@string/your_profile_progress"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.05"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0" />
+
+        <TextView
+            android:id="@+id/textView31"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_bold"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/simpleProgressBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/simpleProgressBar"
+            app:layout_constraintTop_toTopOf="@+id/simpleProgressBar" />
+
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/simpleProgressBar"
+            android:layout_width="@dimen/_180sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/_10sdp"
+            android:max="100"
+            app:indicatorColor="#538B4D"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="@+id/textView30"
+            app:layout_constraintTop_toBottomOf="@+id/textView30"
+            app:layout_constraintVertical_bias="0"
+            app:trackColor="@color/light_gray"
+            app:trackCornerRadius="@dimen/_10sdp"
+            app:trackThickness="@dimen/_10sdp" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <TextView
+        android:id="@+id/btnEdit"
+        style="@style/popins_regular"
+        android:layout_width="286dp"
+        android:layout_height="@dimen/_40sdp"
+        android:background="@drawable/card_background_border"
+        android:backgroundTint="@color/theme_color"
+        android:gravity="center"
+        android:text="Edit Your Profile"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_14ssp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout11"
+        app:layout_constraintVertical_bias="0.5" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

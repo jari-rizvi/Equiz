@@ -1,6 +1,7 @@
 package com.teamx.equiz.ui.fragments.profile
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -10,7 +11,8 @@ import com.teamx.equiz.databinding.ItemDocsBinding
 
 
 class DocsAdapter(
-    val arrayList: ArrayList<IdentityDocument>
+    val arrayList: ArrayList<IdentityDocument>,
+   val onRemoveImg: OnRemoveImg
 ) : RecyclerView.Adapter<DocsAdapter.DocIdentViewHolder>() {
 
 
@@ -30,6 +32,17 @@ class DocsAdapter(
         Glide.with(MainApplication.context).load(list.link)
             .into(holder.binding.imageView18);
 
+        holder.binding.textView82.text = list.title
+
+        if(list.isVerified == true){
+            holder.binding.imageView199.visibility = View.GONE
+            holder.binding.imageView19.visibility = View.VISIBLE
+        }
+
+        holder.binding.imageView20.setOnClickListener {
+            onRemoveImg.onRemoveClick(position)
+        }
+
     }
 
     override fun getItemCount(): Int {
@@ -41,4 +54,8 @@ class DocsAdapter(
         val binding = itemDocsBinding
 
     }
+}
+
+interface OnRemoveImg{
+    fun onRemoveClick(position: Int)
 }

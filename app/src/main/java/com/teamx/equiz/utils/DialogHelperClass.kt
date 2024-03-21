@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.util.Log
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.ProgressBar
@@ -13,12 +14,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
+import androidx.core.content.ContextCompat
 import com.squareup.picasso.Picasso
 import com.teamx.equiz.R
 import com.teamx.equiz.data.models.topWinnerData.Game
 import com.teamx.equiz.games.games.dialogShareGame
+import com.teamx.equiz.ui.activity.mainActivity.activeusermodel.ModelActiveUser
 import com.teamx.equiz.ui.fragments.collectPrice.ClaimInterfaceCallback
 import com.teamx.equiz.ui.fragments.dashboard.GamesUID2
+import de.hdodenhof.circleimageview.CircleImageView
 
 class DialogHelperClass {
     companion object {
@@ -317,7 +321,7 @@ class DialogHelperClass {
                 dialog.dismiss()
             }
             removeBtn.setOnClickListener {
-                    dialogLogoutCallBack.OkClick()
+                dialogLogoutCallBack.OkClick()
                 dialog.dismiss()
             }
 
@@ -789,6 +793,11 @@ class DialogHelperClass {
             fun onCloseClick()
         }
 
+        interface UserProgressCallBack {
+            fun onCloseClick()
+            fun onEditClick()
+        }
+
         var dialog: Dialog? = null
         fun signUpLoginDialog(context: Context, dialogCallBack: DialogCallBackSignIn): Dialog {
             if (dialog == null) {
@@ -972,6 +981,79 @@ class DialogHelperClass {
 
             return dialog
         }
+
+
+        fun UserProgressDialog(
+            context: Context, dialogCallBack: UserProgressCallBack, activeUserModel: ModelActiveUser
+        ): Dialog {
+            val dialog = Dialog(context)
+            dialog.setContentView(R.layout.user_progress_dialog)
+            dialog.window!!.setLayout(
+                WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT
+            )
+            dialog.setCancelable(false)
+            val btnEdit = dialog.findViewById<TextView>(R.id.btnEdit)
+            val name = dialog.findViewById<TextView>(R.id.textView74)
+            val prog_prec = dialog.findViewById<TextView>(R.id.textView31)
+            val email = dialog.findViewById<TextView>(R.id.textView75)
+            val phone = dialog.findViewById<TextView>(R.id.textView75)
+            val img = dialog.findViewById<ImageView>(R.id.img)
+            val level = dialog.findViewById<ImageView>(R.id.premium)
+            val cancelBtn = dialog.findViewById<ImageView>(R.id.closeDialog)
+            val speedProgress = dialog.findViewById<ProgressBar>(R.id.simpleProgressBar)
+
+            val userData = PrefHelper.getInstance(context).getUserData()
+
+            if (userData?.user?.email!!.isEmpty()) {
+                email.text = userData?.user?.phone
+            } else {
+                email.text = userData?.user?.email
+            }
+
+            name.text = userData?.user?.name
+
+            prog_prec.text = userData?.user?.profileProgress.toString() + " %"
+
+            Log.d("TAG", "UserProgressDialog: $userData ")
+
+            try {
+                Picasso.get().load(activeUserModel.activeLevel.icon)
+                    .placeholder(R.drawable.baseline_person)
+                    .error(R.drawable.baseline_person).resize(500, 500).into(level)
+
+
+                Picasso.get().load(userData.user.image)
+                    .placeholder(R.drawable.baseline_person)
+                    .error(R.drawable.baseline_person).resize(500, 500).into(img)
+
+                val color = Color.parseColor(activeUserModel.activeLevel.color)
+                level.setBackgroundColor(color)
+
+//                level.setBackgroundColor(ContextCompat.getColor(context, activeUserModel.activeLevel.color.toInt()))
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+            val speed = userData?.user?.profileProgress.toString()
+            speedProgress.secondaryProgress = speed.toInt()
+
+            cancelBtn.setOnClickListener {
+                dialogCallBack.onCloseClick()
+                dialog.dismiss()
+            }
+
+            btnEdit.setOnClickListener {
+                dialogCallBack.onEditClick()
+                dialog.dismiss()
+            }
+
+
+            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+            return dialog
+        }
+
 
         @SuppressLint("SetTextI18n")
         fun DatePickerDialog(

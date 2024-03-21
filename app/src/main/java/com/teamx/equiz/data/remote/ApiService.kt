@@ -50,7 +50,6 @@ import com.teamx.equiz.ui.fragments.collectPrice.data.CollectDataModel
 import com.teamx.equiz.ui.fragments.ecommerce.data.CategoryEcomData
 import com.teamx.equiz.ui.fragments.ecommerce.home.datanews.NewsImagesDataModel
 import com.teamx.equiz.ui.fragments.ecommerce.paymentMethods.model.stripeanother.StripeCheckoutModelData
-import com.teamx.equiz.ui.fragments.ecommerce.productProfile.unsub_data.UNSUBDataModel
 import com.teamx.equiz.ui.fragments.profile.data.DELETEUSERModel
 import com.teamx.equiz.ui.fragments.quizresult.data.QuizResultDataModel
 import com.teamx.equiz.ui.fragments.subscription.buySubscription.BuySubscription
@@ -62,7 +61,6 @@ import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.Body
-import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.HTTP
 import retrofit2.http.Header

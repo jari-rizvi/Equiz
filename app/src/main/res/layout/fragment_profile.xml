@@ -29,33 +29,66 @@
             android:layout_height="@dimen/_75sdp"
             android:layout_centerInParent="true"
             android:background="@drawable/border_background"
-            android:src="@drawable/baseline_person_white"
             android:padding="@dimen/_2sdp"
-            app:layout_constraintBottom_toTopOf="@+id/constraintLayout5"
+            android:src="@drawable/baseline_person_white"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.36" />
+            app:layout_constraintVertical_bias="0.05" />
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/level"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:background="@drawable/border_background"
+            android:clipToOutline="true"
+            android:elevation="@dimen/_15sdp"
+            android:src="@drawable/add"
+            app:layout_constraintBottom_toBottomOf="@+id/profilePicture"
+            app:layout_constraintEnd_toEndOf="@+id/profilePicture"
+            app:layout_constraintStart_toStartOf="@+id/profilePicture"
+            app:layout_constraintTop_toBottomOf="@+id/profilePicture" />
+
+        <TextView
+            android:id="@+id/leveltxt"
+            style="@style/popins_regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:text="gold"
+            android:textSize="@dimen/_15ssp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/level"
+            app:layout_constraintStart_toStartOf="@+id/level"
+            app:layout_constraintTop_toBottomOf="@+id/level"
+            app:layout_constraintVertical_bias="0" />
+
 
         <ImageView
             android:id="@+id/premium"
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"
             android:elevation="@dimen/_5sdp"
+            android:src="@drawable/premium_icon"
             android:visibility="gone"
-            android:src="@drawable/premium_green_3x"
-            app:layout_constraintBottom_toBottomOf="@+id/profilePicture"
+            app:layout_constraintBottom_toTopOf="@+id/profilePicture"
             app:layout_constraintEnd_toEndOf="@+id/profilePicture"
-            app:layout_constraintHorizontal_bias="1.2"
             app:layout_constraintStart_toStartOf="@+id/profilePicture"
-            app:layout_constraintTop_toTopOf="@+id/profilePicture"
-            app:layout_constraintVertical_bias="0" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0"
+            app:tint="@color/theme_color" />
 
         <TextView
             android:id="@+id/textView3"
             style="@style/popins_regular"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_100sdp"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:gravity="center"
             android:text=""
             android:textColor="@color/black"
             android:textSize="@dimen/_14ssp"
@@ -63,8 +96,21 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/profilePicture"
             app:layout_constraintStart_toStartOf="@+id/profilePicture"
-            app:layout_constraintTop_toBottomOf="@+id/profilePicture"
+            app:layout_constraintTop_toBottomOf="@+id/leveltxt"
             app:layout_constraintVertical_bias="0.02" />
+
+
+        <ImageView
+            android:id="@+id/emailImgVerify"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/verified"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/textView4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintStart_toEndOf="@+id/textView3"
+            app:layout_constraintTop_toTopOf="@+id/textView3" />
 
         <TextView
             android:id="@+id/textView4"
@@ -81,6 +127,57 @@
             app:layout_constraintTop_toBottomOf="@+id/textView3"
             app:layout_constraintVertical_bias="0" />
 
+
+        <TextView
+            android:id="@+id/textView30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:fontFamily="@font/poppins_bold"
+            android:text="@string/your_profile_progress"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.05"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4"
+            app:layout_constraintVertical_bias="0" />
+
+        <TextView
+            android:id="@+id/textView31"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_bold"
+            android:gravity="center"
+            android:text="Edit Profile"
+            android:textColor="@color/theme_color"
+            app:layout_constraintBottom_toBottomOf="@+id/textView30"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintStart_toEndOf="@+id/textView30"
+            app:layout_constraintTop_toTopOf="@+id/textView30" />
+
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/simpleProgressBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/_10sdp"
+            android:max="100"
+            app:indicatorColor="#538B4D"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/textView31"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="@+id/textView30"
+            app:layout_constraintTop_toBottomOf="@+id/textView30"
+            app:layout_constraintVertical_bias="0"
+            app:trackColor="@color/light_gray"
+            app:trackCornerRadius="@dimen/_10sdp"
+            app:trackThickness="@dimen/_10sdp" />
+
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout5"
             android:layout_width="0dp"
@@ -89,11 +186,12 @@
             android:background="@drawable/card_back_less_rad"
             android:elevation="@dimen/_1sdp"
             android:paddingVertical="@dimen/_10sdp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="@dimen/_5sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4"
-            app:layout_constraintVertical_bias="0.05"
+            app:layout_constraintTop_toBottomOf="@+id/simpleProgressBar"
+            app:layout_constraintVertical_bias="0"
             app:layout_constraintVertical_chainStyle="spread">
 
 
@@ -106,12 +204,12 @@
                 android:text="@string/ranking"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_13ssp"
-                app:layout_constraintVertical_bias="0.1"
                 app:layout_constraintBottom_toBottomOf="@+id/view1"
                 app:layout_constraintEnd_toStartOf="@+id/view1"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.1" />
 
             <TextView
                 android:id="@+id/textView50"
@@ -119,10 +217,10 @@
                 android:layout_width="@dimen/_80sdp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:gravity="center"
-                android:text="00"
-                android:maxLines="1"
                 android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="00"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_16ssp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -175,11 +273,11 @@
                 android:layout_width="@dimen/_80sdp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
+                android:ellipsize="end"
                 android:gravity="center"
+                android:maxLines="1"
                 android:text="00"
                 android:textColor="@color/white"
-                android:maxLines="1"
-                android:ellipsize="end"
                 android:textSize="@dimen/_16ssp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/btnPast"
@@ -209,11 +307,11 @@
                 android:layout_width="@dimen/_80sdp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
+                android:ellipsize="end"
                 android:gravity="center"
+                android:maxLines="1"
                 android:text="00"
                 android:textColor="@color/white"
-                android:maxLines="1"
-                android:ellipsize="end"
                 android:textSize="@dimen/_16ssp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/btnReview"
@@ -223,17 +321,18 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-<!--        <androidx.constraintlayout.widget.Guideline-->
-<!--            android:id="@+id/guideline"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:orientation="horizontal"-->
-<!--            app:layout_constraintGuide_percent="0.4" />-->
+        <!--        <androidx.constraintlayout.widget.Guideline-->
+        <!--            android:id="@+id/guideline"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:orientation="horizontal"-->
+        <!--            app:layout_constraintGuide_percent="0.4" />-->
 
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="@dimen/_5sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout5">
 
@@ -279,8 +378,8 @@
                             android:layout_marginStart="5dp"
                             android:layout_marginEnd="5dp"
                             android:layout_weight="0"
-                            app:tint="@color/gray"
-                            android:src="@drawable/account_uu" />
+                            android:src="@drawable/account_uu"
+                            app:tint="@color/gray" />
 
                         <TextView
                             style="@style/popins_regular"
@@ -290,10 +389,10 @@
                             android:drawableEnd="@drawable/arrow"
                             android:drawableTint="@color/black"
                             android:gravity="center_vertical|start"
-                            android:textAlignment="viewStart"
                             android:paddingStart="@dimen/_7sdp"
                             android:paddingEnd="@dimen/_7sdp"
                             android:text="@string/edit_profile"
+                            android:textAlignment="viewStart"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_11ssp"
                             android:textStyle="bold" />
@@ -322,8 +421,8 @@
                             android:layout_marginStart="5dp"
                             android:layout_marginEnd="5dp"
                             android:layout_weight="0"
-                            app:tint="@color/gray"
-                            android:src="@drawable/touch_id" />
+                            android:src="@drawable/touch_id"
+                            app:tint="@color/gray" />
 
                         <TextView
                             style="@style/popins_regular"
@@ -333,10 +432,10 @@
                             android:drawableEnd="@drawable/arrow"
                             android:drawableTint="@color/black"
                             android:gravity="center_vertical|start"
-                            android:textAlignment="viewStart"
                             android:paddingStart="@dimen/_7sdp"
                             android:paddingEnd="@dimen/_7sdp"
                             android:text="Enable TouchId"
+                            android:textAlignment="viewStart"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_11ssp"
                             android:textStyle="bold" />
@@ -382,10 +481,10 @@
                             android:drawableEnd="@drawable/arrow"
                             android:drawableTint="@color/black"
                             android:gravity="center_vertical|start"
-                            android:textAlignment="viewStart"
                             android:paddingStart="@dimen/_7sdp"
                             android:paddingEnd="@dimen/_7sdp"
                             android:text="@string/order_manage"
+                            android:textAlignment="viewStart"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_11ssp"
                             android:textStyle="bold" />
@@ -430,10 +529,10 @@
                             android:drawableEnd="@drawable/arrow"
                             android:drawableTint="@color/black"
                             android:gravity="center_vertical|start"
-                            android:textAlignment="viewStart"
                             android:paddingStart="@dimen/_7sdp"
                             android:paddingEnd="@dimen/_7sdp"
                             android:text="@string/chances"
+                            android:textAlignment="viewStart"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_11ssp"
                             android:textStyle="bold" />
@@ -482,10 +581,10 @@
                             android:drawableEnd="@drawable/arrow"
                             android:drawableTint="@color/black"
                             android:gravity="center_vertical|start"
-                            android:textAlignment="viewStart"
                             android:paddingStart="@dimen/_7sdp"
                             android:paddingEnd="@dimen/_7sdp"
                             android:text="@string/address"
+                            android:textAlignment="viewStart"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_11ssp"
                             android:textStyle="bold" />
@@ -542,16 +641,17 @@
                             android:drawableEnd="@drawable/arrow"
                             android:drawableTint="@color/black"
                             android:gravity="center_vertical|start"
-                            android:textAlignment="viewStart"
                             android:paddingStart="@dimen/_7sdp"
                             android:paddingEnd="@dimen/_7sdp"
-
                             android:text="@string/leaderboard"
+
+                            android:textAlignment="viewStart"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_11ssp"
                             android:textStyle="bold" />
 
                     </LinearLayout>
+
                     <LinearLayout
                         android:id="@+id/btnWishList"
                         android:layout_width="match_parent"
@@ -584,10 +684,10 @@
                             android:drawableEnd="@drawable/arrow"
                             android:drawableTint="@color/black"
                             android:gravity="center_vertical|start"
-                            android:textAlignment="viewStart"
                             android:paddingStart="@dimen/_7sdp"
                             android:paddingEnd="@dimen/_7sdp"
                             android:text="@string/wishlist"
+                            android:textAlignment="viewStart"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_11ssp"
                             android:textStyle="bold" />
@@ -633,10 +733,10 @@
                             android:drawableEnd="@drawable/arrow"
                             android:drawableTint="@color/black"
                             android:gravity="center_vertical|start"
-                            android:textAlignment="viewStart"
                             android:paddingStart="@dimen/_7sdp"
                             android:paddingEnd="@dimen/_7sdp"
                             android:text="@string/security_policy"
+                            android:textAlignment="viewStart"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_11ssp"
                             android:textStyle="bold" />
@@ -682,10 +782,10 @@
                             android:drawableEnd="@drawable/arrow"
                             android:drawableTint="@color/black"
                             android:gravity="center_vertical|start"
-                            android:textAlignment="viewStart"
                             android:paddingStart="@dimen/_7sdp"
                             android:paddingEnd="@dimen/_7sdp"
                             android:text="@string/unsubscribe"
+                            android:textAlignment="viewStart"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_11ssp"
                             android:textStyle="bold" />
@@ -699,46 +799,46 @@
                         android:layout_marginBottom="5dp"
                         android:background="@color/textSecondaryColor" />-->
                     <LinearLayout
-                    android:id="@+id/btnDeleteAcc"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_38sdp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:clickable="true"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:orientation="horizontal"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp">
-
-                    <ImageView
-                        android:layout_width="@dimen/_30sdp"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/btnDeleteAcc"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_38sdp"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="5dp"
+                        android:layout_marginTop="5dp"
                         android:layout_marginEnd="5dp"
-                        android:src="@drawable/delete_icon_user"
-                        app:tint="@color/gray" />
+                        android:layout_marginBottom="5dp"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:orientation="horizontal"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp">
 
-                    <TextView
-                        style="@style/popins_regular"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:drawableEnd="@drawable/arrow"
-                        android:drawableTint="@color/black"
-                        android:gravity="center_vertical|start"
-                        android:textAlignment="viewStart"
-                        android:paddingStart="@dimen/_7sdp"
-                        android:paddingEnd="@dimen/_7sdp"
-                        android:text="@string/delete_account"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_11ssp"
-                        android:textStyle="bold" />
+                        <ImageView
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:src="@drawable/delete_icon_user"
+                            app:tint="@color/gray" />
 
-                </LinearLayout>
+                        <TextView
+                            style="@style/popins_regular"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:drawableEnd="@drawable/arrow"
+                            android:drawableTint="@color/black"
+                            android:gravity="center_vertical|start"
+                            android:paddingStart="@dimen/_7sdp"
+                            android:paddingEnd="@dimen/_7sdp"
+                            android:text="@string/delete_account"
+                            android:textAlignment="viewStart"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_11ssp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
 
                     <!--<View
                         android:layout_width="match_parent"

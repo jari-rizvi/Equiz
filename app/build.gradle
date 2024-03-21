@@ -243,6 +243,9 @@ dependencies {
 
     implementation 'com.facebook.android:facebook-android-sdk:latest.release'
 
+    implementation "com.airbnb.android:lottie:4.2.0"
+
+
 
 //    implementation 'com.tiktok.open.sdk:tiktok-open-sdk-core:latest.release'
 //    implementation 'com.tiktok.open.sdk:tiktok-open-sdk-auth:latest.release'   // to use authorization api

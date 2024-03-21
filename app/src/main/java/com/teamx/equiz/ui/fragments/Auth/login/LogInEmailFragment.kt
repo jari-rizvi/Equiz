@@ -230,6 +230,7 @@ class LogInEmailFragment : BaseFragment<FragmentLoginEmailBinding, LoginViewMode
                                 PrefHelper.getInstance(requireContext())
                                     .savePremium(it.data.user.isPremium)
 
+                                PrefHelper.getInstance(requireActivity()).setUserData(data)
 
                                 PrefHelper.getUSerInstance(requireContext()).setCredentials(
                                     PrefHelper.UserCredential(
