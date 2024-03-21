@@ -8,6 +8,29 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/app_bg">
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelin1e"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="1" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/app_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guidelin1e"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_editor_absoluteX="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
 
 
         <ImageView
@@ -89,7 +112,8 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:gravity="center"
-            android:text=""
+            android:text="jari"
+            android:layout_marginTop="@dimen/_3sdp"
             android:textColor="@color/black"
             android:textSize="@dimen/_14ssp"
             android:textStyle="bold"
@@ -97,7 +121,7 @@
             app:layout_constraintEnd_toEndOf="@+id/profilePicture"
             app:layout_constraintStart_toStartOf="@+id/profilePicture"
             app:layout_constraintTop_toBottomOf="@+id/leveltxt"
-            app:layout_constraintVertical_bias="0.02" />
+            app:layout_constraintVertical_bias="0" />
 
 
         <ImageView
@@ -152,6 +176,7 @@
             android:fontFamily="@font/poppins_bold"
             android:gravity="center"
             android:text="Edit Profile"
+            android:visibility="gone"
             android:textColor="@color/theme_color"
             app:layout_constraintBottom_toBottomOf="@+id/textView30"
             app:layout_constraintEnd_toEndOf="parent"
@@ -329,12 +354,7 @@
         <!--            app:layout_constraintGuide_percent="0.4" />-->
 
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/_5sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout5">
+
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -343,7 +363,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout5"
                 app:layout_constraintVertical_bias="0.25">
 
 
@@ -853,8 +873,10 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        </ScrollView>
 
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

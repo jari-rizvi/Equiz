@@ -122,11 +122,12 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/_14ssp"
                     android:textStyle="bold"
+                    android:layout_marginTop="@dimen/_3sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/profilePicture"
                     app:layout_constraintStart_toStartOf="@+id/profilePicture"
                     app:layout_constraintTop_toBottomOf="@+id/leveltxt"
-                    app:layout_constraintVertical_bias="0.01" />
+                    app:layout_constraintVertical_bias="0" />
 
                 <ImageView
                     android:id="@+id/emailImgVerify"

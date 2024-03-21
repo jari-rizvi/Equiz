@@ -74,6 +74,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
         }
 
 
+
         var prefUser = PrefHelper.getUSerInstance(requireContext()).getCredentials()
         if (prefUser == null) {
             prefUser = PrefHelper.getUSerInstance(requireContext()).getCredentials()
@@ -145,6 +146,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
                                     mViewDataBinding.btnUnSubscribe.visibility = View.GONE
 
                                 }
+
+
+                                val speed = data.user.profileProgress
+                                mViewDataBinding.simpleProgressBar.secondaryProgress = speed.toInt()
 
                             } catch (e: Exception) {
                                 e.printStackTrace()

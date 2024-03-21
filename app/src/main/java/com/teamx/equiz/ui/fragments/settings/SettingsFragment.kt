@@ -83,46 +83,10 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
 
         sharedViewModel.setActiveUser("")
 
-//        TOKENER =
-//            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTFlNWZiOGM3NjU2MDdlNzE0NjNiZGYiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3MDE2ODg4ODAsImV4cCI6MTcwMTc3NTI4MH0.th7AmVunSuxLeq8XP5oe-JywCZGijWOAtrqPmImIKzM"
 
         initializeCategoriesAdapter()
-//        mViewDataBinding.btnback.setOnClickListener {
-//            findNavController().popBackStack()
-//        }
 
-//        if (!mViewModel.quizTitleResponse.hasActiveObservers()) {
-//            mViewModel.quizTitle("World", null, "normal")
-//            mViewModel.quizTitleResponse.observe(requireActivity()) {
-//                when (it.status) {
-//                    Resource.Status.LOADING -> {
-//                        loadingDialog.show()
-//                    }
-//
-//                    Resource.Status.NOTVERIFY -> {
-//                        loadingDialog.dismiss()
-//                    }
-//
-//                    Resource.Status.SUCCESS -> {
-//                        loadingDialog.dismiss()
-//                        mViewDataBinding.mainLayout.visibility = View.VISIBLE
-//                        it.data?.let { data ->
-//                            strArrayList.clear()
-//                            strArrayList.addAll(data.data)
-//                            quizesAdapter.notifyDataSetChanged()
-//                        }
-//                    }
-//
-//                    Resource.Status.ERROR -> {
-//                        loadingDialog.dismiss()
-//
-//                        if (isAdded) {
-//                            mViewDataBinding.root.snackbar(it.message!!)
-//                        }
-//                    }
-//                }
-//            }
-//        }
+
 
         mViewModel.me()
         if (!mViewModel.meResponse.hasActiveObservers()) {
@@ -172,6 +136,8 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
 
                                 }
 
+                                val speed = data.user.profileProgress
+                                mViewDataBinding.simpleProgressBar.secondaryProgress = speed.toInt()
 
                             } catch (e: Exception) {
                                 e.printStackTrace()
