@@ -84,7 +84,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
     var id: String = ""
 
 
-    lateinit var activeUser: ModelActiveUser
+    var activeUser: ModelActiveUser? = null
+
     @SuppressLint("ClickableViewAccessibility")
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -109,32 +110,31 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         sharedViewModel.setActiveUser("")
 
 
-            sharedViewModel.activeUserResponse.observe(requireActivity()) {
-                when (it.status) {
-                    Resource.Status.LOADING -> {
-                        Log.d("destinationsdsd", "LOADING: ")
-                    }
+        sharedViewModel.activeUserResponse.observe(requireActivity()) {
+            when (it.status) {
+                Resource.Status.LOADING -> {
+                    Log.d("destinationsdsd", "LOADING: ")
+                }
 
-                    Resource.Status.NOTVERIFY -> {
-                        Log.d("destinationsdsd", "NOTVERIFY: ")
-                    }
+                Resource.Status.NOTVERIFY -> {
+                    Log.d("destinationsdsd", "NOTVERIFY: ")
+                }
 
-                    Resource.Status.SUCCESS -> {
-                        it.data?.let { data ->
-                            activeUser = data
-
-                        }
-                    }
-
-                    Resource.Status.AUTH -> {
-                        Log.d("destinationsdsd", "AUTH: ")
-                    }
-
-                    Resource.Status.ERROR -> {
-                        Log.d("destinationsdsd", "ERROR: ${it.message}")
+                Resource.Status.SUCCESS -> {
+                    it.data?.let { data ->
+                        activeUser = data
                     }
                 }
+
+                Resource.Status.AUTH -> {
+                    Log.d("destinationsdsd", "AUTH: ")
+                }
+
+                Resource.Status.ERROR -> {
+                    Log.d("destinationsdsd", "ERROR: ${it.message}")
+                }
             }
+        }
 
 
 
@@ -367,22 +367,28 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
                             Log.d("TAG", "chalaaa: ")
 
-                            if(!isiaDialog){
-                                DialogHelperClass.UserProgressDialog(
-                                    requireContext(),
-                                    object : DialogHelperClass.Companion.UserProgressCallBack {
-                                        override fun onCloseClick() {
+                            if (!isiaDialog) {
+                                activeUser?.let { it1 ->
+                                    DialogHelperClass.UserProgressDialog(
+                                        requireContext(),
+                                        object : DialogHelperClass.Companion.UserProgressCallBack {
+                                            override fun onCloseClick() {
 
-                                        }
+                                            }
 
-                                        override fun onEditClick() {
-                                            findNavController().navigate(R.id.editProfileFragment, bundle, options)
+                                            override fun onEditClick() {
+                                                findNavController().navigate(
+                                                    R.id.editProfileFragment,
+                                                    bundle,
+                                                    options
+                                                )
 
-                                        }
+                                            }
 
 
-                                    }, activeUserModel = activeUser
-                                ).show()
+                                        }, activeUserModel = it1
+                                    ).show()
+                                }
                             }
 
 

@@ -5,6 +5,7 @@ import android.os.CountDownTimer
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -40,6 +41,7 @@ import com.teamx.equiz.games.games.learningy.musiclearning.incorrectSound
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import com.teamx.equiz.ui.theme.BirdColor4
+import kotlinx.coroutines.delay
 import kotlin.random.Random
 
 
@@ -65,6 +67,10 @@ fun MatchingGamingScene() {
             repeat(2) { column ->
                 Row() {
                     repeat(3) { row ->
+
+                        var isEffectLaunched by remember { mutableStateOf(false) }
+                        var isBoxRight by remember { mutableStateOf(2) }
+
                         val index = row * 2 + column
                         var colorState = mutableStateOf(
                             if (arr2.contains(index)) {
@@ -78,49 +84,56 @@ fun MatchingGamingScene() {
                             .size(80.dp)
                             .clickable(true) {
 
+                                isEffectLaunched = true
 
-                                if (colorState.value == BirdColor4) {
-                                    colorState.value = Color.White
-                                    arr2.remove(index)
-                                } else if (arr2.isEmpty()) {
-                                    arr2.add(index)
-                                    colorState.value = BirdColor4
-                                } else if (!arr2.contains(index) && arr[arr2[0]] == arr[index]) {
+//                                if (colorState.value == BirdColor4) {
+//                                    colorState.value = Color.White
+//                                    arr2.remove(index)
+//                                } else if (arr2.isEmpty()) {
 //                                    arr2.add(index)
-                                    colorState.value = BirdColor4
-                                    Log.d(
-                                        "123123", "MatchingGamingScene1:${
-                                            arr[arr2[0]]
-                                        } "
-                                    )
-                                    Log.d(
-                                        "123123", "MatchingGamingScene2:${
-                                            arr[index]
-                                        } "
-                                    )
-                                    arr2.removeAt(0)
-                                    arr2.clear()
-                                    colorState.value = BirdColor4
-                                    arr.clear()
-                                    arr.addAll(generateArrList())
-                                    changeable = !changeable
-                                    rightGameAnswersMatc++
-                                    totalGameAnswersMatc++
-                                    correctSound(context)
-                                } else {
-                                    incorrectSound(context)
-                                    totalGameAnswersMatc++
-
-                                    arr2.removeAt(0)
-                                    arr2.clear()
-                                    colorState.value = BirdColor4
-                                    arr.clear()
-                                    arr.addAll(generateArrList())
-                                    changeable = !changeable
-                                }
+//                                    colorState.value = BirdColor4
+//                                } else if (!arr2.contains(index) && arr[arr2[0]] == arr[index]) {
+////                                    arr2.add(index)
+//                                    colorState.value = BirdColor4
+//                                    Log.d(
+//                                        "123123", "MatchingGamingScene1:${
+//                                            arr[arr2[0]]
+//                                        } "
+//                                    )
+//                                    Log.d(
+//                                        "123123", "MatchingGamingScene2:${
+//                                            arr[index]
+//                                        } "
+//                                    )
+//                                    arr2.removeAt(0)
+//                                    arr2.clear()
+//                                    colorState.value = BirdColor4
+//                                    arr.clear()
+//                                    arr.addAll(generateArrList())
+//                                    changeable = !changeable
+//                                    rightGameAnswersMatc++
+//                                    totalGameAnswersMatc++
+//                                    correctSound(context)
+//                                } else {
+//                                    incorrectSound(context)
+//                                    totalGameAnswersMatc++
+//
+//                                    arr2.removeAt(0)
+//                                    arr2.clear()
+//                                    colorState.value = BirdColor4
+//                                    arr.clear()
+//                                    arr.addAll(generateArrList())
+//                                    changeable = !changeable
+//                                }
 
 
                             }
+                            .border(
+                                width = 2.dp,
+                                color = if (isBoxRight == 1) Color.Green else if (isBoxRight == 0) Color.Red else Color.Transparent,
+                                shape = RoundedCornerShape(4.dp)
+                            )
+                            .padding(7.dp)
                             .background(
                                 shape = RoundedCornerShape(4.dp),
                                 color = colorState.value/*if (arr2.contains(index)) {
@@ -130,6 +143,58 @@ fun MatchingGamingScene() {
                                 }*/
                             ),
                             contentAlignment = Alignment.Center) {
+
+                            if (isEffectLaunched) {
+                                LaunchedEffect(key1 = Unit) {
+                                    if (colorState.value == BirdColor4) {
+                                        colorState.value = Color.White
+                                        arr2.remove(index)
+                                    } else if (arr2.isEmpty()) {
+                                        arr2.add(index)
+                                        colorState.value = BirdColor4
+                                    } else if (!arr2.contains(index) && arr[arr2[0]] == arr[index]) {
+//                                    arr2.add(index)
+                                        colorState.value = BirdColor4
+                                        Log.d(
+                                            "123123", "MatchingGamingScene1:${
+                                                arr[arr2[0]]
+                                            } "
+                                        )
+                                        Log.d(
+                                            "123123", "MatchingGamingScene2:${
+                                                arr[index]
+                                            } "
+                                        )
+                                        arr2.removeAt(0)
+                                        arr2.clear()
+                                        colorState.value = BirdColor4
+                                        arr.clear()
+                                        arr.addAll(generateArrList())
+                                        changeable = !changeable
+                                        rightGameAnswersMatc++
+                                        totalGameAnswersMatc++
+                                        correctSound(context)
+                                        isBoxRight = 1
+                                        delay(200)
+                                        isBoxRight = 2
+                                    } else {
+                                        incorrectSound(context)
+                                        totalGameAnswersMatc++
+
+                                        arr2.removeAt(0)
+                                        arr2.clear()
+                                        colorState.value = BirdColor4
+                                        arr.clear()
+                                        arr.addAll(generateArrList())
+                                        changeable = !changeable
+
+                                        isBoxRight = 0
+                                        delay(200)
+                                        isBoxRight = 2
+                                    }
+                                    isEffectLaunched = false
+                                }
+                            }
                             Text(
                                 text = "${arr[index]}",
                                 fontSize = 35.sp,
@@ -152,8 +217,10 @@ fun MatchingGamingScene() {
 
 
 }
+
 var rightGameAnswersMatc = 0
 var totalGameAnswersMatc = 0
+
 @Preview
 @Composable
 fun ViewMatching(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit = { _, _, _ -> }) {
