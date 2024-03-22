@@ -109,29 +109,36 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
         sharedViewModel.setActiveUser("")
 
+        if (sharedViewModel.activeUserResponse.hasActiveObservers()) {
 
-        sharedViewModel.activeUserResponse.observe(requireActivity()) {
-            when (it.status) {
-                Resource.Status.LOADING -> {
-                    Log.d("destinationsdsd", "LOADING: ")
-                }
 
-                Resource.Status.NOTVERIFY -> {
-                    Log.d("destinationsdsd", "NOTVERIFY: ")
-                }
-
-                Resource.Status.SUCCESS -> {
-                    it.data?.let { data ->
-                        activeUser = data
+            sharedViewModel.activeUserResponse.observe(requireActivity()) {
+                when (it.status) {
+                    Resource.Status.LOADING -> {
+                        Log.d("activeUserResponse", "LOADING: ")
                     }
-                }
 
-                Resource.Status.AUTH -> {
-                    Log.d("destinationsdsd", "AUTH: ")
-                }
+                    Resource.Status.NOTVERIFY -> {
+                        Log.d("activeUserResponse", "NOTVERIFY: ")
+                    }
 
-                Resource.Status.ERROR -> {
-                    Log.d("destinationsdsd", "ERROR: ${it.message}")
+                    Resource.Status.SUCCESS -> {
+                        it.data?.let { data ->
+                            activeUser = data
+                            Log.d("activeUserResponse", "SUCCESS: ")
+//                        if (!mViewModel.getTopWinnersResponse.isInitialized()) {
+                            mViewModel.getTopWinners(id, this)
+//                        }
+                        }
+                    }
+
+                    Resource.Status.AUTH -> {
+                        Log.d("activeUserResponse", "AUTH: ")
+                    }
+
+                    Resource.Status.ERROR -> {
+                        Log.d("activeUserResponse", "ERROR: ${it.message}")
+                    }
                 }
             }
         }
@@ -338,7 +345,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
 
         if (!mViewModel.getTopWinnersResponse.hasActiveObservers()) {
-            mViewModel.getTopWinners(id, this)
+//            mViewModel.getTopWinners(id, this)
             mViewModel.getTopWinnersResponse.observe(requireActivity()) {
                 when (it.status) {
                     Resource.Status.LOADING -> {
@@ -360,8 +367,6 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                             data.game.forEach {
                                 winnerArrayList.add(it)
                             }
-
-
 
                             winnerAdapter.notifyDataSetChanged()
 

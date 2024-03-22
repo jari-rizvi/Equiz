@@ -34,6 +34,7 @@ import com.teamx.equiz.constants.NetworkCallPoints
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentLoginPhoneBinding
 import com.teamx.equiz.games.games.arr
+import com.teamx.equiz.ui.activity.mainActivity.MainActivity
 import com.teamx.equiz.ui.activity.mainActivity.MainActivity.Companion.isEnable
 import com.teamx.equiz.utils.DialogHelperClass
 import com.teamx.equiz.utils.PrefHelper
@@ -206,7 +207,7 @@ class LogInPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginViewMode
                             loadingDialog.dismiss()
 
                             it.data?.let { data ->
-
+                                MainActivity.isiaDialog = false
                                 lifecycleScope.launch(Dispatchers.IO) {
                                     dataStoreProvider.saveUserToken(data.token)
                                     NetworkCallPoints.TOKENER = data.token

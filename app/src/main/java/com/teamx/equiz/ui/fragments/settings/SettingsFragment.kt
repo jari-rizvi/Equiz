@@ -1,18 +1,22 @@
 package com.teamx.equiz.ui.fragments.settings
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.addCallback
 import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.bumptech.glide.Glide
+import com.squareup.picasso.Picasso
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
@@ -22,6 +26,8 @@ import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.SettingsFragmentLayoutBinding
 import com.teamx.equiz.ui.activity.mainActivity.MainActivity
 import com.teamx.equiz.ui.activity.mainActivity.MainActivity.Companion.isEnable
+import com.teamx.equiz.ui.activity.mainActivity.MainActivity.Companion.isiaDialog
+import com.teamx.equiz.ui.activity.mainActivity.activeusermodel.ModelActiveUser
 import com.teamx.equiz.ui.fragments.quizes.TitleData
 import com.teamx.equiz.ui.fragments.quizes.adapter.QuizesAdapter
 import com.teamx.equiz.ui.fragments.quizes.adapter.QuizesTitleAdapter
@@ -32,6 +38,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.invoke
 import kotlinx.coroutines.launch
+import kotlin.properties.Delegates
 
 @AndroidEntryPoint
 class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsViewModel>() {
@@ -51,10 +58,12 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
     private lateinit var quizesAdapter: QuizesAdapter
 
     var id: String = ""
+    private var color by Delegates.notNull<Int>()
 
     var referralCode = ""
     var userId = ""
 
+    lateinit var activeUser: ModelActiveUser
 
     var userphonee = ""
     var useremaill = ""
@@ -86,7 +95,60 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
 
         initializeCategoriesAdapter()
 
+        sharedViewModel.activeUserResponse.observe(requireActivity()) {
+            when (it.status) {
+                Resource.Status.LOADING -> {
+                    Log.d("destinationsdsd", "LOADING: ")
+                }
 
+                Resource.Status.NOTVERIFY -> {
+                    Log.d("destinationsdsd", "NOTVERIFY: ")
+                }
+
+                Resource.Status.SUCCESS -> {
+                    it.data?.let { data ->
+                        activeUser = data
+                        var   intColor = Color.parseColor(data.activeLevel.color)
+                        mViewDataBinding.leveltxt.text  = activeUser.activeLevel.title
+                        mViewDataBinding.leveltxt.setTextColor(intColor)
+
+                        val shapeDrawable = ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.border_background
+                        ) as GradientDrawable
+                        val strokeWidth =
+                            context?.resources?.getDimensionPixelSize(R.dimen._2sdp)
+                        if (strokeWidth != null) {
+                            shapeDrawable.setStroke(strokeWidth, intColor)
+                        }
+                        mViewDataBinding.level.background = shapeDrawable
+
+                        mViewDataBinding.level.setBackgroundColor(intColor)
+
+                        Picasso.get().load(data.activeLevel.icon)
+                            .placeholder(R.drawable.baseline_person)
+                            .error(R.drawable.baseline_person).resize(500, 500).into(mViewDataBinding.level)
+
+
+                        Log.d("TAG", "onViewCreated: ${data.activeLevel.icon} ")
+
+                    }
+                }
+
+                Resource.Status.AUTH -> {
+                    Log.d("destinationsdsd", "AUTH: ")
+                }
+
+                Resource.Status.ERROR -> {
+                    Log.d("destinationsdsd", "ERROR: ${it.message}")
+                }
+            }
+        }
+
+        mViewDataBinding.textView31.setOnClickListener {
+            findNavController().navigate(R.id.editProfileFragment, arguments, null)
+
+        }
 
         mViewModel.me()
         if (!mViewModel.meResponse.hasActiveObservers()) {
@@ -105,12 +167,18 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
                         it.data?.let { data ->
 
                             try {
+                                    if(data.user.email.isNullOrEmpty()){
+                                        mViewDataBinding.textView4.text = data.user.phone
+                                    }
+                                    else{
+                                        mViewDataBinding.textView4.text = data.user.email
+                                    }
 
                                 referralCode = data.user.referralCode
                                 userId = data.user._id
                                 mViewDataBinding.textView3.setText(data.user.name)
-                                mViewDataBinding.textView4.setText(data.user.email)
-                                mViewDataBinding.textView4.setText(data.user.phone)
+                               /* mViewDataBinding.textView4.setText(data.user.email)
+                                mViewDataBinding.textView4.setText(data.user.phone)*/
                                 mViewDataBinding.textView52.setText(data.user.chances.toString())
 //                                mViewDataBinding.textView51.setText(data.user.wallet.toString())
 
@@ -138,6 +206,9 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
 
                                 val speed = data.user.profileProgress
                                 mViewDataBinding.simpleProgressBar.secondaryProgress = speed.toInt()
+                                if(speed == 100){
+                                    mViewDataBinding.emailImgVerify.visibility = View.VISIBLE
+                                }
 
                             } catch (e: Exception) {
                                 e.printStackTrace()
@@ -202,6 +273,8 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
                         if (!MainActivity.isEnable) {
                             PrefHelper.getUSerInstance(requireContext()).clearAll()
                         }
+
+
 
                        /* var prefUser = PrefHelper.getUSerInstance(requireContext()).getCredentials()
                         if (prefUser == null) {

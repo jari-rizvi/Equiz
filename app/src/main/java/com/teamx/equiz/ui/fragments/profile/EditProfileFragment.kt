@@ -98,7 +98,6 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
     private val SNAPCHAT_AUTH_URL = "https://accounts.snapchat.com/accounts/oauth2/auth"
     private val SNAPCHAT_TOKEN_URL = "https://accounts.snapchat.com/accounts/oauth2/token"
 
- var color by Delegates.notNull<Int>()
     private lateinit var options: NavOptions
     private var fName: String? = null
     private var dob: String? = null
@@ -232,9 +231,6 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
         FacebookSdk.setApplicationId("428659309635685")
 
 
-
-
-
         mViewDataBinding.btnSc.setOnClickListener {
             ScLogin()
         }
@@ -311,14 +307,8 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                     loadingDialog.dismiss()
                     it.data?.let { data ->
 
-                        mViewDataBinding.title.text = data.user.stripProductId?.categoryId?.title
-
-//                        mViewDataBinding.title.setTextColor(Color.parseColor(color.toString()))
-                        mViewDataBinding.title.setTextColor(color)
-
                         try {
                             if (data.user.identityDocuments.isNotEmpty()) {
-//                                mViewDataBinding.recDocs.visibility = View.VISIBLE
                                 docsArrayList.clear()
 
                                 docsArrayList.addAll(data.user.identityDocuments)
@@ -387,6 +377,10 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                             progress = data.user.profileProgress
                             mViewDataBinding.simpleProgressBar.secondaryProgress = progress
 
+                            if(progress == 100){
+                                mViewDataBinding.imgVerify.visibility = View.VISIBLE
+                            }
+
 
                             mViewDataBinding.userName.setText(data.user.name)
                             mViewDataBinding.dob.text = data.user.dateOfBirth
@@ -448,10 +442,10 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                 Resource.Status.SUCCESS -> {
                     it.data?.let { data ->
                         activeUser = data
+
                      var   intColor = Color.parseColor(data.activeLevel.color)
-
-                        color = intColor
-
+                        mViewDataBinding.title.text  = activeUser.activeLevel.title
+                        mViewDataBinding.title.setTextColor(intColor)
                         val shapeDrawable = ContextCompat.getDrawable(
                             requireContext(),
                             R.drawable.border_background

@@ -78,7 +78,6 @@
                 app:layout_constraintTop_toTopOf="@+id/btnback"
                 app:layout_constraintVertical_bias="0.05" />
 
-
             <ScrollView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -101,19 +100,19 @@
 
                     <TextView
                         android:id="@+id/title"
-                        android:layout_width="@dimen/_100sdp"
-                        android:gravity="center"
-                        android:layout_height="wrap_content"
-                        android:text=""
-                        android:textStyle="bold"
                         style="@style/popins_regular"
-                        android:textSize="@dimen/_16ssp"
+                        android:layout_width="@dimen/_100sdp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
                         android:maxLines="1"
-                        app:layout_constraintVertical_bias="0.8"
+                        android:text=""
+                        android:textSize="@dimen/_16ssp"
+                        android:textStyle="bold"
                         app:layout_constraintBottom_toTopOf="@+id/profilePicture"
                         app:layout_constraintEnd_toEndOf="@+id/profilePicture"
                         app:layout_constraintStart_toStartOf="@+id/profilePicture"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.8" />
 
 
                     <de.hdodenhof.circleimageview.CircleImageView
@@ -134,15 +133,14 @@
                         android:id="@+id/premium"
                         android:layout_width="@dimen/_25sdp"
                         android:layout_height="@dimen/_25sdp"
-                        android:elevation="@dimen/_5sdp"
                         android:clipToOutline="true"
+                        android:elevation="@dimen/_5sdp"
                         app:layout_constraintBottom_toBottomOf="@+id/profilePicture"
                         app:layout_constraintEnd_toEndOf="@+id/profilePicture"
                         app:layout_constraintHorizontal_bias="0"
                         app:layout_constraintStart_toStartOf="@+id/profilePicture"
                         app:layout_constraintTop_toTopOf="@+id/profilePicture"
-                        app:layout_constraintVertical_bias="0"
-                        />
+                        app:layout_constraintVertical_bias="0" />
 
                     <ImageView
                         android:id="@+id/imgVerify"
@@ -150,6 +148,7 @@
                         android:layout_height="@dimen/_25sdp"
                         android:elevation="@dimen/_5sdp"
                         android:src="@drawable/verify_blue"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="@+id/profilePicture"
                         app:layout_constraintEnd_toEndOf="@+id/profilePicture"
                         app:layout_constraintHorizontal_bias="1"
@@ -460,6 +459,69 @@
                         app:layout_constraintTop_toBottomOf="@+id/textView244"
                         app:layout_constraintVertical_bias="0.92" />
 
+
+
+                    <TextView
+                        android:id="@+id/textView24411"
+                        style="@style/popins_regular"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_15sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:text="Bank Details"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@+id/btnChangePass"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/password" />
+
+                    <EditText
+                        android:id="@+id/bankName"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_35sdp"
+                        android:layout_marginHorizontal="@dimen/_15sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginBottom="@dimen/_7sdp"
+                        android:background="@drawable/contact_input_background"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:hint="Bank Name"
+                        android:inputType="text"
+                        android:minHeight="@dimen/_35sdp"
+                        android:padding="@dimen/_5sdp"
+                        android:paddingStart="@dimen/_10sdp"
+                        android:singleLine="true"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/black"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView24411"
+                        app:layout_constraintVertical_bias="0.92" />
+                    <EditText
+                        android:id="@+id/AccNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_35sdp"
+                        android:layout_marginHorizontal="@dimen/_15sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginBottom="@dimen/_7sdp"
+                        android:background="@drawable/contact_input_background"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:hint="Account Number"
+                        android:inputType="text"
+                        android:minHeight="@dimen/_35sdp"
+                        android:padding="@dimen/_5sdp"
+                        android:paddingStart="@dimen/_10sdp"
+                        android:singleLine="true"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/black"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/bankName"
+                        app:layout_constraintVertical_bias="0.92" />
+
                     <TextView
                         android:id="@+id/textView244"
                         style="@style/popins_regular"
@@ -491,7 +553,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/btnVerifyEmail"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/password"
+                        app:layout_constraintTop_toBottomOf="@+id/AccNumber"
                         app:layout_constraintVertical_bias="0" />
 
 
@@ -509,47 +571,43 @@
                         app:layout_constraintVertical_bias="0">
 
 
+                        <ImageView
+                            android:id="@+id/imgCarAdd"
+                            android:layout_width="@dimen/_50sdp"
+                            android:layout_height="@dimen/_50sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:src="@drawable/upload_icon"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0" />
 
 
+                        <TextView
+                            android:id="@+id/txtBrowse"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:text="Upload files or Browse"
+                            android:textSize="@dimen/_16ssp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/imgCarAdd"
+                            app:layout_constraintVertical_bias="0" />
 
-                            <ImageView
-                                android:id="@+id/imgCarAdd"
-                                android:layout_width="@dimen/_50sdp"
-                                android:layout_height="@dimen/_50sdp"
-                                android:src="@drawable/upload_icon"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                android:layout_marginTop="@dimen/_10sdp"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintVertical_bias="0" />
-
-
-                            <TextView
-                                android:id="@+id/txtBrowse"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_5sdp"
-                                android:text="Upload files or Browse"
-                                android:textSize="@dimen/_16ssp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/imgCarAdd"
-                                app:layout_constraintVertical_bias="0" />
-
-                            <TextView
-                                android:id="@+id/txxxt"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginVertical="@dimen/_5sdp"
-                                android:text="Supported formats: JPEG"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/txtBrowse"
-                                app:layout_constraintVertical_bias="0" />
-
+                        <TextView
+                            android:id="@+id/txxxt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="@dimen/_5sdp"
+                            android:text="Supported formats: JPEG"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/txtBrowse"
+                            app:layout_constraintVertical_bias="0" />
 
 
                         <androidx.recyclerview.widget.RecyclerView

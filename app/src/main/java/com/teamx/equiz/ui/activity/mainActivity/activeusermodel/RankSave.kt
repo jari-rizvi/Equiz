@@ -5,7 +5,7 @@ data class RankSave(
     val _id: String,
     val activeLevel: String,
     val points: Double,
-    val profile: Int,
+    val profile: Double,
     val profileScore: Int,
     val quizzes: Double,
     val score: Double,

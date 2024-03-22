@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.GradientDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -14,21 +15,25 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.appcompat.widget.SwitchCompat
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.bumptech.glide.Glide
+import com.squareup.picasso.Picasso
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentProfileBinding
 import com.teamx.equiz.ui.activity.mainActivity.MainActivity.Companion.isEnable
+import com.teamx.equiz.ui.activity.mainActivity.activeusermodel.ModelActiveUser
 import com.teamx.equiz.ui.fragments.Auth.login.LoginViewModel
 import com.teamx.equiz.utils.DialogHelperClass
 import com.teamx.equiz.utils.PrefHelper
 import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.properties.Delegates
 
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
@@ -45,6 +50,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
     var useremaill = ""
     var userphonee = ""
     var userpasswordd = ""
+    lateinit var activeUser: ModelActiveUser
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -95,6 +102,59 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
 
         mViewDataBinding.textView50.setText(strRank)
 
+
+        sharedViewModel.activeUserResponse.observe(requireActivity()) {
+            when (it.status) {
+                Resource.Status.LOADING -> {
+                    Log.d("destinationsdsd", "LOADING: ")
+                }
+
+                Resource.Status.NOTVERIFY -> {
+                    Log.d("destinationsdsd", "NOTVERIFY: ")
+                }
+
+                Resource.Status.SUCCESS -> {
+                    it.data?.let { data ->
+                        activeUser = data
+                          var   intColor = Color.parseColor(data.activeLevel.color)
+
+                        mViewDataBinding.leveltxt.text  = activeUser.activeLevel.title
+                        mViewDataBinding.leveltxt.setTextColor(intColor)
+
+                          val shapeDrawable = ContextCompat.getDrawable(
+                              requireContext(),
+                              R.drawable.border_background
+                          ) as GradientDrawable
+                          val strokeWidth =
+                              context?.resources?.getDimensionPixelSize(R.dimen._2sdp)
+                          if (strokeWidth != null) {
+                              shapeDrawable.setStroke(strokeWidth, intColor)
+                          }
+                          mViewDataBinding.level.background = shapeDrawable
+
+                          mViewDataBinding.level.setBackgroundColor(intColor)
+
+                        Picasso.get().load(data.activeLevel.icon)
+                            .placeholder(R.drawable.baseline_person)
+                            .error(R.drawable.baseline_person).resize(500, 500).into(mViewDataBinding.level)
+
+
+                        Log.d("TAG", "onViewCreated: ${data.activeLevel.icon} ")
+
+                    }
+                }
+
+                Resource.Status.AUTH -> {
+                    Log.d("destinationsdsd", "AUTH: ")
+                }
+
+                Resource.Status.ERROR -> {
+                    Log.d("destinationsdsd", "ERROR: ${it.message}")
+                }
+            }
+        }
+
+
         mViewModel.me()
         if (!mViewModel.meResponse.hasActiveObservers()) {
             mViewModel.meResponse.observe(requireActivity()) {
@@ -112,18 +172,22 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
                         it.data?.let { data ->
 
                             try {
+                                if(data.user.email.isNullOrEmpty()){
+                                    mViewDataBinding.textView4.text = data.user.phone
+                                }
+                                else{
+                                    mViewDataBinding.textView4.text = data.user.email
+                                }
+
                                 mViewDataBinding.textView3.text = data.user.name
-                                mViewDataBinding.textView4.text = data.user.email
-                                mViewDataBinding.textView4.setText(data.user.phone)
+                             /*   mViewDataBinding.textView4.text = data.user.email
+                                mViewDataBinding.textView4.setText(data.user.phone)*/
                                 mViewDataBinding.textView52.setText(data.user.chances.toString())
 
 
 //                                mViewDataBinding.textView51.setText(data.user.wallet.toString())
                                 val formattedNumber = String.format("%.2f", data.user.wallet)
                                 mViewDataBinding.textView51.text = formattedNumber + " Points"
-
-                                Log.d("TAG", "onViewCreated121212: ${data.user.isPremium}")
-                                Log.d("TAG", "onViewCreated121212: ${data.user.wallet}")
 
                                 if (data.user.isPremium) {
                                     Log.d("TAG", "onViewCreated121212: ${data.user.isPremium}")
@@ -150,6 +214,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, LoginViewModel>() {
 
                                 val speed = data.user.profileProgress
                                 mViewDataBinding.simpleProgressBar.secondaryProgress = speed.toInt()
+
+                                if(speed == 100){
+                                    mViewDataBinding.emailImgVerify.visibility = View.VISIBLE
+                                }
 
                             } catch (e: Exception) {
                                 e.printStackTrace()

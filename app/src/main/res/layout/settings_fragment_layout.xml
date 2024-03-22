@@ -67,8 +67,6 @@
                     app:layout_constraintVertical_bias="0.05" />
 
 
-
-
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/level"
                     android:layout_width="@dimen/_25sdp"
@@ -76,24 +74,25 @@
                     android:background="@drawable/border_background"
                     android:clipToOutline="true"
                     android:elevation="@dimen/_15sdp"
-                    android:src="@drawable/add"
                     app:layout_constraintBottom_toBottomOf="@+id/profilePicture"
                     app:layout_constraintEnd_toEndOf="@+id/profilePicture"
+                    app:layout_constraintHorizontal_bias="1"
                     app:layout_constraintStart_toStartOf="@+id/profilePicture"
-                    app:layout_constraintTop_toBottomOf="@+id/profilePicture" />
+                    app:layout_constraintTop_toTopOf="@+id/profilePicture"
+                    app:layout_constraintVertical_bias="1" />
 
                 <TextView
                     android:id="@+id/leveltxt"
                     style="@style/popins_regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:text="gold"
+                    android:text=""
                     android:textSize="@dimen/_15ssp"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/level"
-                    app:layout_constraintStart_toStartOf="@+id/level"
+                    app:layout_constraintEnd_toEndOf="@+id/profilePicture"
+                    app:layout_constraintStart_toStartOf="@+id/profilePicture"
                     app:layout_constraintTop_toBottomOf="@+id/level"
                     app:layout_constraintVertical_bias="0" />
 
@@ -118,7 +117,7 @@
                     android:layout_width="@dimen/_100sdp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="sdsdsdsd"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="@dimen/_14ssp"
                     android:textStyle="bold"

@@ -226,6 +226,7 @@ class LogInEmailFragment : BaseFragment<FragmentLoginEmailBinding, LoginViewMode
                                     TOKENER = data.token
                                 }
 
+                                MainActivity.isiaDialog = false
                                 PrefHelper.getInstance(requireContext()).saveUerId(it.data.user?._id
                                     ?: "")
                                 PrefHelper.getInstance(requireContext())
