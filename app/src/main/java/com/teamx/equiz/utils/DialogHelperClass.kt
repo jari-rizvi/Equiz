@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.GradientDrawable
 import android.util.Log
 import android.view.WindowManager
 import android.widget.ImageView
@@ -983,6 +984,7 @@ class DialogHelperClass {
         }
 
 
+        @SuppressLint("ResourceType")
         fun UserProgressDialog(
             context: Context, dialogCallBack: UserProgressCallBack, activeUserModel: ModelActiveUser
         ): Dialog {
@@ -1001,6 +1003,14 @@ class DialogHelperClass {
             val level = dialog.findViewById<ImageView>(R.id.premium)
             val cancelBtn = dialog.findViewById<ImageView>(R.id.closeDialog)
             val speedProgress = dialog.findViewById<ProgressBar>(R.id.simpleProgressBar)
+
+            val intColor = Color.parseColor(activeUserModel.activeLevel.color)
+
+            val shapeDrawable = ContextCompat.getDrawable(context, R.drawable.border_background) as GradientDrawable
+//            val strokeColor = ContextCompat.getColor(context,intColor) // Dynamic stroke color from server
+            val strokeWidth = context.resources.getDimensionPixelSize(R.dimen._2sdp) // Stroke width from resources
+            shapeDrawable.setStroke(strokeWidth, intColor)
+            img.background = shapeDrawable
 
             val userData = PrefHelper.getInstance(context).getUserData()
 

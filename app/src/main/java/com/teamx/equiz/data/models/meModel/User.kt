@@ -38,6 +38,7 @@ data class User(
     val social: List<Social>,
     val street: String,
     val stripProductId: StripProductId?,
+    val subscriberId: SubscriberId?,
     val stripeID: String,
     val uniqueID: String,
     val updatedAt: String,

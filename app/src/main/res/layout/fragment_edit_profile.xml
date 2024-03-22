@@ -99,6 +99,23 @@
                     app:layout_constraintVertical_bias="0.041">
 
 
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="@dimen/_100sdp"
+                        android:gravity="center"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textStyle="bold"
+                        style="@style/popins_regular"
+                        android:textSize="@dimen/_16ssp"
+                        android:maxLines="1"
+                        app:layout_constraintVertical_bias="0.8"
+                        app:layout_constraintBottom_toTopOf="@+id/profilePicture"
+                        app:layout_constraintEnd_toEndOf="@+id/profilePicture"
+                        app:layout_constraintStart_toStartOf="@+id/profilePicture"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/profilePicture"
                         android:layout_width="@dimen/_80sdp"
@@ -113,18 +130,32 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.05" />
 
-                    <ImageView
-                        android:id="@+id/btnAddPicture"
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/premium"
                         android:layout_width="@dimen/_25sdp"
                         android:layout_height="@dimen/_25sdp"
                         android:elevation="@dimen/_5sdp"
-                        android:src="@drawable/group_camera"
+                        android:clipToOutline="true"
+                        app:layout_constraintBottom_toBottomOf="@+id/profilePicture"
+                        app:layout_constraintEnd_toEndOf="@+id/profilePicture"
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintStart_toStartOf="@+id/profilePicture"
+                        app:layout_constraintTop_toTopOf="@+id/profilePicture"
+                        app:layout_constraintVertical_bias="0"
+                        />
+
+                    <ImageView
+                        android:id="@+id/imgVerify"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:elevation="@dimen/_5sdp"
+                        android:src="@drawable/verify_blue"
                         app:layout_constraintBottom_toBottomOf="@+id/profilePicture"
                         app:layout_constraintEnd_toEndOf="@+id/profilePicture"
                         app:layout_constraintHorizontal_bias="1"
                         app:layout_constraintStart_toStartOf="@+id/profilePicture"
                         app:layout_constraintTop_toTopOf="@+id/profilePicture"
-                        app:layout_constraintVertical_bias="0.95" />
+                        app:layout_constraintVertical_bias="1" />
 
 
                     <TextView

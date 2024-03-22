@@ -5,6 +5,8 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -19,6 +21,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.Keep
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.mutableStateOf
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
@@ -39,6 +42,7 @@ import com.google.gson.JsonObject
 import com.snapchat.kit.sdk.SnapLogin
 import com.snapchat.kit.sdk.login.models.UserDataResponse
 import com.snapchat.kit.sdk.login.networking.FetchUserDataCallback
+import com.squareup.picasso.Picasso
 import com.teamx.equiz.BR
 import com.teamx.equiz.MainActivitytttt
 import com.teamx.equiz.R
@@ -46,6 +50,7 @@ import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.data.models.editProfile.IdentityDocument
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentEditProfileBinding
+import com.teamx.equiz.ui.activity.mainActivity.activeusermodel.ModelActiveUser
 import com.teamx.equiz.utils.DialogHelperClass
 import com.teamx.equiz.utils.PrefHelper
 import com.teamx.equiz.utils.snackbar
@@ -93,7 +98,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
     private val SNAPCHAT_AUTH_URL = "https://accounts.snapchat.com/accounts/oauth2/auth"
     private val SNAPCHAT_TOKEN_URL = "https://accounts.snapchat.com/accounts/oauth2/token"
 
-
+ var color by Delegates.notNull<Int>()
     private lateinit var options: NavOptions
     private var fName: String? = null
     private var dob: String? = null
@@ -112,7 +117,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
     val username = mutableStateOf("")
     val bitmoji = mutableStateOf("")
 
-    lateinit var uploadDocuments: UploadDocuments
+    lateinit var activeUser: ModelActiveUser
 
     lateinit var docsAdapter: DocsAdapter
     lateinit var docsArrayList: ArrayList<IdentityDocument>
@@ -206,6 +211,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
     }
 
 
+    @SuppressLint("ResourceType")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -224,6 +230,8 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
         }
         FacebookSdk.sdkInitialize(requireContext())
         FacebookSdk.setApplicationId("428659309635685")
+
+
 
 
 
@@ -273,7 +281,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
             ).show()
         }
 
-        mViewDataBinding.btnAddPicture.setOnClickListener {
+        mViewDataBinding.profilePicture.setOnClickListener {
             fetchImageFromGallery()
         }
 
@@ -302,6 +310,12 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                 Resource.Status.SUCCESS -> {
                     loadingDialog.dismiss()
                     it.data?.let { data ->
+
+                        mViewDataBinding.title.text = data.user.stripProductId?.categoryId?.title
+
+//                        mViewDataBinding.title.setTextColor(Color.parseColor(color.toString()))
+                        mViewDataBinding.title.setTextColor(color)
+
                         try {
                             if (data.user.identityDocuments.isNotEmpty()) {
 //                                mViewDataBinding.recDocs.visibility = View.VISIBLE
@@ -417,6 +431,53 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                     if (isAdded) {
                         mViewDataBinding.root.snackbar(it.message!!)
                     }
+                }
+            }
+
+        }
+        sharedViewModel.activeUserResponse.observe(requireActivity()) {
+            when (it.status) {
+                Resource.Status.LOADING -> {
+                    Log.d("destinationsdsd", "LOADING: ")
+                }
+
+                Resource.Status.NOTVERIFY -> {
+                    Log.d("destinationsdsd", "NOTVERIFY: ")
+                }
+
+                Resource.Status.SUCCESS -> {
+                    it.data?.let { data ->
+                        activeUser = data
+                     var   intColor = Color.parseColor(data.activeLevel.color)
+
+                        color = intColor
+
+                        val shapeDrawable = ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.border_background
+                        ) as GradientDrawable
+                        val strokeWidth =
+                            context?.resources?.getDimensionPixelSize(R.dimen._2sdp)
+                        if (strokeWidth != null) {
+                            shapeDrawable.setStroke(strokeWidth, intColor)
+                        }
+                        mViewDataBinding.profilePicture.background = shapeDrawable
+
+                        mViewDataBinding.premium.setBackgroundColor(intColor)
+
+                        Picasso.get().load(data.activeLevel.icon)
+                            .placeholder(R.drawable.baseline_person)
+                            .error(R.drawable.baseline_person).resize(500, 500).into(mViewDataBinding.premium)
+
+                    }
+                }
+
+                Resource.Status.AUTH -> {
+                    Log.d("destinationsdsd", "AUTH: ")
+                }
+
+                Resource.Status.ERROR -> {
+                    Log.d("destinationsdsd", "ERROR: ${it.message}")
                 }
             }
         }
