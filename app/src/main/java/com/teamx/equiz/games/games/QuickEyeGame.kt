@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.annotation.Keep
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,6 +18,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -39,6 +42,7 @@ import com.teamx.equiz.games.games.learningy.musiclearning.correctSound
 import com.teamx.equiz.games.games.learningy.musiclearning.incorrectSound
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
+import kotlinx.coroutines.delay
 import kotlin.random.Random
 
 
@@ -333,12 +337,41 @@ fun QuickCardCalculationGameScreen(content: () -> Unit) {
                                 val index = column * 3 + row
                                 val it = quickOptionCards[index]
 //                                    quickOptionCards.forEach { it ->
+                                var isEffectLaunched by remember { mutableStateOf(false) }
+                                var isBoxRight by remember { mutableStateOf(2) }
                                 Box(
                                     modifier = Modifier
-                                        .padding(vertical = 4.dp, horizontal = 6.dp)
+                                        .padding(4.dp)
                                         .width(70.dp)
-                                        .height(110.dp)
+                                        .wrapContentHeight()
+                                        .border(
+                                            width = 2.dp,
+                                            color = if (isBoxRight == 1) Color.Green else if (isBoxRight == 0) Color.Red else Color.Transparent,
+                                            shape = RoundedCornerShape(10.dp)
+                                        )
                                         .clickable(enabled = true) {
+
+                                            isEffectLaunched = true
+//                                            totalGameAnswersQuickEye++
+//                                            if (checkQuickAnswer(
+//                                                    quickAnswer.toString(),
+//                                                    it.value.toString()
+//                                                )
+//                                            ) {
+//                                                rightGameAnswersQuickEye++
+//                                                correctSound(context)
+//                                                changeable = true
+//                                                gameStarted = false
+//                                            } else {
+//                                                incorrectSound(context)
+//                                            }
+
+                                        },
+                                    contentAlignment = Alignment.Center
+                                ) {
+
+                                    if (isEffectLaunched){
+                                        LaunchedEffect(key1 = Unit) {
                                             totalGameAnswersQuickEye++
                                             if (checkQuickAnswer(
                                                     quickAnswer.toString(),
@@ -347,15 +380,22 @@ fun QuickCardCalculationGameScreen(content: () -> Unit) {
                                             ) {
                                                 rightGameAnswersQuickEye++
                                                 correctSound(context)
+                                                isBoxRight = 1
+                                                delay(200)
+                                                isBoxRight = 2
                                                 changeable = true
                                                 gameStarted = false
                                             } else {
                                                 incorrectSound(context)
+                                                isBoxRight = 0
+                                                delay(200)
+                                                isBoxRight = 2
                                             }
 
-                                        },
-                                    contentAlignment = Alignment.Center
-                                ) {
+                                            isEffectLaunched = false
+                                        }
+                                    }
+
 
                                     Image(
                                         painter = painterResource(
@@ -367,6 +407,7 @@ fun QuickCardCalculationGameScreen(content: () -> Unit) {
                                             },
 
                                             ),
+                                        modifier = Modifier.padding(4.dp),
                                         contentDescription = ""
                                     )
                                     Text(
