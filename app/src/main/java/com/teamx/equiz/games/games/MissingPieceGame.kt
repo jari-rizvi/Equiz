@@ -3,6 +3,7 @@ package com.teamx.equiz.games.games
 import android.os.CountDownTimer
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -36,6 +38,7 @@ import com.teamx.equiz.games.games.learningy.musiclearning.correctSound
 import com.teamx.equiz.games.games.learningy.musiclearning.incorrectSound
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
+import kotlinx.coroutines.delay
 import kotlin.random.Random
 
 
@@ -89,12 +92,19 @@ fun MissingPieceGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswe
 
     if (isGameOver) {
         content(true, rightGameAnswersMiss, gameAnswersTotalMiss)
-          rightGameAnswersMiss = 0
-          gameAnswersTotalMiss = 0
+        rightGameAnswersMiss = 0
+        gameAnswersTotalMiss = 0
     }
     var score by remember { mutableStateOf(0) }
     var currentShapes by remember { mutableStateOf(generateShapesTT()) }
-    var missingShapeIndex by remember { mutableStateOf(Random.nextInt(0, (currentShapes.size - 1))) }
+    var missingShapeIndex by remember {
+        mutableStateOf(
+            Random.nextInt(
+                0,
+                (currentShapes.size - 1)
+            )
+        )
+    }
 
     var isTimeUp by remember { mutableStateOf(false) }
     if (isTimeUp) {
@@ -111,25 +121,25 @@ fun MissingPieceGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswe
         }
 
 
-    }else{
+    } else {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
                 .background(color = Color(0xFFE1E1E1)),
         ) {
-            Box(modifier = Modifier
-                .height(48.dp)
-                .background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
+            Box(
+                modifier = Modifier
+                    .height(48.dp)
+                    .background(color = Color(0xFF9F81CA)), contentAlignment = Alignment.CenterStart
+            ) {
 
-                BackButton(onClick = { content(false,0,0) }
+                BackButton(onClick = { content(false, 0, 0) }
                 )
                 Text(
                     text = "Missing Piece",
                     modifier = Modifier
-                        .fillMaxWidth()
-
-                        ,
+                        .fillMaxWidth(),
                     textAlign = TextAlign.Center,
                     color = Color.White,
                     fontSize = 17.sp
@@ -157,13 +167,13 @@ fun MissingPieceGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswe
                             Box(
                                 modifier = Modifier
                                     .size(250.dp)
-                                   /* .border(
-                                        border = BorderStroke(
-                                            2.dp,
-                                            MaterialTheme.colorScheme.primary
-                                        ),
-                                        shape = RoundedCornerShape(4.dp)
-                                    )*/
+                                /* .border(
+                                     border = BorderStroke(
+                                         2.dp,
+                                         MaterialTheme.colorScheme.primary
+                                     ),
+                                     shape = RoundedCornerShape(4.dp)
+                                 )*/
 //                                    .background(colorForShape(shape))
                             ) {
                                 Image(
@@ -195,33 +205,74 @@ fun MissingPieceGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswe
                 }
                 Row {
 
-
                     currentShapes.forEachIndexed { index, shape ->
-                        Image(
-                            painter = painterForShapeOption(shape = shape),
-                            /*onClick = {
-                                if (index == missingShapeIndex) {
-                                    score++
-                                } else {
-                                    score = 0
-                                }
-                                currentShapes = generateShapes()
-                                missingShapeIndex = generateMissingShapeIndex()
-                            }*/
-                            modifier = Modifier
-                                .size(80.dp)
-                                .padding(vertical = 8.dp)
-                                .clickable(true) {
+                        var isEffectLaunched by remember { mutableStateOf(false) }
+                        var isBoxRight by remember { mutableStateOf(2) }
+                        Box(modifier = Modifier.padding(vertical = 4.dp)) {
+                            Image(
+                                painter = painterForShapeOption(shape = shape),
+                                /*onClick = {
+                                    if (index == missingShapeIndex) {
+                                        score++
+                                    } else {
+                                        score = 0
+                                    }
+                                    currentShapes = generateShapes()
+                                    missingShapeIndex = generateMissingShapeIndex()
+                                }*/
+                                modifier = Modifier
+                                    .size(80.dp)
+                                    .padding(vertical = 8.dp)
+                                    .border(
+                                        width = 2.dp,
+                                        color = if (isBoxRight == 1) Color.Green else if (isBoxRight == 0) Color.Red else Color.Transparent,
+                                        shape = RoundedCornerShape(9.dp)
+                                    )
+                                    .clickable(true) {
+
+                                        isEffectLaunched = true
+//                                        val temp = rightGameAnswersMiss
+//                                        if (index == missingShapeIndex) {
+//                                            rightGameAnswersMiss++
+//                                            correctSound(context)
+//                                            score++
+//                                        } else {
+//                                            score = 0
+//                                        }
+//                                        if (temp == rightGameAnswersMiss) {
+//                                            incorrectSound(context)
+//                                        }
+//                                        gameAnswersTotalMiss++
+//                                        currentShapes = generateShapesTT()
+//
+//                                        missingShapeIndex = Random.nextInt(
+//                                            0,
+//                                            (currentShapes.size - 1)
+//                                        )
+                                                     /*generateMissingShapeIndex()*/
+                                    }, alignment = Alignment.Center, contentDescription = "",
+
+                            )
+
+                            if (isEffectLaunched) {
+                                LaunchedEffect(key1 = Unit) {
+
                                     val temp = rightGameAnswersMiss
                                     if (index == missingShapeIndex) {
                                         rightGameAnswersMiss++
                                         correctSound(context)
+                                        isBoxRight = 1
+                                        delay(200)
+                                        isBoxRight = 2
                                         score++
                                     } else {
                                         score = 0
                                     }
                                     if (temp == rightGameAnswersMiss) {
                                         incorrectSound(context)
+                                        isBoxRight = 0
+                                        delay(200)
+                                        isBoxRight = 2
                                     }
                                     gameAnswersTotalMiss++
                                     currentShapes = generateShapesTT()
@@ -229,9 +280,15 @@ fun MissingPieceGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswe
                                     missingShapeIndex = Random.nextInt(
                                         0,
                                         (currentShapes.size - 1)
-                                    )/*generateMissingShapeIndex()*/
-                                }, contentDescription = ""
-                        )/* {
+                                    )
+
+                                    isEffectLaunched = false
+                                }
+                            }
+                        }
+
+
+                        /* {
                         Text(text = shape.toString())
                     }*/
 

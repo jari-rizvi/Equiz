@@ -5,6 +5,7 @@ import android.os.CountDownTimer
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -50,6 +51,7 @@ import com.teamx.equiz.games.games.learningy.musiclearning.incorrectSound
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import com.teamx.equiz.games.ui.theme.BirdColor4
+import kotlinx.coroutines.delay
 import kotlin.random.Random
 
 
@@ -332,6 +334,8 @@ fun OperationGame(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: Int
                                 repeat(2) { row ->
                                     val index = row * 2 + column
                                     val operator = operators.get(index)
+                                    var isEffectLaunched by remember { mutableStateOf(false) }
+                                    var isBoxRight by remember { mutableStateOf(2) }
                                     Box(
                                         modifier = Modifier
 
@@ -341,7 +345,47 @@ fun OperationGame(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: Int
                                             .size(95.dp)
                                             .clip(RoundedCornerShape((10.dp)))
                                             .background(Color.White)
+                                            .border(
+                                                width = 2.dp,
+                                                color = if (isBoxRight == 1) Color.Green else if (isBoxRight == 0) Color.Red else Color.Transparent,
+                                                shape = RoundedCornerShape(10.dp)
+                                            )
                                             .clickable {
+
+                                                isEffectLaunched = true
+//                                                selectedButtonIndex = index
+////                                    allCounter++
+//                                                wrongGameAnswersOp++
+//
+////                                    selectedOperator = operator
+//                                                if (operator == equation.split(" ")[1]) {
+//                                                    equation = generateEquation()
+//                                                    firstNum1 = firstNum
+//                                                    secondNum1 = secondNum
+//                                                    resultNum1 = resultNum
+////                                        accurateCounter++
+//                                                    rightGameAnswersOp++
+//                                                    correctSound(context)
+//                                                } else {
+//                                                    incorrectSound(context)
+//                                                    equation = generateEquation()
+//                                                    firstNum1 = firstNum
+//                                                    secondNum1 = secondNum
+//                                                    resultNum1 = resultNum
+//
+//                                                    if (index == selectedButtonIndex) {
+////                                            isShaking = true
+//                                                    }
+//                                                }
+
+
+                                            },
+                                        contentAlignment = Alignment.Center,
+                                        ) {
+
+                                        if (isEffectLaunched) {
+                                            LaunchedEffect(key1 = Unit) {
+
                                                 selectedButtonIndex = index
 //                                    allCounter++
                                                 wrongGameAnswersOp++
@@ -355,24 +399,26 @@ fun OperationGame(content: (boolean: Boolean, rightAnswer: Int, totalAnswer: Int
 //                                        accurateCounter++
                                                     rightGameAnswersOp++
                                                     correctSound(context)
+                                                    isBoxRight = 1
+                                                    delay(200)
+                                                    isBoxRight = 2
                                                 } else {
                                                     incorrectSound(context)
                                                     equation = generateEquation()
                                                     firstNum1 = firstNum
                                                     secondNum1 = secondNum
                                                     resultNum1 = resultNum
+                                                    isBoxRight = 0
+                                                    delay(200)
+                                                    isBoxRight = 2
 
                                                     if (index == selectedButtonIndex) {
 //                                            isShaking = true
                                                     }
                                                 }
-
-
-                                            },
-                                        contentAlignment = Alignment.Center,
-
-
-                                        ) {
+                                                isEffectLaunched = false
+                                            }
+                                        }
 
                                         val op = when (operator) {
                                             "+" -> {
@@ -468,7 +514,7 @@ fun evaluateEquation(equation: String): Int {
 @Composable
 fun ShowBar2() {
     MaterialTheme {
-        OperationGame {bool,rightAnswer,total ->}
+        OperationGame { bool, rightAnswer, total -> }
     }
 
 
