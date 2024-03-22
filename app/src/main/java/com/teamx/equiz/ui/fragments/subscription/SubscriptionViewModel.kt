@@ -212,14 +212,14 @@ class SubscriptionViewModel @Inject constructor(
     val getCatPlansResponse: LiveData<Resource<CatPlanData>>
         get() = _getCatPlansResponse
 
-    fun getCatPlans() {
+    fun getCatPlans(archive: Boolean?) {
         viewModelScope.launch {
             _getCatPlansResponse.postValue(Resource.loading(null))
             if (networkHelper.isNetworkConnected()) {
                 try {
                     Timber.tag("87878787887").d("starta")
 
-                    mainRepository.getCatPlans().let {
+                    mainRepository.getCatPlans(archive).let {
                         if (it.isSuccessful) {
                             _getCatPlansResponse.postValue(Resource.success(it.body()!!))
                             Timber.tag("87878787887").d(it.body()!!.toString())

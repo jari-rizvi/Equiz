@@ -57,14 +57,14 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginVertical="@dimen/_5sdp"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintBottom_toTopOf="@+id/guideguline3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="2"
-                android:layout_marginVertical="@dimen/_5sdp"
                 app:layout_constraintVertical_bias="0"
+                app:spanCount="2"
                 tools:listitem="@layout/item_plan_cat" />
 
             <androidx.constraintlayout.widget.Guideline
@@ -80,13 +80,14 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginVertical="@dimen/_5sdp"
                 app:layout_constraintBottom_toTopOf="@+id/guideguline2"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.52"
                 app:layout_constraintStart_toStartOf="parent"
-                tools:listitem="@layout/item_sub_cat_plans"
                 app:layout_constraintTop_toBottomOf="@+id/guideguline3"
-                android:layout_marginVertical="@dimen/_5sdp"
-                app:layout_constraintVertical_bias="0"/>
+                app:layout_constraintVertical_bias="0.692"
+                tools:listitem="@layout/item_sub_cat_plans" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideguline2"
@@ -96,13 +97,46 @@
                 app:layout_constraintGuide_percent="0.85" />
 
 
+            <CheckBox
+                android:id="@+id/cbPolicy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:buttonTint="@color/white"
+                android:visibility="gone"
+                app:backgroundTint="@color/white"
+                app:layout_constraintEnd_toEndOf="@+id/recCatPlans1"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toStartOf="@+id/recCatPlans1"
+                app:layout_constraintTop_toBottomOf="@+id/guideguline2" />
+
+            <TextView
+                android:id="@+id/tvPolicy"
+                style="@style/popins_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:buttonTint="@color/white"
+                android:maxLines="1"
+                android:visibility="gone"
+                android:text="Auto Renew"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintBottom_toBottomOf="@+id/cbPolicy"
+                app:layout_constraintEnd_toEndOf="@+id/recCatPlans1"
+                app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintStart_toEndOf="@+id/cbPolicy"
+                app:layout_constraintTop_toTopOf="@+id/cbPolicy"
+                app:layout_constraintVertical_bias="0" />
+
+
             <TextView
                 android:id="@+id/btnBuy"
                 style="@style/popins_regular"
                 android:layout_width="286dp"
                 android:layout_height="@dimen/_40sdp"
                 android:layout_gravity="center"
-                android:layout_marginVertical="@dimen/_15sdp"
+                android:layout_marginVertical="@dimen/_10sdp"
                 android:background="@drawable/card_background_border"
                 android:backgroundTint="@color/white"
                 android:gravity="center"
@@ -113,8 +147,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/guideguline2"
-                app:layout_constraintVertical_bias="0.493" />
+                app:layout_constraintTop_toBottomOf="@+id/cbPolicy"
+                app:layout_constraintVertical_bias="0" />
 
             <TextView
                 android:id="@+id/unsub"
@@ -137,10 +171,7 @@
                 app:layout_constraintVertical_bias="0.493" />
 
 
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

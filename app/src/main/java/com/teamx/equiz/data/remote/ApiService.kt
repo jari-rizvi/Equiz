@@ -476,7 +476,8 @@ interface ApiService {
 
  @GET(NetworkCallPoints.GET_CAT_PLANS)
     suspend fun getCatPlans(
-        @Header("token") basicCredentials: String = "$TOKENER"
+     @Query("archive") archive: Boolean?,
+     @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<CatPlanData>
 
     @GET(NetworkCallPoints.GET_PLAN_CAT_BY_ID)

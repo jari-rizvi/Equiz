@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.addCallback
+import androidx.databinding.ViewDataBinding
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
@@ -39,6 +40,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.json.JSONException
+import kotlin.properties.Delegates
 
 @AndroidEntryPoint
 class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, SubscriptionViewModel>(),
@@ -60,6 +62,8 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
     private lateinit var stripe: Stripe
 
     lateinit var planid: String
+    var reoccur by Delegates.notNull<Boolean>()
+//     var reoccurValue =true
     lateinit var catAdapter: CatPlansAdapter
     lateinit var subCatAdapter: SubCatPlanAdapter
 
@@ -86,6 +90,7 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
 
         catPlansRecyclerview()
         SubCatPlansRecyclerview()
+
 
 //        val cardInputWidget: CardInputWidget = view.findViewById(R.id.cardInputWidget)
 //        val btnPay: Button = view.findViewById(R.id.btnPay)
@@ -134,12 +139,17 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
 
                             catArrayList.clear()
                             subCatArrayList.clear()
-                            data.plans.forEach {
+
+                           /* data.plans.forEach {
                                 catArrayList.add(it)
                             }
-
+*/
                             data.attributes.forEach {
                                 subCatArrayList.add(it)
+                            }
+
+                            data.plans.filter { it.isActive }.forEach {
+                                catArrayList.add(it)
                             }
 
                             catAdapter.notifyDataSetChanged()
@@ -233,6 +243,7 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
             val params = JsonObject()
             try {
                 params.addProperty("planId", planid)
+                params.addProperty("reoccurred", mViewDataBinding.cbPolicy.isChecked)
             } catch (e: JSONException) {
                 e.printStackTrace()
             }
@@ -741,14 +752,39 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
 
     override fun onPlanClick(position: Int, PrePos: Int) {
         planid = catArrayList[position]._id
+        reoccur = catArrayList[position].allowedReoccurring
         Log.d("TAG", "onPlanClick: ")
         Log.d("TAG", "${catArrayList[position].isChecked}: ")
         Log.d("TAG", "${catArrayList[PrePos].isChecked}: ")
+        Log.d("TAG", "${planid}: ")
+        Log.d("TAG", "${reoccur}: ")
+
+        mViewDataBinding.cbPolicy.isChecked = false
+
+        if(reoccur){
+            mViewDataBinding.cbPolicy.visibility = View.VISIBLE
+            mViewDataBinding.tvPolicy.visibility = View.VISIBLE
+        }
+        else{
+            mViewDataBinding.cbPolicy.visibility = View.GONE
+            mViewDataBinding.tvPolicy.visibility = View.GONE
+            mViewDataBinding.cbPolicy.isChecked = true
+        }
+
+
+      /*  if(mViewDataBinding.cbPolicy.visibility == View.VISIBLE){
+                reoccurValue = mViewDataBinding.cbPolicy.isChecked
+        }
+        else{
+            reoccurValue = true
+        }*/
+
 
 
         catArrayList.forEach {
             it.isChecked = false
         }
+
 
         catArrayList[position].isChecked = true
         mViewDataBinding.recCatPlans.adapter?.notifyDataSetChanged()

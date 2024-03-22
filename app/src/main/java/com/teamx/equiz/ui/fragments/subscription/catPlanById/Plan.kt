@@ -12,9 +12,10 @@ data class Plan(
     val isBase: Boolean,
     val isFree: Boolean,
     val name: String,
-    val price: Int,
+    val price: Any,
     val stripeId: String,
     val stripePlaneId: String,
     val updatedAt: String,
-    var isChecked: Boolean
+    var isChecked: Boolean,
+    var allowedReoccurring: Boolean
 )

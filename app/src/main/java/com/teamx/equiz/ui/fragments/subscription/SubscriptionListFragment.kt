@@ -60,7 +60,7 @@ class SubscriptionListFragment : BaseFragment<FragmentSubscriptionListBinding, S
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
 
 
-        mViewModel.getCatPlans()
+        mViewModel.getCatPlans(true)
 
         if (!mViewModel.getCatPlansResponse.hasActiveObservers()) {
             mViewModel.getCatPlansResponse.observe(requireActivity()) {
