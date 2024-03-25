@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.annotation.Keep
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,6 +18,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
@@ -41,6 +44,7 @@ import com.teamx.equiz.games.games.learningy.musiclearning.correctSound
 import com.teamx.equiz.games.games.learningy.musiclearning.incorrectSound
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
+import kotlinx.coroutines.delay
 import kotlin.random.Random
 
 
@@ -102,10 +106,10 @@ fun CardCalculationGameScreen(content: (boolean: Boolean, rightAnswer: Int, tota
         // Start the timer
         object : CountDownTimer(timeLeft * 1000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                  if (timerRunning) {
+                if (timerRunning) {
                     timeLeft = millisUntilFinished / 1000
                 }
-                if (timeLeft<5){
+                if (timeLeft < 5) {
                     isAlert = true
                 }
             }
@@ -121,8 +125,8 @@ fun CardCalculationGameScreen(content: (boolean: Boolean, rightAnswer: Int, tota
 
 
         content(true, rightGameAnswersCardCal, totalGameAnswersCardCal)
-        rightGameAnswersCardCal=0
-        totalGameAnswersCardCal=0
+        rightGameAnswersCardCal = 0
+        totalGameAnswersCardCal = 0
     }
 
     if (isTimeUp) {
@@ -133,13 +137,13 @@ fun CardCalculationGameScreen(content: (boolean: Boolean, rightAnswer: Int, tota
 
             } else {
                 content(false, rightGameAnswersCardCal, totalGameAnswersCardCal)
-                rightGameAnswersCardCal=0
-                totalGameAnswersCardCal=0
+                rightGameAnswersCardCal = 0
+                totalGameAnswersCardCal = 0
             }
         }
 
 
-    }else{
+    } else {
         var changeable by remember { mutableStateOf(true) }
         var gameStarted by remember { mutableStateOf(false) }
         if (changeable) {
@@ -168,16 +172,19 @@ fun CardCalculationGameScreen(content: (boolean: Boolean, rightAnswer: Int, tota
                 .fillMaxHeight()
                 .background(color = Color(0xFFE1E1E1)),
         ) {
-            Box(modifier = Modifier.height(48.dp).background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
+            Box(
+                modifier = Modifier
+                    .height(48.dp)
+                    .background(color = Color(0xFF9F81CA)),
+                contentAlignment = Alignment.CenterStart
+            ) {
 
-                BackButton(onClick = { content(false,0,0) }
+                BackButton(onClick = { content(false, 0, 0) }
                 )
                 Text(
                     text = "Card Calculation",
                     modifier = Modifier
-                        .fillMaxWidth()
-
-                        ,
+                        .fillMaxWidth(),
                     textAlign = TextAlign.Center,
                     color = Color.White,
                     fontSize = 17.sp
@@ -294,34 +301,56 @@ fun CardCalculationGameScreen(content: (boolean: Boolean, rightAnswer: Int, tota
                                         val index = row * 2 + column
                                         val it = optionCards[index]
 //                                    optionCards.forEach { it ->
+                                        var isEffectLaunched by remember { mutableStateOf(false) }
+                                        var isBoxRight by remember { mutableStateOf(2) }
+
                                         Box(
                                             modifier = Modifier
-                                                .padding(8.dp)
+                                                .padding(5.dp)
                                                 .width(70.dp)
-                                                .height(130.dp)
+                                                .height(100.dp)
+                                                .border(
+                                                    width = 3.dp,
+                                                    color = if (isBoxRight == 1) Color.Green else if (isBoxRight == 0) Color.Red else Color.Transparent,
+                                                    shape = RoundedCornerShape(7.dp)
+                                                )
                                                 .clickable(enabled = true) {
 
-                                                    totalGameAnswersCardCal++
-                                                    if (checkAnswer(answer, it.value)) {
-                                                        changeable = true
-                                                        gameStarted = false
-                                                        rightGameAnswersCardCal++
-                                                        correctSound(context)
-                                                    }else{
-                                                        incorrectSound(context)
-
-                                                    }
+                                                    isEffectLaunched = true
 
                                                 },
                                             contentAlignment = Alignment.Center
                                         ) {
+
+                                            if (isEffectLaunched) {
+                                                LaunchedEffect(key1 = Unit) {
+                                                    totalGameAnswersCardCal++
+                                                    if (checkAnswer(answer, it.value)) {
+                                                        rightGameAnswersCardCal++
+                                                        correctSound(context)
+                                                        isBoxRight = 1
+                                                        delay(200)
+                                                        isBoxRight = 2
+                                                        changeable = true
+                                                        gameStarted = false
+                                                    } else {
+                                                        incorrectSound(context)
+                                                        isBoxRight = 0
+                                                        delay(200)
+                                                        isBoxRight = 2
+
+                                                    }
+                                                    isEffectLaunched = false
+                                                }
+
+                                            }
 
                                             Image(
                                                 painter = painterResource(id = R.drawable.cardshow_cardcal),
                                                 contentDescription = ""
                                             )
                                             Text(
-                                                modifier = Modifier.fillMaxWidth(),
+                                                modifier = Modifier.wrapContentSize(),
 
                                                 text = it.value.toString(),
                                                 color = Color(0xff9F81CA),
@@ -350,9 +379,9 @@ fun CardCalculationGameScreen(content: (boolean: Boolean, rightAnswer: Int, tota
                             optionCards.forEach { it ->
                                 Box(
                                     modifier = Modifier
-                                        .padding(8.dp)
+                                        .padding(5.dp)
                                         .width(70.dp)
-                                        .height(130.dp)
+                                        .height(100.dp)
                                         .clickable(enabled = true) {
                                             totalGameAnswersCardCal++
                                             if (checkAnswer(answer, it.value)) {
@@ -365,16 +394,19 @@ fun CardCalculationGameScreen(content: (boolean: Boolean, rightAnswer: Int, tota
                                     contentAlignment = Alignment.Center
                                 ) {
 
-                                    Image(modifier = Modifier.fillMaxHeight(),
+                                    Image(
+                                        modifier = Modifier.wrapContentSize(),
                                         painter = painterResource(id = R.drawable.cardshow_cardcal),
                                         contentDescription = ""
                                     )
                                     Text(
-                                        modifier = Modifier.fillMaxWidth(),
+                                        modifier = Modifier.wrapContentSize(),
 
                                         text = it.value.toString(),
-                                        color = Color(0xff9F81CA), fontWeight = FontWeight.ExtraBold,
-                                        fontSize = 26.sp, textAlign = TextAlign.Center
+                                        color = Color(0xff9F81CA),
+                                        fontWeight = FontWeight.ExtraBold,
+                                        fontSize = 26.sp,
+                                        textAlign = TextAlign.Center
                                     )
                                     /*   Button(
                                            onClick = {
@@ -413,11 +445,6 @@ fun CardCalculationGameScreen(content: (boolean: Boolean, rightAnswer: Int, tota
     }
 
 
-
-
-
-
-
 }
 
 @Keep
@@ -449,8 +476,7 @@ fun resetGame() {
 @Preview
 @Composable
 fun PreviewCardCalculationGameScreen() {
-    CardCalculationGameScreen() {
-        bool,rightAnswer,total ->
+    CardCalculationGameScreen() { bool, rightAnswer, total ->
     }
 }
 //calculations

@@ -8,6 +8,7 @@ import android.util.Log
 import androidx.annotation.Keep
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -18,6 +19,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -50,6 +52,7 @@ import com.teamx.equiz.games.games.learningy.musiclearning.incorrectSound
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import com.teamx.equiz.games.ui.theme.BirdColor4
+import kotlinx.coroutines.delay
 import kotlin.random.Random
 
 @Keep
@@ -79,7 +82,7 @@ fun ImplicityGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswer: 
 
 
         var isGameOver by remember { mutableStateOf(false) }
-            var isAlert by remember { mutableStateOf(false) }
+        var isAlert by remember { mutableStateOf(false) }
 
         var isTimeUp by remember { mutableStateOf(false) }
 
@@ -96,7 +99,7 @@ fun ImplicityGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswer: 
                     if (timerRunning) {
                         timeLeft = millisUntilFinished / 1000
                     }
-                    if (timeLeft<5){
+                    if (timeLeft < 5) {
                         isAlert = true
                     }
                 }
@@ -124,9 +127,7 @@ fun ImplicityGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswer: 
 
                 } else {
                     content(
-                        false,
-                        rightGameAnswersSimple,
-                        wrongGameAnswersSimple
+                        false, rightGameAnswersSimple, wrongGameAnswersSimple
                     )
                     rightGameAnswersSimple = 0
                     wrongGameAnswersSimple = 0
@@ -148,12 +149,10 @@ fun ImplicityGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswer: 
                     contentAlignment = Alignment.CenterStart
                 ) {
 
-                    BackButton(onClick = { content(false, 0, 0) }
-                    )
+                    BackButton(onClick = { content(false, 0, 0) })
                     Text(
                         text = "Simplicity",
-                        modifier = Modifier
-                            .fillMaxWidth(),
+                        modifier = Modifier.fillMaxWidth(),
                         textAlign = TextAlign.Center,
                         color = Color.White,
                         fontSize = 17.sp
@@ -161,16 +160,16 @@ fun ImplicityGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswer: 
 
                 }
                 Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                    ,
+                    modifier = Modifier.fillMaxSize(),
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
                         text = currentQuestion.equation,
                         style = MaterialTheme.typography.headlineSmall,
-                        color = Color.Black, fontSize = 33.sp, fontWeight = FontWeight.ExtraBold,
+                        color = Color.Black,
+                        fontSize = 33.sp,
+                        fontWeight = FontWeight.ExtraBold,
                         modifier = Modifier.padding(bottom = 16.dp)
                     )
 
@@ -180,14 +179,27 @@ fun ImplicityGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswer: 
 
                         itemsIndexed(currentQuestion.choices.shuffled()) { _, choice ->
                             var colorStateForBox by remember { mutableStateOf(Color.White) }
+                            var isEffectLaunched by remember { mutableStateOf(false) }
+                            var isBoxRight by remember { mutableStateOf(2) }
                             Box(
                                 modifier = Modifier
-                                    .fillMaxWidth()
+                                    .width(230.dp)
                                     .height(65.dp)
-                                    .padding(vertical = 8.dp, horizontal = 70.dp)
+                                    .border(
+                                        width = 2.dp,
+                                        color = if (isBoxRight == 1) Color.Green else if (isBoxRight == 0) Color.Red else Color.Transparent,
+                                        shape = RoundedCornerShape(16.dp)
+                                    )
+                                    .padding(5.dp)
                                     .clip(RoundedCornerShape(12.dp))
                                     .background(Color.White)
                                     .clickable {
+                                        isEffectLaunched = true
+                                    }, contentAlignment = Alignment.Center
+
+                            ) {
+                                if (isEffectLaunched) {
+                                    LaunchedEffect(key1 = Unit) {
                                         if (gameState) {
                                             wrongGameAnswersSimple++
                                             if (choice == currentQuestion.correctAnswer) {
@@ -195,9 +207,15 @@ fun ImplicityGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswer: 
                                                 rightGameAnswersSimple++
                                                 correctSound(context)
                                                 colorStateForBox = BirdColor4
+                                                isBoxRight = 1
+                                                delay(200)
+                                                isBoxRight = 2
                                             } else {
                                                 incorrectSound(context)
                                                 colorStateForBox = Color.Red
+                                                isBoxRight = 0
+                                                delay(200)
+                                                isBoxRight = 2
                                             }
 
                                             questionIndex++
@@ -205,10 +223,9 @@ fun ImplicityGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswer: 
                                                 gameState = false
                                             }
                                         }
-                                    },
-                                contentAlignment = Alignment.Center
-
-                            ) {
+                                        isEffectLaunched = false
+                                    }
+                                }
                                 Text(
                                     text = choice.toString(),
                                     fontWeight = FontWeight.Bold,
@@ -238,10 +255,6 @@ fun ImplicityGameScreen(content: (bool: Boolean, rightAnswer: Int, totalAnswer: 
                 }
             }
         }
-
-
-
-
 
 
     } else {
@@ -304,15 +317,13 @@ private fun generateQuestions(): ArrayList<Question> {
                 result,
                 result - Random.nextInt(2, 10),
                 result * Random.nextInt(2, 10)
-            ),
-            result
+            ), result
         )
         list.add(o)
     }
 
 
-    return list
-    /* return listOf(
+    return list/* return listOf(
             Question("2 + 3 = ?", listOf(4, 5, 6, 7), 5),
             Question("8 - 5 = ?", listOf(2, 3, 4, 5), 3),
             Question("4 * 6 = ?", listOf(18, 20, 24, 28), 24),

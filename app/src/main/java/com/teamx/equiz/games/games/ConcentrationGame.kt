@@ -6,6 +6,7 @@ import androidx.annotation.Keep
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -18,6 +19,7 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -50,6 +52,7 @@ import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import com.teamx.equiz.games.ui.theme.BirdColor3
 import com.teamx.equiz.games.ui.theme.BirdColor4
 import com.teamx.equiz.games.ui.theme.DeceptionBlack
+import kotlinx.coroutines.delay
 
 var rightGameAnswersConcen = 0
 var totalGameAnswersConcen = 0
@@ -104,7 +107,6 @@ fun ConcentrationGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: In
 
 //        checker++
         Log.d("123123", "ConcentrationGame11111$checker ")
-
 
 
     }
@@ -307,12 +309,13 @@ fun ConcentrationObjects2(
                     onClick()
                 }, contentAlignment = Alignment.Center
         ) {
-            Text(text = "Memorized", fontSize = 16.sp,
+            Text(
+                text = "Memorized", fontSize = 16.sp,
                 fontWeight = FontWeight.Companion.ExtraBold,
-                color = Color.White)
+                color = Color.White
+            )
         }
     }
-
 
 
 }
@@ -570,6 +573,7 @@ fun RotatableImage(rotationZ: Float) {
 
 var isFlippy = false
 var removed = ArrayList<ConcentrationModel>()
+
 @Composable
 fun SpinningBox(
     asdEnum: EnumConcentration = EnumConcentration.DIAMOND, concentrationModels: ConcentrationModel,
@@ -597,11 +601,23 @@ fun SpinningBox(
 //    val imageBitmap = painterResource(id = imageRes).value.asImageBitmap()
     val context = LocalContext.current
     val rotationY: Float by animateFloatAsState(targetValue = if (isFlipped) 180f else 0f)
+
+    var isEffectLaunched by remember { mutableStateOf(false) }
+    var isBoxRight by remember { mutableStateOf(2) }
+
+
+
+
     Surface(
         color = BirdColor4,
         modifier = Modifier
-            .padding(2.dp)
-            .fillMaxSize()
+            .border(
+                width = 3.dp,
+                color = if (isBoxRight == 1) Color.Green else if (isBoxRight == 0) Color.Red else Color.Transparent,
+                shape = RoundedCornerShape(6.dp)
+            )
+            .padding(3.dp)
+            .wrapContentSize()
             .graphicsLayer(rotationY = rotationY)
     ) {
         // Content of the spinning box (optional)
@@ -617,60 +633,86 @@ fun SpinningBox(
             contentDescription = null,
             contentScale = ContentScale.Fit,
             modifier = Modifier
-                .fillMaxSize()
+                .size(270.dp)
                 .paint(
-                    painterResource(id = concentrationCheckStringReturnDrawable(EnumConcentration.FRONT)),
+                    painterResource(
+                        id = concentrationCheckStringReturnDrawable(
+                            EnumConcentration.FRONT
+                        )
+                    ),
                     contentScale = ContentScale.FillBounds
                 )
                 .clickable(
                     enabled = true
                 ) {
-                    totalGameAnswersConcen++
-                    val temp = rightGameAnswersConcen
-                    if (!isFlipped && !removed.contains(concentrationModels)) {
-                        if (checkListAns.isEmpty()) {
-                            rightGameAnswersConcen++
-                            correctSound(context)
-                            Log.d("123123", "SpinningBox: ")
-                            checkListAns.add(asdEnum)
-                            isFlipped = !isFlipped
-                        } else if (checkListAns.contains(asdEnum) && (checkListAns.get(checkListAns.size - 1) == asdEnum)) {
-                            Log.d("123123", "SpinningBox2: ")
-                            checkListAns.add(asdEnum)
-                            removed.add(concentrationModels)
-                            rightGameAnswersConcen++
-                            correctSound(context)
-                            if (checkListAns.size == 6) {
 
-
-//                            startAgain = !startAgain
-//                            isFlipped = false
-                                checkListAns.clear()
-                                onClick(concentrationModels)
-                            } else {
-                                isFlipped = !isFlipped
-                            }
-                        } else if (checkListAns.size % 2 == 0 && (checkListAns.get(checkListAns.size - 1) != asdEnum)) {
-                            Log.d("123123", "SpinningBox3: ")
-                            rightGameAnswersConcen++
-                            correctSound(context)
-                            checkListAns.add(asdEnum)
-                            isFlipped = !isFlipped
-                        } else {
-                            Log.d("123123", "SpinningBox4: ")
-//                        checkListAns.clear()
-//                        isFlipped = false
-                        }
-                    }
-                    if (temp == rightGameAnswersConcen) {
-                        incorrectSound(context)
-                    }
+                    isEffectLaunched = true
 
 //                    onClick(concentrationModels)
                 })
 //                .graphicsLayer(rotationY = rotationY))
-    }
 
+        if (isEffectLaunched) {
+            LaunchedEffect(key1 = Unit) {
+                totalGameAnswersConcen++
+                val temp = rightGameAnswersConcen
+                if (!isFlipped && !removed.contains(concentrationModels)) {
+                    if (checkListAns.isEmpty()) {
+                        rightGameAnswersConcen++
+                        correctSound(context)
+                        Log.d("123123", "SpinningBox: ")
+                        checkListAns.add(asdEnum)
+                        isFlipped = !isFlipped
+                        isBoxRight = 1
+                        delay(200)
+                        isBoxRight = 2
+                    } else if (checkListAns.contains(asdEnum) && (checkListAns.get(
+                            checkListAns.size - 1
+                        ) == asdEnum)
+                    ) {
+                        Log.d("123123", "SpinningBox2: ")
+                        checkListAns.add(asdEnum)
+                        removed.add(concentrationModels)
+                        rightGameAnswersConcen++
+                        correctSound(context)
+                        if (checkListAns.size == 6) {
+
+
+//                            startAgain = !startAgain
+//                            isFlipped = false
+                            checkListAns.clear()
+                            onClick(concentrationModels)
+                        } else {
+                            isFlipped = !isFlipped
+                        }
+                        isBoxRight = 1
+                        delay(200)
+                        isBoxRight = 2
+                    } else if (checkListAns.size % 2 == 0 && (checkListAns.get(checkListAns.size - 1) != asdEnum)) {
+                        Log.d("123123", "SpinningBox3: ")
+                        rightGameAnswersConcen++
+                        correctSound(context)
+                        checkListAns.add(asdEnum)
+                        isFlipped = !isFlipped
+                        isBoxRight = 1
+                        delay(200)
+                        isBoxRight = 2
+                    } else {
+                        Log.d("123123", "SpinningBox4: ")
+//                        checkListAns.clear()
+//                        isFlipped = false
+                    }
+                }
+                if (temp == rightGameAnswersConcen) {
+                    incorrectSound(context)
+                    isBoxRight = 0
+                    delay(200)
+                    isBoxRight = 2
+                }
+                isEffectLaunched = false
+            }
+        }
+    }
 }
 
 @Composable
