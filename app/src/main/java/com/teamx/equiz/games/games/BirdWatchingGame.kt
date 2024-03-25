@@ -8,6 +8,7 @@ import androidx.compose.animation.core.repeatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -60,9 +61,10 @@ import kotlin.random.Random
 
 var rightGameAnswersBird = 0
 var wrongGameAnswersBird = 0
+
 @Preview
 @Composable
-fun BirdWatchingGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit={_,_,_->}) {
+fun BirdWatchingGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit = { _, _, _ -> }) {
     var isGameOver by remember { mutableStateOf(false) }
     var isAlert by remember { mutableStateOf(false) }
     var isTimeUp by remember { mutableStateOf(false) }
@@ -82,7 +84,7 @@ fun BirdWatchingGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
                     timeLeft = millisUntilFinished / 1000
                 }
 
-                if (timeLeft<5){
+                if (timeLeft < 5) {
                     isAlert = true
                 }
             }
@@ -148,14 +150,14 @@ fun BirdWatchingGame(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
                         .padding(10.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                   /* Icon(imageVector = Icons.Default.ArrowBackIos,
-                        contentDescription = "BackButton",
-                        tint = Color.White,
-                        modifier = Modifier.clickable(true) {
-                            content(false, rightGameAnswersBird, (rightGameAnswersBird + wrongGameAnswersBird))
-                        }
+                    /* Icon(imageVector = Icons.Default.ArrowBackIos,
+                         contentDescription = "BackButton",
+                         tint = Color.White,
+                         modifier = Modifier.clickable(true) {
+                             content(false, rightGameAnswersBird, (rightGameAnswersBird + wrongGameAnswersBird))
+                         }
 
-                    )*/
+                     )*/
                     Text(
                         modifier = Modifier.wrapContentSize(),
                         text = "",
@@ -326,58 +328,85 @@ fun BirdAscendingObjects() {
                     repeat(3) { row ->
                         val index = row * 3 + column
                         val indexElement = birdLinkListAdded.get(index)
-                        BirdAnimatedObjectTy(indexElement) { it ->
-                            wrongGameAnswersBird++
-                            val clickedCount =
-                                birdLinkListAdded.count { a -> a.valueColor == it.valueColor }
-                            var maxCount2 =
-                                birdLinkListAdded.groupingBy { it.valueColor }.eachCount()
-                                    .filter { it.value >= 0 }.values.max()
-                            if (clickedCount == maxCount2) {
-                                restart = false
-                                restart = true
-                                iteration++
 
-                                rightGameAnswersBird++
-                                correctSound(context)
-                            } else {
-                                incorrectSound(context)
+                        var isEffectLaunched by remember { mutableStateOf(false) }
+                        var isBoxRight by remember { mutableStateOf(2) }
+
+                        Surface(
+                            color = indexElement.color,
+                            shape = RectangleShape,
+                            modifier = Modifier
+                                .size(99.dp)
+                                .border(
+                                    width = 3.dp,
+                                    color = if (isBoxRight == 1) Color.Green else if (isBoxRight == 0) Color.Red else Color.Transparent,
+                                    shape = RoundedCornerShape(16.dp)
+                                )
+                                .padding(10.dp)
+                                .clip(RoundedCornerShape(6.dp))
+
+                                .clickable(
+//                enabled = birdlinkListAdded.contains(number)
+                                ) {
+                                    isEffectLaunched = true
+                                }) {
+
+                            if (isEffectLaunched) {
+                                LaunchedEffect(key1 = Unit) {
+                                    wrongGameAnswersBird++
+                                    val clickedCount =
+                                        birdLinkListAdded.count { a -> a.valueColor == indexElement.valueColor }
+                                    var maxCount2 =
+                                        birdLinkListAdded
+                                            .groupingBy { it.valueColor }
+                                            .eachCount()
+                                            .filter { it.value >= 0 }.values.max()
+                                    if (clickedCount == maxCount2) {
+                                        restart = false
+                                        restart = true
+                                        iteration++
+
+                                        rightGameAnswersBird++
+                                        correctSound(context)
+                                        isBoxRight = 1
+                                        delay(200)
+                                        isBoxRight = 2
+                                    } else {
+                                        incorrectSound(context)
+                                        isBoxRight = 0
+                                        delay(200)
+                                        isBoxRight = 2
+                                    }
+
+                                    val aia = birdLinkListAdded
+                                        .groupingBy { it.valueColor }
+                                        .eachCount()
+                                        .filter { it.value >= 0 }.values.indexOf(
+                                            birdLinkListAdded
+                                                .groupingBy { it.valueColor }
+                                                .eachCount()
+                                                .filter { it.value >= 1 }.values.max()
+                                        )
+
+                                    isEffectLaunched = false
+                                }
                             }
-//                Log.d("123123", "AscendingObjects:birdLinkListAdded $it")
-                            Log.d(
-                                "123123",
-                                "@@@@@$iteration@@@@" + birdLinkListAdded.groupingBy { it.valueColor }
-                                    .eachCount()
-                                    .filter { it.value >= 0 }.values.max()
-                            )
 
-                            val aia = birdLinkListAdded.groupingBy { it.valueColor }
-                                .eachCount()
-                                .filter { it.value >= 0 }.values.indexOf(birdLinkListAdded.groupingBy { it.valueColor }
-                                    .eachCount().filter { it.value >= 1 }.values.max())
-                            Log.d(
-                                "123123",
-                                "@@@@@" + BirdEnum.values()[birdLinkListAdded.groupingBy { it.valueColor }
-                                    .eachCount()
-                                    .filter { it.value >= 0 }.values.indexOf(birdLinkListAdded.groupingBy { it.valueColor }
-                                        .eachCount().filter { it.value >= 1 }.values.max())]
-                            ).toString()
 
-                            Log.d(
-                                "123123",
-                                "@@@@@" + birdLinkListAdded.groupingBy { it.valueColor }
-                                    .eachCount()
-                                    .filter { it.value >= 0 }.values
-                            )
-                            Log.d(
-                                "123123",
-                                "@@@@@" + BirdEnum.values()[it.valueColor].toString()
-                            )
-                            Log.d(
-                                "123123",
-                                "@@@@@" + birdLinkListAdded.count { a -> a.valueColor == it.valueColor }
+                            Text(
+                                text = /*itemCompared.name.toString() +*/"11",
+                                style = MaterialTheme.typography.bodySmall,
+                                color = Color.Transparent,
+                                fontSize = 20.sp,
+                                textAlign = TextAlign.Center,
+                                fontFamily = FontFamily.Cursive
                             )
                         }
+
+//                        BirdAnimatedObjectTy(indexElement) { it ->
+//
+//
+//                        }
                     }
                 }
             }

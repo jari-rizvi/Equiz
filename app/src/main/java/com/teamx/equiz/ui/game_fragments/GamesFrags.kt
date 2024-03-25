@@ -54,7 +54,6 @@ import com.teamx.equiz.games.games.learningy.follows.UnfollowTouchTheNumGamePlus
 import com.teamx.equiz.games.games.learningy.makingran10.Rain10Game
 import com.teamx.equiz.games.games.learningy.unfolw.followTouchTheNumGamePlus
 import com.teamx.equiz.games.games.rpsCastGamePlot
-import com.teamx.equiz.games.games.ui_components.AdditionAddictionGameMethodNew
 import com.teamx.equiz.games.games.ui_components.StartUpDialogCompose
 import com.teamx.equiz.ui.activity.mainActivity.MainActivity
 import com.teamx.equiz.ui.fragments.dashboard.GamesUID2
@@ -115,8 +114,7 @@ class AdditionAddictionGameFrag : BaseFragment<FragmentAddressBinding, GameFrags
 
         composeView.setContent {
             LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
-//            AdditionAddictionGameMethod(content = { bool, rightAnswer, total ->
-            AdditionAddictionGameMethodNew(content = { bool, rightAnswer, total ->
+            AdditionAddictionGameMethod(content = { bool, rightAnswer, total ->
                 if (bool) {
                     var argumentBundle = arguments
                     if (argumentBundle == null) {

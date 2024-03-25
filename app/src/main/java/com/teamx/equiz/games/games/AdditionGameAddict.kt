@@ -5,6 +5,7 @@ import android.os.CountDownTimer
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -42,6 +43,7 @@ import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
 import com.teamx.equiz.games.games.learningy.LockScreenOrientation
 import com.teamx.equiz.games.games.learningy.musiclearning.correctSound
+import com.teamx.equiz.games.games.learningy.musiclearning.incorrectSound
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import com.teamx.equiz.ui.theme.BirdColor3
@@ -75,10 +77,10 @@ fun AdditionAddictionGameMethod(content: (boolean: Boolean, rightAnswer: Int, to
         // Start the timer
         object : CountDownTimer(timeLeft * 1000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                  if (timerRunning) {
+                if (timerRunning) {
                     timeLeft = millisUntilFinished / 1000
                 }
-                if (timeLeft<5){
+                if (timeLeft < 5) {
                     isAlert = true
                 }
             }
@@ -117,16 +119,19 @@ fun AdditionAddictionGameMethod(content: (boolean: Boolean, rightAnswer: Int, to
                 .fillMaxHeight()
                 .background(color = Color(0xFFE1E1E1)),
         ) {
-            Box(modifier = Modifier.height(48.dp).background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart) {
+            Box(
+                modifier = Modifier
+                    .height(48.dp)
+                    .background(color = Color(0xFF9F81CA)), contentAlignment = Alignment.CenterStart
+            ) {
 
-                BackButton(onClick = { content(false,0,0) }
+                BackButton(onClick = { content(false, 0, 0) }
                 )
                 Text(
                     text = "Addition Addiction",
                     modifier = Modifier
                         .fillMaxWidth()
-                        .wrapContentHeight()
-                        ,
+                        .wrapContentHeight(),
                     textAlign = TextAlign.Center,
                     color = Color.White,
                     fontSize = 17.sp
@@ -268,7 +273,6 @@ fun AddictGame() {
     ) {
 
 
-
         Column(
             modifier = Modifier
                 .wrapContentSize()
@@ -339,97 +343,145 @@ fun AddictObject67(
 ) {
     var colorState by remember { mutableStateOf<Color>(Color.White) }
     var colorStateTxt by remember { mutableStateOf<Color>(BirdColor3) }
+
+    var isEffectLaunched by remember { mutableStateOf(false) }
+    var isBoxRight by remember { mutableStateOf(2) }
 //    var colorState by remember { mutableStateOf<Color>(Color.Gray) }
-val context  = LocalContext.current
+    val context = LocalContext.current
     Box(
         modifier = Modifier
-            .padding(6.dp)
-            .size(85.dp)
-            .background(
-                color = if (linkListAddict67Checker.isEmpty() && colorState == BirdColor4) {
-                    colorState = Color.White
-                    colorState
-                } else {
-                    colorState
-                }, shape = RoundedCornerShape(16.dp)
+            .wrapContentSize()
+            .border(
+                width = 3.dp,
+                color = if (isBoxRight == 1) Color.Green else if (isBoxRight == 0) Color.Red else Color.Transparent,
+                shape = RoundedCornerShape(16.dp)
             )
-            .clip(RoundedCornerShape(6.dp))
-
-            .clickable(
-                enabled = linkListAddict67Checker.contains(number) || true
-            ) {
-                totalGameAnswersAddition++
-                if (/*colorState == Color.White &&*/ !linkListAddict67Checker.contains(number)) {
-                    colorState = BirdColor4
-                    colorStateTxt = Color.White
-                    linkListAddict67Checker.push(number)
-                    val too =
-                        if (linkListAddict67Checker.size <= linkListAddict67.size && randomNum == linkListAddict67Checker.sum()) {
-                            Log.d("123123", "AddictGame:Right ${linkListAddict67Checker.sum()}")
-
-//                            colorStateTxt = BirdColor3
-//                            colorState = Color.White
-                            rightGameAnswersAddition++
-                            correctSound(context)
-                            true
-                        } else {
-
-                            Log.d("123123", "AddictGame:Wrong ${linkListAddict67Checker.sum()}")
-                            false
-                        }
-
-                    onClick(too)
-
-
-                    Log.d("123123", "AnimatedObject2:$number ::$number ")
-                    return@clickable
-                } else if (linkListAddict67Checker.contains(number)) {
-                    linkListAddict67Checker.remove(number)
-//                    colorState = Color.White
-                    colorState = Color.White
-                    colorStateTxt = BirdColor3
-                    val too =
-                        if (linkListAddict67Checker.size <= linkListAddict67.size && randomNum == linkListAddict67Checker.sum()) {
-                            Log.d("123123", "AddictGame:Right ${linkListAddict67Checker.sum()}")
-
-//                            colorStateTxt = BirdColor3
-//                            colorState = Color.White
-                            rightGameAnswersAddition++
-                            correctSound(context)
-                            true
-                        } else {
-//                            totalGameAnswersAddition++
-                            Log.d("123123", "AddictGame:Wrong ${linkListAddict67Checker.sum()}")
-                            false
-                        }
-
-                    onClick(too)
-                    Log.d("123123", "AnimatedObject1:$number ::$number ")
-                } else {
-                    Log.d("123123", "AnimatedObject2:$number ::$number ")
-                }
-            }, contentAlignment = Alignment.Center
-
     ) {
-        Column {
+        Box(
+            modifier = Modifier
+                .padding(7.dp)
+                .size(85.dp)
+                .background(
+                    color = if (linkListAddict67Checker.isEmpty() && colorState == BirdColor4) {
+                        colorState = Color.White
+                        colorState
+                    } else {
+                        colorState
+                    }, shape = RoundedCornerShape(16.dp)
+                )
 
-            Text(
-                modifier = Modifier,
-                text = number.toString(),
-                style = MaterialTheme.typography.bodySmall,
-                color = if (colorState == BirdColor4) {
-                    Color.White
-                } else {
-                    BirdColor3
-                },
-                fontSize = 40.sp,
-                fontWeight = FontWeight.ExtraBold,
-                textAlign = TextAlign.Center
-            )
+
+                .clickable(
+                    enabled = linkListAddict67Checker.contains(number) || true
+                ) {
+                    isEffectLaunched = true
+                }, contentAlignment = Alignment.Center
+
+        ) {
+
+            if (isEffectLaunched) {
+                LaunchedEffect(key1 = Unit) {
+                    totalGameAnswersAddition++
+                    if (/*colorState == Color.White &&*/ !linkListAddict67Checker.contains(number)) {
+                        colorState = BirdColor4
+                        colorStateTxt = Color.White
+                        linkListAddict67Checker.push(number)
+                        val too =
+                            if (linkListAddict67Checker.size <= linkListAddict67.size && randomNum == linkListAddict67Checker.sum()) {
+                                Log.d("123123", "AddictGame:Right ${linkListAddict67Checker.sum()}")
+
+//                            colorStateTxt = BirdColor3
+//                            colorState = Color.White
+                                rightGameAnswersAddition++
+                                correctSound(context)
+                                isBoxRight = 1
+                                delay(200)
+                                isBoxRight = 2
+                                onClick(true)
+                            } else if (linkListAddict67Checker.sum() < randomNum) {
+                                colorState = BirdColor4
+                                Log.d(
+                                    "LaunchedEffectdfdfdfsd",
+                                    "AddictGame: LaunchedEffect contains"
+                                )
+                            } else {
+
+                                Log.d("123123", "AddictGame:Wrong ${linkListAddict67Checker.sum()}")
+                                incorrectSound(context)
+                                isBoxRight = 0
+                                delay(200)
+                                isBoxRight = 2
+                                onClick(true)
+                            }
+
+
+                        Log.d("123123", "AnimatedObject2:$number ::$number ")
+//                        return@clickable
+                    } else if (linkListAddict67Checker.contains(number)) {
+                        linkListAddict67Checker.remove(number)
+//                    colorState = Color.White
+                        colorState = Color.White
+                        colorStateTxt = BirdColor3
+                        val too =
+                            if (linkListAddict67Checker.size <= linkListAddict67.size && randomNum == linkListAddict67Checker.sum()) {
+                                Log.d("123123", "AddictGame:Right ${linkListAddict67Checker.sum()}")
+
+//                            colorStateTxt = BirdColor3
+//                            colorState = Color.White
+                                rightGameAnswersAddition++
+                                correctSound(context)
+                                isBoxRight = 1
+                                delay(200)
+                                isBoxRight = 2
+                                onClick(true)
+                            } else if (linkListAddict67Checker.sum() < randomNum) {
+                                colorState = BirdColor4
+                                Log.d(
+                                    "LaunchedEffectdfdfdfsd",
+                                    "AddictGame: LaunchedEffect contains"
+                                )
+                            } else {
+//                            totalGameAnswersAddition++
+                                Log.d("123123", "AddictGame:Wrong ${linkListAddict67Checker.sum()}")
+                                incorrectSound(context)
+                                isBoxRight = 0
+                                delay(200)
+                                isBoxRight = 2
+                                onClick(true)
+                            }
+
+//                        onClick(too)
+                        Log.d("123123", "AnimatedObject1:$number ::$number ")
+                    } else {
+                        Log.d("123123", "AnimatedObject2:$number ::$number ")
+                    }
+
+                    isEffectLaunched = false
+                }
+            }
+
+
+            Column {
+
+                Text(
+                    modifier = Modifier,
+                    text = number.toString(),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = if (colorState == BirdColor4) {
+                        Color.White
+                    } else {
+                        BirdColor3
+                    },
+                    fontSize = 40.sp,
+                    fontWeight = FontWeight.ExtraBold,
+                    textAlign = TextAlign.Center
+                )
+            }
+
+
         }
-
-
     }
+
 }
 
 @Composable
