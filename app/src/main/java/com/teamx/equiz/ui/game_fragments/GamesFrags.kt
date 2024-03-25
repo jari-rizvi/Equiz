@@ -2743,6 +2743,7 @@ class SimplicityGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMod
                 popExit = R.anim.nav_default_pop_exit_anim
             }
         }
+
         var bundle = arguments
         if (bundle == null) {
             bundle = Bundle()
