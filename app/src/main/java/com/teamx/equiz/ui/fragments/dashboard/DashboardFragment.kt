@@ -109,39 +109,6 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
         sharedViewModel.setActiveUser("")
 
-        if (sharedViewModel.activeUserResponse.hasActiveObservers()) {
-
-
-            sharedViewModel.activeUserResponse.observe(requireActivity()) {
-                when (it.status) {
-                    Resource.Status.LOADING -> {
-                        Log.d("activeUserResponse", "LOADING: ")
-                    }
-
-                    Resource.Status.NOTVERIFY -> {
-                        Log.d("activeUserResponse", "NOTVERIFY: ")
-                    }
-
-                    Resource.Status.SUCCESS -> {
-                        it.data?.let { data ->
-                            activeUser = data
-                            Log.d("activeUserResponse", "SUCCESS: ")
-//                        if (!mViewModel.getTopWinnersResponse.isInitialized()) {
-                            mViewModel.getTopWinners(id, this)
-//                        }
-                        }
-                    }
-
-                    Resource.Status.AUTH -> {
-                        Log.d("activeUserResponse", "AUTH: ")
-                    }
-
-                    Resource.Status.ERROR -> {
-                        Log.d("activeUserResponse", "ERROR: ${it.message}")
-                    }
-                }
-            }
-        }
 
 
 
@@ -271,8 +238,6 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
         id = PrefHelper.getInstance(requireContext()).setUserId.toString()
 
-
-
         if (id.isNullOrEmpty()) {
             id = " "
         }
@@ -343,6 +308,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             }
         }
 
+        val uData = PrefHelper.getInstance(requireActivity()).getUserData()
 
         if (!mViewModel.getTopWinnersResponse.hasActiveObservers()) {
 //            mViewModel.getTopWinners(id, this)
@@ -372,6 +338,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
                             Log.d("TAG", "chalaaa: ")
 
+                           if(uData?.user?.profileProgress!! < 100){
                             if (!isiaDialog) {
                                 activeUser?.let { it1 ->
                                     DialogHelperClass.UserProgressDialog(
@@ -395,7 +362,10 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                                     ).show()
                                 }
                             }
+                           }
+                            else{
 
+                           }
 
 
                             isiaDialog = true
@@ -427,8 +397,6 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                 }
             }
         }
-
-
 
 
         mViewModel.getquizTitileResponse.observe(requireActivity()) {
@@ -499,16 +467,45 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         FirebaseApp.initializeApp(requireContext())
         Firebase.initialize(requireContext())
 
-
-//        getMeApi()
         addNewBanners()
-
-
 
         mViewDataBinding.swiperefresh.setOnRefreshListener {
             mViewDataBinding.swiperefresh.isRefreshing = false
             RearrangeData()
         }
+
+        if (sharedViewModel.activeUserResponse.hasActiveObservers()) {
+            sharedViewModel.activeUserResponse.observe(requireActivity()) {
+                when (it.status) {
+                    Resource.Status.LOADING -> {
+                        Log.d("activeUserResponse", "LOADING: ")
+                    }
+
+                    Resource.Status.NOTVERIFY -> {
+                        Log.d("activeUserResponse", "NOTVERIFY: ")
+                    }
+
+                    Resource.Status.SUCCESS -> {
+                        it.data?.let { data ->
+                            activeUser = data
+                            Log.d("activeUserResponse", "SUCCESS: ")
+//                        if (!mViewModel.getTopWinnersResponse.isInitialized()) {
+                            mViewModel.getTopWinners(id, this)
+//                        }
+                        }
+                    }
+
+                    Resource.Status.AUTH -> {
+                        Log.d("activeUserResponse", "AUTH: ")
+                    }
+
+                    Resource.Status.ERROR -> {
+                        Log.d("activeUserResponse", "ERROR: ${it.message}")
+                    }
+                }
+            }
+        }
+
 
     }
 

@@ -307,7 +307,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
             mViewModel.viewModelScope.launch(Dispatchers.IO) {
                 try {
                     val client = OkHttpClient()
-                    val apiKey = "0685043a222913757ca3cd8cfdf426a08460e872\n"
+                    val apiKey = "0685043a222913757ca3cd8cfdf426a08460e872"
                     ibanNumber = ibanNumber
                     val url = "https://api.ibanapi.com/v1/validate/$ibanNumber?api_key=$apiKey"
                     val request = Request.Builder()
@@ -327,7 +327,22 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                         mViewDataBinding.bankName.setText(bankName)
                         // Handle the response here
                     } else {
-                        // Handle the error
+                        loadingDialog.dismiss()
+
+                        val errorJson = JsonObject()
+                        errorJson.addProperty("result", 400)
+                        errorJson.addProperty("message", "Your bank balance is exhausted, please use basic validation or top up your account")
+
+                        val responseJson = JsonObject()
+                        responseJson.add("error", errorJson)
+                        responseJson.add("data", JsonObject())
+
+                        val jsonResponse = Gson().toJson(responseJson)
+                        Log.d("123123", "apiCall: $jsonResponse")
+
+                        if (isAdded) {
+                            mViewDataBinding.root.snackbar(jsonResponse)
+                        }
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -418,8 +433,8 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                             userPhone = data.user.phone
                             userName = data.user.name
                             progress = data.user.profileProgress
-                            bankName = data.user.bank.bank_name
-                            ibanNumber = data.user.bank.account
+                            bankName = data.user.bank?.bank_name.toString()
+                            ibanNumber = data.user.bank?.account.toString()
                             mViewDataBinding.simpleProgressBar.secondaryProgress = progress
 
                             if(progress == 100){
@@ -431,8 +446,8 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                             mViewDataBinding.dob.text = data.user.dateOfBirth
                             mViewDataBinding.phone.setText(data.user.phone)
                             mViewDataBinding.email.setText(data.user.email)
-                            mViewDataBinding.bankName.setText(data.user.bank.bank_name)
-                            mViewDataBinding.AccNumber.setText(data.user.bank.account)
+                            mViewDataBinding.bankName.setText(data.user.bank?.bank_name)
+                            mViewDataBinding.AccNumber.setText(data.user.bank?.account)
 
                             if (data.user.dateOfBirth.isNullOrEmpty()) {
                                 mViewDataBinding.dob.text = "_"
@@ -477,6 +492,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
             }
 
         }
+
         sharedViewModel.activeUserResponse.observe(requireActivity()) {
             when (it.status) {
                 Resource.Status.LOADING -> {

@@ -95,59 +95,8 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
 
         initializeCategoriesAdapter()
 
-        sharedViewModel.activeUserResponse.observe(requireActivity()) {
-            when (it.status) {
-                Resource.Status.LOADING -> {
-                    Log.d("destinationsdsd", "LOADING: ")
-                }
-
-                Resource.Status.NOTVERIFY -> {
-                    Log.d("destinationsdsd", "NOTVERIFY: ")
-                }
-
-                Resource.Status.SUCCESS -> {
-                    it.data?.let { data ->
-                        activeUser = data
-                        var   intColor = Color.parseColor(data.activeLevel.color)
-                        mViewDataBinding.leveltxt.text  = activeUser.activeLevel.title
-                        mViewDataBinding.leveltxt.setTextColor(intColor)
-
-                        val shapeDrawable = ContextCompat.getDrawable(
-                            requireContext(),
-                            R.drawable.border_background
-                        ) as GradientDrawable
-                        val strokeWidth =
-                            context?.resources?.getDimensionPixelSize(R.dimen._2sdp)
-                        if (strokeWidth != null) {
-                            shapeDrawable.setStroke(strokeWidth, intColor)
-                        }
-                        mViewDataBinding.level.background = shapeDrawable
-
-                        mViewDataBinding.level.setBackgroundColor(intColor)
-
-                        Picasso.get().load(data.activeLevel.icon)
-                            .placeholder(R.drawable.baseline_person)
-                            .error(R.drawable.baseline_person).resize(500, 500).into(mViewDataBinding.level)
-
-
-                        Log.d("TAG", "onViewCreated: ${data.activeLevel.icon} ")
-
-                    }
-                }
-
-                Resource.Status.AUTH -> {
-                    Log.d("destinationsdsd", "AUTH: ")
-                }
-
-                Resource.Status.ERROR -> {
-                    Log.d("destinationsdsd", "ERROR: ${it.message}")
-                }
-            }
-        }
-
         mViewDataBinding.textView31.setOnClickListener {
             findNavController().navigate(R.id.editProfileFragment, arguments, null)
-
         }
 
         mViewModel.me()
@@ -239,6 +188,55 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
         }
         addListeners()
 
+        sharedViewModel.activeUserResponse.observe(requireActivity()) {
+            when (it.status) {
+                Resource.Status.LOADING -> {
+                    Log.d("destinationsdsd", "LOADING: ")
+                }
+
+                Resource.Status.NOTVERIFY -> {
+                    Log.d("destinationsdsd", "NOTVERIFY: ")
+                }
+
+                Resource.Status.SUCCESS -> {
+                    it.data?.let { data ->
+                        activeUser = data
+                        var   intColor = Color.parseColor(data.activeLevel.color)
+                        mViewDataBinding.leveltxt.text  = activeUser.activeLevel.title
+                        mViewDataBinding.leveltxt.setTextColor(intColor)
+
+                        val shapeDrawable = ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.border_background
+                        ) as GradientDrawable
+                        val strokeWidth =
+                            context?.resources?.getDimensionPixelSize(R.dimen._2sdp)
+                        if (strokeWidth != null) {
+                            shapeDrawable.setStroke(strokeWidth, intColor)
+                        }
+                        mViewDataBinding.level.background = shapeDrawable
+
+                        mViewDataBinding.level.setBackgroundColor(intColor)
+
+                        Picasso.get().load(data.activeLevel.icon)
+                            .placeholder(R.drawable.baseline_person)
+                            .error(R.drawable.baseline_person).resize(500, 500).into(mViewDataBinding.level)
+
+
+                        Log.d("TAG", "onViewCreated: ${data.activeLevel.icon} ")
+
+                    }
+                }
+
+                Resource.Status.AUTH -> {
+                    Log.d("destinationsdsd", "AUTH: ")
+                }
+
+                Resource.Status.ERROR -> {
+                    Log.d("destinationsdsd", "ERROR: ${it.message}")
+                }
+            }
+        }
 
     }
 

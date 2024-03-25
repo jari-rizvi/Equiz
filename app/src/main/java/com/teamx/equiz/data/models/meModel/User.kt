@@ -6,7 +6,7 @@ data class User(
     val __v: Int,
     val _id: String,
     val addresses: List<Addresse>,
-    val bank: Bank,
+    val bank: Bank?,
     val cart: List<Any>,
     val chances: Double,
     val country: String,
