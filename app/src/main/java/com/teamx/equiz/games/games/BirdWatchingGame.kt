@@ -366,6 +366,7 @@ fun BirdAscendingObjects() {
                                         restart = true
                                         iteration++
 
+
                                         rightGameAnswersBird++
                                         correctSound(context)
                                         isBoxRight = 1
