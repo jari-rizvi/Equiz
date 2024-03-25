@@ -22,6 +22,9 @@ import androidx.annotation.Keep
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.mutableStateOf
 import androidx.core.content.ContextCompat
+import androidx.databinding.adapters.TextViewBindingAdapter.setText
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
@@ -44,13 +47,14 @@ import com.snapchat.kit.sdk.login.models.UserDataResponse
 import com.snapchat.kit.sdk.login.networking.FetchUserDataCallback
 import com.squareup.picasso.Picasso
 import com.teamx.equiz.BR
-import com.teamx.equiz.MainActivitytttt
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.data.models.editProfile.IdentityDocument
+import com.teamx.equiz.data.remote.ApiService
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentEditProfileBinding
 import com.teamx.equiz.ui.activity.mainActivity.activeusermodel.ModelActiveUser
+import com.teamx.equiz.ui.fragments.address.Address2
 import com.teamx.equiz.utils.DialogHelperClass
 import com.teamx.equiz.utils.PrefHelper
 import com.teamx.equiz.utils.snackbar
@@ -62,6 +66,7 @@ import kotlinx.coroutines.launch
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.FormBody
+import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
@@ -70,6 +75,8 @@ import okhttp3.RequestBody
 import okhttp3.Response
 import org.json.JSONException
 import org.json.JSONObject
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
 import java.io.File
 import java.io.FileOutputStream
@@ -79,8 +86,6 @@ import java.util.Arrays
 import java.util.Calendar
 import java.util.Locale
 import kotlin.properties.Delegates
-import java.security.SecureRandom
-import java.util.Base64
 
 @AndroidEntryPoint
 class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfileViewModel>(),
@@ -115,6 +120,9 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
     var linkFb = ""
     val username = mutableStateOf("")
     val bitmoji = mutableStateOf("")
+
+     var ibanNumber : String = ""
+     var bankName : String = ""
 
     lateinit var activeUser: ModelActiveUser
 
@@ -292,6 +300,41 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
 
         }
 
+        mViewDataBinding.btnApply.setOnClickListener {
+            ibanNumber = mViewDataBinding.AccNumber.text.toString().trim()
+            loadingDialog.show()
+
+            mViewModel.viewModelScope.launch(Dispatchers.IO) {
+                try {
+                    val client = OkHttpClient()
+                    val apiKey = "0685043a222913757ca3cd8cfdf426a08460e872\n"
+                    ibanNumber = ibanNumber
+                    val url = "https://api.ibanapi.com/v1/validate/$ibanNumber?api_key=$apiKey"
+                    val request = Request.Builder()
+                        .url(url)
+                        .build()
+
+                    val response = client.newCall(request).execute()
+                    if (response.isSuccessful) {
+                        loadingDialog.dismiss()
+
+                        val jsonData: String = response.body?.string().orEmpty()
+                        val jsonObject = JSONObject(jsonData)
+
+                         bankName = jsonObject.getJSONObject("data").getJSONObject("bank").getString("bank_name")
+                        Log.d("123123", "apiCall: Bank Name: $bankName")
+
+                        mViewDataBinding.bankName.setText(bankName)
+                        // Handle the response here
+                    } else {
+                        // Handle the error
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+        }
+
         mViewModel.me()
         mViewModel.meResponse.observe(requireActivity()) {
             when (it.status) {
@@ -375,6 +418,8 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                             userPhone = data.user.phone
                             userName = data.user.name
                             progress = data.user.profileProgress
+                            bankName = data.user.bank.bank_name
+                            ibanNumber = data.user.bank.account
                             mViewDataBinding.simpleProgressBar.secondaryProgress = progress
 
                             if(progress == 100){
@@ -386,6 +431,8 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                             mViewDataBinding.dob.text = data.user.dateOfBirth
                             mViewDataBinding.phone.setText(data.user.phone)
                             mViewDataBinding.email.setText(data.user.email)
+                            mViewDataBinding.bankName.setText(data.user.bank.bank_name)
+                            mViewDataBinding.AccNumber.setText(data.user.bank.account)
 
                             if (data.user.dateOfBirth.isNullOrEmpty()) {
                                 mViewDataBinding.dob.text = "_"
@@ -400,6 +447,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
 //                                Picasso.get().load(data.user.image).resize(500, 500)
 //                                    .into(mViewDataBinding.profilePicture)
 
+//                            mViewModel.fetchSpecificData("432acab27e3312c106fbacc36e4f9f3e8ed4d06a")
 
                         } catch (e: Exception) {
 
@@ -626,7 +674,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
 //                        docsArrayList.clear()
 //
                         data.data.forEach {
-                            docsArrayList.add(IdentityDocument(null, it, null, it, null))
+                            docsArrayList.add(IdentityDocument(it, null, it, null))
                         }
 
 
@@ -685,8 +733,17 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                     params.addProperty("DOB", dob)
                     params.addProperty("username", userName)
                     params.addProperty("image", imageUrl)
-                    params.addProperty("bank_name", "imageUrl")
-                    params.addProperty("account", "imageUrl")
+
+                    val bank = Bank(
+                                bank_name = bankName,
+                                account = ibanNumber
+                            )
+
+
+                    params.add(
+                            "bank", Gson().toJsonTree(bank)
+                        )
+
 
                     if (docsArrayList.isNotEmpty()) {
                         params.add(
@@ -695,7 +752,6 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                             )
                         )
                     }
-
 
                     /*    val socials = listOf(
                         Socials(
@@ -1294,10 +1350,109 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
     }
 
 
+//    private fun addClientCountry() {
+//        mViewModel.viewModelScope.launch(Dispatchers.IO) {  try {
+//
+//            val client = OkHttpClient()
+//            val request = Request.Builder()
+//                .url("https://api.ibanapi.com/v1/validate/EE471000001020145685?api_key=432acab27e3312c106fbacc36e4f9f3e8ed4d06a")
+//                .build()
+//
+//            val response = client.newCall(request).execute()
+//            var responseCode = 0;
+//            if (response.code.also { responseCode = it } == 200) {
+//                // Get response
+//                val jsonData: String = response!!.body!!.string()
+//
+//                // Transform reponse to JSon Object
+//                val json = JSONObject(jsonData)
+//                Log.d("123123", "addClientCountry: ${json}")
+//
+//                // Use the JSon Object
+//                var ip = json.getString("ip")
+//                var country2 = json.getString("country")
+//
+//            }
+//            Log.d("123123", "addClientCountry: ${response}")
+//        }
+//
+//        catch (e:Exception){
+//            e.printStackTrace()
+//        }
+//        }
+//    }
+
+//    private fun apiCall() {
+//        mViewModel.viewModelScope.launch(Dispatchers.IO) {
+//            try {
+//                val client = OkHttpClient()
+//                val request = Request.Builder()
+//                    .url("https://api.ibanapi.com/v1/validate/EE471000001020145685?api_key=9bc13d098cad2c720c4c0a816e992727d6b24de4")
+//                    .build()
+//
+//                val response = client.newCall(request).execute()
+//                var responseCode = 0
+//                if (response.code == 200) {
+//                    // Get response
+//                    val jsonData: String = response.body?.string().orEmpty()
+//
+//                    // Transform reponse to JSon Object
+//                    val json = JSONObject(jsonData)
+//                    Log.d("123123", "apiCall: ${json}")
+//
+//                    // Use the JSon Object
+//                    var ip = json.getString("ip")
+//                    var country2 = json.getString("country")
+//                }
+//                Log.d("123123", "apiCall: ${response}")
+//            } catch (e: Exception) {
+//                e.printStackTrace()
+//            }
+//        }
+//    }
+
+//    private fun apiCall() {
+//        mViewModel.viewModelScope.launch(Dispatchers.IO) {
+//            try {
+//                val client = OkHttpClient()
+//                val apiKey = "9bc13d098cad2c720c4c0a816e992727d6b24de4"
+//                val url = "https://api.ibanapi.com/v1/validate/EE471000001020145685?api_key=$apiKey"
+//                val request = Request.Builder()
+//                    .url(url)
+//                    .build()
+//
+//                val response = client.newCall(request).execute()
+//                if (response.isSuccessful) {
+//                    val jsonData: String = response.body?.string().orEmpty()
+//                    val jsonObject = JSONObject(jsonData)
+//
+//                    Log.d("123123", "apiCall: ${jsonObject}")
+//
+//                    // Handle the response here
+//                } else {
+//                    // Handle the error
+//                }
+//            } catch (e: Exception) {
+//                e.printStackTrace()
+//            }
+//        }
+//    }
+
+    private fun apiCall() {
+
+    }
+
+
 }
 
 @Keep
 open class Socials(
     open val link: String,
+)
+
+@Keep
+open class Bank(
+    open val bank_name: String,
+    open val account: String,
 )
 

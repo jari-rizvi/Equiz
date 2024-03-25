@@ -8,6 +8,7 @@ import com.teamx.equiz.data.models.ResendOtpData
 import com.teamx.equiz.data.models.addressbyid.GetAddressById
 import com.teamx.equiz.data.models.addtocart.AddtoCartData
 import com.teamx.equiz.data.models.addtowishlist.AddToWishlistData
+import com.teamx.equiz.data.models.bankData.BankData
 import com.teamx.equiz.data.models.bannerData.bannews.BanNews
 import com.teamx.equiz.data.models.bannerData.news_banner.NewsBanner
 import com.teamx.equiz.data.models.coupons.CouponsData
@@ -506,5 +507,6 @@ interface ApiService {
         @Body params: JsonObject?,
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<OrderDetailData>
+
 
 }

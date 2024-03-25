@@ -7,11 +7,11 @@ import com.google.android.material.snackbar.Snackbar
 
 object AppConstants {
 
-    @StringDef(ApiConfiguration.BASE_URL)
+//    @StringDef(ApiConfiguration.BASE_URL)
     annotation class ApiConfiguration {
         companion object {
-//                        const val BASE_URL = "http://52.220.240.6:3003/"
-//                        const val BASE_URL = "https://dev-api.emiratesq.net/"
+            //                        const val BASE_URL = "http://52.220.240.6:3003/"
+//            var BASE_URL = "https://dev-api.emiratesq.net/"
             const val BASE_URL = "http://192.168.100.33:3003" /**local**/
 //            const val BASE_URL = "http://192.168.100.49:3003" /**Sohail'slocal**/
 //            const val BASE_URL = "http://192.168.100.79:3003" /**Tooba'slocal**/
@@ -46,7 +46,7 @@ object AppConstants {
         }
     }
 
-    fun showSnackBar(message: String, veiw:View) {
+    fun showSnackBar(message: String, veiw: View) {
         Snackbar.make(
             veiw, message, Snackbar.LENGTH_SHORT
         ).show()
