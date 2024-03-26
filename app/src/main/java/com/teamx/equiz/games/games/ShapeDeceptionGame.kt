@@ -56,6 +56,7 @@ import com.teamx.equiz.games.ui.theme.DeceptionBlack
 import com.teamx.equiz.games.ui.theme.DeceptionPink
 import com.teamx.equiz.games.ui.theme.DeceptionPurple
 import com.teamx.equiz.games.ui.theme.DeceptionYellow
+import kotlinx.coroutines.delay
 import kotlin.random.Random
 
 @Keep
@@ -85,10 +86,10 @@ fun TouchTheShapesGameScreen(content: (boolean: Boolean, rightAnswer: Int, total
         // Start the timer
         object : CountDownTimer(timeLeft * 1000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                  if (timerRunning) {
+                if (timerRunning) {
                     timeLeft = millisUntilFinished / 1000
                 }
-                if (timeLeft<5){
+                if (timeLeft < 5) {
                     isAlert = true
                 }
             }
@@ -138,18 +139,18 @@ fun TouchTheShapesGameScreen(content: (boolean: Boolean, rightAnswer: Int, total
                 .fillMaxHeight()
                 .background(color = Color(0xFFE1E1E1)),
         ) {
-            Box(modifier = Modifier
-                .height(48.dp)
-                .background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
+            Box(
+                modifier = Modifier
+                    .height(48.dp)
+                    .background(color = Color(0xFF9F81CA)), contentAlignment = Alignment.CenterStart
+            ) {
 
-                BackButton(onClick = { content(false,0,0) }
+                BackButton(onClick = { content(false, 0, 0) }
                 )
                 Text(
                     text = "Shape Deception",
                     modifier = Modifier
-                        .fillMaxWidth()
-
-                        ,
+                        .fillMaxWidth(),
                     textAlign = TextAlign.Center,
                     color = Color.White,
                     fontSize = 17.sp
@@ -177,6 +178,8 @@ fun TouchTheShapesGameScreen(content: (boolean: Boolean, rightAnswer: Int, total
 
                     itemsIndexed(boxes) { index, box ->
 
+                        var isEffectLaunched by remember { mutableStateOf(false) }
+                        var isBoxRight by remember { mutableStateOf(2) }
 
                         Box(
                             modifier = Modifier
@@ -188,8 +191,11 @@ fun TouchTheShapesGameScreen(content: (boolean: Boolean, rightAnswer: Int, total
                                 .width(67.dp)
                                 .background(color = Color.Transparent/*box.color*/)
                                 .border(BorderStroke(1.dp, Color.Transparent))
-
-
+                                .border(
+                                    width = 2.dp,
+                                    color = if (isBoxRight == 1) Color.Green else if (isBoxRight == 0) Color.Red else Color.Transparent,
+                                    shape = RoundedCornerShape(16.dp)
+                                )
                                 .clickable {
                                     val temp = rightGameAnswersDecep
                                     totalGameAnswersDecep++
@@ -208,19 +214,32 @@ fun TouchTheShapesGameScreen(content: (boolean: Boolean, rightAnswer: Int, total
                                         if (bool) {
                                             restart = false
                                         }
-
+                                        isBoxRight = 1
+                                        isEffectLaunched = true
                                     }
                                     if (temp == rightGameAnswersDecep) {
                                         incorrectSound(context)
+                                        isBoxRight = 0
+                                        isEffectLaunched = true
                                     }
-                                    if (!restart) {
-                                        boxes = generateBoxes()
-                                        restart = true
-                                    }
+
                                 }, contentAlignment = Alignment.Center
 
 
                         ) {
+
+                            if (isEffectLaunched) {
+                                LaunchedEffect(key1 = Unit) {
+//                                    if (!restart) {
+                                    boxes = generateBoxes()
+                                    delay(200)
+                                    isBoxRight = 2
+                                    restart = true
+//                                    }
+                                    isEffectLaunched = false
+                                }
+                            }
+
 
                             /*   Text(
 
@@ -512,7 +531,7 @@ private fun updateScore(
 @Preview
 @Composable
 fun PreviewTouchTheShapesGameScreen() {
-    TouchTheShapesGameScreen {bool,rightAnswer,total -> }
+    TouchTheShapesGameScreen { bool, rightAnswer, total -> }
 }
 
 

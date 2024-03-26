@@ -7,12 +7,14 @@ import androidx.annotation.Keep
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
@@ -56,7 +58,6 @@ import kotlin.random.Random
 
 class TouchTheNumGame {}
 //Touch The Number
-
 
 
 @Keep
@@ -223,19 +224,19 @@ fun TouchTheNumbersGameScreen(content: @Composable () -> Unit = {}) {
             }
 
 
-    }
+        }
 
-      Image(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight(),
-                painter = painterResource(id = R.drawable.iconbg),
-                contentDescription = "bg"
-            )
+        Image(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(),
+            painter = painterResource(id = R.drawable.iconbg),
+            contentDescription = "bg"
+        )
 //        if (isAlert) {
 //            GameAlertingTime()
 //        }
-        }
+    }
 }
 
 private fun generateBoxes(): List<NumberBox> {
@@ -257,8 +258,14 @@ private fun generateBoxes(): List<NumberBox> {
 }
 
 var score = 0
+
 @RequiresApi(Build.VERSION_CODES.N)
-private fun updateScore(boxes: List<NumberBox>, box: NumberBox, index: Int, onClickAdd: (number: Int) -> Unit) {
+private fun updateScore(
+    boxes: List<NumberBox>,
+    box: NumberBox,
+    index: Int,
+    onClickAdd: (number: Int) -> Unit
+) {
 
 
     // get an employee with a maximum age
@@ -273,7 +280,7 @@ private fun updateScore(boxes: List<NumberBox>, box: NumberBox, index: Int, onCl
 
     val selectedNumbers = mutableListOf<Int>()
     for (i in index until index + 5) {
-    Log.d("123123", "updateScore:@${i} @@$index @@@${box.number}")
+        Log.d("123123", "updateScore:@${i} @@$index @@@${box.number}")
         if (i < box.number && box.color == BirdColor3) {
             selectedNumbers.add(i)
         } else if (i > box.number && box.color == BirdColor1) {
@@ -295,10 +302,9 @@ private fun updateScore(boxes: List<NumberBox>, box: NumberBox, index: Int, onCl
 }
 
 
-
 @Composable
 fun PreviewTouchTheNumbersGameScreen() {
-    TouchTheNumGamePlus {bool,rightAnswer,total ->}
+    TouchTheNumGamePlus { bool, rightAnswer, total -> }
 }
 
 
@@ -308,10 +314,10 @@ var totalGameAnswersTheNum = 0
 
 @Preview
 @Composable
-fun TouchTheNumGamePlus(content:  (bool:Boolean, rightAnswer:Int, totalAnswer:Int) -> Unit = {bool,rightAnswer,total ->}) {
+fun TouchTheNumGamePlus(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit = { bool, rightAnswer, total -> }) {
 
     var isGameOver by remember { mutableStateOf(false) }
-        var isAlert by remember { mutableStateOf(false) }
+    var isAlert by remember { mutableStateOf(false) }
 
     var isTimeUp by remember { mutableStateOf(false) }
 
@@ -325,10 +331,10 @@ fun TouchTheNumGamePlus(content:  (bool:Boolean, rightAnswer:Int, totalAnswer:In
         // Start the timer
         object : CountDownTimer(timeLeft * 1000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                  if (timerRunning) {
+                if (timerRunning) {
                     timeLeft = millisUntilFinished / 1000
                 }
-                if (timeLeft<5){
+                if (timeLeft < 5) {
                     isAlert = true
                 }
             }
@@ -363,18 +369,20 @@ fun TouchTheNumGamePlus(content:  (bool:Boolean, rightAnswer:Int, totalAnswer:In
         }
 
 
-    }else{
+    } else {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
                 .background(color = Color(0xFFE1E1E1)),
         ) {
-            Box(modifier = Modifier
-                .height(48.dp)
-                .background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
+            Box(
+                modifier = Modifier
+                    .height(48.dp)
+                    .background(color = Color(0xFF9F81CA)), contentAlignment = Alignment.CenterStart
+            ) {
 
-                BackButton(onClick = { content(false,0,0) })
+                BackButton(onClick = { content(false, 0, 0) })
                 Text(
                     text = "Touch The Number",
                     modifier = Modifier
@@ -484,7 +492,6 @@ fun NumAscendingObjects2() {
                     numLinkListAdded32 = temp
 
                     if (linkListSpin67.isEmpty()) {
-                        correctSound(context)
                         changable = true
                     }
                     Log.d("123123", "AscendingObjects:linkListAdded $numLinkListAdded32")
@@ -501,6 +508,10 @@ fun NumAscendingObjects2() {
 @Composable
 fun NumAnimatedObject2(number: Int, itemCompared: Int, onClick: (Item: Int) -> Unit) {
     var colorState by remember { mutableStateOf<Color>(BirdColor4) }
+
+    var isEffectLaunched by remember { mutableStateOf(false) }
+    var isBoxRight by remember { mutableStateOf(2) }
+
     val context = LocalContext.current
     Surface(
         color = if (numLinkListAdded32.contains(number)) {
@@ -508,7 +519,9 @@ fun NumAnimatedObject2(number: Int, itemCompared: Int, onClick: (Item: Int) -> U
             colorState
         } else {
             Color.Transparent
-        }, shape = RectangleShape, modifier = Modifier
+        },
+        shape = RectangleShape,
+        modifier = Modifier
             .size(85.dp)
             .offset(
                 y = /*(-number * 60).dp*//* if ((number *//*+ 1*//*) % 3 == 0) {
@@ -534,44 +547,69 @@ fun NumAnimatedObject2(number: Int, itemCompared: Int, onClick: (Item: Int) -> U
                 }/*(-number * 60).dp*/
             )
             .clip(RoundedCornerShape(6.dp))
-
+            .border(
+                width = 2.dp,
+                color = if (isBoxRight == 1) Color.Green else if (isBoxRight == 0) Color.Red else Color.Transparent,
+                shape = RoundedCornerShape(6.dp)
+            )
             .clickable(
                 enabled = numLinkListAdded32.contains(number)
             ) {
 
-                totalGameAnswersTheNum++
-
-                if (colorState == Color.Transparent) {
-
-                    Log.d("123123", "AnimatedObjectWrong2:$number ::$itemCompared ")
-                    return@clickable
-                } else if (number == numLinkListAdded32.first) {
-                    colorState = Color.Transparent
-                    onClick(itemCompared)
-                    rightGameAnswersTheNum++
-                    Log.d("123123", "AnimatedObjectWrong1:$number ::$itemCompared ")
-                } else {
-                    incorrectSound(context)
-                    Log.d("123123", "AnimatedObjectWrong2:$number ::$itemCompared ")
-                }
+                isEffectLaunched = true
             },
 
 //            .graphicsLayer(rotationZ = rotation)
 
     ) {
 
-        Text(
-            modifier = Modifier/*.rotate(-90f)*/,
-            text = (number + 1).toString(),
-            style = MaterialTheme.typography.bodyLarge,
-            color = if (numLinkListAdded32.contains(number)) {
-                Color.White
-            } else Color.Transparent,
-            fontSize = 40.sp,
-            fontWeight = FontWeight.ExtraBold,
-            textAlign = TextAlign.Center
-        )
+        if (isEffectLaunched) {
+            LaunchedEffect(key1 = Unit) {
+                totalGameAnswersTheNum++
 
+                if (colorState == Color.Transparent) {
+
+                    Log.d("123123", "AnimatedObjectWrong2:$number ::$itemCompared ")
+                } else if (number == numLinkListAdded32.first) {
+                    colorState = Color.Transparent
+                    rightGameAnswersTheNum++
+                    correctSound(context)
+                    isBoxRight = 1
+                    delay(100)
+                    isBoxRight = 2
+                    onClick(itemCompared)
+                    Log.d("123123", "AnimatedObjectWrong1:$number ::$itemCompared ")
+                } else {
+                    incorrectSound(context)
+                    isBoxRight = 0
+                    delay(100)
+                    isBoxRight = 2
+                    Log.d("123123", "AnimatedObjectWrong2:$number ::$itemCompared ")
+                }
+                isEffectLaunched = false
+            }
+        }
+
+
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                modifier = Modifier/*.rotate(-90f)*/,
+                text = (number + 1).toString(),
+                style = MaterialTheme.typography.bodyLarge,
+                color = if (numLinkListAdded32.contains(number)) {
+                    Color.White
+                } else Color.Transparent,
+                fontSize = 40.sp,
+                fontWeight = FontWeight.ExtraBold,
+                textAlign = TextAlign.Center
+            )
+        }
 
     }
 }

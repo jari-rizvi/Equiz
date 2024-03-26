@@ -3189,55 +3189,59 @@ class TouchTheNumGameFrag : BaseFragment<FragmentAddressBinding, GameFragsViewMo
             bundle = Bundle()
         }
         val gameName = bundle.getString("gameName")
-        composeView.setContent {
-            LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
-            TouchTheNumGamePlus(content = { bool, rightAnswer, total ->
-                if (bool) {
-                    var argumentBundle = arguments
-                    if (argumentBundle == null) {
-                        argumentBundle = Bundle()
-                    }
-                    argumentBundle.putInt("rightAnswer", rightAnswer)
-                    argumentBundle.putInt("total", total)
-                    val route = argumentBundle.getString("route")
-                    if (route.equals("gameRand", true)) {
-                        if (sharedViewModel.roundInteger == 3) {
-                            findNavController().navigate(
-                                R.id.combinedGameResultFragment,
-                                argumentBundle,
-                                options
-                            )
+        try {
+            composeView.setContent {
+                LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+                TouchTheNumGamePlus(content = { bool, rightAnswer, total ->
+                    if (bool) {
+                        var argumentBundle = arguments
+                        if (argumentBundle == null) {
+                            argumentBundle = Bundle()
+                        }
+                        argumentBundle.putInt("rightAnswer", rightAnswer)
+                        argumentBundle.putInt("total", total)
+                        val route = argumentBundle.getString("route")
+                        if (route.equals("gameRand", true)) {
+                            if (sharedViewModel.roundInteger == 3) {
+                                findNavController().navigate(
+                                    R.id.combinedGameResultFragment,
+                                    argumentBundle,
+                                    options
+                                )
 
+                            } else {
+                                sharedViewModel.gameNameRight.add(rightAnswer.toDouble())
+                                sharedViewModel.gameNameTotal.add(total.toDouble())
+                                sharedViewModel.gameName.add(gameName.toString())
+                                sharedViewModel.roundInteger++
+                                findNavController().navigate(
+                                    R.id.randomGameFragment2,
+                                    argumentBundle,
+                                    options
+                                )
+
+                            }
                         } else {
-                            sharedViewModel.gameNameRight.add(rightAnswer.toDouble())
-                            sharedViewModel.gameNameTotal.add(total.toDouble())
-                            sharedViewModel.gameName.add(gameName.toString())
-                            sharedViewModel.roundInteger++
                             findNavController().navigate(
-                                R.id.randomGameFragment2,
+                                R.id.resultComposeFrag,
                                 argumentBundle,
                                 options
                             )
-
                         }
                     } else {
-                        findNavController().navigate(
-                            R.id.resultComposeFrag,
-                            argumentBundle,
-                            options
-                        )
+                        findNavController().popBackStack()
+
                     }
-                } else {
-                    findNavController().popBackStack()
-
-                }
 
 
-            })
+                })
+            }
+
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
-
-
     }
+
 }
 
 @AndroidEntryPoint
