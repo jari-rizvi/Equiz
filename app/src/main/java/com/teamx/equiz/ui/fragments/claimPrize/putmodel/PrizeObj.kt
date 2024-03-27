@@ -1,5 +1,7 @@
 package com.teamx.equiz.ui.fragments.claimPrize.putmodel
+import androidx.annotation.Keep
 
+@Keep
 data class PrizeObj(
     val nextRaffles: NextRaffles?,
     val prizeId: String,

@@ -1,5 +1,7 @@
 package com.teamx.equiz.data.models.bankData
+import androidx.annotation.Keep
 
+@Keep
 data class IbanData(
     val BBAN: String,
     val account_number: String,

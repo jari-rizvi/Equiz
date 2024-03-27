@@ -4,6 +4,7 @@ import android.os.CountDownTimer
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -15,6 +16,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -40,6 +42,7 @@ import com.teamx.equiz.games.games.learningy.musiclearning.correctSound
 import com.teamx.equiz.games.games.learningy.musiclearning.incorrectSound
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
+import kotlinx.coroutines.delay
 import kotlin.random.Random
 
 var sumM = 0
@@ -53,7 +56,7 @@ var totalGameAnswersNumPlus = 0
 fun NumPlus(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit = { _, _, _ -> }) {
 
     var arr = remember { generateRandomNum() }
-    var ischange by remember { mutableStateOf(false) }
+    var ischange by remember { mutableStateOf(true) }
 
     Log.d("123123", "NumPlusSum22:${sumM} ")
     if (PresumM == 0) {
@@ -148,6 +151,10 @@ fun NumPlus(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit 
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     Column {
                         repeat(4) {
+
+                            var isEffectLaunched by remember { mutableStateOf(false) }
+                            var isBoxRight by remember { mutableStateOf(1) }
+
                             val value = if (it == rightAns) {
                                 PresumM
                             } else {
@@ -156,18 +163,34 @@ fun NumPlus(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit 
                             if (it == rightAns) {
                                 Box(
                                     modifier = Modifier
-                                        .fillMaxWidth()
+                                        .width(200.dp)
                                         .height(65.dp)
-                                        .padding(vertical = 8.dp, horizontal = 70.dp)
+                                        .padding(5.dp)
+                                        .border(
+                                            width = 2.dp,
+                                            color = if (isBoxRight == 1) Color.Green else if (isBoxRight == 0) Color.Red else Color.Transparent,
+                                            shape = RoundedCornerShape(12.dp)
+                                        )
                                         .clip(RoundedCornerShape(12.dp))
                                         .background(Color.LightGray)
                                         .clickable {
+                                            isEffectLaunched = true
+                                        }, contentAlignment = Alignment.Center
+                                ) {
+
+                                    if (isEffectLaunched) {
+                                        LaunchedEffect(key1 = Unit) {
                                             totalGameAnswersNumPlus++
                                             rightGameAnswersNumPlus++
                                             correctSound(context)
+                                            isBoxRight = 1
+                                            delay(200)
+                                            isBoxRight = 2
+                                            isEffectLaunched = false
                                             ischange = false
-                                        }, contentAlignment = Alignment.Center
-                                ) {
+                                        }
+                                    }
+
                                     Text(
                                         text = "${value}",
                                         color = Color.Black,
@@ -177,21 +200,37 @@ fun NumPlus(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit 
                             } else {
                                 Box(
                                     modifier = Modifier
-                                        .fillMaxWidth()
+                                        .width(200.dp)
                                         .height(65.dp)
-                                        .padding(vertical = 8.dp, horizontal = 70.dp)
+                                        .border(
+                                            width = 2.dp,
+                                            color = if (isBoxRight == 1) Color.Green else if (isBoxRight == 0) Color.Red else Color.Transparent,
+                                            shape = RoundedCornerShape(12.dp)
+                                        )
+                                        .padding(5.dp)
                                         .clip(RoundedCornerShape(12.dp))
                                         .background(Color.LightGray)
                                         .clickable {
+                                            isEffectLaunched = true
+                                        }, contentAlignment = Alignment.Center
+                                ) {
+
+                                    if (isEffectLaunched) {
+                                        LaunchedEffect(key1 = Unit) {
                                             totalGameAnswersNumPlus++
                                             if (value == PresumM) {
                                                 rightGameAnswersNumPlus++
 
                                             }
                                             incorrectSound(context)
+                                            isBoxRight = 0
+                                            delay(200)
+                                            isBoxRight = 2
+                                            isEffectLaunched = false
                                             ischange = false
-                                        }, contentAlignment = Alignment.Center
-                                ) {
+                                        }
+                                    }
+
                                     Text(
                                         text = "${value}",
                                         color = Color.Black,

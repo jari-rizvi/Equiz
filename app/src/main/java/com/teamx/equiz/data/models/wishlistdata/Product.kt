@@ -1,5 +1,7 @@
 package com.teamx.equiz.data.models.wishlistdata
+import androidx.annotation.Keep
 
+@Keep
 data class Product(
     val __v: Int,
     val _id: String,

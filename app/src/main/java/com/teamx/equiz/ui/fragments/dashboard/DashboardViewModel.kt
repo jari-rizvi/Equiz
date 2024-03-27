@@ -113,6 +113,8 @@ class DashboardViewModel @Inject constructor(
                     }
                 } catch (e: Exception) {
                     _getwalletResponse.postValue(Resource.error("${e.message}", null))
+                    Timber.tag("87878787887").d(e.message)
+
                 }
             } else _getwalletResponse.postValue(Resource.error("No internet connection", null))
         }
@@ -157,6 +159,8 @@ class DashboardViewModel @Inject constructor(
                     }
                 } catch (e: Exception) {
                     _getTopWinnersResponse.postValue(Resource.error("${e.message}", null))
+                    Timber.tag("87878787887").d(e.message)
+
                 }
             } else _getTopWinnersResponse.postValue(Resource.error("No internet connection", null))
         }

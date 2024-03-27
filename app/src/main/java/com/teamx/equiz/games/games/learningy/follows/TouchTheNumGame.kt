@@ -7,6 +7,7 @@ import androidx.annotation.Keep
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -59,7 +60,6 @@ import kotlin.random.Random
 
 class TouchTheNumGame {}
 //Touch The Number
-
 
 
 @Keep
@@ -191,7 +191,7 @@ fun UnfollowNumbersGameScreen(content: @Composable () -> Unit = {}) {
 
 
 
-                               TouchAnimatedObject(
+                                TouchAnimatedObject(
                                     index,
                                     boxes[index]
                                 ) { iit ->
@@ -229,19 +229,19 @@ fun UnfollowNumbersGameScreen(content: @Composable () -> Unit = {}) {
             }
 
 
-    }
+        }
 
-      Image(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight(),
-                painter = painterResource(id = R.drawable.iconbg),
-                contentDescription = "bg"
-            )
+        Image(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(),
+            painter = painterResource(id = R.drawable.iconbg),
+            contentDescription = "bg"
+        )
 //        if (isAlert) {
 //            GameAlertingTime()
 //        }
-        }
+    }
 }
 
 private fun generateBoxes(): List<NumberBox> {
@@ -263,8 +263,14 @@ private fun generateBoxes(): List<NumberBox> {
 }
 
 var score = 0
+
 @RequiresApi(Build.VERSION_CODES.N)
-private fun updateScore(boxes: List<NumberBox>, box: NumberBox, index: Int, onClickAdd: (number: Int) -> Unit) {
+private fun updateScore(
+    boxes: List<NumberBox>,
+    box: NumberBox,
+    index: Int,
+    onClickAdd: (number: Int) -> Unit
+) {
 
 
     // get an employee with a maximum age
@@ -279,7 +285,7 @@ private fun updateScore(boxes: List<NumberBox>, box: NumberBox, index: Int, onCl
 
     val selectedNumbers = mutableListOf<Int>()
     for (i in index until index + 5) {
-    Log.d("123123", "updateScore:@${i} @@$index @@@${box.number}")
+        Log.d("123123", "updateScore:@${i} @@$index @@@${box.number}")
         if (i < box.number && box.color == BirdColor3) {
             selectedNumbers.add(i)
         } else if (i > box.number && box.color == BirdColor1) {
@@ -291,20 +297,19 @@ private fun updateScore(boxes: List<NumberBox>, box: NumberBox, index: Int, onCl
 //    val sortedNumbers = selectedNumbers.sorted()
     if (Checker.number == box.number) {
         // Correct order
-       score++
+        score++
         onClickAdd(Checker.number)
     } else {
         // Incorrect order
 //        score = 0
-       score--
+        score--
     }
 }
 
 
-
 @Composable
 fun PreviewTouchTheNumbersGameScreen() {
-    TouchTheNumGamePlus {bool,rightAnswer,total ->}
+    TouchTheNumGamePlus { bool, rightAnswer, total -> }
 }
 
 
@@ -314,10 +319,10 @@ var totalGameAnswersTheNum = 0
 
 @Preview
 @Composable
-fun UnfollowTouchTheNumGamePlus(content:  (bool:Boolean, rightAnswer:Int, totalAnswer:Int) -> Unit = {bool,rightAnswer,total ->}) {
+fun UnfollowTouchTheNumGamePlus(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit = { bool, rightAnswer, total -> }) {
 
     var isGameOver by remember { mutableStateOf(false) }
-        var isAlert by remember { mutableStateOf(false) }
+    var isAlert by remember { mutableStateOf(false) }
 
     var isTimeUp by remember { mutableStateOf(false) }
 
@@ -331,10 +336,10 @@ fun UnfollowTouchTheNumGamePlus(content:  (bool:Boolean, rightAnswer:Int, totalA
         // Start the timer
         object : CountDownTimer(timeLeft * 1000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                  if (timerRunning) {
+                if (timerRunning) {
                     timeLeft = millisUntilFinished / 1000
                 }
-                if (timeLeft<5){
+                if (timeLeft < 5) {
                     isAlert = true
                 }
             }
@@ -349,9 +354,10 @@ fun UnfollowTouchTheNumGamePlus(content:  (bool:Boolean, rightAnswer:Int, totalA
     if (isGameOver) {
 
 
-        content(true,
-           rightGameAnswersTheNum,
-           totalGameAnswersTheNum
+        content(
+            true,
+            rightGameAnswersTheNum,
+            totalGameAnswersTheNum
         )
         rightGameAnswersTheNum = 0
         totalGameAnswersTheNum = 0
@@ -365,9 +371,10 @@ fun UnfollowTouchTheNumGamePlus(content:  (bool:Boolean, rightAnswer:Int, totalA
                 isGameOver = true
 
             } else {
-                content(false,
-                   rightGameAnswersTheNum,
-                   totalGameAnswersTheNum
+                content(
+                    false,
+                    rightGameAnswersTheNum,
+                    totalGameAnswersTheNum
                 )
                 rightGameAnswersTheNum = 0
                 totalGameAnswersTheNum = 0
@@ -375,24 +382,24 @@ fun UnfollowTouchTheNumGamePlus(content:  (bool:Boolean, rightAnswer:Int, totalA
         }
 
 
-    }else{
+    } else {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
                 .background(color = Color(0xFFE1E1E1)),
         ) {
-            Box(modifier = Modifier
-                .height(48.dp)
-                .background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
+            Box(
+                modifier = Modifier
+                    .height(48.dp)
+                    .background(color = Color(0xFF9F81CA)), contentAlignment = Alignment.CenterStart
+            ) {
 
-                BackButton(onClick = { content(false,0,0) })
+                BackButton(onClick = { content(false, 0, 0) })
                 Text(
                     text = "Unfollow The Leader",
                     modifier = Modifier
-                        .fillMaxWidth()
-
-                        ,
+                        .fillMaxWidth(),
                     textAlign = TextAlign.Center,
                     color = Color.White,
                     fontSize = 17.sp
@@ -400,7 +407,7 @@ fun UnfollowTouchTheNumGamePlus(content:  (bool:Boolean, rightAnswer:Int, totalA
 
             }
 
-           NumAscendingObjects2()
+            NumAscendingObjects2()
 
             Image(
                 modifier = Modifier
@@ -436,10 +443,10 @@ fun NumAscendingObjects2() {
     var changable by remember { mutableStateOf(true) }
 
     var gameStarted by remember { mutableStateOf(false) }
-    LaunchedEffect(currentCount==0) {
+    LaunchedEffect(currentCount == 0) {
         repeat(maxCount) { count ->
             delay(190L)
-            currentCount=count+1
+            currentCount = count + 1
         }
     }
 
@@ -454,23 +461,23 @@ fun NumAscendingObjects2() {
 
         val link = LinkedList<Int>()
 
-       numLinkListAdded32.forEach {
+        numLinkListAdded32.forEach {
             link.push(it)
         }
 
-       numLinkListAdded32.clear()
+        numLinkListAdded32.clear()
 
         Log.d("123123", "AscendingObjects:linkListAddedabb $link")
         if (link.size >= 1) {
             Log.d("123123", "AscendingObjects:1212 ${numLinkListAdded32}")
             for (i in link) {
-               numLinkListAdded32.push(i)
+                numLinkListAdded32.push(i)
             }
         } else {
             Log.d("123123", "AscendingObjects:12 ${numLinkListAdded32}")
             for (i in 0..maxCount) {
                 if (Random.nextBoolean()) {
-                   numLinkListAdded32.push(i)
+                    numLinkListAdded32.push(i)
                 }
             }
         }
@@ -498,11 +505,11 @@ fun NumAscendingObjects2() {
         ) {
 
             for (i in 0..currentCount) {
-                val temp =numLinkListAdded32
+                val temp = numLinkListAdded32
 //            Log.d("123123", "AscendingObjects:temp ${temp.first}")
-               NumAnimatedObject2(i, temp.first) {
+                NumAnimatedObject2(i, temp.first) {
                     temp.remove(it)
-                   numLinkListAdded32 = temp
+                    numLinkListAdded32 = temp
 
                     if (linkListSpin67.isEmpty()) {
                         changable = true
@@ -530,13 +537,15 @@ fun NumAscendingObjects2() {
 fun NumAnimatedObject2(number: Int, itemCompared: Int, onClick: (Item: Int) -> Unit) {
     var colorState by remember { mutableStateOf<Color>(BirdColor4) }
     val context = LocalContext.current
+    var isBoxRight by remember { mutableStateOf(2) }
+    var isEffectLaunched by remember { mutableStateOf(false) }
     Surface(
         color = if (numLinkListAdded32.contains(number)) {
             colorState = BirdColor4
             colorState
         } else {
             Color.Transparent
-        }, shape = RectangleShape, modifier = Modifier
+        }, shape = RoundedCornerShape(6.dp), modifier = Modifier
             .size(85.dp)
             .offset(
                 y =
@@ -556,36 +565,54 @@ fun NumAnimatedObject2(number: Int, itemCompared: Int, onClick: (Item: Int) -> U
                     (/*-number*/1 * 40).dp
                 }/*(-number * 60).dp*/
             )
-            .clip(RoundedCornerShape(6.dp))
 
+            .border(
+                width = 3.dp,
+                color = if (isBoxRight == 1) Color.Green else if (isBoxRight == 0) Color.Red else Color.Transparent,
+                shape = RoundedCornerShape(6.dp)
+            )
+            .clip(RoundedCornerShape(6.dp))
+            .padding(7.dp)
             .clickable(
                 enabled = numLinkListAdded32.contains(number)
             ) {
+                isEffectLaunched = true
 
-                totalGameAnswersTheNum++
-
-                if (colorState == Color.Transparent) {
-
-                    Log.d("123123", "AnimatedObjectWrong2:$number ::$itemCompared ")
-                    return@clickable
-                } else if (number == numLinkListAdded32.first) {
-                    colorState = Color.Transparent
-                    onClick(itemCompared)
-                    rightGameAnswersTheNum++
-                    correctSound(context)
-                    Log.d("123123", "AnimatedObjectWrong1:$number ::$itemCompared ")
-                } else {
-                    incorrectSound(context)
-                    Log.d("123123", "AnimatedObjectWrong2:$number ::$itemCompared ")
-                }
             },
 
 //            .graphicsLayer(rotationZ = rotation)
 
     ) {
 
-        /*Text(
-            modifier = Modifier*//*.rotate(-90f)*//*,
+        if (isEffectLaunched) {
+            LaunchedEffect(key1 = Unit) {
+                totalGameAnswersTheNum++
+
+                if (colorState == Color.Transparent) {
+
+                    Log.d("123123", "AnimatedObjectWrong2:$number ::$itemCompared ")
+                } else if (number == numLinkListAdded32.first) {
+                    colorState = Color.Transparent
+                    rightGameAnswersTheNum++
+                    isBoxRight = 1
+                    correctSound(context)
+                    delay(200)
+                    isBoxRight = 2
+                    onClick(itemCompared)
+                    Log.d("123123", "AnimatedObjectWrong1:$number ::$itemCompared ")
+                } else {
+                    isBoxRight = 0
+                    incorrectSound(context)
+                    delay(200)
+                    isBoxRight = 2
+                    Log.d("123123", "AnimatedObjectWrong2:$number ::$itemCompared ")
+                }
+                isEffectLaunched = false
+            }
+        }
+
+    /*Text(
+        modifier = Modifier*//*.rotate(-90f)*//*,
             text = (number + 1).toString(),
             style = MaterialTheme.typography.bodyLarge,
             color = if (numLinkListAdded32.contains(number)) {
@@ -597,7 +624,7 @@ fun NumAnimatedObject2(number: Int, itemCompared: Int, onClick: (Item: Int) -> U
         )*/
 
 
-    }
+}
 }
 
 

@@ -6,6 +6,7 @@ import androidx.annotation.Keep
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -42,6 +43,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
 import com.teamx.equiz.games.GamesUID
+import com.teamx.equiz.games.games.learningy.musiclearning.correctSound
+import com.teamx.equiz.games.games.learningy.musiclearning.incorrectSound
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import kotlinx.coroutines.GlobalScope
@@ -72,10 +75,10 @@ fun WeatherCastGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int)
         // Start the timer
         object : CountDownTimer(timeLeft * 1000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                  if (timerRunning) {
+                if (timerRunning) {
                     timeLeft = millisUntilFinished / 1000
                 }
-                if (timeLeft<5){
+                if (timeLeft < 5) {
                     isAlert = true
                 }
             }
@@ -89,8 +92,8 @@ fun WeatherCastGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int)
 
     if (isGameOver) {
         content(true, rightGameAnswersWeather, wrongGameAnswersWeather)
-          rightGameAnswersWeather = 0
-          wrongGameAnswersWeather = 1
+        rightGameAnswersWeather = 0
+        wrongGameAnswersWeather = 1
     }
 
     if (isTimeUp) {
@@ -105,13 +108,13 @@ fun WeatherCastGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int)
                     rightGameAnswersWeather,
                     wrongGameAnswersWeather
                 )
-                  rightGameAnswersWeather = 0
-                  wrongGameAnswersWeather = 1
+                rightGameAnswersWeather = 0
+                wrongGameAnswersWeather = 1
             }
         }
 
 
-    }else{
+    } else {
         MaterialTheme {
 
 
@@ -136,15 +139,18 @@ fun WeatherCastGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int)
                         .fillMaxSize()
                         .background(color = Color.Transparent)
                 ) {
-                    Box(modifier = Modifier.height(48.dp).background(color = Color(0xFF9F81CA)),contentAlignment =Alignment.CenterStart)  {
+                    Box(
+                        modifier = Modifier
+                            .height(48.dp)
+                            .background(color = Color(0xFF9F81CA)),
+                        contentAlignment = Alignment.CenterStart
+                    ) {
 
-                        BackButton(onClick = {content(false,0,0) }/*onContinueClicked*/)
+                        BackButton(onClick = { content(false, 0, 0) }/*onContinueClicked*/)
                         Text(
                             text = "Weather Cast",
                             modifier = Modifier
-                                .fillMaxWidth()
-
-                                ,
+                                .fillMaxWidth(),
                             textAlign = TextAlign.Center,
                             color = Color.White,
                             fontSize = 17.sp
@@ -161,10 +167,8 @@ fun WeatherCastGame(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int)
     }
 
 
-
-
-
 }
+
 lateinit var job: Job
 
 
@@ -276,31 +280,117 @@ fun weatherCastGamePlot() {
             text = imageCheckObj.name,
             textAlign = TextAlign.Center
         )
+        val context = LocalContext.current
         Row() {
-            leftBoxes.forEach {
-                weatherDrop(item = it) {
-                    if (imageCheckObj.name == it.gameObject.name) {
-//                        gameRand = Random.nextInt(0, 9)
-//                        imageCheckObj = EnumWeather.values()[gameRand]
-                        counter++
-                        rightGameAnswersWeather++
-                    } else if (!imageCheckObj.name.contains(it.gameObject.name) && imageCheckObj.name.contains("_")) {
-//                        gameRand = Random.nextInt(0, 9)
-//                        imageCheckObj = EnumWeather.values()[gameRand]
-                        counter++
-                        rightGameAnswersWeather++
-                    }else{
-                    }
-                    gameRand = Random.nextInt(0, 9)
-                    imageCheckObj = EnumWeather.values()[gameRand]
-                        wrongGameAnswersWeather++
 
-                /*else if (imageCheckObj.name == it.gameObject.name) {
-//                        imageCheckObj = it.gameObject
-                        gameRand = Random.nextInt(0, 9)
-                        imageCheckObj = EnumWeather.values()[gameRand]
-                        counter++
-                    }*/
+            leftBoxes.forEach {
+                var isBoxRight by remember { mutableStateOf(2) }
+                var isEffectLaunched by remember { mutableStateOf(false) }
+//                weatherDrop(item = it) {
+//                    if (imageCheckObj.name == it.gameObject.name) {
+////                        gameRand = Random.nextInt(0, 9)
+////                        imageCheckObj = EnumWeather.values()[gameRand]
+//                        counter++
+//                        rightGameAnswersWeather++
+//                        correctSound(context)
+//                    } else if (!imageCheckObj.name.contains(it.gameObject.name) && imageCheckObj.name.contains(
+//                            "_"
+//                        )
+//                    ) {
+////                        gameRand = Random.nextInt(0, 9)
+////                        imageCheckObj = EnumWeather.values()[gameRand]
+//                        counter++
+//                        rightGameAnswersWeather++
+//                        correctSound(context)
+//                    } else {
+//                        incorrectSound(context)
+//                    }
+//                    gameRand = Random.nextInt(0, 9)
+//                    imageCheckObj = EnumWeather.values()[gameRand]
+//                    wrongGameAnswersWeather++
+//
+//                    /*else if (imageCheckObj.name == it.gameObject.name) {
+//    //                        imageCheckObj = it.gameObject
+//                            gameRand = Random.nextInt(0, 9)
+//                            imageCheckObj = EnumWeather.values()[gameRand]
+//                            counter++
+//                        }*/
+//                }
+
+
+                Box(
+                    modifier = Modifier
+                        .padding(vertical = 120.dp, horizontal = 9.dp)
+                        .width(100.dp)
+                        .height(it.height)
+                        .clip(RoundedCornerShape(10.dp))
+                        .border(
+                            width = 3.dp,
+                            color = if (isBoxRight == 1) Color.Green else if (isBoxRight == 0) Color.Red else Color.Transparent,
+                            shape = RoundedCornerShape(10.dp)
+                        )
+                        .clickable {
+                            isEffectLaunched = true
+                        }, contentAlignment = Alignment.Center
+
+
+                ) {
+
+                    if (isEffectLaunched) {
+                        LaunchedEffect(key1 = Unit) {
+                            if (imageCheckObj.name == it.gameObject.name) {
+//                        gameRand = Random.nextInt(0, 9)
+//                        imageCheckObj = EnumWeather.values()[gameRand]
+                                counter++
+                                rightGameAnswersWeather++
+                                isBoxRight = 1
+                                correctSound(context)
+                                delay(200)
+                                isBoxRight = 2
+                            } else if (!imageCheckObj.name.contains(it.gameObject.name) && imageCheckObj.name.contains(
+                                    "_"
+                                )
+                            ) {
+//                        gameRand = Random.nextInt(0, 9)
+//                        imageCheckObj = EnumWeather.values()[gameRand]
+                                counter++
+                                rightGameAnswersWeather++
+                                isBoxRight = 1
+                                correctSound(context)
+                                delay(200)
+                                isBoxRight = 2
+                            } else {
+                                isBoxRight = 0
+                                incorrectSound(context)
+                                delay(200)
+                                isBoxRight = 2
+                            }
+                            gameRand = Random.nextInt(0, 9)
+                            imageCheckObj = EnumWeather.values()[gameRand]
+                            wrongGameAnswersWeather++
+                            isEffectLaunched = false
+                        }
+                    }
+
+                    Column(
+                        modifier = Modifier
+                            .padding(6.dp)
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(10.dp))
+                            .background(Color.White),
+                        horizontalAlignment = Alignment.CenterHorizontally
+
+
+                    ) {
+                        Image(
+                            painter = painterResource(id = checkStringReturnDrawable(it.gameObject.name.toString())),
+                            contentDescription = ""
+                        )
+                        Text(
+                            text = it.gameObject.name.toString(),
+                            style = MaterialTheme.typography.bodySmall
+                        )
+                    }
                 }
 
             }
@@ -311,12 +401,11 @@ fun weatherCastGamePlot() {
 }
 
 
-
 @Preview
 @Composable
 fun previewWeatherCastGame() {
     MaterialTheme {
-        WeatherCastGame() {bool,rightAnswer,total ->}
+        WeatherCastGame() { bool, rightAnswer, total -> }
     }
 }
 
@@ -325,14 +414,13 @@ fun weatherDrop(item: WeatherListItem, onClick: () -> Unit) {
     val context = LocalContext.current
 
 
+
     Box(
         modifier = Modifier
             .padding(vertical = 120.dp, horizontal = 9.dp)
-            .width(90.dp)
+            .width(100.dp)
             .height(item.height)
             .clip(RoundedCornerShape(10.dp))
-
-            .background(Color.White)
             .clickable {
                 onClick()
             }, contentAlignment = Alignment.Center
@@ -342,7 +430,10 @@ fun weatherDrop(item: WeatherListItem, onClick: () -> Unit) {
         Column(
             modifier = Modifier
                 .padding(6.dp)
-                .background(Color.White)
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(10.dp))
+                .background(Color.White),
+            horizontalAlignment = Alignment.CenterHorizontally
 
 
         ) {

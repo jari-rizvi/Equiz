@@ -9,6 +9,7 @@ import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.MutatePriority
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -29,6 +30,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -48,11 +50,14 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
+import com.teamx.equiz.games.games.learningy.musiclearning.correctSound
+import com.teamx.equiz.games.games.learningy.musiclearning.incorrectSound
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
 import com.teamx.equiz.games.utils.RainGameObject
 import ir.kaaveh.sdpcompose.sdp
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 
 fun LazyListState.isScrolledToEnd() =
     layoutInfo.visibleItemsInfo.lastOrNull()?.index == layoutInfo.totalItemsCount - 1
@@ -354,6 +359,7 @@ fun rainFallDrops() {
             }
         }
 
+        val context = LocalContext.current
 
         Row(
             modifier = Modifier
@@ -363,12 +369,28 @@ fun rainFallDrops() {
             verticalAlignment = Alignment.CenterVertically
         ) {
 
+            var isEffectLaunched1 by remember { mutableStateOf(false) }
+            var isBoxRight1 by remember { mutableStateOf(2) }
+
             Box(
                 modifier = Modifier
                     .height(130.sdp)
                     .width(130.sdp)
+                    .border(
+                        width = 2.dp,
+                        color = if (isBoxRight1 == 1) Color.Green else if (isBoxRight1 == 0) Color.Red else Color.Transparent,
+                        shape = RoundedCornerShape(16.dp)
+                    )
                     .background(Color.Transparent)
                     .clickable {
+                        isEffectLaunched1 = true
+
+
+                    }, contentAlignment = Alignment.Center
+            ) {
+
+                if (isEffectLaunched1){
+                    LaunchedEffect(key1 = Unit) {
                         wrongGameAnswersRain++
                         boolOption = true
                         val iu = leftBoxes.lastIndex - leftIndexCounter++
@@ -379,31 +401,63 @@ fun rainFallDrops() {
                             rightGameAnswersRain++
                             deletedLeftList.add(leftBoxes[iu])
                             deletedRightList.add(rightBoxes[iu2])
+                            isBoxRight1 = 1
+                            correctSound(context)
+                            delay(200)
+                            isBoxRight1 = 2
+
                         } else if (leftBoxes[iu].gameObject == RainGameObject.BLANK && rightBoxes[iu2].gameObject == RainGameObject.THUNDER) {
                             rightGameAnswersRain++
                             deletedLeftList.add(leftBoxes[iu])
                             deletedRightList.add(rightBoxes[iu2])
+                            isBoxRight1 = 1
+                            correctSound(context)
+                            delay(200)
+                            isBoxRight1 = 2
                         } else {
                             leftIndexCounter--
                             rightIndexCounter--
+                            isBoxRight1 = 0
+                            incorrectSound(context)
+                            delay(200)
+                            isBoxRight1 = 2
                         }
+                        isEffectLaunched1 = false
+                    }
+                }
 
-                    }, contentAlignment = Alignment.Center
-            ) {
+
                 Image(
-                    modifier = Modifier.size(130.sdp),
+                    modifier = Modifier.size(120.sdp),
                     painter = painterResource(id = checkDrawableRain(boolOption)),
                     contentDescription = ""
 
                 )
             }
 
+            var isEffectLaunched by remember { mutableStateOf(false) }
+            var isBoxRight by remember { mutableStateOf(2) }
+
             Box(
                 modifier = Modifier
                     .height(130.sdp)
                     .width(130.sdp)
+                    .border(
+                        width = 2.dp,
+                        color = if (isBoxRight == 1) Color.Green else if (isBoxRight == 0) Color.Red else Color.Transparent,
+                        shape = RoundedCornerShape(16.dp)
+                    )
                     .background(Color.Transparent)
                     .clickable {
+
+                        isEffectLaunched = true
+
+                    }, contentAlignment = Alignment.Center
+            ) {
+
+                if (isEffectLaunched){
+                    LaunchedEffect(key1 = Unit) {
+
                         wrongGameAnswersRain++
                         boolOption = false
                         val iu = leftBoxes.lastIndex - leftIndexCounter++
@@ -415,17 +469,31 @@ fun rainFallDrops() {
 
                             deletedLeftList.add(leftBoxes[iu])
                             deletedRightList.add(rightBoxes[iu2])
+                            isBoxRight = 1
+                            correctSound(context)
+                            delay(200)
+                            isBoxRight = 2
                         } else if (rightBoxes[iu2].gameObject == RainGameObject.BLANK && leftBoxes[iu].gameObject == RainGameObject.THUNDER) {
                             rightGameAnswersRain++
                             deletedLeftList.add(leftBoxes[iu])
                             deletedRightList.add(rightBoxes[iu2])
+                            isBoxRight = 1
+                            correctSound(context)
+                            delay(200)
+                            isBoxRight = 2
                         } else {
                             leftIndexCounter--
                             rightIndexCounter--
+                            isBoxRight = 0
+                            incorrectSound(context)
+                            delay(200)
+                            isBoxRight = 2
                         }
+                        isEffectLaunched = false
+                    }
+                }
 
-                    }, contentAlignment = Alignment.Center
-            ) {
+
                 Image(
                     modifier = Modifier.size(130.sdp),
                     painter = painterResource(id = checkDrawableRain(!boolOption)),

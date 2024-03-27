@@ -1,5 +1,7 @@
 package com.teamx.equiz.ui.activity.mainActivity.activeusermodel
+import androidx.annotation.Keep
 
+@Keep
 data class RankSave(
     val __v: Int,
     val _id: String,

@@ -1,5 +1,7 @@
 package com.teamx.equiz.ui.fragments.subscription.catPlanById
+import androidx.annotation.Keep
 
+@Keep
 data class Attribute(
     val _id: String,
     val createdAt: String,
