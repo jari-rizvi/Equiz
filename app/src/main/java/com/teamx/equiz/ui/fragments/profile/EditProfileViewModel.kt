@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.google.gson.JsonObject
 import com.teamx.equiz.baseclasses.BaseViewModel
-import com.teamx.equiz.constants.AppConstants
 import com.teamx.equiz.data.models.ResendOtpData
 import com.teamx.equiz.data.models.bankData.BankData
 import com.teamx.equiz.data.models.editProfile.EditProfileData
@@ -210,5 +209,43 @@ class EditProfileViewModel @Inject constructor(
             }
         }
     }
+
+
+    private val _bankDetailsResponse = MutableLiveData<Resource<BankData>>()
+    val bankDetailsResponse: LiveData<Resource<BankData>>
+        get() = _bankDetailsResponse
+
+    fun bankDetails(param: JsonObject) {
+        viewModelScope.launch {
+            _bankDetailsResponse.postValue(Resource.loading(null))
+            if (networkHelper.isNetworkConnected()) {
+                try {
+                    mainRepository.bankDetails(param).let {
+                        if (it.isSuccessful) {
+                            _bankDetailsResponse.postValue(Resource.success(it.body()!!))
+                        } else if (it.code() == 401) {
+
+                            _bankDetailsResponse.postValue(Resource.error(it.message(), null))
+                        } else if (it.code() == 401) {
+                            _bankDetailsResponse.postValue(Resource.unAuth("", null))
+                        } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
+                            val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
+                            _bankDetailsResponse.postValue(Resource.error(jsonObj.getString("message")))
+                        } else {
+                            _bankDetailsResponse.postValue(
+                                Resource.error(
+                                    "Some thing went wrong",
+                                    null
+                                )
+                            )
+                        }
+                    }
+                } catch (e: Exception) {
+                    _bankDetailsResponse.postValue(Resource.error("${e.message}", null))
+                }
+            } else _bankDetailsResponse.postValue(Resource.error("No internet connection", null))
+        }
+    }
+
 
 }

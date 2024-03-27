@@ -33,6 +33,7 @@ import com.teamx.equiz.utils.DialogHelperClass
 import com.teamx.equiz.utils.PrefHelper
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import kotlin.properties.Delegates
 
 @AndroidEntryPoint
 class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTopSellerListener,
@@ -48,6 +49,8 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
     private lateinit var options: NavOptions
     private lateinit var paymentAdapter: PaymentAdapter
     private lateinit var paymentArrayList: ArrayList<PaymentMethod>
+    var e_rate = 1
+     var cc = ""
 
 
     var amount = "0"
@@ -74,6 +77,34 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
         val bundle = Bundle()
         bundle.putString("amount", priceAddTopUp.toString())
 
+
+        var bundle1 = arguments
+
+        if (bundle1 == null) {
+            bundle1 = Bundle()
+        }
+
+        val formattedNumber = bundle1.getString("formattedNumber").toString()
+        Log.d("TAG", "formattedNumber: $formattedNumber")
+
+
+        var amountt = PrefHelper.getInstance(requireContext()).getAmount
+        Log.d("TAG", "amountt: $amountt")
+
+
+
+
+        var prefCar2 = PrefHelper.getInstance(requireContext()).getExchangeRate()
+        if (prefCar2 == null) {
+            prefCar2 = PrefHelper.getInstance(requireContext()).getExchangeRate()
+        }
+        prefCar2?.let {
+            cc = it.CC
+            e_rate = it.rate
+        }
+
+        Log.d("TAG", "priceAddTopUppriceAddTopUppriceAddTopUp: $e_rate")
+
         Log.d("TAG", "priceAddTopUppriceAddTopUppriceAddTopUp: $priceAddTopUp")
 
         mViewDataBinding.textView44.setOnClickListener {
@@ -97,6 +128,13 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
 
         }
 
+        mViewDataBinding.pts1.text = (e_rate * 100).toString() + "${ cc}"
+        mViewDataBinding.pts2.text = (e_rate * 200).toString() + "${ cc}"
+        mViewDataBinding.pts3.text = (e_rate * 300).toString() + "${ cc}"
+        mViewDataBinding.pts4.text = (e_rate * 400).toString() + "${ cc}"
+        mViewDataBinding.pts5.text = (e_rate * 500).toString() + "${ cc}"
+        mViewDataBinding.pts6.text = (e_rate * 600).toString() + "${ cc}"
+
         mViewDataBinding.btnback.setOnClickListener { findNavController().popBackStack() }
 
         paymentAdapter()
@@ -106,7 +144,13 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
 
         val changeamount = bundle2?.getString("amount")
 
-        mViewDataBinding.img.text = changeamount
+        if(!amountt.isNullOrEmpty()){
+            mViewDataBinding.img.text = amountt
+        }
+        else{
+            mViewDataBinding.img.text = formattedNumber
+
+        }
 
         mViewDataBinding.pts1.setOnClickListener {
             mViewDataBinding.pts6.isChecked = false
@@ -117,7 +161,7 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
             mViewDataBinding.pts5.isChecked = false
             amount = "100"
             priceAddTopUp = amount.toInt()
-            mViewDataBinding.img.text = amount
+//            mViewDataBinding.img.text = amount
         }
 
         mViewDataBinding.pts2.setOnClickListener {
@@ -129,7 +173,7 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
             mViewDataBinding.pts5.isChecked = false
             amount = "200"
             priceAddTopUp = amount.toInt()
-            mViewDataBinding.img.text = amount
+//            mViewDataBinding.img.text = amount
         }
 
         mViewDataBinding.pts3.setOnClickListener {
@@ -141,7 +185,7 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
             mViewDataBinding.pts5.isChecked = false
             amount = "300"
             priceAddTopUp = amount.toInt()
-            mViewDataBinding.img.text = amount
+//            mViewDataBinding.img.text = amount
         }
 
         mViewDataBinding.pts4.setOnClickListener {
@@ -153,7 +197,7 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
             mViewDataBinding.pts5.isChecked = false
             amount = "400"
             priceAddTopUp = amount.toInt()
-            mViewDataBinding.img.text = amount
+//            mViewDataBinding.img.text = amount
         }
         mViewDataBinding.pts5.setOnClickListener {
             mViewDataBinding.pts6.isChecked = false
@@ -164,7 +208,7 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
             mViewDataBinding.pts5.isChecked = true
             amount = "500"
             priceAddTopUp = amount.toInt()
-            mViewDataBinding.img.text = amount
+//            mViewDataBinding.img.text = amount
         }
         mViewDataBinding.pts6.setOnClickListener {
             mViewDataBinding.pts6.isChecked = true
@@ -175,7 +219,7 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
             mViewDataBinding.pts5.isChecked = false
             amount = "600"
             priceAddTopUp = amount.toInt()
-            mViewDataBinding.img.text = amount
+//            mViewDataBinding.img.text = amount
         }
 
 
@@ -465,7 +509,6 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
     lateinit var paymentSheet: PaymentSheet
 
 
-
     private fun initStripe() {
 
 
@@ -477,7 +520,7 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
             paymentSheet = PaymentSheet(this, ::onPaymentSheetResult)
         }
 
-                if (isAdded) {
+        if (isAdded) {
             PaymentConfiguration.init(
                 this.requireContext(),
                 "pk_test_51L1UVCGn3F7BuM88wH1PSuNgc9bX7tq0MkIMB2HU2BbScX3i7VgZw4V8nimfe1zUEF8uQ3Q6PFbzrMacvH5PfA7900PaBHO20E"

@@ -61,7 +61,7 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
     private lateinit var options: NavOptions
     private lateinit var stripe: Stripe
 
-    lateinit var planid: String
+     var planid = ""
     var reoccur by Delegates.notNull<Boolean>()
 //     var reoccurValue =true
     lateinit var catAdapter: CatPlansAdapter
@@ -116,6 +116,10 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
 
 
         val id = arguments?.getString("subscription")
+        val title = arguments?.getString("title")
+
+
+        mViewDataBinding.textView.text = "${title + " Plan"}"
 
 
         if (id != null) {
@@ -240,6 +244,10 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
         )
 
         mViewDataBinding.btnBuy.setOnClickListener {
+            if(planid.isNullOrEmpty()){
+                mViewDataBinding.root.snackbar("Please Select Plan")
+            }
+           else{
             val params = JsonObject()
             try {
                 params.addProperty("planId", planid)
@@ -297,6 +305,7 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
                         mViewModel.buySubscriptionResponse.removeObservers(viewLifecycleOwner)
                     }
                 }
+            }
             }
         }
 
@@ -753,12 +762,6 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
     override fun onPlanClick(position: Int, PrePos: Int) {
         planid = catArrayList[position]._id
         reoccur = catArrayList[position].allowedReoccurring
-        Log.d("TAG", "onPlanClick: ")
-        Log.d("TAG", "${catArrayList[position].isChecked}: ")
-        Log.d("TAG", "${catArrayList[PrePos].isChecked}: ")
-        Log.d("TAG", "${planid}: ")
-        Log.d("TAG", "${reoccur}: ")
-
         mViewDataBinding.cbPolicy.isChecked = false
 
         if(reoccur){

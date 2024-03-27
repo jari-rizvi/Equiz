@@ -90,6 +90,8 @@ class WishlistViewModel @Inject constructor(
                     }
                 } catch (e: Exception) {
                     _wishlistResponse.postValue(Resource.error("${e.message}", null))
+                    Timber.tag("87878787887").d( "${e.message}")
+
                 }
             } else _wishlistResponse.postValue(Resource.error("No internet connection", null))
         }

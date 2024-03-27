@@ -32,7 +32,7 @@ class CatPlansAdapter(
         }
 
         holder.binding.textView60.text = list.name
-        holder.binding.textView58.text = list.interval
+        holder.binding.textView58.text = "${list.intervalCount} ${list.interval}"
         holder.binding.price.text = list.price.toString()
         holder.binding.checkedTextView.isChecked = list.isChecked
 

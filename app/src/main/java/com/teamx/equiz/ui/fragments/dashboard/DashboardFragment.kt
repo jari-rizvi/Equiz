@@ -1223,8 +1223,30 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         if (country.isNullOrEmpty()) {
             country = PrefHelper.getInstance(requireContext()).getCountry
             mViewModel.getBanners2(country.toString())
+
+            val params = JsonObject()
+            try {
+                params.addProperty("country", country)
+                params.addProperty("amount", 1)
+                mViewModel.getExchangeRates(params)
+
+
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
         } else {
             mViewModel.getBanners2("$country")
+
+            val params = JsonObject()
+            try {
+                params.addProperty("country", "$country")
+                params.addProperty("amount", 1)
+                mViewModel.getExchangeRates(params)
+
+
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
 
         }
         if (!mViewModel.getBannerResponse2.hasActiveObservers()) {
@@ -1262,6 +1284,56 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                             } catch (e: Exception) {
                                 e.printStackTrace()
                             }
+                        }
+                    }
+
+                    Resource.Status.AUTH -> {
+                        loadingDialog.dismiss()
+
+                        onToSignUpPage()
+                    }
+
+                    Resource.Status.ERROR -> {
+                        loadingDialog.dismiss()
+                        if (isAdded) {
+                            mViewDataBinding.root.snackbar(it.message!!)
+                        }
+
+                    }
+                }
+            }
+        }
+
+        if (!mViewModel.getExchangeRateResponse.hasActiveObservers()) {
+            mViewModel.getExchangeRateResponse.observe(requireActivity()) {
+                when (it.status) {
+                    Resource.Status.LOADING -> {
+                        loadingDialog.show()
+                    }
+
+                    Resource.Status.NOTVERIFY -> {
+                        loadingDialog.dismiss()
+                    }
+
+                    Resource.Status.SUCCESS -> {
+                        loadingDialog.dismiss()
+                        it.data?.let { data ->
+
+                            try {
+
+                                Log.d("TAG", "addNewBanners: ${data.data}")
+
+
+                                PrefHelper.getInstance(requireContext()).setExchangeRate(
+                                    PrefHelper.ExchangeRatee(
+                                        data.data.query.to,
+                                        data.data.info.rate.toInt()
+                                    )
+                                )
+                            }
+                            catch (e:Exception){}
+
+
                         }
                     }
 

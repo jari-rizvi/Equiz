@@ -49,6 +49,7 @@ import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentWalletBinding
 import com.teamx.equiz.utils.Datess
 import com.teamx.equiz.utils.DialogHelperClass
+import com.teamx.equiz.utils.PrefHelper
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -91,6 +92,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
     var DatessModel: Datess? = null
 
     lateinit var responseBody: ResponseBody
+    lateinit var bundle1 : Bundle
 
     @SuppressLint("SetTextI18n", "SetJavaScriptEnabled")
     @RequiresApi(Build.VERSION_CODES.O)
@@ -129,7 +131,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
         mViewDataBinding.btnTopUp.setOnClickListener {
             findNavController().navigate(
                 com.teamx.equiz.R.id.action_walletFragment_to_topupFragment,
-                arguments,
+                bundle1,
                 options
             )
 
@@ -280,7 +282,16 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
                             val formattedNumber = String.format("%.2f", data.data)
                             mViewDataBinding.textView10.text = formattedNumber + " Points"
 
+                            PrefHelper.getInstance(requireContext()).saveAmount(formattedNumber)
+
+                                bundle1 = Bundle()
+
+                            bundle1?.putString("formattedNumber", formattedNumber)
+
+
                             Log.d("TAG", "getWalletData:  ${data.data}")
+                            Log.d("TAG", "formattedNumber:  ${formattedNumber}")
+                            Log.d("TAG", "formattedNumber:  ${bundle1}")
 
                             data.transactions.forEach {
                                 walletArrayList.add(it)

@@ -134,6 +134,7 @@ class SubscriptionListFragment : BaseFragment<FragmentSubscriptionListBinding, S
 
     override fun onSubItemClick(position: Int) {
         var id =subsArrayList[position]._id
+        var title =subsArrayList[position].title
 
 
         val subscription = subsArrayList[position] // Get the subscription object at the clicked position
@@ -143,7 +144,8 @@ class SubscriptionListFragment : BaseFragment<FragmentSubscriptionListBinding, S
         if (bundle == null) {
             bundle = Bundle()
         }
-        bundle.putString("subscription", id) // Put the JSON string in the bundle
+        bundle.putString("subscription", id)
+        bundle.putString("title", title)
 
 
 

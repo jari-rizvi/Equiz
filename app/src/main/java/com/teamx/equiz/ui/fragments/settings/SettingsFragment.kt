@@ -116,18 +116,17 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
                         it.data?.let { data ->
 
                             try {
-                                    if(data.user.email.isNullOrEmpty()){
-                                        mViewDataBinding.textView4.text = data.user.phone
-                                    }
-                                    else{
-                                        mViewDataBinding.textView4.text = data.user.email
-                                    }
+                                if (data.user.email.isNullOrEmpty()) {
+                                    mViewDataBinding.textView4.text = data.user.phone
+                                } else {
+                                    mViewDataBinding.textView4.text = data.user.email
+                                }
 
                                 referralCode = data.user.referralCode
                                 userId = data.user._id
                                 mViewDataBinding.textView3.setText(data.user.name)
-                               /* mViewDataBinding.textView4.setText(data.user.email)
-                                mViewDataBinding.textView4.setText(data.user.phone)*/
+                                /* mViewDataBinding.textView4.setText(data.user.email)
+                                 mViewDataBinding.textView4.setText(data.user.phone)*/
                                 mViewDataBinding.textView52.setText(data.user.chances.toString())
 //                                mViewDataBinding.textView51.setText(data.user.wallet.toString())
 
@@ -155,7 +154,7 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
 
                                 val speed = data.user.profileProgress
                                 mViewDataBinding.simpleProgressBar.secondaryProgress = speed.toInt()
-                                if(speed == 100){
+                                if (speed == 100) {
                                     mViewDataBinding.emailImgVerify.visibility = View.VISIBLE
                                 }
 
@@ -201,29 +200,36 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
                 Resource.Status.SUCCESS -> {
                     it.data?.let { data ->
                         activeUser = data
-                        var   intColor = Color.parseColor(data.activeLevel.color)
-                        mViewDataBinding.leveltxt.text  = activeUser.activeLevel.title
-                        mViewDataBinding.leveltxt.setTextColor(intColor)
+                        try {
 
-                        val shapeDrawable = ContextCompat.getDrawable(
-                            requireContext(),
-                            R.drawable.border_background
-                        ) as GradientDrawable
-                        val strokeWidth =
-                            context?.resources?.getDimensionPixelSize(R.dimen._2sdp)
-                        if (strokeWidth != null) {
-                            shapeDrawable.setStroke(strokeWidth, intColor)
+
+                            var intColor = Color.parseColor(data.activeLevel.color)
+                            mViewDataBinding.leveltxt.text = activeUser.activeLevel.title
+                            mViewDataBinding.leveltxt.setTextColor(intColor)
+
+                            val shapeDrawable = ContextCompat.getDrawable(
+                                requireContext(),
+                                R.drawable.border_background
+                            ) as GradientDrawable
+                            val strokeWidth =
+                                context?.resources?.getDimensionPixelSize(R.dimen._2sdp)
+                            if (strokeWidth != null) {
+                                shapeDrawable.setStroke(strokeWidth, intColor)
+                            }
+                            mViewDataBinding.level.background = shapeDrawable
+
+                            mViewDataBinding.level.setBackgroundColor(intColor)
+
+                            Picasso.get().load(data.activeLevel.icon)
+                                .placeholder(R.drawable.baseline_person)
+                                .error(R.drawable.baseline_person).resize(500, 500)
+                                .into(mViewDataBinding.level)
+
+
+                            Log.d("TAG", "onViewCreated: ${data.activeLevel.icon} ")
+                        } catch (e: Exception) {
+
                         }
-                        mViewDataBinding.level.background = shapeDrawable
-
-                        mViewDataBinding.level.setBackgroundColor(intColor)
-
-                        Picasso.get().load(data.activeLevel.icon)
-                            .placeholder(R.drawable.baseline_person)
-                            .error(R.drawable.baseline_person).resize(500, 500).into(mViewDataBinding.level)
-
-
-                        Log.d("TAG", "onViewCreated: ${data.activeLevel.icon} ")
 
                     }
                 }
@@ -273,31 +279,30 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
                         }
 
 
+                        /* var prefUser = PrefHelper.getUSerInstance(requireContext()).getCredentials()
+                         if (prefUser == null) {
+                             prefUser = PrefHelper.getUSerInstance(requireContext()).getCredentials()
+                         }
+                         prefUser?.let {
 
-                       /* var prefUser = PrefHelper.getUSerInstance(requireContext()).getCredentials()
-                        if (prefUser == null) {
-                            prefUser = PrefHelper.getUSerInstance(requireContext()).getCredentials()
-                        }
-                        prefUser?.let {
+                             userphonee = it.phone.toString()
+                             useremaill = it.email.toString()
+                             userpasswordd = it.Password
+                             isEnable = it.isDetection
+                             Log.d("TAG", "hasValue: ${it.phone}")
+                             Log.d("TAG", "hasValue: ${it.Password}")
 
-                            userphonee = it.phone.toString()
-                            useremaill = it.email.toString()
-                            userpasswordd = it.Password
-                            isEnable = it.isDetection
-                            Log.d("TAG", "hasValue: ${it.phone}")
-                            Log.d("TAG", "hasValue: ${it.Password}")
-
-                        }
+                         }
 
 
-                        PrefHelper.getUSerInstance(requireContext()).setCredentials(
-                            PrefHelper.UserCredential(
-                                useremaill,
-                                userphonee,
-                                userpasswordd,
-                                isEnable
-                            )
-                        )*/
+                         PrefHelper.getUSerInstance(requireContext()).setCredentials(
+                             PrefHelper.UserCredential(
+                                 useremaill,
+                                 userphonee,
+                                 userpasswordd,
+                                 isEnable
+                             )
+                         )*/
 
                         navController = Navigation.findNavController(
                             requireActivity(), R.id.nav_host_fragment

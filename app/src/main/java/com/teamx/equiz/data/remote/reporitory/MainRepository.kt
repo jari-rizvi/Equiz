@@ -153,13 +153,19 @@ class MainRepository @Inject constructor(
         @Query("endDate") endDate: String?
     ) = apiService.getTransData(startDate, endDate)
 
-    suspend fun getCatPlans( @Query("archive") archive: Boolean?) = apiService.getCatPlans(archive)
+    suspend fun getCatPlans(@Query("archive") archive: Boolean?) = apiService.getCatPlans(archive)
 
     suspend fun getCatPlansById(@Path("id") id: String) = apiService.getCatPlansById(id)
     suspend fun GetScratchImg(@Path("id") id: String) = apiService.GetScratchImg(id)
     suspend fun submitClaim(@Body params: JsonObject?) = apiService.submitClaim(params)
     suspend fun cancelProductOrder(@Path("id") id: String, params: JsonObject) =
         apiService.cancelProductOrder(id, params)
+
+    suspend fun bankDetails(params: JsonObject) =
+        apiService.bankDetails(params)
+
+    suspend fun exchangeRate(params: JsonObject) =
+        apiService.exchangeRate(params)
 
 
 }

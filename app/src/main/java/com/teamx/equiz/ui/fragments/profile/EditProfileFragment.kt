@@ -10,6 +10,7 @@ import android.graphics.drawable.GradientDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
@@ -49,10 +50,12 @@ import com.squareup.picasso.Picasso
 import com.teamx.equiz.BR
 import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
+import com.teamx.equiz.constants.NetworkCallPoints
 import com.teamx.equiz.data.models.editProfile.IdentityDocument
 import com.teamx.equiz.data.remote.ApiService
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentEditProfileBinding
+import com.teamx.equiz.ui.activity.mainActivity.MainActivity
 import com.teamx.equiz.ui.activity.mainActivity.activeusermodel.ModelActiveUser
 import com.teamx.equiz.ui.fragments.address.Address2
 import com.teamx.equiz.utils.DialogHelperClass
@@ -121,8 +124,8 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
     val username = mutableStateOf("")
     val bitmoji = mutableStateOf("")
 
-     var ibanNumber : String = ""
-     var bankName : String = ""
+    var ibanNumber: String = ""
+    var bankName: String = ""
 
     lateinit var activeUser: ModelActiveUser
 
@@ -302,52 +305,116 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
 
         mViewDataBinding.btnApply.setOnClickListener {
             ibanNumber = mViewDataBinding.AccNumber.text.toString().trim()
-            loadingDialog.show()
+//            loadingDialog.show()
 
-            mViewModel.viewModelScope.launch(Dispatchers.IO) {
-                try {
-                    val client = OkHttpClient()
-                    val apiKey = "0685043a222913757ca3cd8cfdf426a08460e872"
-                    ibanNumber = ibanNumber
-                    val url = "https://api.ibanapi.com/v1/validate/$ibanNumber?api_key=$apiKey"
-                    val request = Request.Builder()
-                        .url(url)
-                        .build()
+//            mViewModel.viewModelScope.launch(Dispatchers.IO) {
+//                try {
+//                    val client = OkHttpClient()
+//                    val apiKey = "0685043a222913757ca3cd8cfdf426a08460e872"
+//                    ibanNumber = ibanNumber
+//                    val url = "https://api.ibanapi.com/v1/validate/$ibanNumber?api_key=$apiKey"
+//                    val request = Request.Builder()
+//                        .url(url)
+//                        .build()
+//
+//                    val response = client.newCall(request).execute()
+//                    if (response.isSuccessful) {
+//                        loadingDialog.dismiss()
+//
+//                        val jsonData: String = response.body?.string().orEmpty()
+//                        val jsonObject = JSONObject(jsonData)
+//
+//                        bankName = jsonObject.getJSONObject("data").getJSONObject("bank")
+//                            .getString("bank_name")
+//                        Log.d("123123", "apiCall: Bank Name: $bankName")
+//
+//                        mViewDataBinding.bankName.setText(bankName)
+//                        // Handle the response here
+//                    } else {
+//                        loadingDialog.dismiss()
+//
+//                        val errorJson = JsonObject()
+//                        errorJson.addProperty("result", 400)
+//                        errorJson.addProperty(
+//                            "message",
+//                            "Your bank balance is exhausted, please use basic validation or top up your account"
+//                        )
+//
+//                        val responseJson = JsonObject()
+//                        responseJson.add("error", errorJson)
+//                        responseJson.add("data", JsonObject())
+//
+//                        val jsonResponse = Gson().toJson(responseJson)
+//                        Log.d("123123", "apiCall: $jsonResponse")
+//
+//                        if (isAdded) {
+//                            mViewDataBinding.root.snackbar(jsonResponse)
+//                        }
+//                    }
+//                } catch (e: Exception) {
+//                    e.printStackTrace()
+//                }
+//            }
 
-                    val response = client.newCall(request).execute()
-                    if (response.isSuccessful) {
-                        loadingDialog.dismiss()
 
-                        val jsonData: String = response.body?.string().orEmpty()
-                        val jsonObject = JSONObject(jsonData)
+            val params = JsonObject()
+            try {
+                params.addProperty("iban", ibanNumber)
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
 
-                         bankName = jsonObject.getJSONObject("data").getJSONObject("bank").getString("bank_name")
-                        Log.d("123123", "apiCall: Bank Name: $bankName")
+            mViewModel.bankDetails(params)
 
-                        mViewDataBinding.bankName.setText(bankName)
-                        // Handle the response here
-                    } else {
-                        loadingDialog.dismiss()
+            if (!mViewModel.bankDetailsResponse.hasActiveObservers()) {
+                mViewModel.bankDetailsResponse.observe(requireActivity()) {
+                    when (it.status) {
+                        Resource.Status.LOADING -> {
+                            loadingDialog.show()
+                        }
 
-                        val errorJson = JsonObject()
-                        errorJson.addProperty("result", 400)
-                        errorJson.addProperty("message", "Your bank balance is exhausted, please use basic validation or top up your account")
+                        Resource.Status.NOTVERIFY -> {
+                            loadingDialog.dismiss()
 
-                        val responseJson = JsonObject()
-                        responseJson.add("error", errorJson)
-                        responseJson.add("data", JsonObject())
+                        }
 
-                        val jsonResponse = Gson().toJson(responseJson)
-                        Log.d("123123", "apiCall: $jsonResponse")
+                        Resource.Status.SUCCESS -> {
+                            loadingDialog.dismiss()
 
-                        if (isAdded) {
-                            mViewDataBinding.root.snackbar(jsonResponse)
+                            it.data?.let { data ->
+                                try {
+
+                                    mViewDataBinding.bankName.setText(data.data.bank_data.name)
+                                } catch (e: Exception) {
+
+                                }
+
+                            }
+                        }
+
+                        Resource.Status.AUTH -> {
+                            loadingDialog.dismiss()
+                            if (isAdded) {
+                                try {
+                                    onToSignUpPage()
+                                } catch (e: Exception) {
+                                    e.printStackTrace()
+                                }
+                            }
+                        }
+
+                        Resource.Status.ERROR -> {
+                            loadingDialog.dismiss()
+                            DialogHelperClass.errorDialog(requireContext(), it.message!!)
                         }
                     }
-                } catch (e: Exception) {
-                    e.printStackTrace()
+                    if (isAdded) {
+                        mViewModel.bankDetailsResponse.removeObservers(viewLifecycleOwner)
+                    }
                 }
             }
+
+
         }
 
         mViewModel.me()
@@ -437,7 +504,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                             ibanNumber = data.user.bank?.account.toString()
                             mViewDataBinding.simpleProgressBar.secondaryProgress = progress
 
-                            if(progress == 100){
+                            if (progress == 100) {
                                 mViewDataBinding.imgVerify.visibility = View.VISIBLE
                             }
 
@@ -506,31 +573,45 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                 Resource.Status.SUCCESS -> {
                     it.data?.let { data ->
                         activeUser = data
+                        try {
 
-                     var   intColor = Color.parseColor(data.activeLevel.color)
-                        mViewDataBinding.title.text  = activeUser.activeLevel.title
-                        mViewDataBinding.title.setTextColor(intColor)
-                        val shapeDrawable = ContextCompat.getDrawable(
-                            requireContext(),
-                            R.drawable.border_background
-                        ) as GradientDrawable
-                        val strokeWidth =
-                            context?.resources?.getDimensionPixelSize(R.dimen._2sdp)
-                        if (strokeWidth != null) {
-                            shapeDrawable.setStroke(strokeWidth, intColor)
+
+                            var intColor = Color.parseColor(data.activeLevel.color)
+                            mViewDataBinding.title.text = activeUser.activeLevel.title
+                            mViewDataBinding.title.setTextColor(intColor)
+                            val shapeDrawable = ContextCompat.getDrawable(
+                                requireContext(),
+                                R.drawable.border_background
+                            ) as GradientDrawable
+                            val strokeWidth =
+                                context?.resources?.getDimensionPixelSize(R.dimen._2sdp)
+                            if (strokeWidth != null) {
+                                shapeDrawable.setStroke(strokeWidth, intColor)
+                            }
+                            mViewDataBinding.profilePicture.background = shapeDrawable
+
+                            mViewDataBinding.premium.setBackgroundColor(intColor)
+
+                            Picasso.get().load(data.activeLevel.icon)
+                                .placeholder(R.drawable.baseline_person)
+                                .error(R.drawable.baseline_person).resize(500, 500)
+                                .into(mViewDataBinding.premium)
+                        } catch (e: Exception) {
+
                         }
-                        mViewDataBinding.profilePicture.background = shapeDrawable
-
-                        mViewDataBinding.premium.setBackgroundColor(intColor)
-
-                        Picasso.get().load(data.activeLevel.icon)
-                            .placeholder(R.drawable.baseline_person)
-                            .error(R.drawable.baseline_person).resize(500, 500).into(mViewDataBinding.premium)
 
                     }
                 }
 
                 Resource.Status.AUTH -> {
+                    loadingDialog.dismiss()
+                    if (isAdded) {
+                        try {
+                            onToSignUpPage()
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                    }
                     Log.d("destinationsdsd", "AUTH: ")
                 }
 
@@ -751,14 +832,16 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                     params.addProperty("image", imageUrl)
 
                     val bank = Bank(
-                                bank_name = bankName,
-                                account = ibanNumber
-                            )
+                        bank_name = bankName,
+                        account = ibanNumber
+                    )
 
-
-                    params.add(
+                    if (bank.account.isNotEmpty()) {
+                        params.add(
                             "bank", Gson().toJsonTree(bank)
                         )
+                    }
+
 
 
                     if (docsArrayList.isNotEmpty()) {
@@ -798,55 +881,62 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
 
         mViewDataBinding.btnVerifyPhone.setOnClickListener {
 
+
             userPhone = mViewDataBinding.phone.text.toString()
 
-            val params = JsonObject()
-            try {
-                params.addProperty("phone", userPhone)
-                params.addProperty("userId", userId)
-            } catch (e: JSONException) {
-                e.printStackTrace()
-            }
-            mViewModel.resendOtp(params)
-            if (!mViewModel.resendOtpResponse.hasActiveObservers()) {
-                mViewModel.resendOtpResponse.observe(requireActivity()) {
-                    when (it.status) {
-                        Resource.Status.LOADING -> {
-                            loadingDialog.show()
-                        }
+            if (userPhone.isEmpty()) {
+                mViewDataBinding.root.snackbar(getString(R.string.enter_phone))
+            } else {
 
-                        Resource.Status.NOTVERIFY -> {
-                            loadingDialog.dismiss()
-                        }
 
-                        Resource.Status.SUCCESS -> {
-                            val bundle = Bundle()
-                            bundle.putString("phone", userPhone)
-                            loadingDialog.dismiss()
-                            findNavController().navigate(
-                                com.teamx.equiz.R.id.otpPhoneFragment, bundle, options
-                            )
+                val params = JsonObject()
+                try {
+                    params.addProperty("phone", userPhone)
+                    params.addProperty("userId", userId)
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+                mViewModel.resendOtp(params)
+                if (!mViewModel.resendOtpResponse.hasActiveObservers()) {
+                    mViewModel.resendOtpResponse.observe(requireActivity()) {
+                        when (it.status) {
+                            Resource.Status.LOADING -> {
+                                loadingDialog.show()
+                            }
 
-                        }
+                            Resource.Status.NOTVERIFY -> {
+                                loadingDialog.dismiss()
+                            }
 
-                        Resource.Status.AUTH -> {
-                            loadingDialog.dismiss()
-                            if (isAdded) {
-                                try {
-                                    onToSignUpPage()
-                                } catch (e: Exception) {
-                                    e.printStackTrace()
+                            Resource.Status.SUCCESS -> {
+                                val bundle = Bundle()
+                                bundle.putString("phone", userPhone)
+                                loadingDialog.dismiss()
+                                findNavController().navigate(
+                                    com.teamx.equiz.R.id.otpPhoneFragment, bundle, options
+                                )
+
+                            }
+
+                            Resource.Status.AUTH -> {
+                                loadingDialog.dismiss()
+                                if (isAdded) {
+                                    try {
+                                        onToSignUpPage()
+                                    } catch (e: Exception) {
+                                        e.printStackTrace()
+                                    }
                                 }
                             }
-                        }
 
-                        Resource.Status.ERROR -> {
-                            loadingDialog.dismiss()
-                            DialogHelperClass.errorDialog(requireContext(), it.message!!)
+                            Resource.Status.ERROR -> {
+                                loadingDialog.dismiss()
+                                DialogHelperClass.errorDialog(requireContext(), it.message!!)
+                            }
                         }
-                    }
-                    if (isAdded) {
-                        mViewModel.resendOtpResponse.removeObservers(viewLifecycleOwner)
+                        if (isAdded) {
+                            mViewModel.resendOtpResponse.removeObservers(viewLifecycleOwner)
+                        }
                     }
                 }
             }
@@ -857,57 +947,63 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
         mViewDataBinding.btnVerifyEmail.setOnClickListener {
             userEmail = mViewDataBinding.email.text.toString()
 
-            val params = JsonObject()
-            try {
-                params.addProperty("email", userEmail)
-                params.addProperty("userId", userId)
-            } catch (e: JSONException) {
-                e.printStackTrace()
-            }
-            mViewModel.resendOtp(params)
-            if (!mViewModel.resendOtpResponse.hasActiveObservers()) {
-                mViewModel.resendOtpResponse.observe(requireActivity()) {
-                    when (it.status) {
-                        Resource.Status.LOADING -> {
-                            loadingDialog.show()
-                        }
 
-                        Resource.Status.NOTVERIFY -> {
-                            loadingDialog.dismiss()
-                        }
+            if (userEmail.isEmpty()) {
+                mViewDataBinding.root.snackbar(getString(R.string.enter_email))
+            } else {
 
-                        Resource.Status.SUCCESS -> {
-                            val bundle = Bundle()
-                            bundle.putString("email", userEmail)
-                            loadingDialog.dismiss()
-                            findNavController().navigate(
-                                com.teamx.equiz.R.id.otpEmailFragment, bundle, options
-                            )
 
-                        }
+                val params = JsonObject()
+                try {
+                    params.addProperty("email", userEmail)
+                    params.addProperty("userId", userId)
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+                mViewModel.resendOtp(params)
+                if (!mViewModel.resendOtpResponse.hasActiveObservers()) {
+                    mViewModel.resendOtpResponse.observe(requireActivity()) {
+                        when (it.status) {
+                            Resource.Status.LOADING -> {
+                                loadingDialog.show()
+                            }
 
-                        Resource.Status.AUTH -> {
-                            loadingDialog.dismiss()
-                            if (isAdded) {
-                                try {
-                                    onToSignUpPage()
-                                } catch (e: Exception) {
-                                    e.printStackTrace()
+                            Resource.Status.NOTVERIFY -> {
+                                loadingDialog.dismiss()
+                            }
+
+                            Resource.Status.SUCCESS -> {
+                                val bundle = Bundle()
+                                bundle.putString("email", userEmail)
+                                loadingDialog.dismiss()
+                                findNavController().navigate(
+                                    com.teamx.equiz.R.id.otpEmailFragment, bundle, options
+                                )
+
+                            }
+
+                            Resource.Status.AUTH -> {
+                                loadingDialog.dismiss()
+                                if (isAdded) {
+                                    try {
+                                        onToSignUpPage()
+                                    } catch (e: Exception) {
+                                        e.printStackTrace()
+                                    }
                                 }
                             }
-                        }
 
-                        Resource.Status.ERROR -> {
-                            loadingDialog.dismiss()
-                            DialogHelperClass.errorDialog(requireContext(), it.message!!)
+                            Resource.Status.ERROR -> {
+                                loadingDialog.dismiss()
+                                DialogHelperClass.errorDialog(requireContext(), it.message!!)
+                            }
                         }
-                    }
-                    if (isAdded) {
-                        mViewModel.resendOtpResponse.removeObservers(viewLifecycleOwner)
+                        if (isAdded) {
+                            mViewModel.resendOtpResponse.removeObservers(viewLifecycleOwner)
+                        }
                     }
                 }
             }
-
 
         }
 
@@ -1180,6 +1276,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
             override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
                 super.onPageStarted(view, url, favicon)
                 if (favicon != null) {
+                    Log.d("TAG", "onPageStarted: ")
                     // Handle favicon
                 }
             }
@@ -1191,6 +1288,9 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                     val code = uri.getQueryParameter("code")
                     if (code != null) {
                         exchangeAuthorizationCodeForAccessToken(code)
+
+                        Log.d("TAG", "shouldOverrideUrlLoading: ")
+
                     }
                     return true
                 }

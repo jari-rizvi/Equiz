@@ -7,7 +7,7 @@ data class Product(
     val createdAt: String,
     val currency: String,
     val description: String,
-    val facilities: List<Facility>,
+//    val facilities: List<Facility>,
     val images: List<String>,
     val isActive: Boolean,
     val isCancelable: Boolean,

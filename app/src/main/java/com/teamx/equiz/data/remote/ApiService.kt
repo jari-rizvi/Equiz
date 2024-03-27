@@ -14,6 +14,7 @@ import com.teamx.equiz.data.models.bannerData.news_banner.NewsBanner
 import com.teamx.equiz.data.models.coupons.CouponsData
 import com.teamx.equiz.data.models.delete_wishlist.DeleteWishListData
 import com.teamx.equiz.data.models.editProfile.EditProfileData
+import com.teamx.equiz.data.models.exchangeRate.ExchangeRateData
 import com.teamx.equiz.data.models.forgotpassData.ForgotPassData
 import com.teamx.equiz.data.models.getPlan.GerPlanData
 import com.teamx.equiz.data.models.getProductById.GetProductById
@@ -280,7 +281,8 @@ interface ApiService {
         @Part images: List<MultipartBody.Part>,
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<ModelUploadImage>
- @Multipart
+
+    @Multipart
     @POST(NetworkCallPoints.UPLOAD_DOC_IMG)
     suspend fun uploadDocImg(
         @Part images: List<MultipartBody.Part>,
@@ -450,7 +452,8 @@ interface ApiService {
         @Body params: JsonObject?,
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<NotificationSettingsData>
-  @PATCH(NetworkCallPoints.BUY_SUBSCRIPTION)
+
+    @PUT(NetworkCallPoints.BUY_SUBSCRIPTION)
     suspend fun buySubscription(
         @Body params: JsonObject?,
         @Header("token") basicCredentials: String = "$TOKENER"
@@ -475,10 +478,10 @@ interface ApiService {
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<ResponseBody>
 
- @GET(NetworkCallPoints.GET_CAT_PLANS)
+    @GET(NetworkCallPoints.GET_CAT_PLANS)
     suspend fun getCatPlans(
-     @Query("archive") archive: Boolean?,
-     @Header("token") basicCredentials: String = "$TOKENER"
+        @Query("archive") archive: Boolean?,
+        @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<CatPlanData>
 
     @GET(NetworkCallPoints.GET_PLAN_CAT_BY_ID)
@@ -507,6 +510,18 @@ interface ApiService {
         @Body params: JsonObject?,
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<OrderDetailData>
+
+    @POST(NetworkCallPoints.BANK_DETAILS)
+    suspend fun bankDetails(
+        @Body params: JsonObject?,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<BankData>
+
+    @POST(NetworkCallPoints.EXCHANGE_RATE)
+    suspend fun exchangeRate(
+        @Body params: JsonObject?,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<ExchangeRateData>
 
 
 }

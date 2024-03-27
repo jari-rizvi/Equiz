@@ -95,8 +95,8 @@ class NetworkCallPoints {
         const val SCRATCH_IMAGE ="api/scratchcard/find/{id}"
         const val SUBMIT_CLAIM ="api/raffle/claimed"
         const val CANCEL_ORDER ="api/orders/cancel-order/{id}"
-
-
+        const val BANK_DETAILS ="api/point/validate-iban"
+        const val EXCHANGE_RATE ="api/point/exchange-rate"
 
 
 

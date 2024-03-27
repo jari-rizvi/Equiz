@@ -24,6 +24,7 @@ class PrefHelper private constructor() {
         private val MERCHANT_ID = "merchant_id"
         private val ORDER_ID = "order_id"
         private val USER_ID = "user_id"
+        private val AMOUNT = "amount"
         private const val USER_DATA = "USERDATA"
         private val USER_PREM = "user_prem"
         private val WALLET_AMOUNT = "wallet_amount"
@@ -34,7 +35,7 @@ class PrefHelper private constructor() {
         private const val favouriteShop = "_favouriteShop"
         private const val favouriteProduct = "_favouriteProduct"
         private const val shippingConst2 = "_shippingAddress2"
-        private const val carConst = "_carConstant"
+        private const val _exchangeRate = "e_Rate"
         private const val userCredentials = "_userCredential"
         private const val STRIPE_ID = "stripe"
         private const val STRIPE_Name = "stripe_name"
@@ -225,24 +226,8 @@ class PrefHelper private constructor() {
 
 
     @Keep
-    data class CarDetails(var carPlate: String, var carImg: String)
-
-
-    @Keep
     data class UserCredential(var email: String?,var phone: String?, var Password: String, var isDetection : Boolean)
 
-    fun setCarDetails(carDetails: CarDetails?) {
-        val gson = Gson()
-        val str = gson.toJson(carDetails)
-        sharedPreferences.edit().putString(carConst, str).apply()
-    }
-
-    fun getCarDetails(): CarDetails? {
-        val gson = Gson()
-        return gson.fromJson(
-            sharedPreferences.getString(carConst, ""), CarDetails::class.java
-        )
-    }
 
 
     fun setCredentials(userCredential: UserCredential?) {
@@ -290,6 +275,23 @@ class PrefHelper private constructor() {
     fun setCountry(selectCountry: String) {
         sharedPreferences.edit().putString("country", selectCountry).apply()
     }
+
+    @Keep
+    data class ExchangeRatee(var CC: String, var rate: Int)
+
+    fun setExchangeRate(exchangeRate: ExchangeRatee?) {
+        val gson = Gson()
+        val str = gson.toJson(exchangeRate)
+        sharedPreferences.edit().putString(_exchangeRate, str).apply()
+    }
+
+    fun getExchangeRate(): ExchangeRatee? {
+        val gson = Gson()
+        return gson.fromJson(
+            sharedPreferences.getString(_exchangeRate, ""), ExchangeRatee::class.java
+        )
+    }
+
 
 
     fun setFavouriteShop(shippingAddress: List<String>) {
@@ -365,6 +367,14 @@ class PrefHelper private constructor() {
         val long = currentLatLng.longitude.toFloat()
         sharedPreferences.edit().putFloat(_lat, lat).apply()
         sharedPreferences.edit().putFloat(_long, long).apply()
+
+    }
+
+
+    val getAmount: String? get() = sharedPreferences.getString(AMOUNT, "")
+
+    fun saveAmount(amount: String) {
+        sharedPreferences.edit().putString(AMOUNT, amount).apply()
 
     }
 
