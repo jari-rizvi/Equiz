@@ -38,13 +38,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/card_background_less_radius"
-                android:text="Now" />
+                android:text="@string/now" />
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/card_background_less_radius"
-                android:text="Total" />
+                android:text="@string/total" />
 
         </com.google.android.material.tabs.TabLayout>
 
@@ -85,7 +85,7 @@
             android:paddingVertical="@dimen/_5sdp"
             android:textAlignment="center"
             android:textColor="#9F81CA"
-            android:text="Wins"
+            android:text="@string/wins"
             android:textSize="@dimen/_12ssp"
             app:layout_constraintEnd_toStartOf="@+id/textView77"
             app:layout_constraintHorizontal_bias="0.5"
@@ -102,7 +102,7 @@
             android:textAlignment="center"
             android:textColor="@color/red"
             android:textSize="@dimen/_12ssp"
-            android:text="Losses"
+            android:text="@string/losses"
             app:layout_constraintBottom_toBottomOf="@+id/textView78"
             app:layout_constraintEnd_toEndOf="@+id/tabLayout2"
             app:layout_constraintHorizontal_bias="0.5"
@@ -118,7 +118,7 @@
             android:backgroundTint="#9F81CA"
             android:paddingVertical="@dimen/_5sdp"
             android:textAlignment="center"
-            android:text="High Score"
+            android:text="@string/highest_score"
             android:textColor="@color/white"
             android:textSize="@dimen/_12ssp"
             app:layout_constraintEnd_toEndOf="@+id/textView77"

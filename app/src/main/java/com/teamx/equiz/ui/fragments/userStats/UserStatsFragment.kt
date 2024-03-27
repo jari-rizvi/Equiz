@@ -100,7 +100,7 @@ class UserStatsFragment : BaseFragment<FragmentUserStatsBinding, LoginViewModel>
 
             when (position) {
                 0 -> {
-                    tab.text = "Home"
+                    tab.text = getString(R.string.home)
                     tab.icon = ContextCompat.getDrawable(
                         requireContext(),
                         R.drawable.homee_selector
@@ -108,7 +108,7 @@ class UserStatsFragment : BaseFragment<FragmentUserStatsBinding, LoginViewModel>
                 }
 
                 1 -> {
-                    tab.text = "Ranking"
+                    tab.text = getString(R.string.ranking)
                     tab.icon = ContextCompat.getDrawable(
                         requireContext(),
                         R.drawable.ranking_selector
@@ -116,7 +116,7 @@ class UserStatsFragment : BaseFragment<FragmentUserStatsBinding, LoginViewModel>
                 }
 
                 2 -> {
-                    tab.text = "Statics"
+                    tab.text = getString(R.string.statics)
                     tab.icon = ContextCompat.getDrawable(
                         requireContext(),
                         R.drawable.stats_selector
@@ -126,7 +126,7 @@ class UserStatsFragment : BaseFragment<FragmentUserStatsBinding, LoginViewModel>
 
                 3 -> {
                     Log.d("345345", "setupTabLayout: ")
-                    tab.text = "Games"
+                    tab.text = getString(R.string.games)
                     tab.icon = ContextCompat.getDrawable(
                         requireContext(),
                         R.drawable.game_selector

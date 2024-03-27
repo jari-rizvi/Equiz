@@ -256,11 +256,29 @@
 
 
 
-    <string name="facebook_app_id">428659309635685</string>
-    <string name="facebook_client_token">887864bbee69b53e7b27205cea4d8354</string>
+    <string name="facebook_app_id" translatable="false">428659309635685</string>
+    <string name="facebook_client_token" translatable="false">887864bbee69b53e7b27205cea4d8354</string>
     <string name="your_profile_progress">Your Profile Progress</string>
     <string name="account_number">Account Number</string>
     <string name="bank_name">Bank Name</string>
+    <string name="rank">Rank</string>
+    <string name="highest_score">Highest Score</string>
+    <string name="wins">Wins</string>
+    <string name="losses">Losses</string>
+    <string name="statics">Statics</string>
+    <string name="games">Games</string>
+    <string name="now">Now</string>
+    <string name="total">Total</string>
+    <string name="bank_details">Bank Details</string>
+    <string name="uploading_documents_id_passport_driving_license">Uploading Documents (ID, Passport, Driving license)</string>
+    <string name="upload_files_or_browse">Upload files or Browse</string>
+    <string name="supported_formats_jpeg">Supported formats: JPEG</string>
+    <string name="connect">Connect</string>
+    <string name="available_cards">Available cards</string>
+    <string name="start_games">Start Games</string>
+    <string name="push_notification">Push Notification</string>
+    <string name="delivered">Delivered</string>
+    <string name="cancelled">Cancelled</string>
 
 
 </resources>

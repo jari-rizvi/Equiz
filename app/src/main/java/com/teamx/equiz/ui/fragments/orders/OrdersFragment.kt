@@ -68,15 +68,15 @@ class OrdersFragment : BaseFragment<FragmentOrdersBinding, LoginViewModel>() {
 
             when (position) {
                 0 -> {
-                    tab.text = "Delivered"
+                    tab.text = getString(R.string.delivered)
                 }
 
                 1 -> {
-                    tab.text = "Processing"
+                    tab.text = getString(R.string.processing)
                 }
 
                 2 -> {
-                    tab.text = "Cancelled"
+                    tab.text = getString(R.string.cancelled)
                 }
             }
 

@@ -455,7 +455,7 @@
                             android:gravity="center_vertical|start"
                             android:paddingStart="@dimen/_7sdp"
                             android:paddingEnd="@dimen/_7sdp"
-                            android:text="Enable TouchId"
+                            android:text="@string/enable_touchid"
                             android:textAlignment="viewStart"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_11ssp"

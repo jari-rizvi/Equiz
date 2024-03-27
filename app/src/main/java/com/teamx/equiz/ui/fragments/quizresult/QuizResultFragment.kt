@@ -102,19 +102,13 @@ class QuizResultFragment : BaseFragment<FragmentQuizResultBinding, SingleQuizesV
                                 mViewDataBinding.textView4654545454.text= data.populatedQuizScoreData.userId.name
                             }
                             else{
-                                mViewDataBinding.textView4654545454.text= "Congratulations "+data.populatedQuizScoreData.userId.name
+                                mViewDataBinding.textView4654545454.text= "${getString(R.string.congratulations)} "+data.populatedQuizScoreData.userId.name
 
                             }
 
                             mViewDataBinding.supportResultTxt.text="You answered ${rightAnswer} questions correctly"
 
-
-
                             /*${String.format("%.3f", data.populatedQuizScoreData.score.toInt())}*/
-
-                            Log.d("TAG", "resulttt: ${data.chances}")
-                            Log.d("TAG", "resulttt: ${data}")
-                            Log.d("TAG", "resulttt: ${data.populatedQuizScoreData}")
                         }
                     }
                     Resource.Status.AUTH -> { loadingDialog.dismiss()
