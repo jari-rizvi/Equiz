@@ -34,6 +34,7 @@ import com.teamx.equiz.ui.fragments.subscription.catPlanById.Attribute
 import com.teamx.equiz.ui.fragments.subscription.catPlanById.Plan
 import com.teamx.equiz.ui.fragments.subscription.catPlansData.Data
 import com.teamx.equiz.utils.DialogHelperClass
+import com.teamx.equiz.utils.PrefHelper
 import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -70,6 +71,7 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
     lateinit var catArrayList: ArrayList<Plan>
 
     lateinit var subCatArrayList: ArrayList<Attribute>
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

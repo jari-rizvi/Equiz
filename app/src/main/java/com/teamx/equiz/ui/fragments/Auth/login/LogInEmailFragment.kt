@@ -410,8 +410,6 @@ class LogInEmailFragment : BaseFragment<FragmentLoginEmailBinding, LoginViewMode
     private fun addClientCountry() {
         mViewModel.viewModelScope.launch(Dispatchers.IO) {
             try {
-
-
                 val client = OkHttpClient()
                 val request = Request.Builder()
                     .url("https://ipwho.is/")

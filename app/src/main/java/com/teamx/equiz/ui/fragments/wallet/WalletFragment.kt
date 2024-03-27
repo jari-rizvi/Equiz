@@ -280,7 +280,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding, WalletViewModel>() {
 
                             mViewDataBinding.shimmerLayout.stopShimmer()
                             val formattedNumber = String.format("%.2f", data.data)
-                            mViewDataBinding.textView10.text = formattedNumber + " Points"
+                            mViewDataBinding.textView10.text = formattedNumber + getString(R.string.points)
 
                             PrefHelper.getInstance(requireContext()).saveAmount(formattedNumber)
 

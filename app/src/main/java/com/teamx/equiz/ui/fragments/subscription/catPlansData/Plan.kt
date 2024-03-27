@@ -12,7 +12,7 @@ data class Plan(
     val isBase: Boolean,
     val isFree: Boolean,
     val name: String,
-    val price: Any,
+    val price: Double,
     val stripeId: String,
     val stripePlaneId: String,
     val updatedAt: String

@@ -8,13 +8,15 @@ import com.bumptech.glide.Glide
 import com.teamx.equiz.MainApplication.Companion.context
 import com.teamx.equiz.databinding.ItemSubscriptionBinding
 import com.teamx.equiz.ui.fragments.subscription.catPlansData.Data
+import com.teamx.equiz.utils.PrefHelper
 
 
 class SubscriptionAdapter(
     val arrayList: ArrayList<Data>,
     var onSubsClick: onSubsClick
 ) : RecyclerView.Adapter<SubscriptionAdapter.SubscriptionViewHolder>() {
-
+    var e_rate = 1
+    var cc = ""
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SubscriptionViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -28,6 +30,15 @@ class SubscriptionAdapter(
 
         val subs: Data = arrayList[position]
 
+        var prefCar2 = PrefHelper.getInstance(holder.itemView.context).getExchangeRate()
+        if (prefCar2 == null) {
+            prefCar2 = PrefHelper.getInstance(holder.itemView.context).getExchangeRate()
+        }
+        prefCar2?.let {
+            cc = it.CC
+            e_rate = it.rate
+        }
+
         Glide.with(context).load(subs.image).into(holder.binding.imageView7)
 
         Log.d("TAG", "onBindViewHolder: ${subs.image}")
@@ -35,8 +46,12 @@ class SubscriptionAdapter(
 
         holder.binding.textView58.text = subs.title
         subs.plans.filter { it.isBase }.forEach {
-            holder.binding.textView61.text =
-                it.price.toString()
+            val price = it.price.toInt()
+            holder.binding.textView6111.text = (e_rate * price).toString()
+            holder.binding.textView61.text = cc
+            holder.binding.textView611.text = "/${it.interval}"
+
+
         }
 
 

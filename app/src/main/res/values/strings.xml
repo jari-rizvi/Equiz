@@ -279,6 +279,7 @@
     <string name="push_notification">Push Notification</string>
     <string name="delivered">Delivered</string>
     <string name="cancelled">Cancelled</string>
+    <string name="points">" Points"</string>
 
 
 </resources>

@@ -161,6 +161,7 @@
     <string name="processing">يعالج</string>
     <string name="delivered">تم التوصيل</string>
     <string name="cancelled">ألغيت</string>
+    <string name="points">" نقاط"</string>
     <string name="discount">تخفيض</string>
     <string name="sub_total">المجموع الفرعي</string>
     <string name="the_luck_of_the_draw_is_with_you">حظ السحب معك!</string>
