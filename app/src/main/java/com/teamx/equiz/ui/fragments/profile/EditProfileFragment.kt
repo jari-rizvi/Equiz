@@ -384,7 +384,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                             it.data?.let { data ->
                                 try {
 
-                                    mViewDataBinding.bankName.setText(data.data.bank.bank_name)
+                                    mViewDataBinding.bankName.setText(data.data.bank_data.name)
                                 } catch (e: Exception) {
 
                                 }

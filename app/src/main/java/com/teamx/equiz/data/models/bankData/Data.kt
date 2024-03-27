@@ -1,13 +1,10 @@
 package com.teamx.equiz.data.models.bankData
 
 data class Data(
-    val bank: Bank,
-    val bank_account: String,
-    val bban: String,
-    val country_code: String,
-    val country_name: String,
-    val currency_code: String,
-    val iso_alpha3: String,
-    val sepa: Sepa,
-    val sepa_member: String
+    val bank_data: BankDataX,
+    val country_iban_example: String,
+    val iban: String,
+    val iban_data: IbanData,
+    val message: String,
+    val valid: Boolean
 )
