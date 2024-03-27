@@ -115,6 +115,7 @@ class SubscriptionFragment : BaseFragment<FragmentSubscriptionBinding, Subscript
         }
 
 
+
         val id = arguments?.getString("subscription")
         val title = arguments?.getString("title")
 
