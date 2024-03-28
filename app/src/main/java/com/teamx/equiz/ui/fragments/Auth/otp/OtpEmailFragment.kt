@@ -15,6 +15,7 @@ import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.constants.NetworkCallPoints
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentOtpEmailBinding
+import com.teamx.equiz.ui.activity.mainActivity.MainActivity
 import com.teamx.equiz.utils.DialogHelperClass
 import com.teamx.equiz.utils.PrefHelper
 import com.teamx.equiz.utils.snackbar
@@ -141,6 +142,9 @@ class OtpEmailFragment : BaseFragment<FragmentOtpEmailBinding, OtpViewModel>() {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
                             PrefHelper.getInstance(requireContext()).saveUerId(it.data.user?._id ?: "")
+                            PrefHelper.getInstance(requireActivity()).setUserData(data)
+
+                            MainActivity.isiaDialog = false
 
                             var bundle = arguments
 

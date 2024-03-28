@@ -1,5 +1,6 @@
 package com.teamx.equiz.data.models.bankData
-import androidx.annotation.Keep
+
+import com.google.errorprone.annotations.Keep
 
 @Keep
 data class BankData(

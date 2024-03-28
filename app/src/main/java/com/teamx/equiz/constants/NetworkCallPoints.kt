@@ -9,6 +9,7 @@ class NetworkCallPoints {
         const val OTP_VERIFY ="api/auth/verifyOtp"
         const val OTP_VERIFY_FORGOT ="api/auth/otpReset/{uniqueID}"
         const val RESEND_OTP ="/api/auth/resendOTP"
+        const val RESEND_OTP_PROFILE ="/api/auth/resendProfile"
         const val ME = "api/users/find"
 //        const val UNSUB = "api/users/find"
         const val UNSUB = "api/subscription/cancel"
@@ -97,6 +98,7 @@ class NetworkCallPoints {
         const val CANCEL_ORDER ="api/orders/cancel-order/{id}"
         const val BANK_DETAILS ="api/point/validate-iban"
         const val EXCHANGE_RATE ="api/point/exchange-rate"
+        const val UPDATE_SOCIALS ="/api/social/update"
 
 
 

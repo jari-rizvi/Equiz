@@ -222,9 +222,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 //                        loadingDialog.dismiss()
 //                        mViewDataBinding.shimmerLayout.stopShimmer()
 //                        mViewDataBinding.shimmerLayout.visibility = View.GONE
-                        DialogHelperClass.errorDialog(
-                            requireContext(), it.message!!
-                        )
+                        mViewDataBinding.root.snackbar(it.message!!)
+
                     }
                 }
                 if (isAdded) {
@@ -295,9 +294,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 //                        loadingDialog.dismiss()
 //                        mViewDataBinding.shimmerLayout.stopShimmer()
 //                        mViewDataBinding.shimmerLayout.visibility = View.GONE
-                        DialogHelperClass.errorDialog(
-                            requireContext(), it.message!!
-                        )
+                        mViewDataBinding.root.snackbar(it.message!!)
+
                     }
                 }
                 if (isAdded) {
@@ -338,34 +336,34 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
                             Log.d("TAG", "chalaaa: ")
 
-                           if(uData?.user?.profileProgress!! < 100){
-                            if (!isiaDialog) {
-                                activeUser?.let { it1 ->
-                                    DialogHelperClass.UserProgressDialog(
-                                        requireContext(),
-                                        object : DialogHelperClass.Companion.UserProgressCallBack {
-                                            override fun onCloseClick() {
+                            if (uData?.user?.profileProgress ?: 10 < 100) {
+                                if (!isiaDialog) {
+                                    activeUser?.let { it1 ->
+                                        DialogHelperClass.UserProgressDialog(
+                                            requireContext(),
+                                            object :
+                                                DialogHelperClass.Companion.UserProgressCallBack {
+                                                override fun onCloseClick() {
 
-                                            }
+                                                }
 
-                                            override fun onEditClick() {
-                                                findNavController().navigate(
-                                                    R.id.editProfileFragment,
-                                                    bundle,
-                                                    options
-                                                )
+                                                override fun onEditClick() {
+                                                    findNavController().navigate(
+                                                        R.id.editProfileFragment,
+                                                        bundle,
+                                                        options
+                                                    )
 
-                                            }
+                                                }
 
 
-                                        }, activeUserModel = it1
-                                    ).show()
+                                            }, activeUserModel = it1
+                                        ).show()
+                                    }
                                 }
-                            }
-                           }
-                            else{
+                            } else {
 
-                           }
+                            }
 
 
                             isiaDialog = true
@@ -385,9 +383,12 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 //                        loadingDialog.dismiss()
 //                        mViewDataBinding.shimmerLayout.stopShimmer()
 //                        mViewDataBinding.shimmerLayout.visibility = View.GONE
-                        DialogHelperClass.errorDialog(
-                            requireContext(), it.message!!
-                        )
+                        try {
+                            mViewDataBinding.root.snackbar(it.message!!)
+
+                        } catch (e: Exception) {
+
+                        }
                     }
                 }
                 if (isAdded) {
@@ -1330,8 +1331,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                                         data.data.info.rate.toInt()
                                     )
                                 )
+                            } catch (e: Exception) {
                             }
-                            catch (e:Exception){}
 
 
                         }

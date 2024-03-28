@@ -27,6 +27,7 @@ import androidx.databinding.adapters.TextViewBindingAdapter.setText
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavOptions
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -52,6 +53,7 @@ import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.constants.NetworkCallPoints
 import com.teamx.equiz.data.models.editProfile.IdentityDocument
+import com.teamx.equiz.data.models.loginData.LoginData
 import com.teamx.equiz.data.remote.ApiService
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentEditProfileBinding
@@ -62,6 +64,7 @@ import com.teamx.equiz.utils.DialogHelperClass
 import com.teamx.equiz.utils.PrefHelper
 import com.teamx.equiz.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -114,6 +117,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
 
     private lateinit var imageUrl: String
     private lateinit var userName: String
+    private lateinit var lastUserName: String
     private lateinit var userEmail: String
     private var progress by Delegates.notNull<Int>()
     private var imgDocUrl = ""
@@ -200,6 +204,73 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                     profilePictureUrl = url
                 }
 
+                val params = JsonObject()
+                try {
+                    val socials = Socials(
+                        label = "instagram",
+                        id = userID.toString(),
+                        name = fullName.toString()
+                    )
+                    params.add(
+                        "social", Gson().toJsonTree(socials)
+                    )
+
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+
+                mViewModel.updateSocials(params)
+
+                if (!mViewModel.updateSocialsResponse.hasActiveObservers()) {
+                    mViewModel.updateSocialsResponse.observe(requireActivity()) {
+                        when (it.status) {
+                            Resource.Status.LOADING -> {
+                                loadingDialog.show()
+                            }
+
+                            Resource.Status.NOTVERIFY -> {
+                                loadingDialog.dismiss()
+
+                            }
+
+                            Resource.Status.SUCCESS -> {
+                                loadingDialog.dismiss()
+
+                                it.data?.let { data ->
+
+                                    Log.d("TAG", "onSuccess: $data")
+                                    mViewDataBinding.btnInsta1.visibility = View.VISIBLE
+                                    mViewDataBinding.btnInsta.visibility = View.GONE
+                                    mViewDataBinding.root.snackbar(
+                                        data.message
+                                    )
+
+
+                                }
+                            }
+
+                            Resource.Status.AUTH -> {
+                                loadingDialog.dismiss()
+                                if (isAdded) {
+                                    try {
+                                        onToSignUpPage()
+                                    } catch (e: Exception) {
+                                        e.printStackTrace()
+                                    }
+                                }
+                            }
+
+                            Resource.Status.ERROR -> {
+                                loadingDialog.dismiss()
+                                DialogHelperClass.errorDialog(requireContext(), it.message!!)
+                            }
+                        }
+                        if (isAdded) {
+                            mViewModel.updateSocialsResponse.removeObservers(viewLifecycleOwner)
+                        }
+                    }
+                }
+
                 Log.d("TAG", "fetchInstagramProfile: $email")
                 Log.d("TAG", "fetchInstagramProfile: $userID")
                 Log.d("TAG", "fetchInstagramProfile: $lastName")
@@ -239,7 +310,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
             }
         }
         FacebookSdk.sdkInitialize(requireContext())
-        FacebookSdk.setApplicationId("428659309635685")
+        FacebookSdk.setApplicationId("1600293860805234")
 
 
         mViewDataBinding.btnSc.setOnClickListener {
@@ -384,7 +455,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                             it.data?.let { data ->
                                 try {
 
-                                    mViewDataBinding.bankName.setText(data.data.bank_data.name)
+                                    mViewDataBinding.bankName.setText(data.data.iban_data.bank_code)
                                 } catch (e: Exception) {
 
                                 }
@@ -461,6 +532,32 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                                 mViewDataBinding.phoneImgNotVerify.visibility = View.VISIBLE
                             }
 
+                            CoroutineScope(Dispatchers.Main).launch {
+                                dataStoreProvider.token.collect {
+                                    Timber.tag("TAG").d("CoroutineScope ${it}")
+                                    val LoginData = it?.let { it1 -> LoginData(token = it1,data.user) }
+                                    PrefHelper.getInstance(requireActivity()).setUserData(LoginData)
+                                    }
+
+                            }
+
+
+                            data.user.social.forEach {
+                                if (it.isConnected && it.label == "facebook") {
+                                    mViewDataBinding.btnFb1.visibility = View.VISIBLE
+                                    mViewDataBinding.btnFb.visibility = View.GONE
+//                                    mViewDataBinding.btnFb.setBackgroundColor(R.color.neoGreen)
+//                                    mViewDataBinding.btnFb.isClickable == false
+
+                                }
+
+                                if (it.isConnected && it.label == "instagram") {
+                                    mViewDataBinding.btnInsta1.visibility = View.VISIBLE
+                                    mViewDataBinding.btnInsta.visibility = View.GONE
+
+                                }
+                            }
+
 
                             var bundle = arguments
                             if (bundle == null) {
@@ -504,12 +601,18 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                             ibanNumber = data.user.bank?.account.toString()
                             mViewDataBinding.simpleProgressBar.secondaryProgress = progress
 
+                            mViewDataBinding.progress.text = progress.toString() + "%"
+
+
+
+
                             if (progress == 100) {
                                 mViewDataBinding.imgVerify.visibility = View.VISIBLE
                             }
 
 
                             mViewDataBinding.userName.setText(data.user.name)
+                            mViewDataBinding.lastName.setText(data.user.lastName ?: "")
                             mViewDataBinding.dob.text = data.user.dateOfBirth
                             mViewDataBinding.phone.setText(data.user.phone)
                             mViewDataBinding.email.setText(data.user.email)
@@ -652,6 +755,8 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                             mViewDataBinding.phone.setText(data.user.phone ?: "")
                             mViewDataBinding.email.setText(data.user.email ?: "")
                             mViewDataBinding.dob.setText(data.user.dateOfBirth ?: "")
+                            mViewDataBinding.userName.setText(data.user.firstName ?: "")
+                            mViewDataBinding.lastName.setText(data.user.lastName ?: "")
 
                             try {
                                 val uData = PrefHelper.getInstance(requireActivity()).getUserData()
@@ -771,7 +876,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
 //                        docsArrayList.clear()
 //
                         data.data.forEach {
-                            docsArrayList.add(IdentityDocument(it, null, it, null))
+                            docsArrayList.add(IdentityDocument(it, false, it, null))
                         }
 
 
@@ -823,12 +928,15 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
             linkInsta = mViewDataBinding.instagram.text.toString()
 
             userName = mViewDataBinding.userName.text.toString()
+            lastUserName = mViewDataBinding.lastName.text.toString()
+            bankName = mViewDataBinding.bankName.text.toString()
             if (userName.isNotEmpty()) {
                 val params = JsonObject()
                 try {
                     params.addProperty("email", userEmail)
-                    params.addProperty("DOB", dob)
-                    params.addProperty("username", userName)
+                    params.addProperty("dateOfBirth", dob)
+                    params.addProperty("firstName", userName)
+                    params.addProperty("lastName", lastUserName)
                     params.addProperty("image", imageUrl)
 
                     val bank = Bank(
@@ -896,9 +1004,9 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
-                mViewModel.resendOtp(params)
-                if (!mViewModel.resendOtpResponse.hasActiveObservers()) {
-                    mViewModel.resendOtpResponse.observe(requireActivity()) {
+                mViewModel.resendOtpProfile(params)
+                if (!mViewModel.resendOtpPRofileResponse.hasActiveObservers()) {
+                    mViewModel.resendOtpPRofileResponse.observe(requireActivity()) {
                         when (it.status) {
                             Resource.Status.LOADING -> {
                                 loadingDialog.show()
@@ -935,7 +1043,7 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                             }
                         }
                         if (isAdded) {
-                            mViewModel.resendOtpResponse.removeObservers(viewLifecycleOwner)
+                            mViewModel.resendOtpPRofileResponse.removeObservers(viewLifecycleOwner)
                         }
                     }
                 }
@@ -960,9 +1068,9 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
-                mViewModel.resendOtp(params)
-                if (!mViewModel.resendOtpResponse.hasActiveObservers()) {
-                    mViewModel.resendOtpResponse.observe(requireActivity()) {
+                mViewModel.resendOtpProfile(params)
+                if (!mViewModel.resendOtpPRofileResponse.hasActiveObservers()) {
+                    mViewModel.resendOtpPRofileResponse.observe(requireActivity()) {
                         when (it.status) {
                             Resource.Status.LOADING -> {
                                 loadingDialog.show()
@@ -999,16 +1107,13 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
                             }
                         }
                         if (isAdded) {
-                            mViewModel.resendOtpResponse.removeObservers(viewLifecycleOwner)
+                            mViewModel.resendOtpPRofileResponse.removeObservers(viewLifecycleOwner)
                         }
                     }
                 }
             }
 
         }
-
-
-
 
         docsRecyclerview()
     }
@@ -1358,7 +1463,77 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
 
 
                     val idTokenFb = result.accessToken.token
+                    val id = result.accessToken.userId
                     Timber.tag("TAG").d("1stfbToken: $idTokenFb")
+
+
+                    val params = JsonObject()
+                    try {
+                        val socials = Socials(
+                            label = "facebook",
+                            id = id,
+                            name = "saad"
+                        )
+                        params.add(
+                            "social", Gson().toJsonTree(socials)
+                        )
+
+                    } catch (e: JSONException) {
+                        e.printStackTrace()
+                    }
+
+                    mViewModel.updateSocials(params)
+
+                    if (!mViewModel.updateSocialsResponse.hasActiveObservers()) {
+                        mViewModel.updateSocialsResponse.observe(requireActivity()) {
+                            when (it.status) {
+                                Resource.Status.LOADING -> {
+                                    loadingDialog.show()
+                                }
+
+                                Resource.Status.NOTVERIFY -> {
+                                    loadingDialog.dismiss()
+
+                                }
+
+                                Resource.Status.SUCCESS -> {
+                                    loadingDialog.dismiss()
+
+                                    it.data?.let { data ->
+
+                                        Log.d("TAG", "onSuccess: $data")
+                                        mViewDataBinding.btnFb1.visibility = View.VISIBLE
+                                        mViewDataBinding.btnFb.visibility = View.GONE
+                                        mViewDataBinding.root.snackbar(
+                                            data.message
+                                        )
+
+
+
+                                    }
+                                }
+
+                                Resource.Status.AUTH -> {
+                                    loadingDialog.dismiss()
+                                    if (isAdded) {
+                                        try {
+                                            onToSignUpPage()
+                                        } catch (e: Exception) {
+                                            e.printStackTrace()
+                                        }
+                                    }
+                                }
+
+                                Resource.Status.ERROR -> {
+                                    loadingDialog.dismiss()
+                                    DialogHelperClass.errorDialog(requireContext(), it.message!!)
+                                }
+                            }
+                            if (isAdded) {
+                                mViewModel.updateSocialsResponse.removeObservers(viewLifecycleOwner)
+                            }
+                        }
+                    }
 
 
                 }
@@ -1563,7 +1738,9 @@ class EditProfileFragment : BaseFragment<FragmentEditProfileBinding, EditProfile
 
 @Keep
 open class Socials(
-    open val link: String,
+    open val label: String,
+    open val id: String,
+    open val name: String,
 )
 
 @Keep

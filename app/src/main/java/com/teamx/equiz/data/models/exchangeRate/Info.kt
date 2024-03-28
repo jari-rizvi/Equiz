@@ -4,5 +4,5 @@ import androidx.annotation.Keep
 @Keep
 data class Info(
     val rate: Double,
-    val timestamp: Int
+    val timestamp: Any
 )

@@ -15,6 +15,7 @@ import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.constants.NetworkCallPoints
 import com.teamx.equiz.data.remote.Resource
 import com.teamx.equiz.databinding.FragmentOtpPhoneBinding
+import com.teamx.equiz.ui.activity.mainActivity.MainActivity
 import com.teamx.equiz.utils.DialogHelperClass
 import com.teamx.equiz.utils.PrefHelper
 import dagger.hilt.android.AndroidEntryPoint
@@ -145,6 +146,9 @@ class OtpPhoneFragment : BaseFragment<FragmentOtpPhoneBinding, OtpViewModel>() {
                         loadingDialog.dismiss()
                         it.data?.let { data ->
                             PrefHelper.getInstance(requireContext()).saveUerId(it.data.user?._id ?: "")
+                            PrefHelper.getInstance(requireActivity()).setUserData(data)
+
+                            MainActivity.isiaDialog = false
 
                             var bundle = arguments
 

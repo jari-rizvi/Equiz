@@ -369,7 +369,7 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
             mViewDataBinding.pts5.isChecked = false
             if (mViewDataBinding.editText.text.toString().isEmpty()) {
                 priceAddTopUp = 0
-                mViewDataBinding.img.text = "".toString()
+//                mViewDataBinding.img.text = "".toString()
 
 
                 mViewDataBinding.pts1.isChecked = false
@@ -386,7 +386,7 @@ class TopupFragment : BaseFragment<FragmentTopUpBinding, TopupViewModel>(), OnTo
 
 
             } else {
-                mViewDataBinding.img.text = mViewDataBinding.editText.text.toString()
+//                mViewDataBinding.img.text = mViewDataBinding.editText.text.toString()
                 priceAddTopUp = mViewDataBinding.editText.text.toString().toInt()
             }
         }

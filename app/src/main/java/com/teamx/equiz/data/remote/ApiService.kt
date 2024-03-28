@@ -5,6 +5,7 @@ import com.google.gson.JsonObject
 import com.teamx.equiz.constants.NetworkCallPoints
 import com.teamx.equiz.constants.NetworkCallPoints.Companion.TOKENER
 import com.teamx.equiz.data.models.ResendOtpData
+import com.teamx.equiz.data.models.Successs
 import com.teamx.equiz.data.models.addressbyid.GetAddressById
 import com.teamx.equiz.data.models.addtocart.AddtoCartData
 import com.teamx.equiz.data.models.addtowishlist.AddToWishlistData
@@ -203,6 +204,8 @@ interface ApiService {
 
     @POST(NetworkCallPoints.RESEND_OTP)
     suspend fun resendOtp(@Body params: JsonObject?): Response<ResendOtpData>
+ @POST(NetworkCallPoints.RESEND_OTP_PROFILE)
+    suspend fun resendOtpProfile(@Body params: JsonObject?): Response<ResendOtpData>
 
     @POST(NetworkCallPoints.SIGNUP_EMAIL)
     suspend fun Signup(@Body params: JsonObject?): Response<SignupData>
@@ -522,5 +525,10 @@ interface ApiService {
         @Header("token") basicCredentials: String = "$TOKENER"
     ): Response<ExchangeRateData>
 
+    @PUT(NetworkCallPoints.UPDATE_SOCIALS)
+    suspend fun updateSocials(
+        @Body params: JsonObject?,
+        @Header("token") basicCredentials: String = "$TOKENER"
+    ): Response<Successs>
 
 }

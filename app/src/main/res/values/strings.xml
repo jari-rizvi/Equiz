@@ -256,8 +256,8 @@
 
 
 
-    <string name="facebook_app_id" translatable="false">428659309635685</string>
-    <string name="facebook_client_token" translatable="false">887864bbee69b53e7b27205cea4d8354</string>
+    <string name="facebook_app_id" translatable="false">1600293860805234</string>
+    <string name="facebook_client_token" translatable="false">c4eec6f6d82e6f9a371ce1d56a263b62</string>
     <string name="your_profile_progress">Your Profile Progress</string>
     <string name="account_number">Account Number</string>
     <string name="bank_name">Bank Name</string>
@@ -280,6 +280,9 @@
     <string name="delivered">Delivered</string>
     <string name="cancelled">Cancelled</string>
     <string name="points">" Points"</string>
+    <string name="connected">connected</string>
+    <string name="active_user_ranking">Active User Ranking</string>
+    <string name="last_name">Last Name</string>
 
 
 </resources>

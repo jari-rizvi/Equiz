@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.gson.JsonObject
 import com.teamx.equiz.baseclasses.BaseViewModel
 import com.teamx.equiz.data.models.ResendOtpData
+import com.teamx.equiz.data.models.Successs
 import com.teamx.equiz.data.models.bankData.BankData
 import com.teamx.equiz.data.models.editProfile.EditProfileData
 import com.teamx.equiz.data.models.meModel.MeModel
@@ -29,28 +30,28 @@ class EditProfileViewModel @Inject constructor(
 ) : BaseViewModel() {
 
 
-    private val _resendOtpResponse = MutableLiveData<Resource<ResendOtpData>>()
-    val resendOtpResponse: LiveData<Resource<ResendOtpData>>
-        get() = _resendOtpResponse
+    private val _resendOtpPRofileResponse = MutableLiveData<Resource<ResendOtpData>>()
+    val resendOtpPRofileResponse: LiveData<Resource<ResendOtpData>>
+        get() = _resendOtpPRofileResponse
 
-    fun resendOtp(param: JsonObject) {
+    fun resendOtpProfile(param: JsonObject) {
         viewModelScope.launch {
-            _resendOtpResponse.postValue(Resource.loading(null))
+            _resendOtpPRofileResponse.postValue(Resource.loading(null))
             if (networkHelper.isNetworkConnected()) {
                 try {
-                    mainRepository.resendOtp(param).let {
+                    mainRepository.resendOtpProfile(param).let {
                         if (it.isSuccessful) {
-                            _resendOtpResponse.postValue(Resource.success(it.body()!!))
+                            _resendOtpPRofileResponse.postValue(Resource.success(it.body()!!))
                         } else if (it.code() == 401) {
 
-                            _resendOtpResponse.postValue(Resource.error(it.message(), null))
+                            _resendOtpPRofileResponse.postValue(Resource.error(it.message(), null))
                         } else if (it.code() == 401) {
-                            _resendOtpResponse.postValue(Resource.unAuth("", null))
+                            _resendOtpPRofileResponse.postValue(Resource.unAuth("", null))
                         } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
                             val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
-                            _resendOtpResponse.postValue(Resource.error(jsonObj.getString("message")))
+                            _resendOtpPRofileResponse.postValue(Resource.error(jsonObj.getString("message")))
                         } else {
-                            _resendOtpResponse.postValue(
+                            _resendOtpPRofileResponse.postValue(
                                 Resource.error(
                                     "Some thing went wrong",
                                     null
@@ -59,9 +60,9 @@ class EditProfileViewModel @Inject constructor(
                         }
                     }
                 } catch (e: Exception) {
-                    _resendOtpResponse.postValue(Resource.error("${e.message}", null))
+                    _resendOtpPRofileResponse.postValue(Resource.error("${e.message}", null))
                 }
-            } else _resendOtpResponse.postValue(Resource.error("No internet connection", null))
+            } else _resendOtpPRofileResponse.postValue(Resource.error("No internet connection", null))
         }
     }
 
@@ -246,6 +247,44 @@ class EditProfileViewModel @Inject constructor(
             } else _bankDetailsResponse.postValue(Resource.error("No internet connection", null))
         }
     }
+
+
+    private val _updateSocialsResponse = MutableLiveData<Resource<Successs>>()
+    val updateSocialsResponse: LiveData<Resource<Successs>>
+        get() = _updateSocialsResponse
+
+    fun updateSocials(param: JsonObject) {
+        viewModelScope.launch {
+            _updateSocialsResponse.postValue(Resource.loading(null))
+            if (networkHelper.isNetworkConnected()) {
+                try {
+                    mainRepository.updateSocials(param).let {
+                        if (it.isSuccessful) {
+                            _updateSocialsResponse.postValue(Resource.success(it.body()!!))
+                        } else if (it.code() == 401) {
+
+                            _updateSocialsResponse.postValue(Resource.error(it.message(), null))
+                        } else if (it.code() == 401) {
+                            _updateSocialsResponse.postValue(Resource.unAuth("", null))
+                        } else if (it.code() == 500 || it.code() == 409 || it.code() == 502 || it.code() == 404 || it.code() == 400) {
+                            val jsonObj = JSONObject(it.errorBody()!!.charStream().readText())
+                            _updateSocialsResponse.postValue(Resource.error(jsonObj.getString("message")))
+                        } else {
+                            _updateSocialsResponse.postValue(
+                                Resource.error(
+                                    "Some thing went wrong",
+                                    null
+                                )
+                            )
+                        }
+                    }
+                } catch (e: Exception) {
+                    _updateSocialsResponse.postValue(Resource.error("${e.message}", null))
+                }
+            } else _updateSocialsResponse.postValue(Resource.error("No internet connection", null))
+        }
+    }
+
 
 
 }

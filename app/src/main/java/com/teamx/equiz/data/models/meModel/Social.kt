@@ -5,5 +5,8 @@ import androidx.annotation.Keep
 data class Social(
     val _id: String,
     val label: String,
-    val link: String
+    val isConnected: Boolean,
+    val token: String,
+    val name: String,
+
 )

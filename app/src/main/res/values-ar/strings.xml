@@ -264,4 +264,6 @@
     <string name="available_cards">البطاقات المتاحة</string>
     <string name="start_games">ابدأ الألعاب</string>
     <string name="push_notification">دفع الإخطار</string>
+    <string name="connected">متصل</string>
+    <string name="active_user_ranking">تصنيف المستخدم النشط</string>
 </resources>

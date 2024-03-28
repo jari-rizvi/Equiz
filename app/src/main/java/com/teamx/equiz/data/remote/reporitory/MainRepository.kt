@@ -54,6 +54,7 @@ class MainRepository @Inject constructor(
     suspend fun activeUser(@Body param: JsonObject) = apiService.activeUser(param)
     suspend fun forgotpass(@Body param: JsonObject) = apiService.forgotpass(param)
     suspend fun resendOtp(@Body param: JsonObject) = apiService.resendOtp(param)
+    suspend fun resendOtpProfile(@Body param: JsonObject) = apiService.resendOtpProfile(param)
     suspend fun Signup(@Body param: JsonObject) = apiService.Signup(param)
     suspend fun AddToCart(@Body param: JsonObject) = apiService.AddToCart(param)
     suspend fun AddToWishList(@Body param: JsonObject) = apiService.addToWishList(param)
@@ -158,6 +159,7 @@ class MainRepository @Inject constructor(
     suspend fun getCatPlansById(@Path("id") id: String) = apiService.getCatPlansById(id)
     suspend fun GetScratchImg(@Path("id") id: String) = apiService.GetScratchImg(id)
     suspend fun submitClaim(@Body params: JsonObject?) = apiService.submitClaim(params)
+    suspend fun updateSocials(@Body params: JsonObject?) = apiService.updateSocials(params)
     suspend fun cancelProductOrder(@Path("id") id: String, params: JsonObject) =
         apiService.cancelProductOrder(id, params)
 

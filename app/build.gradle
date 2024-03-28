@@ -215,7 +215,6 @@ dependencies {
     //shimmer
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
 
-
     // Stripe Android SDK
     implementation 'com.stripe:stripe-android:20.36.0'
 
@@ -248,7 +247,7 @@ dependencies {
 
 
 //    implementation 'com.tiktok.open.sdk:tiktok-open-sdk-core:latest.release'
-//    implementation 'com.tiktok.open.sdk:tiktok-open-sdk-auth:latest.release'   // to use authorization api
+//    implementation 'com.tiktok.open.sdk:tiktok-open-sdk-auth:latest.release'
 //    implementation 'com.tiktok.open.sdk:tiktok-open-sdk-share:latest.release'
 //    implementation 'com.bytedance.ies.ugc.aweme:opensdk-oversea-external:0.2.1.2'
 

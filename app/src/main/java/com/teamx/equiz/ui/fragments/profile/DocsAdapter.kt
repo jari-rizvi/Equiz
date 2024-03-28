@@ -34,9 +34,9 @@ class DocsAdapter(
 
         holder.binding.textView82.text = list.title
 
-        if(list.isVerified == true){
-            holder.binding.imageView199.visibility = View.GONE
-            holder.binding.imageView19.visibility = View.VISIBLE
+        if(list.isVerified){
+            holder.binding.imageView199.visibility = View.VISIBLE
+            holder.binding.imageView19.visibility = View.GONE
         }
 
         holder.binding.imageView20.setOnClickListener {

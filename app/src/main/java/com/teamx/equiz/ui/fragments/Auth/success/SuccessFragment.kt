@@ -12,6 +12,7 @@ import com.teamx.equiz.R
 import com.teamx.equiz.baseclasses.BaseFragment
 import com.teamx.equiz.constants.NetworkCallPoints
 import com.teamx.equiz.databinding.FragmentSuccessBinding
+import com.teamx.equiz.ui.activity.mainActivity.MainActivity
 import com.teamx.equiz.ui.fragments.Auth.signup.SignupViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -46,6 +47,7 @@ class SuccessFragment : BaseFragment<FragmentSuccessBinding, SignupViewModel>() 
         }
 
         sharedViewModel.setActiveUser("")
+        MainActivity.isiaDialog = true
 
         mViewDataBinding.btnVerify.setOnClickListener {
 

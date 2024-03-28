@@ -1004,7 +1004,11 @@ class DialogHelperClass {
             val cancelBtn = dialog.findViewById<ImageView>(R.id.closeDialog)
             val speedProgress = dialog.findViewById<ProgressBar>(R.id.simpleProgressBar)
 
-            val intColor = Color.parseColor(activeUserModel.activeLevel.color)
+
+            try {
+
+                val intColor = Color.parseColor(activeUserModel.activeLevel.color)
+
 
             val shapeDrawable = ContextCompat.getDrawable(context, R.drawable.border_background) as GradientDrawable
 //            val strokeColor = ContextCompat.getColor(context,intColor) // Dynamic stroke color from server
@@ -1044,10 +1048,17 @@ class DialogHelperClass {
             } catch (e: Exception) {
                 e.printStackTrace()
             }
+          level.background = shapeDrawable
+
+          level.setBackgroundColor(intColor)
 
             val speed = userData?.user?.profileProgress
             speedProgress.secondaryProgress = speed?:0
 
+            }
+            catch (e:Exception){
+
+            }
             cancelBtn.setOnClickListener {
                 dialogCallBack.onCloseClick()
                 dialog.dismiss()

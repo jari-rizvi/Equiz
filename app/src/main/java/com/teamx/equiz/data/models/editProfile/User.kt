@@ -12,6 +12,8 @@ data class User(
     val createdAt: String,
     val dateOfBirth: String?,
     val email: String?,
+    val firstName: String?,
+    val lastName: String?,
     val fcmToken: String,
     val id: String,
     val image: String?,

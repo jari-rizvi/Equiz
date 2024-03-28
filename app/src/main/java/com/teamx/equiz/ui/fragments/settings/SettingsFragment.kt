@@ -153,6 +153,8 @@ class SettingsFragment : BaseFragment<SettingsFragmentLayoutBinding, SettingsVie
                                 }
 
                                 val speed = data.user.profileProgress
+                                mViewDataBinding.progress.text = speed.toString() + "%"
+
                                 mViewDataBinding.simpleProgressBar.secondaryProgress = speed.toInt()
                                 if (speed == 100) {
                                     mViewDataBinding.emailImgVerify.visibility = View.VISIBLE
