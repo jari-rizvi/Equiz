@@ -134,8 +134,7 @@ fun HighLowComponent(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
         }
 
 
-    }
-    else {
+    } else {
         var swipeStateX by remember { mutableStateOf(false) }
 
         var previousNumber by remember { mutableStateOf(Random.nextInt(1, 100)) }
@@ -219,6 +218,19 @@ fun HighLowComponent(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
                 )
 
             }
+            var isRightAnswer by remember { mutableStateOf(false) }
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                Text(
+                    modifier = Modifier.wrapContentSize(),
+                    textAlign = TextAlign.Center, fontWeight = FontWeight.ExtraBold,
+
+                    fontSize = 50.sp, color = if (isRightAnswer) Color.Green else Color.Red,
+//                    gravity = Alignment.Center,
+                    text = if (isRightAnswer) "+1" else "-1"
+                )
+            }
+
+
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
 
 
@@ -265,16 +277,20 @@ fun HighLowComponent(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
 
 //                                Log.d("rightGameAnswersHigh", "HighLowComponent Y: ${dragAmount.y}")
 //                                Log.d("rightGameAnswersHigh", "HighLowComponent X: ${dragAmount.x}")
+
+                                Log.d("rightGameAnsweigh", "dragAmount.y: ${dragAmount.y}")
+                                Log.d("rightGameAnsweigh", "dragAmount.x: ${dragAmount.x}")
+
                                 when {
 
                                     previousNumber <= showNumber && (dragAmount.y <= -2.0 && dragAmount.y < 0) && randomInt == 2 -> {
-
+                                        Log.d("rightGameAnswersHigh", "right: if working")
                                         if (dragged) {
                                             dragged = false
 
                                             transitionState.targetState = true
                                             i23 = 1
-
+                                            isRightAnswer = true
                                             GlobalScope.launch {
                                                 delay(800)
                                                 dragged = true
@@ -287,12 +303,13 @@ fun HighLowComponent(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
                                     }
 
                                     previousNumber > showNumber && (dragAmount.y >= 2.0 && dragAmount.y > 0) && randomInt == 1 -> {
-
+                                        Log.d("rightGameAnswersHigh", "right: else working")
                                         if (dragged) {
                                             dragged = false
 
                                             transitionState.targetState = true
                                             i23 = 1
+                                            isRightAnswer = true
                                             GlobalScope.launch {
                                                 delay(800)
                                                 dragged = true
@@ -303,20 +320,64 @@ fun HighLowComponent(content: (boo: Boolean, rightAnswer: Int, totalAnswer: Int)
                                         }
                                     }
 
-                                    (dragAmount.y >= 2.0 && randomInt == 2) && dragged -> {
-                                         Log.d("rightGameAnswersHigh", "HighLowComponent: if working")
-                                        transitionState.targetState = false
-                                        shakeOffset = animatedShakeOffset.value
-                                        vibrator.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE))
+
+
+                                    (dragAmount.y <= -2.0 && dragAmount.y < 0) -> {
+
+                                        Log.d("rightGameAnswersHigh", "HighLowComponent: if working")
+                                        if (dragged) {
+                                            dragged = false
+
+                                            transitionState.targetState = true
+                                            i23 = 1
+                                            isRightAnswer = false
+                                            totalGameAnswersHigh++
+                                            incorrectSound(context)
+                                            GlobalScope.launch {
+                                                delay(800)
+                                                dragged = true
+                                            }
+                                        }
+//                                        transitionState.targetState = false
+//                                        shakeOffset = animatedShakeOffset.value
+//                                        vibrator.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE))
                                     }
 
-                                    (dragAmount.y <= -2.0 && randomInt == 1) && dragged -> {
-
+                                    (dragAmount.y >= 2.0 && dragAmount.y > 0) -> {
                                         Log.d("rightGameAnswersHigh", "HighLowComponent: else working")
-                                        transitionState.targetState = false
-                                        shakeOffset = animatedShakeOffset.value
-                                        vibrator.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE))
+                                        if (dragged) {
+                                            dragged = false
+
+                                            transitionState.targetState = true
+                                            i23 = 1
+                                            isRightAnswer = false
+                                            totalGameAnswersHigh++
+                                            incorrectSound(context)
+                                            GlobalScope.launch {
+                                                delay(800)
+                                                dragged = true
+                                            }
+                                        }
+//                                        transitionState.targetState = false
+//                                        shakeOffset = animatedShakeOffset.value
+//                                        vibrator.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE))
                                     }
+
+
+//                                    (dragAmount.y <= -2.0 && randomInt == 1) && dragged -> {
+//
+//                                        Log.d("rightGameAnswersHigh", "HighLowComponent: if working")
+//                                        transitionState.targetState = false
+//                                        shakeOffset = animatedShakeOffset.value
+//                                        vibrator.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE))
+//                                    }
+//
+//                                    (dragAmount.y >= 2.0 && randomInt == 2) && dragged -> {
+//                                        Log.d("rightGameAnswersHigh", "HighLowComponent: else working")
+//                                        transitionState.targetState = false
+//                                        shakeOffset = animatedShakeOffset.value
+//                                        vibrator.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE))
+//                                    }
 
 
                                 }

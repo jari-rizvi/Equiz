@@ -1,9 +1,11 @@
 package com.teamx.equiz.games.games
 
 import android.os.CountDownTimer
+import android.util.Log
 import androidx.annotation.Keep
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -39,8 +41,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teamx.equiz.R
 import com.teamx.equiz.games.GamesUID
+import com.teamx.equiz.games.games.learningy.musiclearning.correctSound
+import com.teamx.equiz.games.games.learningy.musiclearning.incorrectSound
 import com.teamx.equiz.games.games.ui_components.GameAlertingTime
 import com.teamx.equiz.games.games.ui_components.TimeUpDialogCompose
+import kotlinx.coroutines.delay
 import kotlin.random.Random
 
 class ReverseRPS {
@@ -288,7 +293,7 @@ var wrongGameAnswersRps = 0
 
 
 @Composable
-fun rpsCastGamePlot(content: (bool:Boolean, rightAnswer:Int, totalAnswer:Int) -> Unit={bool,rightAnswer,total ->}) {
+fun rpsCastGamePlot(content: (bool: Boolean, rightAnswer: Int, totalAnswer: Int) -> Unit = { bool, rightAnswer, total -> }) {
     val leftItems = (0..(2)).map {
         rpsListItem(
             height = 70.dp, id = it, gamesUID = GamesUID.values()[it], color = if (it % 5 == 0) {
@@ -307,9 +312,8 @@ fun rpsCastGamePlot(content: (bool:Boolean, rightAnswer:Int, totalAnswer:Int) ->
     var counter by remember { mutableStateOf<Int>(0) }
 
 
-
     var isGameOver by remember { mutableStateOf(false) }
-        var isAlert by remember { mutableStateOf(false) }
+    var isAlert by remember { mutableStateOf(false) }
 
     var isTimeUp by remember { mutableStateOf(false) }
 
@@ -323,10 +327,10 @@ fun rpsCastGamePlot(content: (bool:Boolean, rightAnswer:Int, totalAnswer:Int) ->
         // Start the timer
         object : CountDownTimer(timeLeft * 1000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                  if (timerRunning) {
+                if (timerRunning) {
                     timeLeft = millisUntilFinished / 1000
                 }
-                if (timeLeft<5){
+                if (timeLeft < 5) {
                     isAlert = true
                 }
             }
@@ -342,8 +346,8 @@ fun rpsCastGamePlot(content: (bool:Boolean, rightAnswer:Int, totalAnswer:Int) ->
 
 
         content(true, rightGameAnswersRps, wrongGameAnswersRps)
-        rightGameAnswersRps=0
-        wrongGameAnswersRps=1
+        rightGameAnswersRps = 0
+        wrongGameAnswersRps = 1
 
     }
 
@@ -355,13 +359,13 @@ fun rpsCastGamePlot(content: (bool:Boolean, rightAnswer:Int, totalAnswer:Int) ->
 
             } else {
                 content(false, rightGameAnswersRps, wrongGameAnswersRps)
-                rightGameAnswersRps=0
-                wrongGameAnswersRps=1
+                rightGameAnswersRps = 0
+                wrongGameAnswersRps = 1
             }
         }
 
 
-    }else{
+    } else {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -402,56 +406,64 @@ fun rpsCastGamePlot(content: (bool:Boolean, rightAnswer:Int, totalAnswer:Int) ->
                     text = imageCheckObj.name,
                     textAlign = TextAlign.Center
                 )
-                Spacer(modifier = Modifier
-                    .wrapContentWidth()
-                    .height(63.dp))
+                Spacer(
+                    modifier = Modifier
+                        .wrapContentWidth()
+                        .height(63.dp)
+                )
+
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
+
                     leftBoxes.forEach {
-                        rpsDrop(item = it) {
+                        var isEffectLaunched1 by remember { mutableStateOf(false) }
+                        var isBoxRight1 by remember { mutableStateOf(2) }
+                        rpsDrop(item = it, isBoxRight1) {
 
-                            wrongGameAnswersRps++
-                            if (imageCheckObj.name.toString().contains("INV")) {
-                                if (imageCheckObj == EnumRPS.INVPAPER && it.gameObject == EnumRPS.ROCK) {
-                                    gameRand = Random.nextInt(0, 6)
-                                    imageCheckObj = EnumRPS.values()[gameRand]
-                                    counter++
-                                    rightGameAnswersRps++
-                                } else if (imageCheckObj == EnumRPS.INVSCISSOR && it.gameObject == EnumRPS.PAPER) {
-                                    gameRand = Random.nextInt(0, 6)
-                                    imageCheckObj = EnumRPS.values()[gameRand]
-                                    counter++
-                                    rightGameAnswersRps++
-                                } else if (imageCheckObj == EnumRPS.INVROCK && it.gameObject == EnumRPS.SCISSOR) {
+                            isEffectLaunched1 = true
 
-                                    gameRand = Random.nextInt(0, 6)
-                                    imageCheckObj = EnumRPS.values()[gameRand]
-                                    counter++
-                                    rightGameAnswersRps++
-                                }
-                            } else {
-                                if (imageCheckObj.equals(it.gameObject)) {
-
-                                } else if (imageCheckObj == EnumRPS.PAPER && it.gameObject == EnumRPS.SCISSOR) {
-                                    gameRand = Random.nextInt(0, 6)
-                                    imageCheckObj = EnumRPS.values()[gameRand]
-                                    counter++
-                                    rightGameAnswersRps++
-                                } else if (imageCheckObj == EnumRPS.SCISSOR && it.gameObject == EnumRPS.ROCK) {
-                                    gameRand = Random.nextInt(0, 6)
-                                    imageCheckObj = EnumRPS.values()[gameRand]
-                                    counter++
-                                    rightGameAnswersRps++
-                                } else if (imageCheckObj == EnumRPS.ROCK && it.gameObject == EnumRPS.PAPER) {
-
-                                    gameRand = Random.nextInt(0, 6)
-                                    imageCheckObj = EnumRPS.values()[gameRand]
-                                    counter++
-                                    rightGameAnswersRps++
-                                }
-                            }
+//                            wrongGameAnswersRps++
+//                            if (imageCheckObj.name.toString().contains("INV")) {
+//                                if (imageCheckObj == EnumRPS.INVPAPER && it.gameObject == EnumRPS.ROCK) {
+//                                    gameRand = Random.nextInt(0, 6)
+//                                    imageCheckObj = EnumRPS.values()[gameRand]
+//                                    counter++
+//                                    rightGameAnswersRps++
+//                                } else if (imageCheckObj == EnumRPS.INVSCISSOR && it.gameObject == EnumRPS.PAPER) {
+//                                    gameRand = Random.nextInt(0, 6)
+//                                    imageCheckObj = EnumRPS.values()[gameRand]
+//                                    counter++
+//                                    rightGameAnswersRps++
+//                                } else if (imageCheckObj == EnumRPS.INVROCK && it.gameObject == EnumRPS.SCISSOR) {
+//
+//                                    gameRand = Random.nextInt(0, 6)
+//                                    imageCheckObj = EnumRPS.values()[gameRand]
+//                                    counter++
+//                                    rightGameAnswersRps++
+//                                }
+//                            } else {
+//                                if (imageCheckObj.equals(it.gameObject)) {
+//
+//                                } else if (imageCheckObj == EnumRPS.PAPER && it.gameObject == EnumRPS.SCISSOR) {
+//                                    gameRand = Random.nextInt(0, 6)
+//                                    imageCheckObj = EnumRPS.values()[gameRand]
+//                                    counter++
+//                                    rightGameAnswersRps++
+//                                } else if (imageCheckObj == EnumRPS.SCISSOR && it.gameObject == EnumRPS.ROCK) {
+//                                    gameRand = Random.nextInt(0, 6)
+//                                    imageCheckObj = EnumRPS.values()[gameRand]
+//                                    counter++
+//                                    rightGameAnswersRps++
+//                                } else if (imageCheckObj == EnumRPS.ROCK && it.gameObject == EnumRPS.PAPER) {
+//
+//                                    gameRand = Random.nextInt(0, 6)
+//                                    imageCheckObj = EnumRPS.values()[gameRand]
+//                                    counter++
+//                                    rightGameAnswersRps++
+//                                }
+//                            }
 
 
                             /*  if (imageCheckObj.name == it.gameObject.name) {
@@ -473,6 +485,109 @@ fun rpsCastGamePlot(content: (bool:Boolean, rightAnswer:Int, totalAnswer:Int) ->
                               }*/
                         }
 
+                        if (isEffectLaunched1) {
+                            LaunchedEffect(key1 = Unit) {
+                                wrongGameAnswersRps++
+                                if (imageCheckObj.name.toString().contains("INV")) {
+                                    if (imageCheckObj == EnumRPS.INVPAPER && it.gameObject == EnumRPS.ROCK) {
+
+                                        rightGameAnswersRps++
+                                        isBoxRight1 = 1
+                                        correctSound(context)
+                                        delay(200)
+                                        isBoxRight1 = 2
+                                        gameRand = Random.nextInt(0, 6)
+                                        imageCheckObj = EnumRPS.values()[gameRand]
+                                        counter++
+                                    } else if (imageCheckObj == EnumRPS.INVSCISSOR && it.gameObject == EnumRPS.PAPER) {
+
+                                        rightGameAnswersRps++
+                                        isBoxRight1 = 1
+                                        correctSound(context)
+                                        delay(200)
+                                        isBoxRight1 = 2
+                                        gameRand = Random.nextInt(0, 6)
+                                        imageCheckObj = EnumRPS.values()[gameRand]
+                                        counter++
+                                    } else if (imageCheckObj == EnumRPS.INVROCK && it.gameObject == EnumRPS.SCISSOR) {
+                                        rightGameAnswersRps++
+                                        isBoxRight1 = 1
+                                        correctSound(context)
+                                        delay(200)
+                                        isBoxRight1 = 2
+                                        gameRand = Random.nextInt(0, 6)
+                                        imageCheckObj = EnumRPS.values()[gameRand]
+                                        counter++
+                                    } else {
+                                        isBoxRight1 = 0
+                                        incorrectSound(context)
+                                        delay(200)
+                                        isBoxRight1 = 2
+                                        gameRand = Random.nextInt(0, 6)
+                                        imageCheckObj = EnumRPS.values()[gameRand]
+                                        counter++
+                                        Log.d(
+                                            "rightGameAnswersHigh",
+                                            "HighLowComponent: if working"
+                                        )
+                                    }
+                                } else {
+                                    if (imageCheckObj.equals(it.gameObject)) {
+                                        isBoxRight1 = 0
+                                        incorrectSound(context)
+                                        delay(200)
+                                        isBoxRight1 = 2
+                                        gameRand = Random.nextInt(0, 6)
+                                        imageCheckObj = EnumRPS.values()[gameRand]
+                                        counter++
+                                    } else if (imageCheckObj == EnumRPS.PAPER && it.gameObject == EnumRPS.SCISSOR) {
+                                        rightGameAnswersRps++
+                                        isBoxRight1 = 1
+                                        correctSound(context)
+                                        delay(200)
+                                        isBoxRight1 = 2
+                                        gameRand = Random.nextInt(0, 6)
+                                        imageCheckObj = EnumRPS.values()[gameRand]
+                                        counter++
+
+                                    } else if (imageCheckObj == EnumRPS.SCISSOR && it.gameObject == EnumRPS.ROCK) {
+                                        rightGameAnswersRps++
+                                        isBoxRight1 = 1
+                                        correctSound(context)
+                                        delay(200)
+                                        isBoxRight1 = 2
+                                        gameRand = Random.nextInt(0, 6)
+                                        imageCheckObj = EnumRPS.values()[gameRand]
+                                        counter++
+
+                                    } else if (imageCheckObj == EnumRPS.ROCK && it.gameObject == EnumRPS.PAPER) {
+                                        rightGameAnswersRps++
+                                        isBoxRight1 = 1
+                                        correctSound(context)
+                                        delay(200)
+                                        isBoxRight1 = 2
+                                        gameRand = Random.nextInt(0, 6)
+                                        imageCheckObj = EnumRPS.values()[gameRand]
+                                        counter++
+
+                                    } else {
+                                        isBoxRight1 = 0
+                                        incorrectSound(context)
+                                        delay(200)
+                                        isBoxRight1 = 2
+                                        gameRand = Random.nextInt(0, 6)
+                                        imageCheckObj = EnumRPS.values()[gameRand]
+                                        counter++
+                                        Log.d(
+                                            "rightGameAnswersHigh",
+                                            "HighLowComponent: else working"
+                                        )
+                                    }
+                                }
+                                isEffectLaunched1 = false
+                            }
+                        }
+
                     }
                 }
 
@@ -491,13 +606,11 @@ fun rpsCastGamePlot(content: (bool:Boolean, rightAnswer:Int, totalAnswer:Int) ->
     }
 
 
-
-
 }
 
 
 @Composable
-fun rpsDrop(item: rpsListItem, onClick: () -> Unit) {
+fun rpsDrop(item: rpsListItem, isBoxRight1: Int, onClick: () -> Unit) {
     val context = LocalContext.current
 
 
@@ -507,6 +620,11 @@ fun rpsDrop(item: rpsListItem, onClick: () -> Unit) {
             .size(item.height)
             .clip(RoundedCornerShape(10.dp))
 //            .background(item.color)
+            .border(
+                width = 2.dp,
+                color = if (isBoxRight1 == 1) Color.Green else if (isBoxRight1 == 0) Color.Red else Color.Transparent,
+                shape = RoundedCornerShape(90.dp)
+            )
             .clickable {
                 onClick()
             }, contentAlignment = Alignment.Center
@@ -583,7 +701,7 @@ enum class EnumRPS {
 @Composable
 fun previewRPSCastGame() {
     MaterialTheme {
-        rpsCastGamePlot(){bool,rightAnswer,total ->}
+        rpsCastGamePlot() { bool, rightAnswer, total -> }
     }
 }
 
@@ -606,7 +724,7 @@ fun ReverseRockPaperScissorsGameScreen(content: @Composable () -> Unit) {
         )
 
     }
-    rpsCastGamePlot(){bool,rightAnswer,total ->}
+    rpsCastGamePlot() { bool, rightAnswer, total -> }
 }
 
 //Rock paper scissor
